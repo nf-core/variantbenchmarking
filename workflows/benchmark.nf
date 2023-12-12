@@ -17,14 +17,20 @@ WorkflowBenchmark.initialise(params, log)
 
 // check mandatory parameters
 ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
-
+sdf_file    = params.sdf_file   ? Channel.fromPath(params.sdf_file, checkIfExists: true).collect()
+                                : Channel.empty()
 // check high confidence files
 
 // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
-snv_bed   = params.snv_bed  ? Channel.fromPath(params.snv_bed, checkIfExists: true).collect()
-                                                : Channel.empty()
-sv_bed    = params.sv_bed   ? Channel.fromPath(params.sv_bed, checkIfExists: true).collect()
-                                                : Channel.empty()
+
+if (params.sample == "SEQC2" && params.analysis == "somatic"){
+    snv_bed   = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/High-Confidence_Regions_v1.2.bed', checkIfExists: true)
+    sv_bed    = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/High-Confidence_Regions_v1.2.bed', checkIfExists: true)
+}
+else if (params.sample == "HG002" && params.analysis == "germline"){
+    snv_bed   = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/NIST_GIAB/HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed', checkIfExists: true)
+    sv_bed    = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/NIST_GIAB/HG002_SVs_Tier1_v0.6.bed', checkIfExists: true)
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,9 +52,12 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
-include { SOMATIC     } from '../subworkflows/local/somatic'
-include { GERMLINE    } from '../subworkflows/local/germline'
+include { INPUT_CHECK              } from '../subworkflows/local/input_check'
+include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
+include { GERMLINE_BENCHMARK       } from '../subworkflows/local/germline_benchmark'
+include { PREPARE_STRATIFICATIONS  } from '../subworkflows/local/prepare_stratifications'
+include { PREPARE_VCFS as PREPARE_VCFS_TRUTH} from '../subworkflows/local/prepare_vcfs'
+include { PREPARE_VCFS as PREPARE_VCFS_TEST } from '../subworkflows/local/prepare_vcfs'
 
 
 /*
@@ -84,33 +93,65 @@ workflow BENCHMARK {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
+    ch_input.view()
+    ch_input.map{ it -> [it[0], it[2]]}
+            .set{truth_vcf}
 
-    // TODO: OPTIONAL, you can use nf-validation plugin to create an input channel from the samplesheet with Channel.fromSamplesheet("input")
-    // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
-    // ! There is currently no tooling to help you write a sample sheet schema
+    ch_input.map{ it -> [it[0], it[1]]}
+            .set{test_vcf}
+    
+    //
+    // PREPARE_STRATIFICATIONS: prepare stratifications and contigs
+    //
+    PREPARE_STRATIFICATIONS(
+        ref
+    )
+    ch_versions = ch_versions.mix(PREPARE_STRATIFICATIONS.out.versions)
+    
+
+    //
+    // SUBWORKFLOW: Prepare and normalize input vcfs
+    //
+    PREPARE_VCFS_TRUTH(
+        truth_vcf,
+        ref,
+        [[],[]]
+    )
+    ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
+
+    PREPARE_VCFS_TEST(
+        test_vcf,
+        ref,
+        PREPARE_STRATIFICATIONS.out.main_chroms
+    )
+    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)  
+
+    bench_ch = PREPARE_VCFS_TEST.out.vcf_ch.join(PREPARE_VCFS_TRUTH.out.vcf_ch)
 
     if (params.analysis.contains("germline")){
         // GERMLINE VARIANT BENCHMARKING
-        GERMLINE(
-            ch_input,
+        GERMLINE_BENCHMARK(
+            bench_ch,
             ref,
+            sdf_file,
             sv_bed,
             snv_bed
         )
-        ch_versions = ch_versions.mix(GERMLINE.out.versions)
+        ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)
     }
 
     if (params.analysis.contains("somatic")){
         // SOMATIC VARIANT BENCHMARKING
-        SOMATIC(
-            ch_input,
+        SOMATIC_BENCHMARK(
+            bench_ch,
             ref,
             sv_bed,
             snv_bed
         )
-        ch_versions = ch_versions.mix(SOMATIC.out.versions)
+        ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
     }
 
+    // TODO: NEED A TOOL TO COLLECT METRICS AND ROCS LIKE DATAVZRD OR SQLITE DATABASE
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

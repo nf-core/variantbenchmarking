@@ -1,4 +1,4 @@
-process PREPARE_VCFS {
+process BGZIP_TABIX {
     tag "$meta.id"
     label 'process_single'
 

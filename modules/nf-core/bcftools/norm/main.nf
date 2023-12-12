@@ -9,7 +9,8 @@ process BCFTOOLS_NORM {
 
     input:
     tuple val(meta), path(vcf), path(tbi)
-    tuple val(meta2), path(fasta)
+    tuple path(fasta), path(fai)
+    tuple val(meta2), path(regions)
 
     output:
     tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}")  , emit: vcf
@@ -20,12 +21,13 @@ process BCFTOOLS_NORM {
 
     script:
     def args = task.ext.args ?: '--output-type z'
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def prefix = vcf.getBaseName() + ".norm"
     def extension = args.contains("--output-type b") || args.contains("-Ob") ? "bcf.gz" :
                     args.contains("--output-type u") || args.contains("-Ou") ? "bcf" :
                     args.contains("--output-type z") || args.contains("-Oz") ? "vcf.gz" :
                     args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
                     "vcf.gz"
+    def region = regions ? "-R ${regions}" : ""  
 
     """
     bcftools norm \\
@@ -33,6 +35,7 @@ process BCFTOOLS_NORM {
         --output ${prefix}.${extension}\\
         $args \\
         --threads $task.cpus \\
+        $region \\
         ${vcf}
 
     cat <<-END_VERSIONS > versions.yml

@@ -27,7 +27,7 @@ def create_vcf_channel(LinkedHashMap row) {
     def meta = [:]
     meta.id           = row.sample
     meta.caller       = row.caller
-    meta.vartype         = row.vartype
+    meta.vartype      = row.vartype
 
     // add path(s) of the fastq file(s) to the meta map
     def vcf_meta = []
