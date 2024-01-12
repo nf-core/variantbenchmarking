@@ -1,11 +1,11 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nf-core/benchmark
+    nf-core/svbench
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/nf-core/benchmark
-    Website: https://nf-co.re/benchmark
-    Slack  : https://nfcore.slack.com/channels/benchmark
+    Github : https://github.com/nf-core/svbench
+    Website: https://nf-co.re/svbench
+    Slack  : https://nfcore.slack.com/channels/svbench
 ----------------------------------------------------------------------------------------
 */
 
@@ -53,13 +53,13 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { BENCHMARK } from './workflows/benchmark'
+include { SVBENCH } from './workflows/svbench'
 
 //
-// WORKFLOW: Run main nf-core/benchmark analysis pipeline
+// WORKFLOW: Run main nf-core/svbench analysis pipeline
 //
-workflow NFCORE_BENCHMARK {
-    BENCHMARK ()
+workflow NFCORE_SVBENCH {
+    SVBENCH ()
 }
 
 /*
@@ -73,7 +73,7 @@ workflow NFCORE_BENCHMARK {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    NFCORE_BENCHMARK ()
+    NFCORE_SVBENCH ()
 }
 
 /*

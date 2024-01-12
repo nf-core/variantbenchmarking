@@ -8,8 +8,7 @@ process TRUVARI_BENCH {
         'biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
-    each path(bed)
+    tuple val(meta), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     tuple path(fasta), path(fai)
 
     output:

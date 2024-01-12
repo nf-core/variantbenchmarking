@@ -17,20 +17,12 @@ WorkflowBenchmark.initialise(params, log)
 
 // check mandatory parameters
 ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
-sdf_file    = params.sdf_file   ? Channel.fromPath(params.sdf_file, checkIfExists: true).collect()
-                                : Channel.empty()
+
 // check high confidence files
 
 // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
-if (params.sample == "SEQC2" && params.analysis == "somatic"){
-    snv_bed   = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/High-Confidence_Regions_v1.2.bed', checkIfExists: true)
-    sv_bed    = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/High-Confidence_Regions_v1.2.bed', checkIfExists: true)
-}
-else if (params.sample == "HG002" && params.analysis == "germline"){
-    snv_bed   = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/NIST_GIAB/HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed', checkIfExists: true)
-    sv_bed    = Channel.fromPath('/Users/w620-admin/Desktop/nf-core/dataset/hg38/NIST_GIAB/HG002_SVs_Tier1_v0.6.bed', checkIfExists: true)
-}
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,7 +73,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 // Info required for completion email and summary
 def multiqc_report = []
 
-workflow BENCHMARK {
+workflow SVBENCH {
 
     ch_versions = Channel.empty()
 
@@ -93,13 +85,8 @@ workflow BENCHMARK {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
-    ch_input.view()
-    ch_input.map{ it -> [it[0], it[2]]}
-            .set{truth_vcf}
-
-    ch_input.map{ it -> [it[0], it[1]]}
-            .set{test_vcf}
     
+    ch_input.view()
     //
     // PREPARE_STRATIFICATIONS: prepare stratifications and contigs
     //
@@ -108,6 +95,14 @@ workflow BENCHMARK {
     )
     ch_versions = ch_versions.mix(PREPARE_STRATIFICATIONS.out.versions)
     
+    ch_input.map{ it -> [it[0], it[2]]}
+            .set{truth_vcf}
+
+    ch_input.map{ it -> [it[0], it[1]]}
+            .set{test_vcf}
+
+    ch_input.map{ it -> [it[0], it[3]]}
+            .set{bed_ch}   
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs
@@ -126,16 +121,16 @@ workflow BENCHMARK {
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)  
 
-    bench_ch = PREPARE_VCFS_TEST.out.vcf_ch.join(PREPARE_VCFS_TRUTH.out.vcf_ch)
+    PREPARE_VCFS_TEST.out.vcf_ch
+                        .join(PREPARE_VCFS_TRUTH.out.vcf_ch)
+                        .join(bed_ch)
+                        .set{bench_ch}
 
     if (params.analysis.contains("germline")){
-        // GERMLINE VARIANT BENCHMARKING
+    // GERMLINE VARIANT BENCHMARKING
         GERMLINE_BENCHMARK(
             bench_ch,
-            ref,
-            sdf_file,
-            sv_bed,
-            snv_bed
+            ref
         )
         ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)
     }
@@ -144,9 +139,7 @@ workflow BENCHMARK {
         // SOMATIC VARIANT BENCHMARKING
         SOMATIC_BENCHMARK(
             bench_ch,
-            ref,
-            sv_bed,
-            snv_bed
+            ref
         )
         ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
     }

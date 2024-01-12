@@ -1,6 +1,6 @@
 {
-  "name": "nf-core/benchmark",
-  "homePage": "https://github.com/nf-core/benchmark",
+  "name": "nf-core/svbench",
+  "homePage": "https://github.com/nf-core/svbench",
   "repos": {
     "https://github.com/nf-core/modules.git": {
       "modules": {
