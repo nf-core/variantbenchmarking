@@ -16,23 +16,13 @@
         "type": "string",
         "pattern": "",
         "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
-      },
-      "truth_vcf": {
-        "type": "string",
-        "pattern": "",
-        "errorMessage": "Truth VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
-      },
-      "bed": {
-        "type": "string",
-        "pattern": "",
-        "errorMessage": "High confidence bed , optional'.bed'"
-      },      
+      },     
       "caller": {
         "type": "string",
         "pattern": "^\\S+$",
         "errorMessage": "Name of the variant caller used to generate test file"
       }
     },
-    "required": ["sample", "test_vcf", "truth_vcf", "bed", "caller"]
+    "required": ["sample", "test_vcf","caller"]
   }
 }

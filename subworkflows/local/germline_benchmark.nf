@@ -8,7 +8,8 @@ include { TRUVARI_BENCH       } from '../../modules/nf-core/truvari/bench'      
 
 workflow GERMLINE_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta), test_vcf,test_index, truth_vcf, truth_index, bed]
+    input_ch  // channel: [val(meta), test_vcf, test_index , truth_vcf, truth_index]
+    bed       // channel: bed
     ref       // reference channel [ref.fa, ref.fa.fai],
 
     main:
@@ -19,8 +20,10 @@ workflow GERMLINE_BENCHMARK {
     //
     // MODULE: TRUVARI_BENCH
     //
+    //input_ch = input_ch.map{it -> tuple(it[0], it[1], it[2], it[3], it[4], [])}
     TRUVARI_BENCH(
         input_ch,
+        bed,
         ref
     )
     versions = versions.mix(TRUVARI_BENCH.out.versions)

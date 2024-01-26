@@ -19,6 +19,8 @@ workflow PREPARE_STRATIFICATIONS {
     ref.map { it -> tuple([id: it[0].baseName], it[1]) }
             .set{fasta}
 
+    // this is not working!
+        
     // get contig file including only main chroms
     MAIN_CHROMS(
         fasta

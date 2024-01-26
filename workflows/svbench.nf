@@ -19,6 +19,14 @@ WorkflowBenchmark.initialise(params, log)
 ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
 
 // check high confidence files
+rename_chr  = params.rename_chromosomes ? Channel.fromPath(params.rename_chromosomes, checkIfExists: true).collect()
+                                        : Channel.empty()
+
+truth       = params.truth              ? Channel.fromPath(params.truth, checkIfExists: true).collect()
+                                        : Channel.empty()
+
+high_conf   = params.high_conf          ? Channel.fromPath(params.high_conf, checkIfExists: true).collect()
+                                        : Channel.empty()
 
 // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
@@ -48,8 +56,10 @@ include { INPUT_CHECK              } from '../subworkflows/local/input_check'
 include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
 include { GERMLINE_BENCHMARK       } from '../subworkflows/local/germline_benchmark'
 include { PREPARE_STRATIFICATIONS  } from '../subworkflows/local/prepare_stratifications'
-include { PREPARE_VCFS as PREPARE_VCFS_TRUTH} from '../subworkflows/local/prepare_vcfs'
-include { PREPARE_VCFS as PREPARE_VCFS_TEST } from '../subworkflows/local/prepare_vcfs'
+include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
+include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
+include { REPORT_STATISTICS as REPORT_STATISTICS_TEST } from '../subworkflows/local/report_statistics'
+include { REPORT_STATISTICS as REPORT_STATISTICS_TRUTH } from '../subworkflows/local/report_statistics'
 
 
 /*
@@ -86,7 +96,6 @@ workflow SVBENCH {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
     
-    ch_input.view()
     //
     // PREPARE_STRATIFICATIONS: prepare stratifications and contigs
     //
@@ -94,42 +103,47 @@ workflow SVBENCH {
         ref
     )
     ch_versions = ch_versions.mix(PREPARE_STRATIFICATIONS.out.versions)
-    
-    ch_input.map{ it -> [it[0], it[2]]}
-            .set{truth_vcf}
-
-    ch_input.map{ it -> [it[0], it[1]]}
-            .set{test_vcf}
-
-    ch_input.map{ it -> [it[0], it[3]]}
-            .set{bed_ch}   
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs
     //
     PREPARE_VCFS_TRUTH(
-        truth_vcf,
+        truth,
         ref,
         [[],[]]
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     PREPARE_VCFS_TEST(
-        test_vcf,
+        ch_input,
         ref,
-        PREPARE_STRATIFICATIONS.out.main_chroms
+        rename_chr,
+        [[],[]]
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)  
 
-    PREPARE_VCFS_TEST.out.vcf_ch
-                        .join(PREPARE_VCFS_TRUTH.out.vcf_ch)
-                        .join(bed_ch)
-                        .set{bench_ch}
+    //
+    // SUBWORKFLOW: GET STATISTICS OF FILES
+    //   
+    //REPORT_STATISTICS_TRUTH(
+    //
 
+    REPORT_STATISTICS_TEST(
+        PREPARE_VCFS_TEST.out.vcf_ch
+    )
+    ch_versions = ch_versions.mix(REPORT_STATISTICS_TEST.out.versions)
+
+    // preare  benchmark set
+
+    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch, by:0)
+                                .set{bench_ch}
+
+    bench_ch.view()
     if (params.analysis.contains("germline")){
     // GERMLINE VARIANT BENCHMARKING
         GERMLINE_BENCHMARK(
             bench_ch,
+            high_conf,
             ref
         )
         ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)

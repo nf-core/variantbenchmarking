@@ -8,10 +8,10 @@ process BGZIP_TABIX {
         'biocontainers/tabix:1.11--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(vcf)
+    tuple val(meta),val(meta2), path(vcf)
 
     output:
-    tuple val(meta), path("*.vcf.gz"), path("*.tbi"), emit: gz_tbi
+    tuple val(meta),val(meta2), path("*.vcf.gz"), path("*.tbi"), emit: gz_tbi
     path  "versions.yml"                            , emit: versions
 
     when:

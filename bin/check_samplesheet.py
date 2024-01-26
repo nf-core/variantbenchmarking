@@ -36,9 +36,9 @@ def print_error(error, context="Line", context_str=""):
 def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
-    sample,test_vcf,truth_vcf,bed,caller
-    sample1,test1.vcf,truth1.vcf,high_conf.bed,manta
-    sample2,test2.vcf,truth2.vcf,high_conf.bed,svaba
+    sample,test_vcf,caller
+    sample1,test1.vcf,manta
+    sample2,test2.vcf,svaba
     For an example see:
     https://github.com/ghga-de/nf-benchmark/assets/samplesheet.csv
     """
@@ -47,8 +47,8 @@ def check_samplesheet(file_in, file_out):
     with open(file_in, "r", encoding='utf-8-sig') as fin:
 
         ## Check header
-        MIN_COLS = 4
-        HEADER = ["sample","test_vcf","truth_vcf","bed","caller"]
+        MIN_COLS = 3
+        HEADER = ["sample","test_vcf","caller"]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print(
@@ -78,7 +78,7 @@ def check_samplesheet(file_in, file_out):
                     )
 
                 ## Check sample name entries
-                sample, test_vcf, truth_vcf, bed, caller = lspl[: len(HEADER)]
+                sample, test_vcf, caller = lspl[: len(HEADER)]
                 if sample.find(" ") != -1:
                     print(
                         f"WARNING: Spaces have been replaced by underscores for sample: {sample}"
@@ -87,16 +87,11 @@ def check_samplesheet(file_in, file_out):
                 if not sample:
                     print_error("Sample entry has not been specified!", "Line", line)
 
-                sample_info = []  ## [sample, test_vcf, truth_vcf,bed, caller ]
+                sample_info = []  ## [sample, test_vcf, caller ]
 
-                if sample and bed:
-                    sample_info = [sample, test_vcf, truth_vcf, bed, caller]
-                elif sample and not bed:
-                    sample_info = [sample, test_vcf, truth_vcf, "", caller]
-                else:
-                    print_error("Invalid combination of columns provided!", "Line", line)
+                sample_info = [sample, test_vcf, caller]
 
-                ## Create sample mapping dictionary = {sample: [[ sample, test_vcf, truth_vcf, caller ]]}
+                ## Create sample mapping dictionary = {sample: [[ sample, test_vcf, caller ]]}
                 if sample not in sample_mapping_dict:
                     sample_mapping_dict[sample] = [sample_info]
                 else:
@@ -111,7 +106,7 @@ def check_samplesheet(file_in, file_out):
         make_dir(out_dir)
         with open(file_out, "w") as fout:
             fout.write(
-                ",".join(["sample","test_vcf","truth_vcf","bed","caller"])
+                ",".join(["sample","test_vcf","caller"])
                 + "\n"
             )
             for sample in sorted(sample_mapping_dict.keys()):
