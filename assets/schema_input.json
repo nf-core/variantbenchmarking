@@ -7,11 +7,6 @@
   "items": {
     "type": "object",
     "properties": {
-      "sample": {
-        "type": "string",
-        "pattern": "^\\S+$",
-        "errorMessage": "Sample name must be provided and cannot contain spaces"
-      },
       "test_vcf": {
         "type": "string",
         "pattern": "",
@@ -23,6 +18,6 @@
         "errorMessage": "Name of the variant caller used to generate test file"
       }
     },
-    "required": ["sample", "test_vcf","caller"]
+    "required": ["test_vcf","caller"]
   }
 }

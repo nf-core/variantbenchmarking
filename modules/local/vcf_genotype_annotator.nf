@@ -1,18 +1,18 @@
-process AWK_SORT {
+process VCF_GENOTYPE_ANNOTATOR {
     tag "$meta.id"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bcftools:1.17--haef29d1_0':
-        'quay.io/biocontainers/bcftools:1.17--haef29d1_0' }"
+        'ddocker://griffithlab/vatools:5.1.10'
+        'griffithlab/vatools:5.1.10' }"
 
     input:
-    tuple val(meta),val(meta2), path(input)
+    tuple val(meta),val(meta2), path(vcf)
 
     output:
-    tuple val(meta),val(meta2), path("*.vcf"), emit: vcf
-    path "versions.yml"                      , emit: versions
+    tuple val(meta),val(meta2), path("*.{vcf}"), emit: vcf
+    path "versions.yml"                        , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,8 +22,11 @@ process AWK_SORT {
     def prefix  = task.ext.prefix ?: "${meta.id}"
 
     """
-    cat $input | awk '\$1 ~ /^#/ {print \$0;next} {print \$0 | "sort -k1,1 -k2,2n"}' > ${prefix}.vcf
-
+    vcf-genotype-annotator \\
+        $vcf \\
+        ${meta.id} \\
+        $args
+        -o ${prefix}.vcf
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,15 +1,15 @@
 
 process SVANALYZER_SVBENCHMARK {
-    tag "$meta.id"
+    tag "$meta.id $meta2.caller"
     label 'process_medium'
 
     conda "bioconda::svanalyzer=0.35"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/svanalyzer:0.35--pl526_0':
-        'biocontainers/svanalyzer:0.35--pl526_0' }"
+        'quay.io/biocontainers/svanalyzer:0.35--pl526_0' }"
 
     input:
-    tuple val(meta), path(test), path(test_index), path(truth), path(truth_index)
+    tuple val(meta),val(meta2), path(test), path(test_index), path(truth), path(truth_index)
     tuple path(fasta), path(fai)
     path(bed)
 

@@ -25,10 +25,10 @@ workflow INPUT_CHECK {
 def create_vcf_channel(LinkedHashMap row) {
 // create meta map
     def meta = [:]
-    meta.id           = row.sample
+    meta.id           = params.sample
 
     def meta2 = [:]
-    meta2.caller           = row.caller
+    meta2.caller      = row.caller
     // add path(s) of the fastq file(s) to the meta map
     def vcf_meta = []
         if (!file(row.test_vcf).exists()) {

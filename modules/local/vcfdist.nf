@@ -1,20 +1,20 @@
-process WITTYER {
+process VCFDIST {
     tag "$meta.id $meta2.caller"
     label 'process_single'
 
     conda ""
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'docker://kubran/wittyer:0.3.3.0' :
-        'kubran/wittyer:0.3.3.0' }"
+        'docker://timd1/vcfdist:v2.3.2' :
+        'timd1/vcfdist:v2.3.2' }"
 
     input:
     tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
+    tuple path(fasta), path(fai)
     each path(bed)
-    path(config)
 
     output:
-    tuple val(meta),    path(wittyer_bench) , emit: bench
-    path  "versions.yml"                    , emit: versions
+    tuple val(meta), path("*.tsv,vcf"), emit: bench
+    path  "versions.yml"          , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,21 +22,20 @@ process WITTYER {
     script:
     def args  = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def regions = bed ? "--includebed $bed" : ""
-    def config = bed ? "--configFile $config" : ""
+    def regions = bed ? "-b $bed" : ""
 
     """
-    dotnet Wittyer.dll \\
-        --truthVcf ${truth_vcf} \\
-        --inputVcf ${vcf} \\
-        --output wittyer_bench \\
+    vcfdist \\
+        ${vcf} \\
+        ${truth_vcf} \\
+        $fasta \\
+        -p ${prefix} \\
         ${regions} \\
-        ${config} \\
         ${args}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        wittyer: \$(echo \$(dotnet Wittyer.dll --version 2>&1) | sed 's/^.*witty\.er v//')
+        vcfdist: \$(echo \$(vcfdist --version 2>&1) | sed 's/^.*vcfdist v//')
     END_VERSIONS
     """
     

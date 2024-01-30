@@ -42,7 +42,7 @@ workflow PREPARE_VCFS_TEST {
     )
     //BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.index)
     //                    .map{it -> tuple(it[0], it[1], it[2], it[4])}  
-    //                    .set{reheader_ch}     
+    //                    .set{reheader_ch}    
 
     BGZIP_TABIX(
         AWK_SORT.out.vcf
@@ -70,10 +70,9 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(TABIX_TABIX_2.out.versions)
 
-    BCFTOOLS_RENAME_CHR.out.vcf.join(TABIX_TABIX_2.out.tbi)
-                        .map{it -> tuple(it[0], it[1], it[2], it[4])}
+    BCFTOOLS_RENAME_CHR.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
+                        .map{it -> tuple(it[1], it[0], it[2], it[4])}
                         .set{renamed_ch}
-
     // Normalize test
     BCFTOOLS_NORM(
         renamed_ch,
@@ -87,8 +86,8 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(TABIX_TABIX_3.out.versions)
 
-    BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_3.out.tbi)
-                        .map{it -> tuple(it[0], it[1], it[2], it[4])}
+    BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_3.out.tbi, by:1)
+                        .map{it -> tuple( it[1], it[0], it[2], it[4])}
                         .set{vcf_ch}
 
     emit:
