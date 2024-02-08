@@ -8,13 +8,20 @@ process TRUVARI_BENCH {
         'quay.io/biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
-    each path(bed)
+    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     tuple path(fasta), path(fai)
 
     output:
-    tuple val(meta),val(meta2), path(bench)  , emit: bench
-    path "versions.yml"                      , emit: versions
+    tuple val(meta), path("*.fn.vcf.gz")            , emit: fn_vcf
+    tuple val(meta), path("*.fn.vcf.gz.tbi")        , emit: fn_tbi
+    tuple val(meta), path("*.fp.vcf.gz")            , emit: fp_vcf
+    tuple val(meta), path("*.fp.vcf.gz.tbi")        , emit: fp_tbi
+    tuple val(meta), path("*.tp-base.vcf.gz")       , emit: tp_base_vcf
+    tuple val(meta), path("*.tp-base.vcf.gz.tbi")   , emit: tp_base_tbi
+    tuple val(meta), path("*.tp-comp.vcf.gz")       , emit: tp_comp_vcf
+    tuple val(meta), path("*.tp-comp.vcf.gz.tbi")   , emit: tp_comp_tbi
+    tuple val(meta), path("*.summary.json")         , emit: summary
+    path "versions.yml"                             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,6 +30,7 @@ process TRUVARI_BENCH {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def regions = bed ? "--includebed $bed" : ""
+    def convert_type = params.dup_to_ins ? "--dup-to-ins" : ""
 
     """
     truvari bench \\
@@ -30,19 +38,20 @@ process TRUVARI_BENCH {
         --comp ${vcf} \\
         --reference ${fasta} \\
         --output ${prefix} \\
+        --pctseq $params.similarity \\
+        $convert_type \\
         ${regions} \\
         ${args}
 
-    mkdir bench
-    mv ${prefix}/fn.vcf.gz          bench/
-    mv ${prefix}/fn.vcf.gz.tbi      bench/
-    mv ${prefix}/fp.vcf.gz          bench/
-    mv ${prefix}/fp.vcf.gz.tbi      bench/
-    mv ${prefix}/tp-base.vcf.gz     bench/
-    mv ${prefix}/tp-base.vcf.gz.tbi bench/
-    mv ${prefix}/tp-comp.vcf.gz     bench/
-    mv ${prefix}/tp-comp.vcf.gz.tbi bench/
-    mv ${prefix}/summary.json       bench/
+    mv ${prefix}/fn.vcf.gz          ./${prefix}.fn.vcf.gz
+    mv ${prefix}/fn.vcf.gz.tbi      ./${prefix}.fn.vcf.gz.tbi
+    mv ${prefix}/fp.vcf.gz          ./${prefix}.fp.vcf.gz
+    mv ${prefix}/fp.vcf.gz.tbi      ./${prefix}.fp.vcf.gz.tbi
+    mv ${prefix}/tp-base.vcf.gz     ./${prefix}.tp-base.vcf.gz
+    mv ${prefix}/tp-base.vcf.gz.tbi ./${prefix}.tp-base.vcf.gz.tbi
+    mv ${prefix}/tp-comp.vcf.gz     ./${prefix}.tp-comp.vcf.gz
+    mv ${prefix}/tp-comp.vcf.gz.tbi ./${prefix}.tp-comp.vcf.gz.tbi
+    mv ${prefix}/summary.json       ./${prefix}.summary.json
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

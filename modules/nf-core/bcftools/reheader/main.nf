@@ -1,5 +1,5 @@
 process BCFTOOLS_REHEADER {
-    tag "$meta.id"
+    tag "$meta.id $meta2.caller"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
@@ -8,8 +8,9 @@ process BCFTOOLS_REHEADER {
         'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf)
-    tuple val(meta3), path(fai)
+    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple path(fasta), path(fai)
+    val(sample)
 
     output:
     tuple val(meta),val(meta2), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
@@ -22,6 +23,8 @@ process BCFTOOLS_REHEADER {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def fai_argument      = fai ? "--fai $fai" : ""
+    def sample_cmd        = sample ? "echo ${sample} > sample.txt" : ""
+    def sample_argument   = sample ? "--samples sample.txt" : ""
     def args2 = task.ext.args2 ?: '--output-type z'
     def extension = args2.contains("--output-type b") || args2.contains("-Ob") ? "bcf.gz" :
                     args2.contains("--output-type u") || args2.contains("-Ou") ? "bcf" :
@@ -34,7 +37,7 @@ process BCFTOOLS_REHEADER {
     bcftools \\
         reheader \\
         $fai_argument \\
-        --samples sample.txt \\
+        $sample_argument \\
         $args \\
         --threads $task.cpus \\
         $vcf \\

@@ -5,14 +5,19 @@
 params.options = [:]
 
 include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
-include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
+include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'      addParams( options: params.options )
+include { BCFTOOLS_NORM as BCFTOOLS_NORM_1 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
+include { BCFTOOLS_NORM as BCFTOOLS_NORM_2 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
+include { TABIX_TABIX   as TABIX_TABIX_1   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
+include { TABIX_TABIX   as TABIX_TABIX_2   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
+include { TABIX_TABIX   as TABIX_TABIX_3   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
+include { BGZIP_TABIX as BGZIP_TABIX_1     } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
+include { BGZIP_TABIX as BGZIP_TABIX_2     } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
 
 workflow PREPARE_VCFS_TRUTH {
     take:
     truth_ch    // channel: [val(meta), vcf]
     ref         // reference channel [ref.fa, ref.fa.fai]
-    main_chroms // channel" path(chrom sizes)
 
     main:
 
@@ -25,27 +30,56 @@ workflow PREPARE_VCFS_TRUTH {
             .set{truth}
 
     // BGZIP if needed and index truth
-    BGZIP_TABIX(
+    BGZIP_TABIX_1(
         truth
     )
-    versions = versions.mix(BGZIP_TABIX.out.versions)
+    versions = versions.mix(BGZIP_TABIX_1.out.versions)
+    vcf_ch = BGZIP_TABIX_1.out.gz_tbi
 
-    // Normalize test
-    BCFTOOLS_NORM(
-        BGZIP_TABIX.out.gz_tbi,
-        ref,
-        [[],[]]
-    )
-    versions = versions.mix(BCFTOOLS_NORM.out.versions)
+    if (params.preprocess.contains("normalization")){
+        //
+        // MODULE:  BCFTOOLS_NORM
+        //
+        // Normalize test
+        // multi-allelic variants will be splitted. 
+        BCFTOOLS_NORM_1(
+            vcf_ch,
+            ref,
+            [[],[]]
+        )
+        versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
-    TABIX_TABIX(
-        BCFTOOLS_NORM.out.vcf
-    )
-    versions = versions.mix(TABIX_TABIX.out.versions)
+        TABIX_TABIX_1(
+            BCFTOOLS_NORM_1.out.vcf
+        )
+        versions = versions.mix(TABIX_TABIX_1.out.versions)
 
-    BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX.out.tbi)
-                        .map{it -> tuple(it[0], it[2], it[4])}
-                        .set{vcf_ch}
+        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:1)
+                            .map{it -> tuple(it[1],it[0], it[2], it[4])}
+                            .set{vcf_ch}
+    }
+    if (params.preprocess.contains("deduplication")){
+        //
+        // MODULE:  BCFTOOLS_NORM
+        //
+        // Deduplicate variants at the same position
+        BCFTOOLS_NORM_2(
+            vcf_ch,
+            ref,
+            [[],[]]
+        )
+        versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
+
+        TABIX_TABIX_2(
+            BCFTOOLS_NORM_2.out.vcf
+        )
+        versions = versions.mix(TABIX_TABIX_2.out.versions)
+
+        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
+                            .map{it -> tuple(it[1],it[0], it[2], it[4])}
+                            .set{vcf_ch}
+        }
+
 
     emit:
     vcf_ch

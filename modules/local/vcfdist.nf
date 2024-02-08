@@ -8,9 +8,8 @@ process VCFDIST {
         'timd1/vcfdist:v2.3.2' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
+    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     tuple path(fasta), path(fai)
-    each path(bed)
 
     output:
     tuple val(meta), path("*.tsv,vcf"), emit: bench

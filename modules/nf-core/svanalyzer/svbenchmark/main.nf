@@ -9,16 +9,15 @@ process SVANALYZER_SVBENCHMARK {
         'quay.io/biocontainers/svanalyzer:0.35--pl526_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(test), path(test_index), path(truth), path(truth_index)
+    tuple val(meta),val(meta2), path(test), path(test_index), path(truth), path(truth_index), path(bed)
     tuple path(fasta), path(fai)
-    path(bed)
 
     output:
-    tuple val(meta), path("*.falsenegatives.vcf"), emit: fns
-    tuple val(meta), path("*.falsepositives.vcf"), emit: fps
-    tuple val(meta), path("*.distances")         , emit: distances
-    tuple val(meta), path("*.log")               , emit: log
-    tuple val(meta), path("*.report")            , emit: report
+    tuple val(meta),val(meta2), path("*.falsenegatives.vcf"), emit: fns
+    tuple val(meta),val(meta2), path("*.falsepositives.vcf"), emit: fps
+    tuple val(meta),val(meta2), path("*.distances")         , emit: distances
+    tuple val(meta),val(meta2), path("*.log")               , emit: log
+    tuple val(meta),val(meta2), path("*.report")            , emit: report
     path "versions.yml"                          , emit: versions
 
     when:

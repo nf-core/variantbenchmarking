@@ -8,8 +8,7 @@ process WITTYER {
         'kubran/wittyer:0.3.3.0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
-    each path(bed)
+    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     path(config)
 
     output:

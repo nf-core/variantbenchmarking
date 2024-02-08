@@ -4,8 +4,8 @@ process TRUVARI_REFINE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/truvari:4.1.0--pyhdfd78af_0':
-        'quay.io/biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
+        'docker://kubran/truvari:v4.3.0':
+        'kubran/truvari:v4.3.0' }"
 
     input:
     tuple val(meta), val(meta2), path(bench)

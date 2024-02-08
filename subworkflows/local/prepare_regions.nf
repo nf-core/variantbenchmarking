@@ -4,13 +4,14 @@
 
 params.options = [:]
 
-include { BEDTOOLS_INTERSECT  } from '../../modules/nf-core/bedtools/intersect'      addParams( options: params.options )
 include { MAIN_CHROMS         } from '../../modules/local/main_chroms.nf'            addParams( options: params.options )
+include { EXTRACT_MAIN        } from '../../modules/local/extract_main.nf'           addParams( options: params.options )
 
 
-workflow PREPARE_STRATIFICATIONS {
+workflow PREPARE_REGIONS {
     take:
     ref       // reference channel [ref.fa, ref.fa.fai]
+    high_conf
 
     main:
 
@@ -28,7 +29,16 @@ workflow PREPARE_STRATIFICATIONS {
     main_chroms = MAIN_CHROMS.out.sizes
     versions = versions.mix(MAIN_CHROMS.out.versions)
 
+    high_conf.map { it -> tuple([id: it[0].baseName], it[0]) }
+            .set{bed}
+    bed.view()
+    EXTRACT_MAIN(
+        bed
+    )
+    chr_list = EXTRACT_MAIN.out.chr_list
+
     emit:
     main_chroms
+    chr_list
     versions
 }

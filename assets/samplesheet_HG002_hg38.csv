@@ -1,4 +1,3 @@
 test_vcf,caller
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.delly.HG002.md.sorted.recal.bcf",delly
 "/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz",lumpy
 "/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz",manta
