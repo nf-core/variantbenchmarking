@@ -62,6 +62,8 @@ workflow GERMLINE_BENCHMARK {
         //
         // MODULE: WITTYER
         //
+        // BIG Advantage: reports by variant type
+        // Able to report CNV
         WITTYER(
             input_ch,
             []

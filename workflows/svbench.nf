@@ -25,12 +25,6 @@ truth       = params.truth              ? Channel.fromPath(params.truth, checkIf
 
 high_conf   = params.high_conf          ? Channel.fromPath(params.high_conf, checkIfExists: true).collect()
                                         : Channel.empty()
-if (params.fasta.contains("38")){
-    rename_chr  = Channel.fromPath("${projectDir}/assets/rename_chroms_hg38.txt", checkIfExists: true).collect()
-}
-else {
-    rename_chr  = Channel.fromPath("${projectDir}/assets/rename_chroms_hg19.txt", checkIfExists: true).collect()
-}
 
 // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
@@ -130,9 +124,8 @@ workflow SVBENCH {
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     PREPARE_VCFS_TEST(
-        VCF_CONVERSIONS.out.vcf_ch,
+        VCF_CONVERSIONS.out.out3_vcf_ch.map{it -> tuple(it[0], it[1], it[2], it[3])},
         ref,
-        rename_chr,
         PREPARE_REGIONS.out.main_chroms,
         PREPARE_REGIONS.out.chr_list
     )

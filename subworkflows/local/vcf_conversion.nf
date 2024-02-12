@@ -16,7 +16,8 @@ workflow VCF_CONVERSIONS {
 
     main:
 
-    versions=Channel.empty()
+    out_vcf_ch = Channel.empty()
+    versions   = Channel.empty()
 
     //
     // MODULE: AWK_SORT
@@ -28,60 +29,98 @@ workflow VCF_CONVERSIONS {
     ) 
     versions = versions.mix(AWK_SORT.out.versions)
     vcf_ch = AWK_SORT.out.vcf
-
+    
     //
     // MODULE: SVYNC
     //
     // 
     if(params.standardization){ 
 
+        vcf_ch.branch{
+            tool:  it[1].caller == "delly" || it[1].caller == "gridss" || it[1].caller == "manta" || it[1].caller == "smoove"   
+            other: true}
+            .set{main_vcf_ch}
+
+
         input_ch.map{it -> tuple(it[0], it[1], it[3])}
             .combine(vcf_ch, by:1)
             .map{it -> tuple(it[1], it[0], it[4], it[5], it[2])}
-            .set{snd_ch} 
+            .set{snd_ch}
+
+        snd_ch.branch{
+            tool:  it[1].caller == "delly" || it[1].caller == "gridss" || it[1].caller == "manta" || it[1].caller == "smoove"   
+            other: true}
+            .set{input}
         
         SVYNC(
-            snd_ch
+            input.tool
         )
-        vcf_ch = SVYNC.out.vcf
+        out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
+        out_vcf_ch = out_vcf_ch.mix(input.other)
+    }else{
+        out_vcf_ch = vcf_ch
     }
     
+    out2_vcf_ch = Channel.empty()
 
     // Check tool spesific conversions
     if(params.bnd_to_inv){
+
+        out_vcf_ch.branch{
+            tool:  it[1].caller == "manta" || it[1].caller == "dragen"   
+            other: true}
+            .set{input}
         //
         // MANTA_CONVERTINVERSION
         //
         //NOTE: should also work for dragen
+        // Not working now!!!!!
+        
         MANTA_CONVERTINVERSION(
-            vcf_ch,
+            input.tool,
             ref
         )
         versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
-        vcf_ch = MANTA_CONVERTINVERSION.out.vcf_tabi
+
+        out2_vcf_ch = out2_vcf_ch.mix(MANTA_CONVERTINVERSION.out.vcf_tabi)
+        out2_vcf_ch = out2_vcf_ch.mix(input.other)
 
        // https://github.com/srbehera/DRAGEN_Analysis/blob/main/convertInversion.py
 
     }
+    else{
+        out2_vcf_ch = out_vcf_ch
+    }
 
+    out3_vcf_ch = Channel.empty()
 
     if (params.gridss_annotate){
+        out2_vcf_ch.branch{
+            tool:  it[1].caller == "gridss"
+            other: true}
+            .set{input}
+
         //
         // GRIDSS_ANNOTATION
         //
         // https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
         // GRIDSS simple event annotation
         GRIDSS_ANNOTATION(
-            vcf_ch,
+            input.tool,
             ref
         )
         versions = versions.mix(GRIDSS_ANNOTATION.out.versions)
-        vcf_ch = GRIDSS_ANNOTATION.out.vcf
+
+        out3_vcf_ch = out3_vcf_ch.mix(GRIDSS_ANNOTATION.out.vcf)
+        out3_vcf_ch = out3_vcf_ch.mix(input.other)
+    }
+    else{
+        out3_vcf_ch = out2_vcf_ch
     }
 
    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
 
     emit:
-    vcf_ch
+    out3_vcf_ch
     versions
 }

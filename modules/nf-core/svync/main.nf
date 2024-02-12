@@ -24,30 +24,17 @@ process SVYNC {
 
     if ("$vcf" == "${prefix}.vcf.gz") error "Input and output names are the same, set prefix in module configuration to disambiguate!"
 
-    if( "$config" == "default.yaml"){
-        """
-        cp $vcf ${prefix}.vcf.gz
-        cp $tbi ${prefix}.vcf.gz.tbi
+    """
+    svync \\
+        $args \\
+        --config $config \\
+        --input $vcf \\
+        | bgzip --threads $task.cpus $args2 > ${prefix}.vcf.gz
 
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            svync: \$(svync --version | sed 's/svync version //')
-        END_VERSIONS
-        """   
-    }
-    else{
-        """
-        svync \\
-            $args \\
-            --config $config \\
-            --input $vcf \\
-            | bgzip --threads $task.cpus $args2 > ${prefix}.vcf.gz
-
-        tabix ${prefix}.vcf.gz
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            svync: \$(svync --version | sed 's/svync version //')
-        END_VERSIONS
-        """
-    }
+    tabix ${prefix}.vcf.gz
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        svync: \$(svync --version | sed 's/svync version //')
+    END_VERSIONS
+    """
 }

@@ -4,23 +4,23 @@
 
 params.options = [:]
 
-include { BCFTOOLS_REHEADER   } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
-include { BCFTOOLS_RENAME_CHR } from '../../modules/local/bcftools_rename_chr'  addParams( options: params.options )
 include { BCFTOOLS_VIEW       } from '../../modules/local/bcftools_view'        addParams( options: params.options )
+include { SURVIVOR_FILTER     } from '../../modules/nf-core/survivor/filter'    addParams( options: params.options )
+include { TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'        addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_1  } from '../../modules/nf-core/bcftools/norm'  addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_2  } from '../../modules/nf-core/bcftools/norm'  addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1    } from '../../modules/nf-core/tabix/tabix'    addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_2    } from '../../modules/nf-core/tabix/tabix'    addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_3    } from '../../modules/nf-core/tabix/tabix'    addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_4    } from '../../modules/nf-core/tabix/tabix'    addParams( options: params.options )
-include { BGZIP_TABIX as BGZIP_TABIX_1      } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
-include { BGZIP_TABIX as BGZIP_TABIX_2      } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
+
 
 workflow PREPARE_VCFS_TEST {
     take:
     input_ch    // channel: [val(meta),val(meta2), vcf]
     ref         // reference channel [ref.fa, ref.fa.fai]
-    rename_chr  // channel path(rename chromosomes)
     main_chroms // channel path(chrom sizes)
     chr_list
 
@@ -34,43 +34,17 @@ workflow PREPARE_VCFS_TEST {
     // PREPARE_VCFS
     //
     // Reheader needed to standardize sample names
-    BCFTOOLS_REHEADER(
+    BCFTOOLS_REHEADER_TEST(
         input_ch,
-        ref,
-        params.sample
+        ref
         )
-    versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
+    versions = versions.mix(BCFTOOLS_REHEADER_TEST.out.versions)
 
-
-    BGZIP_TABIX_1(
-        BCFTOOLS_REHEADER.out.vcf
+    TABIX_BGZIPTABIX_1(
+        BCFTOOLS_REHEADER_TEST.out.vcf
     )
-    reheader_ch = BGZIP_TABIX_1.out.gz_tbi
+    vcf_ch = TABIX_BGZIPTABIX_1.out.gz_tbi
 
-    //TABIX_TABIX_1(
-    //    BCFTOOLS_REHEADER.out.vcf
-    //)
-    //versions = versions.mix(TABIX_TABIX_1.out.versions)
-
-    //BCFTOOLS_REHEADER.out.vcf.join(TABIX_TABIX_1.out.tbi, by:1)
-    //                    .map{it -> tuple(it[1], it[0], it[2], it[4])}
-    //                    .set{reheader_ch}
-    reheader_ch.view()
-    // 1 -> chr1 or chr1 -> 1
-    BCFTOOLS_RENAME_CHR(
-        reheader_ch,
-        rename_chr
-    )
-    versions = versions.mix(BCFTOOLS_RENAME_CHR.out.versions)
-
-    TABIX_TABIX_2(
-        BCFTOOLS_RENAME_CHR.out.vcf
-    )
-    versions = versions.mix(TABIX_TABIX_2.out.versions)
-
-    BCFTOOLS_RENAME_CHR.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
-                        .map{it -> tuple(it[1], it[0], it[2], it[4])}
-                        .set{vcf_ch}
     //
     // BCFTOOLS_VIEW
     //
@@ -80,11 +54,10 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(BCFTOOLS_VIEW.out.versions)
 
-    BGZIP_TABIX_2(
+    TABIX_BGZIPTABIX_2(
         BCFTOOLS_VIEW.out.vcf
     )
-    versions = versions.mix(BGZIP_TABIX_2.out.versions)
-    vcf_ch   = BGZIP_TABIX_2.out.gz_tbi
+    vcf_ch   = TABIX_BGZIPTABIX_2.out.gz_tbi
 
     if (params.preprocess.contains("normalization")){
         //
@@ -98,14 +71,38 @@ workflow PREPARE_VCFS_TEST {
         )
         versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
-        TABIX_TABIX_3(
+        TABIX_TABIX_1(
             BCFTOOLS_NORM_1.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_3.out.versions)
 
-        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_3.out.tbi, by:1)
+        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:1)
                             .map{it -> tuple( it[1], it[0], it[2], it[4])}
                             .set{vcf_ch}
+    }
+    if (params.min_sv_size > 0){
+
+        TABIX_BGZIP(
+            vcf_ch.map{it -> tuple( it[0], it[1], it[2])}
+        )
+        versions = versions.mix(TABIX_BGZIP.out.versions)
+
+        //
+        // MODULE: SURVIVOR_FILTER
+        //
+        // filters out smaller SVs than min_sv_size
+        SURVIVOR_FILTER(
+            TABIX_BGZIP.out.output.map{it -> tuple( it[0], it[1], it[2], [])},
+            params.min_sv_size,
+            -1,
+            -1,
+            -1
+        )
+        versions = versions.mix(SURVIVOR_FILTER.out.versions)
+
+        TABIX_BGZIPTABIX_3(
+            SURVIVOR_FILTER.out.vcf
+        )
+        vcf_ch = TABIX_BGZIPTABIX_3.out.gz_tbi
     }
 
     if (params.preprocess.contains("deduplication")){
@@ -120,12 +117,11 @@ workflow PREPARE_VCFS_TEST {
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 
-        TABIX_TABIX_4(
+        TABIX_TABIX_2(
             BCFTOOLS_NORM_2.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_4.out.versions)
 
-        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_4.out.tbi, by:1)
+        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
                             .map{it -> tuple( it[1], it[0], it[2], it[4])}
                             .set{vcf_ch}
     }

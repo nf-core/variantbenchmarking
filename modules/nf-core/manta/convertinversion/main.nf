@@ -1,6 +1,6 @@
 process MANTA_CONVERTINVERSION {
     tag "$meta.id"
-    label 'process_low'
+    label 'process_single'
     label 'error_retry'
 
     conda "bioconda::manta=1.6.0 bioconda::samtools=1.16.1"
@@ -22,29 +22,15 @@ process MANTA_CONVERTINVERSION {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    if (meta2.caller == "manta"){
-        """
-        convertInversion.py \$(which samtools) $fasta $vcf | bgzip --threads $task.cpus > ${prefix}.converted.vcf.gz
-        tabix ${prefix}.converted.vcf.gz
+    """
+    convertInversion.py \$(which samtools) $fasta $vcf | bgzip --threads $task.cpus > ${prefix}.converted.vcf.gz
+    tabix ${prefix}.converted.vcf.gz
 
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            manta: \$( configManta.py --version )
-            samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' ))
-        END_VERSIONS
-        """
-    }
-    else{
-        """
-        cp $vcf ${prefix}.vcf.gz
-        tabix ${prefix}.vcf.gz
-
-        cat <<-END_VERSIONS > versions.yml
-        "${task.process}":
-            manta: \$( configManta.py --version )
-            samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' ))
-        END_VERSIONS
-        """       
-    }
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        manta: \$( configManta.py --version )
+        samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' ))
+    END_VERSIONS
+    """
 
 }

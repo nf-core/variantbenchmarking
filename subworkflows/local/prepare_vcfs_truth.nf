@@ -5,14 +5,14 @@
 params.options = [:]
 
 include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'      addParams( options: params.options )
+include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'        addParams( options: params.options )
+include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_1 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_2 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_2   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_3   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { BGZIP_TABIX as BGZIP_TABIX_1     } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
-include { BGZIP_TABIX as BGZIP_TABIX_2     } from '../../modules/local/bgzip_tabix'      addParams( options: params.options )
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
 
 workflow PREPARE_VCFS_TRUTH {
     take:
@@ -30,11 +30,23 @@ workflow PREPARE_VCFS_TRUTH {
             .set{truth}
 
     // BGZIP if needed and index truth
-    BGZIP_TABIX_1(
+    BGZIP_TABIX(
         truth
     )
-    versions = versions.mix(BGZIP_TABIX_1.out.versions)
-    vcf_ch = BGZIP_TABIX_1.out.gz_tbi
+    versions = versions.mix(BGZIP_TABIX.out.versions)
+    vcf_ch = BGZIP_TABIX.out.gz_tbi
+
+        // Reheader needed to standardize sample names
+    BCFTOOLS_REHEADER_TRUTH(
+        vcf_ch,
+        ref
+        )
+    versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
+
+    TABIX_BGZIPTABIX(
+        BCFTOOLS_REHEADER_TRUTH.out.vcf
+    )
+    vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
 
     if (params.preprocess.contains("normalization")){
         //

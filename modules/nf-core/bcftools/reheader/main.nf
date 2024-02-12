@@ -10,7 +10,6 @@ process BCFTOOLS_REHEADER {
     input:
     tuple val(meta),val(meta2), path(vcf), path(index)
     tuple path(fasta), path(fai)
-    val(sample)
 
     output:
     tuple val(meta),val(meta2), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
@@ -23,8 +22,6 @@ process BCFTOOLS_REHEADER {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def fai_argument      = fai ? "--fai $fai" : ""
-    def sample_cmd        = sample ? "echo ${sample} > sample.txt" : ""
-    def sample_argument   = sample ? "--samples sample.txt" : ""
     def args2 = task.ext.args2 ?: '--output-type z'
     def extension = args2.contains("--output-type b") || args2.contains("-Ob") ? "bcf.gz" :
                     args2.contains("--output-type u") || args2.contains("-Ou") ? "bcf" :
@@ -32,12 +29,12 @@ process BCFTOOLS_REHEADER {
                     args2.contains("--output-type v") || args2.contains("-Ov") ? "vcf" :
                     "vcf"
     """
-    echo ${meta.id} > sample.txt
+    echo ${prefix} > sample.txt
 
     bcftools \\
         reheader \\
         $fai_argument \\
-        $sample_argument \\
+        --samples sample.txt \\
         $args \\
         --threads $task.cpus \\
         $vcf \\

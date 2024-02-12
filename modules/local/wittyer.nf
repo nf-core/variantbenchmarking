@@ -12,8 +12,11 @@ process WITTYER {
     path(config)
 
     output:
-    tuple val(meta),    path(wittyer_bench) , emit: bench
-    path  "versions.yml"                    , emit: versions
+    tuple val(meta),    path("*ConfigFileUsed.json") , emit: config
+    tuple val(meta),    path("*.Stats.json")         , emit: report
+    tuple val(meta),    path("*eval.vcf.gz")         , emit: bench_vcf
+    tuple val(meta),    path("*eval.vcf.gz.tbi")     , emit: bench_vcf_gzi   
+    path  "versions.yml"                             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -21,21 +24,29 @@ process WITTYER {
     script:
     def args  = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def regions = bed ? "--includebed $bed" : ""
-    def config = bed ? "--configFile $config" : ""
+    def regions = bed ? "--includeBed=$bed" : ""
+    def config = config ? "--configFile=$config" : ""
 
     """
-    dotnet Wittyer.dll \\
-        --truthVcf ${truth_vcf} \\
-        --inputVcf ${vcf} \\
-        --output wittyer_bench \\
+    mkdir bench
+    dotnet /opt/Wittyer/Wittyer.dll \\
+        --truthVcf=${truth_vcf} \\
+        --inputVcf=${vcf} \\
+        --outputDirectory=bench \\
         ${regions} \\
         ${config} \\
         ${args}
 
+    mv bench/Wittyer.ConfigFileUsed.json ${prefix}.ConfigFileUsed.json
+    mv bench/Wittyer.Stats.json ${prefix}.Stats.json
+    mv bench/*.vcf.gz ${prefix}.eval.vcf.gz
+    mv bench/*.vcf.gz.tbi ${prefix}.eval.vcf.gz.tbi
+
+    rm -rf bench
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        wittyer: \$(echo \$(dotnet Wittyer.dll --version 2>&1) | sed 's/^.*witty\.er v//')
+        wittyer: 0.3.3.0
     END_VERSIONS
     """
     
