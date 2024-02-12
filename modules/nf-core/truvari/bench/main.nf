@@ -1,15 +1,14 @@
 process TRUVARI_BENCH {
-    tag "$meta.id"
+    tag "$meta.id $meta2.caller"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/truvari:4.1.0--pyhdfd78af_0':
-        'biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
+        'quay.io/biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
-    each path(bed)
+    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     tuple path(fasta), path(fai)
 
     output:
@@ -31,6 +30,7 @@ process TRUVARI_BENCH {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def regions = bed ? "--includebed $bed" : ""
+    def convert_type = params.dup_to_ins ? "--dup-to-ins" : ""
 
     """
     truvari bench \\
@@ -38,6 +38,8 @@ process TRUVARI_BENCH {
         --comp ${vcf} \\
         --reference ${fasta} \\
         --output ${prefix} \\
+        --pctseq $params.similarity \\
+        $convert_type \\
         ${regions} \\
         ${args}
 
@@ -50,27 +52,6 @@ process TRUVARI_BENCH {
     mv ${prefix}/tp-comp.vcf.gz     ./${prefix}.tp-comp.vcf.gz
     mv ${prefix}/tp-comp.vcf.gz.tbi ./${prefix}.tp-comp.vcf.gz.tbi
     mv ${prefix}/summary.json       ./${prefix}.summary.json
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        truvari: \$(echo \$(truvari version 2>&1) | sed 's/^Truvari v//' ))
-    END_VERSIONS
-    """
-
-    stub:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-
-    """
-    touch ${prefix}.fn.vcf.gz
-    touch ${prefix}.fn.vcf.gz.tbi
-    touch ${prefix}.fp.vcf.gz
-    touch ${prefix}.fp.vcf.gz.tbi
-    touch ${prefix}.tp-base.vcf.gz
-    touch ${prefix}.tp-base.vcf.gz.tbi
-    touch ${prefix}.tp-comp.vcf.gz
-    touch ${prefix}.tp-comp.vcf.gz.tbi
-    touch ${prefix}.summary.json
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

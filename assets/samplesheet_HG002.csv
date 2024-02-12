@@ -1,3 +1,4 @@
-sample,test_vcf,truth_vcf,caller,vartype
-HG002,"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz","/Users/w620-admin/Desktop/nf-core/dataset/hg38/HG002_CMRG_V1_Truth/HG002_GRCh38_CMRG_SV_v1.00.vcf.gz",manta,sv
-HG002,"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz","/Users/w620-admin/Desktop/nf-core/dataset/hg38/HG002_CMRG_V1_Truth/HG002_GRCh38_CMRG_SV_v1.00.vcf.gz",lumpy,sv
+test_vcf,caller
+"/Users/w620-admin/Desktop/nf-core/dataset/hg37/dragen_paper/HG002_delly_SV_hg19.vcf.gz",delly
+"/Users/w620-admin/Desktop/nf-core/dataset/hg37/dragen_paper/HG002_lumpy_SV_hg19.vcf.gz",lumpy
+"/Users/w620-admin/Desktop/nf-core/dataset/hg37/dragen_paper/HG002_manta_SV_hg19_genotype.vcf",manta

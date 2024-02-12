@@ -36,9 +36,9 @@ def print_error(error, context="Line", context_str=""):
 def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
-    sample,truth_vcf,test_vcf,caller,vartype
-    sample1,truth1.vcf,test1.vcf,manta,sv
-    sample2,truth2.vcf,test2.vcf,svaba,somatic
+    test_vcf,caller
+    test1.vcf,manta
+    test2.vcf,svaba
     For an example see:
     https://github.com/ghga-de/nf-benchmark/assets/samplesheet.csv
     """
@@ -47,8 +47,8 @@ def check_samplesheet(file_in, file_out):
     with open(file_in, "r", encoding='utf-8-sig') as fin:
 
         ## Check header
-        MIN_COLS = 5
-        HEADER = ["sample","test_vcf","truth_vcf","caller","vartype"]
+        MIN_COLS = 2
+        HEADER = ["test_vcf","caller"]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print(
@@ -56,7 +56,7 @@ def check_samplesheet(file_in, file_out):
             )
             sys.exit(1)
 
-        ## Check sample entries
+        ## Check caller entries
         for line in fin:
             if line.strip():
                 lspl = [x.strip().strip('"') for x in line.strip().split(",")]
@@ -77,28 +77,28 @@ def check_samplesheet(file_in, file_out):
                         line,
                     )
 
-                ## Check sample name entries
-                sample, test_vcf, truth_vcf, caller, vartype = lspl[: len(HEADER)]
-                if sample.find(" ") != -1:
+                ## Check caller name entries
+                test_vcf, caller = lspl[: len(HEADER)]
+                if caller.find(" ") != -1:
                     print(
-                        f"WARNING: Spaces have been replaced by underscores for sample: {sample}"
+                        f"WARNING: Spaces have been replaced by underscores for caller: {caller}"
                     )
-                    sample = sample.replace(" ", "_")
-                if not sample:
-                    print_error("Sample entry has not been specified!", "Line", line)
+                    caller = caller.replace(" ", "_")
+                if not caller:
+                    print_error("Caller entry has not been specified!", "Line", line)
 
-                sample_info = []  ## [sample, test_vcf, truth_vcf, caller,vartype ]
-                sample_info = [sample, test_vcf, truth_vcf, caller, vartype]
+                sample_info = []  ## [test_vcf, caller ]
 
+                sample_info = [test_vcf, caller]
 
-                ## Create sample mapping dictionary = {sample: [[ sample, test_vcf, truth_vcf, caller,vartype ]]}
-                if sample not in sample_mapping_dict:
-                    sample_mapping_dict[sample] = [sample_info]
+                ## Create caller mapping dictionary = {caller: [[test_vcf, caller ]]}
+                if caller not in sample_mapping_dict:
+                    sample_mapping_dict[caller] = [sample_info]
                 else:
-                    if sample_info in sample_mapping_dict[sample]:
+                    if sample_info in sample_mapping_dict[caller]:
                         print_error("Samplesheet contains duplicate rows!", "Line", line)
                     else:
-                        sample_mapping_dict[sample].append(sample_info)
+                        sample_mapping_dict[caller].append(sample_info)
 
     ## Write validated samplesheet with appropriate columns
     if len(sample_mapping_dict) > 0:
@@ -106,12 +106,12 @@ def check_samplesheet(file_in, file_out):
         make_dir(out_dir)
         with open(file_out, "w") as fout:
             fout.write(
-                ",".join(["sample","test_vcf","truth_vcf","caller","vartype"])
+                ",".join(["test_vcf","caller"])
                 + "\n"
             )
-            for sample in sorted(sample_mapping_dict.keys()):
+            for caller in sorted(sample_mapping_dict.keys()):
 
-                for idx, val in enumerate(sample_mapping_dict[sample]):
+                for idx, val in enumerate(sample_mapping_dict[caller]):
                     fout.write(",".join(val) + "\n")
     else:
         print_error(f"No entries to process!", "Samplesheet: {file_in}")
