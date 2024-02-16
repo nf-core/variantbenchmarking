@@ -4,6 +4,7 @@
     <img alt="nf-core/variantbenchmarking" src="docs/images/nf-core-variantbenchmarking_logo_light.png">
   </picture>
 </h1>
+
 [![GitHub Actions CI Status](https://github.com/nf-core/variantbenchmarking/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions?query=workflow%3A%22nf-core+CI%22)
 [![GitHub Actions Linting Status](https://github.com/nf-core/variantbenchmarking/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions?query=workflow%3A%22nf-core+linting%22)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/variantbenchmarking/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
@@ -13,7 +14,7 @@
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 [![Launch on Nextflow Tower](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Nextflow%20Tower-%234256e7)](https://tower.nf/launch?pipeline=https://github.com/nf-core/variantbenchmarking)
 
-[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23variantbenchmarking-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/variantbenchmarking)[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)[![Follow on Mastodon](https://img.shields.io/badge/mastodon-nf__core-6364ff?labelColor=FFFFFF&logo=mastodon)](https://mstdn.science/@nf_core)[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
+[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23benchmark-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/variantbenchmarking)[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)[![Follow on Mastodon](https://img.shields.io/badge/mastodon-nf__core-6364ff?labelColor=FFFFFF&logo=mastodon)](https://mstdn.science/@nf_core)[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
 
 ## Introduction
 
@@ -29,13 +30,21 @@
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Standardization of SVs in test VCF files
+2. Normalization of SVs in test VCF files
+3. Normalization of SVs in truth VCF files
+4. SV stats and histograms
+5. Germline benchmarking of SVs
+6. Somatic benchmarking of SVs
+7. Final report and comparisons
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+
+Supported SV callers: Manta, SVaba, Dragen, Delly, Lumpy ..
+Available Truth samples: HG002, SEQC2
 
 <!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
      Explain what rows and columns represent. For instance (please edit as appropriate):
@@ -45,11 +54,10 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+caller,test_vcf
+caller1,test1.vcf.gz
+caller2,test2.vcf
 ```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
 
 -->
 
@@ -78,7 +86,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/variantbenchmarking was originally written by Kübra Narcı.
+nf-core/variantbenchmarking was originally written by kuebra.narci@dkfz.de.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 

@@ -1,0 +1,10 @@
+name: svanalyzer_svbenchmark
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - bioconda::edlib=1.2.3
+  - bioconda::svanalyzer=0.35

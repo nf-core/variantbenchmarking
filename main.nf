@@ -21,6 +21,7 @@ nextflow.enable.dsl = 2
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
 params.fasta = WorkflowMain.getGenomeAttribute(params, 'fasta')
+params.fai   = WorkflowMain.getGenomeAttribute(params, 'fai')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
