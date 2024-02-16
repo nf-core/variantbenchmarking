@@ -1,11 +1,11 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nf-core/variantbenchmarking
+    nf-core/svbench
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/nf-core/variantbenchmarking
-    Website: https://nf-co.re/variantbenchmarking
-    Slack  : https://nfcore.slack.com/channels/variantbenchmarking
+    Github : https://github.com/nf-core/svbench
+    Website: https://nf-co.re/svbench
+    Slack  : https://nfcore.slack.com/channels/svbench
 ----------------------------------------------------------------------------------------
 */
 
@@ -21,6 +21,7 @@ nextflow.enable.dsl = 2
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
 params.fasta = WorkflowMain.getGenomeAttribute(params, 'fasta')
+params.fai   = WorkflowMain.getGenomeAttribute(params, 'fai')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,7 +45,7 @@ if (params.validate_params) {
     validateParameters()
 }
 
-WorkflowMain.initialise(workflow, params, log, args)
+WorkflowMain.initialise(workflow, params, log)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,13 +53,13 @@ WorkflowMain.initialise(workflow, params, log, args)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { VARIANTBENCHMARKING } from './workflows/variantbenchmarking'
+include { SVBENCH } from './workflows/svbench'
 
 //
-// WORKFLOW: Run main nf-core/variantbenchmarking analysis pipeline
+// WORKFLOW: Run main nf-core/svbench analysis pipeline
 //
-workflow NFCORE_VARIANTBENCHMARKING {
-    VARIANTBENCHMARKING ()
+workflow NFCORE_SVBENCH {
+    SVBENCH ()
 }
 
 /*
@@ -72,7 +73,7 @@ workflow NFCORE_VARIANTBENCHMARKING {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    NFCORE_VARIANTBENCHMARKING ()
+    NFCORE_SVBENCH ()
 }
 
 /*

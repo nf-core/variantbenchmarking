@@ -1,11 +1,11 @@
 //
-// This file holds several functions specific to the workflow/variantbenchmarking.nf in the nf-core/variantbenchmarking pipeline
+// This file holds several functions specific to the workflow/svbench.nf in the nf-core/svbench pipeline
 //
 
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
-class WorkflowVariantbenchmarking {
+class WorkflowBenchmark {
 
     //
     // Check and validate parameters

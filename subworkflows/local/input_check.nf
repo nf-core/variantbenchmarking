@@ -2,43 +2,55 @@
 // Check input samplesheet and get read channels
 //
 
-include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
+params.options = [:]
+
+include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check' addParams( options: params.options )
 
 workflow INPUT_CHECK {
     take:
     samplesheet // file: /path/to/samplesheet.csv
 
     main:
-    SAMPLESHEET_CHECK ( samplesheet )
+    SAMPLESHEET_CHECK (samplesheet)
         .csv
         .splitCsv ( header:true, sep:',' )
-        .map { create_fastq_channel(it) }
-        .set { reads }
+        .map{ create_vcf_channel(it) }
+        .set {ch_sample}
 
     emit:
-    reads                                     // channel: [ val(meta), [ reads ] ]
-    versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
+    ch_sample // channel: [ val(meta), test_vcf]
+    versions = SAMPLESHEET_CHECK.out.versions
 }
 
-// Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
-def create_fastq_channel(LinkedHashMap row) {
-    // create meta map
+def create_vcf_channel(LinkedHashMap row) {
+// create meta map
     def meta = [:]
-    meta.id         = row.sample
-    meta.single_end = row.single_end.toBoolean()
+    meta.id           = params.sample
 
+    def meta2 = [:]
+    meta2.caller      = row.caller
     // add path(s) of the fastq file(s) to the meta map
-    def fastq_meta = []
-    if (!file(row.fastq_1).exists()) {
-        exit 1, "ERROR: Please check input samplesheet -> Read 1 FastQ file does not exist!\n${row.fastq_1}"
-    }
-    if (meta.single_end) {
-        fastq_meta = [ meta, [ file(row.fastq_1) ] ]
-    } else {
-        if (!file(row.fastq_2).exists()) {
-            exit 1, "ERROR: Please check input samplesheet -> Read 2 FastQ file does not exist!\n${row.fastq_2}"
+    def vcf_meta = []
+        if (!file(row.test_vcf).exists()) {
+            exit 1, "ERROR: Please check input samplesheet -> Test file does not exist!\n${row.test_vcf}"
         }
-        fastq_meta = [ meta, [ file(row.fastq_1), file(row.fastq_2) ] ]
-    }
-    return fastq_meta
+        
+        if (meta2.caller == "delly"){
+            vcf_meta = [  meta, meta2, file(row.test_vcf), file("${projectDir}/assets/svync/delly.yaml")]
+        }
+        else if (meta2.caller == "gridss"){
+            vcf_meta = [  meta, meta2, file(row.test_vcf), file("${projectDir}/assets/svync/gridss.yaml")]
+        }
+        else if (meta2.caller == "manta"){
+            if (file("${projectDir}/assets/svync/manta.yaml").exists()){
+                vcf_meta = [  meta, meta2, file(row.test_vcf), file("${projectDir}/assets/svync/manta.yaml")]
+            }     
+        }
+        else if (meta2.caller == "smoove"){
+            vcf_meta = [  meta, meta2, file(row.test_vcf), file("${projectDir}/assets/svync/smoove.yaml")]
+        } 
+        else{
+            vcf_meta = [  meta, meta2, file(row.test_vcf), file("${projectDir}/assets/svync/default.yaml")]
+        }    
+    return vcf_meta
 }
