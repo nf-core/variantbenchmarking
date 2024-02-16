@@ -5,7 +5,7 @@
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
-class WorkflowBenchmark {
+class WorkflowVariantbenchmarking {
 
     //
     // Check and validate parameters
