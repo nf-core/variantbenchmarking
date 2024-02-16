@@ -13,7 +13,7 @@ def summary_params = paramsSummaryMap(workflow)
 // Print parameter summary log to screen
 log.info logo + paramsSummaryLog(workflow) + citation
 
-WorkflowBenchmark.initialise(params, log)
+WorkflowVariantbenchmarking.initialise(params, log)
 
 // check mandatory parameters
 ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
@@ -236,6 +236,7 @@ workflow.onError {
         println("💡 See here on how to configure pipeline: https://nf-co.re/docs/usage/configuration#tuning-workflow-resources 💡")
     }
 }
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     THE END
