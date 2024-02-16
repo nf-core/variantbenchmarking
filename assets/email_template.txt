@@ -4,7 +4,7 @@
   |\\ | |__  __ /  ` /  \\ |__) |__         }  {
   | \\| |       \\__, \\__/ |  \\ |___     \\`-._,-`-,
                                         `._,._,'
-  nf-core/variantbenchmarking v${version}
+  nf-core/variantbenchmarking ${version}
 ----------------------------------------------------
 Run Name: $runName
 
