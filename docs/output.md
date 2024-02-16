@@ -1,4 +1,4 @@
-# nf-core/benchmark: Output
+# nf-core/variantbenchmarking: Output
 
 ## Introduction
 

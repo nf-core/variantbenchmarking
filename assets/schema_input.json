@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/nf-core/benchmark/master/assets/schema_input.json",
-  "title": "nf-core/benchmark pipeline - params.input schema",
+  "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/assets/schema_input.json",
+  "title": "nf-core/variantbenchmarking pipeline - params.input schema",
   "description": "Schema for the file provided with params.input",
   "type": "array",
   "items": {
@@ -11,7 +11,7 @@
         "type": "string",
         "pattern": "",
         "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
-      },     
+      },
       "caller": {
         "type": "string",
         "pattern": "^\\S+$",

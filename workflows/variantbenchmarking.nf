@@ -82,7 +82,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 // Info required for completion email and summary
 def multiqc_report = []
 
-workflow SVBENCH {
+workflow VARIANTBENCHMARKING {
 
     ch_versions = Channel.empty()
 
@@ -94,7 +94,7 @@ workflow SVBENCH {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
-    
+
     //
     // PREPARE_REGIONS: prepare stratifications and contigs
     //
@@ -129,11 +129,11 @@ workflow SVBENCH {
         PREPARE_REGIONS.out.main_chroms,
         PREPARE_REGIONS.out.chr_list
     )
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)  
+    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     //
     // SUBWORKFLOW: GET STATISTICS OF FILES
-    //   
+    //
     //REPORT_STATISTICS_TRUTH(
     //
     REPORT_STATISTICS_TEST(
@@ -154,7 +154,7 @@ workflow SVBENCH {
                                 .map{it -> tuple(it[0],it[1], it[2], it[3], it[5], it[6], it[8])}
                                 .set{bench_ch}
 
-    // 
+    //
     // SUBWORKFLOW: GERMLINE_BENCHMARK
     //
     //Benchmarking spesific to germline samples
@@ -165,10 +165,10 @@ workflow SVBENCH {
         PREPARE_VCFS_TRUTH.out.vcf_ch
     )
     ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)
-    
+
 
     if (params.analysis.contains("somatic")){
-        
+
         // SOMATIC VARIANT BENCHMARKING
         SOMATIC_BENCHMARK(
             bench_ch,

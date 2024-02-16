@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the main.nf workflow in the nf-core/benchmark pipeline
+// This file holds several functions specific to the main.nf workflow in the nf-core/variantbenchmarking pipeline
 //
 
 import nextflow.Nextflow

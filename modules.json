@@ -1,6 +1,6 @@
 {
-  "name": "nf-core/svbench",
-  "homePage": "https://github.com/nf-core/svbench",
+  "name": "nf-core/variantbenchmarking",
+  "homePage": "https://github.com/nf-core/variantbenchmarking",
   "repos": {
     "https://github.com/nf-core/modules.git": {
       "modules": {
