@@ -53,7 +53,6 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 include { INPUT_CHECK              } from '../subworkflows/local/input_check'
 include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
 include { GERMLINE_BENCHMARK       } from '../subworkflows/local/germline_benchmark'
-include { PREPARE_REGIONS          } from '../subworkflows/local/prepare_regions'
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { VCF_CONVERSIONS          } from '../subworkflows/local/vcf_conversion'
@@ -96,15 +95,6 @@ workflow VARIANTBENCHMARKING {
     ch_input = INPUT_CHECK.out.ch_sample
 
     //
-    // PREPARE_REGIONS: prepare stratifications and contigs
-    //
-    PREPARE_REGIONS(
-        ref,
-        high_conf
-    )
-    ch_versions = ch_versions.mix(PREPARE_REGIONS.out.versions)
-
-    //
     // SUBWORKFLOW: VCF_CONVERSIONS
     //
     // Standardize VCFs, tool spesific modifications
@@ -124,10 +114,8 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     PREPARE_VCFS_TEST(
-        VCF_CONVERSIONS.out.out3_vcf_ch.map{it -> tuple(it[0], it[1], it[2], it[3])},
-        ref,
-        PREPARE_REGIONS.out.main_chroms,
-        PREPARE_REGIONS.out.chr_list
+        VCF_CONVERSIONS.out.vcf_ch,
+        ref
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
@@ -145,13 +133,8 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // prepare  benchmark set
-
-    high_conf.map { it -> tuple([id: params.sample],[caller:"truth"], it[0]) }
-            .set{bed}
-
-    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch, by:0)
-                                .combine(bed, by:0)
-                                .map{it -> tuple(it[0],it[1], it[2], it[3], it[5], it[6], it[8])}
+    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
+                                .combine(high_conf)
                                 .set{bench_ch}
 
     //

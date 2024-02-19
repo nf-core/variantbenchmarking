@@ -1,5 +1,5 @@
 process WITTYER {
-    tag "$meta.id $meta2.caller"
+    tag "$meta.id"
     label 'process_single'
 
     conda ""
@@ -8,14 +8,14 @@ process WITTYER {
         'kubran/wittyer:0.3.3.0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
+    tuple val(meta),path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     path(config)
 
     output:
     tuple val(meta),    path("*ConfigFileUsed.json") , emit: config
     tuple val(meta),    path("*.Stats.json")         , emit: report
     tuple val(meta),    path("*eval.vcf.gz")         , emit: bench_vcf
-    tuple val(meta),    path("*eval.vcf.gz.tbi")     , emit: bench_vcf_gzi   
+    tuple val(meta),    path("*eval.vcf.gz.tbi")     , emit: bench_vcf_gzi
     path  "versions.yml"                             , emit: versions
 
     when:
@@ -49,5 +49,5 @@ process WITTYER {
         wittyer: 0.3.3.0
     END_VERSIONS
     """
-    
+
 }

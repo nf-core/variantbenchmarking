@@ -19,10 +19,8 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-c
 
 workflow PREPARE_VCFS_TEST {
     take:
-    input_ch    // channel: [val(meta),val(meta2), vcf]
+    input_ch    // channel: [val(meta),vcf, index]
     ref         // reference channel [ref.fa, ref.fa.fai]
-    main_chroms // channel path(chrom sizes)
-    chr_list
 
     main:
 
@@ -63,7 +61,7 @@ workflow PREPARE_VCFS_TEST {
         //
         // BCFTOOLS_NORM
         //
-        // Breaks down -any- multi-allelic variants 
+        // Breaks down -any- multi-allelic variants
         BCFTOOLS_NORM_1(
             vcf_ch,
             ref,
@@ -75,14 +73,13 @@ workflow PREPARE_VCFS_TEST {
             BCFTOOLS_NORM_1.out.vcf
         )
 
-        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:1)
-                            .map{it -> tuple( it[1], it[0], it[2], it[4])}
+        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
     }
     if (params.min_sv_size > 0){
 
         TABIX_BGZIP(
-            vcf_ch.map{it -> tuple( it[0], it[1], it[2])}
+            vcf_ch.map{it -> tuple( it[0], it[1])}
         )
         versions = versions.mix(TABIX_BGZIP.out.versions)
 
@@ -91,7 +88,7 @@ workflow PREPARE_VCFS_TEST {
         //
         // filters out smaller SVs than min_sv_size
         SURVIVOR_FILTER(
-            TABIX_BGZIP.out.output.map{it -> tuple( it[0], it[1], it[2], [])},
+            TABIX_BGZIP.out.output.map{it -> tuple( it[0], it[1],[])},
             params.min_sv_size,
             -1,
             -1,
@@ -121,8 +118,7 @@ workflow PREPARE_VCFS_TEST {
             BCFTOOLS_NORM_2.out.vcf
         )
 
-        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
-                            .map{it -> tuple( it[1], it[0], it[2], it[4])}
+        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
     emit:

@@ -8,11 +8,11 @@ process BGZIP_TABIX {
         'quay.io/biocontainers/tabix:1.11--hdfd78af_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf)
+    tuple val(meta),path(vcf)
 
     output:
-    tuple val(meta),val(meta2), path("*.vcf.gz"), path("*.tbi"), emit: gz_tbi
-    path  "versions.yml"                            , emit: versions
+    tuple val(meta),path("*.vcf.gz"), path("*.tbi"), emit: gz_tbi
+    path  "versions.yml"                           , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

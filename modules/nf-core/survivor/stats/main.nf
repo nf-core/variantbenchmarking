@@ -1,5 +1,5 @@
 process SURVIVOR_STATS {
-    tag "$meta.id $meta2.caller"
+    tag "$meta.id"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
@@ -8,13 +8,13 @@ process SURVIVOR_STATS {
         'quay.io/biocontainers/survivor:1.0.7--h9a82719_1' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
     val(minsv)          // Min SV size (-1 to disable)
     val(maxsv)          // Max SV size (-1 to disable)
     val(minnumreads)    // Min number of reads support: RE flag (-1 to disable)
 
     output:
-    tuple val(meta),val(meta2), path("*.stats"), emit: stats
+    tuple val(meta),path("*.stats"), emit: stats
     path "versions.yml"             , emit: versions
 
     when:

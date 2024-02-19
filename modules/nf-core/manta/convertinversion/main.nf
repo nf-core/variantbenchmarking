@@ -9,11 +9,11 @@ process MANTA_CONVERTINVERSION {
         'quay.io/biocontainers/mulled-v2-40295ae41112676b05b649e513fe7000675e9b84:a0332aa38645fbb8969567731ce68cfb7f830ec4-0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
     tuple path(fasta), path(fai)
 
     output:
-    tuple val(meta),val(meta2), path("*.vcf.gz"),path("*.vcf.gz.tbi")  , emit: vcf_tabi
+    tuple val(meta), path("*.vcf.gz"),path("*.vcf.gz.tbi")  , emit: vcf_tabi
     path "versions.yml"                                                , emit: versions
 
     when:

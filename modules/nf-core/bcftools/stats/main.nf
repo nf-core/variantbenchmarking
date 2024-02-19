@@ -1,5 +1,5 @@
 process BCFTOOLS_STATS {
-    tag "$meta.id $meta2.caller"
+    tag "$meta.id"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
@@ -8,7 +8,7 @@ process BCFTOOLS_STATS {
         'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta), val(meta2), path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
     tuple val(meta3), path(regions)
     tuple val(meta4), path(targets)
     tuple val(meta5), path(samples)
@@ -16,8 +16,8 @@ process BCFTOOLS_STATS {
     tuple val(meta7), path(fasta)
 
     output:
-    tuple val(meta),val(meta2), path("*stats.txt"), emit: stats
-    path  "versions.yml"                          , emit: versions
+    tuple val(meta), path("*stats.txt"), emit: stats
+    path  "versions.yml"                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
