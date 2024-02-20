@@ -7,7 +7,7 @@ params.options = [:]
 include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinversion'  addParams( options: params.options )
 include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'         addParams( options: params.options )
 include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
-include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
+include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
 
 workflow VCF_CONVERSIONS {
     take:
@@ -37,6 +37,7 @@ workflow VCF_CONVERSIONS {
 
         input_ch.map{it -> tuple(it[0], it[2])}
             .combine(vcf_ch, by:0)
+            .map{it -> tuple(it[0], it[2], it[3], it[1])}
             .set{snd_ch}
 
         snd_ch.view()
@@ -50,7 +51,7 @@ workflow VCF_CONVERSIONS {
         )
         out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
         out_vcf_ch = out_vcf_ch.mix(input.other)
-        vcf_ch     = out_vcf_ch
+        vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
     }
 
     // Check tool spesific conversions

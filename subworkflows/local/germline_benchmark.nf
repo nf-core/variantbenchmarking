@@ -13,9 +13,8 @@ include { BAMSURGEON_EVALUATOR   } from '../../modules/local/bamsurgeon_evaluato
 
 workflow GERMLINE_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta),val(meta2), test_vcf, test_index , truth_vcf, truth_index]
+    input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
     ref       // reference channel [ref.fa, ref.fa.fai]
-    truth_vcf // channel: [val(meta),val(meta2),truth_vcf, truth_index]
 
     main:
 
@@ -42,7 +41,7 @@ workflow GERMLINE_BENCHMARK {
             ref
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions)
-        
+
     }
 
     if (params.method.contains('svanalyzer')){
@@ -56,7 +55,7 @@ workflow GERMLINE_BENCHMARK {
             )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
-    } 
+    }
 
     if (params.method.contains('wittyer')){
         //
@@ -70,7 +69,6 @@ workflow GERMLINE_BENCHMARK {
         )
         versions = versions.mix(WITTYER.out.versions)
     }
-
 
     if (params.method.contains('vcfdist')){
         //

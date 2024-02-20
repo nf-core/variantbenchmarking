@@ -1,3 +1,3 @@
-sample,test_vcf,truth_vcf,caller,type
-HG002,"/Users/w620-admin/Desktop/nf-core/dataset/hg37/Broad_svaba_05052017/HG002.svaba.germline.sv.convBNDtoDEL.vcf","/Users/w620-admin/Desktop/nf-core/dataset/hg37/GIAB_Assemblytics_structural_variants_only_160618/hg002.Assemblytics_structural_variants.sorted.vcf.gz",svaba,sv
-HG003,"/Users/w620-admin/Desktop/nf-core/dataset/hg37/Broad_svaba_05052017/HG003.svaba.germline.sv.convBNDtoDEL.vcf","/Users/w620-admin/Desktop/nf-core/dataset/hg37/GIAB_Assemblytics_structural_variants_only_160618/hg003.Assemblytics_structural_variants.sorted.vcf.gz",svaba,sv
+test_vcf,caller
+"https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz",mutect
+"https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/sv_query.vcf.gz",unknown

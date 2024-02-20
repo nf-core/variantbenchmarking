@@ -94,6 +94,8 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
 
+    // TODO: SMALL VARIANT BENCHMARKING
+
     //
     // SUBWORKFLOW: VCF_CONVERSIONS
     //
@@ -133,9 +135,15 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // prepare  benchmark set
-    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
+    if (params.high_conf){
+        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
                                 .combine(high_conf)
                                 .set{bench_ch}
+    }else{
+        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
+                                .map{it -> tuple(it[0], it[1], it[2],it[3],it[4],[])}
+                                .set{bench_ch}
+    }
 
     //
     // SUBWORKFLOW: GERMLINE_BENCHMARK
@@ -144,12 +152,10 @@ workflow VARIANTBENCHMARKING {
 
     GERMLINE_BENCHMARK(
         bench_ch,
-        ref,
-        PREPARE_VCFS_TRUTH.out.vcf_ch
-    )
+        ref    )
     ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)
 
-
+    // TODO: SOMATIC EBNCHMARKING
     if (params.analysis.contains("somatic")){
 
         // SOMATIC VARIANT BENCHMARKING
@@ -167,6 +173,8 @@ workflow VARIANTBENCHMARKING {
 
 
     // TODO: TRIO ANALYSIS : MENDELIAN INCONSISTANCE
+
+    // TODO: Compare benchmarking methods!
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
