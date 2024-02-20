@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/nextflow_schema.json",
     "title": "nf-core/variantbenchmarking pipeline parameters",
-    "description": "Nextflow variant benchmarking pipeline",
+    "description": "Master benchmarking pipeline for Structural Variant callers ",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -16,6 +16,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
