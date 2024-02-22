@@ -26,7 +26,7 @@ workflow PREPARE_VCFS_TRUTH {
     //
     // PREPARE_VCFS
     //
-    truth_ch.map { it -> tuple([id: params.sample],[caller:"truth"], it[0]) }
+    truth_ch.map { it -> tuple([id: "truth"], it[0]) }
             .set{truth}
 
     // BGZIP if needed and index truth
@@ -53,7 +53,7 @@ workflow PREPARE_VCFS_TRUTH {
         // MODULE:  BCFTOOLS_NORM
         //
         // Normalize test
-        // multi-allelic variants will be splitted. 
+        // multi-allelic variants will be splitted.
         BCFTOOLS_NORM_1(
             vcf_ch,
             ref,
@@ -66,8 +66,7 @@ workflow PREPARE_VCFS_TRUTH {
         )
         versions = versions.mix(TABIX_TABIX_1.out.versions)
 
-        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:1)
-                            .map{it -> tuple(it[1],it[0], it[2], it[4])}
+        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("deduplication")){
@@ -87,8 +86,7 @@ workflow PREPARE_VCFS_TRUTH {
         )
         versions = versions.mix(TABIX_TABIX_2.out.versions)
 
-        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:1)
-                            .map{it -> tuple(it[1],it[0], it[2], it[4])}
+        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
         }
 

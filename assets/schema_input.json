@@ -16,8 +16,14 @@
         "type": "string",
         "pattern": "^\\S+$",
         "errorMessage": "Name of the variant caller used to generate test file"
+      },
+      "vartype": {
+        "type": "string",
+        "pattern": "^\\S+$",
+        "errorMessage": "Variant type to benchmark"
       }
+
     },
-    "required": ["test_vcf","caller"]
+    "required": ["test_vcf","caller","vartype"]
   }
 }

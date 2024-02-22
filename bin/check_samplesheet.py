@@ -36,9 +36,11 @@ def print_error(error, context="Line", context_str=""):
 def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
-    test_vcf,caller
-    test1.vcf,manta
-    test2.vcf,svaba
+    test_vcf,caller,vartype
+    test1.vcf,manta,sv
+    test2.vcf,svaba,small
+    test3.vcf,cnvkit,cnv
+
     For an example see:
     https://github.com/ghga-de/nf-benchmark/assets/samplesheet.csv
     """
@@ -47,8 +49,8 @@ def check_samplesheet(file_in, file_out):
     with open(file_in, "r", encoding='utf-8-sig') as fin:
 
         ## Check header
-        MIN_COLS = 2
-        HEADER = ["test_vcf","caller"]
+        MIN_COLS = 3
+        HEADER = ["test_vcf","caller","vartype"]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print(
@@ -78,7 +80,7 @@ def check_samplesheet(file_in, file_out):
                     )
 
                 ## Check caller name entries
-                test_vcf, caller = lspl[: len(HEADER)]
+                test_vcf, caller, vartype = lspl[: len(HEADER)]
                 if caller.find(" ") != -1:
                     print(
                         f"WARNING: Spaces have been replaced by underscores for caller: {caller}"
@@ -87,11 +89,11 @@ def check_samplesheet(file_in, file_out):
                 if not caller:
                     print_error("Caller entry has not been specified!", "Line", line)
 
-                sample_info = []  ## [test_vcf, caller ]
+                sample_info = []  ## [test_vcf, caller, vartype ]
 
-                sample_info = [test_vcf, caller]
+                sample_info = [test_vcf, caller, vartype]
 
-                ## Create caller mapping dictionary = {caller: [[test_vcf, caller ]]}
+                ## Create caller mapping dictionary = {caller: [[test_vcf, caller, vartype ]]}
                 if caller not in sample_mapping_dict:
                     sample_mapping_dict[caller] = [sample_info]
                 else:
@@ -106,7 +108,7 @@ def check_samplesheet(file_in, file_out):
         make_dir(out_dir)
         with open(file_out, "w") as fout:
             fout.write(
-                ",".join(["test_vcf","caller"])
+                ",".join(["test_vcf","caller", "vartype"])
                 + "\n"
             )
             for caller in sorted(sample_mapping_dict.keys()):

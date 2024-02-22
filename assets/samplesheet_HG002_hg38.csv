@@ -1,5 +1,7 @@
-test_vcf,caller
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz",lumpy
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz",manta
-"/Users/w620-admin/Desktop/nf-core/dataset/hg37/Ashkenazim_unnanotated/Ashkenazim_HG002.filtered.sv.vcf.gz",merged
+test_vcf,caller,vartype
+"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz",lumpy,sv
+"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz",manta,sv
+"/Users/w620-admin/Desktop/nf-core/dataset/hg38/Ashkenazim_unnanotated/Ashkenazim_HG002.filtered.sv.vcf.gz",merged,sv
+"/Users/w620-admin/Desktop/nf-core/dataset/hg38/HG002_DRAGEN_SV_hg19.vcf.gz",dragen,sv
+
 

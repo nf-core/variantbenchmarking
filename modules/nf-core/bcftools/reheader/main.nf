@@ -1,5 +1,5 @@
 process BCFTOOLS_REHEADER {
-    tag "$meta.id $meta2.caller"
+    tag "$meta.id "
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
@@ -8,11 +8,11 @@ process BCFTOOLS_REHEADER {
         'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple val(meta),path(vcf), path(index)
     tuple path(fasta), path(fai)
 
     output:
-    tuple val(meta),val(meta2), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta),path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
     path "versions.yml"                               , emit: versions
 
     when:

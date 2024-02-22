@@ -1,5 +1,5 @@
 //
-// VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
+// SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
 
 params.options = [:]
@@ -7,67 +7,58 @@ params.options = [:]
 include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinversion'  addParams( options: params.options )
 include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'         addParams( options: params.options )
 include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
-include { AWK_SORT                } from '../../modules/local/awk_sort.nf'               addParams( options: params.options )
+include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
 
-workflow VCF_CONVERSIONS {
+workflow SV_VCF_CONVERSIONS {
     take:
-    input_ch    // channel: [val(meta),val(meta2), vcf, config.yml]
+    input_ch    // channel: [val(meta), vcf, config.yml]
     ref         // reference channel [ref.fa, ref.fa.fai]
 
     main:
-
-    out_vcf_ch = Channel.empty()
     versions   = Channel.empty()
 
     //
-    // MODULE: AWK_SORT
+    // MODULE: BGZIP_TABIX
     //
-    // sort and index input test files
+    // zip and index input test files
 
-    AWK_SORT(
-        input_ch.map{it -> tuple(it[0], it[1], it[2])}
-    ) 
-    versions = versions.mix(AWK_SORT.out.versions)
-    vcf_ch = AWK_SORT.out.vcf
-    
+    BGZIP_TABIX(
+        input_ch.map{it -> tuple(it[0], it[1])}
+    )
+    versions = versions.mix(BGZIP_TABIX.out.versions)
+    vcf_ch = BGZIP_TABIX.out.gz_tbi
+
     //
     // MODULE: SVYNC
     //
-    // 
-    if(params.standardization){ 
+    //
+    if(params.standardization){
+        out_vcf_ch = Channel.empty()
 
-        vcf_ch.branch{
-            tool:  it[1].caller == "delly" || it[1].caller == "gridss" || it[1].caller == "manta" || it[1].caller == "smoove"   
-            other: true}
-            .set{main_vcf_ch}
-
-
-        input_ch.map{it -> tuple(it[0], it[1], it[3])}
-            .combine(vcf_ch, by:1)
-            .map{it -> tuple(it[1], it[0], it[4], it[5], it[2])}
+        input_ch.map{it -> tuple(it[0], it[2])}
+            .combine(vcf_ch, by:0)
+            .map{it -> tuple(it[0], it[2], it[3], it[1])}
             .set{snd_ch}
 
         snd_ch.branch{
-            tool:  it[1].caller == "delly" || it[1].caller == "gridss" || it[1].caller == "manta" || it[1].caller == "smoove"   
+            tool:  it[0].id == "delly" || it[0].id == "gridss" || it[0].id == "manta" || it[0].id == "smoove"
             other: true}
             .set{input}
-        
+
         SVYNC(
             input.tool
         )
         out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
         out_vcf_ch = out_vcf_ch.mix(input.other)
-    }else{
-        out_vcf_ch = vcf_ch
+        vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
     }
-    
-    out2_vcf_ch = Channel.empty()
 
     // Check tool spesific conversions
     if(params.bnd_to_inv){
+        out_vcf_ch = Channel.empty()
 
         out_vcf_ch.branch{
-            tool:  it[1].caller == "manta" || it[1].caller == "dragen"   
+            tool:  it[0].id == "manta" || it[0].id == "dragen"
             other: true}
             .set{input}
         //
@@ -75,28 +66,26 @@ workflow VCF_CONVERSIONS {
         //
         //NOTE: should also work for dragen
         // Not working now!!!!!
-        
+
         MANTA_CONVERTINVERSION(
             input.tool,
             ref
         )
         versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
 
-        out2_vcf_ch = out2_vcf_ch.mix(MANTA_CONVERTINVERSION.out.vcf_tabi)
-        out2_vcf_ch = out2_vcf_ch.mix(input.other)
+        out_vcf_ch = out_vcf_ch.mix(MANTA_CONVERTINVERSION.out.vcf_tabi)
+        out_vcf_ch = out_vcf_ch.mix(input.other)
+        vcf_ch     = out_vcf_ch
 
        // https://github.com/srbehera/DRAGEN_Analysis/blob/main/convertInversion.py
 
     }
-    else{
-        out2_vcf_ch = out_vcf_ch
-    }
-
-    out3_vcf_ch = Channel.empty()
 
     if (params.gridss_annotate){
+        out_vcf_ch = Channel.empty()
+
         out2_vcf_ch.branch{
-            tool:  it[1].caller == "gridss"
+            tool:  it[0].id == "gridss"
             other: true}
             .set{input}
 
@@ -111,16 +100,13 @@ workflow VCF_CONVERSIONS {
         )
         versions = versions.mix(GRIDSS_ANNOTATION.out.versions)
 
-        out3_vcf_ch = out3_vcf_ch.mix(GRIDSS_ANNOTATION.out.vcf)
-        out3_vcf_ch = out3_vcf_ch.mix(input.other)
+        out_vcf_ch = out_vcf_ch.mix(GRIDSS_ANNOTATION.out.vcf)
+        out_vcf_ch = out_vcf_ch.mix(input.other)
+        vcf_ch     = out_vcf_ch
     }
-    else{
-        out3_vcf_ch = out2_vcf_ch
-    }
-
    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
 
     emit:
-    out3_vcf_ch
+    vcf_ch
     versions
 }

@@ -8,11 +8,11 @@ process BCFTOOLS_VIEW {
         'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple val(meta),path(vcf), path(index)
 
 
     output:
-    tuple val(meta),val(meta2), path("*.vcf") , emit: vcf
+    tuple val(meta), path("*.vcf") , emit: vcf
     path "versions.yml"                       , emit: versions
 
     when:

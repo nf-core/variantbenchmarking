@@ -8,13 +8,13 @@ process BCFTOOLS_NORM {
         'quay.io/biocontainers/bcftools:1.17--haef29d1_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
     tuple path(fasta), path(fai)
     tuple val(meta3), path(regions)
 
     output:
-    tuple val(meta),val(meta2), path("*.{vcf,vcf.gz,bcf,bcf.gz}")  , emit: vcf
-    path "versions.yml"                 , emit: versions
+    tuple val(meta),path("*.{vcf,vcf.gz,bcf,bcf.gz}")  , emit: vcf
+    path "versions.yml"                                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

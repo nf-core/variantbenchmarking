@@ -1,5 +1,5 @@
 process TRUVARI_BENCH {
-    tag "$meta.id $meta2.caller"
+    tag "$meta.id"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
@@ -8,7 +8,7 @@ process TRUVARI_BENCH {
         'quay.io/biocontainers/truvari:4.1.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
+    tuple val(meta),path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
     tuple path(fasta), path(fai)
 
     output:

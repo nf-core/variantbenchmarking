@@ -8,11 +8,11 @@ process SVYNC {
         'quay.io/biocontainers/svync:0.1.2--h9ee0642_0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(config)
+    tuple val(meta),path(vcf), path(tbi), path(config)
 
     output:
-    tuple val(meta),val(meta2), path("*.vcf.gz"), path("*.vcf.gz.tbi"), emit: vcf
-    path "versions.yml"                         , emit: versions
+    tuple val(meta),path("*.vcf.gz"), path("*.vcf.gz.tbi"), emit: vcf
+    path "versions.yml"                                   , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
