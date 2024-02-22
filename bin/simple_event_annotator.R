@@ -17,11 +17,11 @@ library(getopt)
 
 
 simpleEventType <- function(gr) {
-  return(ifelse(seqnames(gr) != seqnames(partner(gr)), "ITX", # inter-chromosomosal
-          ifelse(gr$insLen >= abs(gr$svLen) * 0.7, "INS", # TODO: improve classification of complex events
-           ifelse(strand(gr) == strand(partner(gr)), "INV",
-            ifelse(xor(start(gr) < start(partner(gr)), strand(gr) == "-"), "DEL",
-             "DUP")))))
+    return(ifelse(seqnames(gr) != seqnames(partner(gr)), "ITX", # inter-chromosomosal
+        ifelse(gr$insLen >= abs(gr$svLen) * 0.7, "INS", # TODO: improve classification of complex events
+        ifelse(strand(gr) == strand(partner(gr)), "INV",
+        ifelse(xor(start(gr) < start(partner(gr)), strand(gr) == "-"), "DEL",
+        "DUP")))))
 }
 cmdArgs = commandArgs(TRUE)
 print(cmdArgs)

@@ -41,7 +41,7 @@ for v in in_vcf:
         string=str(v.chrom) +'_'+ str(v.pos) + '_SNP'
         v.id =string
 
-        
+
 in_vcf.close()
 anno_vcf.close()
 logger.info('Finished')

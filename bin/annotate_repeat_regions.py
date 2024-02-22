@@ -31,7 +31,7 @@ def print_AF(in_vcf,samplerep,repeatmask,segdup):
                 simple_repeat=temp1.iloc[0].period
             else:
                 simple_repeat='None'
-            
+
             temp2=repeatmask[(repeatmask['genoName']== v.chrom) &( (( v.start > repeatmask['genoStart']-1 ) & ( v.start < repeatmask['genoEnd'] +1 ) )| (( v.stop > repeatmask['genoStart'] -1) & ( v.stop < repeatmask['genoEnd'] +1 ))) ]
 
             if len(temp2) > 0:
@@ -40,7 +40,7 @@ def print_AF(in_vcf,samplerep,repeatmask,segdup):
             else:
                 repname='None'
                 repclass='None'
-                
+
             temp3=segdup[(segdup['chrom']== v.chrom) &( (( v.start > segdup['chromStart']-1 ) & ( v.start < segdup['chromEnd'] +1 ) )| (( v.stop > segdup['chromStart'] -1) & ( v.stop < segdup['chromEnd'] +1 ))) ]
             if len(temp3) > 0:
                 segdups=temp3.iloc[0].fracMatch
@@ -53,13 +53,13 @@ def print_AF(in_vcf,samplerep,repeatmask,segdup):
                     print('DEL', v.ref, len(v.alts[0])- len(v.ref) , v.info['AF'][0],simple_repeat,repname, repclass,segdups, file=out_file)
                 else:
                     print('DEL', '...', len(v.alts[0])- len(v.ref) , v.info['AF'][0],simple_repeat,repname, repclass,segdups, file=out_file)
-                    
+
             elif len(v.alts[0]) -  len(v.ref) > 49:
                 if len(v.ref) -  len(v.alts[0]) < 1001:
                     print('INS', v.alts[0],len(v.alts[0]) -  len(v.ref), v.info['AF'][0],simple_repeat,repname, repclass,segdups, file=out_file)
                 else:
                     print('INS', '...',len(v.alts[0]) -  len(v.ref), v.info['AF'][0],simple_repeat,repname, repclass,segdups, file=out_file)
-                    
+
             else:
                 continue
 

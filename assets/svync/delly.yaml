@@ -66,4 +66,3 @@ format:
     number: 2
     type: integer
     description: Split-read support for the ref and alt alleles in the order listed
-

@@ -24,7 +24,7 @@ process AWK_SORT {
 
     if (vcf.getExtension() == "gz"){
     """
-    bgzip -d $vcf 
+    bgzip -d $vcf
     cat $zipname | awk '\$1 ~ /^#/ {print \$0;next} {print \$0 | "sort -k1,1 -k2,2n"}' > ${zipname}.tmp.vcf
     bgzip -c ${zipname}.tmp.vcf > ${zipname}.tmp.vcf.gz
     tabix -p vcf ${zipname}.tmp.vcf.gz

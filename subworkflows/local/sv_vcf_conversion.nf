@@ -77,7 +77,7 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = out_vcf_ch.mix(input.other)
         vcf_ch     = out_vcf_ch
 
-       // https://github.com/srbehera/DRAGEN_Analysis/blob/main/convertInversion.py
+        // https://github.com/srbehera/DRAGEN_Analysis/blob/main/convertInversion.py
 
     }
 
@@ -104,7 +104,7 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = out_vcf_ch.mix(input.other)
         vcf_ch     = out_vcf_ch
     }
-   // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
+    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
 
     emit:
     vcf_ch

@@ -25,10 +25,10 @@ process TRUVARI_REFINE {
     """
     truvari refine \\
         --use-original-vcfs \\
-        --reference $fasta \\ 
-        --regions $bed \\ 
+        --reference $fasta \\
+        --regions $bed \\
         $bench
-        . 
+        .
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
