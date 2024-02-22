@@ -1,5 +1,5 @@
 //
-// GERMLINE: SUBWORKFLOW FOR GERMLINE VARIANTS
+// SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
 //
 
 params.options = [:]
@@ -11,7 +11,7 @@ include { WITTYER                } from '../../modules/local/wittyer'           
 include { VCFDIST                } from '../../modules/local/vcfdist'                  addParams( options: params.options )
 include { BAMSURGEON_EVALUATOR   } from '../../modules/local/bamsurgeon_evaluator'     addParams( options: params.options )
 
-workflow GERMLINE_BENCHMARK {
+workflow SV_GERMLINE_BENCHMARK {
     take:
     input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
     ref       // reference channel [ref.fa, ref.fa.fai]

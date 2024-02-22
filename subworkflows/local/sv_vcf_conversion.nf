@@ -1,5 +1,5 @@
 //
-// VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
+// SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
 
 params.options = [:]
@@ -9,7 +9,7 @@ include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'
 include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
 include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
 
-workflow VCF_CONVERSIONS {
+workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf, config.yml]
     ref         // reference channel [ref.fa, ref.fa.fai]
@@ -40,7 +40,6 @@ workflow VCF_CONVERSIONS {
             .map{it -> tuple(it[0], it[2], it[3], it[1])}
             .set{snd_ch}
 
-        snd_ch.view()
         snd_ch.branch{
             tool:  it[0].id == "delly" || it[0].id == "gridss" || it[0].id == "manta" || it[0].id == "smoove"
             other: true}

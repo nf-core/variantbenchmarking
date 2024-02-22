@@ -15,12 +15,16 @@ workflow REPORT_VCF_STATISTICS {
 
     versions=Channel.empty()
 
+    input_ch.branch{
+        sv:  it[0].vartype == "sv" || it[0].vartype == "cnv"
+        other: true}
+        .set{input}
+
     //
     // SURVIVOR_STATS
     //
-
     SURVIVOR_STATS(
-        input_ch,
+        input.sv,
         -1,
         -1,
         -1
@@ -43,7 +47,7 @@ workflow REPORT_VCF_STATISTICS {
     versions = versions.mix(BCFTOOLS_STATS.out.versions)
 
 
-    // Add here a tool, to visualize SV statistics in a histogram. 
+    // Add here a tool, to visualize SV statistics in a histogram.
 
     emit:
     bcftools_stats

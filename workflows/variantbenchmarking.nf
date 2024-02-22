@@ -52,10 +52,10 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 include { INPUT_CHECK              } from '../subworkflows/local/input_check'
 include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
-include { GERMLINE_BENCHMARK       } from '../subworkflows/local/germline_benchmark'
+include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
-include { VCF_CONVERSIONS          } from '../subworkflows/local/vcf_conversion'
+include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
 include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TEST } from '../subworkflows/local/report_vcf_statistics'
 include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TRUTH } from '../subworkflows/local/report_vcf_statistics'
 
@@ -94,32 +94,49 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
     ch_input = INPUT_CHECK.out.ch_sample
 
+
     // TODO: SMALL VARIANT BENCHMARKING
 
+    ch_input.branch{
+            sv:  it[0].vartype == "sv"
+            small:  it[0].vartype == "small"
+            cnv:  it[0].vartype == "cnv"
+            other: false}
+            .set{input}
+
+    out_vcf_ch = Channel.empty()
+
+    // PREPROCESSES
+
     //
-    // SUBWORKFLOW: VCF_CONVERSIONS
+    // SUBWORKFLOW: SV_VCF_CONVERSIONS
     //
-    // Standardize VCFs, tool spesific modifications
-    VCF_CONVERSIONS(
-        ch_input,
+    // Standardize SV VCFs, tool spesific modifications
+    SV_VCF_CONVERSIONS(
+        input.sv,
         ref
     )
-    ch_versions = ch_versions.mix(VCF_CONVERSIONS.out.versions)
+    ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
+    out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
+    out_vcf_ch = out_vcf_ch.mix(input.small)
+    out_vcf_ch = out_vcf_ch.mix(input.cnv)
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs
     //
+    PREPARE_VCFS_TEST(
+        out_vcf_ch,
+        ref
+    )
+    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
+
     PREPARE_VCFS_TRUTH(
         truth,
         ref
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
-    PREPARE_VCFS_TEST(
-        VCF_CONVERSIONS.out.vcf_ch,
-        ref
-    )
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
+    // VCF REPORTS AND STATS
 
     //
     // SUBWORKFLOW: GET STATISTICS OF FILES
@@ -145,15 +162,24 @@ workflow VARIANTBENCHMARKING {
                                 .set{bench_ch}
     }
 
+    // BENCHMARKS
+
+    bench_ch.branch{
+            sv:  it[0].vartype == "sv"
+            small:  it[0].vartype == "small"
+            cnv:  it[0].vartype == "cnv"
+            other: false}
+            .set{input}
+
     //
-    // SUBWORKFLOW: GERMLINE_BENCHMARK
+    // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
     //
     //Benchmarking spesific to germline samples
 
-    GERMLINE_BENCHMARK(
-        bench_ch,
+    SV_GERMLINE_BENCHMARK(
+        input.sv,
         ref    )
-    ch_versions = ch_versions.mix(GERMLINE_BENCHMARK.out.versions)
+    ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
 
     // TODO: SOMATIC EBNCHMARKING
     if (params.analysis.contains("somatic")){
@@ -170,6 +196,7 @@ workflow VARIANTBENCHMARKING {
 
 
     // TODO: BENCHMARKING OF CNV
+    // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
 
 
     // TODO: TRIO ANALYSIS : MENDELIAN INCONSISTANCE
