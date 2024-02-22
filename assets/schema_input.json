@@ -9,18 +9,21 @@
         "properties": {
             "test_vcf": {
                 "type": "string",
-                "pattern": "",
+                "pattern": "\\S+\\.vcf(\\.gz)?$",
+                "format": "file-path",
                 "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
             },
             "caller": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Name of the variant caller used to generate test file"
+                "errorMessage": "Name of the variant caller used to generate test file",
+                "meta": ["caller"]
             },
             "vartype": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Variant type to benchmark"
+                "errorMessage": "Variant type to benchmark",
+                "meta": ["vartype"]
             }
         },
         "required": ["test_vcf", "caller", "vartype"]

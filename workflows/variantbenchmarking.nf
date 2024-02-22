@@ -1,22 +1,5 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
-
-def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
-def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
-def summary_params = paramsSummaryMap(workflow)
-
-// Print parameter summary log to screen
-log.info logo + paramsSummaryLog(workflow) + citation
-
-WorkflowVariantbenchmarking.initialise(params, log)
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -40,6 +23,13 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
+include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
+include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
+include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
+include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
+include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
+include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TEST } from '../subworkflows/local/report_vcf_statistics'
+include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TRUTH } from '../subworkflows/local/report_vcf_statistics'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,7 +44,23 @@ workflow VARIANTBENCHMARKING {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions      = Channel.empty()
+    ch_multiqc_files = Channel.empty()
+
+    // check mandatory parameters
+    println(params.fasta)
+    println(params.fai)
+    ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
+
+    // check high confidence files
+
+    truth       = params.truth              ? Channel.fromPath(params.truth, checkIfExists: true).collect()
+                                            : Channel.empty()
+
+    high_conf   = params.high_conf          ? Channel.fromPath(params.high_conf, checkIfExists: true).collect()
+                                            : Channel.empty()
+
+    // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
     ch_samplesheet.branch{
             sv:  it[0].vartype == "sv"
