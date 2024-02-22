@@ -37,7 +37,7 @@ counter=0
 for v in in_vcf:
     svlen=(len(v.alts[0])-len(v.ref))
     limit=args.svlength
-    
+
     if (svlen < -1*limit):
         v.info.update({'SVTYPE':"DEL"})
         v.info.update({'SVLEN':svlen})
@@ -50,7 +50,7 @@ for v in in_vcf:
         counter=counter+1
     else:
         anno_vcf.write(v)
-        
+
 in_vcf.close()
 anno_vcf.close()
 logger.info('Finished adding SVTYE/SVLEN to VCF: {}'.format(counter))

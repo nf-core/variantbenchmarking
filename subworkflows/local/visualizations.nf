@@ -26,8 +26,8 @@ workflow PREPARE_VCFS_TRUTH {
 
 // Check tool spesific conversions
 
-   // https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
-   // GRIDSS simple event annotation
+    // https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
+    // GRIDSS simple event annotation
 
     emit:
     vcf_ch
