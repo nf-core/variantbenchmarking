@@ -10,7 +10,67 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
                     },
+                    "bcftools/isec": {
+                        "branch": "master",
+                        "git_sha": "682f789f93070bd047868300dd018faf3d434e7c",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/norm": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/reheader": {
+                        "branch": "master",
+                        "git_sha": "682f789f93070bd047868300dd018faf3d434e7c",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/sort": {
+                        "branch": "master",
+                        "git_sha": "682f789f93070bd047868300dd018faf3d434e7c",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/stats": {
+                        "branch": "master",
+                        "git_sha": "41dfa13929d2c178855159a69d2e2958c52be155",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/view": {
+                        "branch": "master",
+                        "git_sha": "682f789f93070bd047868300dd018faf3d434e7c",
+                        "installed_by": ["modules"]
+                    },
+                    "bedgovcf": {
+                        "branch": "master",
+                        "git_sha": "338a5572efbda56110cea2f657615920d8dce58c",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/coverage": {
+                        "branch": "master",
+                        "git_sha": "1d1cb7bfef6cf67fbc7faafa6992ad8bdc3045b3",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/genomecov": {
+                        "branch": "master",
+                        "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/intersect": {
+                        "branch": "master",
+                        "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/merge": {
+                        "branch": "master",
+                        "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/subtract": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/unionbedg": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
@@ -20,9 +80,44 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
                     },
+                    "manta/convertinversion": {
+                        "branch": "master",
+                        "git_sha": "b8ff8e32e305587ac2c7909db3058fbbba2a859a",
+                        "installed_by": ["modules"]
+                    },
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "survivor/filter": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "survivor/stats": {
+                        "branch": "master",
+                        "git_sha": "00d03755abd2cac54a039525716aeabea9efb9e7",
+                        "installed_by": ["modules"]
+                    },
+                    "svanalyzer/svbenchmark": {
+                        "branch": "master",
+                        "git_sha": "419065b3a66b857af8b49d41dc1ba3858821da22",
+                        "installed_by": ["modules"]
+                    },
+                    "svync": {
+                        "branch": "master",
+                        "git_sha": "49925b34411ab0aef3fdb61a4d516ef36eceec05",
+                        "installed_by": ["modules"]
+                    },
+                    "tabix/bgzip": {
+                        "branch": "master",
+                        "git_sha": "31c0b49f6527ef196e89eca49a36af2de71711f8",
+                        "installed_by": ["modules"]
+                    },
+                    "tabix/bgziptabix": {
+                        "branch": "master",
+                        "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247",
                         "installed_by": ["modules"]
                     },
                     "tabix/tabix": {
@@ -33,11 +128,6 @@
                     "truvari/bench": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": ["modules"]
-                    },
-                    "survivor/stats": {
-                        "branch": "master",
-                        "git_sha": "00d03755abd2cac54a039525716aeabea9efb9e7",
                         "installed_by": ["modules"]
                     }
                 }
