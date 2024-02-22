@@ -17,7 +17,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Name of the variant caller used to generate test file",
-                "meta": ["caller"]
+                "meta": ["id"]
             },
             "vartype": {
                 "type": "string",
