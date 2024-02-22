@@ -13,33 +13,81 @@
       "required": ["input", "outdir"],
       "properties": {
         "input": {
-          "type": "string",
-          "format": "file-path",
-          "exists": true,
-          "mimetype": "text/csv",
-          "schema": "assets/schema_input.json",
-          "pattern": "^\\S+\\.(csv|tsv|yaml)$",
-          "description": "Path to comma-separated file containing information about the samples in the experiment.",
-          "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/variantbenchmarking/usage#samplesheet-input).",
-          "fa_icon": "fas fa-file-csv"
+            "type": "string",
+            "format": "file-path",
+            "exists": true,
+            "mimetype": "text/csv",
+            "schema": "assets/schema_input.json",
+            "pattern": "^\\S+\\.(csv|tsv|yaml)$",
+            "description": "Path to comma-separated file containing information about the samples in the experiment.",
+            "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/variantbenchmarking/usage#samplesheet-input).",
+            "fa_icon": "fas fa-file-csv"
         },
         "outdir": {
-          "type": "string",
-          "format": "directory-path",
-          "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-          "fa_icon": "fas fa-folder-open"
+            "type": "string",
+            "format": "directory-path",
+            "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "analysis": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "preprocess": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "standardization": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "method": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "min_sv_size": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "dup_to_ins": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "bnd_to_inv": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "gridss_annotate": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "",
+            "fa_icon": "fas fa-folder-open"
         },
         "email": {
-          "type": "string",
-          "description": "Email address for completion summary.",
-          "fa_icon": "fas fa-envelope",
-          "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
-          "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+            "type": "string",
+            "description": "Email address for completion summary.",
+            "fa_icon": "fas fa-envelope",
+            "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
+            "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
         },
         "multiqc_title": {
-          "type": "string",
-          "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
-          "fa_icon": "fas fa-file-signature"
+            "type": "string",
+            "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
+            "fa_icon": "fas fa-file-signature"
         }
       }
     },
@@ -65,6 +113,15 @@
           "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
           "fa_icon": "far fa-file-code"
         },
+        "fai": {
+            "type": "string",
+            "format": "file-path",
+            "exists": true,
+            "mimetype": "text/plain",
+            "description": "Path to FAI genome file.",
+            "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+            "fa_icon": "far fa-file-code"
+          },
         "igenomes_ignore": {
           "type": "boolean",
           "description": "Do not load the iGenomes reference config.",
