@@ -29,6 +29,24 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
+                "high_conf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "Path to the high confidence BED files.",
+                    "help_text": "High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "Path to the golden set VCF files.",
+                    "help_text": "Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
                 "analysis": {
                     "type": "string",
                     "format": "directory-path",
@@ -42,6 +60,12 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "standardization": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "hormonize": {
                     "type": "boolean",
                     "format": "directory-path",
                     "description": "",
