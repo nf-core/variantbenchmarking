@@ -1,7 +1,4 @@
 test_vcf,caller,vartype
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz",lumpy,sv
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz",manta,sv
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/Ashkenazim_unnanotated/Ashkenazim_HG002.filtered.sv.vcf.gz",merged,sv
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/HG002_DRAGEN_SV_hg19.vcf.gz",dragen,sv
-
-
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.chr21.vcf.gz,lumpy,sv
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/manta.HG002.chr21.vcf.gz,manta,sv
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv

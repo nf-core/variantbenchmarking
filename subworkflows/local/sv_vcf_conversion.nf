@@ -11,8 +11,9 @@ include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'      
 
 workflow SV_VCF_CONVERSIONS {
     take:
-    input_ch    // channel: [val(meta), vcf, config.yml]
+    input_ch    // channel: [val(meta), vcf]
     ref         // reference channel [ref.fa, ref.fa.fai]
+    svync_yaml  // yaml configs
 
     main:
     versions   = Channel.empty()
@@ -23,7 +24,7 @@ workflow SV_VCF_CONVERSIONS {
     // zip and index input test files
 
     BGZIP_TABIX(
-        input_ch.map{it -> tuple(it[0], it[1])}
+        input_ch
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
@@ -35,18 +36,21 @@ workflow SV_VCF_CONVERSIONS {
     if(params.standardization){
         out_vcf_ch = Channel.empty()
 
-        input_ch.map{it -> tuple(it[0], it[2])}
-            .combine(vcf_ch, by:0)
-            .map{it -> tuple(it[0], it[2], it[3], it[1])}
-            .set{snd_ch}
-
-        snd_ch.branch{
+        vcf_ch.branch{
             tool:  it[0].id == "delly" || it[0].id == "gridss" || it[0].id == "manta" || it[0].id == "smoove"
             other: true}
             .set{input}
 
+        svync_yaml.flatten()
+            .map { it -> tuple([id: it.getSimpleName(), vartype: "sv"], it) }
+            .set{config}
+
+        input.tool
+            .combine(config, by:0)
+            .set{svync_ch}
+
         SVYNC(
-            input.tool
+            svync_ch
         )
         out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
         out_vcf_ch = out_vcf_ch.mix(input.other)

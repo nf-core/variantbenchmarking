@@ -42,7 +42,7 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "standardization": {
-                    "type": "string",
+                    "type": "boolean",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
@@ -54,7 +54,7 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "min_sv_size": {
-                    "type": "string",
+                    "type": "integer",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"

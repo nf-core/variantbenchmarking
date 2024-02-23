@@ -1,0 +1,5 @@
+test_vcf,caller,vartype
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_delly_SV_hg19.chr21.vcf.gz",delly,sv
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_lumpy_SV_hg19.sorted.chr21.vcf.gz",lumpy,sv
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_manta_SV_hg19_genotype.chr21.vcf",manta,sv
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/full.svaba.germline.sv.chr21.vcf",svaba,sv
