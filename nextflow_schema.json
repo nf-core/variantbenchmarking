@@ -65,7 +65,7 @@
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "hormonize": {
+                "harmonize": {
                     "type": "boolean",
                     "format": "directory-path",
                     "description": "",
