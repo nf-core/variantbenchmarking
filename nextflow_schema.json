@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/nextflow_schema.json",
     "title": "nf-core/variantbenchmarking pipeline parameters",
-    "description": "Master benchmarking pipeline for Structural Variant callers ",
+    "description": "Master benchmarking pipeline for variant callers ",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -16,9 +16,9 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/variantbenchmarking/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -27,6 +27,78 @@
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "high_conf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "Path to the high confidence BED files.",
+                    "help_text": "High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "Path to the golden set VCF files.",
+                    "help_text": "Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "analysis": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "preprocess": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "standardization": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "harmonize": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "method": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_sv_size": {
+                    "type": "integer",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "dup_to_ins": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "bnd_to_inv": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "gridss_annotate": {
+                    "type": "boolean",
+                    "format": "directory-path",
+                    "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
@@ -48,6 +120,7 @@
             "type": "object",
             "fa_icon": "fas fa-dna",
             "description": "Reference genome related files and options required for the workflow.",
+            "required": ["fasta", "fai"],
             "properties": {
                 "genome": {
                     "type": "string",
@@ -62,6 +135,15 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to FAI genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
                 },

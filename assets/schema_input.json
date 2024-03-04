@@ -7,27 +7,25 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "test_vcf": {
+                "type": "string",
+                "pattern": "\\S+\\.vcf(\\.gz)?$",
+                "format": "file-path",
+                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
+            },
+            "caller": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "errorMessage": "Name of the variant caller used to generate test file",
                 "meta": ["id"]
             },
-            "fastq_1": {
+            "vartype": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
-            },
-            "fastq_2": {
-                "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+$",
+                "errorMessage": "Variant type to benchmark",
+                "meta": ["vartype"]
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["test_vcf", "caller", "vartype"]
     }
 }
