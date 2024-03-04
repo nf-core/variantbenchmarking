@@ -1,18 +1,18 @@
 process BCFTOOLS_REHEADER {
-    tag "$meta.id "
+    tag "$meta.id"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bcftools:1.18--h8b25389_0':
-        'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
+        'biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta),path(vcf), path(index)
-    tuple path(fasta), path(fai)
+    tuple val(meta), path(vcf), path(header), path(samples)
+    tuple val(meta2), path(fai)
 
     output:
-    tuple val(meta),path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
+    tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
     path "versions.yml"                               , emit: versions
 
     when:
@@ -22,6 +22,9 @@ process BCFTOOLS_REHEADER {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def fai_argument      = fai ? "--fai $fai" : ""
+    def header_argument   = header ? "--header $header" : ""
+    def samples_argument  = samples ? "--samples $samples" : ""
+
     def args2 = task.ext.args2 ?: '--output-type z'
     def extension = args2.contains("--output-type b") || args2.contains("-Ob") ? "bcf.gz" :
                     args2.contains("--output-type u") || args2.contains("-Ou") ? "bcf" :
@@ -29,12 +32,11 @@ process BCFTOOLS_REHEADER {
                     args2.contains("--output-type v") || args2.contains("-Ov") ? "vcf" :
                     "vcf"
     """
-    echo ${prefix} > sample.txt
-
     bcftools \\
         reheader \\
         $fai_argument \\
-        --samples sample.txt \\
+        $header_argument \\
+        $samples_argument \\
         $args \\
         --threads $task.cpus \\
         $vcf \\

@@ -84,19 +84,19 @@
                     "fa_icon": "fas fa-folder-open"
                 },
                 "dup_to_ins": {
-                    "type": "string",
+                    "type": "boolean",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "bnd_to_inv": {
-                    "type": "string",
+                    "type": "boolean",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "gridss_annotate": {
-                    "type": "string",
+                    "type": "boolean",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"

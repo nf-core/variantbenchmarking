@@ -36,10 +36,17 @@ workflow PREPARE_VCFS_TRUTH {
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
-        // Reheader needed to standardize sample names
+    // Reheader needed to standardize sample names
+    ch_samples = Channel.of(["samples.txt", params.sample,"_truth"])
+                    .collectFile(newLine:false)
+
+    vcf_ch.combine(ch_samples)
+            .map{it -> tuple( it[0], it[1],[],it[3])}
+            .set{input_ch}
+
     BCFTOOLS_REHEADER_TRUTH(
-        vcf_ch,
-        ref
+        input_ch,
+        ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
         )
     versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
 
@@ -56,8 +63,7 @@ workflow PREPARE_VCFS_TRUTH {
         // multi-allelic variants will be splitted.
         BCFTOOLS_NORM_1(
             vcf_ch,
-            ref,
-            [[],[]]
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
         )
         versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
@@ -76,8 +82,7 @@ workflow PREPARE_VCFS_TRUTH {
         // Deduplicate variants at the same position
         BCFTOOLS_NORM_2(
             vcf_ch,
-            ref,
-            [[],[]]
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 

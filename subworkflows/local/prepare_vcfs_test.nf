@@ -44,9 +44,16 @@ workflow PREPARE_VCFS_TEST {
     // PREPARE_VCFS
     //
     // Reheader needed to standardize sample names
+    ch_samples = Channel.of(["samples.txt", params.sample,"_query"])
+                    .collectFile(newLine:false)
+
+    vcf_ch.combine(ch_samples)
+            .map{it -> tuple( it[0], it[1],[],it[3])}
+            .set{input_ch}
+
     BCFTOOLS_REHEADER_TEST(
-        vcf_ch,
-        ref
+        input_ch,
+        ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
         )
     versions = versions.mix(BCFTOOLS_REHEADER_TEST.out.versions)
 
@@ -76,8 +83,7 @@ workflow PREPARE_VCFS_TEST {
         // Breaks down -any- multi-allelic variants
         BCFTOOLS_NORM_1(
             vcf_ch,
-            ref,
-            [[],[]]
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
         )
         versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
@@ -121,8 +127,7 @@ workflow PREPARE_VCFS_TEST {
         // Deduplicates variants at the same position test
         BCFTOOLS_NORM_2(
             vcf_ch,
-            ref,
-            [[],[]]
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 
