@@ -4,7 +4,7 @@ process VCF_GENOTYPE_ANNOTATOR {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'ddocker://griffithlab/vatools:5.1.10'
+        'docker://griffithlab/vatools:5.1.10'
         'griffithlab/vatools:5.1.10' }"
 
     input:

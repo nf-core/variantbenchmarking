@@ -6,10 +6,10 @@ process GRIDSS_ANNOTATION {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gridss:2.13.2--h270b39a_0':
-        'quay.io/biocontainers/gridss:2.13.2--h270b39a_0' }"
+        'biocontainers/gridss:2.13.2--h270b39a_0' }"
 
     input:
-    tuple val(meta),path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
     tuple path(fasta), path(fasta_fai)
 
     output:

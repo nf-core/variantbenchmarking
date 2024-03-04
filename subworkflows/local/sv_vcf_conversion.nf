@@ -61,23 +61,24 @@ workflow SV_VCF_CONVERSIONS {
     if(params.bnd_to_inv){
         out_vcf_ch = Channel.empty()
 
-        out_vcf_ch.branch{
+        vcf_ch.branch{
             tool:  it[0].id == "manta" || it[0].id == "dragen"
             other: true}
             .set{input}
         //
         // MANTA_CONVERTINVERSION
         //
-        //NOTE: should also work for dragen
+        // NOTE: should also work for dragen
         // Not working now!!!!!
 
         MANTA_CONVERTINVERSION(
-            input.tool,
-            ref
+            input.tool.map{it -> tuple(it[0], it[1])},
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
         )
         versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
 
-        out_vcf_ch = out_vcf_ch.mix(MANTA_CONVERTINVERSION.out.vcf_tabi)
+        out_ch = MANTA_CONVERTINVERSION.out.vcf.join(MANTA_CONVERTINVERSION.out.tbi)
+        out_vcf_ch = out_vcf_ch.mix(out_ch)
         out_vcf_ch = out_vcf_ch.mix(input.other)
         vcf_ch     = out_vcf_ch
 
@@ -88,7 +89,7 @@ workflow SV_VCF_CONVERSIONS {
     if (params.gridss_annotate){
         out_vcf_ch = Channel.empty()
 
-        out2_vcf_ch.branch{
+        vcf_ch.branch{
             tool:  it[0].id == "gridss"
             other: true}
             .set{input}

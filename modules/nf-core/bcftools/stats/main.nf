@@ -5,19 +5,19 @@ process BCFTOOLS_STATS {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bcftools:1.18--h8b25389_0':
-        'quay.io/biocontainers/bcftools:1.18--h8b25389_0' }"
+        'biocontainers/bcftools:1.18--h8b25389_0' }"
 
     input:
-    tuple val(meta), path(vcf), path(index)
-    tuple val(meta3), path(regions)
-    tuple val(meta4), path(targets)
-    tuple val(meta5), path(samples)
-    tuple val(meta6), path(exons)
-    tuple val(meta7), path(fasta)
+    tuple val(meta),  path(vcf), path(tbi)
+    tuple val(meta2), path(regions)
+    tuple val(meta3), path(targets)
+    tuple val(meta4), path(samples)
+    tuple val(meta5), path(exons)
+    tuple val(meta6), path(fasta)
 
     output:
     tuple val(meta), path("*stats.txt"), emit: stats
-    path  "versions.yml"                , emit: versions
+    path  "versions.yml"               , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

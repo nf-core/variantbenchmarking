@@ -24,7 +24,7 @@ workflow REPORT_VCF_STATISTICS {
     // SURVIVOR_STATS
     //
     SURVIVOR_STATS(
-        input.sv,
+        input.sv.map{it -> tuple( it[0], it[1])},
         -1,
         -1,
         -1
