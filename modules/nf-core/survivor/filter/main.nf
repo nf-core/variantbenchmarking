@@ -8,15 +8,15 @@ process SURVIVOR_FILTER {
         'biocontainers/survivor:1.0.7--h9a82719_1' }"
 
     input:
-    tuple val(meta),path(vcf_file), path(bed) // VCF file to filter and BED file with regions to ignore (NA to disable)
+    tuple val(meta), path(vcf_file), path(bed) // VCF file to filter and BED file with regions to ignore (NA to disable)
     val(minsv)          // Min SV size (-1 to disable)
     val(maxsv)          // Max SV size (-1 to disable)
     val(minallelefreq)  // Min allele frequency (0-1)
     val(minnumreads)    // Min number of reads support: RE flag (-1 to disable)
 
     output:
-    tuple val(meta),path("*.vcf"), emit: vcf
-    path "versions.yml"          , emit: versions
+    tuple val(meta), path("*.vcf"), emit: vcf
+    path "versions.yml"           , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

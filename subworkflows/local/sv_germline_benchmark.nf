@@ -38,7 +38,8 @@ workflow SV_GERMLINE_BENCHMARK {
         //
         TRUVARI_BENCH(
             input_ch,
-            ref
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions)
 
@@ -51,7 +52,8 @@ workflow SV_GERMLINE_BENCHMARK {
         // slower than truvari
         SVANALYZER_SVBENCHMARK(
             input_ch,
-            ref
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
             )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
