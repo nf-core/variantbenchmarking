@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--graph', required=True, help='Input VCF')
+parser.add_argument('--input', required=True, help='Input VCF')
 parser.add_argument('--svlength', type=int, required=False, help='SV Lenght', default=50)
 args = parser.parse_args()
 

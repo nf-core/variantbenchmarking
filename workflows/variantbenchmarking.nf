@@ -28,8 +28,8 @@ include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_ben
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
-include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TEST } from '../subworkflows/local/report_vcf_statistics'
-include { REPORT_VCF_STATISTICS as REPORT_STATISTICS_TRUTH } from '../subworkflows/local/report_vcf_statistics'
+include { REPORT_STATISTICS_TRUTH  } from '../subworkflows/local/report_vcf_statistics_truth.nf'
+include { REPORT_STATISTICS_TEST   } from '../subworkflows/local/report_vcf_statistics_test.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,6 +64,7 @@ workflow VARIANTBENCHMARKING {
                                             : Channel.empty()
 
     // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
+
     ch_samplesheet.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
@@ -113,10 +114,12 @@ workflow VARIANTBENCHMARKING {
     REPORT_STATISTICS_TEST(
         PREPARE_VCFS_TEST.out.vcf_ch
     )
+    ch_versions = ch_versions.mix(REPORT_STATISTICS_TEST.out.versions)
+
     REPORT_STATISTICS_TRUTH(
         PREPARE_VCFS_TRUTH.out.vcf_ch
     )
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
+    ch_versions = ch_versions.mix(REPORT_STATISTICS_TRUTH.out.versions)
 
     // prepare  benchmark set
     if (params.high_conf){

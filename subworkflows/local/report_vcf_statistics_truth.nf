@@ -1,5 +1,5 @@
 //
-// PREPARE_VCFS: SUBWORKFLOW TO REPORT VCF STATS
+// REPORT_VCF_STATISTICS_TRUTH: SUBWORKFLOW TO REPORT VCF STATS
 //
 
 params.options = [:]
@@ -7,7 +7,7 @@ params.options = [:]
 include { SURVIVOR_STATS    } from '../../modules/nf-core/survivor/stats'      addParams( options: params.options )
 include { BCFTOOLS_STATS    } from '../../modules/nf-core/bcftools/stats'      addParams( options: params.options )
 
-workflow REPORT_VCF_STATISTICS {
+workflow REPORT_VCF_STATISTICS_TRUTH {
     take:
     input_ch    // channel: [val(meta), vcf, index]
 
@@ -15,16 +15,11 @@ workflow REPORT_VCF_STATISTICS {
 
     versions=Channel.empty()
 
-    input_ch.branch{
-        sv:  it[0].vartype == "sv" || it[0].vartype == "cnv"
-        other: true}
-        .set{input}
-
     //
     // SURVIVOR_STATS
     //
     SURVIVOR_STATS(
-        input.sv.map{it -> tuple( it[0], it[1])},
+        input_ch.map{it -> tuple( it[0], it[1])},
         -1,
         -1,
         -1
