@@ -1,5 +1,5 @@
 //
-// REPORT_VCF_STATISTICS_TRUTH: SUBWORKFLOW TO REPORT VCF STATS
+// REPORT_STATISTICS_TRUTH: SUBWORKFLOW TO REPORT VCF STATS
 //
 
 params.options = [:]
@@ -7,7 +7,7 @@ params.options = [:]
 include { SURVIVOR_STATS    } from '../../modules/nf-core/survivor/stats'      addParams( options: params.options )
 include { BCFTOOLS_STATS    } from '../../modules/nf-core/bcftools/stats'      addParams( options: params.options )
 
-workflow REPORT_VCF_STATISTICS_TRUTH {
+workflow REPORT_STATISTICS_TRUTH {
     take:
     input_ch    // channel: [val(meta), vcf, index]
 

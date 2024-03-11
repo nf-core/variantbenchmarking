@@ -28,8 +28,8 @@ include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_ben
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
-include { REPORT_STATISTICS_TRUTH  } from '../subworkflows/local/report_vcf_statistics_truth.nf'
-include { REPORT_STATISTICS_TEST   } from '../subworkflows/local/report_vcf_statistics_test.nf'
+include { REPORT_STATISTICS_TRUTH  } from '../subworkflows/local/report_statistics_truth.nf'
+include { REPORT_STATISTICS_TEST   } from '../subworkflows/local/report_statistics_test.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
