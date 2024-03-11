@@ -27,9 +27,6 @@ workflow PREPARE_VCFS_TEST {
 
     versions=Channel.empty()
 
-    //ref.map { it -> tuple([id: it[0].baseName], it[1]) }
-    //    .set{fasta}
-
     //
     // MODULE: BGZIP_TABIX
     //
@@ -94,6 +91,7 @@ workflow PREPARE_VCFS_TEST {
         BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
     }
+    // TODO: this part should onyl run for SV bench
     if (params.min_sv_size > 0){
 
         TABIX_BGZIP(

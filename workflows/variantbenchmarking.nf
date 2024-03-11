@@ -25,6 +25,7 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
 include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
 include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
+include { SMALL_GERMLINE_BENCHMARK } from '../subworkflows/local/small_germline_benchmark'
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
@@ -140,6 +141,16 @@ workflow VARIANTBENCHMARKING {
             cnv:  it[0].vartype == "cnv"
             other: false}
             .set{input}
+    //
+    // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
+    //
+    //Benchmarking spesific to germline samples
+
+    SMALL_GERMLINE_BENCHMARK(
+        input.small,
+        ref    )
+    ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+
 
     //
     // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
