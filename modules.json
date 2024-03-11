@@ -42,7 +42,7 @@
                     },
                     "svanalyzer/svbenchmark": {
                         "branch": "master",
-                        "git_sha": "419065b3a66b857af8b49d41dc1ba3858821da22",
+                        "git_sha": "8a2dd9e84cde68ebba45fb2c602c312c999c02a0",
                         "installed_by": ["modules"]
                     },
                     "svync": {
