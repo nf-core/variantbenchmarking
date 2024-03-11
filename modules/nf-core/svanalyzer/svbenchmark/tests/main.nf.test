@@ -3,6 +3,7 @@ nextflow_process {
     name "Test Process SVANALYZER_SVBENCHMARK"
     script "../main.nf"
     process "SVANALYZER_SVBENCHMARK"
+
     tag "modules"
     tag "modules_nfcore"
     tag "svanalyzer"
@@ -11,6 +12,9 @@ nextflow_process {
     test("homo_sapiens - illumina - vcf.gz") {
 
         when {
+            params {
+                outdir = $outputDir
+            }
             process {
                 """
                     input[0] = [
@@ -22,12 +26,14 @@ nextflow_process {
                         file(params.test_data['homo_sapiens']['illumina']['test2_haplotc_vcf_gz'], checkIfExists: true)
                         ]
                     input[2] = [
+                        [ id:'test3' ], // meta map
                         file(params.test_data['homo_sapiens']['genome']['genome_21_fasta'], checkIfExists: true)
                         ]
                     input[3] = [
+                        [ id:'test4' ], // meta map
                         file(params.test_data['homo_sapiens']['genome']['genome_21_fasta_fai'], checkIfExists: true)
                         ]
-                    input[4] = []
+                    input[4] = [[],[]]
                 """
             }
         }
@@ -41,13 +47,16 @@ nextflow_process {
                 { assert snapshot(process.out.report).match("report") },
                 { assert snapshot(process.out.versions).match("versions") }
             )
+
         }
 
     }
-
     test("homo_sapiens - illumina - vcf.gz - bed") {
 
         when {
+            params {
+                outdir = $outputDir
+            }
             process {
                 """
                     input[0] = [
@@ -59,12 +68,15 @@ nextflow_process {
                         file(params.test_data['homo_sapiens']['illumina']['test2_haplotc_vcf_gz'], checkIfExists: true)
                         ]
                     input[2] = [
+                        [ id:'test3' ], // meta map
                         file(params.test_data['homo_sapiens']['genome']['genome_21_fasta'], checkIfExists: true)
                         ]
                     input[3] = [
+                        [ id:'test4' ], // meta map
                         file(params.test_data['homo_sapiens']['genome']['genome_21_fasta_fai'], checkIfExists: true)
                         ]
                     input[4] = [
+                        [ id:'test5' ], // meta map
                         file(params.test_data['homo_sapiens']['genome']['genome_21_multi_interval_bed'], checkIfExists: true)
                         ]
                 """
@@ -81,5 +93,7 @@ nextflow_process {
                 { assert snapshot(process.out.versions).match("bed_versions") }
             )
         }
+
     }
+
 }

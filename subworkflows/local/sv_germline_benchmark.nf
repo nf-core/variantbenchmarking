@@ -38,7 +38,8 @@ workflow SV_GERMLINE_BENCHMARK {
         //
         TRUVARI_BENCH(
             input_ch,
-            ref
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
+            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions)
 
