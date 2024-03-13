@@ -21,7 +21,8 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-c
 workflow PREPARE_VCFS_TEST {
     take:
     input_ch    // channel: [val(meta),vcf]
-    ref         // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -50,7 +51,7 @@ workflow PREPARE_VCFS_TEST {
 
     BCFTOOLS_REHEADER_TEST(
         input_ch,
-        ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
+        fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER_TEST.out.versions)
 
@@ -80,7 +81,7 @@ workflow PREPARE_VCFS_TEST {
         // Breaks down -any- multi-allelic variants
         BCFTOOLS_NORM_1(
             vcf_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
@@ -125,7 +126,7 @@ workflow PREPARE_VCFS_TEST {
         // Deduplicates variants at the same position test
         BCFTOOLS_NORM_2(
             vcf_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 

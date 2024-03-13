@@ -51,7 +51,9 @@ workflow VARIANTBENCHMARKING {
     // check mandatory parameters
     println(params.fasta)
     println(params.fai)
-    ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
+
+    fasta       = Channel.fromPath(params.fasta, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    fai         = Channel.fromPath(params.fai, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
 
     // check high confidence files
 
@@ -82,7 +84,8 @@ workflow VARIANTBENCHMARKING {
     // Standardize SV VCFs, tool spesific modifications
     SV_VCF_CONVERSIONS(
         input.sv,
-        ref,
+        fasta,
+        fai,
         svync_yaml
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
@@ -95,13 +98,15 @@ workflow VARIANTBENCHMARKING {
     //
     PREPARE_VCFS_TEST(
         out_vcf_ch,
-        ref
+        fasta,
+        fai
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     PREPARE_VCFS_TRUTH(
         truth,
-        ref
+        fasta,
+        fai
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
@@ -148,7 +153,8 @@ workflow VARIANTBENCHMARKING {
 
     SMALL_GERMLINE_BENCHMARK(
         input.small,
-        ref    )
+        fasta,
+        fai    )
     ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
 
 
@@ -159,7 +165,8 @@ workflow VARIANTBENCHMARKING {
 
     SV_GERMLINE_BENCHMARK(
         input.sv,
-        ref    )
+        fasta,
+        fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
 
     // TODO: SOMATIC EBNCHMARKING
@@ -168,7 +175,8 @@ workflow VARIANTBENCHMARKING {
         // SOMATIC VARIANT BENCHMARKING
         SOMATIC_BENCHMARK(
             bench_ch,
-            ref
+            fasta,
+            fai
         )
         ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
     }

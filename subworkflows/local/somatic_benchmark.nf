@@ -10,7 +10,8 @@ include { SVANALYZER_SVBENCHMARK              } from '../../modules/nf-core/svan
 workflow SOMATIC_BENCHMARK {
     take:
     input_ch  // channel: [val(meta), test_vcf,test_index, truth_vcf, truth_index, bed]
-    ref       // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -22,7 +23,8 @@ workflow SOMATIC_BENCHMARK {
     //
     TRUVARI_BENCH(
         input_ch,
-        ref
+        fasta,
+        fai
     )
     versions = versions.mix(TRUVARI_BENCH.out.versions)
 

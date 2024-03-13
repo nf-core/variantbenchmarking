@@ -12,7 +12,8 @@ include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'      
 workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf]
-    ref         // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
     svync_yaml  // yaml configs
 
     main:
@@ -73,7 +74,7 @@ workflow SV_VCF_CONVERSIONS {
 
         MANTA_CONVERTINVERSION(
             input.tool.map{it -> tuple(it[0], it[1])},
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
 
@@ -101,7 +102,8 @@ workflow SV_VCF_CONVERSIONS {
         // GRIDSS simple event annotation
         GRIDSS_ANNOTATION(
             input.tool,
-            ref
+            fasta,
+            fai
         )
         versions = versions.mix(GRIDSS_ANNOTATION.out.versions)
 

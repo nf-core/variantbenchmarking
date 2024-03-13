@@ -11,7 +11,8 @@ include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'      
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
     input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
-    ref       // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -22,7 +23,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         // MODULE: RTGTOOLS_FORMAT
         //
         RTGTOOLS_FORMAT(
-            ref.map { it -> tuple([id: it[0].getSimpleName(), "pair": "single_end"], it[0], [], []) }
+            fasta.map { it -> tuple([id: it[1].getSimpleName(), "pair": "single_end"], it[1], [], []) }
         )
         versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
 
@@ -40,8 +41,8 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         HAPPY_HAPPY(
             input_ch.map { it -> tuple(it[0],it[3], it[1], it[5], []) },
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) },
+            fasta,
+            fai,
             [[],[]],
             [[],[]],
             [[],[]]
