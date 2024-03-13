@@ -8,10 +8,12 @@ include { BGZIP_TABIX         } from '../../modules/local/bgzip_tabix'        ad
 include { BCFTOOLS_VIEW       } from '../../modules/local/bcftools_view'      addParams( options: params.options )
 include { SURVIVOR_FILTER     } from '../../modules/nf-core/survivor/filter'  addParams( options: params.options )
 include { TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'      addParams( options: params.options )
+include { HAPPY_PREPY         } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_1       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
 include { BCFTOOLS_NORM as BCFTOOLS_NORM_2       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_2         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
+include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
@@ -137,6 +139,23 @@ workflow PREPARE_VCFS_TEST {
         BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
+    // only for small variant benchmarking
+    if (params.preprocess.contains("prepy")){
+        HAPPY_PREPY(
+            vcf_ch.map{it -> tuple( it[0], it[1],[])},
+            fasta,
+            fai
+        )
+        // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
+
+        TABIX_TABIX_3(
+            HAPPY_PREPY.out.preprocessed_vcf
+        )
+
+        HAPPY_PREPY.out.preprocessed_vcf.join(TABIX_TABIX_3.out.tbi, by:0)
+                            .set{vcf_ch}
+    }
+
     emit:
     vcf_ch
     versions

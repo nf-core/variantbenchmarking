@@ -27,12 +27,10 @@ workflow PREPARE_VCFS_TRUTH {
     //
     // PREPARE_VCFS
     //
-    truth_ch.map { it -> tuple([id: "truth"], it[0]) }
-            .set{truth}
 
     // BGZIP if needed and index truth
     BGZIP_TABIX(
-        truth
+        truth_ch
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi

@@ -47,6 +47,8 @@ workflow VARIANTBENCHMARKING {
 
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
+    truth_ch         = Channel.empty()
+    high_conf_ch     = Channel.empty()
 
     // check mandatory parameters
     println(params.fasta)
@@ -57,14 +59,32 @@ workflow VARIANTBENCHMARKING {
 
     // check high confidence files
 
-    truth       = params.truth              ? Channel.fromPath(params.truth, checkIfExists: true).collect()
-                                            : Channel.empty()
+    truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_small)
 
-    high_conf   = params.high_conf          ? Channel.fromPath(params.high_conf, checkIfExists: true).collect()
-                                            : Channel.empty()
+    high_conf_small = params.high_conf_small    ? Channel.fromPath(params.high_conf_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_small)
 
-    svync_yaml  = params.standardization    ? Channel.fromPath("assets/svync/*.yaml").collect()
-                                            : Channel.empty()
+    truth_sv        = params.truth_sv           ? Channel.fromPath(params.truth_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_sv)
+
+    high_conf_sv    = params.high_conf_sv       ? Channel.fromPath(params.high_conf_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_sv)
+
+    truth_cnv       = params.truth_cnv          ? Channel.fromPath(params.truth_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_cnv)
+
+    high_conf_cnv   = params.high_conf_cnv      ? Channel.fromPath(params.high_conf_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
+
+    svync_yaml      = params.standardization    ? Channel.fromPath("assets/svync/*.yaml").collect()
+                                                : Channel.empty()
 
     // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
@@ -104,7 +124,7 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     PREPARE_VCFS_TRUTH(
-        truth,
+        truth_ch,
         fasta,
         fai
     )
@@ -128,9 +148,9 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(REPORT_STATISTICS_TRUTH.out.versions)
 
     // prepare  benchmark set
-    if (params.high_conf){
+    if (params.high_conf_small || params.high_conf_sv || params.high_conf_cnv ){
         PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
-                                .combine(high_conf)
+                                .combine(high_conf_ch)
                                 .set{bench_ch}
     }else{
         PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
@@ -214,6 +234,7 @@ workflow VARIANTBENCHMARKING {
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
+
 
     MULTIQC (
         ch_multiqc_files.collect(),
