@@ -29,22 +29,58 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "high_conf": {
+                "high_conf_small": {
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
                     "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to the high confidence BED files.",
-                    "help_text": "High confidence BED files",
+                    "description": "SMALL: Path to the high confidence BED files.",
+                    "help_text": "SMALL: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "truth": {
+                "truth_small": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": "Path to the golden set VCF files.",
-                    "help_text": "Truth or golden set VCF file, to be used for comparisons",
+                    "description": "SMALL: Path to the golden set VCF files.",
+                    "help_text": "SMALL: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_sv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "SV: Path to the high confidence BED files.",
+                    "help_text": "SV: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_sv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": " SV: Path to the golden set VCF files.",
+                    "help_text": "SV: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_cnv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "CNV: Path to the high confidence BED files.",
+                    "help_text": "CNV: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_cnv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "CNV: Path to the golden set VCF files.",
+                    "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "analysis": {
@@ -59,14 +95,14 @@
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "standardization": {
-                    "type": "boolean",
+                "sv_standardization": {
+                    "type": "string",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "harmonize": {
-                    "type": "boolean",
+                "similarity": {
+                    "type": "integer",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
@@ -79,24 +115,6 @@
                 },
                 "min_sv_size": {
                     "type": "integer",
-                    "format": "directory-path",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "dup_to_ins": {
-                    "type": "boolean",
-                    "format": "directory-path",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "bnd_to_inv": {
-                    "type": "boolean",
-                    "format": "directory-path",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "gridss_annotate": {
-                    "type": "boolean",
                     "format": "directory-path",
                     "description": "",
                     "fa_icon": "fas fa-folder-open"

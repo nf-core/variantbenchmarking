@@ -34,7 +34,7 @@ workflow SV_VCF_CONVERSIONS {
     // MODULE: SVYNC
     //
     //
-    if(params.standardization){
+    if(params.sv_standardization.contains("standardization")){
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{
@@ -59,7 +59,7 @@ workflow SV_VCF_CONVERSIONS {
     }
 
     // Check tool spesific conversions
-    if(params.bnd_to_inv){
+    if(params.sv_standardization.contains("bnd_to_inv")){
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{
@@ -87,7 +87,7 @@ workflow SV_VCF_CONVERSIONS {
 
     }
 
-    if (params.gridss_annotate){
+    if (params.sv_standardization.contains("gridss_annotate")){
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{

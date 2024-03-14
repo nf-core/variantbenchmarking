@@ -23,14 +23,12 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
-include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
 include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
 include { SMALL_GERMLINE_BENCHMARK } from '../subworkflows/local/small_germline_benchmark'
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
-include { REPORT_STATISTICS_TRUTH  } from '../subworkflows/local/report_statistics_truth.nf'
-include { REPORT_STATISTICS_TEST   } from '../subworkflows/local/report_statistics_test.nf'
+include { REPORT_VCF_STATISTICS   } from '../subworkflows/local/report_vcf_statistics'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,17 +133,11 @@ workflow VARIANTBENCHMARKING {
     //
     // SUBWORKFLOW: GET STATISTICS OF FILES
     //
-    //REPORT_STATISTICS_TRUTH(
-    //
-    REPORT_STATISTICS_TEST(
-        PREPARE_VCFS_TEST.out.vcf_ch
+    REPORT_VCF_STATISTICS(
+        PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
-    ch_versions = ch_versions.mix(REPORT_STATISTICS_TEST.out.versions)
+    ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
-    REPORT_STATISTICS_TRUTH(
-        PREPARE_VCFS_TRUTH.out.vcf_ch
-    )
-    ch_versions = ch_versions.mix(REPORT_STATISTICS_TRUTH.out.versions)
 
     // prepare  benchmark set
     if (params.high_conf_small || params.high_conf_sv || params.high_conf_cnv ){
@@ -159,7 +151,6 @@ workflow VARIANTBENCHMARKING {
     }
 
     // BENCHMARKS
-
     bench_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
@@ -189,7 +180,7 @@ workflow VARIANTBENCHMARKING {
         fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
 
-    // TODO: SOMATIC EBNCHMARKING
+    // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
         // SOMATIC VARIANT BENCHMARKING

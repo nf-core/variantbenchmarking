@@ -94,7 +94,6 @@ workflow PREPARE_VCFS_TRUTH {
                             .set{vcf_ch}
         }
 
-
     emit:
     vcf_ch
     versions
