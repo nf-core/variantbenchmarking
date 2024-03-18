@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 //
 // SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
@@ -13,7 +15,6 @@ workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf]
     ref         // reference channel [ref.fa, ref.fa.fai]
-    svync_yaml  // yaml configs
 
     main:
     versions   = Channel.empty()
@@ -35,19 +36,26 @@ workflow SV_VCF_CONVERSIONS {
     //
     if(params.standardization){
         out_vcf_ch = Channel.empty()
+        supported_callers = []
+        new File("${projectDir}/assets/svync").eachFileRecurse (FileType.FILES) { supported_callers << it.baseName.replace(".yaml", "") }
 
-        vcf_ch.branch{
-            tool:  it[0].id == "delly" || it[0].id == "gridss" || it[0].id == "manta" || it[0].id == "smoove"
-            other: true}
+        vcf_ch
+            .branch{
+                def supported = supported_callers.contains(it[0].id)
+                if(!supported) {
+                    log.warn("Standardization for SV caller '${it[0].id}' is not supported. Skipping standardization...")
+                }
+                tool:  supported
+                other: !supported
+            }
             .set{input}
 
-        svync_yaml.flatten()
-            .map { it -> tuple([id: it.getSimpleName(), vartype: "sv"], it) }
-            .set{config}
-
         input.tool
-            .combine(config, by:0)
-            .set{svync_ch}
+            .map { meta, vcf, tbi ->
+                config = file("${projectDir}/assets/svync/${meta.id}.yaml", checkIfExists:true)
+                [ meta, vcf, tbi, config ]
+            }
+            .set {svync_ch}
 
         SVYNC(
             svync_ch
