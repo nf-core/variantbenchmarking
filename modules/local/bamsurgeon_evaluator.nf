@@ -8,13 +8,14 @@ process BAMSURGEON_EVALUATOR {
         'lethalfang/bamsurgeon:1.2' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
-    tuple path(fasta), path(fai)
+    tuple val(meta), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
+    tuple val(meta2), path(fasta),
+    tuple val(meta3), path(fai)
     val(muttype)
 
     output:
-    tuple val(meta),val(meta2), path("*.{vcf}"), emit: bench
-    path "versions.yml"                        , emit: versions
+    tuple val(meta),path("*.{vcf}"), emit: bench
+    path "versions.yml"            , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

@@ -8,12 +8,13 @@ process TRUVARI_PHAB {
         'kubran/truvari:v4.3.0' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
-    tuple path(fasta), path(fai)
+    tuple val(meta),  path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fai)
 
     output:
-    tuple val(meta), val(meta2), path("*.vcf.gz")         , emit: harmon
-    path "versions.yml"                       , emit: versions
+    tuple val(meta),path("*.vcf.gz")         , emit: harmon
+    path "versions.yml"                      , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

@@ -17,7 +17,8 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-
 workflow PREPARE_VCFS_TRUTH {
     take:
     truth_ch    // channel: [val(meta), vcf]
-    ref         // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -26,12 +27,10 @@ workflow PREPARE_VCFS_TRUTH {
     //
     // PREPARE_VCFS
     //
-    truth_ch.map { it -> tuple([id: "truth"], it[0]) }
-            .set{truth}
 
     // BGZIP if needed and index truth
     BGZIP_TABIX(
-        truth
+        truth_ch
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
@@ -46,7 +45,7 @@ workflow PREPARE_VCFS_TRUTH {
 
     BCFTOOLS_REHEADER_TRUTH(
         input_ch,
-        ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
+        fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
 
@@ -63,7 +62,7 @@ workflow PREPARE_VCFS_TRUTH {
         // multi-allelic variants will be splitted.
         BCFTOOLS_NORM_1(
             vcf_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
 
@@ -82,7 +81,7 @@ workflow PREPARE_VCFS_TRUTH {
         // Deduplicate variants at the same position
         BCFTOOLS_NORM_2(
             vcf_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 
@@ -94,7 +93,6 @@ workflow PREPARE_VCFS_TRUTH {
         BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
         }
-
 
     emit:
     vcf_ch

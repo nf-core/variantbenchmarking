@@ -14,7 +14,8 @@ include { BAMSURGEON_EVALUATOR   } from '../../modules/local/bamsurgeon_evaluato
 workflow SV_GERMLINE_BENCHMARK {
     take:
     input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
-    ref       // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -30,7 +31,8 @@ workflow SV_GERMLINE_BENCHMARK {
             //
             TRUVARI_PHAB(
                 input_ch,
-                ref
+                fasta,
+                fai
             )
         }
         //
@@ -38,8 +40,8 @@ workflow SV_GERMLINE_BENCHMARK {
         //
         TRUVARI_BENCH(
             input_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
+            fasta,
+            fai
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions)
 
@@ -52,8 +54,8 @@ workflow SV_GERMLINE_BENCHMARK {
         // slower than truvari
         SVANALYZER_SVBENCHMARK(
             input_ch,
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) },
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[1]) }
+            fasta,
+            fai
             )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
@@ -78,7 +80,8 @@ workflow SV_GERMLINE_BENCHMARK {
         //
         VCFDIST(
             input_ch,
-            ref
+            fasta,
+            fai
         )
         versions = versions.mix(VCFDIST.out.versions)
     }
@@ -90,13 +93,12 @@ workflow SV_GERMLINE_BENCHMARK {
         //https://github.com/adamewing/bamsurgeon/blob/master/scripts/evaluator.py
         BAMSURGEON_EVALUATOR(
             input_ch.map{it -> tuple(it[0],it[1], it[2], it[3], it[4], it[5])},
-            ref,
+            fasta,
+            fai,
             "SV"
         )
         versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions)
     }
-
-
 
     emit:
     versions
