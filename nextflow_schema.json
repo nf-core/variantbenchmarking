@@ -83,6 +83,15 @@
                     "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "svync_yaml": {
+                    "type": "string",
+                    "format": "file-path-pattern",
+                    "exists": true,
+                    "pattern": "^\\S+\\.yaml$",
+                    "description": "Custom configuration files for Svync standardization",
+                    "help_text": "Please make sure the caller is the basename of the file (e.g. for lumpy, the config should called 'lumpy.yaml'",
+                    "errorMessage": "A path/glob pattern to existing config files should be given. These files should have the 'yaml' extension"
+                },
                 "analysis": {
                     "type": "string",
                     "format": "directory-path",

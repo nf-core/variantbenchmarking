@@ -81,6 +81,9 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
+    svync_yaml      = params.svync_yaml         ? Channel.fromPath(params.svync_yaml, checkIfExists: true).collect()
+                                                : Channel.empty()
+
 
     // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 
@@ -101,7 +104,8 @@ workflow VARIANTBENCHMARKING {
     SV_VCF_CONVERSIONS(
         input.sv,
         fasta,
-        fai
+        fai,
+        svync_yaml
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
     out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
