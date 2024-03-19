@@ -81,8 +81,9 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
-    svync_yaml      = params.standardization    ? Channel.fromPath("assets/svync/*.yaml").collect()
+    svync_yaml      = params.svync_yaml         ? Channel.fromPath(params.svync_yaml, checkIfExists: true).collect()
                                                 : Channel.empty()
+
 
     // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
 

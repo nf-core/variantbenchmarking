@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 //
 // SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
@@ -14,7 +16,7 @@ workflow SV_VCF_CONVERSIONS {
     input_ch    // channel: [val(meta), vcf]
     fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
-    svync_yaml  // yaml configs
+    svync_yaml  // reference channel [yamls]
 
     main:
     versions   = Channel.empty()
@@ -36,19 +38,36 @@ workflow SV_VCF_CONVERSIONS {
     //
     if(params.sv_standardization.contains("standardization")){
         out_vcf_ch = Channel.empty()
+        supported_callers = []
+        new File("${projectDir}/assets/svync").eachFileRecurse (FileType.FILES) { supported_callers << it.baseName.replace(".yaml", "") }
 
-        vcf_ch.branch{
-            tool:  it[0].id == "delly" || it[0].id == "gridss" || it[0].id == "manta" || it[0].id == "smoove"
-            other: true}
+        svync_yaml
+            .map { yamls ->
+                [yamls.collect { it.baseName }, yamls.collectEntries { [it.baseName, it] }]
+            }
+            .set { custom_svync_configs }
+
+        vcf_ch
+            .combine(custom_svync_configs)
+            .branch{ meta, vcf, tbi, custom_callers, custom_configs ->
+                def caller = meta.id
+                def supported = custom_callers.contains(caller) || supported_callers.contains(caller)
+                if(!supported) {
+                    log.warn("Standardization for SV caller '${caller}' is not supported. Skipping standardization...")
+                }
+                tool:  supported
+                    return [ meta, vcf, tbi, custom_configs[caller] ?: [] ]
+                other: !supported
+                    return [ meta, vcf, tbi ]
+            }
             .set{input}
 
-        svync_yaml.flatten()
-            .map { it -> tuple([id: it.getSimpleName(), vartype: "sv"], it) }
-            .set{config}
-
         input.tool
-            .combine(config, by:0)
-            .set{svync_ch}
+            .map { meta, vcf, tbi, custom_config ->
+                config = custom_config ?: file("${projectDir}/assets/svync/${meta.id}.yaml", checkIfExists:true)
+                [ meta, vcf, tbi, config ]
+            }
+            .set {svync_ch}
 
         SVYNC(
             svync_ch
