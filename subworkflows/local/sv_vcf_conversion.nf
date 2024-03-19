@@ -16,7 +16,6 @@ workflow SV_VCF_CONVERSIONS {
     input_ch    // channel: [val(meta), vcf]
     fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
-    svync_yaml  // yaml configs
 
     main:
     versions   = Channel.empty()
