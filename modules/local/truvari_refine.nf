@@ -8,9 +8,10 @@ process TRUVARI_REFINE {
         'kubran/truvari:v4.3.0' }"
 
     input:
-    tuple val(meta), val(meta2), path(bench)
+    tuple val(meta), path(bench)
     each path(bed)
-    tuple path(fasta), path(fai)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fai)
 
     output:
     path "versions.yml"                             , emit: versions

@@ -8,11 +8,11 @@ process VCF_GENOTYPE_ANNOTATOR {
         'griffithlab/vatools:5.1.10' }"
 
     input:
-    tuple val(meta),val(meta2), path(vcf)
+    tuple val(meta),path(vcf)
 
     output:
-    tuple val(meta),val(meta2), path("*.{vcf}"), emit: vcf
-    path "versions.yml"                        , emit: versions
+    tuple val(meta),path("*.{vcf}"), emit: vcf
+    path "versions.yml"            , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

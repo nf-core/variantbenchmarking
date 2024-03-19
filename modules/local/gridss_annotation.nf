@@ -10,7 +10,8 @@ process GRIDSS_ANNOTATION {
 
     input:
     tuple val(meta), path(vcf), path(index)
-    tuple path(fasta), path(fasta_fai)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fasta_fai)
 
     output:
     tuple val(meta),path("*.vcf.gz"),path("*.vcf.gz.tbi")   , emit: vcf

@@ -23,13 +23,12 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
-include { SOMATIC_BENCHMARK        } from '../subworkflows/local/somatic_benchmark'
 include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
+include { SMALL_GERMLINE_BENCHMARK } from '../subworkflows/local/small_germline_benchmark'
 include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
-include { REPORT_STATISTICS_TRUTH  } from '../subworkflows/local/report_statistics_truth.nf'
-include { REPORT_STATISTICS_TEST   } from '../subworkflows/local/report_statistics_test.nf'
+include { REPORT_VCF_STATISTICS   } from '../subworkflows/local/report_vcf_statistics'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,19 +45,41 @@ workflow VARIANTBENCHMARKING {
 
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
+    truth_ch         = Channel.empty()
+    high_conf_ch     = Channel.empty()
 
     // check mandatory parameters
     println(params.fasta)
     println(params.fai)
-    ref         = Channel.fromPath([params.fasta,params.fai], checkIfExists: true).collect()
+
+    fasta       = Channel.fromPath(params.fasta, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    fai         = Channel.fromPath(params.fai, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
 
     // check high confidence files
 
-    truth       = params.truth              ? Channel.fromPath(params.truth, checkIfExists: true).collect()
-                                            : Channel.empty()
+    truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_small)
 
-    high_conf   = params.high_conf          ? Channel.fromPath(params.high_conf, checkIfExists: true).collect()
-                                            : Channel.empty()
+    high_conf_small = params.high_conf_small    ? Channel.fromPath(params.high_conf_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_small)
+
+    truth_sv        = params.truth_sv           ? Channel.fromPath(params.truth_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_sv)
+
+    high_conf_sv    = params.high_conf_sv       ? Channel.fromPath(params.high_conf_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_sv)
+
+    truth_cnv       = params.truth_cnv          ? Channel.fromPath(params.truth_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_cnv)
+
+    high_conf_cnv   = params.high_conf_cnv      ? Channel.fromPath(params.high_conf_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
 
     // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
@@ -79,7 +100,8 @@ workflow VARIANTBENCHMARKING {
     // Standardize SV VCFs, tool spesific modifications
     SV_VCF_CONVERSIONS(
         input.sv,
-        ref
+        fasta,
+        fai
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
     out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
@@ -91,13 +113,15 @@ workflow VARIANTBENCHMARKING {
     //
     PREPARE_VCFS_TEST(
         out_vcf_ch,
-        ref
+        fasta,
+        fai
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     PREPARE_VCFS_TRUTH(
-        truth,
-        ref
+        truth_ch,
+        fasta,
+        fai
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
@@ -106,22 +130,16 @@ workflow VARIANTBENCHMARKING {
     //
     // SUBWORKFLOW: GET STATISTICS OF FILES
     //
-    //REPORT_STATISTICS_TRUTH(
-    //
-    REPORT_STATISTICS_TEST(
-        PREPARE_VCFS_TEST.out.vcf_ch
+    REPORT_VCF_STATISTICS(
+        PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
-    ch_versions = ch_versions.mix(REPORT_STATISTICS_TEST.out.versions)
+    ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
-    REPORT_STATISTICS_TRUTH(
-        PREPARE_VCFS_TRUTH.out.vcf_ch
-    )
-    ch_versions = ch_versions.mix(REPORT_STATISTICS_TRUTH.out.versions)
 
     // prepare  benchmark set
-    if (params.high_conf){
+    if (params.high_conf_small || params.high_conf_sv || params.high_conf_cnv ){
         PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
-                                .combine(high_conf)
+                                .combine(high_conf_ch)
                                 .set{bench_ch}
     }else{
         PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
@@ -130,13 +148,23 @@ workflow VARIANTBENCHMARKING {
     }
 
     // BENCHMARKS
-
     bench_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
             other: false}
             .set{input}
+    //
+    // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
+    //
+    //Benchmarking spesific to germline samples
+
+    SMALL_GERMLINE_BENCHMARK(
+        input.small,
+        fasta,
+        fai    )
+    ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+
 
     //
     // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
@@ -145,16 +173,18 @@ workflow VARIANTBENCHMARKING {
 
     SV_GERMLINE_BENCHMARK(
         input.sv,
-        ref    )
+        fasta,
+        fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
 
-    // TODO: SOMATIC EBNCHMARKING
+    // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
         // SOMATIC VARIANT BENCHMARKING
         SOMATIC_BENCHMARK(
             bench_ch,
-            ref
+            fasta,
+            fai
         )
         ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
     }
@@ -192,6 +222,7 @@ workflow VARIANTBENCHMARKING {
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
+
 
     MULTIQC (
         ch_multiqc_files.collect(),

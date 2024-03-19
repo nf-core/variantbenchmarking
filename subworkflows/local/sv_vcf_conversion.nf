@@ -14,7 +14,9 @@ include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'      
 workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf]
-    ref         // reference channel [ref.fa, ref.fa.fai]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
+    svync_yaml  // yaml configs
 
     main:
     versions   = Channel.empty()
@@ -34,7 +36,7 @@ workflow SV_VCF_CONVERSIONS {
     // MODULE: SVYNC
     //
     //
-    if(params.standardization){
+    if(params.sv_standardization.contains("standardization")){
         out_vcf_ch = Channel.empty()
         supported_callers = []
         new File("${projectDir}/assets/svync").eachFileRecurse (FileType.FILES) { supported_callers << it.baseName.replace(".yaml", "") }
@@ -66,7 +68,7 @@ workflow SV_VCF_CONVERSIONS {
     }
 
     // Check tool spesific conversions
-    if(params.bnd_to_inv){
+    if(params.sv_standardization.contains("bnd_to_inv")){
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{
@@ -81,7 +83,7 @@ workflow SV_VCF_CONVERSIONS {
 
         MANTA_CONVERTINVERSION(
             input.tool.map{it -> tuple(it[0], it[1])},
-            ref.map { it -> tuple([id: it[0].getSimpleName()], it[0]) }
+            fasta
         )
         versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
 
@@ -94,7 +96,7 @@ workflow SV_VCF_CONVERSIONS {
 
     }
 
-    if (params.gridss_annotate){
+    if (params.sv_standardization.contains("gridss_annotate")){
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{
@@ -109,7 +111,8 @@ workflow SV_VCF_CONVERSIONS {
         // GRIDSS simple event annotation
         GRIDSS_ANNOTATION(
             input.tool,
-            ref
+            fasta,
+            fai
         )
         versions = versions.mix(GRIDSS_ANNOTATION.out.versions)
 
