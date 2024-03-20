@@ -9,7 +9,6 @@ process WITTYER {
 
     input:
     tuple val(meta),path(vcf), path(tbi), path(truth_vcf), path(truth_tbi), path(bed)
-    path(config)
 
     output:
     tuple val(meta),    path("*ConfigFileUsed.json") , emit: config
@@ -24,17 +23,15 @@ process WITTYER {
     script:
     def args  = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def regions = bed ? "--includeBed=$bed" : ""
-    def config = config ? "--configFile=$config" : ""
+    def regions = bed ? "-b $bed" : ""
 
     """
     mkdir bench
     dotnet /opt/Wittyer/Wittyer.dll \\
-        --truthVcf=${truth_vcf} \\
-        --inputVcf=${vcf} \\
-        --outputDirectory=bench \\
+        -i ${vcf} \\
+        -t ${truth_vcf} \\
+        -o bench \\
         ${regions} \\
-        ${config} \\
         ${args}
 
     mv bench/Wittyer.ConfigFileUsed.json ${prefix}.ConfigFileUsed.json

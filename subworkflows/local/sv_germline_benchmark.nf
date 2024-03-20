@@ -62,14 +62,14 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     if (params.method.contains('wittyer')){
+
         //
         // MODULE: WITTYER
         //
         // BIG Advantage: reports by variant type
         // Able to report CNV
         WITTYER(
-            input_ch,
-            []
+            input_ch
         )
         versions = versions.mix(WITTYER.out.versions)
     }
