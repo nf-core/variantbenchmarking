@@ -6,6 +6,7 @@ params.options = [:]
 
 include { BGZIP_TABIX         } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
 include { BCFTOOLS_VIEW       } from '../../modules/local/bcftools_view'      addParams( options: params.options )
+include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
 include { SURVIVOR_FILTER     } from '../../modules/nf-core/survivor/filter'  addParams( options: params.options )
 include { TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'      addParams( options: params.options )
 include { HAPPY_PREPY         } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
@@ -77,6 +78,7 @@ workflow PREPARE_VCFS_TEST {
         )
         vcf_ch   = TABIX_BGZIPTABIX_2.out.gz_tbi
     }
+
     if (params.preprocess.contains("normalization")){
         //
         // BCFTOOLS_NORM
@@ -104,7 +106,7 @@ workflow PREPARE_VCFS_TEST {
             .set{vcf}
 
     out_vcf_ch = Channel.empty()
-    // TODO: this part should only run for SV bench
+
     if (params.min_sv_size > 0){
 
         TABIX_BGZIP(
@@ -147,11 +149,16 @@ workflow PREPARE_VCFS_TEST {
         )
         versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
 
-        TABIX_TABIX_2(
+        // sort vcf
+        BCFTOOLS_SORT(
             BCFTOOLS_NORM_2.out.vcf
         )
 
-        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
+        TABIX_TABIX_2(
+            BCFTOOLS_SORT.out.vcf
+        )
+
+        BCFTOOLS_SORT.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
 
@@ -185,6 +192,7 @@ workflow PREPARE_VCFS_TEST {
         out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
         vcf_ch = out_vcf_ch
     }
+
 
     emit:
     vcf_ch

@@ -141,12 +141,13 @@ workflow VARIANTBENCHMARKING {
 
     // prepare  benchmark set
     if (params.high_conf_small || params.high_conf_sv || params.high_conf_cnv ){
-        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
+        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
                                 .combine(high_conf_ch)
+                                .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],it[7])}
                                 .set{bench_ch}
     }else{
-        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch.map { it -> tuple(it[1], it[2]) })
-                                .map{it -> tuple(it[0], it[1], it[2],it[3],it[4],[])}
+        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
+                                .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],[])}
                                 .set{bench_ch}
     }
 
