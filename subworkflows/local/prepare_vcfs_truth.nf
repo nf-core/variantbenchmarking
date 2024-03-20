@@ -7,12 +7,10 @@ params.options = [:]
 include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
 include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'        addParams( options: params.options )
 include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
-include { BCFTOOLS_NORM as BCFTOOLS_NORM_1 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
-include { BCFTOOLS_NORM as BCFTOOLS_NORM_2 } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_1   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_2   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_3   } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
+include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
+include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
+include { VCF_VARIANT_DEDUPLICATION                    } from '../local/vcf_variant_deduplication'      addParams( options: params.options )
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader' addParams( options: params.options )
 
 workflow PREPARE_VCFS_TRUTH {
     take:
@@ -60,38 +58,30 @@ workflow PREPARE_VCFS_TRUTH {
         //
         // Normalize test
         // multi-allelic variants will be splitted.
-        BCFTOOLS_NORM_1(
+        BCFTOOLS_NORM(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
+        versions = versions.mix(BCFTOOLS_NORM.out.versions)
 
-        TABIX_TABIX_1(
-            BCFTOOLS_NORM_1.out.vcf
+        TABIX_TABIX(
+            BCFTOOLS_NORM.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_1.out.versions)
+        versions = versions.mix(TABIX_TABIX.out.versions)
 
-        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
+        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("deduplication")){
         //
-        // MODULE:  BCFTOOLS_NORM
+        // VCF_VARIANT_DEDUPLICATION
         //
-        // Deduplicate variants at the same position
-        BCFTOOLS_NORM_2(
+        // Deduplicates variants at the same position test
+        VCF_VARIANT_DEDUPLICATION(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
-
-        TABIX_TABIX_2(
-            BCFTOOLS_NORM_2.out.vcf
-        )
-        versions = versions.mix(TABIX_TABIX_2.out.versions)
-
-        BCFTOOLS_NORM_2.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
-                            .set{vcf_ch}
+        vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
         }
 
     emit:

@@ -7,17 +7,14 @@ params.options = [:]
 include { BGZIP_TABIX         } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
 include { BCFTOOLS_VIEW       } from '../../modules/local/bcftools_view'      addParams( options: params.options )
 include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
-include { SURVIVOR_FILTER     } from '../../modules/nf-core/survivor/filter'  addParams( options: params.options )
-include { TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'      addParams( options: params.options )
 include { HAPPY_PREPY         } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
-include { BCFTOOLS_NORM as BCFTOOLS_NORM_1       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
-include { BCFTOOLS_NORM as BCFTOOLS_NORM_2       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
+include { BCFTOOLS_NORM       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
+include { VCF_VARIANT_DEDUPLICATION              } from '../local/vcf_variant_deduplication'      addParams( options: params.options )
+include { SV_VARIANT_FILTERING                   } from '../local/sv_variant_filtering'           addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_2         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
 
 
@@ -84,17 +81,17 @@ workflow PREPARE_VCFS_TEST {
         // BCFTOOLS_NORM
         //
         // Breaks down -any- multi-allelic variants
-        BCFTOOLS_NORM_1(
+        BCFTOOLS_NORM(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM_1.out.versions)
+        versions = versions.mix(BCFTOOLS_NORM.out.versions)
 
         TABIX_TABIX_1(
-            BCFTOOLS_NORM_1.out.vcf
+            BCFTOOLS_NORM.out.vcf
         )
 
-        BCFTOOLS_NORM_1.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
+        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
     }
 
@@ -109,59 +106,26 @@ workflow PREPARE_VCFS_TEST {
 
     if (params.min_sv_size > 0){
 
-        TABIX_BGZIP(
-            vcf.sv.map{it -> tuple( it[0], it[1])}
+        SV_VARIANT_FILTERING(
+            vcf.sv
         )
-        versions = versions.mix(TABIX_BGZIP.out.versions)
-
-        //
-        // MODULE: SURVIVOR_FILTER
-        //
-        // filters out smaller SVs than min_sv_size
-        SURVIVOR_FILTER(
-            TABIX_BGZIP.out.output.map{it -> tuple( it[0], it[1],[])},
-            params.min_sv_size,
-            -1,
-            -1,
-            -1
-        )
-        versions = versions.mix(SURVIVOR_FILTER.out.versions)
-
-        TABIX_BGZIPTABIX_3(
-            SURVIVOR_FILTER.out.vcf
-        )
-        vcf_ch = TABIX_BGZIPTABIX_3.out.gz_tbi
-        out_vcf_ch = out_vcf_ch.mix(vcf_ch)
-
-        // TODO: Filter SVs from small variant calling?
+        out_vcf_ch = out_vcf_ch.mix(SV_VARIANT_FILTERING.out.vcf_ch)
         out_vcf_ch = out_vcf_ch.mix(vcf.small)
         out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
         vcf_ch = out_vcf_ch
     }
     if (params.preprocess.contains("deduplication")){
         //
-        // BCFTOOLS_NORM
+        // VCF_VARIANT_DEDUPLICATION
         //
         // Deduplicates variants at the same position test
-        BCFTOOLS_NORM_2(
+        VCF_VARIANT_DEDUPLICATION(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM_2.out.versions)
+        vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
 
-        // sort vcf
-        BCFTOOLS_SORT(
-            BCFTOOLS_NORM_2.out.vcf
-        )
-
-        TABIX_TABIX_2(
-            BCFTOOLS_SORT.out.vcf
-        )
-
-        BCFTOOLS_SORT.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
-                            .set{vcf_ch}
     }
-
     vcf_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
