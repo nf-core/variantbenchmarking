@@ -34,7 +34,7 @@ workflow PREPARE_VCFS_TRUTH {
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
     // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"_truth"])
+    ch_samples = Channel.of(["samples.txt", params.sample,"truth_"])
                     .collectFile(newLine:false)
 
     vcf_ch.combine(ch_samples)
