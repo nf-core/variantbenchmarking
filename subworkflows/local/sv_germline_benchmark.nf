@@ -7,7 +7,7 @@ params.options = [:]
 include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'                  addParams( options: params.options )
 include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'          addParams( options: params.options )
 include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark' addParams( options: params.options )
-include { WITTYER                } from '../../modules/local/wittyer'                  addParams( options: params.options )
+include { WITTYER                } from '../../modules/nf-core/wittyer'                  addParams( options: params.options )
 include { VCFDIST                } from '../../modules/local/vcfdist'                  addParams( options: params.options )
 include { BAMSURGEON_EVALUATOR   } from '../../modules/local/bamsurgeon_evaluator'     addParams( options: params.options )
 

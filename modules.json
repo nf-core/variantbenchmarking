@@ -94,6 +94,11 @@
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
+                    },
+                    "wittyer": {
+                        "branch": "master",
+                        "git_sha": "61f2ea506bd87ef436b0086f91a07abc6035fcd0",
+                        "installed_by": ["modules"]
                     }
                 }
             },

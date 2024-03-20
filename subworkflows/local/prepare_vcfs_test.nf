@@ -42,7 +42,7 @@ workflow PREPARE_VCFS_TEST {
     // PREPARE_VCFS
     //
     // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"_query"])
+    ch_samples = Channel.of(["samples.txt", params.sample,"query_"])
                     .collectFile(newLine:false)
 
     vcf_ch.combine(ch_samples)
