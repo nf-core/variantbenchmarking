@@ -34,19 +34,26 @@ workflow PREPARE_VCFS_TRUTH {
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
     // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"truth_"])
+    ch_samples = Channel.of(["samples.txt", params.sample,"truth"])
                     .collectFile(newLine:false)
 
     vcf_ch.combine(ch_samples)
             .map{it -> tuple( it[0], it[1],[],it[3])}
             .set{input_ch}
-
+    //
+    // BCFTOOLS_REHEADER
+    //
+    // Add "truth" to test sample
     BCFTOOLS_REHEADER_TRUTH(
         input_ch,
         fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
 
+    //
+    // TABIX_BGZIPTABIX
+    //
+    // bgzip and index vcf file
     TABIX_BGZIPTABIX(
         BCFTOOLS_REHEADER_TRUTH.out.vcf
     )
@@ -63,7 +70,10 @@ workflow PREPARE_VCFS_TRUTH {
             fasta
         )
         versions = versions.mix(BCFTOOLS_NORM.out.versions)
-
+        //
+        // TABIX_BGZIPTABIX
+        //
+        // ndex vcf file
         TABIX_TABIX(
             BCFTOOLS_NORM.out.vcf
         )

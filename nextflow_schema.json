@@ -125,7 +125,37 @@
                 "min_sv_size": {
                     "type": "integer",
                     "format": "directory-path",
-                    "description": "",
+                    "description": "Maximum SV size of variants to benchmark, 0 to disable , Default:50",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "max_sv_size": {
+                    "type": "integer",
+                    "format": "directory-path",
+                    "description": "Maximum SV size of variants to benchmark, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_allele_freq": {
+                    "type": "number",
+                    "format": "directory-path",
+                    "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_num_reads": {
+                    "type": "integer",
+                    "format": "directory-path",
+                    "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "variant_filtering": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Use either exclude or include to enable variant filtering using bcftools expressions, Default:null",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "expression": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions. This must be coupled with variant_expression, Default:null",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
