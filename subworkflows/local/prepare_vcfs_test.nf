@@ -3,14 +3,13 @@
 //
 
 params.options = [:]
-
-include { BGZIP_TABIX         } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
-include { BCFTOOLS_VIEW       } from '../../modules/local/bcftools_view'      addParams( options: params.options )
-include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
-include { HAPPY_PREPY         } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
-include { BCFTOOLS_NORM       } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
-include { VCF_VARIANT_DEDUPLICATION              } from '../local/vcf_variant_deduplication'      addParams( options: params.options )
-include { SV_VARIANT_FILTERING                   } from '../local/sv_variant_filtering'           addParams( options: params.options )
+include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'     addParams( options: params.options )
+include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'         addParams( options: params.options )
+include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
+include { BCFTOOLS_VIEW             } from '../../modules/local/bcftools_view'      addParams( options: params.options )
+include { BCFTOOLS_SORT             } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
+include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
+include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'    addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
@@ -42,13 +41,17 @@ workflow PREPARE_VCFS_TEST {
     // PREPARE_VCFS
     //
     // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"query_"])
+    ch_samples = Channel.of(["samples.txt", params.sample,"query"])
                     .collectFile(newLine:false)
 
     vcf_ch.combine(ch_samples)
             .map{it -> tuple( it[0], it[1],[],it[3])}
             .set{input_ch}
 
+    //
+    // BCFTOOLS_REHEADER
+    //
+    // Add "query" to test sample
     BCFTOOLS_REHEADER_TEST(
         input_ch,
         fai
@@ -58,6 +61,7 @@ workflow PREPARE_VCFS_TEST {
     TABIX_BGZIPTABIX_1(
         BCFTOOLS_REHEADER_TEST.out.vcf
     )
+    versions = versions.mix(TABIX_BGZIPTABIX_1.out.versions)
     vcf_ch = TABIX_BGZIPTABIX_1.out.gz_tbi
 
     if (params.preprocess.contains("filter_contigs")){
@@ -73,6 +77,7 @@ workflow PREPARE_VCFS_TEST {
         TABIX_BGZIPTABIX_2(
             BCFTOOLS_VIEW.out.vcf
         )
+        versions = versions.mix(TABIX_BGZIPTABIX_2.out.versions)
         vcf_ch   = TABIX_BGZIPTABIX_2.out.gz_tbi
     }
 
@@ -90,33 +95,24 @@ workflow PREPARE_VCFS_TEST {
         TABIX_TABIX_1(
             BCFTOOLS_NORM.out.vcf
         )
-
+        versions = versions.mix(TABIX_TABIX_1.out.versions)
         BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
     }
 
-    vcf_ch.branch{
-            sv:  it[0].vartype == "sv"
-            small:  it[0].vartype == "small"
-            cnv:  it[0].vartype == "cnv"
-            other: false}
-            .set{vcf}
 
-    out_vcf_ch = Channel.empty()
-
-    if (params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
+    if (params.variant_filtering != null | params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1 ){
         //
-        // SUBWORKFLOW: SV_VARIANT_FILTERING
+        // SUBWORKFLOW: VCF_VARIANT_FILTERING
         //
         // Filters SVs with given paramaters
-        SV_VARIANT_FILTERING(
-            vcf.sv
+        VCF_VARIANT_FILTERING(
+            vcf_ch
         )
-        out_vcf_ch = out_vcf_ch.mix(SV_VARIANT_FILTERING.out.vcf_ch)
-        out_vcf_ch = out_vcf_ch.mix(vcf.small)
-        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        vcf_ch = out_vcf_ch
+        vcf_ch = VCF_VARIANT_FILTERING.out.vcf_ch
+        versions = versions.mix(VCF_VARIANT_FILTERING.out.versions)
     }
+
     if (params.preprocess.contains("deduplication")){
         //
         // SUBWORKFLOW: VCF_VARIANT_DEDUPLICATION
@@ -127,6 +123,7 @@ workflow PREPARE_VCFS_TEST {
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
+        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
 
     }
     vcf_ch.branch{
