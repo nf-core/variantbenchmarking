@@ -1,5 +1,5 @@
 //
-// SV_VARIANT_FILTERING: filter sv variants using survivor
+// SV_VARIANT_FILTERING: Filter SV using survivor and bcftools
 //
 
 params.options = [:]
@@ -29,9 +29,9 @@ workflow SV_VARIANT_FILTERING {
     SURVIVOR_FILTER(
         TABIX_BGZIP.out.output.map{it -> tuple( it[0], it[1],[])},
         params.min_sv_size,
-        -1,
-        -1,
-        -1
+        params.max_sv_size,
+        params.min_allele_freq,
+        params.min_num_reads
     )
     versions = versions.mix(SURVIVOR_FILTER.out.versions)
 

@@ -104,8 +104,11 @@ workflow PREPARE_VCFS_TEST {
 
     out_vcf_ch = Channel.empty()
 
-    if (params.min_sv_size > 0){
-
+    if (params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
+        //
+        // SUBWORKFLOW: SV_VARIANT_FILTERING
+        //
+        // Filters SVs with given paramaters
         SV_VARIANT_FILTERING(
             vcf.sv
         )
@@ -116,7 +119,7 @@ workflow PREPARE_VCFS_TEST {
     }
     if (params.preprocess.contains("deduplication")){
         //
-        // VCF_VARIANT_DEDUPLICATION
+        // SUBWORKFLOW: VCF_VARIANT_DEDUPLICATION
         //
         // Deduplicates variants at the same position test
         VCF_VARIANT_DEDUPLICATION(
