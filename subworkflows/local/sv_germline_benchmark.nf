@@ -92,7 +92,7 @@ workflow SV_GERMLINE_BENCHMARK {
         //
         //https://github.com/adamewing/bamsurgeon/blob/master/scripts/evaluator.py
         BAMSURGEON_EVALUATOR(
-            input_ch.map{it -> tuple(it[0],it[1], it[2], it[3], it[4], it[5])},
+            input_ch.map{it -> tuple(it[0], it[1], it[2], it[3], it[4], it[5])},
             fasta,
             fai,
             "SV"

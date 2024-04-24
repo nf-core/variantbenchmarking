@@ -55,7 +55,7 @@ workflow VCF_VARIANT_FILTERING {
         //
         // filters out smaller SVs than min_sv_size, only applicable to SV files
         SURVIVOR_FILTER(
-            vcf.sv.map{it -> tuple( it[0], it[1],[])},
+            vcf.sv.map{it -> tuple( it[0], it[1], [])},
             params.min_sv_size,
             params.max_sv_size,
             params.min_allele_freq,

@@ -47,6 +47,7 @@ workflow VARIANTBENCHMARKING {
     ch_multiqc_files = Channel.empty()
     truth_ch         = Channel.empty()
     high_conf_ch     = Channel.empty()
+    bench_ch         = Channel.empty()
 
     // check mandatory parameters
     println(params.fasta)
@@ -139,37 +140,91 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
+    PREPARE_VCFS_TEST.out.vcf_ch.branch{
+            sv:  it[0].vartype == "sv"
+            small:  it[0].vartype == "small"
+            cnv:  it[0].vartype == "cnv"
+            other: false}
+            .set{test}
 
+    PREPARE_VCFS_TRUTH.out.vcf_ch.branch{
+            sv:  it[0].vartype == "sv"
+            small:  it[0].vartype == "small"
+            cnv:  it[0].vartype == "cnv"
+            other: false}
+            .set{truth}
+
+    high_conf_ch.branch{
+            sv:  it[0].vartype == "sv"
+            small:  it[0].vartype == "small"
+            cnv:  it[0].vartype == "cnv"
+            other: false}
+            .set{high_conf}
     // prepare  benchmark set
-    if (params.high_conf_small || params.high_conf_sv || params.high_conf_cnv ){
-        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
-                                .combine(high_conf_ch)
-                                .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],it[7])}
-                                .set{bench_ch}
-    }else{
-        PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
-                                .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],[])}
-                                .set{bench_ch}
-    }
 
+    if(params.truth_small){
+        if(params.high_conf_small){
+            test.small.combine(truth.small)
+                        .combine(high_conf.small)
+                        .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
+                        .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+        else{
+            test.small.combine(truth.small)
+                        .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
+                        .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+    }
+    if(params.truth_sv){
+        if(params.high_conf_sv){
+            test.sv.combine(truth.sv)
+                    .combine(high_conf.sv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+        else{
+            test.sv.combine(truth.sv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+    }
+    if(params.truth_cnv){
+        if(params.high_conf_cnv){
+            test.cnv.combine(truth.cnv)
+                    .combine(high_conf.cnv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+        else{
+            test.cnv.combine(truth.cnv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+    }
+    bench_ch.view()
     // BENCHMARKS
     bench_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
             other: false}
-            .set{input}
+            .set{bench_input}
     //
     // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
     //
     //Benchmarking spesific to germline samples
 
     SMALL_GERMLINE_BENCHMARK(
-        input.small,
+        bench_input.small,
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
-
 
     //
     // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
@@ -177,7 +232,7 @@ workflow VARIANTBENCHMARKING {
     //Benchmarking spesific to germline samples
 
     SV_GERMLINE_BENCHMARK(
-        input.sv,
+        bench_input.sv,
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
@@ -187,7 +242,7 @@ workflow VARIANTBENCHMARKING {
 
         // SOMATIC VARIANT BENCHMARKING
         SOMATIC_BENCHMARK(
-            bench_ch,
+            bench_input,
             fasta,
             fai
         )

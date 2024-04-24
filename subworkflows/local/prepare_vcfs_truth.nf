@@ -38,7 +38,7 @@ workflow PREPARE_VCFS_TRUTH {
                     .collectFile(newLine:false)
 
     vcf_ch.combine(ch_samples)
-            .map{it -> tuple( it[0], it[1],[],it[3])}
+            .map{it -> tuple( it[0], it[1], [], it[3])}
             .set{input_ch}
     //
     // BCFTOOLS_REHEADER
