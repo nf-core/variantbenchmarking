@@ -166,7 +166,7 @@ workflow VARIANTBENCHMARKING {
         if(params.high_conf_small){
             test.small.combine(truth.small)
                         .combine(high_conf.small)
-                        .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],it[7])}
+                        .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
                         .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
