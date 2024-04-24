@@ -31,7 +31,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         // MODULE: RTGTOOLS_VCFEVAL
         //
         RTGTOOLS_VCFEVAL(
-            input_ch.map { it -> tuple(it[0],it[3], it[4], it[1], it[2], it[5], []) },
+            input_ch.map { it -> tuple(it[0], it[3], it[4], it[1], it[2], it[5], []) },
             RTGTOOLS_FORMAT.out.sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
@@ -40,7 +40,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('happy')){
 
         HAPPY_HAPPY(
-            input_ch.map { it -> tuple(it[0],it[3], it[1], it[5], []) },
+            input_ch.map { it -> tuple(it[0], it[3], it[1], it[5], []) },
             fasta,
             fai,
             [[],[]],

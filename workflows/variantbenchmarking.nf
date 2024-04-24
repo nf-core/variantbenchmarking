@@ -172,7 +172,7 @@ workflow VARIANTBENCHMARKING {
         }
         else{
             test.small.combine(truth.small)
-                        .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],[])}
+                        .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
                         .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
@@ -181,13 +181,13 @@ workflow VARIANTBENCHMARKING {
         if(params.high_conf_sv){
             test.sv.combine(truth.sv)
                     .combine(high_conf.sv)
-                    .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],it[7])}
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
                     .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
         else{
             test.sv.combine(truth.sv)
-                    .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],[])}
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
                     .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
@@ -196,13 +196,13 @@ workflow VARIANTBENCHMARKING {
         if(params.high_conf_cnv){
             test.cnv.combine(truth.cnv)
                     .combine(high_conf.cnv)
-                    .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],it[7])}
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
                     .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
         else{
             test.cnv.combine(truth.cnv)
-                    .map{it -> tuple(it[0], it[1], it[2],it[4],it[5],[])}
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
                     .set{bench}
             bench_ch = bench_ch.mix(bench)
         }
