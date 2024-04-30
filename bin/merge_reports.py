@@ -54,9 +54,9 @@ def get_svbenchmark_resuls(file_paths):
 		# Initialize a dictionary to store the data
 		data = {
 			'Tool': [filename.split(".")[0]],
-			'TP-base': [DTP_match.group(1) if DTP_match else 'NA'],
+			'TP_base': [DTP_match.group(1) if DTP_match else 'NA'],
 			'FP': [FP_match.group(1) if FP_match else 'NA'],
-			'TP-comp': [DTP_match.group(1) if DTP_match else 'NA'],
+			'TP_comp': [DTP_match.group(1) if DTP_match else 'NA'],
 			'FN': [FN_match.group(1) if FN_match else 'NA'],
 			'Recall': [float(recall_match.group(1))/100 if recall_match else 'NA'],
 			'Precision': [float(precision_match.group(1))/100 if precision_match else 'NA'],
@@ -83,8 +83,8 @@ def get_truvari_resuls(file_paths):
 
 			relevant_data = {
 				"Tool": filename.split(".")[0],
-				"TP-base": data["TP-base"].iloc[0],
-				"TP-comp": data["TP-comp"].iloc[0],
+				"TP_base": data["TP-base"].iloc[0],
+				"TP_comp": data["TP-comp"].iloc[0],
 				"FP": data["FP"].iloc[0],
 				"FN": data["FN"].iloc[0],
 				"Precision": data["precision"].iloc[0],
@@ -119,7 +119,7 @@ def get_rtgtools_resuls(file_paths):
 		df = pd.DataFrame(data, columns=header)
 		df['Tool'] = filename.split(".")[0]
 		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
-		df_redesigned.columns = ['Tool', 'Threshold','TP-base','TP-call','FP','FN','Precision','Recall','F1']
+		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']
 
 		merged_df = pd.concat([merged_df, df_redesigned])
 	return merged_df
@@ -137,7 +137,7 @@ def get_happy_resuls(file_paths):
 		df['Tool'] = filename.split(".")[0]
 
 		df_redesigned = df[['Tool', 'Type','Filter','TRUTH.TOTAL','TRUTH.TP','TRUTH.FN','QUERY.TOTAL','QUERY.FP','QUERY.UNK','FP.gt','FP.al','METRIC.Recall','METRIC.Precision','METRIC.Frac_NA','METRIC.F1_Score','TRUTH.TOTAL.TiTv_ratio','QUERY.TOTAL.TiTv_ratio','TRUTH.TOTAL.het_hom_ratio','QUERY.TOTAL.het_hom_ratio']]
-		df_redesigned.columns = ['Tool', 'Type','Filter','TP-base','TP','FN','TP-call','FP','QUERY.UNK','FP.gt','FP.al','Recall','Precision','Frac_NA','F1','TRUTH.TiTv_ratio','QUERY.TiTv_ratio','TRUTH.het_hom_ratio','QUERY.TOTAL.het_hom_ratio']
+		df_redesigned.columns = ['Tool', 'Type','Filter','TP_base','TP','FN','TP_call','FP','UNK','FP_gt','FP_al','Recall','Precision','Frac_NA','F1','TRUTH_TiTv_ratio','QUERY_TiTv_ratio','TRUTH_het_hom_ratio','QUERY_het_hom_ratio']
 
 		merged_df = pd.concat([merged_df, df_redesigned])
 
