@@ -17,6 +17,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
     main:
 
     versions=Channel.empty()
+    summary_reports=Channel.empty()
 
     if (params.method.contains('rtgtools')){
         //
@@ -35,6 +36,13 @@ workflow SMALL_GERMLINE_BENCHMARK {
             RTGTOOLS_FORMAT.out.sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
+
+        RTGTOOLS_VCFEVAL.out.summary
+            .map { it -> tuple("rtgtools", it[1]) }
+            .groupTuple()
+            .set{ report}
+
+        summary_reports = summary_reports.mix(report)
     }
 
     if (params.method.contains('happy')){
@@ -48,8 +56,15 @@ workflow SMALL_GERMLINE_BENCHMARK {
             [[],[]]
         )
         versions = versions.mix(HAPPY_HAPPY.out.versions)
+
+        HAPPY_HAPPY.out.summary_csv
+            .map { it -> tuple("happy", it[1]) }
+            .groupTuple()
+            .set{ report}
+        summary_reports = summary_reports.mix(report)
     }
 
     emit:
     versions
+    summary_reports
 }

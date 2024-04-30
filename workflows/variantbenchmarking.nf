@@ -231,6 +231,7 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+    ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
 
     //
     // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
@@ -242,7 +243,7 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-    ch_reports = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+    ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
 
     // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
