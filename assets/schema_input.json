@@ -94,17 +94,7 @@
             "pick": {
                 "type": "string",
                 "default": "ac",
-                "anyOf": [
-                    {
-                        "dependentRequired": ["single"]
-                    },
-                    {
-                        "dependentRequired": ["ac"]
-                    },
-                    {
-                        "dependentRequired": ["multi"]
-                    }
-                ],
+                "enum": ["single", "ac", "multi"],
                 "meta": ["pick"]
             }
         },
