@@ -49,9 +49,9 @@ Available Truth samples: HG002, SEQC2
 
 - If you have unresolved SVs, it is recommended to use only truvari with --pctsim 0.
 
-- The size filtration parameters provided by truvari and svbenchmark do not apply in the same way. That is why using them are not recommended through the pipeline, but in vcf normalization steps, variants can be filtering safely.
+- The size filtration parameters provided by truvari and svbenchmark do not apply in the same way. That is why using them is not recommended through the pipeline, but variants can be filtered safely in vcf normalization steps.
 
-- Please not that it is not possible to use exactly the same parameters for different benchmarking methods.
+- Please note that it is not possible to use exactly the same parameters for different benchmarking methods.
 
 <!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
      Explain what rows and columns represent. For instance (please edit as appropriate):
