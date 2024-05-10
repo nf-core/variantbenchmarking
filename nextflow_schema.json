@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/nextflow_schema.json",
     "title": "nf-core/variantbenchmarking pipeline parameters",
-    "description": "Master benchmarking pipeline for Structural Variant callers ",
+    "description": "Master benchmarking pipeline for variant callers ",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -16,9 +16,9 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/variantbenchmarking/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -27,6 +27,174 @@
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "high_conf_small": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "SMALL: Path to the high confidence BED files.",
+                    "help_text": "SMALL: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_small": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "SMALL: Path to the golden set VCF files.",
+                    "help_text": "SMALL: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_sv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "SV: Path to the high confidence BED files.",
+                    "help_text": "SV: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_sv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": " SV: Path to the golden set VCF files.",
+                    "help_text": "SV: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_cnv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "CNV: Path to the high confidence BED files.",
+                    "help_text": "CNV: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_cnv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "CNV: Path to the golden set VCF files.",
+                    "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "svync_yaml": {
+                    "type": "string",
+                    "format": "file-path-pattern",
+                    "exists": true,
+                    "pattern": "^\\S+\\.yaml$",
+                    "description": "Custom configuration files for Svync standardization",
+                    "help_text": "Please make sure the caller is the basename of the file (e.g. for lumpy, the config should called 'lumpy.yaml'",
+                    "errorMessage": "A path/glob pattern to existing config files should be given. These files should have the 'yaml' extension"
+                },
+                "analysis": {
+                    "type": "string",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "preprocess": {
+                    "type": "string",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "sv_standardization": {
+                    "type": "string",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "similarity": {
+                    "type": "integer",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_sv_size": {
+                    "type": "integer",
+                    "description": "Maximum SV size of variants to benchmark, 0 to disable , Default:50",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "max_sv_size": {
+                    "type": "integer",
+                    "description": "Maximum SV size of variants to benchmark, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_allele_freq": {
+                    "type": "number",
+                    "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_num_reads": {
+                    "type": "integer",
+                    "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "pctsize": {
+                    "type": "number",
+                    "description": "TRUVARI PARAMETER. Ratio of min(base_size, comp_size)/max(base_size, comp_size)",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "refdist": {
+                    "type": "integer",
+                    "description": "TRUVARI PARAMETER. Maximum distance comparison calls must be within from base call's start/end",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "chunksize": {
+                    "type": "integer",
+                    "description": "TRUVARI PARAMETER.",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "pctseq": {
+                    "type": "number",
+                    "description": "TRUVARI PARAMETER. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call.",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "pctovl": {
+                    "type": "number",
+                    "description": "TRUVARI PARAMETER. Ratio of two calls' (overlapping bases)/(longest span).",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "pick": {
+                    "type": "string",
+                    "description": "TRUVARI PARAMETER.How many matches a variant is allowed to participate in is controlled: single,ac,multi",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "normshift": {
+                    "type": "number",
+                    "description": "SVANALYZER PARAMETER. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2) ",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "normdist": {
+                    "type": "number",
+                    "description": "SVANALYZER PARAMETER. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "normsizediff": {
+                    "type": "number",
+                    "description": "SVANALYZER PARAMETER. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2) ",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "maxdist": {
+                    "type": "integer",
+                    "description": "SVANALYZER PARAMETER. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "variant_filtering": {
+                    "type": "string",
+                    "description": "Use either exclude or include to enable variant filtering using bcftools expressions, Default:null",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "expression": {
+                    "type": "string",
+                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions. This must be coupled with variant_expression, Default:null",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
@@ -48,6 +216,7 @@
             "type": "object",
             "fa_icon": "fas fa-dna",
             "description": "Reference genome related files and options required for the workflow.",
+            "required": ["fasta", "fai"],
             "properties": {
                 "genome": {
                     "type": "string",
@@ -62,6 +231,15 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to FAI genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
                 },
