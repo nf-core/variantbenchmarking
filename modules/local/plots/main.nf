@@ -4,8 +4,8 @@ process PLOTS {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-400bee8f069b1e20921115d7a92e5e6dd83bc49c:055769a32b18e19ed8bee8ab152eedac16879359-0':
-        'biocontainers/mulled-v2-400bee8f069b1e20921115d7a92e5e6dd83bc49c:055769a32b18e19ed8bee8ab152eedac16879359-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-4efdedce78cbbcee99652df1954093caf4730f6a:6da101c870eae13e6ddbf6940d3797d9b86ae763':
+        'biocontainers/mulled-v2-4efdedce78cbbcee99652df1954093caf4730f6a:6da101c870eae13e6ddbf6940d3797d9b86ae763' }"
 
     input:
     tuple val(benchmark_tool), path(summary)
