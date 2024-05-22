@@ -54,12 +54,9 @@ generate_plots <- function(table, benchmark, type, filter) {
     }
     tryCatch({
         if (!is.null(metric_plot)) {
-            png(name, width = 10, height = 6, units = "in", res = 300, type = "cairo")
-            print(metric_plot)
-            dev.off()
+            ggsave(name, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         } else {
-            png(name, width = 10, height = 6, units = "in", res = 300, type = "cairo")
-            dev.off()
+            ggsave(name, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         }
     }, error = function(e) {
         message("Error occurred while saving metric plot: ", conditionMessage(e))
@@ -71,12 +68,9 @@ generate_plots <- function(table, benchmark, type, filter) {
     }
     tryCatch({
         if (!is.null(tp_plot)) {
-            png(name, width = 10, height = 6, units = "in", res = 300, type = "cairo")
-            print(tp_plot)
-            dev.off()
+            ggsave(name, tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         } else {
-            png(name, width = 10, height = 6, units = "in", res = 300, type = "cairo")
-            dev.off()
+            ggsave(name,tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         }
     }, error = function(e) {
         message("Error occurred while saving TP plot: ", conditionMessage(e))
@@ -98,7 +92,6 @@ if (benchmark == "happy"){
     generate_plots(table, benchmark, "SNP", "ALL")
     generate_plots(table, benchmark, "INDEL", "PASS")
     generate_plots(table, benchmark, "INDEL", "ALL")
-}
-else{
+}else{
     generate_plots(table, benchmark, "None", "None")
 }
