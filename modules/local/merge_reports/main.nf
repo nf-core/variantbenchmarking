@@ -1,5 +1,5 @@
 process MERGE_REPORTS {
-    tag "$benchmark_tool"
+    tag "$meta.benchmark_tool"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
@@ -8,10 +8,10 @@ process MERGE_REPORTS {
         'biocontainers/mulled-v2-2076f4a3fb468a04063c9e6b7747a630abb457f6:fccb0c41a243c639e11dd1be7b74f563e624fcca-0' }"
 
     input:
-    tuple val(benchmark_tool), path(inputs)
+    tuple val(meta), path(inputs)
 
     output:
-    tuple val(benchmark_tool),path("*.summary"), emit: summary
+    tuple val(meta),path("*.summary"), emit: summary
     path "versions.yml"                        , emit: versions
 
     when:
@@ -19,14 +19,27 @@ process MERGE_REPORTS {
 
     script:
     def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     merge_reports.py $inputs \\
-        -b $benchmark_tool \\
-        -o ${benchmark_tool}.summary
+        -b $meta.benchmark_tool \\
+        -o ${prefix}.summary
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         python: \$(python --version | sed 's/Python //g')
     END_VERSIONS
     """
+    stub:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
+    """
+    touch ${prefix}.summary
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version | sed 's/Python //g')
+    END_VERSIONS
+    """
+
 }

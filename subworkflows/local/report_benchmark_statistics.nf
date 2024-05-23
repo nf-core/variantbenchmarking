@@ -9,7 +9,7 @@ include { PLOTS          } from '../../modules/local/plots'           addParams(
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
-    reports    // channel: [val(benchmark_tool), report1, report2, ...]
+    reports    // channel: [meta, report1, report2, ...]
 
     main:
 

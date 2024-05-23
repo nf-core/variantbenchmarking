@@ -267,8 +267,6 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
 
-
-
     // TODO: BENCHMARKING OF CNV
     // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
 

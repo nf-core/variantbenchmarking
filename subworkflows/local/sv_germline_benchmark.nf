@@ -47,7 +47,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(TRUVARI_BENCH.out.versions)
 
         TRUVARI_BENCH.out.summary
-            .map { it -> tuple("truvari", it[1]) }
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "truvari"], file) }
             .groupTuple()
             .set { report }
 
@@ -67,7 +67,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
         SVANALYZER_SVBENCHMARK.out.report
-            .map { it -> tuple("svbenchmark", it[1]) }
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "svbenchmark"], file) }
             .groupTuple()
             .set{ report}
 

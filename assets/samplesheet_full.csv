@@ -4,3 +4,4 @@ https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/manta.HG002.chr21.vcf.gz,manta,sv
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/HG002_DRAGEN_SV_hg19.chr21.vcf.gz,dragen,sv
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/HG002.strelka.variants.chr21.vcf.gz,strelka,small
