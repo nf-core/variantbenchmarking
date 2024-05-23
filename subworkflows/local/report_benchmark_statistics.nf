@@ -14,7 +14,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     main:
 
     versions=Channel.empty()
-
+    reports.view()
     MERGE_REPORTS(
         reports
     )

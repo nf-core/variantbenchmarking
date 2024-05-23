@@ -213,7 +213,7 @@ workflow VARIANTBENCHMARKING {
             bench_ch = bench_ch.mix(bench)
         }
     }
-
+    bench_ch.view()
     // BENCHMARKS
     bench_ch.branch{
             sv:  it[0].vartype == "sv"

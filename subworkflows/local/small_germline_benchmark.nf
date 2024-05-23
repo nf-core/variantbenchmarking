@@ -38,7 +38,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
 
         RTGTOOLS_VCFEVAL.out.summary
-            .map { meta, file -> tuple([vartpe: meta.vartype] + [benchmark_tool: "rtgtools"], file) }
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "rtgtools"], file) }
             .groupTuple()
             .set{ report}
 
@@ -63,7 +63,6 @@ workflow SMALL_GERMLINE_BENCHMARK {
             .set{ report}
         summary_reports = summary_reports.mix(report)
     }
-    summary_reports.view()
     emit:
     versions
     summary_reports
