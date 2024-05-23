@@ -1,28 +1,31 @@
 //
-// REPORT_BENCHMARK_STATISTICS: BENCHMARK REPORTS
+// REPORT_BENCHMARK_STATISTICS: SUMMARIZE BENCHMARK REPORTS
 //
 
 params.options = [:]
 
-include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'      addParams( options: params.options )
+include { MERGE_REPORTS  } from '../../modules/local/merge_reports'   addParams( options: params.options )
+include { PLOTS          } from '../../modules/local/plots'           addParams( options: params.options )
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
-    truth_ch    // channel: [val(meta), vcf]
-    ref         // reference channel [ref.fa, ref.fa.fai]
-    main_chroms // channel: path(chrom sizes)
+    reports    // channel: [meta, report1, report2, ...]
 
     main:
 
     versions=Channel.empty()
+    reports.view()
+    MERGE_REPORTS(
+        reports
+    )
 
-// Check tool spesific conversions
+    versions = versions.mix(MERGE_REPORTS.out.versions)
 
-    // https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
-    // GRIDSS simple event annotation
+    PLOTS(
+        MERGE_REPORTS.out.summary
+    )
 
+    versions = versions.mix(PLOTS.out.versions)
     emit:
-    vcf_ch
     versions
 }

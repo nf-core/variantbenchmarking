@@ -20,6 +20,7 @@ workflow SV_GERMLINE_BENCHMARK {
     main:
 
     versions=Channel.empty()
+    summary_reports=Channel.empty()
 
     // SV benchmarking
 
@@ -45,6 +46,12 @@ workflow SV_GERMLINE_BENCHMARK {
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions)
 
+        TRUVARI_BENCH.out.summary
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "truvari"], file) }
+            .groupTuple()
+            .set { report }
+
+        summary_reports = summary_reports.mix(report)
     }
 
     if (params.method.contains('svanalyzer')){
@@ -58,6 +65,13 @@ workflow SV_GERMLINE_BENCHMARK {
             fai
             )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
+
+        SVANALYZER_SVBENCHMARK.out.report
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "svbenchmark"], file) }
+            .groupTuple()
+            .set{ report}
+
+        summary_reports = summary_reports.mix(report)
 
     }
 
@@ -101,5 +115,6 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     emit:
+    summary_reports
     versions
 }

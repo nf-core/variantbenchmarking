@@ -23,12 +23,17 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
-include { SV_GERMLINE_BENCHMARK    } from '../subworkflows/local/sv_germline_benchmark'
-include { SMALL_GERMLINE_BENCHMARK } from '../subworkflows/local/small_germline_benchmark'
-include { PREPARE_VCFS_TRUTH       } from '../subworkflows/local/prepare_vcfs_truth'
-include { PREPARE_VCFS_TEST        } from '../subworkflows/local/prepare_vcfs_test'
-include { SV_VCF_CONVERSIONS       } from '../subworkflows/local/sv_vcf_conversion'
-include { REPORT_VCF_STATISTICS   } from '../subworkflows/local/report_vcf_statistics'
+
+//
+// SUBWORKFLOWS: Local Subworkflows
+//
+include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
+include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
+include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs_truth'
+include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
+include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conversion'
+include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
+include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,6 +50,7 @@ workflow VARIANTBENCHMARKING {
 
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
+    ch_reports       = Channel.empty()
     truth_ch         = Channel.empty()
     high_conf_ch     = Channel.empty()
     bench_ch         = Channel.empty()
@@ -225,6 +231,7 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+    ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
 
     //
     // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
@@ -236,6 +243,7 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai    )
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
+    ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
 
     // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
@@ -249,8 +257,15 @@ workflow VARIANTBENCHMARKING {
         ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
     }
 
-    // TODO: NEED A TOOL TO COLLECT METRICS AND ROCS LIKE DATAVZRD OR SQLITE DATABASE
+    //
+    // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
+    //
+    // Summarize and plot benchmark statistics
 
+    REPORT_BENCHMARK_STATISTICS(
+        ch_reports
+    )
+    ch_versions = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
 
     // TODO: BENCHMARKING OF CNV
     // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
