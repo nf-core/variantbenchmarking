@@ -47,6 +47,8 @@ workflow VCF_VARIANT_FILTERING {
                 sv:  it[0].vartype == "sv"
                 small:  it[0].vartype == "small"
                 cnv:  it[0].vartype == "cnv"
+                snv: it[0].vartype == "snv"
+                indel: it[0].vartype == "indel"
                 other: false}
                 .set{vcf}
 
@@ -66,6 +68,8 @@ workflow VCF_VARIANT_FILTERING {
         out_vcf_ch = out_vcf_ch.mix(SURVIVOR_FILTER.out.vcf)
         out_vcf_ch = out_vcf_ch.mix(vcf.small)
         out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
+        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
+        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
         vcf_ch = out_vcf_ch
     }
     //

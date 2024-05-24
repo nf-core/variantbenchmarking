@@ -6,7 +6,6 @@ params.options = [:]
 include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'     addParams( options: params.options )
 include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'         addParams( options: params.options )
 include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
-include { BCFTOOLS_VIEW             } from '../../modules/local/bcftools_view'      addParams( options: params.options )
 include { BCFTOOLS_SORT             } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
 include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
 include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'    addParams( options: params.options )
@@ -14,6 +13,11 @@ include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/t
 include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_4 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
 
 
@@ -26,7 +30,6 @@ workflow PREPARE_VCFS_TEST {
     main:
 
     versions=Channel.empty()
-
     //
     // MODULE: BGZIP_TABIX
     //
@@ -36,7 +39,6 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
-
     //
     // PREPARE_VCFS
     //
@@ -69,18 +71,18 @@ workflow PREPARE_VCFS_TEST {
         // BCFTOOLS_VIEW
         //
         // To filter out contigs!
-        BCFTOOLS_VIEW(
-            vcf_ch
+        BCFTOOLS_VIEW_CONTIGS(
+            vcf_ch,
+            [],[],[]
         )
-        versions = versions.mix(BCFTOOLS_VIEW.out.versions)
+        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions)
 
         TABIX_BGZIPTABIX_2(
-            BCFTOOLS_VIEW.out.vcf
+            BCFTOOLS_VIEW_CONTIGS.out.vcf
         )
         versions = versions.mix(TABIX_BGZIPTABIX_2.out.versions)
         vcf_ch   = TABIX_BGZIPTABIX_2.out.gz_tbi
     }
-
     if (params.preprocess.contains("normalization")){
         //
         // BCFTOOLS_NORM
@@ -101,7 +103,7 @@ workflow PREPARE_VCFS_TEST {
     }
 
 
-    if (params.variant_filtering != null | params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1 ){
+    if (params.variant_filtering != null ){
         //
         // SUBWORKFLOW: VCF_VARIANT_FILTERING
         //
@@ -130,33 +132,77 @@ workflow PREPARE_VCFS_TEST {
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{vcf}
 
     out_vcf_ch = Channel.empty()
 
-    // only for small variant benchmarking
-    if (params.preprocess.contains("prepy")){
-        HAPPY_PREPY(
-            vcf.small.map{it -> tuple( it[0], it[1],[])},
-            fasta,
-            fai
+    if (params.analysis.contains("somatic")){
+
+        // split small into snv and indel if somatic
+        BCFTOOLS_VIEW_SNV(
+            vcf.small,
+            [],[],[]
         )
-        // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
-
-        TABIX_TABIX_3(
-            HAPPY_PREPY.out.preprocessed_vcf
+        TABIX_BGZIPTABIX_3(
+            BCFTOOLS_VIEW_SNV.out.vcf
         )
+        TABIX_BGZIPTABIX_3.out.gz_tbi
+                            .map { meta, file, index -> tuple(meta + [vartype: "snv"], file, index) }
+                            .set{split_snv_vcf}
+        out_vcf_ch = out_vcf_ch.mix(split_snv_vcf)
 
-        HAPPY_PREPY.out.preprocessed_vcf.join(TABIX_TABIX_3.out.tbi, by:0)
-                            .set{vcf_ch}
+        BCFTOOLS_VIEW_INDEL(
+            vcf.small,
+            [],[],[]
+        )
+        versions = versions.mix(BCFTOOLS_VIEW_INDEL.out.versions)
 
-        out_vcf_ch = out_vcf_ch.mix(vcf_ch)
+        TABIX_BGZIPTABIX_4(
+            BCFTOOLS_VIEW_INDEL.out.vcf
+        )
+        versions = versions.mix(TABIX_BGZIPTABIX_4.out.versions)
+        TABIX_BGZIPTABIX_4.out.gz_tbi
+                            .map { meta, file, index -> tuple(meta + [vartype: "indel"], file, index) }
+                            .set{split_indel_vcf}
+        out_vcf_ch = out_vcf_ch.mix(split_indel_vcf)
+        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
+        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
         out_vcf_ch = out_vcf_ch.mix(vcf.sv)
         out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        vcf_ch = out_vcf_ch
+
+    }
+    else{
+        // if analysis is germline
+        // only for small variant benchmarking of germline analysis
+        if (params.preprocess.contains("prepy")){
+
+            input_vcf = vcf.small.mix(vcf.snv)
+            input_vcf = input_vcf.mix(vcf.indel)
+
+            HAPPY_PREPY(
+                input_vcf.map{it -> tuple( it[0], it[1],[])},
+                fasta,
+                fai
+            )
+            // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
+
+            TABIX_TABIX_3(
+                HAPPY_PREPY.out.preprocessed_vcf
+            )
+
+            HAPPY_PREPY.out.preprocessed_vcf.join(TABIX_TABIX_3.out.tbi, by:0)
+                                .set{vcf_ch}
+
+            out_vcf_ch = out_vcf_ch.mix(vcf_ch)
+            out_vcf_ch = out_vcf_ch.mix(vcf.sv)
+            out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
+        }
     }
 
+    vcf_ch = out_vcf_ch
 
     emit:
     vcf_ch

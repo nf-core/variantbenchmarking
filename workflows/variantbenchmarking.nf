@@ -145,23 +145,6 @@ workflow VARIANTBENCHMARKING {
     out_vcf_ch = out_vcf_ch.mix(input.indel)
     out_vcf_ch = out_vcf_ch.mix(input.small)
 
-    //if (params.analysis.contains("somatic")){
-    //    //
-    //    // SUBWORKFLOW: split vartpe small to snv and indel if analysis is somatic
-    //    //
-    //
-    //      SPLIT_TRUTH_SNV_INDEL(
-    //          input.small
-    //      )
-    //      ch_versions = ch_versions.mix(SPLIT_TRUTH_SNV_INDEL.out.versions)
-    //      out_vcf_ch = out_vcf_ch.mix(SPLIT_TRUTH_SNV_INDEL.out.snv)
-    //      out_vcf_ch = out_vcf_ch.mix(SPLIT_TRUTH_SNV_INDEL.out.indel)
-
-    //  }else{
-    //  out_vcf_ch = out_vcf_ch.mix(input.small)
-    //  }
-
-
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs
     //
@@ -188,8 +171,6 @@ workflow VARIANTBENCHMARKING {
         PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
-
-
 
     PREPARE_VCFS_TEST.out.vcf_ch.branch{
             sv:  it[0].vartype == "sv"
@@ -265,6 +246,36 @@ workflow VARIANTBENCHMARKING {
             bench_ch = bench_ch.mix(bench)
         }
     }
+    if(params.truth_snv){
+        if(params.high_conf_snv){
+            test.snv.combine(truth.snv)
+                    .combine(high_conf.snv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+        else{
+            test.snv.combine(truth.snv)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+    }
+    if(params.truth_indel){
+        if(params.high_conf_indel){
+            test.indel.combine(truth.indel)
+                    .combine(high_conf.indel)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], it[7])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+        else{
+            test.indel.combine(truth.indel)
+                    .map{it -> tuple(it[0], it[1], it[2], it[4], it[5], [])}
+                    .set{bench}
+            bench_ch = bench_ch.mix(bench)
+        }
+    }
 
     // BENCHMARKS
     bench_ch.branch{
@@ -303,10 +314,10 @@ workflow VARIANTBENCHMARKING {
     }
 
     // TODO: SOMATIC BENCHMARKING
-    //if (params.analysis.contains("somatic")){
+    // if (params.analysis.contains("somatic")){
 
     //    // SOMATIC VARIANT BENCHMARKING
-    //    SOMATIC_BENCHMARK(
+    //    SMALL_SOMATIC_BENCHMARK(
     //        bench_input,
     //        fasta,
     //        fai
