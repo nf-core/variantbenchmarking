@@ -1,3 +1,4 @@
-test_vcf,caller
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/test/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-Strelka.indel.vcf.gz",strelka,sv
-"/Users/w620-admin/Desktop/nf-core/dataset/hg38/SEQC_somatic_mutation_truth/test/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-MuTect2.vcf.gz",mutect2,sv
+test_vcf,caller,vartype
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-MuTect2.chr21.vcf.gz,mutect2,small
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38//WGS.bwa.dedup-IL_T_1_vs_IL_N_1-Strelka.snv.chr21.vcf.gz,strelka,snv
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-Strelka.indel.chr21.vcf.gz,strelka,indel

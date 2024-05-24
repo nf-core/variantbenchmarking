@@ -62,7 +62,9 @@ workflow VARIANTBENCHMARKING {
     fasta       = Channel.fromPath(params.fasta, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
     fai         = Channel.fromPath(params.fai, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
 
-    // check high confidence files
+    //// check high confidence files ////
+
+    // Germline
 
     truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
                                                 : Channel.empty()
@@ -88,6 +90,25 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
+    // Somatic
+
+    high_conf_snv  = params.high_conf_snv       ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_snv)
+
+    truth_snv       = params.truth_snv          ? Channel.fromPath(params.truth_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_snv)
+
+    high_conf_indel  = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_indel)
+
+    truth_indel     = params.truth_indel        ? Channel.fromPath(params.truth_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+                                                : Channel.empty()
+    truth_ch        = truth_ch.mix(truth_indel)
+
+    // SVYNC YAML files for standardization
     svync_yaml      = params.svync_yaml         ? Channel.fromPath(params.svync_yaml, checkIfExists: true).collect()
                                                 : Channel.empty()
 
@@ -98,6 +119,8 @@ workflow VARIANTBENCHMARKING {
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{input}
 
@@ -116,8 +139,28 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
     out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
-    out_vcf_ch = out_vcf_ch.mix(input.small)
+
     out_vcf_ch = out_vcf_ch.mix(input.cnv)
+    out_vcf_ch = out_vcf_ch.mix(input.snv)
+    out_vcf_ch = out_vcf_ch.mix(input.indel)
+    out_vcf_ch = out_vcf_ch.mix(input.small)
+
+    //if (params.analysis.contains("somatic")){
+    //    //
+    //    // SUBWORKFLOW: split vartpe small to snv and indel if analysis is somatic
+    //    //
+    //
+    //      SPLIT_TRUTH_SNV_INDEL(
+    //          input.small
+    //      )
+    //      ch_versions = ch_versions.mix(SPLIT_TRUTH_SNV_INDEL.out.versions)
+    //      out_vcf_ch = out_vcf_ch.mix(SPLIT_TRUTH_SNV_INDEL.out.snv)
+    //      out_vcf_ch = out_vcf_ch.mix(SPLIT_TRUTH_SNV_INDEL.out.indel)
+
+    //  }else{
+    //  out_vcf_ch = out_vcf_ch.mix(input.small)
+    //  }
+
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs
@@ -146,10 +189,14 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
+
+
     PREPARE_VCFS_TEST.out.vcf_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{test}
 
@@ -157,6 +204,8 @@ workflow VARIANTBENCHMARKING {
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{truth}
 
@@ -164,8 +213,11 @@ workflow VARIANTBENCHMARKING {
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{high_conf}
+
     // prepare  benchmark set
 
     if(params.truth_small){
@@ -213,49 +265,54 @@ workflow VARIANTBENCHMARKING {
             bench_ch = bench_ch.mix(bench)
         }
     }
-    bench_ch.view()
+
     // BENCHMARKS
     bench_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"
             cnv:  it[0].vartype == "cnv"
+            snv: it[0].vartype == "snv"
+            indel: it[0].vartype == "indel"
             other: false}
             .set{bench_input}
-    //
-    // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
-    //
-    //Benchmarking spesific to germline samples
 
-    SMALL_GERMLINE_BENCHMARK(
-        bench_input.small,
-        fasta,
-        fai    )
-    ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
-    ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
+    if (params.analysis.contains("germline")){
+        //
+        // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
+        //
+        //Benchmarking spesific to germline samples
 
-    //
-    // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
-    //
-    //Benchmarking spesific to germline samples
+        SMALL_GERMLINE_BENCHMARK(
+            bench_input.small,
+            fasta,
+            fai    )
+        ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
 
-    SV_GERMLINE_BENCHMARK(
-        bench_input.sv,
-        fasta,
-        fai    )
-    ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-    ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+        //
+        // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
+        //
+        //Benchmarking spesific to germline samples
+
+        SV_GERMLINE_BENCHMARK(
+            bench_input.sv,
+            fasta,
+            fai    )
+        ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+    }
 
     // TODO: SOMATIC BENCHMARKING
-    if (params.analysis.contains("somatic")){
+    //if (params.analysis.contains("somatic")){
 
-        // SOMATIC VARIANT BENCHMARKING
-        SOMATIC_BENCHMARK(
-            bench_input,
-            fasta,
-            fai
-        )
-        ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
-    }
+    //    // SOMATIC VARIANT BENCHMARKING
+    //    SOMATIC_BENCHMARK(
+    //        bench_input,
+    //        fasta,
+    //        fai
+    //    )
+    //    ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
+    //}
 
     //
     // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
