@@ -4,8 +4,8 @@
 
 params.options = [:]
 
-include { TRUVARI_BENCH                       } from '../../modules/nf-core/truvari/bench'          addParams( options: params.options )
-include { SVANALYZER_SVBENCHMARK              } from '../../modules/nf-core/svanalyzer/svbenchmark' addParams( options: params.options )
+include { HAPPY_SOMPY      } from '../../modules/nf-core/happy/sompy/main'               addParams( options: params.options )
+include { HAPPY_FTX        } from '../../modules/local/happy_ftx'                  addParams( options: params.options )
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
@@ -16,36 +16,40 @@ workflow SMALL_SOMATIC_BENCHMARK {
     main:
 
     versions=Channel.empty()
+    summary_reports=Channel.empty()
 
-    // SV Benchmarking
-    //
-    // MODULE: TRUVARI_BENCH
-    //
-    TRUVARI_BENCH(
-        input_ch,
-        fasta,
-        fai
-    )
-    versions = versions.mix(TRUVARI_BENCH.out.versions)
+    if (params.method.contains('sompy')){
+        // Sompy analysis requires feature table: https://github.com/Illumina/hap.py/blob/master/example/sompy/reference_outputs/sompy.strelka_grch38_admix_pass_indels.features.csv
+        // I dont know how to prepare it for now.
 
-    // SV Benchmarking
-    //
-    // MODULE: SVANALYZER_SVBENCHMARK
-    //
-    // note: slow
-    //SVANALYZER_SVBENCHMARK(
-    //    bench.sv,
-    //    ref,
-    //    sv_bed
-    //)
-    //versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
+        input_ch.map { it -> tuple(it[0], it[3], it[5], [], "generic") }
+                .set{ch_ftx}
 
-    // Small Variant Benchmarking
+        HAPPY_FTX(
+            ch_ftx,
+            fasta,
+            fai,
+            [[],[]]
+        )
 
-    // SOMPY https://sites.google.com/view/seqc2/home/benchmarking-examples?authuser=0
-    // is used for somatic variant benchmarking!
+        HAPPY_SOMPY(
+            input_ch.map { it -> tuple(it[0], it[3], it[1], it[5], []) },
+            fasta,
+            fai,
+            [[],[]],
+            [[],[]],
+            [[],[]]
+        )
+        versions = versions.mix(HAPPY_SOMPY.out.versions)
 
+        HAPPY_SOMPY.out.stats
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "sompy"], file) }
+            .groupTuple()
+            .set{ report}
+        summary_reports = summary_reports.mix(report)
+    }
 
     emit:
+    summary_reports
     versions
 }

@@ -45,6 +45,11 @@
                         "git_sha": "01b55f288c25490236af1cd044c9bca17598ecfe",
                         "installed_by": ["modules"]
                     },
+                    "happy/sompy": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
                     "manta/convertinversion": {
                         "branch": "master",
                         "git_sha": "1e2b7fb7106852388610c0360d234b0829eb980e",

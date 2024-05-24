@@ -27,12 +27,13 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_vari
 //
 // SUBWORKFLOWS: Local Subworkflows
 //
-include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
-include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
 include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conversion'
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
+include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
+include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
+include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 
 /*
@@ -313,17 +314,19 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
     }
 
+    bench_ch.view()
     // TODO: SOMATIC BENCHMARKING
-    // if (params.analysis.contains("somatic")){
+    if (params.analysis.contains("somatic")){
 
-    //    // SOMATIC VARIANT BENCHMARKING
-    //    SMALL_SOMATIC_BENCHMARK(
-    //        bench_input,
-    //        fasta,
-    //        fai
-    //    )
-    //    ch_versions = ch_versions.mix(SOMATIC_BENCHMARK.out.versions)
-    //}
+        somatic_small = bench_input.snv.mix(bench_input.indel)
+        // SOMATIC VARIANT BENCHMARKING
+        SMALL_SOMATIC_BENCHMARK(
+            somatic_small,
+            fasta,
+            fai
+        )
+        ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
+    }
 
     //
     // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
