@@ -9,7 +9,6 @@ include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'   
 include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark' addParams( options: params.options )
 include { WITTYER                } from '../../modules/nf-core/wittyer'                  addParams( options: params.options )
 include { VCFDIST                } from '../../modules/local/vcfdist'                  addParams( options: params.options )
-include { BAMSURGEON_EVALUATOR   } from '../../modules/local/bamsurgeon_evaluator'     addParams( options: params.options )
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
@@ -98,20 +97,6 @@ workflow SV_GERMLINE_BENCHMARK {
             fai
         )
         versions = versions.mix(VCFDIST.out.versions)
-    }
-
-    if (params.method.contains('bamsurgeon')){
-        //
-        // MODULE: BAMSURGEON_EVALUATOR
-        //
-        //https://github.com/adamewing/bamsurgeon/blob/master/scripts/evaluator.py
-        BAMSURGEON_EVALUATOR(
-            input_ch.map{it -> tuple(it[0], it[1], it[2], it[3], it[4], it[5])},
-            fasta,
-            fai,
-            "SV"
-        )
-        versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions)
     }
 
     emit:
