@@ -173,6 +173,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
+
     PREPARE_VCFS_TEST.out.vcf_ch.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"

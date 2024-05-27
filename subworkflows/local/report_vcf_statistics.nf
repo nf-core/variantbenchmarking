@@ -46,7 +46,6 @@ workflow REPORT_VCF_STATISTICS {
     bcftools_stats = BCFTOOLS_STATS.out.stats
     versions = versions.mix(BCFTOOLS_STATS.out.versions)
 
-
     // Add here a tool, to visualize SV statistics in a histogram.
 
     emit:
