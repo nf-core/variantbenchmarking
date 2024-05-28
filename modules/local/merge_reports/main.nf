@@ -25,6 +25,7 @@ process MERGE_REPORTS {
     merge_reports.py $inputs \\
         -b $meta.benchmark_tool \\
         -v $meta.vartype \\
+        -a $params.analysis \\
         -o ${prefix}
 
     cat <<-END_VERSIONS > versions.yml

@@ -11,13 +11,14 @@ import argparse
 
 def parse_args(args=None):
 	Description = "Merges svbenchmark or truvari bench reports from multiple samples"
-	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/happy/sompy -v snv/indel"
+	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/happy/sompy -v snv/indel -a germline/somatic "
 
 	parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 	parser.add_argument("inputs", nargs="+", help="List of files to merge")
 	parser.add_argument("--output", "-o", required=True, help="Output file")
 	parser.add_argument("--bench", "-b", required=True, help="svbenchmark/truvari/happy/sompy")
-	parser.add_argument("--vartype", "-v", required=True, help="Variant type")
+	parser.add_argument("--vartype", "-v", required=True, help="Variant type: snv,indel,sv,small")
+	parser.add_argument("--analysis", "-a", required=True, help="Analysis type: germline,somatic")
 
 	return parser.parse_args(args)
 
@@ -181,31 +182,39 @@ def main(args=None):
 
 	#check if the files are from svanalyzer or truvari
 
-	if args.bench == "truvari":
-		summ_table = get_truvari_resuls(args.inputs)
+	if args.analysis == "germline":
+		if args.bench == "truvari":
+			summ_table = get_truvari_resuls(args.inputs)
 
-	elif args.bench == "svbenchmark":
-		summ_table = get_svbenchmark_resuls(args.inputs)
+		elif args.bench == "svbenchmark":
+			summ_table = get_svbenchmark_resuls(args.inputs)
 
-	elif args.bench == "rtgtools":
-		summ_table = get_rtgtools_resuls(args.inputs)
+		elif args.bench == "rtgtools":
+			summ_table = get_rtgtools_resuls(args.inputs)
 
-	elif args.bench == "happy":
-		summ_table = get_happy_resuls(args.inputs)
+		elif args.bench == "happy":
+			summ_table = get_happy_resuls(args.inputs)
+		else:
+			raise ValueError('Only truvari/svbenchmark/rtgtools/happy results can be merged for germline analysis!!')
 
-	elif args.bench == "sompy":
-		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
+		summ_table.reset_index(drop=True, inplace=True)
+		summ_table.to_csv(args.output + ".summary.txt", index=False)
+
+	elif args.analysis == "somatic":
+		if args.bench == "sompy":
+			summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
+		else:
+			raise ValueError('Only sompy results can be merged for somatic analysis!!')
+
+		## reset index
+		summ_table.reset_index(drop=True, inplace=True)
+		summ_table2.reset_index(drop=True, inplace=True)
+
+		# Save the merged DataFrame to a new CSV file
+		summ_table.to_csv(args.output + ".summary.txt", index=False)
+		summ_table2.to_csv(args.output + ".regions.txt", index=False)
 	else:
-		raise ValueError('Only truvari/svbenchmark/rtgtools/happy/sompy results can be merged!!')
-
-	## reset index
-	summ_table.reset_index(drop=True, inplace=True)
-	summ_table2.reset_index(drop=True, inplace=True)
-
-	# Save the merged DataFrame to a new CSV file
-	summ_table.to_csv(args.output + ".summary.txt", index=False)
-	summ_table2.to_csv(args.output + ".regions.txt", index=False)
+		raise ValueError('Analysis must be germline or somatic')
 
 if __name__ == "__main__":
 	sys.exit(main())
-
