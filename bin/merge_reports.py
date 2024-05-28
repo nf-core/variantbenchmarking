@@ -11,12 +11,13 @@ import argparse
 
 def parse_args(args=None):
 	Description = "Merges svbenchmark or truvari bench reports from multiple samples"
-	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark"
+	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/happy/sompy -v snv/indel"
 
 	parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 	parser.add_argument("inputs", nargs="+", help="List of files to merge")
 	parser.add_argument("--output", "-o", required=True, help="Output file")
-	parser.add_argument("--bench", "-b", required=True, help="Truvari or SVbenchmark")
+	parser.add_argument("--bench", "-b", required=True, help="svbenchmark/truvari/happy/sompy")
+	parser.add_argument("--vartype", "-v", required=True, help="Variant type")
 
 	return parser.parse_args(args)
 
@@ -143,6 +144,38 @@ def get_happy_resuls(file_paths):
 
 	return merged_df
 
+def get_sompy_resuls(file_paths, vartype):
+# Initialize an empty DataFrame to store the merged data
+	merged_df = pd.DataFrame()
+
+	# Iterate over each table file
+	for file in file_paths:
+		filename = os.path.basename(file)
+
+		df = pd.read_csv(file)
+
+		df['Tool'] = filename.split(".")[0]
+		df_redesigned = df[['Tool','type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
+		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']
+
+		merged_df = pd.concat([merged_df, df_redesigned])
+
+	if vartype == "snv":
+		merged_df1 = merged_df[merged_df["Type"] == 'SNVs']
+	elif vartype == "indel":
+		merged_df1 = merged_df[merged_df["Type"] == "indels"]
+	else:
+		merged_df1 = merged_df[merged_df["Type"] == "records"]
+
+	if vartype == "snv":
+		merged_df2 = merged_df[merged_df["Type"].str.contains(r'SNVs.')]
+	elif vartype == "indel":
+		merged_df2 = merged_df[merged_df["Type"].str.contains(r"indels.")]
+	else:
+		merged_df2 = merged_df[merged_df["Type"].str.contains(r"records.")]
+
+	return merged_df1,merged_df2
+
 def main(args=None):
 	args = parse_args(args)
 
@@ -150,7 +183,6 @@ def main(args=None):
 
 	if args.bench == "truvari":
 		summ_table = get_truvari_resuls(args.inputs)
-
 
 	elif args.bench == "svbenchmark":
 		summ_table = get_svbenchmark_resuls(args.inputs)
@@ -160,14 +192,19 @@ def main(args=None):
 
 	elif args.bench == "happy":
 		summ_table = get_happy_resuls(args.inputs)
+
+	elif args.bench == "sompy":
+		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
 	else:
-		raise ValueError('Only truvari/svbenchmark/rtgtools/happy results can be merged!!')
+		raise ValueError('Only truvari/svbenchmark/rtgtools/happy/sompy results can be merged!!')
 
 	## reset index
 	summ_table.reset_index(drop=True, inplace=True)
+	summ_table2.reset_index(drop=True, inplace=True)
 
 	# Save the merged DataFrame to a new CSV file
-	summ_table.to_csv(args.output, index=False)
+	summ_table.to_csv(args.output + ".summary.txt", index=False)
+	summ_table2.to_csv(args.output + ".regions.txt", index=False)
 
 if __name__ == "__main__":
 	sys.exit(main())

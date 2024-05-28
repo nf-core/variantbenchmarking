@@ -327,6 +327,8 @@ workflow VARIANTBENCHMARKING {
             fai
         )
         ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+
     }
 
     //
