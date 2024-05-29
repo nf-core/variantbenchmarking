@@ -11,8 +11,9 @@ process MERGE_REPORTS {
     tuple val(meta), path(inputs)
 
     output:
-    tuple val(meta),path("*.summary"), emit: summary
-    path "versions.yml"              , emit: versions
+    tuple val(meta),path("*.summary.txt")    , emit: summary
+    tuple val(meta),path("*.regions.txt")    , emit: regions, optional: true
+    path "versions.yml"                      , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,7 +24,9 @@ process MERGE_REPORTS {
     """
     merge_reports.py $inputs \\
         -b $meta.benchmark_tool \\
-        -o ${prefix}.summary
+        -v $meta.vartype \\
+        -a $params.analysis \\
+        -o ${prefix}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

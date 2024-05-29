@@ -37,6 +37,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         summary_reports = summary_reports.mix(report)
     }
 
+
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(

@@ -4,5 +4,4 @@ https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/HG002_DRAGEN_SV_hg19.chr21.vcf.gz,dragen,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
 https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/HG002.strelka.variants.chr21.vcf.gz,strelka,small,,,,,,,,,,
-https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz,haplotypecaller,small,,,,,,,,,,
-
+https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/HG002.bcftools.chr21.vcf.gz,bcftools,small,,,,,,,,,,

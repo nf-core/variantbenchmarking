@@ -5,7 +5,6 @@
 params.options = [:]
 
 include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { BCFTOOLS_VIEW    } from '../../modules/local/bcftools_view'        addParams( options: params.options )
 include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
 include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
 include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
@@ -73,7 +72,7 @@ workflow PREPARE_VCFS_TRUTH {
         //
         // TABIX_BGZIPTABIX
         //
-        // ndex vcf file
+        // index vcf file
         TABIX_TABIX(
             BCFTOOLS_NORM.out.vcf
         )
