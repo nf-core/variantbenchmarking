@@ -75,6 +75,11 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
                     },
+                    "survivor/merge": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
                     "survivor/stats": {
                         "branch": "master",
                         "git_sha": "398375d72766cac92c4ffcf6927cac2d65310cfd",

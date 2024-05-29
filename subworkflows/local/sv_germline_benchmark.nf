@@ -20,6 +20,7 @@ workflow SV_GERMLINE_BENCHMARK {
 
     versions=Channel.empty()
     summary_reports=Channel.empty()
+    tagged_variants=Channel.empty()
 
     // SV benchmarking
 
@@ -51,6 +52,32 @@ workflow SV_GERMLINE_BENCHMARK {
             .set { report }
 
         summary_reports = summary_reports.mix(report)
+
+        TRUVARI_BENCH.out.fn_vcf
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FN"] + [benchmark_tool: "truvari"], file) }
+            .groupTuple()
+            .set { vcf_fn }
+
+        TRUVARI_BENCH.out.fp_vcf
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FP"] + [benchmark_tool: "truvari"], file) }
+            .groupTuple()
+            .set { vcf_fp }
+
+        TRUVARI_BENCH.out.tp_base_vcf
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [benchmark_tool: "truvari"], file) }
+            .groupTuple()
+            .set { vcf_tp_base }
+
+        TRUVARI_BENCH.out.tp_comp_vcf
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [benchmark_tool: "truvari"], file) }
+            .groupTuple()
+            .set { vcf_tp_comp }
+
+        tagged_variants = tagged_variants.mix(vcf_fn)
+        tagged_variants = tagged_variants.mix(vcf_fp)
+        tagged_variants = tagged_variants.mix(vcf_tp_base)
+        tagged_variants = tagged_variants.mix(vcf_tp_comp)
+
     }
 
     if (params.method.contains('svanalyzer')){
@@ -67,10 +94,19 @@ workflow SV_GERMLINE_BENCHMARK {
 
         SVANALYZER_SVBENCHMARK.out.report
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "svbenchmark"], file) }
-            .groupTuple()
             .set{ report}
 
         summary_reports = summary_reports.mix(report)
+
+        SVANALYZER_SVBENCHMARK.out.fns
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FN"] + [benchmark_tool: "svbenchmark"], file) }
+            .set { vcf_fn }
+
+        SVANALYZER_SVBENCHMARK.out.fps
+            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FP"] + [benchmark_tool: "svbenchmark"], file) }
+            .set { vcf_fp }
+        tagged_variants = tagged_variants.mix(vcf_fn)
+        tagged_variants = tagged_variants.mix(vcf_fp)
 
     }
 
@@ -100,6 +136,7 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     emit:
+    tagged_variants
     summary_reports
     versions
 }
