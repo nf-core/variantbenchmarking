@@ -334,6 +334,14 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
 
     }
+    //
+    // SUBWORKFLOW: COMPARE_BENCHMARK_RESULTS
+    //
+    COMPARE_BENCHMARK_RESULTS(
+        tagged_vars_ch,
+        fai
+    )
+    ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 
     //
     // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
