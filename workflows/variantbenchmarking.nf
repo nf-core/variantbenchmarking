@@ -35,6 +35,7 @@ include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_
 include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
+include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,6 +56,7 @@ workflow VARIANTBENCHMARKING {
     truth_ch         = Channel.empty()
     high_conf_ch     = Channel.empty()
     bench_ch         = Channel.empty()
+    tagged_vars_ch   = Channel.empty()
 
     // check mandatory parameters
     println(params.fasta)
@@ -313,9 +315,11 @@ workflow VARIANTBENCHMARKING {
             fai    )
         ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+        tagged_vars_ch = tagged_vars_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
     }
 
-    bench_ch.view()
+    tagged_vars_ch.view()
+
     // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
@@ -330,6 +334,14 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
 
     }
+    //
+    // SUBWORKFLOW: COMPARE_BENCHMARK_RESULTS
+    //
+    COMPARE_BENCHMARK_RESULTS(
+        tagged_vars_ch,
+        fai
+    )
+    ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 
     //
     // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
