@@ -128,10 +128,12 @@ workflow PREPARE_VCFS_TEST {
         versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
 
     }
+
+    // somatic spesific preperations
     vcf_ch.branch{
-            sv:  it[0].vartype == "sv"
-            small:  it[0].vartype == "small"
-            cnv:  it[0].vartype == "cnv"
+            sv: it[0].vartype == "sv"
+            small: it[0].vartype == "small"
+            cnv: it[0].vartype == "cnv"
             snv: it[0].vartype == "snv"
             indel: it[0].vartype == "indel"
             other: false}
@@ -197,6 +199,13 @@ workflow PREPARE_VCFS_TEST {
                                 .set{vcf_ch}
 
             out_vcf_ch = out_vcf_ch.mix(vcf_ch)
+            out_vcf_ch = out_vcf_ch.mix(vcf.sv)
+            out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
+        }
+        else{
+            out_vcf_ch = out_vcf_ch.mix(vcf.snv)
+            out_vcf_ch = out_vcf_ch.mix(vcf.indel)
+            out_vcf_ch = out_vcf_ch.mix(vcf.small)
             out_vcf_ch = out_vcf_ch.mix(vcf.sv)
             out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
         }
