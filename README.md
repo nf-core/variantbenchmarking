@@ -34,9 +34,23 @@
 1. Standardization of SVs in test VCF files
 2. Normalization of SVs in test VCF files
 3. Normalization of SVs in truth VCF files
-4. SV stats and histograms
+4. SV stats and histograms (Survivor)
+
+5. Germline benchmarking of small variants
+    - Tools:
+      Happy
+      RTGtools
 5. Germline benchmarking of SVs
-6. Somatic benchmarking of SVs
+    - Tools:
+      Truvari
+      Svbenchmark
+      Wittyer: Only works with Truth files annotated with SVTYPE and SVLENGHT
+
+6. Somatic benchmarking of small variants
+    - Tools:
+      Happy
+      RTGtools
+
 7. Final report and comparisons
 
 ## Usage

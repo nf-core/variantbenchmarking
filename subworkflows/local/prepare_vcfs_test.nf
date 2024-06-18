@@ -10,6 +10,7 @@ include { BCFTOOLS_SORT             } from '../../modules/nf-core/bcftools/sort'
 include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
 include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'    addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
+include { TABIX_TABIX   as TABIX_TABIX_2         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
@@ -19,6 +20,7 @@ include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/b
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
+include { BCFTOOLS_FILL_FROM_FASTA   } from '../../modules/local/bcftools_fill_from_fasta.nf'      addParams( options: params.options )
 
 
 workflow PREPARE_VCFS_TEST {
@@ -128,6 +130,18 @@ workflow PREPARE_VCFS_TEST {
         versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
 
     }
+
+    BCFTOOLS_FILL_FROM_FASTA(
+        vcf_ch,
+        fasta
+    )
+
+    TABIX_TABIX_2(
+        BCFTOOLS_FILL_FROM_FASTA.out.vcf
+    )
+
+    BCFTOOLS_FILL_FROM_FASTA.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
+                        .set{vcf_ch}
 
     // somatic spesific preperations
     vcf_ch.branch{
