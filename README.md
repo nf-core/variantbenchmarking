@@ -37,21 +37,23 @@
 4. SV stats and histograms (Survivor)
 
 5. Germline benchmarking of small variants
-    - Tools:
-      Happy
-      RTGtools
-5. Germline benchmarking of SVs
-    - Tools:
-      Truvari
-      Svbenchmark
-      Wittyer: Only works with Truth files annotated with SVTYPE and SVLENGHT
+   - Tools:
+     Happy
+     RTGtools
+6. Germline benchmarking of SVs
 
-6. Somatic benchmarking of small variants
-    - Tools:
-      Happy
-      RTGtools
+   - Tools:
+     Truvari
+     Svbenchmark
+     Wittyer: Only works with Truth files annotated with SVTYPE and SVLENGHT
 
-7. Final report and comparisons
+7. Somatic benchmarking of small variants
+
+   - Tools:
+     Happy
+     RTGtools
+
+8. Final report and comparisons
 
 ## Usage
 
