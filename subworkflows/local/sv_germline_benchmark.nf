@@ -4,9 +4,12 @@
 
 params.options = [:]
 
-include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'                  addParams( options: params.options )
+include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'             addParams( options: params.options )
 include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'          addParams( options: params.options )
 include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark' addParams( options: params.options )
+include { WITTYER                } from '../../modules/nf-core/wittyer'                addParams( options: params.options )
+include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../modules/nf-core/tabix/bgzip'  addParams( options: params.options )
+include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/bgzip'  addParams( options: params.options )
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
@@ -102,6 +105,31 @@ workflow SV_GERMLINE_BENCHMARK {
             .set { vcf_fp }
         tagged_variants = tagged_variants.mix(vcf_fn)
         tagged_variants = tagged_variants.mix(vcf_fp)
+
+    }
+    if (params.method.contains('wittyer')){
+
+        TABIX_BGZIP_QUERY(
+            input_ch.map{it -> tuple(it[0], it[1])}
+        )
+        TABIX_BGZIP_TRUTH(
+            input_ch.map{it -> tuple(it[0], it[3])}
+        )
+        bed = input_ch.map{it -> tuple(it[0], it[5])}
+
+        //
+        // MODULE: WITTYER
+        //
+        WITTYER(
+            TABIX_BGZIP_QUERY.out.output.join(TABIX_BGZIP_TRUTH.out.output).join(bed)
+        )
+        versions = versions.mix(WITTYER.out.versions)
+
+        WITTYER.out.report
+            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) }
+            .groupTuple()
+            .set{ report}
+        summary_reports = summary_reports.mix(report)
 
     }
 

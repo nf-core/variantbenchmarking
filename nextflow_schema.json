@@ -107,11 +107,6 @@
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "similarity": {
-                    "type": "integer",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "method": {
                     "type": "string",
                     "description": "",
