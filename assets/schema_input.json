@@ -118,7 +118,8 @@
             "similarityThreshold": {
                 "type": "number",
                 "errorMessage": "similarityThreshold is a wittyer parameter. This is used for sequence similarity thresholding.",
-                "meta": ["similarityThreshold"]
+                "meta": ["similarityThreshold"],
+                "default": 0.7
             }
         },
         "required": ["test_vcf", "caller", "vartype"]
