@@ -122,7 +122,7 @@
                     },
                     "wittyer": {
                         "branch": "master",
-                        "git_sha": "61f2ea506bd87ef436b0086f91a07abc6035fcd0",
+                        "git_sha": "be84844983b332fa7d3d38dec06af6f953d83189",
                         "installed_by": ["modules"]
                     }
                 }

@@ -11,7 +11,7 @@ import argparse
 
 def parse_args(args=None):
 	Description = "Merges svbenchmark or truvari bench reports from multiple samples"
-	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/happy/sompy -v snv/indel -a germline/somatic "
+	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/wittyer/happy/sompy -v snv/indel -a germline/somatic "
 
 	parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 	parser.add_argument("inputs", nargs="+", help="List of files to merge")
@@ -94,6 +94,37 @@ def get_truvari_resuls(file_paths):
 				"F1": data["f1"].iloc[0]}
 
 		df = pd.DataFrame([relevant_data])
+		merged_df = pd.concat([merged_df, df])
+
+	return merged_df
+
+def get_wittyer_resuls(file_paths):
+	# Initialize an empty DataFrame to store the merged data
+	merged_df = pd.DataFrame()
+
+	# Iterate over each table file
+	for file in file_paths:
+	# Read the json into a DataFrame
+		filename = os.path.basename(file)
+		with open(file, 'r') as f:
+			data = pd.read_json(f)
+
+			relevant_data = []
+			for sample in data['PerSampleStats']:
+				for stats in sample['OverallStats']:
+					relevant_data.append({
+						"Tool": filename.split(".")[0],
+						"StatsType": stats["StatsType"],
+						"TP_base": stats["TruthTpCount"],
+						"TP_comp": stats["QueryTpCount"],
+						"FP": stats["QueryFpCount"],
+						"FN": stats["TruthFnCount"],
+						"Precision": stats["Precision"],
+						"Recall": stats["Recall"],
+						"F1": stats["Fscore"]}
+					)
+
+		df = pd.DataFrame(relevant_data)
 		merged_df = pd.concat([merged_df, df])
 
 	return merged_df
@@ -189,13 +220,16 @@ def main(args=None):
 		elif args.bench == "svbenchmark":
 			summ_table = get_svbenchmark_resuls(args.inputs)
 
+		elif args.bench == "wittyer":
+			summ_table = get_wittyer_resuls(args.inputs)
+
 		elif args.bench == "rtgtools":
 			summ_table = get_rtgtools_resuls(args.inputs)
 
 		elif args.bench == "happy":
 			summ_table = get_happy_resuls(args.inputs)
 		else:
-			raise ValueError('Only truvari/svbenchmark/rtgtools/happy results can be merged for germline analysis!!')
+			raise ValueError('Only truvari/svbenchmark/wittyer/rtgtools/happy results can be merged for germline analysis!!')
 
 		summ_table.reset_index(drop=True, inplace=True)
 		summ_table.to_csv(args.output + ".summary.txt", index=False)

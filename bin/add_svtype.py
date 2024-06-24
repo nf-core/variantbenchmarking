@@ -18,8 +18,8 @@ args = parser.parse_args()
 
 
 
-in_vcf = pysam.VariantFile(args.graph)
-out_name = os.path.basename(args.graph)
+in_vcf = pysam.VariantFile(args.input)
+out_name = os.path.basename(args.input)
 if out_name.endswith('.gz'):
     out_name = out_name[:-3]
 if out_name.endswith('.vcf'):

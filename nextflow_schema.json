@@ -29,6 +29,11 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
+                "sample": {
+                    "type": "string",
+                    "description": "Sample id: HG002/SEQC2",
+                    "fa_icon": "fas fa-folder-open"
+                },
                 "high_conf_small": {
                     "type": "string",
                     "format": "file-path",
@@ -45,6 +50,42 @@
                     "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
                     "description": "SMALL: Path to the golden set VCF files.",
                     "help_text": "SMALL: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_snv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "SNVs: Path to the high confidence BED files.",
+                    "help_text": "SNVs: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_snv": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "SNVs: Path to the golden set VCF files.",
+                    "help_text": "SNVs: Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "high_conf_indel": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": false,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "INDELs: Path to the high confidence BED files.",
+                    "help_text": "INDELs: High confidence BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_indel": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "INDELs: Path to the golden set VCF files.",
+                    "help_text": "INDELs: Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "high_conf_sv": {
@@ -107,11 +148,6 @@
                     "description": "",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "similarity": {
-                    "type": "integer",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "method": {
                     "type": "string",
                     "description": "",
@@ -135,56 +171,6 @@
                 "min_num_reads": {
                     "type": "integer",
                     "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "pctsize": {
-                    "type": "number",
-                    "description": "TRUVARI PARAMETER. Ratio of min(base_size, comp_size)/max(base_size, comp_size)",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "refdist": {
-                    "type": "integer",
-                    "description": "TRUVARI PARAMETER. Maximum distance comparison calls must be within from base call's start/end",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "chunksize": {
-                    "type": "integer",
-                    "description": "TRUVARI PARAMETER.",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "pctseq": {
-                    "type": "number",
-                    "description": "TRUVARI PARAMETER. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call.",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "pctovl": {
-                    "type": "number",
-                    "description": "TRUVARI PARAMETER. Ratio of two calls' (overlapping bases)/(longest span).",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "pick": {
-                    "type": "string",
-                    "description": "TRUVARI PARAMETER.How many matches a variant is allowed to participate in is controlled: single,ac,multi",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "normshift": {
-                    "type": "number",
-                    "description": "SVANALYZER PARAMETER. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2) ",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "normdist": {
-                    "type": "number",
-                    "description": "SVANALYZER PARAMETER. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "normsizediff": {
-                    "type": "number",
-                    "description": "SVANALYZER PARAMETER. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2) ",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "maxdist": {
-                    "type": "integer",
-                    "description": "SVANALYZER PARAMETER. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "variant_filtering": {
