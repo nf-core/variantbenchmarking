@@ -95,19 +95,23 @@
                 "type": "integer",
                 "errorMessage": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
                 "meta": ["bpDistance"],
-                "default": 500
+                "default": 500,
+                "minimum": 0
             },
             "percentThreshold": {
                 "type": "number",
                 "errorMessage": "percentThreshold is a wittyer parameter. This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)",
                 "meta": ["percentThreshold"],
-                "default": 0.25
+                "default": 0.25,
+                "minimum": 0,
+                "maximum": 1
             },
             "absoluteThreshold": {
                 "type": "integer",
                 "errorMessage": "absoluteThreshold is a wittyer parameter. This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)",
                 "meta": ["absoluteThreshold"],
-                "default": 10000
+                "default": 10000,
+                "minimum": 0
             },
             "maxMatches": {
                 "type": "integer",
@@ -119,7 +123,9 @@
                 "type": "number",
                 "errorMessage": "similarityThreshold is a wittyer parameter. This is used for sequence similarity thresholding.",
                 "meta": ["similarityThreshold"],
-                "default": 0.7
+                "default": 0.7,
+                "minimum": 0,
+                "maximum": 1
             }
         },
         "required": ["test_vcf", "caller", "vartype"]
