@@ -21,6 +21,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     versions = versions.mix(MERGE_REPORTS.out.versions)
 
+    MERGE_REPORTS.out.summary.view()
+
     PLOTS(
         MERGE_REPORTS.out.summary
     )

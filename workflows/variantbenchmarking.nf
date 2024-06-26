@@ -318,8 +318,6 @@ workflow VARIANTBENCHMARKING {
         tagged_vars_ch = tagged_vars_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
     }
 
-    tagged_vars_ch.view()
-
     // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
