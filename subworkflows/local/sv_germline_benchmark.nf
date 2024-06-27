@@ -36,6 +36,7 @@ workflow SV_GERMLINE_BENCHMARK {
                 fasta,
                 fai
             )
+            versions = versions.mix(TRUVARI_PHAB.out.versions)
         }
         //
         // MODULE: TRUVARI_BENCH
@@ -112,9 +113,12 @@ workflow SV_GERMLINE_BENCHMARK {
         TABIX_BGZIP_QUERY(
             input_ch.map{it -> tuple(it[0], it[1])}
         )
+        versions = versions.mix(TABIX_BGZIP_QUERY.out.versions)
+
         TABIX_BGZIP_TRUTH(
             input_ch.map{it -> tuple(it[0], it[3])}
         )
+        versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions)
         bed = input_ch.map{it -> tuple(it[0], it[5])}
 
         //
