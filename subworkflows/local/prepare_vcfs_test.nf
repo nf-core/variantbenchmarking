@@ -6,7 +6,6 @@ params.options = [:]
 include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'     addParams( options: params.options )
 include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'         addParams( options: params.options )
 include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
-include { BCFTOOLS_SORT             } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
 include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
 include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'    addParams( options: params.options )
 include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
@@ -148,9 +147,13 @@ workflow PREPARE_VCFS_TEST {
             vcf.small,
             [],[],[]
         )
+        versions = versions.mix(BCFTOOLS_VIEW_SNV.out.versions)
+
         TABIX_BGZIPTABIX_3(
             BCFTOOLS_VIEW_SNV.out.vcf
         )
+        versions = versions.mix(TABIX_BGZIPTABIX_3.out.versions)
+
         TABIX_BGZIPTABIX_3.out.gz_tbi
                             .map { meta, file, index -> tuple(meta + [vartype: "snv"], file, index) }
                             .set{split_snv_vcf}
@@ -189,11 +192,13 @@ workflow PREPARE_VCFS_TEST {
                 fasta,
                 fai
             )
+            versions = versions.mix(HAPPY_PREPY.out.versions)
             // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
 
             TABIX_TABIX_3(
                 HAPPY_PREPY.out.preprocessed_vcf
             )
+            versions = versions.mix(TABIX_TABIX_3.out.versions)
 
             HAPPY_PREPY.out.preprocessed_vcf.join(TABIX_TABIX_3.out.tbi, by:0)
                                 .set{vcf_ch}

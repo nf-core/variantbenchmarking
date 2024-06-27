@@ -11,29 +11,34 @@ include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'      
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
     input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
-    fasta       // reference channel [val(meta), ref.fa]
-    fai         // reference channel [val(meta), ref.fa.fai]
+    fasta     // reference channel [val(meta), ref.fa]
+    fai       // reference channel [val(meta), ref.fa.fai]
+    sdf       // reference channel [val(meta), sdf]
 
     main:
 
-    versions=Channel.empty()
-    summary_reports=Channel.empty()
+    versions        =Channel.empty()
+    summary_reports =Channel.empty()
+    tagged_variants =Channel.empty()
 
     if (params.method.contains('rtgtools')){
-        //
-        // MODULE: RTGTOOLS_FORMAT
-        //
-        RTGTOOLS_FORMAT(
-            fasta.map { it -> tuple([id: it[1].getSimpleName(), "pair": "single_end"], it[1], [], []) }
-        )
-        versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
 
+        if (!params.sdf){
+            //
+            // MODULE: RTGTOOLS_FORMAT
+            //
+            RTGTOOLS_FORMAT(
+                fasta.map { it -> tuple([id: it[1].getSimpleName()], it[1], [], []) }
+            )
+            versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
+            sdf = RTGTOOLS_FORMAT.out.sdf
+        }
         //
         // MODULE: RTGTOOLS_VCFEVAL
         //
         RTGTOOLS_VCFEVAL(
-            input_ch.map { it -> tuple(it[0], it[3], it[4], it[1], it[2], it[5], []) },
-            RTGTOOLS_FORMAT.out.sdf
+            input_ch.map { it -> tuple(it[0], it[1], it[2], it[3], it[4], it[5], []) },
+            sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
 
@@ -43,12 +48,37 @@ workflow SMALL_GERMLINE_BENCHMARK {
             .set{ report}
 
         summary_reports = summary_reports.mix(report)
+
+        RTGTOOLS_VCFEVAL.out.fn_vcf
+            .join(RTGTOOLS_VCFEVAL.out.fn_tbi)
+            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "rtgtools"], file, index) }
+            .set { vcf_fn }
+
+        RTGTOOLS_VCFEVAL.out.fp_vcf
+            .join(RTGTOOLS_VCFEVAL.out.fp_tbi)
+            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "rtgtools"], file, index) }
+            .set { vcf_fp }
+
+        RTGTOOLS_VCFEVAL.out.baseline_vcf
+            .join(RTGTOOLS_VCFEVAL.out.baseline_tbi)
+            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
+            .set { vcf_tp_base }
+
+        RTGTOOLS_VCFEVAL.out.tp_vcf
+            .join(RTGTOOLS_VCFEVAL.out.tp_tbi)
+            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
+            .set { vcf_tp_comp }
+
+        tagged_variants = tagged_variants.mix(vcf_fn)
+        tagged_variants = tagged_variants.mix(vcf_fp)
+        tagged_variants = tagged_variants.mix(vcf_tp_base)
+        tagged_variants = tagged_variants.mix(vcf_tp_comp)
     }
 
     if (params.method.contains('happy')){
 
         HAPPY_HAPPY(
-            input_ch.map { it -> tuple(it[0], it[3], it[1], it[5], []) },
+            input_ch.map { it -> tuple(it[0], it[1], it[3], it[5], []) },
             fasta,
             fai,
             [[],[]],
@@ -66,4 +96,6 @@ workflow SMALL_GERMLINE_BENCHMARK {
     emit:
     versions
     summary_reports
+    tagged_variants
+
 }

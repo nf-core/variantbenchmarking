@@ -9,7 +9,7 @@ include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, bed]
+    input_ch    // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, bed]
     fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
 

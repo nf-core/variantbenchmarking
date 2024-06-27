@@ -79,6 +79,7 @@ workflow VCF_VARIANT_FILTERING {
     TABIX_BGZIPTABIX(
         vcf_ch
     )
+    versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
     vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
 
     emit:
