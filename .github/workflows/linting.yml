@@ -41,16 +41,10 @@ jobs:
           python-version: "3.12"
           architecture: "x64"
 
-      - name: read .nf-core.yml
-        uses: pietrobolcato/action-read-yaml@1.0.0
-        id: read_yml
-        with:
-          config: ${{ github.workspace }}/.nf-core.yaml
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install nf-core==${{ steps.read_yml.outputs['nf_core_version'] }}
+          pip install nf-core
 
       - name: Run nf-core lint
         env:
