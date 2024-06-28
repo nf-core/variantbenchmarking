@@ -15,7 +15,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
-    versions=Channel.empty()
+    versions = Channel.empty()
 
     MERGE_REPORTS(
         reports
@@ -32,7 +32,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     def template = new File("${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml")
 
     DATAVZRD_INPUT {
-        template
+        template.map { 'template', it }
         MERGE_REPORTS.out.summary
     }
 
