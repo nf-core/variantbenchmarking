@@ -3,7 +3,7 @@ process CREATE_DATAVZRD_INPUT {
     label 'process_single'
 
     input:
-    tuple val(meta), path(template)
+    path(template) //tuple val(meta),
     tuple val(meta), path(csv)
 
     output:
@@ -13,12 +13,12 @@ process CREATE_DATAVZRD_INPUT {
     """
     #!/bin/bash
     # Use Groovy to fill in the template and generate the YAML file
-    groovy -e \"
+    # groovy -e \"
     def template = new File('\$template').text
     def engine = new groovy.text.SimpleTemplateEngine()
     def binding = [csvpath: '\$csv']
     def yaml = engine.createTemplate(template).make(binding).toString()
     new File('config.yaml').write(yaml)
-    \"
+    # \"
     """
 }

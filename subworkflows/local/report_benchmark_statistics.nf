@@ -29,14 +29,15 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     versions = versions.mix(PLOTS.out.versions)
 
-    def template = new File("${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml")
-    template_ch = Channel
-        .of([ id:"datavzrd_template" ], template)
-        .collate( 2 )
-        .view()
+    //def template = new File( '${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml', checkIfExists:true)
+    // template_ch = Channel
+    //     .of([ id:"datavzrd_template" ], template)
+    //     .collate( 2 )
+    //     .view()
+    template = Channel.fromPath( "$projectDir/assets/datavzrd/datavzrd.template.yaml", checkIfExists:true)
 
     CREATE_DATAVZRD_INPUT (
-        [[ id:"datavzrd_template" ], template],
+        template,
         MERGE_REPORTS.out.summary
     )
 
