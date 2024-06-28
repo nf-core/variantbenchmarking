@@ -232,7 +232,7 @@ def main(args=None):
 			raise ValueError('Only truvari/svbenchmark/wittyer/rtgtools/happy results can be merged for germline analysis!!')
 
 		summ_table.reset_index(drop=True, inplace=True)
-		summ_table.to_csv(args.output + ".summary.txt", index=False)
+		summ_table.to_csv(args.output + ".summary.csv", index=False)
 
 	elif args.analysis == "somatic":
 		if args.bench == "sompy":
@@ -245,8 +245,8 @@ def main(args=None):
 		summ_table2.reset_index(drop=True, inplace=True)
 
 		# Save the merged DataFrame to a new CSV file
-		summ_table.to_csv(args.output + ".summary.txt", index=False)
-		summ_table2.to_csv(args.output + ".regions.txt", index=False)
+		summ_table.to_csv(args.output + ".summary.csv", index=False)
+		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 	else:
 		raise ValueError('Analysis must be germline or somatic')
 
