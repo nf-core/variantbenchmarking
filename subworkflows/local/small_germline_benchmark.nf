@@ -7,7 +7,6 @@ params.options = [:]
 include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'           addParams( options: params.options )
 include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'          addParams( options: params.options )
 include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'               addParams( options: params.options )
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSET } from '../../modules/nf-core/bcftools/view/main' addParams( options: params.options )
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
@@ -34,27 +33,11 @@ workflow SMALL_GERMLINE_BENCHMARK {
             versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
             sdf = RTGTOOLS_FORMAT.out.sdf
         }
-        test_ch = input_ch.map { it -> tuple(it[0], it[1], [2]) }
-        if (params.preprocess.contains("prepy")){
-            //
-            // MODULE: BCFTOOLS_VIEW
-            //
-            BCFTOOLS_VIEW_SUBSET(
-                input_ch.map { it -> tuple(it[0], it[1], it[2]) },
-                [],[],[]
-            )
-            versions = versions.mix(BCFTOOLS_VIEW_SUBSET.out.versions)
-
-            BCFTOOLS_VIEW_SUBSET.out.vcf.map{it -> tuple(it[0], it[1], [])}.set{test_ch}
-        }
-
-        truth_ch = input_ch.map { it -> tuple(it[0], it[3], it[4], it[5], []) }
-
         //
         // MODULE: RTGTOOLS_VCFEVAL
         //
         RTGTOOLS_VCFEVAL(
-            test_ch.join(truth_ch),
+            input_ch.map { it -> tuple(it[0], it[1], it[2], it[3], it[4], it[5], []) },
             sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
