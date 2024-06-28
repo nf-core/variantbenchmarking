@@ -32,7 +32,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     def template = new File("${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml")
 
     DATAVZRD_INPUT {
-        template.map { 'template', it }
+        [ [ id:"datavzrd_template" ], template ]
         MERGE_REPORTS.out.summary
     }
 
