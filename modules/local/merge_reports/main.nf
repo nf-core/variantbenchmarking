@@ -11,8 +11,8 @@ process MERGE_REPORTS {
     tuple val(meta), path(inputs)
 
     output:
-    tuple val(meta),path("*.summary.txt")    , emit: summary
-    tuple val(meta),path("*.regions.txt")    , emit: regions, optional: true
+    tuple val(meta),path("*.summary.csv")    , emit: summary
+    tuple val(meta),path("*.regions.csv")    , emit: regions, optional: true
     path "versions.yml"                      , emit: versions
 
     when:
@@ -37,7 +37,8 @@ process MERGE_REPORTS {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
-    touch ${prefix}.summary
+    touch ${prefix}.summary.csv
+    touch ${prefix}.regions.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
