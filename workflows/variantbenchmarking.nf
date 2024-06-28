@@ -56,7 +56,8 @@ workflow VARIANTBENCHMARKING {
     truth_ch         = Channel.empty()
     high_conf_ch     = Channel.empty()
     bench_ch         = Channel.empty()
-    tagged_vars_ch   = Channel.empty()
+    sv_evals_ch      = Channel.empty()
+    small_evals_ch   = Channel.empty()
 
     // check mandatory parameters
     println(params.fasta)
@@ -113,6 +114,9 @@ workflow VARIANTBENCHMARKING {
 
     // SVYNC YAML files for standardization
     svync_yaml      = params.svync_yaml         ? Channel.fromPath(params.svync_yaml, checkIfExists: true).collect()
+                                                : Channel.empty()
+    // SDF file for RTG-tools eval
+    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
 
@@ -300,9 +304,11 @@ workflow VARIANTBENCHMARKING {
         SMALL_GERMLINE_BENCHMARK(
             bench_input.small,
             fasta,
-            fai    )
+            fai,
+            sdf    )
         ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
+        small_evals_ch = small_evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
 
         //
         // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
@@ -315,7 +321,7 @@ workflow VARIANTBENCHMARKING {
             fai    )
         ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
-        tagged_vars_ch = tagged_vars_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+        sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
     }
 
     // TODO: SOMATIC BENCHMARKING
@@ -336,7 +342,9 @@ workflow VARIANTBENCHMARKING {
     // SUBWORKFLOW: COMPARE_BENCHMARK_RESULTS
     //
     COMPARE_BENCHMARK_RESULTS(
-        tagged_vars_ch,
+        small_evals_ch,
+        sv_evals_ch,
+        fasta,
         fai
     )
     ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)

@@ -31,10 +31,12 @@ workflow VCF_VARIANT_DEDUPLICATION {
     BCFTOOLS_SORT(
         BCFTOOLS_DEDUP.out.vcf
     )
+    versions = versions.mix(BCFTOOLS_SORT.out.versions)
 
     TABIX_TABIX(
         BCFTOOLS_SORT.out.vcf
     )
+    versions = versions.mix(TABIX_TABIX.out.versions)
 
     BCFTOOLS_SORT.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
                         .set{ch_vcf}
