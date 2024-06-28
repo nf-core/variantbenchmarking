@@ -6,6 +6,7 @@ params.options = [:]
 
 include { MERGE_REPORTS  } from '../../modules/local/merge_reports'   addParams( options: params.options )
 include { PLOTS          } from '../../modules/local/plots'           addParams( options: params.options )
+include { DATAVZRD_INPUT } from '../../modules/'                      addParams( options: params.options )
 include { DATAVZRD       } from '../modules/nf-core/datavzrd/main'    addParams( options: params.options )
 
 workflow REPORT_BENCHMARK_STATISTICS {
@@ -28,9 +29,17 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     versions = versions.mix(PLOTS.out.versions)
 
-    DATAVZRD (
+    def template = new File("${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml")
 
+    DATAVZRD_INPUT {
+        template
+        MERGE_REPORTS.out.summary
+    }
+
+    DATAVZRD (
+        DATAVZRD_INPUT.out.config
     )
+
     emit:
     versions
 }

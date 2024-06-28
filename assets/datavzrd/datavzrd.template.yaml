@@ -1,6 +1,6 @@
 datasets:
   report:
-    path: svbenchmark.sv.summary.csv
+    path: ${csvpath} #svbenchmark.sv.summary.csv
     separator: ','
 views:
   test:
