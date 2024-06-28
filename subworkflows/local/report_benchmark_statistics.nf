@@ -31,7 +31,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     def template = new File("${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml")
 
-    DATAVZRD_INPUT {
+    CREATE_DATAVZRD_INPUT {
         [ [ id:"datavzrd_template" ], template ]
         MERGE_REPORTS.out.summary
     }

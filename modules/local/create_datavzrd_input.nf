@@ -1,4 +1,4 @@
-process DATAVZRD_INPUT {
+process CREATE_DATAVZRD_INPUT {
     tag "$meta.id"
     label 'process_single'
 
@@ -7,7 +7,7 @@ process DATAVZRD_INPUT {
     tuple val(meta), path(csv)
 
     output:
-    tuple val(meta), path("*.yaml"), emit: config
+    tuple val(meta), path("*.yaml"), path(csv), emit: config
 
     script:
     """
