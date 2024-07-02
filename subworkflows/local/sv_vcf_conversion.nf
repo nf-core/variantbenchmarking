@@ -10,6 +10,8 @@ include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinv
 include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'         addParams( options: params.options )
 include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
 include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
+include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'         addParams( options: params.options )
+include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'           addParams( options: params.options )
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -20,6 +22,25 @@ workflow SV_VCF_CONVERSIONS {
 
     main:
     versions   = Channel.empty()
+
+    if (params.sv_standardization.contains("homogenize")){
+        // uses VariantExtractor to homogenize variants
+
+        VARIANT_EXTRACTOR(
+            input_ch,
+            fasta,
+            fai
+        )
+        versions = versions.mix(VARIANT_EXTRACTOR.out.versions)
+
+        // sort vcf
+        BCFTOOLS_SORT(
+            VARIANT_EXTRACTOR.out.output
+        )
+        versions = versions.mix(BCFTOOLS_SORT.out.versions)
+        input_ch = BCFTOOLS_SORT.out.vcf
+
+    }
 
     //
     // MODULE: BGZIP_TABIX
@@ -130,7 +151,8 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = out_vcf_ch.mix(input.other)
         vcf_ch     = out_vcf_ch
     }
-    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
+    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py'
+
 
     emit:
     vcf_ch
