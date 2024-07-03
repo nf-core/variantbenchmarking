@@ -4,7 +4,6 @@
 
 params.options = [:]
 
-include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'
 include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'
 include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark'
 include { WITTYER                } from '../../modules/nf-core/wittyer'
@@ -26,18 +25,6 @@ workflow SV_GERMLINE_BENCHMARK {
     // SV benchmarking
 
     if (params.method.contains('truvari')){
-
-        if(params.sv_standardization.contains('harmonize')){
-            //
-            // TRUVARI: TRUVARI_PHAB
-            //
-            TRUVARI_PHAB(
-                input_ch,
-                fasta,
-                fai
-            )
-            versions = versions.mix(TRUVARI_PHAB.out.versions)
-        }
         //
         // MODULE: TRUVARI_BENCH
         //
