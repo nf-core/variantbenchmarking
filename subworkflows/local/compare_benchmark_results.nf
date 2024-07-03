@@ -5,15 +5,10 @@
 
 params.options = [:]
 
-include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'   addParams( options: params.options )
-include { TABIX_BGZIPTABIX  } from '../../modules/nf-core/tabix/bgziptabix' addParams( options: params.options )
-include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'   addParams( options: params.options )
-include { BCFTOOLS_SORT     } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
-include { TABIX_BGZIP as TABIX_BGZIP_BENCH } from '../../modules/nf-core/tabix/bgzip'            addParams( options: params.options )
-include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_SV    } from '../../modules/nf-core/bcftools/query'   addParams( options: params.options )
-include { BCFTOOLS_QUERY as BCFTOOLS_QUERY_SMALL } from '../../modules/nf-core/bcftools/query'   addParams( options: params.options )
-include { TABIX_TABIX as  TABIX_TABIX_SORT       } from '../../modules/nf-core/tabix/tabix'      addParams( options: params.options )
-include { TABIX_TABIX as  TABIX_TABIX_MERGE      } from '../../modules/nf-core/tabix/tabix'      addParams( options: params.options )
+include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
+include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
+include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
+include { TABIX_BGZIP       } from '../../modules/nf-core/tabix/bgzip'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
@@ -24,6 +19,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
     main:
     versions   = Channel.empty()
+    merged_vcfs= Channel.empty()
 
     // Small Variants
     //
@@ -36,19 +32,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
         []
     )
     versions = versions.mix(BCFTOOLS_MERGE.out.versions)
-
-    TABIX_TABIX_MERGE(
-        BCFTOOLS_MERGE.out.merged_variants
-    )
-    versions = versions.mix(TABIX_TABIX_MERGE.out.versions)
-
-    BCFTOOLS_QUERY_SMALL(
-        BCFTOOLS_MERGE.out.merged_variants.join(TABIX_TABIX_MERGE.out.tbi),
-        [],
-        [],
-        []
-    )
-    versions = versions.mix(BCFTOOLS_QUERY_SMALL.out.versions)
+    merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
 
     // SV part
     //
@@ -56,12 +40,12 @@ workflow COMPARE_BENCHMARK_RESULTS {
     //
     // unzip vcfs
 
-    TABIX_BGZIP_BENCH(
+    TABIX_BGZIP(
         sv_ch
     )
-    versions = versions.mix(TABIX_BGZIP_BENCH.out.versions)
+    versions = versions.mix(TABIX_BGZIP.out.versions)
 
-    TABIX_BGZIP_BENCH.out.output
+    TABIX_BGZIP.out.output
                 .groupTuple()
                 .set{vcf_ch}
 
@@ -79,27 +63,14 @@ workflow COMPARE_BENCHMARK_RESULTS {
         30
     )
     versions = versions.mix(SURVIVOR_MERGE.out.versions)
+    merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
-    BCFTOOLS_SORT(
-        SURVIVOR_MERGE.out.vcf
+    VCF_TO_CSV(
+        merged_vcfs,
+        fasta,
+        fai
     )
-    versions = versions.mix(BCFTOOLS_SORT.out.versions)
-
-    TABIX_TABIX_SORT(
-        BCFTOOLS_SORT.out.vcf
-    )
-    versions = versions.mix(TABIX_TABIX_SORT.out.versions)
-
-    // add a plot to see better supported variants
-    // https://github.com/fritzsedlazeck/SURVIVOR/wiki
-
-    BCFTOOLS_QUERY_SV(
-        BCFTOOLS_SORT.out.vcf.join(TABIX_TABIX_SORT.out.tbi),
-        [],
-        [],
-        []
-    )
-    versions = versions.mix(BCFTOOLS_QUERY_SV.out.versions)
+    versions = versions.mix(VCF_TO_CSV.out.versions)
 
     emit:
     versions

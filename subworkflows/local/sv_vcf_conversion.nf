@@ -6,12 +6,12 @@ import groovy.io.FileType
 
 params.options = [:]
 
-include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinversion'  addParams( options: params.options )
-include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'         addParams( options: params.options )
-include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
-include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
-include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'         addParams( options: params.options )
-include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'           addParams( options: params.options )
+include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinversion'
+include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'
+include { SVYNC                   } from '../../modules/nf-core/svync'
+include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'
+include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'
+include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -103,7 +103,7 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = Channel.empty()
 
         vcf_ch.branch{
-            tool:  it[0].id == "manta" || it[0].id == "dragen"
+            tool:  it[0].id == "manta"
             other: true}
             .set{input}
         //

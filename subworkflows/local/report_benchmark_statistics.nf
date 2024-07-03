@@ -4,8 +4,8 @@
 
 params.options = [:]
 
-include { MERGE_REPORTS  } from '../../modules/local/merge_reports'   addParams( options: params.options )
-include { PLOTS          } from '../../modules/local/plots'           addParams( options: params.options )
+include { MERGE_REPORTS  } from '../../modules/local/merge_reports'
+include { PLOTS          } from '../../modules/local/plots'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:

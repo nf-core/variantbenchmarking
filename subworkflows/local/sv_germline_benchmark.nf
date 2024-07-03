@@ -4,12 +4,12 @@
 
 params.options = [:]
 
-include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'             addParams( options: params.options )
-include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'          addParams( options: params.options )
-include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark' addParams( options: params.options )
-include { WITTYER                } from '../../modules/nf-core/wittyer'                addParams( options: params.options )
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../modules/nf-core/tabix/bgzip'  addParams( options: params.options )
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/bgzip'  addParams( options: params.options )
+include { TRUVARI_PHAB           } from '../../modules/local/truvari_phab'
+include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'
+include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark'
+include { WITTYER                } from '../../modules/nf-core/wittyer'
+include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/bgzip'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:

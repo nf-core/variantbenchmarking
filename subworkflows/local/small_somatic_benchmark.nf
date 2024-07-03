@@ -4,8 +4,8 @@
 
 params.options = [:]
 
-include { HAPPY_SOMPY      } from '../../modules/nf-core/happy/sompy/main'               addParams( options: params.options )
-include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'     addParams( options: params.options )
+include { HAPPY_SOMPY      } from '../../modules/nf-core/happy/sompy/main'
+include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
