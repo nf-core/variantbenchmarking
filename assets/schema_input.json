@@ -91,6 +91,18 @@
                 "meta": ["chunksize"],
                 "default": 500
             },
+            "dup_to_ins": {
+                "type": "boolean",
+                "errorMessage": "a truvari parameter. converts DUP to INS type",
+                "meta": ["dup_to_ins"],
+                "default": false
+            },
+            "typeignore": {
+                "type": "boolean",
+                "errorMessage": "a truvari parameter. Ignore SVTYPE matching",
+                "meta": ["typeignore"],
+                "default": false
+            },
             "bpDistance": {
                 "type": "integer",
                 "errorMessage": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
@@ -119,13 +131,11 @@
                 "meta": ["maxMatches"],
                 "default": 10
             },
-            "similarityThreshold": {
-                "type": "number",
-                "errorMessage": "similarityThreshold is a wittyer parameter. This is used for sequence similarity thresholding.",
+            "evaluationmode": {
+                "type": "string",
+                "errorMessage": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts  ",
                 "meta": ["similarityThreshold"],
-                "default": 0.7,
-                "minimum": 0,
-                "maximum": 1
+                "default": "d"
             }
         },
         "required": ["test_vcf", "caller", "vartype"]
