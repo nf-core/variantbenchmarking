@@ -26,7 +26,7 @@ if __name__ == '__main__':
     variants = []
 
     print(f'Reading VCF file: {args.vcf_file}')
-    extractor = VariantExtractor(args.vcf_file, fasta_ref=args.fasta_ref)
+    extractor = VariantExtractor(args.vcf_file,ensure_pairs=False,fasta_ref=args.fasta_ref)
     df = extractor.to_dataframe()
     # Insert id column in the first position
     df.insert(0, 'id', '')

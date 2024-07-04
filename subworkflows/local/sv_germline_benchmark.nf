@@ -23,7 +23,6 @@ workflow SV_GERMLINE_BENCHMARK {
     tagged_variants=Channel.empty()
 
     // SV benchmarking
-
     if (params.method.contains('truvari')){
         //
         // MODULE: TRUVARI_BENCH

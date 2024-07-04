@@ -36,106 +36,77 @@
             "normdist": {
                 "type": "number",
                 "errorMessage": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
-                "meta": ["normdist"],
-                "default": 0.2,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["normdist"]
             },
             "normsizediff": {
                 "type": "number",
                 "errorMessage": "normsizediff is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)",
-                "meta": ["normsizediff"],
-                "default": 0.2,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["normsizediff"]
             },
             "maxdist": {
                 "type": "integer",
                 "errorMessage": "maxdist is a svbenchmark parameter. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
-                "meta": ["maxdist"],
-                "default": 100000
+                "meta": ["maxdist"]
             },
             "pctsize": {
                 "type": "number",
                 "errorMessage": "pctsize is a truvari parameter. Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size).",
-                "meta": ["pctsize"],
-                "default": 0.7,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["pctsize"]
             },
             "pctseq": {
                 "type": "number",
                 "errorMessage": "pctseq is a truvari parameter. Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. turn it off (0) for no sequence comparison.",
-                "meta": ["pctseq"],
-                "default": 0.7,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["pctseq"]
             },
             "pctovl": {
                 "type": "number",
                 "errorMessage": "pctovl is a truvari parameter. Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)",
-                "meta": ["pctovl"],
-                "default": 0,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["pctovl"]
             },
             "refdist": {
                 "type": "integer",
                 "errorMessage": "refdist is a truvari parameter. Maximum distance comparison calls must be within from base call's start/end ",
-                "meta": ["refdist"],
-                "default": 500
+                "meta": ["refdist"]
             },
             "chunksize": {
                 "type": "integer",
                 "errorMessage": "chunksize is a truvari parameter. Create chunks of all calls overlapping within ±`--chunksize` basepairs",
-                "meta": ["chunksize"],
-                "default": 500
+                "meta": ["chunksize"]
             },
             "dup_to_ins": {
                 "type": "boolean",
                 "errorMessage": "a truvari parameter. converts DUP to INS type",
-                "meta": ["dup_to_ins"],
-                "default": false
+                "meta": ["dup_to_ins"]
             },
             "typeignore": {
                 "type": "boolean",
                 "errorMessage": "a truvari parameter. Ignore SVTYPE matching",
-                "meta": ["typeignore"],
-                "default": false
+                "meta": ["typeignore"]
             },
             "bpDistance": {
                 "type": "integer",
                 "errorMessage": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
-                "meta": ["bpDistance"],
-                "default": 500,
-                "minimum": 0
+                "meta": ["bpDistance"]
             },
             "percentThreshold": {
                 "type": "number",
                 "errorMessage": "percentThreshold is a wittyer parameter. This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)",
-                "meta": ["percentThreshold"],
-                "default": 0.25,
-                "minimum": 0,
-                "maximum": 1
+                "meta": ["percentThreshold"]
             },
             "absoluteThreshold": {
                 "type": "integer",
                 "errorMessage": "absoluteThreshold is a wittyer parameter. This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)",
-                "meta": ["absoluteThreshold"],
-                "default": 10000,
-                "minimum": 0
+                "meta": ["absoluteThreshold"]
             },
             "maxMatches": {
                 "type": "integer",
                 "errorMessage": "maxMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).",
-                "meta": ["maxMatches"],
-                "default": 10
+                "meta": ["maxMatches"]
             },
             "evaluationmode": {
                 "type": "string",
-                "errorMessage": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts  ",
-                "meta": ["similarityThreshold"],
-                "default": "d"
+                "errorMessage": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d  ",
+                "meta": ["evaluationmode"]
             }
         },
         "required": ["test_vcf", "caller", "vartype"]
