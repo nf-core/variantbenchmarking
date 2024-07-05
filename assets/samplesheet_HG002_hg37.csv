@@ -3,3 +3,7 @@ test_vcf,caller,vartype,refdist,chunksize,normshift,normdist,normsizediff,maxdis
 "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_lumpy_SV_hg19.sorted.vcf.gz",lumpy,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
 "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_manta_SV_hg19_genotype.chr21.vcf.gz",manta,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
 "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002.svaba.germline.sv.chr21.vcf.gz",svaba,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002-NA24385-50x.union_170414.split.chr21.vcf.gz",sbg_graph,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002.jointVC.filter.chr21.vcf.gz",gatk_joint,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_ALLCHROM_hs37d5_novoalign_Ilmn150bp300X_FB.chr21.vcf.gz",freebayes,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
+"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/hg002.Assemblytics_structural_variants.sorted.chr21.vcf.gz",assemblytics,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts
