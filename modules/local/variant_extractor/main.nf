@@ -4,8 +4,8 @@ process VARIANT_EXTRACTOR {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'oras://community.wave.seqera.io/library/pysam_pip_variant-extractor:23ef51c8f5e0524a':
-        'community.wave.seqera.io/library/pysam_pip_variant-extractor:23ef51c8f5e0524a' }"
+        'oras://community.wave.seqera.io/library/htslib_pysam_tabix_pip_variant-extractor:a12ef217eccf6ba8':
+        'community.wave.seqera.io/library/htslib_pysam_tabix_pip_variant-extractor:a12ef217eccf6ba8' }"
 
     input:
     tuple val(meta), path(input)
@@ -13,8 +13,8 @@ process VARIANT_EXTRACTOR {
     tuple val(meta3), path(fasta_fai)
 
     output:
-    tuple val(meta), path("*.norm.vcf")   , emit: output
-    path "versions.yml"                   , emit: versions
+    tuple val(meta), path("*.norm.vcf.gz")   , emit: output
+    path "versions.yml"                      , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,6 +27,8 @@ process VARIANT_EXTRACTOR {
         $input \\
         ${prefix}.norm.vcf \\
         $fasta
+
+    bgzip ${prefix}.norm.vcf
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

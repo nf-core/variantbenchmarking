@@ -28,6 +28,7 @@ process VCF_TO_CSV {
         ${prefix}.csv \\
         -f $fasta
 
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         python: \$(python --version | sed 's/Python //g')
