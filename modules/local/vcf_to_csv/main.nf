@@ -9,8 +9,6 @@ process VCF_TO_CSV {
 
     input:
     tuple val(meta), path(input)
-    tuple val(meta2), path(fasta)
-    tuple val(meta3), path(fasta_fai)
 
     output:
     tuple val(meta), path("*.csv")   , emit: output
@@ -25,9 +23,7 @@ process VCF_TO_CSV {
     """
     vcf_to_csv.py \\
         $input \\
-        ${prefix}.csv \\
-        -f $fasta
-
+        ${prefix}.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

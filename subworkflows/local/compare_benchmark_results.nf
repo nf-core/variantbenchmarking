@@ -66,9 +66,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
     VCF_TO_CSV(
-        merged_vcfs,
-        fasta,
-        fai
+        merged_vcfs
     )
     versions = versions.mix(VCF_TO_CSV.out.versions)
 
