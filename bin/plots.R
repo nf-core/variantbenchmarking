@@ -44,14 +44,20 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
         labs(title = title1, x = "Tool", y = "Value", color = "Tool") +
         facet_wrap(~variable, scales = "free_y") +
         theme_minimal() +
-        theme(legend.position = "right", panel.background = element_rect(fill = "white"))
+        theme(
+            legend.position = "right",
+            panel.background = element_rect(fill = "white"),
+            axis.text.x = element_text(angle = 30, hjust = 0.5))
 
     # Visualize Precision, Recall, and F1 in separate plots with white background
     metric_plot <- ggplot(metric_data, aes(x = Tool, y = value, color = Tool, shape = variable,  linetype = variable, group = interaction(variable, Tool))) +
         geom_point() +
         labs(title = title2, x = "Tool", y = "Value", color = "Metric", linetype = "Metric") +
         theme_minimal() +
-        theme(legend.position = "right", panel.background = element_rect(fill = "white"))
+        theme(
+            legend.position = "right",
+            panel.background = element_rect(fill = "white"),
+            axis.text.x = element_text(angle = 30, hjust = 0.5))
 
     # Save the plots
     tryCatch({

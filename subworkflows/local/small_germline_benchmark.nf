@@ -4,9 +4,9 @@
 
 params.options = [:]
 
-include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'           addParams( options: params.options )
-include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'          addParams( options: params.options )
-include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'               addParams( options: params.options )
+include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'
+include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'
+include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:

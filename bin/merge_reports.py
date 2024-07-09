@@ -35,7 +35,7 @@ def get_svbenchmark_resuls(file_paths):
 	FP_pattern = re.compile(r'Number of false positives \(.*\): (\d+)')
 	recall_pattern = re.compile(r'Recall \(.*\): (\d+\.\d+)%')
 	precision_pattern = re.compile(r'Precision \(.*\): (\d+\.\d+)%')
-	f1_pattern = re.compile(r'F1 \(.*\): (\d+\.\d+)')
+	f1_pattern = re.compile(r'F1 \(.*\): ([\d\.]+(?:e[+-]?\d+)?)')
 
 	# Iterate over each table file
 	for file in file_paths:

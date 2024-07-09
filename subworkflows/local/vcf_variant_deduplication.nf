@@ -4,9 +4,9 @@
 
 params.options = [:]
 
-include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'    addParams( options: params.options )
-include { TABIX_TABIX         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
-include { BCFTOOLS_NORM as BCFTOOLS_DEDUP } from '../../modules/nf-core/bcftools/norm'     addParams( options: params.options )
+include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'
+include { TABIX_TABIX         } from '../../modules/nf-core/tabix/tabix'
+include { BCFTOOLS_NORM as BCFTOOLS_DEDUP } from '../../modules/nf-core/bcftools/norm'
 
 workflow VCF_VARIANT_DEDUPLICATION {
     take:
