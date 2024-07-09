@@ -6,10 +6,10 @@ import groovy.io.FileType
 
 params.options = [:]
 
-include { MANTA_CONVERTINVERSION  } from '../../modules/nf-core/manta/convertinversion'  addParams( options: params.options )
-include { GRIDSS_ANNOTATION       } from '../../modules/local/gridss_annotation'         addParams( options: params.options )
-include { SVYNC                   } from '../../modules/nf-core/svync'                   addParams( options: params.options )
-include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'               addParams( options: params.options )
+include { SVYNC                   } from '../../modules/nf-core/svync'
+include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'
+include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'
+include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -19,6 +19,25 @@ workflow SV_VCF_CONVERSIONS {
 
     main:
     versions   = Channel.empty()
+
+    if (params.sv_standardization.contains("homogenize")){
+        // uses VariantExtractor to homogenize variants
+
+        VARIANT_EXTRACTOR(
+            input_ch,
+            fasta,
+            fai
+        )
+        versions = versions.mix(VARIANT_EXTRACTOR.out.versions)
+
+        // sort vcf
+        BCFTOOLS_SORT(
+            VARIANT_EXTRACTOR.out.output
+        )
+        versions = versions.mix(BCFTOOLS_SORT.out.versions)
+        input_ch = BCFTOOLS_SORT.out.vcf
+
+    }
 
     //
     // MODULE: BGZIP_TABIX
@@ -71,60 +90,6 @@ workflow SV_VCF_CONVERSIONS {
         vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
     }
 
-    // Check tool spesific conversions
-    if(params.sv_standardization.contains("bnd_to_inv")){
-        out_vcf_ch = Channel.empty()
-
-        vcf_ch.branch{
-            tool:  it[0].id == "manta" || it[0].id == "dragen"
-            other: true}
-            .set{input}
-        //
-        // MANTA_CONVERTINVERSION
-        //
-        // NOTE: should also work for dragen
-        // Not working now!!!!!
-
-        MANTA_CONVERTINVERSION(
-            input.tool.map{it -> tuple(it[0], it[1])},
-            fasta
-        )
-        versions = versions.mix(MANTA_CONVERTINVERSION.out.versions)
-
-        out_ch = MANTA_CONVERTINVERSION.out.vcf.join(MANTA_CONVERTINVERSION.out.tbi)
-        out_vcf_ch = out_vcf_ch.mix(out_ch)
-        out_vcf_ch = out_vcf_ch.mix(input.other)
-        vcf_ch     = out_vcf_ch
-
-        // https://github.com/srbehera/DRAGEN_Analysis/blob/main/convertInversion.py
-
-    }
-
-    if (params.sv_standardization.contains("gridss_annotate")){
-        out_vcf_ch = Channel.empty()
-
-        vcf_ch.branch{
-            tool:  it[0].id == "gridss"
-            other: true}
-            .set{input}
-
-        //
-        // GRIDSS_ANNOTATION
-        //
-        // https://github.com/PapenfussLab/gridss/blob/7b1fedfed32af9e03ed5c6863d368a821a4c699f/example/simple-event-annotation.R#L9
-        // GRIDSS simple event annotation
-        GRIDSS_ANNOTATION(
-            input.tool,
-            fasta,
-            fai
-        )
-        versions = versions.mix(GRIDSS_ANNOTATION.out.versions)
-
-        out_vcf_ch = out_vcf_ch.mix(GRIDSS_ANNOTATION.out.vcf)
-        out_vcf_ch = out_vcf_ch.mix(input.other)
-        vcf_ch     = out_vcf_ch
-    }
-    // https://github.com/EUCANCan/variant-extractor/blob/main/examples/vcf_to_csv.py
 
     emit:
     vcf_ch

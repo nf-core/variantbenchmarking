@@ -4,12 +4,12 @@
 
 params.options = [:]
 
-include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
-include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
-include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { VCF_VARIANT_DEDUPLICATION                    } from '../local/vcf_variant_deduplication'      addParams( options: params.options )
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader' addParams( options: params.options )
+include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'
+include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'
+include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'
+include { VCF_VARIANT_DEDUPLICATION                    } from '../local/vcf_variant_deduplication'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader'
 
 workflow PREPARE_VCFS_TRUTH {
     take:

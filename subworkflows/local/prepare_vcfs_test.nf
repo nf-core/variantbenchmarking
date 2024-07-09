@@ -3,21 +3,21 @@
 //
 
 params.options = [:]
-include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'     addParams( options: params.options )
-include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'         addParams( options: params.options )
-include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'        addParams( options: params.options )
-include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main' addParams( options: params.options )
-include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'    addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
-include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'       addParams( options: params.options )
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_4 } from '../../modules/nf-core/tabix/bgziptabix'  addParams( options: params.options )
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'     addParams( options: params.options )
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'  addParams( options: params.options )
+include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'
+include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'
+include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'
+include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main'
+include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'
+include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'
+include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_4 } from '../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TEST {
