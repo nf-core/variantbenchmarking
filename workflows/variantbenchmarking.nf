@@ -112,9 +112,6 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_indel)
 
-    // SVYNC YAML files for standardization
-    svync_yaml      = params.svync_yaml         ? Channel.fromPath(params.svync_yaml, checkIfExists: true).collect()
-                                                : Channel.empty()
     // SDF file for RTG-tools eval
     sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
@@ -141,9 +138,8 @@ workflow VARIANTBENCHMARKING {
     SV_VCF_CONVERSIONS(
         input.sv,
         fasta,
-        fai,
-        svync_yaml
-    )
+        fai
+        )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
     out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
 
