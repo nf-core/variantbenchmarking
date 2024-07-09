@@ -72,7 +72,6 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set{input}
 
-        input.tool.view()
 
         input.tool
             .map { meta, vcf, tbi ->
