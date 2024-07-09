@@ -79,7 +79,6 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set {svync_ch}
 
-        svync_ch.view()
 
         SVYNC(
             svync_ch
