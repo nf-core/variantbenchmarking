@@ -182,7 +182,8 @@ workflow PREPARE_VCFS_TEST {
     else{
         // if analysis is germline
         // only for small variant benchmarking of germline analysis
-        if (params.preprocess.contains("prepy")){
+        // only applicable for happy
+        if (params.preprocess.contains("prepy") && params.method.contains("happy")){
 
             input_vcf = vcf.small.mix(vcf.snv)
             input_vcf = input_vcf.mix(vcf.indel)
