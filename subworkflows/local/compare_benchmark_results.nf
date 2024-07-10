@@ -9,6 +9,7 @@ include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
 include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
 include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
 include { TABIX_BGZIP       } from '../../modules/nf-core/tabix/bgzip'
+include { REFORMAT_HEADER   } from '../../modules/local/reformat_header'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
@@ -22,6 +23,16 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs= Channel.empty()
 
     // Small Variants
+
+    //
+    // MODULE: REFORMAT_HEADER
+    //
+    REFORMAT_HEADER(
+        small_ch
+    )
+    versions = versions.mix(REFORMAT_HEADER.out.versions)
+
+
     //
     // MODULE: BCFTOOLS_MERGE
     //
