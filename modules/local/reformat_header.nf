@@ -11,8 +11,8 @@ process REFORMAT_HEADER {
     tuple val(meta),path(vcf), path(index)
 
     output:
-    tuple val(meta),path("*reformatted.vcf.gz"), path("*reformatted.tbi"), emit: gz_tbi
-    path  "versions.yml"                                                 , emit: versions
+    tuple val(meta),path("*reformatted.vcf.gz"), path("*reformatted.vcf.gz.tbi"), emit: gz_tbi
+    path  "versions.yml"                                                        , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

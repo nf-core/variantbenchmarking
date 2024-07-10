@@ -28,7 +28,7 @@ workflow VCF_VARIANT_FILTERING {
     versions = versions.mix(TABIX_BGZIP.out.versions)
     vcf_ch = TABIX_BGZIP.out.output
 
-    if(params.variant_filtering  != null & params.expression  != null){
+    if(params.exclude_expression  != null & params.include_expression  != null){
         //
         // BCFTOOLS_FILTER
         //
