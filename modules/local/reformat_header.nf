@@ -8,7 +8,7 @@ process REFORMAT_HEADER {
         'biocontainers/tabix:1.11--hdfd78af_0' }"
 
     input:
-    tuple val(meta),path(vcf), path(index)
+    tuple val(meta), path(vcf), path(index)
 
     output:
     tuple val(meta),path("*reformatted.vcf.gz"), path("*reformatted.vcf.gz.tbi"), emit: gz_tbi
@@ -31,5 +31,16 @@ process REFORMAT_HEADER {
         tabix: \$(echo \$(tabix -h 2>&1) | sed 's/^.*Version: //; s/ .*\$//')
     END_VERSIONS
     """
+    stub:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    touch ${prefix}.reformatted.vcf.gz
+    touch ${prefix}.reformatted.vcf.gz.tbi
 
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
+    END_VERSIONS
+    """
 }
