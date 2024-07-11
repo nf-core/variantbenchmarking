@@ -13,11 +13,17 @@
                 "format": "file-path",
                 "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
             },
+            "id": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Sample id",
+                "meta": ["id"]
+            },
             "caller": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Name of the variant caller used to generate test file",
-                "meta": ["id"]
+                "meta": ["caller"]
             },
             "vartype": {
                 "type": "string",
@@ -109,6 +115,6 @@
                 "meta": ["evaluationmode"]
             }
         },
-        "required": ["test_vcf", "caller", "vartype"]
+        "required": ["test_vcf", "caller", "vartype", "id"]
     }
 }

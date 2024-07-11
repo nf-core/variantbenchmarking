@@ -60,7 +60,7 @@ workflow SV_VCF_CONVERSIONS {
 
         vcf_ch
             .branch{ meta, vcf, tbi ->
-                def caller = meta.id
+                def caller = meta.caller
                 def supported = supported_callers.contains(caller)
                 if(!supported) {
                     log.warn("Standardization for SV caller '${caller}' is not supported. Skipping standardization...")
@@ -75,7 +75,7 @@ workflow SV_VCF_CONVERSIONS {
 
         input.tool
             .map { meta, vcf, tbi ->
-                [ meta, vcf, tbi, file("${projectDir}/assets/svync/${meta.id}.yaml", checkIfExists:true) ]
+                [ meta, vcf, tbi, file("${projectDir}/assets/svync/${meta.caller}.yaml", checkIfExists:true) ]
             }
             .set {svync_ch}
 
