@@ -324,8 +324,8 @@ workflow VARIANTBENCHMARKING {
             bench_input.cnv,
             fasta,
             fai    )
-        ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+        ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
     }
 
     // TODO: SOMATIC BENCHMARKING
