@@ -102,7 +102,8 @@ workflow PREPARE_VCFS_TEST {
     }
 
 
-    if (params.variant_filtering != null ){
+    if (params.include_expression != null | params.exclude_expression != null | params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1 ){
+
         //
         // SUBWORKFLOW: VCF_VARIANT_FILTERING
         //
@@ -180,40 +181,11 @@ workflow PREPARE_VCFS_TEST {
 
     }
     else{
-        // if analysis is germline
-        // only for small variant benchmarking of germline analysis
-        if (params.preprocess.contains("prepy")){
-
-            input_vcf = vcf.small.mix(vcf.snv)
-            input_vcf = input_vcf.mix(vcf.indel)
-
-            HAPPY_PREPY(
-                input_vcf.map{it -> tuple( it[0], it[1],[])},
-                fasta,
-                fai
-            )
-            versions = versions.mix(HAPPY_PREPY.out.versions)
-            // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
-
-            TABIX_TABIX_3(
-                HAPPY_PREPY.out.preprocessed_vcf
-            )
-            versions = versions.mix(TABIX_TABIX_3.out.versions)
-
-            HAPPY_PREPY.out.preprocessed_vcf.join(TABIX_TABIX_3.out.tbi, by:0)
-                                .set{vcf_ch}
-
-            out_vcf_ch = out_vcf_ch.mix(vcf_ch)
-            out_vcf_ch = out_vcf_ch.mix(vcf.sv)
-            out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        }
-        else{
-            out_vcf_ch = out_vcf_ch.mix(vcf.snv)
-            out_vcf_ch = out_vcf_ch.mix(vcf.indel)
-            out_vcf_ch = out_vcf_ch.mix(vcf.small)
-            out_vcf_ch = out_vcf_ch.mix(vcf.sv)
-            out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        }
+        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
+        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
+        out_vcf_ch = out_vcf_ch.mix(vcf.small)
+        out_vcf_ch = out_vcf_ch.mix(vcf.sv)
+        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
     }
 
     vcf_ch = out_vcf_ch

@@ -7,6 +7,7 @@ params.options = [:]
 include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'
 include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'
 include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'
+include { HAPPY_PREPY      } from '../../modules/nf-core/happy/prepy/main'
 include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_1 } from '../local/vcf_reheader_samplename'
 include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_2 } from '../local/vcf_reheader_samplename'
 include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_3 } from '../local/vcf_reheader_samplename'
@@ -97,8 +98,23 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
     if (params.method.contains('happy')){
 
+        test_ch = input_ch.map{it -> tuple( it[0], it[1])}
+        truth_ch = input_ch.map{it -> tuple( it[0], it[3], it[5], [] )}
+
+        if (params.preprocess.contains("prepy")){
+
+            HAPPY_PREPY(
+                input_ch.map{it -> tuple( it[0], it[1], it[5])},
+                fasta,
+                fai
+            )
+            versions = versions.mix(HAPPY_PREPY.out.versions)
+            // TODO: Check norm settings https://github.com/Illumina/hap.py/blob/master/doc/normalisation.md
+
+            test_ch = HAPPY_PREPY.out.preprocessed_vcf
+        }
         HAPPY_HAPPY(
-            input_ch.map { it -> tuple(it[0], it[1], it[3], it[5], []) },
+            test_ch.join(truth_ch),
             fasta,
             fai,
             [[],[]],

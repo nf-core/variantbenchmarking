@@ -164,14 +164,14 @@
                     "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "variant_filtering": {
+                "exclude_expression": {
                     "type": "string",
-                    "description": "Use either exclude or include to enable variant filtering using bcftools expressions, Default:null",
+                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Only applicable to small variants, Default:null",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "expression": {
+                "include_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions. This must be coupled with variant_expression, Default:null",
+                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Only applicable to small variants, Default:null",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
