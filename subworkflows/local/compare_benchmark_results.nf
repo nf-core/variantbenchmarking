@@ -14,7 +14,7 @@ include { REFORMAT_HEADER   } from '../../modules/local/reformat_header'
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
     small_ch    // channel: [val(meta), vcf.gz, index]
-    sv_ch       // channel: [val(meta), vcf.gz]
+    sv_ch       // channel: [val(meta), vcf.gz, index]
     fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
 
@@ -59,7 +59,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     TABIX_BGZIP.out.output
                 .groupTuple()
                 .set{vcf_ch}
-
+    vcf_ch.view()
     //
     // MODULE: SURVIVOR_MERGE
     //

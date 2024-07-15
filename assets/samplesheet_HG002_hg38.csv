@@ -1,5 +1,5 @@
-test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,normshift,normdist,normsizediff,maxdist
-https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.chr21.vcf.gz,lumpy,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/manta.HG002.chr21.vcf.gz,manta,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/HG002_DRAGEN_SV_hg19.chr21.vcf.gz,dragen,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+id,test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,normshift,normdist,normsizediff,maxdist
+lumpy1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.chr21.vcf.gz,lumpy,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+manta1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/manta.HG002.chr21.vcf.gz,manta,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+merged1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+dragen1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/HG002_DRAGEN_SV_hg19.chr21.vcf.gz,dragen,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000

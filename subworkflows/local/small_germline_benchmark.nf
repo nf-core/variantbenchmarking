@@ -8,6 +8,10 @@ include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'
 include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'
 include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'
 include { HAPPY_PREPY      } from '../../modules/nf-core/happy/prepy/main'
+include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_1 } from '../local/vcf_reheader_samplename'
+include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_2 } from '../local/vcf_reheader_samplename'
+include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_3 } from '../local/vcf_reheader_samplename'
+include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_4 } from '../local/vcf_reheader_samplename'
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
@@ -50,23 +54,39 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         summary_reports = summary_reports.mix(report)
 
-        RTGTOOLS_VCFEVAL.out.fn_vcf
-            .join(RTGTOOLS_VCFEVAL.out.fn_tbi)
+        VCF_REHEADER_SAMPLENAME_1(
+            RTGTOOLS_VCFEVAL.out.fn_vcf,
+            fai
+            )
+
+        VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "rtgtools"], file, index) }
             .set { vcf_fn }
 
-        RTGTOOLS_VCFEVAL.out.fp_vcf
-            .join(RTGTOOLS_VCFEVAL.out.fp_tbi)
+        VCF_REHEADER_SAMPLENAME_2(
+            RTGTOOLS_VCFEVAL.out.fp_vcf,
+            fai
+            )
+
+        VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "rtgtools"], file, index) }
             .set { vcf_fp }
 
-        RTGTOOLS_VCFEVAL.out.baseline_vcf
-            .join(RTGTOOLS_VCFEVAL.out.baseline_tbi)
+        VCF_REHEADER_SAMPLENAME_3(
+            RTGTOOLS_VCFEVAL.out.baseline_vcf,
+            fai
+            )
+
+        VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_base }
 
-        RTGTOOLS_VCFEVAL.out.tp_vcf
-            .join(RTGTOOLS_VCFEVAL.out.tp_tbi)
+        VCF_REHEADER_SAMPLENAME_4(
+            RTGTOOLS_VCFEVAL.out.tp_vcf,
+            fai
+            )
+
+        VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_comp }
 

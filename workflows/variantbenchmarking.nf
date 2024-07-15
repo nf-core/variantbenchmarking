@@ -33,6 +33,7 @@ include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conve
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
 include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
 include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
+include { CNV_GERMLINE_BENCHMARK      } from '../subworkflows/local/cnv_germline_benchmark'
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
@@ -296,7 +297,6 @@ workflow VARIANTBENCHMARKING {
         // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
         //
         //Benchmarking spesific to germline samples
-
         SMALL_GERMLINE_BENCHMARK(
             bench_input.small,
             fasta,
@@ -309,8 +309,6 @@ workflow VARIANTBENCHMARKING {
         //
         // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
         //
-        //Benchmarking spesific to germline samples
-
         SV_GERMLINE_BENCHMARK(
             bench_input.sv,
             fasta,
@@ -318,6 +316,16 @@ workflow VARIANTBENCHMARKING {
         ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
         sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+
+        //
+        // SUBWORKFLOW: CNV_GERMLINE_BENCHMARK
+        //
+        CNV_GERMLINE_BENCHMARK(
+            bench_input.cnv,
+            fasta,
+            fai    )
+        ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
     }
 
     // TODO: SOMATIC BENCHMARKING
@@ -334,6 +342,7 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
 
     }
+
     //
     // SUBWORKFLOW: COMPARE_BENCHMARK_RESULTS
     //
