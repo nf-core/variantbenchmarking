@@ -72,7 +72,14 @@ workflow VARIANTBENCHMARKING {
     // Germline
     println(params.truth_small)
     println(params.high_conf_small)
-
+    println(params.truth_sv)
+    println(params.high_conf_sv)
+    println(params.truth_cnv)
+    println(params.high_conf_cnv)
+    println(params.truth_snv)
+    println(params.high_conf_snv)
+    println(params.truth_indel)
+    println(params.high_conf_indel)
 
     truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
                                                 : Channel.empty()
@@ -101,29 +108,28 @@ workflow VARIANTBENCHMARKING {
     // Somatic
     // snv and indel seperation only possible for somatic cases
 
-    high_conf_snv  = params.high_conf_snv       ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_snv)
-
     truth_snv       = params.truth_snv          ? Channel.fromPath(params.truth_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_snv)
 
-    high_conf_indel  = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+    high_conf_snv   = params.high_conf_snv       ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
                                                 : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_indel)
+    high_conf_ch    = high_conf_ch.mix(high_conf_snv)
 
     truth_indel     = params.truth_indel        ? Channel.fromPath(params.truth_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_indel)
 
+    high_conf_indel = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+                                                : Channel.empty()
+    high_conf_ch    = high_conf_ch.mix(high_conf_indel)
+
+
     // SDF file for RTG-tools eval
     sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
-
-    // TODO: GET FILES FROM IGENOMES ACCORDING TO META.ID
-
+    // Branch out according to the analysis
     ch_samplesheet.branch{
             sv:  it[0].vartype == "sv"
             small:  it[0].vartype == "small"

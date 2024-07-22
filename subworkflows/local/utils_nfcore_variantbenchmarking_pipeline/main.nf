@@ -172,15 +172,25 @@ def getGenomeAttribute(attribute) {
 // Get attribute from truth config file e.g. truth_small
 //
 def getTruthAttribute(attribute) {
-    if (params.sample && params.analysis && params.genome)  {
-        if (params.analysis == "somatic"){
-            return params.somatic[ params.genome + "." + params.sample ][ attribute ]
+    if (!params.itruth_ignore){
+            if (params.sample && params.analysis && params.genome)  {
+                if (params.analysis == "somatic"){
+                    if (params.somatic[ params.genome ][ params.sample ].containsKey(attribute)){
+                        return params.somatic[ params.genome ][ params.sample ][ attribute ]
+                    }
+                }
+                else if(params.analysis == "germline") {
+                    if (params.germline[ params.genome ][ params.sample ].containsKey(attribute)){
+                        return params.germline[ params.genome][ params.sample ][ attribute ]
+                    }
+                }
         }
-        else if(params.analysis == "germline") {
-            return params.germline[ params.genome + "." + params.sample ][ attribute ]
-        }
+        return null
     }
-    return null
+    else{
+        return null
+    }
+
 }
 
 //

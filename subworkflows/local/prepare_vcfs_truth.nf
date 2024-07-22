@@ -21,10 +21,6 @@ workflow PREPARE_VCFS_TRUTH {
 
     versions=Channel.empty()
 
-    //
-    // PREPARE_VCFS
-    //
-
     // BGZIP if needed and index truth
     BGZIP_TABIX(
         truth_ch
