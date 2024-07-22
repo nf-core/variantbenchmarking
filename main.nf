@@ -23,6 +23,23 @@ params.fai   = getGenomeAttribute('fai')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    TRUTH PARAMETER VALUES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+include { getTruthAttribute      } from './subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
+
+params.truth_small       = getGenomeAttribute('truth_small')
+params.high_conf_small   = getGenomeAttribute('high_conf_small')
+params.truth_sv          = getGenomeAttribute('truth_sv')
+params.high_conf_sv      = getGenomeAttribute('high_conf_sv')
+params.truth_cnv         = getGenomeAttribute('truth_cnv')
+params.high_conf_cnv     = getGenomeAttribute('high_conf_cnv')
+params.truth_snv         = getGenomeAttribute('truth_snv')
+params.high_conf_snv     = getGenomeAttribute('high_conf_snv')
+params.truth_indel       = getGenomeAttribute('truth_indel')
+params.high_conf_indel   = getGenomeAttribute('high_conf_indel')
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */

@@ -70,6 +70,9 @@ workflow VARIANTBENCHMARKING {
     //// check high confidence files ////
 
     // Germline
+    println(params.truth_small)
+    println(params.high_conf_small)
+
 
     truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
                                                 : Channel.empty()
@@ -96,6 +99,7 @@ workflow VARIANTBENCHMARKING {
     high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
     // Somatic
+    // snv and indel seperation only possible for somatic cases
 
     high_conf_snv  = params.high_conf_snv       ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
                                                 : Channel.empty()

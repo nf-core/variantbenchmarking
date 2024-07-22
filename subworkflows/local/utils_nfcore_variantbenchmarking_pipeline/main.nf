@@ -169,6 +169,21 @@ def getGenomeAttribute(attribute) {
 }
 
 //
+// Get attribute from truth config file e.g. truth_small
+//
+def getTruthAttribute(attribute) {
+    if (params.sample && params.analysis && params.genome)  {
+        if (params.analysis == "somatic"){
+            return params.somatic[ params.genome + "." + params.sample ][ attribute ]
+        }
+        else if(params.analysis == "germline") {
+            return params.germline[ params.genome + "." + params.sample ][ attribute ]
+        }
+    }
+    return null
+}
+
+//
 // Exit pipeline if incorrect --genome key provided
 //
 def genomeExistsError() {
