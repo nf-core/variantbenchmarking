@@ -1,0 +1,7 @@
+id,test_vcf,caller,vartype
+freebayes,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.freebayes.chr21.vcf.gz,freebayes,small
+manta,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.manta.somatic_sv.chr21.vcf.gz,manta,sv
+strelka1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.strelka.somatic_indels.chr21.vcf.gz,strelka,indel
+strelka2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.vcf.gz,strelka,snv
+tiddit1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.tiddit.tumor.chr21.vcf.gz,tiddit,small
+tiddit2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.tiddit_sv_merge.chr21.vcf.gz,tiddit,sv
