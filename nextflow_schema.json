@@ -38,7 +38,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
                     "description": "SMALL: Path to the high confidence BED files.",
                     "help_text": "SMALL: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
@@ -56,7 +56,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
                     "description": "SNVs: Path to the high confidence BED files.",
                     "help_text": "SNVs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
@@ -74,7 +74,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
                     "description": "INDELs: Path to the high confidence BED files.",
                     "help_text": "INDELs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
@@ -92,7 +92,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
                     "description": "SV: Path to the high confidence BED files.",
                     "help_text": "SV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
@@ -110,7 +110,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
                     "description": "CNV: Path to the high confidence BED files.",
                     "help_text": "CNV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"

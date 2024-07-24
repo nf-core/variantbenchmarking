@@ -31,11 +31,16 @@
                 "errorMessage": "Variant type to benchmark",
                 "meta": ["vartype"]
             },
+            "subsample": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Name to subsample in the multisample VCF, might be required for somatic cases",
+                "meta": ["subsample"]
+            },
             "normshift": {
                 "type": "number",
                 "errorMessage": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)",
                 "meta": ["normshift"],
-                "default": 0.2,
                 "minimum": 0,
                 "maximum": 1
             },

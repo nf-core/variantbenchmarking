@@ -3,21 +3,17 @@
 //
 
 params.options = [:]
-include { VCF_VARIANT_DEDUPLICATION } from '../local/vcf_variant_deduplication'
-include { VCF_VARIANT_FILTERING     } from '../local/vcf_variant_filtering'
-include { BGZIP_TABIX               } from '../../modules/local/bgzip_tabix'
-include { HAPPY_PREPY               } from '../../modules/nf-core/happy/prepy/main'
-include { BCFTOOLS_NORM             } from '../../modules/nf-core/bcftools/norm'
-include { TABIX_TABIX   as TABIX_TABIX_1         } from '../../modules/nf-core/tabix/tabix'
-include { TABIX_TABIX   as TABIX_TABIX_3         } from '../../modules/nf-core/tabix/tabix'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_3 } from '../../modules/nf-core/tabix/bgziptabix'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_4 } from '../../modules/nf-core/tabix/bgziptabix'
+include { VCF_VARIANT_DEDUPLICATION   } from '../local/vcf_variant_deduplication'
+include { VCF_VARIANT_FILTERING       } from '../local/vcf_variant_filtering'
+include { SUBSAMPLE_SOMATIC_VCFS_TEST } from '../local/subsample_somatic_vcfs_test'
+include { SPLIT_SMALL_VARIANTS_TEST   } from '../local/split_small_variants_test'
+include { BGZIP_TABIX                 } from '../../modules/local/bgzip_tabix'
+include { BCFTOOLS_NORM               } from '../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_REHEADER           } from '../../modules/nf-core/bcftools/reheader'
+include { TABIX_BGZIPTABIX            } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_TABIX as TABIX_TABIX_1           } from '../../modules/nf-core/tabix/tabix'
+include { TABIX_TABIX as TABIX_TABIX_2           } from '../../modules/nf-core/tabix/tabix'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TEST } from '../../modules/nf-core/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TEST {
@@ -38,6 +34,26 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
+
+    if (params.analysis.contains("somatic")){
+
+        out_vcf_ch = Channel.empty()
+        // subsample multisample vcf if necessary
+
+        vcf_ch.branch{
+            sample: it[0].subsample != null
+            other: true}
+            .set{vcf}
+
+        SUBSAMPLE_SOMATIC_VCFS_TEST(
+            vcf.sample
+        )
+        versions = versions.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.versions)
+        out_vcf_ch = out_vcf_ch.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.vcf_ch)
+        out_vcf_ch = out_vcf_ch.mix(vcf.other)
+        vcf_ch = out_vcf_ch
+    }
+
     //
     // PREPARE_VCFS
     //
@@ -53,17 +69,18 @@ workflow PREPARE_VCFS_TEST {
     // BCFTOOLS_REHEADER
     //
     // Add "query" to test sample
-    BCFTOOLS_REHEADER_TEST(
+    BCFTOOLS_REHEADER(
         input_ch,
         fai
         )
-    versions = versions.mix(BCFTOOLS_REHEADER_TEST.out.versions)
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
 
-    TABIX_BGZIPTABIX_1(
-        BCFTOOLS_REHEADER_TEST.out.vcf
+    TABIX_TABIX_1(
+        BCFTOOLS_REHEADER.out.vcf
     )
-    versions = versions.mix(TABIX_BGZIPTABIX_1.out.versions)
-    vcf_ch = TABIX_BGZIPTABIX_1.out.gz_tbi
+    versions = versions.mix(TABIX_TABIX_1.out.versions)
+    BCFTOOLS_REHEADER.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
+                            .set{vcf_ch}
 
     if (params.preprocess.contains("filter_contigs")){
         //
@@ -76,11 +93,11 @@ workflow PREPARE_VCFS_TEST {
         )
         versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions)
 
-        TABIX_BGZIPTABIX_2(
+        TABIX_BGZIPTABIX(
             BCFTOOLS_VIEW_CONTIGS.out.vcf
         )
-        versions = versions.mix(TABIX_BGZIPTABIX_2.out.versions)
-        vcf_ch   = TABIX_BGZIPTABIX_2.out.gz_tbi
+        versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
+        vcf_ch   = TABIX_BGZIPTABIX.out.gz_tbi
     }
     if (params.preprocess.contains("normalization")){
         //
@@ -93,14 +110,13 @@ workflow PREPARE_VCFS_TEST {
         )
         versions = versions.mix(BCFTOOLS_NORM.out.versions)
 
-        TABIX_TABIX_1(
+        TABIX_TABIX_2(
             BCFTOOLS_NORM.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_1.out.versions)
-        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
+        versions = versions.mix(TABIX_TABIX_2.out.versions)
+        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
-
 
     if (params.include_expression != null | params.exclude_expression != null | params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1 ){
 
@@ -129,66 +145,24 @@ workflow PREPARE_VCFS_TEST {
 
     }
 
-    // somatic spesific preperations
-    vcf_ch.branch{
-            sv: it[0].vartype == "sv"
-            small: it[0].vartype == "small"
-            cnv: it[0].vartype == "cnv"
-            snv: it[0].vartype == "snv"
-            indel: it[0].vartype == "indel"
-            other: false}
-            .set{vcf}
-
-    out_vcf_ch = Channel.empty()
-
     if (params.analysis.contains("somatic")){
 
-        // split small into snv and indel if somatic
-        BCFTOOLS_VIEW_SNV(
-            vcf.small,
-            [],[],[]
+        // somatic spesific preperations
+        vcf_ch.branch{
+                small: it[0].vartype == "small"
+                other: true}
+                .set{vcf}
+
+        out_vcf_ch = Channel.empty()
+
+        SPLIT_SMALL_VARIANTS_TEST(
+            vcf.small
         )
-        versions = versions.mix(BCFTOOLS_VIEW_SNV.out.versions)
-
-        TABIX_BGZIPTABIX_3(
-            BCFTOOLS_VIEW_SNV.out.vcf
-        )
-        versions = versions.mix(TABIX_BGZIPTABIX_3.out.versions)
-
-        TABIX_BGZIPTABIX_3.out.gz_tbi
-                            .map { meta, file, index -> tuple(meta + [vartype: "snv"], file, index) }
-                            .set{split_snv_vcf}
-        out_vcf_ch = out_vcf_ch.mix(split_snv_vcf)
-
-        BCFTOOLS_VIEW_INDEL(
-            vcf.small,
-            [],[],[]
-        )
-        versions = versions.mix(BCFTOOLS_VIEW_INDEL.out.versions)
-
-        TABIX_BGZIPTABIX_4(
-            BCFTOOLS_VIEW_INDEL.out.vcf
-        )
-        versions = versions.mix(TABIX_BGZIPTABIX_4.out.versions)
-        TABIX_BGZIPTABIX_4.out.gz_tbi
-                            .map { meta, file, index -> tuple(meta + [vartype: "indel"], file, index) }
-                            .set{split_indel_vcf}
-        out_vcf_ch = out_vcf_ch.mix(split_indel_vcf)
-        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
-        out_vcf_ch = out_vcf_ch.mix(vcf.sv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-
+        versions = versions.mix(SPLIT_SMALL_VARIANTS_TEST.out.versions)
+        out_vcf_ch = out_vcf_ch.mix(SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch)
+        out_vcf_ch = out_vcf_ch.mix(vcf.other)
+        vcf_ch = out_vcf_ch
     }
-    else{
-        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
-        out_vcf_ch = out_vcf_ch.mix(vcf.small)
-        out_vcf_ch = out_vcf_ch.mix(vcf.sv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-    }
-
-    vcf_ch = out_vcf_ch
 
     emit:
     vcf_ch
