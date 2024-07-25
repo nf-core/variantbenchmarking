@@ -2,8 +2,6 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-params.options = [:]
-
 include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'     addParams( options: params.options )
 
 workflow SV_SOMATIC_BENCHMARK {

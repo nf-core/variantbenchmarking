@@ -2,8 +2,6 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-params.options = [:]
-
 include { BCFTOOLS_NORM     } from '../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER } from '../../modules/nf-core/bcftools/reheader'
 include { VCF_VARIANT_DEDUPLICATION      } from '../local/vcf_variant_deduplication'

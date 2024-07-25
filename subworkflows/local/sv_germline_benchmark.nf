@@ -2,8 +2,6 @@
 // SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
 //
 
-params.options = [:]
-
 include { TRUVARI_BENCH          } from '../../modules/nf-core/truvari/bench'
 include { SVANALYZER_SVBENCHMARK } from '../../modules/nf-core/svanalyzer/svbenchmark'
 include { WITTYER                } from '../../modules/nf-core/wittyer'

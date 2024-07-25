@@ -2,8 +2,6 @@
 // VCF_VARIANT_DEDUPLICATION: deduplicate, sort and index vcf files
 //
 
-params.options = [:]
-
 include { BCFTOOLS_SORT       } from '../../modules/nf-core/bcftools/sort'
 include { TABIX_TABIX         } from '../../modules/nf-core/tabix/tabix'
 include { BCFTOOLS_NORM as BCFTOOLS_DEDUP } from '../../modules/nf-core/bcftools/norm'

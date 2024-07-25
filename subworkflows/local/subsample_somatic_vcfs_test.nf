@@ -2,7 +2,6 @@
 // SUBSAMPLE_SOMATIC_VCFS_TEST: SUBWORKFLOW TO PREPARE SUBSET SAMPLES IN SOMATIC CASES
 //
 
-params.options = [:]
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE   } from '../../modules/nf-core/bcftools/view'
 include { TABIX_TABIX  } from '../../modules/nf-core/tabix/tabix'
 

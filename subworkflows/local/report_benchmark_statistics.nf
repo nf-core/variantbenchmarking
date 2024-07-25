@@ -2,8 +2,6 @@
 // REPORT_BENCHMARK_STATISTICS: SUMMARIZE BENCHMARK REPORTS
 //
 
-params.options = [:]
-
 include { MERGE_REPORTS  } from '../../modules/local/merge_reports'
 include { PLOTS          } from '../../modules/local/plots'
 

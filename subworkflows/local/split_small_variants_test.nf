@@ -2,8 +2,6 @@
 // SPLIT_SMALL_VARIANTS_TEST: SUBWORKFLOW TO SPLIT SMALL SOMATIC VARIANTS INTO SNV AND INDEL
 //
 
-params.options = [:]
-
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'

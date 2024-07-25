@@ -2,8 +2,6 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-params.options = [:]
-
 include { HAPPY_SOMPY      } from '../../modules/nf-core/happy/sompy/main'
 include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'
 

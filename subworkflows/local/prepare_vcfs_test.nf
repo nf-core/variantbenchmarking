@@ -2,7 +2,6 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-params.options = [:]
 include { VCF_VARIANT_DEDUPLICATION   } from '../local/vcf_variant_deduplication'
 include { VCF_VARIANT_FILTERING       } from '../local/vcf_variant_filtering'
 include { SUBSAMPLE_SOMATIC_VCFS_TEST } from '../local/subsample_somatic_vcfs_test'
