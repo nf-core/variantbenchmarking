@@ -55,22 +55,11 @@ workflow PREPARE_VCFS_TEST {
     }
 
     //
-    // PREPARE_VCFS
-    //
-    // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"query"])
-                    .collectFile(newLine:false)
-
-    vcf_ch.combine(ch_samples)
-            .map{it -> tuple( it[0], it[1],[],it[3])}
-            .set{input_ch}
-
-    //
     // BCFTOOLS_REHEADER
     //
     // Add "query" to test sample
     BCFTOOLS_REHEADER(
-        input_ch,
+        vcf_ch.map{it -> tuple( it[0], it[1], [], [])},
         fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
