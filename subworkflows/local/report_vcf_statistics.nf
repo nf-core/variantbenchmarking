@@ -2,8 +2,6 @@
 // REPORT_VCF_STATISTICS: SUBWORKFLOW TO REPORT VCF STATS
 //
 
-params.options = [:]
-
 include { SURVIVOR_STATS    } from '../../modules/nf-core/survivor/stats'
 include { BCFTOOLS_STATS    } from '../../modules/nf-core/bcftools/stats'
 

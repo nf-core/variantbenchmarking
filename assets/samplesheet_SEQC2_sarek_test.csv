@@ -1,0 +1,7 @@
+id,test_vcf,caller,vartype,subsample
+freebayes,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.freebayes.chr21.vcf.gz,freebayes,small,
+manta1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz,manta,snv,"HCC1395_HCC1395T"
+strelka1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.strelka.somatic_indels.vcf.gz,strelka,indel,"TUMOR"
+strelka2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.vcf.gz,strelka,snv,"TUMOR"
+tiddit2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.tiddit_sv_merge.vcf.gz,tiddit,sv,"HCC1395_HCC1395T"
+manta2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz,manta,sv,"HCC1395_HCC1395T"

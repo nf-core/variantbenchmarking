@@ -4,8 +4,6 @@ import groovy.io.FileType
 // SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
 
-params.options = [:]
-
 include { SVYNC                   } from '../../modules/nf-core/svync'
 include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'
 include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'

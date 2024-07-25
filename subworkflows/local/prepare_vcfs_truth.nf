@@ -2,14 +2,12 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-params.options = [:]
+include { BCFTOOLS_NORM     } from '../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_REHEADER } from '../../modules/nf-core/bcftools/reheader'
+include { VCF_VARIANT_DEDUPLICATION      } from '../local/vcf_variant_deduplication'
+include { TABIX_TABIX as TABIX_TABIX_1   } from '../../modules/nf-core/tabix/tabix'
+include { TABIX_TABIX as TABIX_TABIX_2   } from '../../modules/nf-core/tabix/tabix'
 
-include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'
-include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'
-include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'
-include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'
-include { VCF_VARIANT_DEDUPLICATION                    } from '../local/vcf_variant_deduplication'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader'
 
 workflow PREPARE_VCFS_TRUTH {
     take:
@@ -22,41 +20,24 @@ workflow PREPARE_VCFS_TRUTH {
     versions=Channel.empty()
 
     //
-    // PREPARE_VCFS
-    //
-
-    // BGZIP if needed and index truth
-    BGZIP_TABIX(
-        truth_ch
-    )
-    versions = versions.mix(BGZIP_TABIX.out.versions)
-    vcf_ch = BGZIP_TABIX.out.gz_tbi
-
-    // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"truth"])
-                    .collectFile(newLine:false)
-
-    vcf_ch.combine(ch_samples)
-            .map{it -> tuple( it[0], it[1], [], it[3])}
-            .set{input_ch}
-    //
     // BCFTOOLS_REHEADER
     //
-    // Add "truth" to test sample
-    BCFTOOLS_REHEADER_TRUTH(
-        input_ch,
+    BCFTOOLS_REHEADER(
+        truth_ch.map{it -> tuple( it[0], it[1], [], [])},
         fai
         )
-    versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
 
     //
-    // TABIX_BGZIPTABIX
+    // TABIX_TABIX
     //
-    // bgzip and index vcf file
-    TABIX_BGZIPTABIX(
-        BCFTOOLS_REHEADER_TRUTH.out.vcf
+    TABIX_TABIX_1(
+        BCFTOOLS_REHEADER.out.vcf
     )
-    vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
+    versions = versions.mix(TABIX_TABIX_1.out.versions)
+    BCFTOOLS_REHEADER.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
+                            .set{vcf_ch}
+
 
     if (params.preprocess.contains("normalization")){
         //
@@ -73,12 +54,12 @@ workflow PREPARE_VCFS_TRUTH {
         // TABIX_BGZIPTABIX
         //
         // index vcf file
-        TABIX_TABIX(
+        TABIX_TABIX_2(
             BCFTOOLS_NORM.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX.out.versions)
+        versions = versions.mix(TABIX_TABIX_2.out.versions)
 
-        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
+        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("deduplication")){

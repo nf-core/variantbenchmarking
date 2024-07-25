@@ -2,8 +2,6 @@
 // SMALL_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SMALL GERMLINE VARIANTS
 //
 
-params.options = [:]
-
 include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'
 include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'
 include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'
