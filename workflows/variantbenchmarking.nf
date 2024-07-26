@@ -292,6 +292,18 @@ workflow VARIANTBENCHMARKING {
             other: false}
             .set{bench_input}
 
+    //
+    // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
+    //
+    SV_GERMLINE_BENCHMARK(
+        bench_input.sv,
+        fasta,
+        fai    )
+    ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
+    ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+    sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+
+
     if (params.analysis.contains("germline")){
         //
         // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
@@ -306,16 +318,7 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
         small_evals_ch = small_evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
 
-        //
-        // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
-        //
-        SV_GERMLINE_BENCHMARK(
-            bench_input.sv,
-            fasta,
-            fai    )
-        ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
-        sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+
 
         //
         // SUBWORKFLOW: CNV_GERMLINE_BENCHMARK

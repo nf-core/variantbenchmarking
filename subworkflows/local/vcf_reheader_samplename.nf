@@ -2,8 +2,6 @@
 // VCF_REHEADER_SAMPLENAME: reheader sample names when needed
 //
 
-params.options = [:]
-
 include { TABIX_TABIX         } from '../../modules/nf-core/tabix/tabix'
 include { BCFTOOLS_REHEADER   } from '../../modules/nf-core/bcftools/reheader'
 

@@ -3,8 +3,6 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-params.options = [:]
-
 include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
 include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
 include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'

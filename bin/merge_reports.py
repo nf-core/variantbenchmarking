@@ -237,16 +237,19 @@ def main(args=None):
 	elif args.analysis == "somatic":
 		if args.bench == "sompy":
 			summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
+			summ_table2.reset_index(drop=True, inplace=True)
+			summ_table2.to_csv(args.output + ".regions.csv", index=False)
+
+		elif args.bench == "truvari":
+			summ_table = get_truvari_resuls(args.inputs)
+
+		elif args.bench == "svbenchmark":
+			summ_table = get_svbenchmark_resuls(args.inputs)
 		else:
-			raise ValueError('Only sompy results can be merged for somatic analysis!!')
+			raise ValueError('Only truvari/svbenchmark/sompy results can be merged for somatic analysis!!')
 
-		## reset index
 		summ_table.reset_index(drop=True, inplace=True)
-		summ_table2.reset_index(drop=True, inplace=True)
-
-		# Save the merged DataFrame to a new CSV file
 		summ_table.to_csv(args.output + ".summary.csv", index=False)
-		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 	else:
 		raise ValueError('Analysis must be germline or somatic')
 
