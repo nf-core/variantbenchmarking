@@ -70,16 +70,6 @@ workflow VARIANTBENCHMARKING {
     //// check high confidence files ////
 
     // Germline
-    println(params.truth_small)
-    println(params.high_conf_small)
-    println(params.truth_sv)
-    println(params.high_conf_sv)
-    println(params.truth_cnv)
-    println(params.high_conf_cnv)
-    println(params.truth_snv)
-    println(params.high_conf_snv)
-    println(params.truth_indel)
-    println(params.high_conf_indel)
 
     truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
                                                 : Channel.empty()
