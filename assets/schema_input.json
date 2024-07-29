@@ -12,7 +12,7 @@
                 "exists": true,
                 "pattern": "\\S+\\.vcf(\\.gz)?$",
                 "format": "file-path",
-                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'",
+                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz' or '.vcf'",
                 "description": "The VCF file to use as benchmarking test input"
             },
             "id": {
