@@ -57,7 +57,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     TABIX_BGZIP.out.output
                 .groupTuple()
                 .set{vcf_ch}
-    vcf_ch.view()
+
     //
     // MODULE: SURVIVOR_MERGE
     //
