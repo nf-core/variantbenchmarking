@@ -62,8 +62,10 @@ workflow VARIANTBENCHMARKING {
 
     //// create reference channels ////
 
-    fasta       = Channel.fromPath(params.fasta, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
-    fai         = Channel.fromPath(params.fai, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    fasta       = Channel.fromPath(params.fasta, checkIfExists: true)
+                    .map{ fasta -> tuple([id: fasta.getSimpleName()], fasta) }.collect()
+    fai         = Channel.fromPath(params.fai, checkIfExists: true)
+                    .map{ fai -> tuple([id: fai.getSimpleName()], fai) }.collect()
 
     //// check high confidence files ////
 
