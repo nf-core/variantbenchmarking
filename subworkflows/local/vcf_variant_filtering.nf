@@ -14,7 +14,7 @@ workflow VCF_VARIANT_FILTERING {
 
     main:
 
-    versions=Channel.empty()
+    versions = Channel.empty()
 
     //
     // TABIX_BGZIP
@@ -23,7 +23,7 @@ workflow VCF_VARIANT_FILTERING {
     TABIX_BGZIP(
         vcf_ch.map { meta, vcf, tbi -> [ meta, vcf ]}
     )
-    versions = versions.mix(TABIX_BGZIP.out.versions)
+    versions = versions.mix(TABIX_BGZIP.out.versions.first())
     vcf_ch = TABIX_BGZIP.out.output
 
     if(params.exclude_expression  != null & params.include_expression  != null){
@@ -34,7 +34,7 @@ workflow VCF_VARIANT_FILTERING {
         BCFTOOLS_FILTER(
             vcf_ch
         )
-        versions = versions.mix(BCFTOOLS_FILTER.out.versions)
+        versions = versions.mix(BCFTOOLS_FILTER.out.versions.first())
         vcf_ch = BCFTOOLS_FILTER.out.vcf
     }
 
@@ -42,32 +42,38 @@ workflow VCF_VARIANT_FILTERING {
 
     if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
         vcf_ch.branch{
-                sv:  it[0].vartype == "sv"
-                small:  it[0].vartype == "small"
-                cnv:  it[0].vartype == "cnv"
-                snv: it[0].vartype == "snv"
-                indel: it[0].vartype == "indel"
-                other: false}
-                .set{vcf}
+                def meta = it[0]
+                sv:  meta.vartype == "sv"
+                small:  meta.vartype == "small"
+                cnv:  meta.vartype == "cnv"
+                snv: meta.vartype == "snv"
+                indel: meta.vartype == "indel"
+                other: false
+            }
+            .set{vcf}
 
         //
         // MODULE: SURVIVOR_FILTER
         //
         // filters out smaller SVs than min_sv_size, only applicable to SV files
         SURVIVOR_FILTER(
-            vcf.sv.map{it -> tuple( it[0], it[1], [])},
+            vcf.sv.map{ meta, vcf -> 
+                [ meta, vcf, [] ]
+            },
             params.min_sv_size,
             params.max_sv_size,
             params.min_allele_freq,
             params.min_num_reads
         )
-        versions = versions.mix(SURVIVOR_FILTER.out.versions)
+        versions = versions.mix(SURVIVOR_FILTER.out.versions.first())
 
-        out_vcf_ch = out_vcf_ch.mix(SURVIVOR_FILTER.out.vcf)
-        out_vcf_ch = out_vcf_ch.mix(vcf.small)
-        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
+        out_vcf_ch = out_vcf_ch.mix(
+            SURVIVOR_FILTER.out.vcf,
+            vcf.small,
+            vcf.cnv,
+            vcf.snv,
+            vcf.indel
+        )
         vcf_ch = out_vcf_ch
     }
     //
@@ -77,7 +83,7 @@ workflow VCF_VARIANT_FILTERING {
     TABIX_BGZIPTABIX(
         vcf_ch
     )
-    versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
+    versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
     vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
 
     emit:

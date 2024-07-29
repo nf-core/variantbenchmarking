@@ -2,7 +2,7 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'     addParams( options: params.options )
+include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'
 
 workflow SV_SOMATIC_BENCHMARK {
     take:
@@ -12,23 +12,25 @@ workflow SV_SOMATIC_BENCHMARK {
 
     main:
 
-    versions=Channel.empty()
-    summary_reports=Channel.empty()
+    versions =          Channel.empty()
+    summary_reports =   Channel.empty()
 
 
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(
-            input_ch.map { it -> tuple(it[0], it[1], it[2], it[3], it[4]) },
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+                [ meta, vcf, tbi, truth_vcf, truth_tbi ]
+            },
             fasta,
             fai
         )
-        versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions)
+        versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions.first())
 
         BAMSURGEON_EVALUATOR.out.stats
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "bamsurgeon"], file) }
             .groupTuple()
-            .set{ report}
+            .set{ report }
         summary_reports = summary_reports.mix(report)
     }
 
