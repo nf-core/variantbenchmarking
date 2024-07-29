@@ -60,7 +60,7 @@ workflow PREPARE_VCFS_TEST {
     //
     // Add "query" to test sample
     BCFTOOLS_REHEADER(
-        vcf_ch.map{ meta, vcf, tbi -> 
+        vcf_ch.map{ meta, vcf, tbi ->
             [ meta, vcf, [], [] ]
         },
         fai

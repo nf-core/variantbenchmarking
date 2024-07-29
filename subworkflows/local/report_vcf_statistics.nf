@@ -24,7 +24,7 @@ workflow REPORT_VCF_STATISTICS {
     // SURVIVOR_STATS
     //
     SURVIVOR_STATS(
-        input.sv.map{ meta, vcf, tbi -> 
+        input.sv.map{ meta, vcf, tbi ->
             [ meta, vcf ]
         },
         -1,

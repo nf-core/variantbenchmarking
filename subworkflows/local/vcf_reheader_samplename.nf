@@ -18,7 +18,7 @@ workflow VCF_REHEADER_SAMPLENAME {
     // BCFTOOLS_REHEADER
     //
     BCFTOOLS_REHEADER(
-        vcf_ch.map{ meta, vcf -> 
+        vcf_ch.map{ meta, vcf ->
             [ meta, vcf, [], [] ]
         },
         fai

@@ -40,7 +40,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         // MODULE: RTGTOOLS_VCFEVAL
         //
         RTGTOOLS_VCFEVAL(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf, tbi, truth_vcf, truth_tbi, bed, [] ]
             },
             sdf
@@ -105,13 +105,13 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('happy')){
 
         input_ch
-            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf ]
             }
             .set { test_ch }
 
         input_ch
-            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, truth_vcf, bed, [] ]
             }
             .set { truth_ch }
@@ -119,7 +119,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         if (params.preprocess.contains("prepy")){
 
             HAPPY_PREPY(
-                input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+                input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                     [ meta, vcf, bed ]
                 },
                 fasta,

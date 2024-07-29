@@ -127,20 +127,20 @@ workflow SV_GERMLINE_BENCHMARK {
     if (params.method.contains('wittyer')){
 
         TABIX_BGZIP_QUERY(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf ]
             }
         )
         versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
         TABIX_BGZIP_TRUTH(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, truth_vcf ]
             }
         )
         versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
 
-        input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+        input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, bed ]
             }
             .set { bed }

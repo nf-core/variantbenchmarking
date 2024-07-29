@@ -20,19 +20,19 @@ workflow CNV_GERMLINE_BENCHMARK {
     // CNV benchmarking is only possible with wittyer now!
 
     TABIX_BGZIP_QUERY(
-        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
             [ meta, vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
     TABIX_BGZIP_TRUTH(
-        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
             [ meta, truth_vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
-    input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+    input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
             [ meta, bed ]
         }
         .set { bed }
@@ -48,8 +48,8 @@ workflow CNV_GERMLINE_BENCHMARK {
     versions = versions.mix(WITTYER.out.versions.first())
 
     WITTYER.out.report
-        .map { meta, file -> 
-            tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) 
+        .map { meta, file ->
+            tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file)
         }
         .groupTuple()
         .set{ report }

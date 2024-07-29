@@ -19,7 +19,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('sompy')){
 
         HAPPY_SOMPY(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf, truth_vcf, bed, [] ]
             },
             fasta,
@@ -40,7 +40,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf, tbi, truth_vcf, truth_tbi ]
             },
             fasta,

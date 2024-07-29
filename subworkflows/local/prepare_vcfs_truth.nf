@@ -23,7 +23,7 @@ workflow PREPARE_VCFS_TRUTH {
     // BCFTOOLS_REHEADER
     //
     BCFTOOLS_REHEADER(
-        truth_ch.map{ meta, vcf -> 
+        truth_ch.map{ meta, vcf ->
             [ meta, vcf, [], [] ]
         },
         fai

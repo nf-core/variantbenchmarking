@@ -57,7 +57,7 @@ workflow VCF_VARIANT_FILTERING {
         //
         // filters out smaller SVs than min_sv_size, only applicable to SV files
         SURVIVOR_FILTER(
-            vcf.sv.map{ meta, vcf -> 
+            vcf.sv.map{ meta, vcf ->
                 [ meta, vcf, [] ]
             },
             params.min_sv_size,

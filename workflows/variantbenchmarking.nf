@@ -143,7 +143,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
     SV_VCF_CONVERSIONS.out.vcf_ch
-        .map{ meta, vcf, tbi -> 
+        .map{ meta, vcf, tbi ->
             [ meta, vcf ]
         }
         .mix(
