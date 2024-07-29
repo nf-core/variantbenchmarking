@@ -19,7 +19,7 @@ workflow SV_SOMATIC_BENCHMARK {
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed -> 
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf, tbi, truth_vcf, truth_tbi ]
             },
             fasta,
