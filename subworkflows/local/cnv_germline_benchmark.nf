@@ -2,7 +2,7 @@
 // CNV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR CNV GERMLINE VARIANTS
 //
 
-include { WITTYER                } from '../../modules/nf-core/wittyer'
+include { WITTYER                          } from '../../modules/nf-core/wittyer'
 include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../modules/nf-core/tabix/bgzip'
 include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/bgzip'
 
@@ -14,34 +14,45 @@ workflow CNV_GERMLINE_BENCHMARK {
 
     main:
 
-    versions=Channel.empty()
-    summary_reports=Channel.empty()
+    versions =        Channel.empty()
+    summary_reports = Channel.empty()
 
     // CNV benchmarking is only possible with wittyer now!
 
     TABIX_BGZIP_QUERY(
-        input_ch.map{it -> tuple(it[0], it[1])}
+        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            [ meta, vcf ]
+        }
     )
-    versions = versions.mix(TABIX_BGZIP_QUERY.out.versions)
+    versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
     TABIX_BGZIP_TRUTH(
-        input_ch.map{it -> tuple(it[0], it[3])}
+        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            [ meta, truth_vcf ]
+        }
     )
-    versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions)
-    bed = input_ch.map{it -> tuple(it[0], it[5])}
+    versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
+    input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            [ meta, bed ]
+        }
+        .set { bed }
 
     //
     // MODULE: WITTYER
     //
     WITTYER(
-        TABIX_BGZIP_QUERY.out.output.join(TABIX_BGZIP_TRUTH.out.output).join(bed)
+        TABIX_BGZIP_QUERY.out.output
+            .join(TABIX_BGZIP_TRUTH.out.output, failOnMismatch: true, failOnDuplicate: true)
+            .join(bed, failOnMismatch: true, failOnDuplicate: true)
     )
-    versions = versions.mix(WITTYER.out.versions)
+    versions = versions.mix(WITTYER.out.versions.first())
 
     WITTYER.out.report
-        .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) }
+        .map { meta, file ->
+            tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file)
+        }
         .groupTuple()
-        .set{ report}
+        .set{ report }
     summary_reports = summary_reports.mix(report)
 
 

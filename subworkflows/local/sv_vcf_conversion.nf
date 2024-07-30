@@ -26,13 +26,13 @@ workflow SV_VCF_CONVERSIONS {
             fasta,
             fai
         )
-        versions = versions.mix(VARIANT_EXTRACTOR.out.versions)
+        versions = versions.mix(VARIANT_EXTRACTOR.out.versions.first())
 
         // sort vcf
         BCFTOOLS_SORT(
             VARIANT_EXTRACTOR.out.output
         )
-        versions = versions.mix(BCFTOOLS_SORT.out.versions)
+        versions = versions.mix(BCFTOOLS_SORT.out.versions.first())
         input_ch = BCFTOOLS_SORT.out.vcf
 
     }
@@ -45,7 +45,7 @@ workflow SV_VCF_CONVERSIONS {
     BGZIP_TABIX(
         input_ch
     )
-    versions = versions.mix(BGZIP_TABIX.out.versions)
+    versions = versions.mix(BGZIP_TABIX.out.versions.first())
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
     //
@@ -81,9 +81,18 @@ workflow SV_VCF_CONVERSIONS {
         SVYNC(
             svync_ch
         )
-        out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
-        out_vcf_ch = out_vcf_ch.mix(input.other)
-        vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
+        versions = versions.mix(SVYNC.out.versions.first())
+        out_vcf_ch.mix(
+                SVYNC.out.vcf,
+                input.other
+            )
+            .map{
+                def meta = it[0]
+                def vcf = it[1]
+                def tbi = it[2]
+                [ meta, vcf, tbi ]
+            }
+            .set { vcf_ch }
     }
 
 

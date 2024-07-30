@@ -11,19 +11,20 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
-    versions=Channel.empty()
+    versions = Channel.empty()
 
     MERGE_REPORTS(
         reports
     )
 
-    versions = versions.mix(MERGE_REPORTS.out.versions)
+    versions = versions.mix(MERGE_REPORTS.out.versions.first())
 
     PLOTS(
         MERGE_REPORTS.out.summary
     )
 
-    versions = versions.mix(PLOTS.out.versions)
+    versions = versions.mix(PLOTS.out.versions.first())
+
     emit:
     versions
 }

@@ -17,8 +17,8 @@ workflow COMPARE_BENCHMARK_RESULTS {
     fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = Channel.empty()
-    merged_vcfs= Channel.empty()
+    versions    = Channel.empty()
+    merged_vcfs = Channel.empty()
 
     // Small Variants
 
@@ -28,7 +28,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     REFORMAT_HEADER(
         small_ch
     )
-    versions = versions.mix(REFORMAT_HEADER.out.versions)
+    versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
 
     //
@@ -40,7 +40,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
         fai,
         []
     )
-    versions = versions.mix(BCFTOOLS_MERGE.out.versions)
+    versions = versions.mix(BCFTOOLS_MERGE.out.versions.first())
     merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
 
     // SV part
@@ -52,11 +52,11 @@ workflow COMPARE_BENCHMARK_RESULTS {
     TABIX_BGZIP(
         sv_ch
     )
-    versions = versions.mix(TABIX_BGZIP.out.versions)
+    versions = versions.mix(TABIX_BGZIP.out.versions.first())
 
     TABIX_BGZIP.out.output
-                .groupTuple()
-                .set{vcf_ch}
+        .groupTuple()
+        .set{vcf_ch}
 
     //
     // MODULE: SURVIVOR_MERGE
@@ -71,14 +71,15 @@ workflow COMPARE_BENCHMARK_RESULTS {
         0,
         30
     )
-    versions = versions.mix(SURVIVOR_MERGE.out.versions)
+    versions = versions.mix(SURVIVOR_MERGE.out.versions.first())
     merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
     VCF_TO_CSV(
         merged_vcfs
     )
-    versions = versions.mix(VCF_TO_CSV.out.versions)
+    versions = versions.mix(VCF_TO_CSV.out.versions.first())
 
     emit:
     versions
+    merged_vcfs
 }
