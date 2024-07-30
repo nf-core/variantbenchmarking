@@ -27,6 +27,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_vari
 //
 // SUBWORKFLOWS: Local Subworkflows
 //
+include { SUBSAMPLE_VCF_TEST          } from '../subworkflows/local/subsample_vcf_test'
 include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conversion'
@@ -119,29 +120,42 @@ workflow VARIANTBENCHMARKING {
     sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
-    // Branch out according to the analysis
+
+    // PREPROCESSES
+    // subsample multisample vcf if necessary
     ch_samplesheet.branch{
-            sv:  it[0].vartype == "sv"
+            multisample: it[0].subsample != null
             other: true}
             .set{input}
 
-    out_vcf_ch = Channel.empty()
+    out_vcf_ch  = Channel.empty()
+    SUBSAMPLE_VCF_TEST(
+        input.multisample
+    )
+    ch_versions = ch_versions.mix(SUBSAMPLE_VCF_TEST.out.versions)
+    out_vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
+                                input.other)
+    vcf_ch      = out_vcf_ch
 
-    // PREPROCESSES
+    // Branch out according to the analysis
+    vcf_ch.branch{
+            sv:  it[0].vartype == "sv"
+            other: true}
+            .set{test_ch}
+
+    out_vcf_ch = Channel.empty()
     //
     // SUBWORKFLOW: SV_VCF_CONVERSIONS
     //
     // Standardize SV VCFs, tool spesific modifications
     SV_VCF_CONVERSIONS(
-        input.sv,
+        test_ch.sv,
         fasta,
         fai
         )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
-    out_vcf_ch = out_vcf_ch.mix(
-                                SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])},
-                                input.other
-                                )
+    out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])},
+                            test_ch.other)
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs

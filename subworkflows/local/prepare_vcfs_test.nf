@@ -4,7 +4,6 @@
 
 include { VCF_VARIANT_DEDUPLICATION   } from '../local/vcf_variant_deduplication'
 include { VCF_VARIANT_FILTERING       } from '../local/vcf_variant_filtering'
-include { SUBSAMPLE_SOMATIC_VCFS_TEST } from '../local/subsample_somatic_vcfs_test'
 include { SPLIT_SMALL_VARIANTS_TEST   } from '../local/split_small_variants_test'
 include { BGZIP_TABIX                 } from '../../modules/local/bgzip_tabix'
 include { BCFTOOLS_NORM               } from '../../modules/nf-core/bcftools/norm'
@@ -33,25 +32,6 @@ workflow PREPARE_VCFS_TEST {
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
-
-    if (params.analysis.contains("somatic")){
-
-        out_vcf_ch = Channel.empty()
-        // subsample multisample vcf if necessary
-
-        vcf_ch.branch{
-            sample: it[0].subsample != null
-            other: true}
-            .set{vcf}
-
-        SUBSAMPLE_SOMATIC_VCFS_TEST(
-            vcf.sample
-        )
-        versions = versions.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.versions)
-        out_vcf_ch = out_vcf_ch.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.vcf_ch,
-                                    vcf.other)
-        vcf_ch = out_vcf_ch
-    }
 
     //
     // BCFTOOLS_REHEADER
