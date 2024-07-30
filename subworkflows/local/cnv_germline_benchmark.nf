@@ -22,7 +22,7 @@ workflow CNV_GERMLINE_BENCHMARK {
     TABIX_BGZIP_QUERY(
         input_ch.map{it -> tuple(it[0], it[1])}
     )
-    versions = versions.mix(TABIX_BGZIP_QUERY.out.versions)
+    versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
     TABIX_BGZIP_TRUTH(
         input_ch.map{it -> tuple(it[0], it[3])}
@@ -36,7 +36,7 @@ workflow CNV_GERMLINE_BENCHMARK {
     WITTYER(
         TABIX_BGZIP_QUERY.out.output.join(TABIX_BGZIP_TRUTH.out.output).join(bed)
     )
-    versions = versions.mix(WITTYER.out.versions)
+    versions = versions.mix(WITTYER.out.versions.first())
 
     WITTYER.out.report
         .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) }

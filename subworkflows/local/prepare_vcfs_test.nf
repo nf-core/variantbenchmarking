@@ -30,7 +30,7 @@ workflow PREPARE_VCFS_TEST {
     BGZIP_TABIX(
         input_ch
     )
-    versions = versions.mix(BGZIP_TABIX.out.versions)
+    versions = versions.mix(BGZIP_TABIX.out.versions.first())
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
     //
@@ -41,12 +41,12 @@ workflow PREPARE_VCFS_TEST {
         vcf_ch.map{it -> tuple( it[0], it[1], [], [])},
         fai
         )
-    versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions.first())
 
     TABIX_TABIX_1(
         BCFTOOLS_REHEADER.out.vcf
     )
-    versions = versions.mix(TABIX_TABIX_1.out.versions)
+    versions = versions.mix(TABIX_TABIX_1.out.versions.first())
     BCFTOOLS_REHEADER.out.vcf.join(TABIX_TABIX_1.out.tbi, by:0)
                             .set{vcf_ch}
 
@@ -59,12 +59,12 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             [],[],[]
         )
-        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions)
+        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
 
         TABIX_BGZIPTABIX(
             BCFTOOLS_VIEW_CONTIGS.out.vcf
         )
-        versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
+        versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
         vcf_ch   = TABIX_BGZIPTABIX.out.gz_tbi
     }
     if (params.preprocess.contains("normalization")){
@@ -76,12 +76,12 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions)
+        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
 
         TABIX_TABIX_2(
             BCFTOOLS_NORM.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_2.out.versions)
+        versions = versions.mix(TABIX_TABIX_2.out.versions.first())
         BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX_2.out.tbi, by:0)
                             .set{vcf_ch}
     }
@@ -96,7 +96,7 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch
         )
         vcf_ch = VCF_VARIANT_FILTERING.out.vcf_ch
-        versions = versions.mix(VCF_VARIANT_FILTERING.out.versions)
+        versions = versions.mix(VCF_VARIANT_FILTERING.out.versions.first())
     }
 
     if (params.preprocess.contains("deduplication")){
@@ -109,7 +109,7 @@ workflow PREPARE_VCFS_TEST {
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
-        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
+        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions.first())
 
     }
 
@@ -126,9 +126,9 @@ workflow PREPARE_VCFS_TEST {
         SPLIT_SMALL_VARIANTS_TEST(
             vcf.small
         )
-        versions = versions.mix(SPLIT_SMALL_VARIANTS_TEST.out.versions)
-        out_vcf_ch = out_vcf_ch.mix(SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch)
-        out_vcf_ch = out_vcf_ch.mix(vcf.other)
+        versions = versions.mix(SPLIT_SMALL_VARIANTS_TEST.out.versions.first())
+        out_vcf_ch = out_vcf_ch.mix(SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch,
+                                    vcf.other)
         vcf_ch = out_vcf_ch
     }
 
