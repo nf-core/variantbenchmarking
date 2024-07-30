@@ -22,7 +22,7 @@ workflow REPORT_VCF_STATISTICS {
     // SURVIVOR_STATS
     //
     SURVIVOR_STATS(
-        input.sv.map{it -> tuple( it[0], it[1])},
+        input.sv.map{meta, vcf, index -> tuple( meta, vcf)},
         -1,
         -1,
         -1

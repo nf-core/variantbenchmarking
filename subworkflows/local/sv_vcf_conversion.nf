@@ -77,12 +77,11 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set {svync_ch}
 
-
         SVYNC(
             svync_ch
         )
-        out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf)
-        out_vcf_ch = out_vcf_ch.mix(input.other)
+        out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf,
+                                    input.other)
         vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
     }
 

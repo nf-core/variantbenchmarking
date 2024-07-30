@@ -79,11 +79,10 @@ workflow SV_GERMLINE_BENCHMARK {
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "truvari"], file) }
             .set { vcf_tp_comp }
 
-        tagged_variants = tagged_variants.mix(vcf_fn)
-        tagged_variants = tagged_variants.mix(vcf_fp)
-        tagged_variants = tagged_variants.mix(vcf_tp_base)
-        tagged_variants = tagged_variants.mix(vcf_tp_comp)
-
+        tagged_variants = tagged_variants.mix(vcf_fn,
+                                            vcf_fp,
+                                            vcf_tp_base,
+                                            vcf_tp_comp)
     }
 
     if (params.method.contains('svanalyzer')){
@@ -112,9 +111,8 @@ workflow SV_GERMLINE_BENCHMARK {
         SVANALYZER_SVBENCHMARK.out.fps
                     .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "svbenchmark"], file) }
             .set { vcf_fp }
-        tagged_variants = tagged_variants.mix(vcf_fn)
-        tagged_variants = tagged_variants.mix(vcf_fp)
-
+        tagged_variants = tagged_variants.mix(vcf_fn,
+                                            vcf_fp)
     }
     if (params.method.contains('wittyer')){
 

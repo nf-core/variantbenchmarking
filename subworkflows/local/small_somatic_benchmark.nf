@@ -19,7 +19,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('sompy')){
 
         HAPPY_SOMPY(
-            input_ch.map { it -> tuple(it[0], it[3], it[1], it[5], []) },
+            input_ch.map { meta, test, index1, truth, index2, bed -> tuple(meta, truth, test, bed, []) },
             fasta,
             fai,
             [[],[]],

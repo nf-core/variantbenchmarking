@@ -48,8 +48,8 @@ workflow PREPARE_VCFS_TEST {
             vcf.sample
         )
         versions = versions.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.versions)
-        out_vcf_ch = out_vcf_ch.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.vcf_ch)
-        out_vcf_ch = out_vcf_ch.mix(vcf.other)
+        out_vcf_ch = out_vcf_ch.mix(SUBSAMPLE_SOMATIC_VCFS_TEST.out.vcf_ch,
+                                    vcf.other)
         vcf_ch = out_vcf_ch
     }
 

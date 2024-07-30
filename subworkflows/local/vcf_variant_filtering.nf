@@ -43,11 +43,7 @@ workflow VCF_VARIANT_FILTERING {
     if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
         vcf_ch.branch{
                 sv:  it[0].vartype == "sv"
-                small:  it[0].vartype == "small"
-                cnv:  it[0].vartype == "cnv"
-                snv: it[0].vartype == "snv"
-                indel: it[0].vartype == "indel"
-                other: false}
+                other: true}
                 .set{vcf}
 
         //
@@ -63,11 +59,8 @@ workflow VCF_VARIANT_FILTERING {
         )
         versions = versions.mix(SURVIVOR_FILTER.out.versions)
 
-        out_vcf_ch = out_vcf_ch.mix(SURVIVOR_FILTER.out.vcf)
-        out_vcf_ch = out_vcf_ch.mix(vcf.small)
-        out_vcf_ch = out_vcf_ch.mix(vcf.cnv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.snv)
-        out_vcf_ch = out_vcf_ch.mix(vcf.indel)
+        out_vcf_ch = out_vcf_ch.mix(SURVIVOR_FILTER.out.vcf,
+                                    vcf.other)
         vcf_ch = out_vcf_ch
     }
     //

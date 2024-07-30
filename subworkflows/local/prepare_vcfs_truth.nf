@@ -23,7 +23,7 @@ workflow PREPARE_VCFS_TRUTH {
     // BCFTOOLS_REHEADER
     //
     BCFTOOLS_REHEADER(
-        truth_ch.map{it -> tuple( it[0], it[1], [], [])},
+        truth_ch.map{meta, file -> tuple( meta, file, [], [])},
         fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER.out.versions)

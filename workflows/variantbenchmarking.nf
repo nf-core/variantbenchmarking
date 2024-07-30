@@ -122,11 +122,7 @@ workflow VARIANTBENCHMARKING {
     // Branch out according to the analysis
     ch_samplesheet.branch{
             sv:  it[0].vartype == "sv"
-            small:  it[0].vartype == "small"
-            cnv:  it[0].vartype == "cnv"
-            snv: it[0].vartype == "snv"
-            indel: it[0].vartype == "indel"
-            other: false}
+            other: true}
             .set{input}
 
     out_vcf_ch = Channel.empty()
@@ -142,12 +138,10 @@ workflow VARIANTBENCHMARKING {
         fai
         )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
-    out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])})
-
-    out_vcf_ch = out_vcf_ch.mix(input.cnv)
-    out_vcf_ch = out_vcf_ch.mix(input.snv)
-    out_vcf_ch = out_vcf_ch.mix(input.indel)
-    out_vcf_ch = out_vcf_ch.mix(input.small)
+    out_vcf_ch = out_vcf_ch.mix(
+                                SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])},
+                                input.other
+                                )
 
     //
     // SUBWORKFLOW: Prepare and normalize input vcfs

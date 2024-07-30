@@ -40,7 +40,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         // MODULE: RTGTOOLS_VCFEVAL
         //
         RTGTOOLS_VCFEVAL(
-            input_ch.map { it -> tuple(it[0], it[1], it[2], it[3], it[4], it[5], []) },
+            input_ch.map { meta, test, index1, truth, index2, bed -> tuple(meta, test, index1, truth, index2, bed, []) },
             sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions)
@@ -88,21 +88,21 @@ workflow SMALL_GERMLINE_BENCHMARK {
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_comp }
 
-        tagged_variants = tagged_variants.mix(vcf_fn)
-        tagged_variants = tagged_variants.mix(vcf_fp)
-        tagged_variants = tagged_variants.mix(vcf_tp_base)
-        tagged_variants = tagged_variants.mix(vcf_tp_comp)
+        tagged_variants = tagged_variants.mix(vcf_fn,
+                                            vcf_fp,
+                                            vcf_tp_base,
+                                            vcf_tp_comp)
     }
 
     if (params.method.contains('happy')){
 
-        test_ch = input_ch.map{it -> tuple( it[0], it[1])}
-        truth_ch = input_ch.map{it -> tuple( it[0], it[3], it[5], [] )}
+        test_ch = input_ch.map{ meta, test, index1, truth, index2, bed -> tuple( meta, test)}
+        truth_ch = input_ch.map{ meta, test, index1, truth, index2, bed -> tuple( meta, truth, bed, [] )}
 
         if (params.preprocess.contains("prepy")){
 
             HAPPY_PREPY(
-                input_ch.map{it -> tuple( it[0], it[1], it[5])},
+                input_ch.map{ meta, test, index1, truth, index2, bed -> tuple( meta, test, bed)},
                 fasta,
                 fai
             )
