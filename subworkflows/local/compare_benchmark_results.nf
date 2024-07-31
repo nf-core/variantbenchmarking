@@ -17,8 +17,8 @@ workflow COMPARE_BENCHMARK_RESULTS {
     fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = Channel.empty()
-    merged_vcfs= Channel.empty()
+    versions    = Channel.empty()
+    merged_vcfs = Channel.empty()
 
     // Small Variants
     // Reheader sample names
@@ -69,4 +69,5 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
     emit:
     versions
+    merged_vcfs
 }

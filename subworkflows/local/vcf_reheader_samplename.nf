@@ -12,23 +12,26 @@ workflow VCF_REHEADER_SAMPLENAME {
 
     main:
 
-    versions=Channel.empty()
+    versions = Channel.empty()
 
     // rename sample name
     BCFTOOLS_REHEADER(
-        vcf_ch.map{meta, vcf -> tuple( meta, vcf, [], [] )},
+
+        vcf_ch.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+        },
         fai
-        )
-    versions = versions.mix(BCFTOOLS_REHEADER.out.versions)
+    )
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions.first())
 
     TABIX_TABIX(
         BCFTOOLS_REHEADER.out.vcf
     )
-    versions = versions.mix(TABIX_TABIX.out.versions)
+    versions = versions.mix(TABIX_TABIX.out.versions.first())
 
     BCFTOOLS_REHEADER.out.vcf
-                            .join(TABIX_TABIX.out.tbi)
-                            .set{ch_vcf}
+        .join(TABIX_TABIX.out.tbi, failOnDuplicate:true, failOnMismatch:true)
+        .set{ch_vcf}
 
     emit:
     ch_vcf      // channel: [ val(meta), vcf, index ]

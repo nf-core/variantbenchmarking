@@ -9,115 +9,139 @@
         "properties": {
             "test_vcf": {
                 "type": "string",
+                "exists": true,
                 "pattern": "\\S+\\.vcf(\\.gz)?$",
                 "format": "file-path",
-                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz'"
+                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz' or '.vcf'",
+                "description": "The VCF file to use as benchmarking test input"
             },
             "id": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample id",
-                "meta": ["id"]
+                "description": "Sample id",
+                "meta": ["id"],
+                "minLength": 1
             },
             "caller": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Name of the variant caller used to generate test file",
-                "meta": ["caller"]
+                "description": "Name of the variant caller used to generate test file",
+                "meta": ["caller"],
+                "minLength": 1
             },
             "vartype": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Variant type to benchmark",
-                "meta": ["vartype"]
+                "description": "Variant type to benchmark",
+                "meta": ["vartype"],
+                "minLength": 1
             },
             "subsample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Name to subsample in the multisample VCF, might be required for somatic cases",
-                "meta": ["subsample"]
+                "description": "Name to subsample in the multisample VCF, might be required for somatic cases",
+                "meta": ["subsample"],
+                "minLength": 1
             },
             "normshift": {
                 "type": "number",
-                "errorMessage": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)",
+                "description": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)",
                 "meta": ["normshift"],
                 "minimum": 0,
                 "maximum": 1
             },
             "normdist": {
                 "type": "number",
-                "errorMessage": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
-                "meta": ["normdist"]
+                "description": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
+                "meta": ["normdist"],
+                "minimum": 0,
+                "maximum": 1
             },
             "normsizediff": {
                 "type": "number",
-                "errorMessage": "normsizediff is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)",
-                "meta": ["normsizediff"]
+                "description": "normsizediff is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)",
+                "meta": ["normsizediff"],
+                "minimum": 0,
+                "maximum": 1
             },
             "maxdist": {
                 "type": "integer",
-                "errorMessage": "maxdist is a svbenchmark parameter. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
+                "description": "maxdist is a svbenchmark parameter. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
+                "minimum": 0,
                 "meta": ["maxdist"]
             },
             "pctsize": {
                 "type": "number",
-                "errorMessage": "pctsize is a truvari parameter. Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size).",
-                "meta": ["pctsize"]
+                "description": "pctsize is a truvari parameter. Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size).",
+                "meta": ["pctsize"],
+                "minimum": 0,
+                "maximum": 1
             },
             "pctseq": {
                 "type": "number",
-                "errorMessage": "pctseq is a truvari parameter. Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. turn it off (0) for no sequence comparison.",
-                "meta": ["pctseq"]
+                "description": "pctseq is a truvari parameter. Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. turn it off (0) for no sequence comparison.",
+                "meta": ["pctseq"],
+                "minimum": 0,
+                "maximum": 1
             },
             "pctovl": {
                 "type": "number",
-                "errorMessage": "pctovl is a truvari parameter. Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)",
-                "meta": ["pctovl"]
+                "description": "pctovl is a truvari parameter. Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)",
+                "meta": ["pctovl"],
+                "minimum": 0,
+                "maximum": 1
             },
             "refdist": {
                 "type": "integer",
-                "errorMessage": "refdist is a truvari parameter. Maximum distance comparison calls must be within from base call's start/end ",
-                "meta": ["refdist"]
+                "description": "refdist is a truvari parameter. Maximum distance comparison calls must be within from base call's start/end ",
+                "meta": ["refdist"],
+                "minimum": 0
             },
             "chunksize": {
                 "type": "integer",
-                "errorMessage": "chunksize is a truvari parameter. Create chunks of all calls overlapping within ±`--chunksize` basepairs",
-                "meta": ["chunksize"]
+                "description": "chunksize is a truvari parameter. Create chunks of all calls overlapping within ±`--chunksize` basepairs",
+                "meta": ["chunksize"],
+                "minimum": 0
             },
             "dup_to_ins": {
                 "type": "boolean",
-                "errorMessage": "a truvari parameter. converts DUP to INS type",
+                "description": "a truvari parameter. converts DUP to INS type",
                 "meta": ["dup_to_ins"]
             },
             "typeignore": {
                 "type": "boolean",
-                "errorMessage": "a truvari parameter. Ignore SVTYPE matching",
+                "description": "a truvari parameter. Ignore SVTYPE matching",
                 "meta": ["typeignore"]
             },
             "bpDistance": {
                 "type": "integer",
-                "errorMessage": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
-                "meta": ["bpDistance"]
+                "description": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
+                "meta": ["bpDistance"],
+                "minimum": 0
             },
             "percentThreshold": {
                 "type": "number",
-                "errorMessage": "percentThreshold is a wittyer parameter. This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)",
-                "meta": ["percentThreshold"]
+                "description": "percentThreshold is a wittyer parameter. This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)",
+                "meta": ["percentThreshold"],
+                "minimum": 0
             },
             "absoluteThreshold": {
                 "type": "integer",
-                "errorMessage": "absoluteThreshold is a wittyer parameter. This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)",
-                "meta": ["absoluteThreshold"]
+                "description": "absoluteThreshold is a wittyer parameter. This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)",
+                "meta": ["absoluteThreshold"],
+                "minimum": 0
             },
             "maxMatches": {
                 "type": "integer",
-                "errorMessage": "maxMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).",
+                "description": "maxMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).",
                 "meta": ["maxMatches"]
             },
             "evaluationmode": {
                 "type": "string",
-                "errorMessage": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d  ",
-                "meta": ["evaluationmode"]
+                "description": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d  ",
+                "meta": ["evaluationmode"],
+                "enum": ["sc", "cts", "d"],
+                "minLength": 1
             }
         },
         "required": ["test_vcf", "caller", "vartype", "id"]

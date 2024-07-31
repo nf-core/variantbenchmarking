@@ -34,13 +34,17 @@ workflow PREPARE_VCFS_TEST {
         // filter out extra contigs!
         BCFTOOLS_VIEW_CONTIGS(
             vcf_ch,
-            [],[],[]
+            [],
+            [],
+            []
         )
+        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
         versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
 
         TABIX_BGZIPTABIX(
             BCFTOOLS_VIEW_CONTIGS.out.vcf
         )
+        versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
         versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
         vcf_ch   = TABIX_BGZIPTABIX.out.gz_tbi
     }
@@ -51,6 +55,7 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             fasta
         )
+        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
         versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
 
         TABIX_TABIX(
@@ -87,9 +92,11 @@ workflow PREPARE_VCFS_TEST {
 
         // somatic spesific preperations
         vcf_ch.branch{
-                small: it[0].vartype == "small"
-                other: true}
-                .set{vcf}
+                def meta = it[0]
+                small: meta.vartype == "small"
+                other: true
+            }
+            .set{vcf}
 
         out_vcf_ch = Channel.empty()
 
