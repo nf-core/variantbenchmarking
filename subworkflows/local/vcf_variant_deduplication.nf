@@ -8,16 +8,13 @@ include { BCFTOOLS_NORM as BCFTOOLS_DEDUP } from '../../modules/nf-core/bcftools
 
 workflow VCF_VARIANT_DEDUPLICATION {
     take:
-    vcf_ch    // channel: [val(meta),vcf]
+    vcf_ch    // channel: [val(meta), vcf]
     fasta     // reference channel [val(meta), ref.fa]
 
     main:
 
     versions=Channel.empty()
 
-    //
-    // BCFTOOLS_DEDUP
-    //
     // Deduplicates variants at the same position test
     BCFTOOLS_DEDUP(
         vcf_ch,
@@ -39,9 +36,8 @@ workflow VCF_VARIANT_DEDUPLICATION {
     BCFTOOLS_SORT.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
                         .set{ch_vcf}
 
-
     emit:
-    ch_vcf      // channel: [ val(meta), [ vcf ], [index] ]
+    ch_vcf      // channel: [ val(meta), vcf,index ]
     versions    // channel: [ versions.yml ]
 
 }

@@ -17,7 +17,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     summary_reports=Channel.empty()
 
     if (params.method.contains('sompy')){
-
+        // apply sompy for small somatic variant ebnchmarking
         HAPPY_SOMPY(
             input_ch.map { meta, test, index1, truth, index2, bed -> tuple(meta, truth, test, bed, []) },
             fasta,

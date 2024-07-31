@@ -20,7 +20,6 @@ workflow SV_VCF_CONVERSIONS {
 
     if (params.sv_standardization.contains("homogenize")){
         // uses VariantExtractor to homogenize variants
-
         VARIANT_EXTRACTOR(
             input_ch,
             fasta,
@@ -37,21 +36,14 @@ workflow SV_VCF_CONVERSIONS {
 
     }
 
-    //
-    // MODULE: BGZIP_TABIX
-    //
     // zip and index input test files
-
     BGZIP_TABIX(
         input_ch
     )
     versions = versions.mix(BGZIP_TABIX.out.versions)
     vcf_ch = BGZIP_TABIX.out.gz_tbi
 
-    //
-    // MODULE: SVYNC
-    //
-    //
+    // RUN SVYNC tool to reformat SV callers
     if(params.sv_standardization.contains("svync")){
         out_vcf_ch = Channel.empty()
         supported_callers = ["delly", "dragen", "gridss", "manta", "delly", "smoove"]

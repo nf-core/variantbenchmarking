@@ -26,9 +26,8 @@ workflow SV_GERMLINE_BENCHMARK {
 
     // SV benchmarking
     if (params.method.contains('truvari')){
-        //
-        // MODULE: TRUVARI_BENCH
-        //
+
+        // use truvari benchmarking
         TRUVARI_BENCH(
             input_ch,
             fasta,
@@ -43,42 +42,49 @@ workflow SV_GERMLINE_BENCHMARK {
 
         summary_reports = summary_reports.mix(report)
 
+        // reheader fn vcf files for tagged results
         VCF_REHEADER_SAMPLENAME_1(
             TRUVARI_BENCH.out.fn_vcf,
             fai
             )
-
+        // add tag and to meta
         VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "truvari"], file) }
             .set { vcf_fn }
 
+        // reheader fp vcf files for tagged results
         VCF_REHEADER_SAMPLENAME_2(
             TRUVARI_BENCH.out.fp_vcf,
             fai
             )
 
+        // add tag and to meta
         VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "truvari"], file) }
             .set { vcf_fp }
 
+        // reheader base tp vcf files for tagged results
         VCF_REHEADER_SAMPLENAME_3(
             TRUVARI_BENCH.out.tp_base_vcf,
             fai
             )
 
+        // add tag and to meta
         VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [id: "truvari"], file) }
             .set { vcf_tp_base }
 
+        // reheader comp tp vcf files for tagged results
         VCF_REHEADER_SAMPLENAME_4(
             TRUVARI_BENCH.out.tp_comp_vcf,
             fai
             )
-
+        // add tag and to meta
         VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "truvari"], file) }
             .set { vcf_tp_comp }
 
+        // collect tagged variant files
         tagged_variants = tagged_variants.mix(vcf_fn,
                                             vcf_fp,
                                             vcf_tp_base,
@@ -86,10 +92,8 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     if (params.method.contains('svanalyzer')){
-        //
-        // MODULE: SVANALYZER_SVBENCHMARK
-        //
-        // slower than truvari
+
+        // apply svanalyzer to benchmark SVs
         SVANALYZER_SVBENCHMARK(
             input_ch,
             fasta,
@@ -97,6 +101,7 @@ workflow SV_GERMLINE_BENCHMARK {
             )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
+        // tag and collect summary file
         SVANALYZER_SVBENCHMARK.out.report
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "svbenchmark"], file) }
             .groupTuple()
@@ -104,9 +109,11 @@ workflow SV_GERMLINE_BENCHMARK {
 
         summary_reports = summary_reports.mix(report)
 
+        // reheader fn vcf files for tagged results
         SVANALYZER_SVBENCHMARK.out.fns
                     .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "svbenchmark"], file) }
             .set { vcf_fn }
+
 
         SVANALYZER_SVBENCHMARK.out.fps
                     .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "svbenchmark"], file) }
@@ -116,6 +123,7 @@ workflow SV_GERMLINE_BENCHMARK {
     }
     if (params.method.contains('wittyer')){
 
+        // unzip vcf.gz files
         TABIX_BGZIP_QUERY(
             input_ch.map{it -> tuple(it[0], it[1])}
         )

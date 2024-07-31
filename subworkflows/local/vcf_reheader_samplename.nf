@@ -7,18 +7,16 @@ include { BCFTOOLS_REHEADER   } from '../../modules/nf-core/bcftools/reheader'
 
 workflow VCF_REHEADER_SAMPLENAME {
     take:
-    vcf_ch    // channel: [val(meta),vcf]
+    vcf_ch    // channel: [val(meta), vcf]
     fai       // reference channel [val(meta), ref.fai]
 
     main:
 
     versions=Channel.empty()
 
-    //
-    // BCFTOOLS_REHEADER
-    //
+    // rename sample name
     BCFTOOLS_REHEADER(
-        vcf_ch.map{it -> tuple( it[0], it[1], [], [] )},
+        vcf_ch.map{meta, vcf -> tuple( meta, vcf, [], [] )},
         fai
         )
     versions = versions.mix(BCFTOOLS_REHEADER.out.versions)

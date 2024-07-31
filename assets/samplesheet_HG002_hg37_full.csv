@@ -6,4 +6,4 @@ sbg2,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_te
 lumpy2,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002_lumpy_SV_hg19.sorted.vcf.gz",lumpy,cnv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts,
 gatk2,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002.jointVC.filter.chr21.vcf.gz",gatk_joint,small,,,,,,,,,,,,,
 sbg3,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/HG002-NA24385-50x.union_170414.split.chr21.vcf.gz",sbg_graph,small,,,,,,,,,,,,,
-test,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/merged.vcf.gz",delly,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts,delly
+test,"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/test/merged3.vcf",delly,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts,delly

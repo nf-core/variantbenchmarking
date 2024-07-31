@@ -21,19 +21,13 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs= Channel.empty()
 
     // Small Variants
-
-    //
-    // MODULE: REFORMAT_HEADER
-    //
+    // Reheader sample names
     REFORMAT_HEADER(
         small_ch
     )
     versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
-
-    //
-    // MODULE: BCFTOOLS_MERGE
-    //
+    // Use bcftools merge to create multisample vcf
     BCFTOOLS_MERGE(
         small_ch.groupTuple(),
         fasta,
@@ -44,11 +38,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
 
     // SV part
-    //
-    // MODULE: TABIX_BGZIP
-    //
     // unzip vcfs
-
     TABIX_BGZIP(
         sv_ch
     )
@@ -58,10 +48,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
                 .groupTuple()
                 .set{vcf_ch}
     vcf_ch.view()
-    //
-    // MODULE: SURVIVOR_MERGE
-    //
-    // Merge Benchmark SVs from different tools
+    // Use survivor merge to create multisample vcf
     SURVIVOR_MERGE(
         vcf_ch,
         1000,
@@ -74,6 +61,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     versions = versions.mix(SURVIVOR_MERGE.out.versions.first())
     merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
+    // Create CSV files from merged VCF
     VCF_TO_CSV(
         merged_vcfs
     )

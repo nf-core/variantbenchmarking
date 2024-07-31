@@ -30,9 +30,7 @@ workflow CNV_GERMLINE_BENCHMARK {
     versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions)
     bed = input_ch.map{it -> tuple(it[0], it[5])}
 
-    //
-    // MODULE: WITTYER
-    //
+    // RUN WITTYER for benchmarking
     WITTYER(
         TABIX_BGZIP_QUERY.out.output.join(TABIX_BGZIP_TRUTH.out.output).join(bed)
     )

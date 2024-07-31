@@ -9,7 +9,7 @@ include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/t
 
 workflow SPLIT_SMALL_VARIANTS_TEST {
     take:
-    input_ch    // channel: [val(meta),vcf,index]
+    input_ch    // channel: [val(meta), vcf, index]
 
     main:
 
@@ -50,6 +50,6 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
 
 
     emit:
-    out_vcf_ch
+    out_vcf_ch     // channel: [val(meta), vcf, index]
     versions
 }
