@@ -27,18 +27,17 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('rtgtools')){
 
         if (!params.sdf){
-            //
-            // MODULE: RTGTOOLS_FORMAT
-            //
+
+            // Use rtgtools format to generate sdf file if necessary
             RTGTOOLS_FORMAT(
                 fasta.map { meta, fasta -> [ meta, fasta, [], [] ] }
             )
             versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
             sdf = RTGTOOLS_FORMAT.out.sdf
+
         }
-        //
-        // MODULE: RTGTOOLS_VCFEVAL
-        //
+
+        // apply rtgtools eval method
         RTGTOOLS_VCFEVAL(
             input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                 [ meta, vcf, tbi, truth_vcf, truth_tbi, bed, [] ]
@@ -47,6 +46,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions.first())
 
+        // collect summary reports
         RTGTOOLS_VCFEVAL.out.summary
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "rtgtools"], file) }
             .groupTuple()
@@ -54,6 +54,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         summary_reports = summary_reports.mix(report)
 
+        // reheader benchmarking results preperly and tag meta
         VCF_REHEADER_SAMPLENAME_1(
             RTGTOOLS_VCFEVAL.out.fn_vcf,
             fai
@@ -118,6 +119,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         if (params.preprocess.contains("prepy")){
 
+            // apply prepy if required
             HAPPY_PREPY(
                 input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
                     [ meta, vcf, bed ]
@@ -130,6 +132,8 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
             test_ch = HAPPY_PREPY.out.preprocessed_vcf
         }
+
+        // apply happy method for benchmarking
         HAPPY_HAPPY(
             test_ch.join(truth_ch, failOnDuplicate:true, failOnMismatch:true),
             fasta,
@@ -140,6 +144,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         )
         versions = versions.mix(HAPPY_HAPPY.out.versions.first())
 
+        // tag meta and collect summary reports
         HAPPY_HAPPY.out.summary_csv
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "happy"], file) }
             .groupTuple()

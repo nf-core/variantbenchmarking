@@ -21,19 +21,12 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs = Channel.empty()
 
     // Small Variants
-
-    //
-    // MODULE: REFORMAT_HEADER
-    //
     REFORMAT_HEADER(
         small_ch
     )
     versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
-
-    //
-    // MODULE: BCFTOOLS_MERGE
-    //
+    // merge small variants
     BCFTOOLS_MERGE(
         small_ch.groupTuple(),
         fasta,
@@ -44,11 +37,8 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
 
     // SV part
-    //
-    // MODULE: TABIX_BGZIP
-    //
-    // unzip vcfs
 
+    // unzip vcfs
     TABIX_BGZIP(
         sv_ch
     )
@@ -58,9 +48,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
         .groupTuple()
         .set{vcf_ch}
 
-    //
-    // MODULE: SURVIVOR_MERGE
-    //
     // Merge Benchmark SVs from different tools
     SURVIVOR_MERGE(
         vcf_ch,
@@ -74,6 +61,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     versions = versions.mix(SURVIVOR_MERGE.out.versions.first())
     merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
+    // convert vcf files to csv
     VCF_TO_CSV(
         merged_vcfs
     )

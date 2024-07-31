@@ -27,6 +27,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_vari
 //
 // SUBWORKFLOWS: Local Subworkflows
 //
+include { SUBSAMPLE_VCF_TEST          } from '../subworkflows/local/subsample_vcf_test'
 include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conversion'
@@ -119,44 +120,45 @@ workflow VARIANTBENCHMARKING {
     sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
-    // Branch out according to the analysis
-    ch_samplesheet.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
-        .set{input}
 
     // PREPROCESSES
-    //
-    // SUBWORKFLOW: SV_VCF_CONVERSIONS
-    //
+
+    // subsample multisample vcf if necessary
+    ch_samplesheet.branch{
+            def meta = it[0]
+            multisample: meta.subsample != null
+            other: true}
+        .set{input}
+
+    out_vcf_ch  = Channel.empty()
+
+    SUBSAMPLE_VCF_TEST(
+        input.multisample
+    )
+    ch_versions = ch_versions.mix(SUBSAMPLE_VCF_TEST.out.versions)
+    out_vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
+                                input.other)
+    vcf_ch      = out_vcf_ch
+
+    // Branch out according to the analysis
+    vcf_ch.branch{
+            sv:  it[0].vartype == "sv"
+            other: true}
+            .set{test_ch}
+
+    out_vcf_ch = Channel.empty()
+
     // Standardize SV VCFs, tool spesific modifications
     SV_VCF_CONVERSIONS(
-        input.sv,
+        test_ch.sv,
         fasta,
         fai
     )
     ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
-    SV_VCF_CONVERSIONS.out.vcf_ch
-        .map{ meta, vcf, tbi ->
-            [ meta, vcf ]
-        }
-        .mix(
-            input.cnv,
-            input.snv,
-            input.indel,
-            input.small
-        )
-        .set{out_vcf_ch}
+    out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])},
+                            test_ch.other)
 
-    //
-    // SUBWORKFLOW: Prepare and normalize input vcfs
-    //
+    // Prepare and normalize input vcfs
     PREPARE_VCFS_TEST(
         out_vcf_ch,
         fasta,
@@ -164,6 +166,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
+    // Prepare and normalize truth vcfs
     PREPARE_VCFS_TRUTH(
         truth_ch,
         fasta,
@@ -173,15 +176,13 @@ workflow VARIANTBENCHMARKING {
 
     // VCF REPORTS AND STATS
 
-    //
-    // SUBWORKFLOW: GET STATISTICS OF FILES
-    //
+    // get statistics for normalized input files
     REPORT_VCF_STATISTICS(
         PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
-
+    // branch out input test files
     PREPARE_VCFS_TEST.out.vcf_ch.branch{
             def meta = it[0]
             sv:     meta.vartype == "sv"
@@ -193,6 +194,7 @@ workflow VARIANTBENCHMARKING {
         }
         .set{test}
 
+    // branch out truth vcf files
     PREPARE_VCFS_TRUTH.out.vcf_ch.branch{
             def meta = it[0]
             sv:     meta.vartype == "sv"
@@ -204,6 +206,7 @@ workflow VARIANTBENCHMARKING {
         }
         .set{truth}
 
+    // branch out high confidence bed files
     high_conf_ch.branch{
             def meta = it[0]
             sv:     meta.vartype == "sv"
@@ -215,8 +218,7 @@ workflow VARIANTBENCHMARKING {
         }
         .set{high_conf}
 
-    // prepare  benchmark set
-
+    // prepare  benchmark sets
     if(params.truth_small){
         if(params.high_conf_small){
             test.small.combine(truth.small)
@@ -313,7 +315,7 @@ workflow VARIANTBENCHMARKING {
         }
     }
 
-    // BENCHMARKS
+    // branch out combined benchmark sets
     bench_ch.branch{
             def meta = it[0]
             sv:     meta.vartype == "sv"
@@ -325,9 +327,8 @@ workflow VARIANTBENCHMARKING {
         }
         .set{bench_input}
 
-    //
-    // SUBWORKFLOW: SV_GERMLINE_BENCHMARK
-    //
+
+    // Perform SV benchmarking - for now it also works for somatic cases!
     SV_GERMLINE_BENCHMARK(
         bench_input.sv,
         fasta,
@@ -338,10 +339,8 @@ workflow VARIANTBENCHMARKING {
     sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
 
     if (params.analysis.contains("germline")){
-        //
-        // SUBWORKFLOW: SMALL_GERMLINE_BENCHMARK
-        //
-        //Benchmarking spesific to germline samples
+
+        // Benchmarking spesific to small germline samples
         SMALL_GERMLINE_BENCHMARK(
             bench_input.small,
             fasta,
@@ -352,9 +351,7 @@ workflow VARIANTBENCHMARKING {
         ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
         small_evals_ch = small_evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
 
-        //
-        // SUBWORKFLOW: CNV_GERMLINE_BENCHMARK
-        //
+        // Benchmarking spesific to CNV germline samples
         CNV_GERMLINE_BENCHMARK(
             bench_input.cnv,
             fasta,
@@ -379,9 +376,7 @@ workflow VARIANTBENCHMARKING {
 
     }
 
-    //
-    // SUBWORKFLOW: COMPARE_BENCHMARK_RESULTS
-    //
+    // compare tool spesfic benchmarks
     COMPARE_BENCHMARK_RESULTS(
         small_evals_ch,
         sv_evals_ch,
@@ -390,11 +385,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 
-    //
-    // SUBWORKFLOW: REPORT_BENCHMARK_STATISTICS
-    //
     // Summarize and plot benchmark statistics
-
     REPORT_BENCHMARK_STATISTICS(
         ch_reports
     )

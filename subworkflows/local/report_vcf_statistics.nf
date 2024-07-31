@@ -20,9 +20,7 @@ workflow REPORT_VCF_STATISTICS {
         }
         .set{input}
 
-    //
-    // SURVIVOR_STATS
-    //
+    // use survivor stats to get SV statistics by TYPE
     SURVIVOR_STATS(
         input.sv.map{ meta, vcf, tbi ->
             [ meta, vcf ]
@@ -34,9 +32,7 @@ workflow REPORT_VCF_STATISTICS {
     survivor_stats = SURVIVOR_STATS.out.stats
     versions = versions.mix(SURVIVOR_STATS.out.versions.first())
 
-    //
-    // BCFTOOLS_STATS
-    //
+    // use bcftools stats for all files
     BCFTOOLS_STATS(
         input_ch,
         [[],[]],
