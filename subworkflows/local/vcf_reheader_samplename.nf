@@ -28,13 +28,11 @@ workflow VCF_REHEADER_SAMPLENAME {
         BCFTOOLS_REHEADER.out.vcf
     )
     versions = versions.mix(TABIX_TABIX.out.versions.first())
-    versions = versions.mix(TABIX_TABIX.out.versions.first())
 
     BCFTOOLS_REHEADER.out.vcf
         .join(TABIX_TABIX.out.tbi, failOnDuplicate:true, failOnMismatch:true)
         .set{ch_vcf}
-        .join(TABIX_TABIX.out.tbi, failOnDuplicate:true, failOnMismatch:true)
-        .set{ch_vcf}
+
 
     emit:
     ch_vcf      // channel: [ val(meta), vcf, index ]

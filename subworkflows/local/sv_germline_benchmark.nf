@@ -84,7 +84,6 @@ workflow SV_GERMLINE_BENCHMARK {
         )
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_4.out.versions)
 
-            )
         // add tag and to meta
         VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
             .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "truvari"], file) }
@@ -95,12 +94,6 @@ workflow SV_GERMLINE_BENCHMARK {
                                             vcf_fp,
                                             vcf_tp_base,
                                             vcf_tp_comp)
-        tagged_variants = tagged_variants.mix(
-            vcf_fp,
-            vcf_fn,
-            vcf_tp_base,
-            vcf_tp_comp
-        )
     }
 
     if (params.method.contains('svanalyzer')){

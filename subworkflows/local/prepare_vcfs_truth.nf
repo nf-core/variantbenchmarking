@@ -2,13 +2,9 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-include { BCFTOOLS_NORM                  } from '../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_REHEADER              } from '../../modules/nf-core/bcftools/reheader'
-include { VCF_VARIANT_DEDUPLICATION      } from '../local/vcf_variant_deduplication'
-include { TABIX_TABIX as TABIX_TABIX_1   } from '../../modules/nf-core/tabix/tabix'
-include { TABIX_TABIX as TABIX_TABIX_2   } from '../../modules/nf-core/tabix/tabix'
-include { BCFTOOLS_NORM  } from '../../modules/nf-core/bcftools/norm'
-include { TABIX_TABIX    } from '../../modules/nf-core/tabix/tabix'
+
+include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm'
+include { TABIX_TABIX                } from '../../modules/nf-core/tabix/tabix'
 include { VCF_REHEADER_SAMPLENAME    } from '../local/vcf_reheader_samplename'
 include { VCF_VARIANT_DEDUPLICATION  } from '../local/vcf_variant_deduplication'
 
@@ -45,12 +41,8 @@ workflow PREPARE_VCFS_TRUTH {
         TABIX_TABIX(
             BCFTOOLS_NORM.out.vcf
         )
-        versions = versions.mix(TABIX_TABIX_2.out.versions.first())
         versions = versions.mix(TABIX_TABIX.out.versions)
 
-        BCFTOOLS_NORM.out.vcf
-            .join(TABIX_TABIX_2.out.tbi, failOnDuplicate: true, failOnMismatch: true)
-            .set{vcf_ch}
         BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
                             .set{vcf_ch}
     }

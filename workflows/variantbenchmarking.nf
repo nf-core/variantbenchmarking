@@ -125,17 +125,9 @@ workflow VARIANTBENCHMARKING {
 
     // subsample multisample vcf if necessary
     ch_samplesheet.branch{
-            multisample: it[0].subsample != null
-            other: true}
-            .set{input}
             def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
+            multisample: meta.subsample != null
+            other: true}
         .set{input}
 
     out_vcf_ch  = Channel.empty()

@@ -39,12 +39,10 @@ workflow PREPARE_VCFS_TEST {
             []
         )
         versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
-        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
 
         TABIX_BGZIPTABIX(
             BCFTOOLS_VIEW_CONTIGS.out.vcf
         )
-        versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
         versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
         vcf_ch   = TABIX_BGZIPTABIX.out.gz_tbi
     }
@@ -55,7 +53,6 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
         versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
 
         TABIX_TABIX(
