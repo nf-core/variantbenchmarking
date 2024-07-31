@@ -26,7 +26,7 @@ workflow SUBSAMPLE_VCF_TEST {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_SUBSAMPLE.out.versions)
+    versions = versions.mix(BCFTOOLS_VIEW_SUBSAMPLE.out.versions.first())
 
     BCFTOOLS_VIEW_FILTERMISSING(
         BCFTOOLS_VIEW_SUBSAMPLE.out.vcf.map{ meta, vcf -> tuple(meta, vcf, []) },
@@ -35,7 +35,7 @@ workflow SUBSAMPLE_VCF_TEST {
         []
 
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FILTERMISSING.out.versions)
+    versions = versions.mix(BCFTOOLS_VIEW_FILTERMISSING.out.versions.first())
     vcf_ch   = BCFTOOLS_VIEW_FILTERMISSING.out.vcf
 
     emit:
