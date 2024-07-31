@@ -15,11 +15,13 @@ workflow SUBSAMPLE_VCF_TEST {
 
     versions = Channel.empty()
 
+    // sorts multisample vcf
     BCFTOOLS_SORT(
         input_ch
     )
     versions = versions.mix(BCFTOOLS_SORT.out.versions)
 
+    // Subsamples sample name for multisample vcfs
     BCFTOOLS_VIEW_SUBSAMPLE(
         BCFTOOLS_SORT.out.vcf.map{ meta, vcf -> tuple(meta, vcf, []) },
         [],
@@ -28,6 +30,7 @@ workflow SUBSAMPLE_VCF_TEST {
     )
     versions = versions.mix(BCFTOOLS_VIEW_SUBSAMPLE.out.versions.first())
 
+    // filters out ./. genotypes (remainings from multisample vcf)
     BCFTOOLS_VIEW_FILTERMISSING(
         BCFTOOLS_VIEW_SUBSAMPLE.out.vcf.map{ meta, vcf -> tuple(meta, vcf, []) },
         [],
