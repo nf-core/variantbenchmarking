@@ -1,5 +1,5 @@
 id,test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,normshift,normdist,normsizediff,maxdist
-lumpy1,/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz,lumpy,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-manta1,/Users/w620-admin/Desktop/nf-core/dataset/hg38/GIAB_GRCh38_SVs_06252018/manta.HG002.vcf.gz,manta,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-unknown1,/Users/w620-admin/Desktop/nf-core/dataset/wittyer_test_cases/HG002.sv.with.corr.vcf.gz,unknown,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
-
+test11,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/BU_GRCh38_SVs_06252018/ajtrio.lumpy.svtyper.HG002.md.sorted.recal.vcf.gz",lumpy,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+test22,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/BU_GRCh38_SVs_06252018/HG002.gatk.raw.snps.indels.vcf.gz",gatk,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+test3,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/BU_GRCh38_SVs_06252018/manta.HG002.vcf.gz",manta,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000
+test4,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/BU_GRCh38_SVs_06252018/HG002.gatk.raw.snps.indels.vcf.gz",gatk,small,,,,,,,,,
