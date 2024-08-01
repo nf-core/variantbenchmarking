@@ -103,7 +103,7 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_snv)
 
-    high_conf_snv   = params.high_conf_snv       ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
+    high_conf_snv   = params.high_conf_snv      ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_snv)
 
@@ -117,9 +117,15 @@ workflow VARIANTBENCHMARKING {
 
 
     // SDF file for RTG-tools eval
-    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    sdf     = params.sdf                        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
+    // read chain file if liftover is true
+    chain   = params.chain && params.liftover   ? Channel.fromPath(params.chain, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+                                                : Channel.empty()
+
+    liftover_genome = params.chain && params.liftover && params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+                                                : Channel.empty()
 
     // PREPROCESSES
 
@@ -170,7 +176,9 @@ workflow VARIANTBENCHMARKING {
     PREPARE_VCFS_TRUTH(
         truth_ch,
         fasta,
-        fai
+        fai,
+        chain,
+        liftover_genome
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 

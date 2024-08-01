@@ -70,6 +70,16 @@
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
+                    "picard/createsequencedictionary": {
+                        "branch": "master",
+                        "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
+                        "installed_by": ["modules"]
+                    },
+                    "picard/liftovervcf": {
+                        "branch": "master",
+                        "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
+                        "installed_by": ["modules"]
+                    },
                     "rtgtools/format": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
