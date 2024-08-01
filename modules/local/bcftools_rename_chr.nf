@@ -37,7 +37,7 @@ process BCFTOOLS_RENAME_CHR {
     bcftools \\
         annotate \\
         $args \\
-        --rename-chr $rename_chr
+        --rename-chr $rename_chr \\
         --output ${prefix}.${extension} \\
         --threads $task.cpus \\
         $input

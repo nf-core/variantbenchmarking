@@ -12,28 +12,32 @@ include { LIFTOVER_VCFS_TRUTH        } from '../local/liftover_vcfs_truth'
 
 workflow PREPARE_VCFS_TRUTH {
     take:
-    truth_ch    // channel: [val(meta), vcf]
-    fasta       // reference channel [val(meta), ref.fa]
-    fai         // reference channel [val(meta), ref.fa.fai]
-    chain       // reference channel [val(meta), chain.gz]
+    truth_ch        // channel: [val(meta), vcf]
+    high_conf_ch    // channel: [val(meta), bed]
+    fasta           // reference channel [val(meta), ref.fa]
+    fai             // reference channel [val(meta), ref.fa.fai]
+    chain           // reference channel [val(meta), chain.gz]
     liftover_genome // reference channel [val(meta), ref.fa]
-    rename_chr  // reference channel [val(meta), chrlist.txt]
+    rename_chr      // reference channel [val(meta), chrlist.txt]
 
     main:
 
     versions = Channel.empty()
+    bed_high_conf = Channel.empty()
 
     // if liftover option is set convert truth files
     if (params.liftover){
 
         LIFTOVER_VCFS_TRUTH(
             truth_ch,
+            high_conf_ch,
             liftover_genome,
             chain,
             rename_chr
         )
         versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
         truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
+        bed_high_conf = LIFTOVER_VCFS_TRUTH.out.bed_ch
     }
 
     // Reheader sample name for truth file - using meta.caller
@@ -75,5 +79,6 @@ workflow PREPARE_VCFS_TRUTH {
 
     emit:
     vcf_ch
+    bed_high_conf
     versions
 }

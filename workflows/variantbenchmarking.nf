@@ -136,8 +136,6 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
     }
 
-
-
     // PREPROCESSES
 
     // subsample multisample vcf if necessary
@@ -186,12 +184,14 @@ workflow VARIANTBENCHMARKING {
     // Prepare and normalize truth vcfs
     PREPARE_VCFS_TRUTH(
         truth_ch,
+        high_conf_ch,
         fasta,
         fai,
         chain,
         liftover_genome,
         rename_chr
     )
+    high_conf_ch = PREPARE_VCFS_TRUTH.out.bed_high_conf
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // VCF REPORTS AND STATS

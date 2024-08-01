@@ -140,6 +140,11 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["modules"]
                     },
+                    "ucsc/liftover": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
                     "wittyer": {
                         "branch": "master",
                         "git_sha": "be84844983b332fa7d3d38dec06af6f953d83189",
