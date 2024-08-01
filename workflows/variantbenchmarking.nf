@@ -117,15 +117,26 @@ workflow VARIANTBENCHMARKING {
 
 
     // SDF file for RTG-tools eval
-    sdf     = params.sdf                        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
-    // read chain file if liftover is true
-    chain   = params.chain && params.liftover   ? Channel.fromPath(params.chain, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    // read chainfile, liftover genome and rename chr files if liftover is true
+    chain           = Channel.empty()
+    liftover_genome = Channel.empty()
+    rename_chr      = Channel.empty()
+
+    if (params.liftover){
+        chain           = params.chain          ? Channel.fromPath(params.chain, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
                                                 : Channel.empty()
 
-    liftover_genome = params.chain && params.liftover && params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+        liftover_genome = params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ it -> tuple([id: "genome"], it) }.collect()
                                                 : Channel.empty()
+
+        rename_chr      = params.rename_chr     ? Channel.fromPath(params.rename_chr, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+                                                : Channel.empty()
+    }
+
+
 
     // PREPROCESSES
 
@@ -178,7 +189,8 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai,
         chain,
-        liftover_genome
+        liftover_genome,
+        rename_chr
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
