@@ -22,7 +22,11 @@ process REFORMAT_HEADER {
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    zcat $vcf | sed 's/##FORMAT=<ID=AD,Number=[^,]*/##FORMAT=<ID=AD,Number=./' | bgzip > ${prefix}.reformatted.vcf.gz
+    zcat $vcf | \
+        awk 'BEGIN {OFS="\t"} /^##FORMAT=<ID=PS,/ {sub(/Type=Integer/, "Type=String")} {print}' | \
+        sed 's/##FORMAT=<ID=AD,Number=[^,]*/##FORMAT=<ID=AD,Number=./' | \
+        bgzip -c > ${prefix}.reformatted.vcf.gz
+
     tabix -p vcf ${prefix}.reformatted.vcf.gz
 
 

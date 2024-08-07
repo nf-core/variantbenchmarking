@@ -38,6 +38,8 @@ params.truth_snv         = getTruthAttribute('truth_snv')
 params.high_conf_snv     = getTruthAttribute('high_conf_snv')
 params.truth_indel       = getTruthAttribute('truth_indel')
 params.high_conf_indel   = getTruthAttribute('high_conf_indel')
+params.chain             = getTruthAttribute('chain')
+params.rename_chr        = getTruthAttribute('rename_chr')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
