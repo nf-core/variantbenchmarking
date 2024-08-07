@@ -1,4 +1,4 @@
-process MODIFY_CHR_NOTATION {
+process SORT_BED {
     tag "$meta.id"
     label 'process_low'
 
@@ -21,21 +21,15 @@ process MODIFY_CHR_NOTATION {
     def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
 
-    // add modifies chr notation 19 to hg38 or visa versa
     // sorts the positions by -k1,1 -k2,2n
     """
-    awk 'BEGIN { OFS="\\t" } {
-        if (\$1 ~ /^chr/) {
-            \$1 = substr(\$1, 4)
-        } else {
-            \$1 = "chr" \$1
-        }
-        print \$0
-            }' $bed | sort -k1,1 -k2,2n > ${prefix}.bed
+    sort -k1,1 -k2,2n $bed > ${prefix}.bed
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         tabix: \$(echo \$(tabix -h 2>&1) | sed 's/^.*Version: //; s/ .*\$//')
     END_VERSIONS
     """
+
+
 }

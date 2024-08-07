@@ -122,21 +122,15 @@ workflow VARIANTBENCHMARKING {
 
     // read chainfile, liftover genome and rename chr files if liftover is true
     chain           = Channel.empty()
-    liftover_genome = Channel.empty()
     rename_chr      = Channel.empty()
 
     if (params.liftover){
         chain           = params.chain          ? Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
                                                 : Channel.empty()
 
-        liftover_genome = params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ fasta -> tuple([id: fasta.getSimpleName()], fasta) }.collect()
-                                                : Channel.empty()
-
         rename_chr      = params.rename_chr     ? Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([txt: txt.getSimpleName()], txt) }.collect()
                                                 : Channel.empty()
     }
-    liftover_genome.view()
-    rename_chr.view()
     // PREPROCESSES
 
     // subsample multisample vcf if necessary
@@ -189,7 +183,6 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai,
         chain,
-        liftover_genome,
         rename_chr
     )
     high_conf_ch = PREPARE_VCFS_TRUTH.out.bed_high_conf

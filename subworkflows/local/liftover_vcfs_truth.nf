@@ -7,7 +7,7 @@ include { PICARD_LIFTOVERVCF              } from '../../modules/nf-core/picard/l
 include { REFORMAT_HEADER                 } from '../../modules/local/reformat_header.nf'
 include { BCFTOOLS_RENAME_CHR             } from '../../modules/local/bcftools_rename_chr.nf'
 include { UCSC_LIFTOVER                   } from '../../modules/nf-core/ucsc/liftover'
-include { MODIFY_CHR_NOTATION             } from '../../modules/local/modify_chr_notation.nf'
+include { SORT_BED                        } from '../../modules/local/sort_bed.nf'
 include { BEDTOOLS_MERGE                  } from '../../modules/nf-core/bedtools/merge'
 
 
@@ -15,7 +15,7 @@ workflow LIFTOVER_VCFS_TRUTH {
     take:
     truth_ch        // channel: [val(meta), vcf]
     high_conf_ch    // channel: [val(meta), bed]
-    liftover_genome // reference channel [val(meta), ref.fa]
+    fasta           // reference channel [val(meta), ref.fa]
     chain           // chain channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
 
@@ -25,7 +25,7 @@ workflow LIFTOVER_VCFS_TRUTH {
 
     //prepare dict file for liftover of vcf files
     PICARD_CREATESEQUENCEDICTIONARY(
-        liftover_genome
+        fasta
     )
     versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
@@ -33,7 +33,7 @@ workflow LIFTOVER_VCFS_TRUTH {
     PICARD_LIFTOVERVCF(
         truth_ch,
         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-        liftover_genome,
+        fasta,
         chain
     )
     versions = versions.mix(PICARD_LIFTOVERVCF.out.versions.first())
@@ -59,15 +59,15 @@ workflow LIFTOVER_VCFS_TRUTH {
     )
     versions = versions.mix(UCSC_LIFTOVER.out.versions.first())
 
-    // modify chr notation and sort file
-    MODIFY_CHR_NOTATION(
+    // sort bed file
+    SORT_BED(
         UCSC_LIFTOVER.out.lifted
     )
-    versions = versions.mix(MODIFY_CHR_NOTATION.out.versions.first())
+    versions = versions.mix(SORT_BED.out.versions.first())
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
-        MODIFY_CHR_NOTATION.out.bed
+        SORT_BED.out.bed
     )
     versions = versions.mix(BEDTOOLS_MERGE.out.versions.first())
 

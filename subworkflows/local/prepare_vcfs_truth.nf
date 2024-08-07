@@ -17,7 +17,6 @@ workflow PREPARE_VCFS_TRUTH {
     fasta           // reference channel [val(meta), ref.fa]
     fai             // reference channel [val(meta), ref.fa.fai]
     chain           // reference channel [val(meta), chain.gz]
-    liftover_genome // reference channel [val(meta), ref.fa]
     rename_chr      // reference channel [val(meta), chrlist.txt]
 
     main:
@@ -31,7 +30,7 @@ workflow PREPARE_VCFS_TRUTH {
         LIFTOVER_VCFS_TRUTH(
             truth_ch,
             high_conf_ch,
-            liftover_genome,
+            fasta,
             chain,
             rename_chr
         )
