@@ -72,52 +72,52 @@ workflow VARIANTBENCHMARKING {
 
     // Germline
 
-    truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+    truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"small"], vcf) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_small)
 
-    high_conf_small = params.high_conf_small    ? Channel.fromPath(params.high_conf_small, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"small"], it) }.collect()
+    high_conf_small = params.high_conf_small    ? Channel.fromPath(params.high_conf_small, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"small"], bed) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_small)
 
-    truth_sv        = params.truth_sv           ? Channel.fromPath(params.truth_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+    truth_sv        = params.truth_sv           ? Channel.fromPath(params.truth_sv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"sv"], vcf) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_sv)
 
-    high_conf_sv    = params.high_conf_sv       ? Channel.fromPath(params.high_conf_sv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"sv"], it) }.collect()
+    high_conf_sv    = params.high_conf_sv       ? Channel.fromPath(params.high_conf_sv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"sv"], bed) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_sv)
 
-    truth_cnv       = params.truth_cnv          ? Channel.fromPath(params.truth_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+    truth_cnv       = params.truth_cnv          ? Channel.fromPath(params.truth_cnv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"cnv"], vcf) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_cnv)
 
-    high_conf_cnv   = params.high_conf_cnv      ? Channel.fromPath(params.high_conf_cnv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"cnv"], it) }.collect()
+    high_conf_cnv   = params.high_conf_cnv      ? Channel.fromPath(params.high_conf_cnv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"cnv"], bed) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
 
     // Somatic
     // snv and indel seperation only possible for somatic cases
 
-    truth_snv       = params.truth_snv          ? Channel.fromPath(params.truth_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
+    truth_snv       = params.truth_snv          ? Channel.fromPath(params.truth_snv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"snv"], vcf) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_snv)
 
-    high_conf_snv   = params.high_conf_snv      ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"snv"], it) }.collect()
+    high_conf_snv   = params.high_conf_snv      ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"snv"], bed) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_snv)
 
-    truth_indel     = params.truth_indel        ? Channel.fromPath(params.truth_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+    truth_indel     = params.truth_indel        ? Channel.fromPath(params.truth_indel, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"indel"], vcf) }.collect()
                                                 : Channel.empty()
     truth_ch        = truth_ch.mix(truth_indel)
 
-    high_conf_indel = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ it -> tuple([id: params.sample, vartype:"indel"], it) }.collect()
+    high_conf_indel = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"indel"], bed) }.collect()
                                                 : Channel.empty()
     high_conf_ch    = high_conf_ch.mix(high_conf_indel)
 
 
     // SDF file for RTG-tools eval
-    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
                                                 : Channel.empty()
 
     // read chainfile, liftover genome and rename chr files if liftover is true
@@ -126,16 +126,17 @@ workflow VARIANTBENCHMARKING {
     rename_chr      = Channel.empty()
 
     if (params.liftover){
-        chain           = params.chain          ? Channel.fromPath(params.chain, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+        chain           = params.chain          ? Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
                                                 : Channel.empty()
 
-        liftover_genome = params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ it -> tuple([id: "genome"], it) }.collect()
+        liftover_genome = params.liftover_genome ? Channel.fromPath(params.liftover_genome, checkIfExists: true).map{ fasta -> tuple([id: fasta.getSimpleName()], fasta) }.collect()
                                                 : Channel.empty()
 
-        rename_chr      = params.rename_chr     ? Channel.fromPath(params.rename_chr, checkIfExists: true).map{ it -> tuple([id: it[0].getSimpleName()], it) }.collect()
+        rename_chr      = params.rename_chr     ? Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([txt: txt.getSimpleName()], txt) }.collect()
                                                 : Channel.empty()
     }
-
+    liftover_genome.view()
+    rename_chr.view()
     // PREPROCESSES
 
     // subsample multisample vcf if necessary

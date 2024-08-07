@@ -50,6 +50,11 @@
                         "git_sha": "1013101da4252623fd7acf19cc581bae91d4f839",
                         "installed_by": ["modules"]
                     },
+                    "bedtools/merge": {
+                        "branch": "master",
+                        "git_sha": "a5377837fe9013bde89de8689829e83e84086536",
+                        "installed_by": ["modules"]
+                    },
                     "happy/happy": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",

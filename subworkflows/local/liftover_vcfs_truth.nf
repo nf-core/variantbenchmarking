@@ -7,23 +7,25 @@ include { PICARD_LIFTOVERVCF              } from '../../modules/nf-core/picard/l
 include { REFORMAT_HEADER                 } from '../../modules/local/reformat_header.nf'
 include { BCFTOOLS_RENAME_CHR             } from '../../modules/local/bcftools_rename_chr.nf'
 include { UCSC_LIFTOVER                   } from '../../modules/nf-core/ucsc/liftover'
+include { MODIFY_CHR_NOTATION             } from '../../modules/local/modify_chr_notation.nf'
+include { BEDTOOLS_MERGE                  } from '../../modules/nf-core/bedtools/merge'
 
 
 workflow LIFTOVER_VCFS_TRUTH {
     take:
-    truth_ch     // channel: [val(meta), vcf]
-    high_conf_ch // channel: [val(meta), bed]
-    fasta        // reference channel [val(meta), ref.fa]
-    chain        // chain channel [val(meta), chain.gz]
-    rename_chr   // reference channel [val(meta), chrlist.txt]
+    truth_ch        // channel: [val(meta), vcf]
+    high_conf_ch    // channel: [val(meta), bed]
+    liftover_genome // reference channel [val(meta), ref.fa]
+    chain           // chain channel [val(meta), chain.gz]
+    rename_chr      // reference channel [val(meta), chrlist.txt]
 
     main:
 
     versions = Channel.empty()
 
-    //prepare dict file for liftover
+    //prepare dict file for liftover of vcf files
     PICARD_CREATESEQUENCEDICTIONARY(
-        fasta
+        liftover_genome
     )
     versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
 
@@ -31,7 +33,7 @@ workflow LIFTOVER_VCFS_TRUTH {
     PICARD_LIFTOVERVCF(
         truth_ch,
         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-        fasta,
+        liftover_genome,
         chain
     )
     versions = versions.mix(PICARD_LIFTOVERVCF.out.versions.first())
@@ -50,13 +52,26 @@ workflow LIFTOVER_VCFS_TRUTH {
     )
     vcf_ch = BCFTOOLS_RENAME_CHR.out.vcf
 
-    // correct high confidence file if given
+    // liftover high confidence file if given
     UCSC_LIFTOVER(
         high_conf_ch,
         chain.map{meta, file -> file}
     )
     versions = versions.mix(UCSC_LIFTOVER.out.versions.first())
-    bed_ch = UCSC_LIFTOVER.out.lifted
+
+    // modify chr notation and sort file
+    MODIFY_CHR_NOTATION(
+        UCSC_LIFTOVER.out.lifted
+    )
+    versions = versions.mix(MODIFY_CHR_NOTATION.out.versions.first())
+
+    // merge the intersected regions
+    BEDTOOLS_MERGE(
+        MODIFY_CHR_NOTATION.out.bed
+    )
+    versions = versions.mix(BEDTOOLS_MERGE.out.versions.first())
+
+    bed_ch = BEDTOOLS_MERGE.out.bed
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]

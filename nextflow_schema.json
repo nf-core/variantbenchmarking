@@ -248,6 +248,42 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "itruth_ignore": {
+                    "type": "boolean",
+                    "description": "Do not load the truth reference config.",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "help_text": "Do not load `truth.config` when running the pipeline. In this case user need to provide necessary truth files. You may choose this option if you observe clashes between custom parameters and those supplied in `truth.config`."
+                },
+                "chain": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(chain|bed)?(\\.gz)?$",
+                    "description": "Path to the chain file sey required for liftover.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true and --genome is not specified and --itruth is false. A chain can be found under itruth files and can be used together with --genome.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "liftover_genome": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
+                    "description": "Path to FASTA genome file for lifting over.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true and --genome is not specified and --itruth is false. A liftover_genome can be found under itruth files and can be used together with --genome.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "rename_chr": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.txt$",
+                    "description": "Path to the ranaming chromosomes for lifting over.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true and --genome is not specified and --itruth is false. A rename can be found under assets/rename_contigs or can be used together with --genome.",
+                    "fa_icon": "far fa-file-code"
                 }
             }
         },
