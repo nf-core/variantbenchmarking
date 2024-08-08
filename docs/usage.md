@@ -10,54 +10,123 @@
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the test vcf you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-### Multiple runs of the same sample
-
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
-
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
-```
-
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 4 columns to match those defined in the table below.
 
 ```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+id,test_vcf,caller,vartype
+test1,test1.vcf.gz,delly,sv
+test2,test2.vcf,gatk,small
+test3,test3.vcf.gz,cnvkit,cnv
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column     | Description                                                                                                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`       | Custom id name per test vcf. This entry will be identical.                                                                                                                             |
+| `test_vcf` | The VCF file to use as benchmarking test input. The same file can be used in more than one row. File can be either vcf or vcf.gz.                                                      |
+| `caller`   | Variant caller method used to generate test VCF file. There can be more than one test vcf for the same caller. For unknown caller use 'unknown'                                        |
+| `vartype`  | Variant type to apply benchmarking. Variant type can be only one of these: small, sv, snv, indel and cnv.                                                                              |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+
+## Defining Truth VCF and High confidence BED files
+
+The following parameters has to be defined for each type of benchmarking analysis. The following parameters defined the exact paths to the truth files:
+
+- `--sample`: Sample parameter defines the same name of the truth set. Examples: `HG002`, `SEQC2`, `HG001`, `HG003`, `CHM13`.
+- `--analysis`: The type of analysis to perform: `germline` or `somatic`.
+- `--method`: List the benchmarking methods to apply. By default all available tools will be applied according to the variant types provided. Available tools: `truvari, svanalyzer, happy, sompy, rtgtools, wittyer`.
+
+*Small variant benchmarking:*
+
+- `--truth_small`: Path to the golden set VCF files combined for SNVs and indels, required for germline benchmarking (vcf or vcf.gz)
+- `--high_conf_small`: Path to the high confidence BED files for SNVs and indels, required for germline benchmarking  (bed or bed.gz)
+- `--truth_snv`: Path to the golden set VCF files for SNVs, required for somatic benchmarking (vcf or vcf.gz)
+- `--high_conf_snv`: Path to the high confidence BED files for SNVs, required for somatic benchmarking (bed or bed.gz)
+- `--truth_indel`: Path to the golden set VCF files for indels, required for somatic benchmarking (vcf or vcf.gz)
+- `--high_conf_indel`: Path to the high confidence BED files for indels, required for somatic benchmarking (bed or bed.gz)
+
+*Structural variant benchmarking:*
+
+- `--truth_sv`: Path to the golden set VCF files for SVs, required for germline and somatic benchmarking (vcf or vcf.gz)
+- `--high_conf_sv`: Path to the high confidence BED files for SVs, required for germline and somatic benchmarking (bed or bed.gz)
+
+*Copy Number Variation benchmarking:*
+
+- `--truth_cnv`: Path to the golden set VCF files for CNVs, required for germline and somatic benchmarking (vcf or vcf.gz)
+- `--high_conf_cnv`: Path to the high confidence BED files for CNVs, required for germline and somatic benchmarking (bed or bed.gz)
+
+*Using truth.config*
+
+`conf/truth.config` file contains some readily available truth files for germline and somatic analysis. In order to activate usage one has to
+
+1. use `--genome` [`GRCh37` or `GRCh38`]
+2. define `--sample` [`HG002` or `SEQC2`]
+3. turn off `--itruth_ignore false`
+
+## Lifting over truth sets
+
+This workflow comes with a liftover option for truth sets. In order to activate liftover use `--liftover true`.
+
+- `--chain`: This workflow uses picard tools for lifting over and a chain file has to be provided specific to the input truth vcf. Some examples can be found [here](https://genome.ucsc.edu/goldenPath/help/chain.html)
+- `--rename_chr`: Renaming chromosomes is required after liftover process. Some examples can be found under `assets/rename_contigs` directory.
+
+Note: these two files are also provided under `itruth.config`. An example usage can be found in `conf/test_liftover.config`
+
+## Standardization and normalization parameters
+
+Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by *sv_standardization* and *preprocesses*.
+
+- `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync`.
+  - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
+  - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
+
+- `--preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `normalization,deduplication,prepy,filter_contigs`
+  - `normalization`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `deduplication`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `prepy`: Uses prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
+  - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
+
+## Using multi-sample vcf inputs
+
+If the input test vcf contains more than one sample, then user has to define which sample name to use. `subsample` will added to the samplesheet as an additional column as follows:
+
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,vartype,subsample
+test1,test1.vcf.gz,delly,sv,"TUMOR"
+test2,test2.vcf,gatk,small,"NA128120"
+test3,test3.vcf.gz,cnvkit,cnv,
+```
+
+Note that, this option can be inevitable for somatic analysis since most of the callers reports both normal and tumor genotypes in the same vcf file.
+
+## Filtering parameters
+
+- `--exclude_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants. Default:null
+- `--include_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants. Default:null
+
+*Parameters applicable only to Structural Variants*
+
+- `--min_sv_size`: Minimum SV size of variants to benchmark, 0 to disable , Default:30
+- `--max_sv_size`: Maximum SV size of variants to benchmark, -1 to disable , Default:-1
+- `--min_allele_freq`: Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1
+- `--min_num_reads`: Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results -profile docker --genome GRCh37 --sample HG002 --analysis germline
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -91,6 +160,8 @@ with `params.yaml` containing:
 input: './samplesheet.csv'
 outdir: './results/'
 genome: 'GRCh37'
+sample: 'HG002'
+analysis: 'germline'
 <...>
 ```
 
@@ -143,6 +214,15 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 
 - `test`
   - A profile with a complete configuration for automated testing
+  - Includes links to test data so needs no other parameters
+- `test_liftover`
+  - A profile with a complete configuration for using liftover of HG002 hg38 truth set to hg37
+  - Includes links to test data so needs no other parameters
+- `test_germline`
+  - A profile with a complete configuration for a full test of HG002 sample from germline analysis
+  - Includes links to test data so needs no other parameters
+- `test_somatic`
+  - A profile with a complete configuration for a full test of SEQC2 sample from somatic analysis
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)

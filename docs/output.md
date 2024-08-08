@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarises results at the end of the pipeline.
+This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarizes results at the end of the pipeline.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
@@ -12,32 +12,151 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [FastQC](#fastqc) - Raw read QC
+- [Preprocesses ](#preprocesses)
+- [Liftover of truth sets](#liftover)
+- [Input vcf statistics](#stats)
+- [Benchmarking](#bench)
+  - [Truvari](#truvari_bench)
+  - [SVanalyzer](#svanalyzer_bench)
+  - [Wittyer](#wittyer_bench)
+  - [RTG-tools](#rtgtools_bench)
+  - [Happy](#happy_bench)
+  - [Sompy](#sompy_bench)
+- [Summary statistics](#summary)
+  - [Comparison of benchmarking results](#comparisons)
+  - [Merged summary benchmark statistics](#tables)
+  - [Plots](#plots)
+  - [datavzrd HTML reports](#html)
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC
+### Preprocesses
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastqc/`
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+- `preprocesses/`
+  - `*vcf.gz`: The standardized and normalized VCF files
 
 </details>
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+Outputs from standardization, normalization and filtration processes saved. When any of `--sv_standardization`, `--preprocesses` or filtration applied to the input set of variants, the processed outputs will be saved into this directory.
 
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
+For test VCFs structuring as follows:
 
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
+*id*/*preprocess*/
 
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+For truth VCFs structuring as follows:
 
-:::note
-The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
-:::
+*sample*/*preprocess*/
+
+### Liftover of truth sets
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `liftover/`
+  -
+
+</details>
+
+If liftover applied ...
+
+### Input VCF statistics
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `stats/`
+  - `bcftools/`
+    - '*.bcftools_stats.txt'
+  - `survivor/`
+    - '*.stats'
+
+</details>
+
+bcftools stats applied into all variant types while survivor stats is only available for structural variants.
+
+
+### Benchmarking
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `truvari_bench/`
+  - `*.fn.vcf.gz`
+  - `*.fn.vcf.gz.tbi`
+  - `*.fp.vcf.gz`
+  - `*.fp.vcf.gz.tbi`
+  - `*.tp-comp.vcf.gz`
+  - `*.tp-comp.vcf.gz.tbi`
+  - `*.tp-base.vcf.gz`
+  - `*.tp-base.vcf.gz.tbi`
+  - `*.summary.json`
+- `svanalyzer_bench/`
+  - `*.distances`
+  - `*.falsenegatives.vcf.gz`
+  - `*.falsepositives.vcf.gz`
+  - `*.log`
+  - `*.report`
+- `wittyer_bench/`
+  - `*.vcf.gz`
+  - `*.vcf.gz.tbi`
+  - `*.json`
+- `rtgtools_bench/`
+  - `*.vcf.gz`
+  - `*.vcf.gz.tbi`
+  - `*.fn.vcf.gz`
+  - `*.fn.vcf.gz.tbi`
+  - `*.fp.vcf.gz`
+  - `*.fp.vcf.gz.tbi`
+  - `*.tp.vcf.gz`
+  - `*.tp.vcf.gz.tbi`
+  - `*.tp-baseline.vcf.gz`
+  - `*.tp-baseline.vcf.gz.tbi`
+  - `*.non_snp_roc.tsv.gz`
+  - `*.phasing.txt`
+  - `*.snp_roc.tsv.gz`
+  - `*.summary.txt`
+  - `*.weighted_roc.tsv.gz`
+- `happy_bench/`
+  - `*.extended.csv`
+  - `*.metrics.json.gz`
+  - `*.roc.all.csv.gz`
+  - `*.roc.Locations.INDEL.csv.gz`
+  - `*roc.Locations.INDEL.PASS.csv.gz`
+  - `*roc.Locations.SNP.csv.gz`
+  - `*roc.Locations.SNP.PASS.csv.gz`
+  - `*.runinfo.json`
+  - `*.summary.csv`
+  - `*.vcf.gz`
+  - `*.vcf.gz.tbi`
+- `sompy_bench/`
+  -
+
+</details>
+
+Benchmark results are created separately for each test vcf:
+
+*id*/*_bench_*/
+
+
+### Summary statistics
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `comparisons/`
+  -
+- `plots/`
+  -
+- `tables/`
+  -
+- `html/`
+  -
+
+</details>
+......
 
 ### MultiQC
 

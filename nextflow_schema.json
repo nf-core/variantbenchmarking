@@ -31,7 +31,21 @@
                 },
                 "sample": {
                     "type": "string",
-                    "description": "Sample id: HG002/SEQC2",
+                    "description": "Sample id",
+                    "fa_icon": "fas fa-folder-open",
+                    "description": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
+                },
+                "analysis": {
+                    "type": "string",
+                    "description": "The analysis type used by the input files",
+                    "enum": ["germline", "somatic"],
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "high_conf_small": {
@@ -124,12 +138,6 @@
                     "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "analysis": {
-                    "type": "string",
-                    "description": "The analysis type used by the input files",
-                    "enum": ["germline", "somatic"],
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "preprocess": {
                     "type": "string",
                     "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: normalization, deduplication, prepy, filter_contigs",
@@ -139,21 +147,14 @@
                 },
                 "sv_standardization": {
                     "type": "string",
-                    "description": "The standardiazation methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync",
+                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync",
                     "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: homogenize, svync",
                     "pattern": "^((homogenize|svync)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "method": {
-                    "type": "string",
-                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, rtgtools, wittyer",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, rtgtools, wittyer",
-                    "pattern": "^((truvari|svanalyzer|happy|rtgtools|wittyer)?,?)*(?<!,)$",
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "min_sv_size": {
                     "type": "integer",
-                    "description": "Maximum SV size of variants to benchmark, 0 to disable , Default:50",
+                    "description": "Minimum SV size of variants to benchmark, 0 to disable , Default:30",
                     "fa_icon": "fas fa-folder-open",
                     "minimum": 0
                 },
@@ -177,13 +178,13 @@
                 },
                 "exclude_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Only applicable to small variants, Default:null",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Default:null",
                     "fa_icon": "fas fa-folder-open",
                     "minLength": 1
                 },
                 "include_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Only applicable to small variants, Default:null",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Default:null",
                     "fa_icon": "fas fa-folder-open",
                     "minLength": 1
                 },
