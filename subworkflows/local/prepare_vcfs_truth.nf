@@ -22,7 +22,6 @@ workflow PREPARE_VCFS_TRUTH {
     main:
 
     versions = Channel.empty()
-    bed_high_conf = Channel.empty()
 
     // if liftover option is set convert truth files
     if (params.liftover){
@@ -36,7 +35,7 @@ workflow PREPARE_VCFS_TRUTH {
         )
         versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
         truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
-        bed_high_conf = LIFTOVER_VCFS_TRUTH.out.bed_ch
+        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch
     }
 
     // Reheader sample name for truth file - using meta.caller
@@ -78,6 +77,6 @@ workflow PREPARE_VCFS_TRUTH {
 
     emit:
     vcf_ch
-    bed_high_conf
+    high_conf_ch
     versions
 }

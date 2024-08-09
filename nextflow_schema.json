@@ -33,7 +33,7 @@
                     "type": "string",
                     "description": "Sample id",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
+                    "errorMessage": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
                 },
                 "analysis": {
                     "type": "string",
@@ -53,7 +53,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SMALL: Path to the high confidence BED files.",
+                    "description": "SMALL: Path to the high confidence BED or VCF files.",
                     "help_text": "SMALL: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -71,7 +71,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SNVs: Path to the high confidence BED files.",
+                    "description": "SNVs: Path to the high confidence BED or VCF files.",
                     "help_text": "SNVs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -89,7 +89,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "INDELs: Path to the high confidence BED files.",
+                    "description": "INDELs: Path to the high confidence BED or VCF files.",
                     "help_text": "INDELs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -107,7 +107,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SV: Path to the high confidence BED files.",
+                    "description": "SV: Path to the high confidence BED or VCF files.",
                     "help_text": "SV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -125,7 +125,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "CNV: Path to the high confidence BED files.",
+                    "description": "CNV: Path to the high confidence BED or VCF files.",
                     "help_text": "CNV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },

@@ -185,7 +185,7 @@ workflow VARIANTBENCHMARKING {
         chain,
         rename_chr
     )
-    high_conf_ch = PREPARE_VCFS_TRUTH.out.bed_high_conf
+    high_conf_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // VCF REPORTS AND STATS
