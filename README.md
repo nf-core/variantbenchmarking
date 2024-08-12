@@ -19,87 +19,121 @@
 
 ## Introduction
 
-**nf-core/variantbenchmarking** is a bioinformatics pipeline that ...
+**nf-core/variantbenchmarking** is designed to evaluate and validate the accuracy of variant calling methods in genomic research especially for Human data. Initially, the pipeline is tuned well for available gold standard truth sets (for example, Genome in a Bottle and SEQC2 samples) but it can be used to compare any two variant calling results. The workflow provides benchmarking tools for small variants including SNVs and INDELs, Structural Variants (SVs) and Copy Number Variations (CNVs) for germline and somatic analysis.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+The workflow involves several key processes to ensure reliable and reproducible results as follows:
+
+### Standardization and normalization of variants:
+
+This initial step ensures consistent formatting and alignment of variants in test and truth VCF files for accurate comparison.
+
+1. Subsample if input test vcf is multisample ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+2. Homogenization of multi-allelic variants, MNPs and SVs (including imprecise paired breakends and single breakends) ([variant-extractor](https://github.com/EUCANCan/variant-extractor))
+3. Reformatting test VCF files from different SV callers ([svync](https://github.com/nvnieuwk/svync))
+4. Rename sample names in test and truth VCF files ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
+5. Splitting multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+6. Deduplication of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+7. Use prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
+8. Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+
+### Filtering options:
+
+Applying filtering on the process of benchmarking itself might makes it impossible to compare different benchmarking strategies. Therefore, for whom like to compare benchmarking methods this subworkflow aims to provide filtering options for variants.
+
+9. Filtration of contigs ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+10. Include or exclude SNVs and INDELs ([bcftools filter](https://samtools.github.io/bcftools/bcftools.html#filter))
+11. Size and quality filtering for SVs ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+
+### Liftover of truth sets:
+
+This sub-workflow provides option to convert genome coordinates of truth VCF and high confidence BED file to a new assembly. Golden standard truth files are build upon specific reference genomes which makes the necessity of lifting over depending on the test VCF in query.
+
+12. Create sequence dictionary for the reference ([picard CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard)). This file can be saved and reused.
+13. Lifting over truth variants ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
+14. Lifting over high confidence coordinates ([UCSC liftover](http://hgdownload.cse.ucsc.edu/admin/exe))
+
+### Statistical inference of input test and truth variants:
+
+This step provides insights into the distribution of variants before benchmarking.
+
+15. Get statistics of SNVs, INDELs and complex variants ([bcftools stats](https://samtools.github.io/bcftools/bcftools.html#stats))
+16. Get statistics of SVs by type ([SURVIVOR stats](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+
+### Benchmarking of variants:
+
+Actual benchmarking of variants are split between SVs and small variants:
+
+Available methods for SVs:
+
+17. Germline and somatic variant benchmarking using Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
+18. Germline and somatic variant benchmarking using SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
+
+Available methods for CNVs:
+
+19. Germline and somatic variant benchmarking using Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+
+Available methods for SNVs and INDELs:
+
+20. Germline variant benchmarking using RTG-tools ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+21. Germline variant benchmarking using Happy tools ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
+22. Somatic variant benchmarking using Sompy ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+
+### Comparison of benchmarking results per TP, FP and FN files
+
+It is essential to compare benchmarking results in order to infer uniquely or commonly seen TPs, FPs and FNs.
+
+23. Merging TP, FP and FN results for happy, rtgtools and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
+24. Merging TP, FP and FN results for Truvari and SVanalyzer ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+25. Conversion of VCF files to CSV to infer common and unique variants per caller (python script)
+
+### Reporting of benchmark results
+
+The generation of comprehensive report that consolidates all benchmarking results.
+
+26. Merging summary statistics per benchmarking tool (python script)
+27. Plotting benchmark metrics per benchmarking tool (R script)
+28. Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
-1. Standardization of SVs in test VCF files
-2. Normalization of SVs in test VCF files
-3. Normalization of SVs in truth VCF files
-4. SV stats and histograms (Survivor)
-
-5. Germline benchmarking of small variants
-   - Tools:
-     Happy
-     RTGtools
-6. Germline benchmarking of SVs
-
-   - Tools:
-     Truvari
-     Svbenchmark
-     Wittyer: Only works with Truth files annotated with SVTYPE and SVLENGHT
-
-7. Somatic benchmarking of small variants
-
-   - Tools:
-     Happy
-     RTGtools
-
-8. Final report and comparisons
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-Supported SV callers: Manta, SVaba, Dragen, Delly, Lumpy ..
-Available Truth samples: HG002, SEQC2
-
-- If you have unresolved SVs, it is recommended to use only truvari with --pctsim 0.
-
-- The size filtration parameters provided by truvari and svbenchmark do not apply in the same way. That is why using them is not recommended through the pipeline, but variants can be filtered safely in vcf normalization steps.
-
-- Please note that it is not possible to use exactly the same parameters for different benchmarking methods.
-
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-caller,test_vcf
-caller1,test1.vcf.gz
-caller2,test2.vcf
+id,test_vcf,caller,vartype
+test1,test1.vcf.gz,delly,sv
+test2,test2.vcf,gatk,small
+test3,test3.vcf.gz,cnvkit,cnv
 ```
 
--->
+Each row represents a vcf file (test-query file). For each vcf file, variant calling method (caller) and variant type (vartype) have to be defined.
+
+User has to define or provide truth vcf in config files. There are readily available vcf files for benchmarking from Genome in a bottle and SEQC2 studies which can be used readily.
+
+For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
 Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
 nextflow run nf-core/variantbenchmarking \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
-   --outdir <OUTDIR>
+   --outdir <OUTDIR> \
+   --genome GRCh37 \
+   --sample HG002
+   --analysis germline
 ```
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
-
-For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
 ## Pipeline output
 
@@ -107,13 +141,16 @@ To see the results of an example test run with a full size dataset refer to the 
 For more details about the output files and reports, please refer to the
 [output documentation](https://nf-co.re/variantbenchmarking/output).
 
+This pipeline outputs benchmarking results per method besides to the inferred and compared statistics.
+
 ## Credits
 
-nf-core/variantbenchmarking was originally written by kuebra.narci@dkfz.de.
+nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarci](https://github.com/kubranarci)) as a part of benchmarking studies in German Human Genome Phenome Archieve Project ([GHGA](https://www.ghga.de/)).
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk))
+Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
 
 ## Contributions and Support
 

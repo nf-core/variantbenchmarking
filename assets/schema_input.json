@@ -20,21 +20,25 @@
                 "pattern": "^\\S+$",
                 "description": "Sample id",
                 "meta": ["id"],
-                "minLength": 1
+                "minLength": 1,
+                "errorMessage": "A custom id must be provided per test vcf"
             },
             "caller": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "description": "Name of the variant caller used to generate test file",
                 "meta": ["caller"],
-                "minLength": 1
+                "minLength": 1,
+                "errorMessage": "Variant caller has to be defined. Can also be unknown, undefined or merged"
             },
             "vartype": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "description": "Variant type to benchmark",
+                "description": "Variant type to apply benchmarking",
                 "meta": ["vartype"],
-                "minLength": 1
+                "minLength": 1,
+                "errorMessage": "Variant type can be only one of these: small, sv, snv, indel and cnv",
+                "enum": ["small", "sv", "snv", "indel", "cnv"]
             },
             "subsample": {
                 "type": "string",
