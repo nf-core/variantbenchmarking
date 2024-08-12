@@ -18,6 +18,7 @@ workflow PREPARE_VCFS_TRUTH {
     fai             // reference channel [val(meta), ref.fa.fai]
     chain           // reference channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
+    dictionary      // reference channel [val(meta), genome.dict]
 
     main:
 
@@ -31,7 +32,8 @@ workflow PREPARE_VCFS_TRUTH {
             high_conf_ch,
             fasta,
             chain,
-            rename_chr
+            rename_chr,
+            dictionary
         )
         versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
         truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch

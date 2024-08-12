@@ -27,15 +27,14 @@ test2,test2.vcf,gatk,small
 test3,test3.vcf.gz,cnvkit,cnv
 ```
 
-| Column     | Description                                                                                                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`       | Custom id name per test vcf. This entry will be identical.                                                                                                                             |
-| `test_vcf` | The VCF file to use as benchmarking test input. The same file can be used in more than one row. File can be either vcf or vcf.gz.                                                      |
-| `caller`   | Variant caller method used to generate test VCF file. There can be more than one test vcf for the same caller. For unknown caller use 'unknown'                                        |
-| `vartype`  | Variant type to apply benchmarking. Variant type can be only one of these: small, sv, snv, indel and cnv.                                                                              |
+| Column     | Description                                                                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`       | Custom id name per test vcf. This entry will be identical.                                                                                      |
+| `test_vcf` | The VCF file to use as benchmarking test input. The same file can be used in more than one row. File can be either vcf or vcf.gz.               |
+| `caller`   | Variant caller method used to generate test VCF file. There can be more than one test vcf for the same caller. For unknown caller use 'unknown' |
+| `vartype`  | Variant type to apply benchmarking. Variant type can be only one of these: small, sv, snv, indel and cnv.                                       |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
-
 
 ## Defining Truth VCF and High confidence BED files
 
@@ -45,26 +44,26 @@ The following parameters has to be defined for each type of benchmarking analysi
 - `--analysis`: The type of analysis to perform: `germline` or `somatic`.
 - `--method`: List the benchmarking methods to apply. By default all available tools will be applied according to the variant types provided. Available tools: `truvari, svanalyzer, happy, sompy, rtgtools, wittyer`.
 
-*Small variant benchmarking:*
+_Small variant benchmarking:_
 
 - `--truth_small`: Path to the golden set VCF files combined for SNVs and indels, required for germline benchmarking (vcf or vcf.gz)
-- `--high_conf_small`: Path to the high confidence BED files for SNVs and indels, required for germline benchmarking  (bed or bed.gz)
+- `--high_conf_small`: Path to the high confidence BED files for SNVs and indels, required for germline benchmarking (bed or bed.gz)
 - `--truth_snv`: Path to the golden set VCF files for SNVs, required for somatic benchmarking (vcf or vcf.gz)
 - `--high_conf_snv`: Path to the high confidence BED files for SNVs, required for somatic benchmarking (bed or bed.gz)
 - `--truth_indel`: Path to the golden set VCF files for indels, required for somatic benchmarking (vcf or vcf.gz)
 - `--high_conf_indel`: Path to the high confidence BED files for indels, required for somatic benchmarking (bed or bed.gz)
 
-*Structural variant benchmarking:*
+_Structural variant benchmarking:_
 
 - `--truth_sv`: Path to the golden set VCF files for SVs, required for germline and somatic benchmarking (vcf or vcf.gz)
 - `--high_conf_sv`: Path to the high confidence BED files for SVs, required for germline and somatic benchmarking (bed or bed.gz)
 
-*Copy Number Variation benchmarking:*
+_Copy Number Variation benchmarking:_
 
 - `--truth_cnv`: Path to the golden set VCF files for CNVs, required for germline and somatic benchmarking (vcf or vcf.gz)
 - `--high_conf_cnv`: Path to the high confidence BED files for CNVs, required for germline and somatic benchmarking (bed or bed.gz)
 
-*Using truth.config*
+_Using truth.config_
 
 `conf/truth.config` file contains some readily available truth files for germline and somatic analysis. In order to activate usage one has to
 
@@ -83,9 +82,10 @@ Note: these two files are also provided under `itruth.config`. An example usage 
 
 ## Standardization and normalization parameters
 
-Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by *sv_standardization* and *preprocesses*.
+Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
 
 - `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync`.
+
   - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
   - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
 
@@ -99,7 +99,6 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
 
 If the input test vcf contains more than one sample, then user has to define which sample name to use. `subsample` will added to the samplesheet as an additional column as follows:
 
-
 ```csv title="samplesheet.csv"
 id,test_vcf,caller,vartype,subsample
 test1,test1.vcf.gz,delly,sv,"TUMOR"
@@ -109,12 +108,59 @@ test3,test3.vcf.gz,cnvkit,cnv,
 
 Note that, this option can be inevitable for somatic analysis since most of the callers reports both normal and tumor genotypes in the same vcf file.
 
+## Optional benchmarking parameters
+
+Benchmarking parameters may vary between the tools and for callers. In order to use the same parameters for all callers be sure to write the same value for all. If noting provided, deafault values will be used.
+
+_SVbenchmark_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,vartype,normshift,normdist,normsizediff,maxdist
+test1,test1.vcf.gz,delly,sv,0.7,0.7,0.7,100000
+test2,test2.vcf,gatk,sv,0.6,0.5,0.7,110000
+```
+
+- `normshift`: Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)
+- `normdist`: Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)
+- `normsizediff`: Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)
+- `maxdist`: Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000)
+
+_Truvari_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,dup_to_ins,typeignore
+test1,test1.vcf.gz,delly,sv,0.7,0.7,0.7,100000,50000,true,true
+test2,test2.vcf,gatk,sv,0.6,0.5,0.7,110000,40000,false,true
+```
+
+- `pctsize`: Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size)
+- `pctseq`: Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. Turn it off (0) for no sequence comparison.
+- `pctovl`: Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)
+- `refdist`: Maximum distance comparison calls must be within from base call's start/end
+- `chunksize`: Create chunks of all calls overlapping within ±chunksize basepairs
+- `dup_to_ins`: Converts DUP to INS type (boolean)
+- `typeignore`: Ignore SVTYPE matching (boolean)
+
+_Wittyer_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,vartype,bpDistance,percentThreshold,absoluteThreshold,maxMatches,evaluationmode
+test1,test1.vcf.gz,delly,sv,200,0.5,17000,100,sc
+test2,test2.vcf,gatk,sv,100,0.5,11000,-1,cts
+```
+
+- `bpDistance`: Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.
+- `percentThreshold`: This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)
+- `absoluteThreshold`: This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)
+- `maxMatches`: axMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).
+- `evaluationmode`: It is by default requires genotype matching. simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d
+
 ## Filtering parameters
 
 - `--exclude_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants. Default:null
 - `--include_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants. Default:null
 
-*Parameters applicable only to Structural Variants*
+_Parameters applicable only to Structural Variants_
 
 - `--min_sv_size`: Minimum SV size of variants to benchmark, 0 to disable , Default:30
 - `--max_sv_size`: Maximum SV size of variants to benchmark, -1 to disable , Default:-1

@@ -18,21 +18,25 @@ workflow LIFTOVER_VCFS_TRUTH {
     fasta           // reference channel [val(meta), ref.fa]
     chain           // chain channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
+    dictionary      // reference channel [val(meta), genome.dict]
 
     main:
 
     versions = Channel.empty()
 
     //prepare dict file for liftover of vcf files
-    PICARD_CREATESEQUENCEDICTIONARY(
-        fasta
-    )
-    versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
+    if (!params.dictionary){
+        PICARD_CREATESEQUENCEDICTIONARY(
+            fasta
+        )
+        dictionary = PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
+        versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
+    }
 
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(
         truth_ch,
-        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
+        dictionary,
         fasta,
         chain
     )

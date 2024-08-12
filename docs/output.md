@@ -34,31 +34,26 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `preprocesses/`
-  - `*vcf.gz`: The standardized and normalized VCF files
+  - `*.vcf.gz`: The standardized and normalized VCF files
 
 </details>
 
 Outputs from standardization, normalization and filtration processes saved. When any of `--sv_standardization`, `--preprocesses` or filtration applied to the input set of variants, the processed outputs will be saved into this directory.
-
-For test VCFs structuring as follows:
-
-*id*/*preprocess*/
-
-For truth VCFs structuring as follows:
-
-sample/preprocess/
 
 ### Liftover of truth sets
 
 <details markdown="1">
 <summary>Output files</summary>
 
+- ## `liftover/`
+
 - `liftover/`
-  -
+  - `*.vcf.gz`: Lifted over variants
+  - `*.bed`: Lifted over regions
 
 </details>
 
-If liftover applied ...
+If liftover applied to the truth set, the lifted over golden set variants (vcf.gz) and high confidence bed file saved here.
 
 ### Input VCF statistics
 
@@ -67,14 +62,13 @@ If liftover applied ...
 
 - `stats/`
   - `bcftools/`
-    - '*.bcftools_stats.txt'
+    - '\*.bcftools_stats.txt'
   - `survivor/`
-    - '*.stats'
+    - '\*.stats'
 
 </details>
 
 bcftools stats applied into all variant types while survivor stats is only available for structural variants.
-
 
 ### Benchmarking
 
@@ -136,10 +130,7 @@ bcftools stats applied into all variant types while survivor stats is only avail
 
 </details>
 
-Benchmark results are created separately for each test vcf:
-
-id/_bench_/
-
+Benchmark results are created separately for each test vcf and for each method used.
 
 ### Summary statistics
 
@@ -209,12 +200,26 @@ id/_bench_/
   - `snv/`
     - `sompy.snv.summary.csv`: Summary of performance stats from callers
     - `sompy.snv.regions.csv`: Summary of performance stats split by region bins from callers
-- `html/`
-  -
+- ## `html/`
 
 </details>
 
 Note that comparison results for happy and wittyer is missing since their output does not have FP/TP/FN called variants separably. For svbenchmark, TP_base and TP_comp are also missing from the same reason.
+
+### References
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `references/`
+  - `dictionary`
+    - `*.dict`: Dictionary file is the output of PICARD CREATESEQUENCEDICTIONARY. This file can be saved and reused further.
+  - `sdf`
+    - `*.sdf`: Sdf file is the output of RTGTOOLS FORMAT. This file can be saved and reused further.
+
+</details>
+
+Reusable reference files are saved in this directory.
 
 ### MultiQC
 

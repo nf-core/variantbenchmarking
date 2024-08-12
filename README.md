@@ -28,11 +28,11 @@ The workflow involves several key processes to ensure reliable and reproducible 
 This initial step ensures consistent formatting and alignment of variants in test and truth VCF files for accurate comparison.
 
 1. Subsample if input test vcf is multisample ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
-2. Homogenization of multi-allelic variants, MNPs and SVs (including imprecise paired breakends and single breakends) ([variant-extractor](https://github.com/EUCANCan/variant-extractor)) *
-3. Reformatting test VCF files from different SV callers ([svync](https://github.com/nvnieuwk/svync)) *
+2. Homogenization of multi-allelic variants, MNPs and SVs (including imprecise paired breakends and single breakends) ([variant-extractor](https://github.com/EUCANCan/variant-extractor))
+3. Reformatting test VCF files from different SV callers ([svync](https://github.com/nvnieuwk/svync))
 4. Rename sample names in test and truth VCF files ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
-5. Splitting multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm)) *
-6. Deduplication of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm)) *
+5. Splitting multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+6. Deduplication of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 7. Use prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
 8. Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
 
@@ -94,16 +94,13 @@ The generation of comprehensive report that consolidates all benchmarking result
 27. Plotting benchmark metrics per benchmarking tool (R script)
 28. Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 
-
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
-
 
 First, prepare a samplesheet with your input data that looks as follows:
 
@@ -154,7 +151,6 @@ We thank the following people for their extensive assistance in the development 
 
 Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk))
 Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
-
 
 ## Contributions and Support
 

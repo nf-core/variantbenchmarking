@@ -30,7 +30,6 @@
                 "meta": ["caller"],
                 "minLength": 1,
                 "errorMessage": "Variant caller has to be defined. Can also be unknown, undefined or merged"
-
             },
             "vartype": {
                 "type": "string",
