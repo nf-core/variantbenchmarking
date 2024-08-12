@@ -38,7 +38,8 @@
                 "description": "Variant type to apply benchmarking",
                 "meta": ["vartype"],
                 "minLength": 1,
-                "errorMessage": "Variant type can be only one of these: small, sv, snv, indel and cnv"
+                "errorMessage": "Variant type can be only one of these: small, sv, snv, indel and cnv",
+                "enum": ["small", "sv", "snv", "indel", "cnv"]
             },
             "subsample": {
                 "type": "string",
