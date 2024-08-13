@@ -21,6 +21,12 @@
 
 **nf-core/variantbenchmarking** is designed to evaluate and validate the accuracy of variant calling methods in genomic research especially for Human data. Initially, the pipeline is tuned well for available gold standard truth sets (for example, Genome in a Bottle and SEQC2 samples) but it can be used to compare any two variant calling results. The workflow provides benchmarking tools for small variants including SNVs and INDELs, Structural Variants (SVs) and Copy Number Variations (CNVs) for germline and somatic analysis.
 
+The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
+
+<p align="center">
+    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=50%>
+</p>
+
 The workflow involves several key processes to ensure reliable and reproducible results as follows:
 
 ### Standardization and normalization of variants:
@@ -149,8 +155,14 @@ nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarc
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk))
-Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
+- Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk)),
+- Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
+
+## Acknowledgements
+
+<a href="https://www.ghga.de/">
+  <img src="docs/images/GHGA_short_Logo_orange.png" alt="GHGA" width="200"/>
+</a>
 
 ## Contributions and Support
 
