@@ -164,7 +164,6 @@ We thank the following people for their extensive assistance in the development 
   <img src="docs/images/GHGA_short_Logo_orange.png" alt="GHGA" width="200"/>
 </a>
 
-
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
