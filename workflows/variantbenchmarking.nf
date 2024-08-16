@@ -463,7 +463,6 @@ workflow VARIANTBENCHMARKING {
         )
     )
 
-
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),

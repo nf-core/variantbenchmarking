@@ -1,3 +1,6 @@
-id,test_vcf,caller,vartype
-haplotypecaller1,"https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz",mutect,sv
-unknown1,"https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/vcf/sv_query.vcf.gz",unknown,sv
+id,test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,normshift,normdist,normsizediff,maxdist,typeignore,evaluationmode
+manta1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/manta.HG002.chr21.vcf.gz,manta,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000,true,cts
+merged1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/Ashkenazim_HG002.filtered.sv.chr21.vcf.gz,merged,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000,true,cts
+dragen1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/test/HG002_DRAGEN_SV_hg19.chr21.vcf.gz,dragen,sv,0.3,0,0,100000,100000,0.3,0.3,0.3,100000,true,cts
+strelka1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/hg38/HG002.strelka.variants.chr21.vcf.gz,strelka,small,,,,,,,,,,,,
+bcftools1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/hg38/HG002.bcftools.chr21.vcf.gz,bcftools,small,,,,,,,,,,,,
