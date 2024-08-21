@@ -11,4 +11,5 @@ test_sv*/
 test/
 null/*
 results*/*
+.nf-test/*
 

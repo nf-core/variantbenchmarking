@@ -8,9 +8,11 @@ nextflow_pipeline {
 
         when {
             params {
-                input = 'assets/samplesheet_germline_hg38.csv'
+                max_cpus             = 2
+                max_memory           = '6.GB'
+                max_time             = '6.h'
                 sample               = "HG002"
-                input                = "assets/samplesheet_germline_hg38.csv"
+                input                = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv"
                 outdir               = "$outputDir"
                 genome               = 'GRCh38'
                 analysis             = 'germline'
@@ -28,19 +30,8 @@ nextflow_pipeline {
         }
 
         then {
-            assert workflow.success
-
             assertAll(
-                { assert new File("$outputDir/samplesheet/samplesheet.csv").readLines().size() == 15 },
-                { assert new File("$outputDir/samplesheet/samplesheet.csv").readLines()*.split(',')[0].take(4) == ['"sample"', '"fastq_1"', '"fastq_2"', '"run_accession"'] },
-                { assert new File("$outputDir/samplesheet/samplesheet.csv").readLines()*.split(',').collect { it[0] } == ['"sample"', '"DRX024467"', '"DRX026011"', '"ERX1234253"', '"SRX10940790"', '"SRX11047067"', '"SRX17709227"', '"SRX17709228"', '"SRX6725035"', '"SRX9315476"', '"SRX9504942"', '"SRX9504942"', '"SRX9504942"', '"SRX9504942"', '"SRX9626017"'] },
-                { assert new File("$outputDir/samplesheet/samplesheet.csv").text.contains('Illumina HiSeq 2500') },
-                { assert new File("$outputDir/fastq/DRX024467_DRR026872.fastq.gz").exists() },
-                { assert new File("$outputDir/fastq/SRX10940790_SRR14593545_1.fastq.gz").exists() },
-                { assert new File("$outputDir/pipeline_info/nf_core_fetchngs_software_mqc_versions.yml").exists() },
-                { assert new File("$outputDir/samplesheet/id_mappings.csv").exists() },
-                { assert new File("$outputDir/samplesheet/multiqc_config.yml").exists() },
-                { assert new File("$outputDir/samplesheet/samplesheet.csv").exists() }
+                { assert workflow.success }
             )
         }
     }
