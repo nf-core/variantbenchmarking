@@ -1,6 +1,0 @@
-id,test_vcf,caller,vartype
-mutect1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-MuTect2.chr21.vcf.gz,mutect2,small
-strelka1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-Strelka.snv.chr21.vcf.gz,strelka,snv
-strelka2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/WGS.bwa.dedup-IL_T_1_vs_IL_N_1-Strelka.indel.chr21.vcf.gz,strelka,indel
-dkfz1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/snvs_SEQC2_LL2_somatic_functional_snvs_conf_8_to_10.std.sorted.chr21.vcf.gz,dkfz,snv
-dkfz2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/test/hg38/indel_WES_LL_somatic_indels_conf_8_to_10.std.sorted.chr21.vcf.gz,dkfz,indel

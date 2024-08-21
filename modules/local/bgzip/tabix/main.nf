@@ -2,7 +2,7 @@ process BGZIP_TABIX {
     tag "$meta.id"
     label 'process_single'
 
-    conda ""
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/tabix:1.11--hdfd78af_0' :
         'biocontainers/tabix:1.11--hdfd78af_0' }"
@@ -19,13 +19,12 @@ process BGZIP_TABIX {
 
     script:
     def args  = task.ext.args ?: ''
-    def args2 = task.ext.args2 ?: ''
-    def zipname  = vcf.getBaseName() + ".temp.vcf.gz"
+    def prefix = task.ext.prefix ?: "${meta.id}"
 
     if (vcf.getExtension() == "gz"){
     """
-    cp $vcf $zipname
-    tabix -p vcf $zipname
+    cp $vcf ${prefix}.vcf.gz
+    tabix -p vcf ${prefix}.vcf.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -35,8 +34,8 @@ process BGZIP_TABIX {
     }
     else{
     """
-    bgzip ${args2} --threads ${task.cpus} -c $vcf > $zipname
-    tabix -p vcf $zipname
+    bgzip ${args} --threads ${task.cpus} -c $vcf > ${prefix}.vcf.gz
+    tabix -p vcf ${prefix}.vcf.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -44,4 +43,17 @@ process BGZIP_TABIX {
     END_VERSIONS
     """
     }
+
+    stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
+
+    """
+    touch ${prefix}.vcf.gz
+    touch ${prefix}.vcf.gz.tbi
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        tabix: \$(echo \$(tabix -h 2>&1) | sed 's/^.*Version: //; s/ .*\$//')
+    END_VERSIONS
+    """
 }

@@ -3,7 +3,7 @@
 //
 
 include { HAPPY_SOMPY           } from '../../modules/nf-core/happy/sompy/main'
-include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon_evaluator.nf'
+include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon/evaluator'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
@@ -37,6 +37,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         summary_reports = summary_reports.mix(report)
     }
 
+    // not working for now
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(

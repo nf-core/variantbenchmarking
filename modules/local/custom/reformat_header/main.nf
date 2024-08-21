@@ -36,7 +36,6 @@ process REFORMAT_HEADER {
     END_VERSIONS
     """
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.reformatted.vcf.gz
@@ -44,7 +43,7 @@ process REFORMAT_HEADER {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
+        tabix: \$(echo \$(tabix -h 2>&1) | sed 's/^.*Version: //; s/ .*\$//')
     END_VERSIONS
     """
 }

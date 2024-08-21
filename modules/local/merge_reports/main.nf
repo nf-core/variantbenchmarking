@@ -34,7 +34,6 @@ process MERGE_REPORTS {
     END_VERSIONS
     """
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     touch ${prefix}.summary.csv

@@ -57,7 +57,7 @@
                     },
                     "happy/happy": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "41fc46dfd94dddf4fdee633629090c1c3bc9f668",
                         "installed_by": ["modules"]
                     },
                     "happy/prepy": {
@@ -82,7 +82,7 @@
                     },
                     "picard/createsequencedictionary": {
                         "branch": "master",
-                        "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
+                        "git_sha": "759232fe6aed8761bcb3a5d23813f2fa59d985ed",
                         "installed_by": ["modules"]
                     },
                     "picard/liftovervcf": {
@@ -147,7 +147,7 @@
                     },
                     "ucsc/liftover": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "f67072004d8127beef877e7ba96ca5a05915d253",
                         "installed_by": ["modules"]
                     },
                     "wittyer": {
