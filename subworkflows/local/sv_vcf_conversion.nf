@@ -5,7 +5,7 @@ import groovy.io.FileType
 //
 
 include { SVYNC                   } from '../../modules/nf-core/svync'
-include { BGZIP_TABIX             } from '../../modules/local/bgzip_tabix'
+include { BGZIP_TABIX             } from '../../modules/local/bgzip/tabix'
 include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'
 include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'
 

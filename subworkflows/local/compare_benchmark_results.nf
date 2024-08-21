@@ -7,7 +7,7 @@ include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
 include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
 include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
 include { TABIX_BGZIP       } from '../../modules/nf-core/tabix/bgzip'
-include { REFORMAT_HEADER   } from '../../modules/local/reformat_header'
+include { REFORMAT_HEADER   } from '../../modules/local/custom/reformat_header'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:

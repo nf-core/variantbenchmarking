@@ -4,10 +4,10 @@
 
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../../modules/nf-core/picard/createsequencedictionary'
 include { PICARD_LIFTOVERVCF              } from '../../modules/nf-core/picard/liftovervcf'
-include { REFORMAT_HEADER                 } from '../../modules/local/reformat_header.nf'
-include { BCFTOOLS_RENAME_CHR             } from '../../modules/local/bcftools_rename_chr.nf'
+include { REFORMAT_HEADER                 } from '../../modules/local/custom/reformat_header'
+include { BCFTOOLS_RENAME_CHR             } from '../../modules/local/bcftools/rename_chr'
 include { UCSC_LIFTOVER                   } from '../../modules/nf-core/ucsc/liftover'
-include { SORT_BED                        } from '../../modules/local/sort_bed.nf'
+include { SORT_BED                        } from '../../modules/local/custom/sort_bed'
 include { BEDTOOLS_MERGE                  } from '../../modules/nf-core/bedtools/merge'
 
 
@@ -67,7 +67,6 @@ workflow LIFTOVER_VCFS_TRUTH {
     SORT_BED(
         UCSC_LIFTOVER.out.lifted
     )
-    versions = versions.mix(SORT_BED.out.versions.first())
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
