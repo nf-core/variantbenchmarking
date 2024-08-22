@@ -58,7 +58,7 @@ jobs:
           - "latest-everything"
         include:
           - tags: "pipeline_variantbenchmarking"
-            profile: "test,docker"
+            profile: "docker"
 
     steps:
       - name: Check out pipeline code
@@ -120,7 +120,7 @@ jobs:
 
       - name: Run nf-test
         run: |
-          nf-test test \
+          nf-test test tests/main.nf.test \
             --profile=${{ matrix.profile }} \
             --tag ${{ matrix.tags }} \
             --tap=test.tap \
