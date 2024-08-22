@@ -2,7 +2,8 @@ nextflow_pipeline {
 
     name "Test pipeline"
     script "../main.nf"
-    tag "PIPELINE"
+    tag "pipeline"
+    tag "pipeline_variantbenchmarking"
 
     test("Run with profile test") {
 
@@ -16,7 +17,7 @@ nextflow_pipeline {
                 outdir               = "$outputDir"
                 genome               = 'GRCh38'
                 analysis             = 'germline'
-                method               = 'happy,truvari,svanalyzer,wittyer,rtgtools'  //
+                method               = 'happy,truvari,svanalyzer,wittyer,rtgtools'
                 preprocess           = "normalization,deduplication,prepy"
                 sv_standardization   = "svync,homogenize"
                 include_expression   = 'FILTER="."'
@@ -28,6 +29,67 @@ nextflow_pipeline {
                 itruth_ignore        = true
             }
         }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+    test("Run with profile test somatic") {
+
+        when {
+            params {
+                max_cpus            = 2
+                max_memory          = '6.GB'
+                max_time            = '6.h'
+                input               = 'https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/samplesheet_somatic.csv'
+                outdir              = 'results'
+                genome              = 'GRCh38'
+                analysis            = 'somatic'
+                sample              = "SEQC2"
+                method              = 'sompy,truvari'
+                preprocess          = "filter_contigs"
+                truth_snv           = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/truth/hg38/sSNV_truth_set_v1.0.chr21.vcf.gz"
+                high_conf_snv       = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/truth/hg38/high-confidence_sSNV_in_HC_regions_v1.2.chr21.vcf.gz"
+                truth_indel         = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/truth/hg38/sINDEL_truth_set_v1.0.chr21.vcf.gz"
+                high_conf_indel     = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/truth/hg38/high-confidence_sINDEL_in_HC_regions_v1.2.chr21.vcf.gz"
+                truth_sv            = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/somatic/truth/hg38/13059_2022_2816_MOESM4_ESM.vcf.gz"
+                itruth_ignore       = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+    test("Run with profile test liftover") {
+
+        when {
+            params {
+                    max_cpus            = 2
+                    max_memory          = '6.GB'
+                    max_time            = '6.h'
+                    input               = 'https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv'
+                    outdir              = 'results'
+                    genome              = 'GRCh38'
+                    analysis            = 'germline'
+                    sample              = "HG002"
+                    method              = 'truvari,svanalyzer,rtgtools,happy'
+                    preprocess          = "normalization,deduplication,filter_contigs"
+                    min_sv_size         = 30
+                    truth_small         = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/truth/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.vcf.gz"
+                    high_conf_small     = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/truth/HG002_GRCh37_1_22_v4.2.1_highconf.bed"
+                    truth_sv            = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/truth/HG002_SVs_Tier1_v0.6.chr21.vcf.gz"
+                    high_conf_sv        = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg37/truth/HG002_SVs_Tier1_v0.6.chr21.bed"
+                    itruth_ignore       = true
+                    chain               = "https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain"
+                    rename_chr          = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/grch37_grch38.txt"
+                    liftover            = true
+                }
+            }
 
         then {
             assertAll(
