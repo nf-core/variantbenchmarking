@@ -1,0 +1,220 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline_variantbenchmarking"
+
+    test("Run with profile test somatic") {
+        config "../conf/test_somatic.config"
+        when {
+            params {
+                max_cpus            = 2
+                max_memory          = '6.GB'
+                max_time            = '6.h'
+                input               = 'https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/samplesheet_somatic.csv'
+                outdir              = 'results'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.indel.bcftools_stats.txt").name,
+                    path("${params.outdir}/SEQC2/stats/bcftools/SEQC2.snv.bcftools_stats.txt"),
+                    path("${params.outdir}/SEQC2/stats/bcftools/SEQC2.sv.bcftools_stats.txt"),
+                    path("${params.outdir}/SEQC2/stats/survivor/SEQC2.sv.stats")
+                ).match("SEQC2") },
+                { assert snapshot(
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_citations.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_data.json").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_sources.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc.log").name,
+                    file("${params.outdir}/multiqc/multiqc_report.html").name
+                ).match("multiqc_somatic") },
+                { assert snapshot(
+                    UTILS.removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                ).match("version_somatic") },
+                { assert snapshot(
+                    file("${params.outdir}/manta2/stats/bcftools/manta2.sv.manta.bcftools_stats.txt").name,
+                    file("${params.outdir}/manta2/stats/survivor/manta2.sv.manta.stats").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fn.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fp.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-base.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.summary.json").name
+                ).match("manta2_truvari") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/stats/bcftools/manta1.snv.manta.bcftools_stats.txt").name,
+                    path("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.features.csv"),
+                    path("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.stats.csv"),
+                    file("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.metrics.json").name
+                ).match("manta_sompy") },
+                { assert snapshot(
+                    path("${params.outdir}/freebayes/stats/bcftools/freebayes.snv.freebayes.bcftools_stats.txt"),
+                    path("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.features.csv"),
+                    path("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.stats.csv"),
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.metrics.json").name,
+                    path("${params.outdir}/freebayes/stats/bcftools/freebayes.indel.freebayes.bcftools_stats.txt"),
+                    path("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.features.csv"),
+                    path("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.stats.csv"),
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.metrics.json").name
+                ).match("freebayes_sompy") },
+                { assert snapshot(
+                    path("${params.outdir}/strelka1/stats/bcftools/strelka1.indel.strelka.bcftools_stats.txt"),
+                    path("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.features.csv"),
+                    path("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.stats.csv"),
+                    file("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.metrics.json").name
+                ).match("strelka1_sompy") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka2/stats/bcftools/strelka2.snv.strelka.bcftools_stats.txt").name,
+                    path("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.features.csv"),
+                    path("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.stats.csv"),
+                    file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.metrics.json").name
+                ).match("strelka2_sompy") },
+                { assert snapshot(
+                    file("${params.outdir}/tiddit2/stats/bcftools/tiddit2.sv.tiddit.bcftools_stats.txt").name,
+                    file("${params.outdir}/tiddit2/stats/survivor/tiddit2.sv.tiddit.stats").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fn.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fp.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-base.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.summary.json").name
+                ).match("tiddit2_truvari") },
+                { assert snapshot(
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.FN.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.FP.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_base.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_comp.csv"),
+                    path("${params.outdir}/summary/plots/sv/truvari/metric_by_tool_truvari.png"),
+                    path("${params.outdir}/summary/plots/sv/truvari/variants_by_tool_truvari.png"),
+                    path("${params.outdir}/summary/plots/snv/sompy/metric_by_tool_rtgtools.png"),
+                    path("${params.outdir}/summary/plots/indel/sompy/variants_by_tool_rtgtools.png"),
+                    path("${params.outdir}/summary/plots/indel/sompy/metric_by_tool_rtgtools.png"),
+                    path("${params.outdir}/summary/plots/snv/sompy/variants_by_tool_rtgtools.png"),
+                    path("${params.outdir}/summary/tables/indel/sompy/sompy.small.summary.csv"),
+                    path("${params.outdir}/summary/tables/indel/sompy/sompy.small.regions.csv"),
+                    path("${params.outdir}/summary/tables/snv/sompy/sompy.small.summary.csv"),
+                    path("${params.outdir}/summary/tables/snv/sompy/sompy.small.regions.csv"),
+                    path("${params.outdir}/summary/tables/sv/truvari/truvari.sv.summary.csv")
+                ).match("summary_somatic") }
+            )
+        }
+    }
+
+    test("Run with profile test somatic -stub") {
+        options "-stub"
+        config "../conf/test_somatic.config"
+        when {
+            params {
+                    max_cpus            = 2
+                    max_memory          = '6.GB'
+                    max_time            = '6.h'
+                    input               = 'https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/samplesheet_somatic.csv'
+                    outdir              = 'results'
+                }
+            }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.indel.bcftools_stats.txt").name,
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.snv.bcftools_stats.txt").name,
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.sv.bcftools_stats.txt").name,
+                    file("${params.outdir}/SEQC2/stats/survivor/SEQC2.sv.stats").name
+                ).match("SEQC2_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_citations.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_data.json").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_sources.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc.log").name,
+                    file("${params.outdir}/multiqc/multiqc_report.html").name
+                ).match("multiqc_stub") },
+                { assert snapshot(
+                    UTILS.removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                ).match("version_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/manta2/stats/bcftools/manta2.sv.manta.bcftools_stats.txt").name,
+                    file("${params.outdir}/manta2/stats/survivor/manta2.sv.manta.stats").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fn.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fp.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-base.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta2/truvari_bench/manta2.SEQC2.sv.manta.summary.json").name
+                ).match("manta2_truvari_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/stats/bcftools/manta1.snv.manta.bcftools_stats.txt").name,
+                    file("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.features.csv").name,
+                    file("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.stats.csv").name,
+                    file("${params.outdir}/manta1/sompy_bench/manta1.SEQC2.snv.manta.metrics.json").name
+                ).match("manta_sompy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/freebayes/stats/bcftools/freebayes.snv.freebayes.bcftools_stats.txt").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.features.csv").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.stats.csv").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.snv.freebayes.metrics.json").name,
+                    file("${params.outdir}/freebayes/stats/bcftools/freebayes.indel.freebayes.bcftools_stats.txt").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.features.csv").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.stats.csv").name,
+                    file("${params.outdir}/freebayes/sompy_bench/freebayes.SEQC2.indel.freebayes.metrics.json").name
+                ).match("freebayes_sompy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka1/stats/bcftools/strelka1.indel.strelka.bcftools_stats.txt").name,
+                    file("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.features.csv").name,
+                    file("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.stats.csv").name,
+                    file("${params.outdir}/strelka1/sompy_bench/strelka1.SEQC2.indel.strelka.metrics.json").name
+                ).match("strelka1_sompy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka2/stats/bcftools/strelka2.snv.strelka.bcftools_stats.txt").name,
+                    file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.features.csv").name,
+                    file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.stats.csv").name,
+                    file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.metrics.json").name
+                ).match("strelka2_sompy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/tiddit2/stats/bcftools/tiddit2.sv.tiddit.bcftools_stats.txt").name,
+                    file("${params.outdir}/tiddit2/stats/survivor/tiddit2.sv.tiddit.stats").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fn.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fp.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-base.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/tiddit2/truvari_bench/tiddit2.SEQC2.sv.tiddit.summary.json").name
+                ).match("tiddit2_truvari_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.FN.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.FP.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_base.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_comp.csv").name,
+                    file("${params.outdir}/summary/plots/sv/truvari/metric_by_tool_truvari.png").name,
+                    file("${params.outdir}/summary/plots/sv/truvari/variants_by_tool_truvari.png").name,
+                    file("${params.outdir}/summary/plots/snv/sompy/metric_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/plots/indel/sompy/variants_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/plots/indel/sompy/metric_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/plots/snv/sompy/variants_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/tables/indel/sompy/sompy.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/indel/sompy/sompy.small.regions.csv").name,
+                    file("${params.outdir}/summary/tables/snv/sompy/sompy.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/snv/sompy/sompy.small.regions.csv").name,
+                    file("${params.outdir}/summary/tables/sv/truvari/truvari.sv.summary.csv").name
+                ).match("summary_somatic_stub") }
+            )
+        }
+    }
+}

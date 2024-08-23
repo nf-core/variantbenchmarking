@@ -1,0 +1,410 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    tag "pipeline_variantbenchmarking"
+
+    test("Run with profile test") {
+
+        config "../conf/test.config"
+        when {
+            params {
+                max_cpus             = 2
+                max_memory           = '6.GB'
+                max_time             = '6.h'
+                input                = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv"
+                outdir               = "$outputDir"
+            }
+        }
+
+        then {
+            // PDFs, SVGs, some PNGs and HTML reports are not stable
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    file("${params.outdir}/HG002/stats/bcftools/HG002.small.bcftools_stats.txt").name,
+                    path("${params.outdir}/HG002/stats/bcftools/HG002.sv.bcftools_stats.txt"),
+                    path("${params.outdir}/HG002/stats/survivor/HG002.sv.stats")
+                ).match("HG002") },
+                { assert snapshot(
+                    path("${params.outdir}/references/rtgtools/genome.sdf/summary.txt")
+                ).match("sdf") },
+                { assert snapshot(
+                    path("${params.outdir}/summary/comparisons/small/rtgtools.small.FN.csv"),
+                    path("${params.outdir}/summary/comparisons/small/rtgtools.small.FP.csv"),
+                    path("${params.outdir}/summary/comparisons/small/rtgtools.small.TP_base.csv"),
+                    path("${params.outdir}/summary/comparisons/small/rtgtools.small.TP_comp.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.FN.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.FP.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_base.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_comp.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/svbenchmark.sv.FN.csv"),
+                    path("${params.outdir}/summary/comparisons/sv/svbenchmark.sv.FP.csv"),
+                    path("${params.outdir}/summary/plots/sv/svbenchmark/metric_by_tool_svbenchmark.png"),
+                    path("${params.outdir}/summary/plots/sv/svbenchmark/variants_by_tool_svbenchmark.png"),
+                    path("${params.outdir}/summary/plots/sv/truvari/metric_by_tool_truvari.png"),
+                    path("${params.outdir}/summary/plots/sv/truvari/variants_by_tool_truvari.png"),
+                    path("${params.outdir}/summary/plots/sv/wittyer/Base_metric_by_tool_wittyer.png"),
+                    path("${params.outdir}/summary/plots/sv/wittyer/Base_variants_by_tool_wittyer.png"),
+                    path("${params.outdir}/summary/plots/sv/wittyer/Event_metric_by_tool_wittyer.png"),
+                    path("${params.outdir}/summary/plots/sv/wittyer/Event_variants_by_tool_wittyer.png"),
+                    path("${params.outdir}/summary/plots/small/happy/INDEL_ALL_metric_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/INDEL_ALL_variants_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/INDEL_PASS_metric_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/INDEL_PASS_variants_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/SNP_ALL_metric_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/SNP_ALL_variants_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/SNP_PASS_metric_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/happy/SNP_PASS_variants_by_tool_happy.png"),
+                    path("${params.outdir}/summary/plots/small/rtgtools/metric_by_tool_rtgtools.png"),
+                    path("${params.outdir}/summary/plots/small/rtgtools/variants_by_tool_rtgtools.png"),
+                    file("${params.outdir}/summary/tables/small/rtgtools/rtgtools.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/small/happy/happy.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/svbenchmark/svbenchmark.sv.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/truvari/truvari.sv.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/wittyer/wittyer.sv.summary.csv").name
+                ).match("summary") },
+                { assert snapshot(
+                    path("${params.outdir}/bcftools1/stats/bcftools/bcftools1.small.bcftools.bcftools_stats.txt"),
+                    path("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.extended.csv"),
+                    path("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.summary.csv"),
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.metrics.json.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.all.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.runinfo.json").name
+                ).match("bcftools1_happy") },
+                { assert snapshot(
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.summary.txt").name,
+                    path("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.phasing.txt"),
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.snp_roc.tsv.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz").name
+                ).match("bcftools1_rtgtools") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka1/stats/bcftools/strelka1.small.strelka.bcftools_stats.txt").name,
+                    path("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.extended.csv"),
+                    path("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.summary.csv"),
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.metrics.json.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.all.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.runinfo.json").name
+                ).match("strelka_happy") },
+                { assert snapshot(
+                    path("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.summary.txt"),
+                    path("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.phasing.txt"),
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.non_snp_roc.tsv.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.snp_roc.tsv.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.weighted_roc.tsv.gz").name
+                ).match("strelka_rtgtools") },
+                { assert snapshot(
+                    path("${params.outdir}/dragen1/stats/bcftools/dragen1.sv.dragen.bcftools_stats.txt"),
+                    path("${params.outdir}/dragen1/stats/survivor/dragen1.sv.dragen.stats"),
+                    path("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.distances"),
+                    path("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.log"),
+                    path("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.report"),
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsepositives.vcf.gz").name
+                ).match("dragen_svanalyzer") },
+                { assert snapshot(
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.summary.json").name
+                ).match("dragen_truvari") },
+                { assert snapshot(
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz").name,
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.json").name
+                ).match("dragen_wittyer") },
+                { assert snapshot(
+                    path("${params.outdir}/manta1/stats/bcftools/manta1.sv.manta.bcftools_stats.txt"),
+                    path("${params.outdir}/manta1/stats/survivor/manta1.sv.manta.stats"),
+                    path("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.distances"),
+                    path("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.log"),
+                    path("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.report"),
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsepositives.vcf.gz").name
+                ).match("manta_svanalyzer") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.summary.json").name
+                ).match("manta_truvari") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz").name,
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.json").name
+                ).match("manta_wittyer") },
+                { assert snapshot(
+                    path("${params.outdir}/merged1/stats/bcftools/merged1.sv.merged.bcftools_stats.txt"),
+                    path("${params.outdir}/merged1/stats/survivor/merged1.sv.merged.stats"),
+                    path("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.distances"),
+                    path("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.log"),
+                    path("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.report"),
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsepositives.vcf.gz").name
+                ).match("merged_svanalyzer") },
+                { assert snapshot(
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.summary.json").name
+                ).match("merged_truvari") },
+                { assert snapshot(
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz").name,
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.json").name
+                ).match("merged_wittyer") },
+                { assert snapshot(
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_citations.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_data.json").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_sources.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc.log").name,
+                    file("${params.outdir}/multiqc/multiqc_report.html").name
+                ).match("multiqc") },
+                { assert snapshot(
+                    UTILS.removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                ).match("versions") }
+            )
+        }
+    }
+
+    test("Run with profile test stub") {
+        options "-stub"
+        config "../conf/test.config"
+        when {
+            params {
+                    max_cpus            = 2
+                    max_memory          = '6.GB'
+                    max_time            = '6.h'
+                    input               = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv"
+                    outdir              = 'results'
+                }
+            }
+
+        then {
+            // PDFs, SVGs, some PNGs and HTML reports are not stable
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    file("${params.outdir}/HG002/stats/bcftools/HG002.small.bcftools_stats.txt").name,
+                    file("${params.outdir}/HG002/stats/bcftools/HG002.sv.bcftools_stats.txt").name,
+                    file("${params.outdir}/HG002/stats/survivor/HG002.sv.stats").name
+                ).match("HG002_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/references/rtgtools/genome.sdf").name
+                ).match("sdf_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/summary/comparisons/small/rtgtools.small.FN.csv").name,
+                    file("${params.outdir}/summary/comparisons/small/rtgtools.small.FP.csv").name,
+                    file("${params.outdir}/summary/comparisons/small/rtgtools.small.TP_base.csv").name,
+                    file("${params.outdir}/summary/comparisons/small/rtgtools.small.TP_comp.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.FN.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.FP.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_base.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/truvari.sv.TP_comp.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/svbenchmark.sv.FN.csv").name,
+                    file("${params.outdir}/summary/comparisons/sv/svbenchmark.sv.FP.csv").name,
+                    file("${params.outdir}/summary/plots/sv/svbenchmark/metric_by_tool_svbenchmark.png").name,
+                    file("${params.outdir}/summary/plots/sv/svbenchmark/variants_by_tool_svbenchmark.png").name,
+                    file("${params.outdir}/summary/plots/sv/truvari/metric_by_tool_truvari.png").name,
+                    file("${params.outdir}/summary/plots/sv/truvari/variants_by_tool_truvari.png").name,
+                    file("${params.outdir}/summary/plots/sv/wittyer/Base_metric_by_tool_wittyer.png").name,
+                    file("${params.outdir}/summary/plots/sv/wittyer/Base_variants_by_tool_wittyer.png").name,
+                    file("${params.outdir}/summary/plots/sv/wittyer/Event_metric_by_tool_wittyer.png").name,
+                    file("${params.outdir}/summary/plots/sv/wittyer/Event_variants_by_tool_wittyer.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/INDEL_ALL_metric_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/INDEL_ALL_variants_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/INDEL_PASS_metric_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/INDEL_PASS_variants_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/SNP_ALL_metric_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/SNP_ALL_variants_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/SNP_PASS_metric_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/happy/SNP_PASS_variants_by_tool_happy.png").name,
+                    file("${params.outdir}/summary/plots/small/rtgtools/metric_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/plots/small/rtgtools/variants_by_tool_rtgtools.png").name,
+                    file("${params.outdir}/summary/tables/small/rtgtools/rtgtools.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/small/happy/happy.small.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/svbenchmark/svbenchmark.sv.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/truvari/truvari.sv.summary.csv").name,
+                    file("${params.outdir}/summary/tables/sv/wittyer/wittyer.sv.summary.csv").name
+                ).match("summary_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/bcftools1/stats/bcftools/bcftools1.small.bcftools.bcftools_stats.txt").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.extended.csv").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.summary.csv").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.metrics.json.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.all.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz").name,
+                    file("${params.outdir}/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.runinfo.json").name
+                ).match("bcftools1_happy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.summary.txt").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.phasing.txt").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.snp_roc.tsv.gz").name,
+                    file("${params.outdir}/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz").name
+                ).match("bcftools1_rtgtools_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka1/stats/bcftools/strelka1.small.strelka.bcftools_stats.txt").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.extended.csv").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.summary.csv").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.metrics.json.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.all.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz").name,
+                    file("${params.outdir}/strelka1/happy_bench/strelka1.HG002.small.strelka.runinfo.json").name
+                ).match("strelka_happy_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.summary.txt").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.phasing.txt").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.non_snp_roc.tsv.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.snp_roc.tsv.gz").name,
+                    file("${params.outdir}/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.weighted_roc.tsv.gz").name
+                ).match("strelka_rtgtools_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/dragen1/stats/bcftools/dragen1.sv.dragen.bcftools_stats.txt").name,
+                    file("${params.outdir}/dragen1/stats/survivor/dragen1.sv.dragen.stats").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.distances").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.log").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.report").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsepositives.vcf.gz").name
+                ).match("dragen_svanalyzer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/truvari_bench/dragen1.HG002.sv.dragen.summary.json").name
+                ).match("dragen_truvari_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz").name,
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz.tbi").name,
+                    file("${params.outdir}/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.json").name
+                ).match("dragen_wittyer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/stats/bcftools/manta1.sv.manta.bcftools_stats.txt").name,
+                    file("${params.outdir}/manta1/stats/survivor/manta1.sv.manta.stats").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.distances").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.log").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.report").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsepositives.vcf.gz").name
+                ).match("manta_svanalyzer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/truvari_bench/manta1.HG002.sv.manta.summary.json").name
+                ).match("manta_truvari_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz").name,
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz.tbi").name,
+                    file("${params.outdir}/manta1/wittyer_bench/manta1.HG002.sv.manta.json").name
+                ).match("manta_wittyer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/merged1/stats/bcftools/merged1.sv.merged.bcftools_stats.txt").name,
+                    file("${params.outdir}/merged1/stats/survivor/merged1.sv.merged.stats").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.distances").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.log").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.report").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsenegatives.vcf.gz").name,
+                    file("${params.outdir}/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsepositives.vcf.gz").name
+                ).match("merged_svanalyzer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/truvari_bench/merged1.HG002.sv.merged.summary.json").name
+                ).match("merged_truvari_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz").name,
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz.tbi").name,
+                    file("${params.outdir}/merged1/wittyer_bench/merged1.HG002.sv.merged.json").name
+                ).match("merged_wittyer_stub") },
+                { assert snapshot(
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_citations.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_data.json").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc_sources.txt").name,
+                    file("${params.outdir}/multiqc/multiqc_data/multiqc.log").name,
+                    file("${params.outdir}/multiqc/multiqc_report.html").name
+                ).match("multiqc_stub") }
+            )
+        }
+    }
+}
