@@ -1,0 +1,5 @@
+pipeline_variantbenchmarking:
+  - "**.nf"
+  - "**.config"
+  - "**.nf.test"
+  - "**.json"

@@ -1,0 +1,608 @@
+{
+    "merged_truvari": {
+        "content": [
+            "merged1.HG002.sv.merged.fn.vcf.gz",
+            "merged1.HG002.sv.merged.fp.vcf.gz",
+            "merged1.HG002.sv.merged.tp-base.vcf.gz",
+            "merged1.HG002.sv.merged.tp-comp.vcf.gz",
+            "merged1.HG002.sv.merged.fn.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.fp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-base.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.785857688"
+    },
+    "dragen_truvari_stub": {
+        "content": [
+            "dragen1.HG002.sv.dragen.fn.vcf.gz",
+            "dragen1.HG002.sv.dragen.fp.vcf.gz",
+            "dragen1.HG002.sv.dragen.tp-base.vcf.gz",
+            "dragen1.HG002.sv.dragen.tp-comp.vcf.gz",
+            "dragen1.HG002.sv.dragen.fn.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.fp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.464344201"
+    },
+    "merged_svanalyzer": {
+        "content": [
+            "merged1.sv.merged.bcftools_stats.txt:md5,a888a71dbe716f2d914a3ba55351801d",
+            "merged1.sv.merged.stats:md5,36d80468e13b583d0761b434d095312d",
+            "merged1.HG002.sv.merged.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
+            "merged1.HG002.sv.merged.log:md5,1826bc8865f7e42a5d1108796f7458f3",
+            "merged1.HG002.sv.merged.report:md5,6466d73155f88084efc69cad3628eb8c",
+            "merged1.HG002.sv.merged.falsenegatives.vcf.gz",
+            "merged1.HG002.sv.merged.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:55:48.412304183"
+    },
+    "merged_svanalyzer_stub": {
+        "content": [
+            "merged1.sv.merged.bcftools_stats.txt",
+            "merged1.sv.merged.stats",
+            "merged1.HG002.sv.merged.distances",
+            "merged1.HG002.sv.merged.log",
+            "merged1.HG002.sv.merged.report",
+            "merged1.HG002.sv.merged.falsenegatives.vcf.gz",
+            "merged1.HG002.sv.merged.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.699885443"
+    },
+    "HG002": {
+        "content": [
+            "HG002.small.bcftools_stats.txt",
+            "HG002.sv.bcftools_stats.txt:md5,8294f172a72ca7219a32db9c27e2524c",
+            "HG002.sv.stats:md5,68681df47b35e3193be03610f5c6e3d6"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:10:31.153596733"
+    },
+    "dragen_svanalyzer_stub": {
+        "content": [
+            "dragen1.sv.dragen.bcftools_stats.txt",
+            "dragen1.sv.dragen.stats",
+            "dragen1.HG002.sv.dragen.distances",
+            "dragen1.HG002.sv.dragen.log",
+            "dragen1.HG002.sv.dragen.report",
+            "dragen1.HG002.sv.dragen.falsenegatives.vcf.gz",
+            "dragen1.HG002.sv.dragen.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.348065379"
+    },
+    "merged_wittyer_stub": {
+        "content": [
+            "merged1.HG002.sv.merged.vcf.gz",
+            "merged1.HG002.sv.merged.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.785933857"
+    },
+    "manta_truvari": {
+        "content": [
+            "manta1.HG002.sv.manta.fn.vcf.gz",
+            "manta1.HG002.sv.manta.fp.vcf.gz",
+            "manta1.HG002.sv.manta.tp-base.vcf.gz",
+            "manta1.HG002.sv.manta.tp-comp.vcf.gz",
+            "manta1.HG002.sv.manta.fn.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.fp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-base.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.678266878"
+    },
+    "manta_svanalyzer_stub": {
+        "content": [
+            "manta1.sv.manta.bcftools_stats.txt",
+            "manta1.sv.manta.stats",
+            "manta1.HG002.sv.manta.distances",
+            "manta1.HG002.sv.manta.log",
+            "manta1.HG002.sv.manta.report",
+            "manta1.HG002.sv.manta.falsenegatives.vcf.gz",
+            "manta1.HG002.sv.manta.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.570872162"
+    },
+    "bcftools1_happy": {
+        "content": [
+            "bcftools1.small.bcftools.bcftools_stats.txt:md5,8b74feed95dfa4e904744afaf9466dd5",
+            "bcftools1.HG002.small.bcftools.extended.csv:md5,e0ad65bab2daad5189ac02b818a4d8bc",
+            "bcftools1.HG002.small.bcftools.summary.csv:md5,3815ea18e8fc11f198a5821dee79a3c7",
+            "bcftools1.HG002.small.bcftools.metrics.json.gz",
+            "bcftools1.HG002.small.bcftools.roc.all.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz",
+            "bcftools1.HG002.small.bcftools.runinfo.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.395610624"
+    },
+    "manta_svanalyzer": {
+        "content": [
+            "manta1.sv.manta.bcftools_stats.txt:md5,642148fe6b86fe667878661d1bffbd1f",
+            "manta1.sv.manta.stats:md5,6f25a9372095052218110390e8e75c54",
+            "manta1.HG002.sv.manta.distances:md5,33dcbe29f7129dc30c184b564803ec63",
+            "manta1.HG002.sv.manta.log:md5,fa9a04b46faca12f9f2eee23182ec2f8",
+            "manta1.HG002.sv.manta.report:md5,91b0fbfd6fcdf45b85290f92c5a470fb",
+            "manta1.HG002.sv.manta.falsenegatives.vcf.gz",
+            "manta1.HG002.sv.manta.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:55:48.33197289"
+    },
+    "merged_wittyer": {
+        "content": [
+            "merged1.HG002.sv.merged.vcf.gz",
+            "merged1.HG002.sv.merged.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.821761715"
+    },
+    "HG002_stub": {
+        "content": [
+            "HG002.small.bcftools_stats.txt",
+            "HG002.sv.bcftools_stats.txt",
+            "HG002.sv.stats"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:46:38.29313164"
+    },
+    "manta_wittyer_stub": {
+        "content": [
+            "manta1.HG002.sv.manta.vcf.gz",
+            "manta1.HG002.sv.manta.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.653996096"
+    },
+    "summary_stub": {
+        "content": [
+            "rtgtools.small.FN.csv",
+            "rtgtools.small.FP.csv",
+            "rtgtools.small.TP_base.csv",
+            "rtgtools.small.TP_comp.csv",
+            "truvari.sv.FN.csv",
+            "truvari.sv.FP.csv",
+            "truvari.sv.TP_base.csv",
+            "truvari.sv.TP_comp.csv",
+            "svbenchmark.sv.FN.csv",
+            "svbenchmark.sv.FP.csv",
+            "metric_by_tool_svbenchmark.png",
+            "variants_by_tool_svbenchmark.png",
+            "metric_by_tool_truvari.png",
+            "variants_by_tool_truvari.png",
+            "Base_metric_by_tool_wittyer.png",
+            "Base_variants_by_tool_wittyer.png",
+            "Event_metric_by_tool_wittyer.png",
+            "Event_variants_by_tool_wittyer.png",
+            "INDEL_ALL_metric_by_tool_happy.png",
+            "INDEL_ALL_variants_by_tool_happy.png",
+            "INDEL_PASS_metric_by_tool_happy.png",
+            "INDEL_PASS_variants_by_tool_happy.png",
+            "SNP_ALL_metric_by_tool_happy.png",
+            "SNP_ALL_variants_by_tool_happy.png",
+            "SNP_PASS_metric_by_tool_happy.png",
+            "SNP_PASS_variants_by_tool_happy.png",
+            "metric_by_tool_rtgtools.png",
+            "variants_by_tool_rtgtools.png",
+            "rtgtools.small.summary.csv",
+            "happy.small.summary.csv",
+            "svbenchmark.sv.summary.csv",
+            "truvari.sv.summary.csv",
+            "wittyer.sv.summary.csv"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.052000632"
+    },
+    "strelka_rtgtools": {
+        "content": [
+            "strelka1.HG002.small.strelka.summary.txt:md5,e045d6a048bdec24cb55f9dd1b55ffe7",
+            "strelka1.HG002.small.strelka.phasing.txt:md5,5ab9ffbd7c18a5512851086b6e7ecf59",
+            "strelka1.HG002.small.strelka.fn.vcf.gz",
+            "strelka1.HG002.small.strelka.fn.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.fp.vcf.gz",
+            "strelka1.HG002.small.strelka.fp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.tp.vcf.gz",
+            "strelka1.HG002.small.strelka.tp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.tp-baseline.vcf.gz",
+            "strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.non_snp_roc.tsv.gz",
+            "strelka1.HG002.small.strelka.snp_roc.tsv.gz",
+            "strelka1.HG002.small.strelka.weighted_roc.tsv.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.508300343"
+    },
+    "multiqc": {
+        "content": [
+            "multiqc_citations.txt",
+            "multiqc_data.json",
+            "multiqc_sources.txt",
+            "multiqc.log",
+            "multiqc_report.html"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.859184051"
+    },
+    "summary": {
+        "content": [
+            "rtgtools.small.FN.csv:md5,41aa39c72e4fe4735a4d07eacb23a85c",
+            "rtgtools.small.FP.csv:md5,0985536ba9349cd5f6262a56faa058c2",
+            "rtgtools.small.TP_base.csv:md5,c2818da81afd61b2600f27be1b60b16a",
+            "rtgtools.small.TP_comp.csv:md5,8b7ab6d3ea9b94e967b743dc69a865d5",
+            "truvari.sv.FN.csv:md5,ee1a91be919daf1dfae9d1a35bbe0084",
+            "truvari.sv.FP.csv:md5,b34f4f5d8f0d36c3c5b8d422f08fbade",
+            "truvari.sv.TP_base.csv:md5,ffa51e4c9e5b2292fa7c1cec30f5e9f6",
+            "truvari.sv.TP_comp.csv:md5,04732ed72ca5ba94c2cb9b2aeff834e6",
+            "svbenchmark.sv.FN.csv:md5,5b2234a0df6a323cbca66d54772af6a6",
+            "svbenchmark.sv.FP.csv:md5,455afc3d791e8d6f31aae63a6d6a7727",
+            "metric_by_tool_svbenchmark.png:md5,5e44ce09d4ae07f1dd98618bca5fada4",
+            "variants_by_tool_svbenchmark.png:md5,3b6e9b91d2af70b95d4522261b830866",
+            "metric_by_tool_truvari.png:md5,758c60a4aec95e4d7ad3fe72e356f5d0",
+            "variants_by_tool_truvari.png:md5,4c2ca962b9deaa6e2d5b2a3639e65514",
+            "Base_metric_by_tool_wittyer.png:md5,e72e99638c4cc5b0372c67d9e00a810f",
+            "Base_variants_by_tool_wittyer.png:md5,095d648a38bf3f9df26e35001143bc77",
+            "Event_metric_by_tool_wittyer.png:md5,31e65ab89f44553b38b3d71878958631",
+            "Event_variants_by_tool_wittyer.png:md5,93d407e02cbe17ff3f2e1aef426889c8",
+            "INDEL_ALL_metric_by_tool_happy.png:md5,5e8a3f3eb60917175729313b2cc643ab",
+            "INDEL_ALL_variants_by_tool_happy.png:md5,20f2e96c33f39d09904ed365a16423ce",
+            "INDEL_PASS_metric_by_tool_happy.png:md5,6c3061d54752e5163660af47ccf51dc3",
+            "INDEL_PASS_variants_by_tool_happy.png:md5,01c64ab4831f60eba01bb862c89fa7b2",
+            "SNP_ALL_metric_by_tool_happy.png:md5,6e475bc274726af13fb367c64b6e2f5e",
+            "SNP_ALL_variants_by_tool_happy.png:md5,aaae324d87c86058e66c1a74905012af",
+            "SNP_PASS_metric_by_tool_happy.png:md5,91c652155386174766805f13e7b47a80",
+            "SNP_PASS_variants_by_tool_happy.png:md5,bea096813d4b252fab0a4a3b1b4aad5e",
+            "metric_by_tool_rtgtools.png:md5,a1a56a27d0bcd2dc0524be61dfce7bb3",
+            "variants_by_tool_rtgtools.png:md5,00131d77aa1b27f06e31de0ab7d58bb8",
+            "rtgtools.small.summary.csv",
+            "happy.small.summary.csv",
+            "svbenchmark.sv.summary.csv",
+            "truvari.sv.summary.csv",
+            "wittyer.sv.summary.csv"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:55:48.152951103"
+    },
+    "multiqc_stub": {
+        "content": [
+            "multiqc_citations.txt",
+            "multiqc_data.json",
+            "multiqc_sources.txt",
+            "multiqc.log",
+            "multiqc_report.html"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.824668243"
+    },
+    "dragen_svanalyzer": {
+        "content": [
+            "dragen1.sv.dragen.bcftools_stats.txt:md5,00efc545abcb5be0ab83d82bff6cd45e",
+            "dragen1.sv.dragen.stats:md5,5c59cceb2e7d909d91074bb8e5804abc",
+            "dragen1.HG002.sv.dragen.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
+            "dragen1.HG002.sv.dragen.log:md5,e789f7b9cc900df499a38ed633ea818d",
+            "dragen1.HG002.sv.dragen.report:md5,b295d4867b7a96f0ca0bb5e8bb45eb68",
+            "dragen1.HG002.sv.dragen.falsenegatives.vcf.gz",
+            "dragen1.HG002.sv.dragen.falsepositives.vcf.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:55:48.249463176"
+    },
+    "strelka_happy": {
+        "content": [
+            "strelka1.small.strelka.bcftools_stats.txt",
+            "strelka1.HG002.small.strelka.extended.csv:md5,93863c2b950df411c01c698f8afcda58",
+            "strelka1.HG002.small.strelka.summary.csv:md5,c14117d825b861657b38c058644896f9",
+            "strelka1.HG002.small.strelka.metrics.json.gz",
+            "strelka1.HG002.small.strelka.roc.all.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz",
+            "strelka1.HG002.small.strelka.runinfo.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:10:31.481077416"
+    },
+    "strelka_happy_stub": {
+        "content": [
+            "strelka1.small.strelka.bcftools_stats.txt",
+            "strelka1.HG002.small.strelka.extended.csv",
+            "strelka1.HG002.small.strelka.summary.csv",
+            "strelka1.HG002.small.strelka.metrics.json.gz",
+            "strelka1.HG002.small.strelka.roc.all.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz",
+            "strelka1.HG002.small.strelka.runinfo.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.215870319"
+    },
+    "bcftools1_rtgtools_stub": {
+        "content": [
+            "bcftools1.HG002.small.bcftools.summary.txt",
+            "bcftools1.HG002.small.bcftools.phasing.txt",
+            "bcftools1.HG002.small.bcftools.fn.vcf.gz",
+            "bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.fp.vcf.gz",
+            "bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.tp.vcf.gz",
+            "bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz",
+            "bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz",
+            "bcftools1.HG002.small.bcftools.snp_roc.tsv.gz",
+            "bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.160897263"
+    },
+    "manta_truvari_stub": {
+        "content": [
+            "manta1.HG002.sv.manta.fn.vcf.gz",
+            "manta1.HG002.sv.manta.fp.vcf.gz",
+            "manta1.HG002.sv.manta.tp-base.vcf.gz",
+            "manta1.HG002.sv.manta.tp-comp.vcf.gz",
+            "manta1.HG002.sv.manta.fn.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.fp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-base.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.60939247"
+    },
+    "strelka_rtgtools_stub": {
+        "content": [
+            "strelka1.HG002.small.strelka.summary.txt",
+            "strelka1.HG002.small.strelka.phasing.txt",
+            "strelka1.HG002.small.strelka.fn.vcf.gz",
+            "strelka1.HG002.small.strelka.fn.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.fp.vcf.gz",
+            "strelka1.HG002.small.strelka.fp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.tp.vcf.gz",
+            "strelka1.HG002.small.strelka.tp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.tp-baseline.vcf.gz",
+            "strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.non_snp_roc.tsv.gz",
+            "strelka1.HG002.small.strelka.snp_roc.tsv.gz",
+            "strelka1.HG002.small.strelka.weighted_roc.tsv.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.270211145"
+    },
+    "sdf_stub": {
+        "content": [
+            "genome.sdf"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:46:38.334721107"
+    },
+    "dragen_wittyer_stub": {
+        "content": [
+            "dragen1.HG002.sv.dragen.vcf.gz",
+            "dragen1.HG002.sv.dragen.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.512488187"
+    },
+    "merged_truvari_stub": {
+        "content": [
+            "merged1.HG002.sv.merged.fn.vcf.gz",
+            "merged1.HG002.sv.merged.fp.vcf.gz",
+            "merged1.HG002.sv.merged.tp-base.vcf.gz",
+            "merged1.HG002.sv.merged.tp-comp.vcf.gz",
+            "merged1.HG002.sv.merged.fn.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.fp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-base.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.746919049"
+    },
+    "manta_wittyer": {
+        "content": [
+            "manta1.HG002.sv.manta.vcf.gz",
+            "manta1.HG002.sv.manta.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.714364235"
+    },
+    "sdf": {
+        "content": [
+            "summary.txt:md5,0bcf792797bbcda59f7269a7136fee01"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:55:48.029751622"
+    },
+    "dragen_truvari": {
+        "content": [
+            "dragen1.HG002.sv.dragen.fn.vcf.gz",
+            "dragen1.HG002.sv.dragen.fp.vcf.gz",
+            "dragen1.HG002.sv.dragen.tp-base.vcf.gz",
+            "dragen1.HG002.sv.dragen.tp-comp.vcf.gz",
+            "dragen1.HG002.sv.dragen.fn.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.fp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.577543577"
+    },
+    "versions": {
+        "content": [
+            "{BCFTOOLS_DEDUP={bcftools=1.18}, BCFTOOLS_MERGE={bcftools=1.2}, BCFTOOLS_NORM={bcftools=1.18}, BCFTOOLS_REHEADER={bcftools=1.18}, BCFTOOLS_SORT={bcftools=1.18}, BCFTOOLS_STATS={bcftools=1.18}, BGZIP_TABIX={tabix=1.12}, HAPPY_HAPPY={hap.py=0.3.14}, HAPPY_PREPY={pre.py=0.3.14}, MERGE_REPORTS={python=3.8.6}, PLOTS={r-base=4.3.1}, REFORMAT_HEADER={tabix=1.12}, RTGTOOLS_FORMAT={rtg-tools=3.12.1}, RTGTOOLS_VCFEVAL={rtg-tools=3.12.1}, SURVIVOR_MERGE={survivor=1.0.7}, SURVIVOR_STATS={survivor=1.0.7}, SVANALYZER_SVBENCHMARK={svanalyzer=0.36}, SVYNC={svync=0.1.2}, TABIX_BGZIP={tabix=1.19.1}, TABIX_BGZIP_QUERY={tabix=1.19.1}, TABIX_BGZIP_TRUTH={tabix=1.19.1}, TABIX_TABIX={tabix=1.19.1}, TRUVARI_BENCH={truvari=4.1.0)}, VARIANT_EXTRACTOR={python=3.12.4}, VCF_TO_CSV={python=3.12.4}, WITTYER={wittyer=0.5.2.0}, Workflow={nf-core/variantbenchmarking=v1.0dev}}"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:59.099347689"
+    },
+    "bcftools1_rtgtools": {
+        "content": [
+            "bcftools1.HG002.small.bcftools.summary.txt",
+            "bcftools1.HG002.small.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+            "bcftools1.HG002.small.bcftools.fn.vcf.gz",
+            "bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.fp.vcf.gz",
+            "bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.tp.vcf.gz",
+            "bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz",
+            "bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz",
+            "bcftools1.HG002.small.bcftools.snp_roc.tsv.gz",
+            "bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:10:31.396162993"
+    },
+    "dragen_wittyer": {
+        "content": [
+            "dragen1.HG002.sv.dragen.vcf.gz",
+            "dragen1.HG002.sv.dragen.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T12:32:58.606505774"
+    },
+    "bcftools1_happy_stub": {
+        "content": [
+            "bcftools1.small.bcftools.bcftools_stats.txt",
+            "bcftools1.HG002.small.bcftools.extended.csv",
+            "bcftools1.HG002.small.bcftools.summary.csv",
+            "bcftools1.HG002.small.bcftools.metrics.json.gz",
+            "bcftools1.HG002.small.bcftools.roc.all.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz",
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz",
+            "bcftools1.HG002.small.bcftools.runinfo.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-23T13:58:39.107382537"
+    }
+}
