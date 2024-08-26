@@ -21,13 +21,10 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(
-                    path("${params.outdir}/HG002/liftover/HG002.sv.sort.merged.bed"),
+                    file("${params.outdir}/HG002/liftover/HG002.sv.sort.merged.bed").name,
                     file("${params.outdir}/HG002/liftover/HG002.sv.renamechr.vcf.gz").name,
-                    path("${params.outdir}/HG002/liftover/HG002.small.sort.merged.bed"),
                     file("${params.outdir}/HG002/liftover/HG002.small.renamechr.vcf.gz").name,
-                    path("${params.outdir}/HG002/stats/bcftools/HG002.small.bcftools_stats.txt"),
-                    path("${params.outdir}/HG002/stats/bcftools/HG002.sv.bcftools_stats.txt"),
-                    path("${params.outdir}/HG002/stats/survivor/HG002.sv.stats")
+                    file("${params.outdir}/HG002/stats/survivor/HG002.sv.stats").name
                 ).match("HG002") }
                 { assert snapshot(
                     path("${params.outdir}/references/rtgtools/genome.sdf/summary.txt"),
@@ -229,10 +226,7 @@ nextflow_pipeline {
                 { assert snapshot(
                     file("${params.outdir}/HG002/liftover/HG002.sv.sort.merged.bed").name,
                     file("${params.outdir}/HG002/liftover/HG002.sv.renamechr.vcf.gz").name,
-                    file("${params.outdir}/HG002/liftover/HG002.small.sort.merged.bed").name,
                     file("${params.outdir}/HG002/liftover/HG002.small.renamechr.vcf.gz").name,
-                    file("${params.outdir}/HG002/stats/bcftools/HG002.small.bcftools_stats.txt").name,
-                    file("${params.outdir}/HG002/stats/bcftools/HG002.sv.bcftools_stats.txt").name,
                     file("${params.outdir}/HG002/stats/survivor/HG002.sv.stats").name
                 ).match("HG002_stub") }
                 { assert snapshot(

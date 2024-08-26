@@ -1,0 +1,36 @@
+{
+    "multiqc_somatic": {
+        "content": [
+            "multiqc_citations.txt",
+            "multiqc_data.json",
+            "multiqc_sources.txt",
+            "multiqc.log",
+            "multiqc_report.html"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-26T09:58:12.631557274"
+    },
+    "manta2_truvari": {
+        "content": [
+            "manta2.sv.manta.bcftools_stats.txt",
+            "manta2.sv.manta.stats",
+            "manta2.SEQC2.sv.manta.fn.vcf.gz",
+            "manta2.SEQC2.sv.manta.fp.vcf.gz",
+            "manta2.SEQC2.sv.manta.tp-base.vcf.gz",
+            "manta2.SEQC2.sv.manta.tp-comp.vcf.gz",
+            "manta2.SEQC2.sv.manta.fn.vcf.gz.tbi",
+            "manta2.SEQC2.sv.manta.fp.vcf.gz.tbi",
+            "manta2.SEQC2.sv.manta.tp-base.vcf.gz.tbi",
+            "manta2.SEQC2.sv.manta.tp-comp.vcf.gz.tbi",
+            "manta2.SEQC2.sv.manta.summary.json"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-26T09:58:12.649808793"
+    }
+}

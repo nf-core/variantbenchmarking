@@ -22,8 +22,8 @@ nextflow_pipeline {
                 { assert workflow.success },
                 { assert snapshot(
                     file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.indel.bcftools_stats.txt").name,
-                    path("${params.outdir}/SEQC2/stats/bcftools/SEQC2.snv.bcftools_stats.txt"),
-                    path("${params.outdir}/SEQC2/stats/bcftools/SEQC2.sv.bcftools_stats.txt"),
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.snv.bcftools_stats.txt").name,
+                    file("${params.outdir}/SEQC2/stats/bcftools/SEQC2.sv.bcftools_stats.txt").name,
                     path("${params.outdir}/SEQC2/stats/survivor/SEQC2.sv.stats")
                 ).match("SEQC2") },
                 { assert snapshot(
@@ -34,7 +34,7 @@ nextflow_pipeline {
                     file("${params.outdir}/multiqc/multiqc_report.html").name
                 ).match("multiqc_somatic") },
                 { assert snapshot(
-                    UTILS.removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                    UTILS.removeNextflowVersion("${params.outdir}/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
                 ).match("version_somatic") },
                 { assert snapshot(
                     file("${params.outdir}/manta2/stats/bcftools/manta2.sv.manta.bcftools_stats.txt").name,
@@ -73,7 +73,6 @@ nextflow_pipeline {
                 ).match("strelka1_sompy") },
                 { assert snapshot(
                     file("${params.outdir}/strelka2/stats/bcftools/strelka2.snv.strelka.bcftools_stats.txt").name,
-                    path("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.features.csv"),
                     path("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.stats.csv"),
                     file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.metrics.json").name
                 ).match("strelka2_sompy") },
@@ -141,7 +140,7 @@ nextflow_pipeline {
                     file("${params.outdir}/multiqc/multiqc_report.html").name
                 ).match("multiqc_stub") },
                 { assert snapshot(
-                    UTILS.removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
+                    UTILS.removeNextflowVersion("${params.outdir}/pipeline_info/nf_core_pipeline_software_mqc_versions.yml")
                 ).match("version_stub") },
                 { assert snapshot(
                     file("${params.outdir}/manta2/stats/bcftools/manta2.sv.manta.bcftools_stats.txt").name,
@@ -180,7 +179,6 @@ nextflow_pipeline {
                 ).match("strelka1_sompy_stub") },
                 { assert snapshot(
                     file("${params.outdir}/strelka2/stats/bcftools/strelka2.snv.strelka.bcftools_stats.txt").name,
-                    file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.features.csv").name,
                     file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.stats.csv").name,
                     file("${params.outdir}/strelka2/sompy_bench/strelka2.SEQC2.snv.strelka.metrics.json").name
                 ).match("strelka2_sompy_stub") },

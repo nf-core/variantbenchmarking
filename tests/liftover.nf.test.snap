@@ -1,0 +1,15 @@
+{
+    "HG002": {
+        "content": [
+            "HG002.sv.sort.merged.bed",
+            "HG002.sv.renamechr.vcf.gz",
+            "HG002.small.renamechr.vcf.gz",
+            "HG002.sv.stats"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-26T14:41:42.187016562"
+    }
+}
