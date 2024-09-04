@@ -1,0 +1,38 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "PIPELINE"
+
+    test("Run with profile test") {
+
+        when {
+            params {
+                max_cpus             = 2
+                max_memory           = '6.GB'
+                max_time             = '6.h'
+                sample               = "HG002"
+                input                = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv"
+                outdir               = "$outputDir"
+                genome               = 'GRCh38'
+                analysis             = 'germline'
+                method               = 'happy,truvari,svanalyzer,wittyer,rtgtools'  //
+                preprocess           = "normalization,deduplication,prepy"
+                sv_standardization   = "svync,homogenize"
+                include_expression   = 'FILTER="."'
+                min_sv_size          = 30
+                truth_small          = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CRMG_benchmark_dataset/HG002_GRCh38_CMRG_smallvar_v1.00.vcf.gz"
+                high_conf_small      = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CRMG_benchmark_dataset/HG002_GRCh38_CMRG_smallvar_v1.00.bed"
+                truth_sv             = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/truth/HG002_GRCh38_difficult_medical_gene_SV_benchmark_v0.01.chr21.vcf.gz"
+                high_conf_sv         = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/hg38/truth/HG002_GRCh38_difficult_medical_gene_SV_benchmark_v01.ch21.bed"
+                itruth_ignore        = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success }
+            )
+        }
+    }
+}

@@ -169,6 +169,58 @@ def getGenomeAttribute(attribute) {
 }
 
 //
+// Get attribute from truth config file e.g. truth_small
+//
+def getTruthAttribute(attribute) {
+    if (!params.itruth_ignore){
+            if (params.sample && params.analysis && params.genome)  {
+                if (params.liftover){
+                    if (params.genome == "GRCh38"){
+                        if (params.analysis == "somatic"){
+                            if (params.somatic[ "GRCh37" ][ params.sample ].containsKey(attribute)){
+                                return params.somatic[ "GRCh37" ][ params.sample ][ attribute ]
+                            }
+                        }
+                        else if(params.analysis == "germline") {
+                            if (params.germline[ "GRCh37" ][ params.sample ].containsKey(attribute)){
+                                return params.germline[ "GRCh37" ][ params.sample ][ attribute ]
+                            }
+                        }
+                    }
+                    else if (params.genome == "GRCh37"){
+                        if (params.analysis == "somatic"){
+                            if (params.somatic[ "GRCh38" ][ params.sample ].containsKey(attribute)){
+                                return params.somatic[ "GRCh38" ][ params.sample ][ attribute ]
+                            }
+                        }
+                        else if(params.analysis == "germline") {
+                            if (params.germline[ "GRCh38" ][ params.sample ].containsKey(attribute)){
+                                return params.germline[ "GRCh38" ][ params.sample ][ attribute ]
+                            }
+                        }
+                    }
+                }
+                else{
+                    if (params.analysis == "somatic"){
+                        if (params.somatic[ params.genome ][ params.sample ].containsKey(attribute)){
+                            return params.somatic[ params.genome ][ params.sample ][ attribute ]
+                        }
+                    }
+                    else if(params.analysis == "germline") {
+                        if (params.germline[ params.genome ][ params.sample ].containsKey(attribute)){
+                            return params.germline[ params.genome][ params.sample ][ attribute ]
+                        }
+                    }
+
+                }
+        }
+        else{
+            return null
+        }
+    }
+}
+
+//
 // Exit pipeline if incorrect --genome key provided
 //
 def genomeExistsError() {

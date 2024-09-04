@@ -1,4 +1,0 @@
-test_vcf,caller,vartype
-"https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz",haplotypecaller,small
-"https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/HG002.strelka.variants.chr21.vcf.gz",strelka,small
-

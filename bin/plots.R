@@ -5,11 +5,29 @@ suppressWarnings(library(ggplot2))
 suppressWarnings(library(reshape2))
 
 # Function to generate plots
-generate_plots <- function(table, benchmark, type, filter) {
+generate_plots <- function(table, benchmark, type, filter, stats) {
     # Melt the data for easier plotting
+    ## where type and filter are both none
 
-    if (type != "None" | filter != "None" ){
+    if (type != "None" && filter != "None" ){
         table = table[table$Type == type & table$Filter == filter, ]
+        title1 = paste("Type=",type," Filter=",filter, " | TP/FP/FN by tool", sep="")
+        title2 = paste("Type=",type," Filter=",filter, " | Precision, Recall, and F1 by Tool", sep="")
+        name1 = paste(type, "_", filter, "_metric_by_tool_", benchmark, ".png", sep = "")
+        name2 = paste(type, "_", filter, "_variants_by_tool_", benchmark, ".png", sep = "")
+    }
+    else if (stats != "None" ){
+        table = table[table$StatsType == stats, ]
+        title1 = paste("StatsType=",stats, " | TP/FP/FN by tool", sep="")
+        title2 = paste("StatsType=",stats, " | Precision, Recall, and F1 by Tool", sep="")
+        name1 = paste(stats, "_metric_by_tool_", benchmark, ".png", sep = "")
+        name2 = paste(stats, "_variants_by_tool_", benchmark, ".png", sep = "")
+    }
+    else{
+        title1 = paste("TP/FP/FN by tool", sep="")
+        title2 = paste("Precision, Recall, and F1 by Tool", sep="")
+        name1 = paste("metric_by_tool_", benchmark, ".png", sep = "")
+        name2 = paste("variants_by_tool_", benchmark, ".png", sep = "")
     }
     input_data_melted <- melt(table, id.vars = "Tool")
 
@@ -19,58 +37,44 @@ generate_plots <- function(table, benchmark, type, filter) {
     tp_data$variable <- factor(tp_data$variable, levels = c("TP_base", "TP_comp", "FP", "FN"))
     metric_data$variable <- factor(metric_data$variable, levels = c("Precision", "Recall", "F1"))
 
-    if (type != "None" | filter != "None" ){
-        title = paste("Type=",type," Filter=",filter, " | TP/FP/FN by tool", sep="")
-    }else{
-        title = paste("TP/FP/FN by tool", sep="")
-    }
-
     # Visualize TP_base, TP_comp, FP, and FN in separate plots
     tp_plot <- ggplot(tp_data, aes(x = Tool, y = value, color = Tool, group = interaction(variable, Tool))) +
         geom_line() +
         geom_point() +
-        labs(title = title, x = "Tool", y = "Value", color = "Tool") +
+        labs(title = title1, x = "Tool", y = "Value", color = "Tool") +
         facet_wrap(~variable, scales = "free_y") +
         theme_minimal() +
-        theme(legend.position = "right", panel.background = element_rect(fill = "white"))
+        theme(
+            legend.position = "right",
+            panel.background = element_rect(fill = "white"),
+            axis.text.x = element_text(angle = 30, hjust = 0.5))
 
-    if (type != "None" | filter != "None" ){
-        title = paste("Type=",type," Filter=",filter, " | Precision, Recall, and F1 by Tool", sep="")
-    }else{
-        title = paste("Precision, Recall, and F1 by Tool", sep="")
-    }
     # Visualize Precision, Recall, and F1 in separate plots with white background
     metric_plot <- ggplot(metric_data, aes(x = Tool, y = value, color = Tool, shape = variable,  linetype = variable, group = interaction(variable, Tool))) +
         geom_point() +
-        labs(title = title, x = "Tool", y = "Value", color = "Metric", linetype = "Metric") +
+        labs(title = title2, x = "Tool", y = "Value", color = "Metric", linetype = "Metric") +
         theme_minimal() +
-        theme(legend.position = "right", panel.background = element_rect(fill = "white"))
+        theme(
+            legend.position = "right",
+            panel.background = element_rect(fill = "white"),
+            axis.text.x = element_text(angle = 30, hjust = 0.5))
 
     # Save the plots
-    if (type != "None" | filter != "None" ){
-        name = paste(type, "_", filter, "_metric_by_tool_", benchmark, ".png", sep = "")
-    }else{
-        name = paste("metric_by_tool_", benchmark, ".png", sep = "")
-    }
     tryCatch({
         if (!is.null(metric_plot)) {
-            ggsave(name, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
+            ggsave(name1, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         } else {
-            ggsave(name, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
+            ggsave(name1, metric_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         }
     }, error = function(e) {
         message("Error occurred while saving metric plot: ", conditionMessage(e))
     })
-    if (type != "None" | filter != "None" ){
-        name = paste(type, "_", filter, "_variants_by_tool_", benchmark, ".png", sep = "")
-    }else{
-        name = paste("variants_by_tool_", benchmark, ".png", sep = "")
-    }
+
     tryCatch({
         if (!is.null(tp_plot)) {
-            ggsave(name, tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
+            ggsave(name2, tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         } else {
-            ggsave(name,tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
+            ggsave(name2,tp_plot, width = 10, height = 6, units = "in", dpi = 300, limitsize = TRUE)
         }
     }, error = function(e) {
         message("Error occurred while saving TP plot: ", conditionMessage(e))
@@ -88,10 +92,14 @@ table <- read.csv(args[1])
 benchmark <- args[2]
 
 if (benchmark == "happy"){
-    generate_plots(table, benchmark, "SNP", "PASS")
-    generate_plots(table, benchmark, "SNP", "ALL")
-    generate_plots(table, benchmark, "INDEL", "PASS")
-    generate_plots(table, benchmark, "INDEL", "ALL")
+    generate_plots(table, benchmark, "SNP", "PASS", "None")
+    generate_plots(table, benchmark, "SNP", "ALL", "None")
+    generate_plots(table, benchmark, "INDEL", "PASS", "None")
+    generate_plots(table, benchmark, "INDEL", "ALL", "None")
+}else if (benchmark == "wittyer"){
+    generate_plots(table, benchmark, "None", "None", "Base")
+    generate_plots(table, benchmark, "None", "None", "Event")
+
 }else{
-    generate_plots(table, benchmark, "None", "None")
+    generate_plots(table, benchmark, "None", "None", "None")
 }

@@ -31,15 +31,29 @@
                 },
                 "sample": {
                     "type": "string",
-                    "description": "Sample id: HG002/SEQC2",
+                    "description": "Sample id",
+                    "fa_icon": "fas fa-folder-open",
+                    "errorMessage": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
+                },
+                "analysis": {
+                    "type": "string",
+                    "description": "The analysis type used by the input files",
+                    "enum": ["germline", "somatic"],
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "high_conf_small": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "SMALL: Path to the high confidence BED files.",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "SMALL: Path to the high confidence BED or VCF files.",
                     "help_text": "SMALL: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -55,9 +69,9 @@
                 "high_conf_snv": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "SNVs: Path to the high confidence BED files.",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "SNVs: Path to the high confidence BED or VCF files.",
                     "help_text": "SNVs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -73,9 +87,9 @@
                 "high_conf_indel": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "INDELs: Path to the high confidence BED files.",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "INDELs: Path to the high confidence BED or VCF files.",
                     "help_text": "INDELs: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -91,9 +105,9 @@
                 "high_conf_sv": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "SV: Path to the high confidence BED files.",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "SV: Path to the high confidence BED or VCF files.",
                     "help_text": "SV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -109,9 +123,9 @@
                 "high_conf_cnv": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": false,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "CNV: Path to the high confidence BED files.",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "CNV: Path to the high confidence BED or VCF files.",
                     "help_text": "CNV: High confidence BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -124,64 +138,55 @@
                     "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "svync_yaml": {
-                    "type": "string",
-                    "format": "file-path-pattern",
-                    "exists": true,
-                    "pattern": "^\\S+\\.yaml$",
-                    "description": "Custom configuration files for Svync standardization",
-                    "help_text": "Please make sure the caller is the basename of the file (e.g. for lumpy, the config should called 'lumpy.yaml'",
-                    "errorMessage": "A path/glob pattern to existing config files should be given. These files should have the 'yaml' extension"
-                },
-                "analysis": {
-                    "type": "string",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "preprocess": {
                     "type": "string",
-                    "description": "",
+                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: normalization, deduplication, prepy, filter_contigs",
+                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: normalization, deduplication, prepy, filter_contigs",
+                    "pattern": "^((normalization|deduplication|prepy|filter_contigs)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "sv_standardization": {
                     "type": "string",
-                    "description": "",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "method": {
-                    "type": "string",
-                    "description": "",
+                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: homogenize, svync",
+                    "pattern": "^((homogenize|svync)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "min_sv_size": {
                     "type": "integer",
-                    "description": "Maximum SV size of variants to benchmark, 0 to disable , Default:50",
-                    "fa_icon": "fas fa-folder-open"
+                    "description": "Minimum SV size of variants to benchmark, 0 to disable , Default:30",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": 0
                 },
                 "max_sv_size": {
                     "type": "integer",
                     "description": "Maximum SV size of variants to benchmark, -1 to disable , Default:-1",
-                    "fa_icon": "fas fa-folder-open"
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
                 },
                 "min_allele_freq": {
                     "type": "number",
                     "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1",
-                    "fa_icon": "fas fa-folder-open"
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
                 },
                 "min_num_reads": {
                     "type": "integer",
                     "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
-                    "fa_icon": "fas fa-folder-open"
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
                 },
-                "variant_filtering": {
+                "exclude_expression": {
                     "type": "string",
-                    "description": "Use either exclude or include to enable variant filtering using bcftools expressions, Default:null",
-                    "fa_icon": "fas fa-folder-open"
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Default:null",
+                    "fa_icon": "fas fa-folder-open",
+                    "minLength": 1
                 },
-                "expression": {
+                "include_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions here https://samtools.github.io/bcftools/bcftools.html#expressions. This must be coupled with variant_expression, Default:null",
-                    "fa_icon": "fas fa-folder-open"
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Default:null",
+                    "fa_icon": "fas fa-folder-open",
+                    "minLength": 1
                 },
                 "email": {
                     "type": "string",
@@ -229,12 +234,63 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
                 },
+                "sdf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.sdf$",
+                    "description": "The SDF file needed to run rtgtools vcfeval",
+                    "help_text": "This will be automatically generated by the pipeline when missing",
+                    "fa_icon": "fas fa-file-csv"
+                },
                 "igenomes_ignore": {
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "itruth_ignore": {
+                    "type": "boolean",
+                    "description": "Do not load the truth reference config.",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "help_text": "Do not load `truth.config` when running the pipeline. In this case user need to provide necessary truth files. You may choose this option if you observe clashes between custom parameters and those supplied in `truth.config`."
+                },
+                "liftover": {
+                    "type": "boolean",
+                    "description": "Run liftover workflow",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "help_text": "Makes the use of liftover subworkflow, hg37 truth sets will liftover to hg38 and visa versa. Has to be either combined with itruth.config or --chain and --rename_chr."
+                },
+                "chain": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(chain|bed)?(\\.gz)?$",
+                    "description": "Path to the chain file sey required for liftover.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true and --genome is not specified and --itruth is false. A chain can be found under itruth files and can be used together with --genome.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "rename_chr": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.txt$",
+                    "description": "Path to the ranaming chromosomes for lifting over.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true and --genome is not specified and --itruth is false. A rename can be found under assets/rename_contigs or can be used together with --genome.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "dictionary": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.dict$",
+                    "description": "The dictionary file is required ofr liftover process. It has to be .dict of genome file used in the workflow. ",
+                    "help_text": "This will be automatically generated by the pipeline when missing",
+                    "fa_icon": "fas fa-file-csv"
                 }
             }
         },
@@ -242,8 +298,8 @@
             "title": "Institutional config options",
             "type": "object",
             "fa_icon": "fas fa-university",
-            "description": "Parameters used to describe centralised config profiles. These should not be edited.",
-            "help_text": "The centralised nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "description": "Parameters used to describe centralized config profiles. These should not be edited.",
+            "help_text": "The centralized nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
             "properties": {
                 "custom_config_version": {
                     "type": "string",
@@ -372,6 +428,12 @@
                     "hidden": true
                 },
                 "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "fa_icon": "fas fa-palette",
+                    "hidden": true
+                },
+                "monochromeLogs": {
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",

@@ -1,40 +1,53 @@
 
 //
-// COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge tp/fp/fn results from different tools.
+// COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-params.options = [:]
-
-include { BCFTOOLS_QUERY    } from '../../modules/nf-core/bcftools/query'   addParams( options: params.options )
-include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'   addParams( options: params.options )
-include { TABIX_BGZIPTABIX  } from '../../modules/nf-core/tabix/bgziptabix' addParams( options: params.options )
-include { TABIX_BGZIP as TABIX_BGZIP_BENCH } from '../../modules/nf-core/tabix/bgzip'     addParams( options: params.options )
+include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
+include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
+include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
+include { TABIX_BGZIP       } from '../../modules/nf-core/tabix/bgzip'
+include { REFORMAT_HEADER   } from '../../modules/local/custom/reformat_header'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
-    input_ch    // channel: [val(meta), vcf.gz]
-    fai
+    small_ch    // channel: [val(meta), vcf.gz, index]
+    sv_ch       // channel: [val(meta), vcf.gz, index]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = Channel.empty()
+    versions    = Channel.empty()
+    merged_vcfs = Channel.empty()
 
-    //
-    // MODULE: TABIX_BGZIP
-    //
-    // unzip vcfs
-
-    TABIX_BGZIP_BENCH(
-        input_ch
+    // Small Variants
+    REFORMAT_HEADER(
+        small_ch
     )
-    versions = versions.mix(TABIX_BGZIP_BENCH.out.versions)
+    versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
-    TABIX_BGZIP_BENCH.out.output
-                .groupTuple()
-                .set{vcf_ch}
+    // merge small variants
+    BCFTOOLS_MERGE(
+        small_ch.groupTuple(),
+        fasta,
+        fai,
+        []
+    )
+    versions = versions.mix(BCFTOOLS_MERGE.out.versions.first())
+    merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
 
-    //
-    // MODULE: SURVIVOR_MERGE
-    //
+    // SV part
+
+    // unzip vcfs
+    TABIX_BGZIP(
+        sv_ch
+    )
+    versions = versions.mix(TABIX_BGZIP.out.versions.first())
+
+    TABIX_BGZIP.out.output
+        .groupTuple()
+        .set{vcf_ch}
+
     // Merge Benchmark SVs from different tools
     SURVIVOR_MERGE(
         vcf_ch,
@@ -45,24 +58,16 @@ workflow COMPARE_BENCHMARK_RESULTS {
         0,
         30
     )
-    versions = versions.mix(SURVIVOR_MERGE.out.versions)
+    versions = versions.mix(SURVIVOR_MERGE.out.versions.first())
+    merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
-    TABIX_BGZIPTABIX(
-        SURVIVOR_MERGE.out.vcf
+    // convert vcf files to csv
+    VCF_TO_CSV(
+        merged_vcfs
     )
-    versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
-
-    // add a plot to see better supported variants
-    // https://github.com/fritzsedlazeck/SURVIVOR/wiki
-
-    BCFTOOLS_QUERY(
-        TABIX_BGZIPTABIX.out.gz_tbi,
-        [],
-        [],
-        []
-    )
-    versions = versions.mix(BCFTOOLS_QUERY.out.versions)
+    versions = versions.mix(VCF_TO_CSV.out.versions.first())
 
     emit:
     versions
+    merged_vcfs
 }

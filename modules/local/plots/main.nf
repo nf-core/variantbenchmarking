@@ -22,7 +22,7 @@ process PLOTS {
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
 
     """
-    plots.R $summary $prefix
+    plots.R $summary $meta.benchmark_tool
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -30,7 +30,6 @@ process PLOTS {
     END_VERSIONS
     """
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     touch metric_by_tool_${prefix}.png

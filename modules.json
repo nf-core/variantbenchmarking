@@ -5,9 +5,19 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
+                    "bcftools/annotate": {
+                        "branch": "master",
+                        "git_sha": "c1a7fa1c038061b344f2a41be71942061ec40d2e",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/filter": {
                         "branch": "master",
                         "git_sha": "285a50500f9e02578d90b3ce6382ea3c30216acd",
+                        "installed_by": ["modules"]
+                    },
+                    "bcftools/merge": {
+                        "branch": "master",
+                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
                         "installed_by": ["modules"]
                     },
                     "bcftools/norm": {
@@ -45,9 +55,14 @@
                         "git_sha": "320e7351b8721a876e8aa7874d23c58029700c2c",
                         "installed_by": ["modules"]
                     },
+                    "bedtools/merge": {
+                        "branch": "master",
+                        "git_sha": "a5377837fe9013bde89de8689829e83e84086536",
+                        "installed_by": ["modules"]
+                    },
                     "happy/happy": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "41fc46dfd94dddf4fdee633629090c1c3bc9f668",
                         "installed_by": ["modules"]
                     },
                     "happy/prepy": {
@@ -68,6 +83,16 @@
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
+                        "installed_by": ["modules"]
+                    },
+                    "picard/createsequencedictionary": {
+                        "branch": "master",
+                        "git_sha": "759232fe6aed8761bcb3a5d23813f2fa59d985ed",
+                        "installed_by": ["modules"]
+                    },
+                    "picard/liftovervcf": {
+                        "branch": "master",
+                        "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/format": {
@@ -123,6 +148,11 @@
                     "truvari/bench": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "ucsc/liftover": {
+                        "branch": "master",
+                        "git_sha": "f67072004d8127beef877e7ba96ca5a05915d253",
                         "installed_by": ["modules"]
                     },
                     "wittyer": {

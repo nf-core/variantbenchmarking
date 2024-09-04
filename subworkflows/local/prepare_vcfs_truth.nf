@@ -2,76 +2,61 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-params.options = [:]
 
-include { BGZIP_TABIX      } from '../../modules/local/bgzip_tabix.nf'       addParams( options: params.options )
-include { TABIX_BGZIPTABIX } from '../../modules/nf-core/tabix/bgziptabix'   addParams( options: params.options )
-include { BCFTOOLS_NORM    } from '../../modules/nf-core/bcftools/norm'      addParams( options: params.options )
-include { TABIX_TABIX      } from '../../modules/nf-core/tabix/tabix'        addParams( options: params.options )
-include { VCF_VARIANT_DEDUPLICATION                    } from '../local/vcf_variant_deduplication'      addParams( options: params.options )
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH } from '../../modules/nf-core/bcftools/reheader' addParams( options: params.options )
+include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm'
+include { TABIX_TABIX                } from '../../modules/nf-core/tabix/tabix'
+include { VCF_REHEADER_SAMPLENAME    } from '../local/vcf_reheader_samplename'
+include { VCF_VARIANT_DEDUPLICATION  } from '../local/vcf_variant_deduplication'
+include { LIFTOVER_VCFS_TRUTH        } from '../local/liftover_vcfs_truth'
+
 
 workflow PREPARE_VCFS_TRUTH {
     take:
-    truth_ch    // channel: [val(meta), vcf]
-    fasta       // reference channel [val(meta), ref.fa]
-    fai         // reference channel [val(meta), ref.fa.fai]
+    truth_ch        // channel: [val(meta), vcf]
+    high_conf_ch    // channel: [val(meta), bed]
+    fasta           // reference channel [val(meta), ref.fa]
+    fai             // reference channel [val(meta), ref.fa.fai]
+    chain           // reference channel [val(meta), chain.gz]
+    rename_chr      // reference channel [val(meta), chrlist.txt]
+    dictionary      // reference channel [val(meta), genome.dict]
 
     main:
 
-    versions=Channel.empty()
+    versions = Channel.empty()
 
-    //
-    // PREPARE_VCFS
-    //
+    // if liftover option is set convert truth files
+    if (params.liftover){
 
-    // BGZIP if needed and index truth
-    BGZIP_TABIX(
-        truth_ch
-    )
-    versions = versions.mix(BGZIP_TABIX.out.versions)
-    vcf_ch = BGZIP_TABIX.out.gz_tbi
-
-    // Reheader needed to standardize sample names
-    ch_samples = Channel.of(["samples.txt", params.sample,"truth"])
-                    .collectFile(newLine:false)
-
-    vcf_ch.combine(ch_samples)
-            .map{it -> tuple( it[0], it[1], [], it[3])}
-            .set{input_ch}
-    //
-    // BCFTOOLS_REHEADER
-    //
-    // Add "truth" to test sample
-    BCFTOOLS_REHEADER_TRUTH(
-        input_ch,
-        fai
+        LIFTOVER_VCFS_TRUTH(
+            truth_ch,
+            high_conf_ch,
+            fasta,
+            chain,
+            rename_chr,
+            dictionary
         )
-    versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
+        versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
+        truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
+        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch
+    }
 
-    //
-    // TABIX_BGZIPTABIX
-    //
-    // bgzip and index vcf file
-    TABIX_BGZIPTABIX(
-        BCFTOOLS_REHEADER_TRUTH.out.vcf
+    // Reheader sample name for truth file - using meta.caller
+    VCF_REHEADER_SAMPLENAME(
+        truth_ch,
+        fai
     )
-    vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
+    versions = versions.mix(VCF_REHEADER_SAMPLENAME.out.versions.first())
+    vcf_ch   = VCF_REHEADER_SAMPLENAME.out.ch_vcf
 
     if (params.preprocess.contains("normalization")){
-        //
-        // MODULE:  BCFTOOLS_NORM
-        //
-        // Normalize test
+
         // multi-allelic variants will be splitted.
         BCFTOOLS_NORM(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions)
-        //
-        // TABIX_BGZIPTABIX
-        //
+        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
+
         // index vcf file
         TABIX_TABIX(
             BCFTOOLS_NORM.out.vcf
@@ -82,18 +67,18 @@ workflow PREPARE_VCFS_TRUTH {
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("deduplication")){
-        //
-        // VCF_VARIANT_DEDUPLICATION
-        //
+
         // Deduplicates variants at the same position test
         VCF_VARIANT_DEDUPLICATION(
             vcf_ch,
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
-        }
+        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
+    }
 
     emit:
     vcf_ch
+    high_conf_ch
     versions
 }

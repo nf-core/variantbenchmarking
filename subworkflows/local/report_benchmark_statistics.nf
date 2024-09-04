@@ -16,16 +16,19 @@ workflow REPORT_BENCHMARK_STATISTICS {
     main:
 
     versions = Channel.empty()
-
+    
+    // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
     )
+    versions = versions.mix(MERGE_REPORTS.out.versions.first())
 
-    versions = versions.mix(MERGE_REPORTS.out.versions)
-
+    // plot summary statistics
     PLOTS(
         MERGE_REPORTS.out.summary
     )
+    versions = versions.mix(PLOTS.out.versions.first())
+
 
     versions = versions.mix(PLOTS.out.versions)
 
