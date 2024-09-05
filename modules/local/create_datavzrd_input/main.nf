@@ -13,6 +13,6 @@ process CREATE_DATAVZRD_INPUT {
     """
     #!/bin/bash
 
-    cat "$template" | sed "s|{{csvpath}}|$csv|g" > config.yaml
+    cat "$template" | sed "s|CSVPATH|$csv|g" > config.yaml
     """
 }
