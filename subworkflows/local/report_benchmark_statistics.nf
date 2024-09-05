@@ -16,7 +16,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     main:
 
     versions = Channel.empty()
-    
+
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
@@ -29,25 +29,23 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
     versions = versions.mix(PLOTS.out.versions.first())
 
-
-    versions = versions.mix(PLOTS.out.versions)
-
-    //def template = new File( '${workflow.projectDir}/assets/datavzrd/datavzrd.template.yaml', checkIfExists:true)
-    // template_ch = Channel
-    //     .of([ id:"datavzrd_template" ], template)
-    //     .collate( 2 )
-    //     .view()
+    // add path to csv file to the datavzrd input
     template = Channel.fromPath( "$projectDir/assets/datavzrd/datavzrd.template.yaml", checkIfExists:true)
-
     CREATE_DATAVZRD_INPUT (
         template,
         MERGE_REPORTS.out.summary
     )
 
+    // use datavzrd to render the report based on the create input
+    // input consists of config file and the table itself
     DATAVZRD (
         CREATE_DATAVZRD_INPUT.out.config
     )
+    versions = versions.mix(DATAVZRD.out.versions.first())
+
+    datavzrd_report = DATAVZRD.out.report
 
     emit:
     versions
+    datavzrd_report
 }

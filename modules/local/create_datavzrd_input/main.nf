@@ -12,13 +12,7 @@ process CREATE_DATAVZRD_INPUT {
     script:
     """
     #!/bin/bash
-    # Use Groovy to fill in the template and generate the YAML file
-    # groovy -e \"
-    def template = new File('\$template').text
-    def engine = new groovy.text.SimpleTemplateEngine()
-    def binding = [csvpath: '\$csv']
-    def yaml = engine.createTemplate(template).make(binding).toString()
-    new File('config.yaml').write(yaml)
-    # \"
+
+    cat "$template" | sed "s|{{csvpath}}|$csv|g" > config.yaml
     """
 }
