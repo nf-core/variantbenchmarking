@@ -9,13 +9,9 @@ views:
       columns:
         Tool:
           display-mode: normal
-        Type:
-          display-mode: normal
-        Filter:
+        Threshold:
           display-mode: normal
         TP_base:
-          display-mode: normal
-        TP:
           display-mode: normal
         FN:
           display-mode: normal
@@ -23,6 +19,10 @@ views:
           display-mode: normal
         FP:
           display-mode: normal
-        UNK:
+        Precision:
+          display-mode: normal
+        Recall:
+          display-mode: normal
+        F1:
           display-mode: normal
 # FP_gt,FP_al,Recall,Precision,Frac_NA,F1,TRUTH_TiTv_ratio,QUERY_TiTv_ratio,TRUTH_het_hom_ratio,QUERY_het_hom_ratio
