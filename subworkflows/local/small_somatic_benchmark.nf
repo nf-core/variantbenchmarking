@@ -13,8 +13,9 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
     main:
 
-    versions =          Channel.empty()
-    summary_reports =   Channel.empty()
+    versions        = Channel.empty()
+    summary_reports = Channel.empty()
+    report_multiqc  = Channel.empty()
 
     if (params.method.contains('sompy')){
         // apply sompy for small somatic variant ebnchmarking
@@ -29,6 +30,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
             [[],[]]
         )
         versions = versions.mix(HAPPY_SOMPY.out.versions.first())
+        report_multiqc = report_multiqc.mix(HAPPY_SOMPY.out.stats.collect{ meta, stats -> [ stats ] })
 
         HAPPY_SOMPY.out.stats
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "sompy"], file) }
@@ -59,4 +61,5 @@ workflow SMALL_SOMATIC_BENCHMARK {
     emit:
     summary_reports
     versions
+    report_multiqc
 }

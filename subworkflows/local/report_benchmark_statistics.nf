@@ -12,19 +12,24 @@ workflow REPORT_BENCHMARK_STATISTICS {
     main:
 
     versions = Channel.empty()
+    report_multiqc  = Channel.empty()
+
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
     )
     versions = versions.mix(MERGE_REPORTS.out.versions.first())
+    report_multiqc = report_multiqc.mix(MERGE_REPORTS.out.summary.collect{ meta, summary -> [ summary ] })
 
     // plot summary statistics
     PLOTS(
         MERGE_REPORTS.out.summary
     )
     versions = versions.mix(PLOTS.out.versions.first())
+    //report_multiqc = report_multiqc.mix(PLOTS.out.plots.collect{ meta, plots -> [ plots ] })
 
 
     emit:
     versions
+    report_multiqc
 }

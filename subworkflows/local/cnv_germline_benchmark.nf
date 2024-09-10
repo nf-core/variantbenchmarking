@@ -16,6 +16,7 @@ workflow CNV_GERMLINE_BENCHMARK {
 
     versions =        Channel.empty()
     summary_reports = Channel.empty()
+    report_multiqc  = Channel.empty()
 
     // CNV benchmarking is only possible with wittyer now!
 
@@ -45,6 +46,7 @@ workflow CNV_GERMLINE_BENCHMARK {
             .join(bed, failOnMismatch: true, failOnDuplicate: true)
     )
     versions = versions.mix(WITTYER.out.versions.first())
+    report_multiqc = report_multiqc.mix(WITTYER.out.report.collect{ meta, report -> [ report ] })
 
     WITTYER.out.report
         .map { meta, file ->
@@ -58,4 +60,6 @@ workflow CNV_GERMLINE_BENCHMARK {
     emit:
     summary_reports
     versions
+    report_multiqc
+
 }

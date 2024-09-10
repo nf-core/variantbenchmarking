@@ -55,6 +55,7 @@ workflow VARIANTBENCHMARKING {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
     ch_reports       = Channel.empty()
+    ch_summary       = Channel.empty()
     truth_ch         = Channel.empty()
     high_conf_ch     = Channel.empty()
     bench_ch         = Channel.empty()
@@ -356,6 +357,7 @@ workflow VARIANTBENCHMARKING {
     ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
     ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
     sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+    ch_summary  = ch_summary.mix(SV_GERMLINE_BENCHMARK.out.report_multiqc)
 
     if (params.analysis.contains("germline")){
 
@@ -369,6 +371,7 @@ workflow VARIANTBENCHMARKING {
         ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
         small_evals_ch = small_evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
+        ch_summary  = ch_summary.mix(SMALL_GERMLINE_BENCHMARK.out.report_multiqc)
 
         // Benchmarking spesific to CNV germline samples
         CNV_GERMLINE_BENCHMARK(
@@ -378,6 +381,7 @@ workflow VARIANTBENCHMARKING {
         )
         ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
+        ch_summary  = ch_summary.mix(CNV_GERMLINE_BENCHMARK.out.report_multiqc)
     }
 
     // TODO: SOMATIC BENCHMARKING
@@ -392,6 +396,7 @@ workflow VARIANTBENCHMARKING {
         )
         ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+        ch_summary  = ch_summary.mix(SMALL_SOMATIC_BENCHMARK.out.report_multiqc)
 
     }
 
@@ -409,6 +414,7 @@ workflow VARIANTBENCHMARKING {
         ch_reports
     )
     ch_versions = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
+    ch_summary  = ch_summary.mix(REPORT_BENCHMARK_STATISTICS.out.report_multiqc)
 
     // TODO: BENCHMARKING OF CNV
     // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
@@ -456,6 +462,7 @@ workflow VARIANTBENCHMARKING {
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files = ch_multiqc_files.mix(ch_summary)
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_methods_description.collectFile(
             name: 'methods_description_mqc.yaml',

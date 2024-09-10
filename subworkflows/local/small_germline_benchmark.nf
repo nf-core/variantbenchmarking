@@ -23,6 +23,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
     versions        = Channel.empty()
     summary_reports = Channel.empty()
     tagged_variants = Channel.empty()
+    report_multiqc  = Channel.empty()
 
     if (params.method.contains('rtgtools')){
 
@@ -45,6 +46,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
             sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions.first())
+        report_multiqc = report_multiqc.mix(RTGTOOLS_VCFEVAL.out.summary.collect{ meta, summary -> [ summary ] })
 
         // collect summary reports
         RTGTOOLS_VCFEVAL.out.summary
@@ -143,6 +145,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
             [[],[]]
         )
         versions = versions.mix(HAPPY_HAPPY.out.versions.first())
+        report_multiqc = report_multiqc.mix(HAPPY_HAPPY.out.summary_csv.collect{ meta, summary -> [ summary ] })
 
         // tag meta and collect summary reports
         HAPPY_HAPPY.out.summary_csv
@@ -155,5 +158,6 @@ workflow SMALL_GERMLINE_BENCHMARK {
     versions
     summary_reports
     tagged_variants
+    report_multiqc
 
 }

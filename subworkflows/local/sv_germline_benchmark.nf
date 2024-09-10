@@ -20,9 +20,10 @@ workflow SV_GERMLINE_BENCHMARK {
 
     main:
 
-    versions =          Channel.empty()
+    versions        =   Channel.empty()
     summary_reports =   Channel.empty()
     tagged_variants =   Channel.empty()
+    report_multiqc  =   Channel.empty()
 
     // SV benchmarking
     if (params.method.contains('truvari')){
@@ -34,6 +35,7 @@ workflow SV_GERMLINE_BENCHMARK {
             fai
         )
         versions = versions.mix(TRUVARI_BENCH.out.versions.first())
+        report_multiqc = report_multiqc.mix(TRUVARI_BENCH.out.summary.collect{ meta, summary -> [ summary ] })
 
         TRUVARI_BENCH.out.summary
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "truvari"], file) }
@@ -105,6 +107,7 @@ workflow SV_GERMLINE_BENCHMARK {
             fai
         )
         versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions.first())
+        report_multiqc = report_multiqc.mix(SVANALYZER_SVBENCHMARK.out.report.collect{ meta, report -> [ report ] })
 
         // tag and collect summary file
         SVANALYZER_SVBENCHMARK.out.report
@@ -161,6 +164,7 @@ workflow SV_GERMLINE_BENCHMARK {
                 .join(bed, failOnDuplicate:true, failOnMismatch:true)
         )
         versions = versions.mix(WITTYER.out.versions.first())
+        report_multiqc = report_multiqc.mix(WITTYER.out.report.collect{ meta, report -> [ report ] })
 
         WITTYER.out.report
             .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) }
@@ -173,5 +177,6 @@ workflow SV_GERMLINE_BENCHMARK {
     emit:
     tagged_variants
     summary_reports
+    report_multiqc
     versions
 }
