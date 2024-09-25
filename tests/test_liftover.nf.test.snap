@@ -1,0 +1,280 @@
+{
+    "dragen1_truvari_bench": {
+        "content": [
+            "dragen1.HG002.sv.dragen.fp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi",
+            "dragen1.HG002.sv.dragen.fn.vcf.gz.tbi"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.449629708"
+    },
+    "dragen1_stats": {
+        "content": [
+            "dragen1.sv.dragen.stats:md5,8623950b7f64076ac0d2e670da5f566e",
+            "dragen1.sv.dragen.bcftools_stats.txt:md5,9c6a602a78abeaaf069995469afaa132"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.43172635"
+    },
+    "bcftools1_happy_bench": {
+        "content": [
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz:md5,c68a963c2c121485f56cfc72a85876dc",
+            "bcftools1.HG002.small.bcftools.extended.csv:md5,86dbada2d5a4b2236eab3388be9a38e4",
+            "bcftools1.HG002.small.bcftools.summary.csv:md5,66f674471da6f6e371cc6f74cd8628bc",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,0794b7cd1527625e1360e6f8edd12df3",
+            "bcftools1.HG002.small.bcftools.metrics.json.gz",
+            "bcftools1.HG002.small.bcftools.roc.all.csv.gz:md5,028ac1808f03a47475325c871384fd7f",
+            "bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz:md5,4cf8f40bb3d445c90020c2cf1e281859",
+            "bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz:md5,1369e592dff5ca0dcc280509bac9137b",
+            "bcftools1.HG002.small.bcftools.vcf.gz.tbi"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-25T11:40:47.348471652"
+    },
+    "references_rtgtools": {
+        "content": [
+            "genome.sdf"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:41.484036605"
+    },
+    "references_dictionary": {
+        "content": [
+            "genome.dict"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-25T11:40:47.509039884"
+    },
+    "manta1_svanalyzer_bench": {
+        "content": [
+            "manta1.HG002.sv.manta.falsenegatives.vcf.gz",
+            "manta1.HG002.sv.manta.falsepositives.vcf.gz",
+            "manta1.HG002.sv.manta.distances:md5,df088904349fb02ee94dd9238c81d09a",
+            "manta1.HG002.sv.manta.report:md5,1931f16c7e01a43c5271770a44ee351d"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.519187753"
+    },
+    "strelka1_rtgtools_bench": {
+        "content": [
+            "strelka1.HG002.small.strelka.tp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.fn.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.fp.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.snp_roc.tsv.gz:md5,55832cf082d832d955fad26b21016156",
+            "strelka1.HG002.small.strelka.non_snp_roc.tsv.gz:md5,65bda24d8eb91244e77c4468962bc4fc",
+            "strelka1.HG002.small.strelka.weighted_roc.tsv.gz:md5,cfadf2c5613d7a6667da5c9a07116008",
+            "strelka1.HG002.small.strelka.summary.txt:md5,4b775edb878759727ef66d5d5b2b9ee8",
+            "strelka1.HG002.small.strelka.phasing.txt:md5,0c9340e64e032b5f74d0ea3773464afd"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.792113384"
+    },
+    "merged1_svanalyzer_bench": {
+        "content": [
+            "merged1.HG002.sv.merged.falsenegatives.vcf.gz",
+            "merged1.HG002.sv.merged.falsepositives.vcf.gz",
+            "merged1.HG002.sv.merged.distances:md5,a7e99920aae2935e57de8cdb288c481c",
+            "merged1.HG002.sv.merged.report:md5,ed7c4d02d8b7f2eaa9c25ed695752b1c"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.540661742"
+    },
+    "summary_comparisons": {
+        "content": [
+            "rtgtools.small.FP.csv",
+            "rtgtools.small.TP_comp.csv",
+            "rtgtools.small.FN.csv",
+            "rtgtools.small.TP_base.csv",
+            "truvari.sv.TP_comp.csv",
+            "truvari.sv.TP_base.csv",
+            "svbenchmark.sv.FN.csv",
+            "truvari.sv.FP.csv",
+            "svbenchmark.sv.FP.csv",
+            "truvari.sv.FN.csv"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:41.69598866"
+    },
+    "manta1_truvari_bench": {
+        "content": [
+            "manta1.HG002.sv.manta.fp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-base.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi",
+            "manta1.HG002.sv.manta.fn.vcf.gz.tbi"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.508489124"
+    },
+    "strelka1_happy_bench": {
+        "content": [
+            "strelka1.HG002.small.strelka.summary.csv:md5,ea84684274c6b4eb05837d740c02ebd3",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz:md5,0d6c1e31b740efe820a2862e8e167494",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz:md5,784b480e5714b8fe5c8846ac15af1c49",
+            "strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz:md5,ffd747c4762c6f5d8e962099e3554e27",
+            "strelka1.HG002.small.strelka.extended.csv:md5,f3aa732d7a259b2673a29bf2e810720c",
+            "strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,990be69e9c2a7f365f5af8f85ed56652",
+            "strelka1.HG002.small.strelka.roc.all.csv.gz:md5,28257b42a12c4702ee81fe142184b820",
+            "strelka1.HG002.small.strelka.vcf.gz.tbi",
+            "strelka1.HG002.small.strelka.metrics.json.gz"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:40.405514941"
+    },
+    "manta1_stats": {
+        "content": [
+            "manta1.sv.manta.bcftools_stats.txt:md5,bf7f604b8672df926955fbb220d54a18",
+            "manta1.sv.manta.stats:md5,1314f42d264d3388311d353c6e75d760"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.469784677"
+    },
+    "bcftools1_stats": {
+        "content": [
+            "bcftools1.small.bcftools.bcftools_stats.txt:md5,8b74feed95dfa4e904744afaf9466dd5"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:40.510582053"
+    },
+    "HG002_stats": {
+        "content": [
+            "HG002.sv.bcftools_stats.txt:md5,385d84076ca827024d6140d2cfc9c67f",
+            "HG002.small.bcftools_stats.txt:md5,5226ba152b67c5b154bd824a30a0358f",
+            "HG002.sv.stats:md5,48319a2bb1ec332038f149d5b034e9f5"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.419570201"
+    },
+    "bcftools1_rtgtools_bench": {
+        "content": [
+            "bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.snp_roc.tsv.gz:md5,f1586d39abdd57a9538e49e83d332ce3",
+            "bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi",
+            "bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz:md5,b53971a3f2253b840f015307d95b4914",
+            "bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz:md5,21ee17628446776bc3f225141376f1f8",
+            "bcftools1.HG002.small.bcftools.summary.txt:md5,264eb2b064a9ee4b098470a13c2887c9",
+            "bcftools1.HG002.small.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:40.793055154"
+    },
+    "merged1_stats": {
+        "content": [
+            "merged1.sv.merged.bcftools_stats.txt:md5,c2589588c4110e07a29b40e229a31d42",
+            "merged1.sv.merged.stats:md5,57692c18704222f1b90f9c61a64e8ea5"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.528968313"
+    },
+    "strelka1_stats": {
+        "content": [
+            "strelka1.small.strelka.bcftools_stats.txt:md5,86ab5282437f4771dd8bbc1e6f2ac22a"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.613994537"
+    },
+    "merged1_truvari_bench": {
+        "content": [
+            "merged1.HG002.sv.merged.fp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-base.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi",
+            "merged1.HG002.sv.merged.fn.vcf.gz.tbi"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.597411838"
+    },
+    "summary_tables": {
+        "content": [
+            "rtgtools.small.summary.csv",
+            "happy.small.summary.csv",
+            "truvari.sv.summary.csv",
+            "svbenchmark.sv.summary.csv"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:41.591481867"
+    },
+    "HG002_liftover": {
+        "content": [
+            "HG002.sv.sort.merged.bed:md5,256bb0d84847cce1028e7791c469a4db",
+            "HG002.small.sort.merged.bed:md5,5e997133249c2227cb5363b314245636"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-25T11:40:46.722520926"
+    },
+    "dragen1_svanalyzer_bench": {
+        "content": [
+            "dragen1.HG002.sv.dragen.falsenegatives.vcf.gz",
+            "dragen1.HG002.sv.dragen.falsepositives.vcf.gz",
+            "dragen1.HG002.sv.dragen.distances:md5,2f6b13760a3fdb24cde9294017ac68e0",
+            "dragen1.HG002.sv.dragen.report:md5,d9bd8d845453644688247d1258a69768"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-09-11T13:26:39.460021307"
+    }
+}

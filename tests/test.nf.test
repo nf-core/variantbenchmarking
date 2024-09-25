@@ -1,0 +1,221 @@
+
+nextflow_pipeline {
+
+    name "Test Workflow main.nf - test"
+    script "main.nf"
+    profile "test"
+    tag "test"
+    tag "pipeline"
+
+    test("test") {
+
+        config "../conf/test.config"
+
+        when {
+            params {
+                max_cpus             = 2
+                max_memory           = '6.GB'
+                max_time             = '6.h'
+                input                = "https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/SV_testdata/samplesheet_HG002_hg38.csv"
+                outdir               = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert workflow.trace.succeeded().size() == 203 },
+
+                { assert snapshot(
+                    path("$outputDir/dragen1/stats/survivor/dragen1.sv.dragen.stats"),
+                    path("$outputDir/dragen1/stats/bcftools/dragen1.sv.dragen.bcftools_stats.txt")
+                ).match("dragen1_stats") },
+
+                { assert path("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fp.vcf.gz.tbi").name,
+                    file("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-base.vcf.gz.tbi").name,
+                    file("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.tp-comp.vcf.gz.tbi").name,
+                    file("$outputDir/dragen1/truvari_bench/dragen1.HG002.sv.dragen.fn.vcf.gz.tbi").name
+                ).match("dragen1_truvari_bench") },
+
+                { assert path("$outputDir/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/dragen1/wittyer_bench/dragen1.HG002.sv.dragen.vcf.gz.tbi").name
+                ).match("dragen1_wittyer_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.report"),
+                    path("$outputDir/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.distances"),
+                    file("$outputDir/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsenegatives.vcf.gz").name,
+                    file("$outputDir/dragen1/svanalyzer_bench/dragen1.HG002.sv.dragen.falsepositives.vcf.gz").name
+                ).match("dragen1_svanalyzer_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/manta1/stats/survivor/manta1.sv.manta.stats"),
+                    path("$outputDir/manta1/stats/bcftools/manta1.sv.manta.bcftools_stats.txt")
+                ).match("manta1_stats") },
+
+                { assert path("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.fn.vcf.gz.tbi").name,
+                    file("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.fp.vcf.gz.tbi").name,
+                    file("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.tp-base.vcf.gz.tbi").name,
+                    file("$outputDir/manta1/truvari_bench/manta1.HG002.sv.manta.tp-comp.vcf.gz.tbi").name
+                ).match("manta1_truvari_bench") },
+
+                { assert path("$outputDir/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/manta1/wittyer_bench/manta1.HG002.sv.manta.vcf.gz.tbi").name,
+                ).match("manta1_wittyer_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/manta1/svanalyzer_bench/manta1.HG002.sv.manta.report"),
+                    path("$outputDir/manta1/svanalyzer_bench/manta1.HG002.sv.manta.distances"),
+                    file("$outputDir/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsenegatives.vcf.gz").name,
+                    file("$outputDir/manta1/svanalyzer_bench/manta1.HG002.sv.manta.falsepositives.vcf.gz").name
+                ).match("manta1_svanalyzer_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/merged1/stats/survivor/merged1.sv.merged.stats"),
+                    path("$outputDir/merged1/stats/bcftools/merged1.sv.merged.bcftools_stats.txt")
+                ).match("merged1_stats") },
+
+                { assert path("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.fp.vcf.gz.tbi").name,
+                    file("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.tp-base.vcf.gz.tbi").name,
+                    file("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.tp-comp.vcf.gz.tbi").name,
+                    file("$outputDir/merged1/truvari_bench/merged1.HG002.sv.merged.fn.vcf.gz.tbi").name
+                ).match("merged1_truvari_bench") },
+
+                { assert path("$outputDir/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/merged1/wittyer_bench/merged1.HG002.sv.merged.vcf.gz.tbi").name
+                ).match("merged1_wittyer_bench") },
+
+                { assert snapshot(
+                    file("$outputDir/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsenegatives.vcf.gz").name,
+                    path("$outputDir/merged1/svanalyzer_bench/merged1.HG002.sv.merged.distances"),
+                    file("$outputDir/merged1/svanalyzer_bench/merged1.HG002.sv.merged.falsepositives.vcf.gz").name,
+                    path("$outputDir/merged1/svanalyzer_bench/merged1.HG002.sv.merged.report")
+                ).match("merged1_svanalyzer_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/HG002/stats/bcftools/HG002.small.bcftools_stats.txt"),
+                    path("$outputDir/HG002/stats/bcftools/HG002.sv.bcftools_stats.txt"),
+                    path("$outputDir/HG002/stats/survivor/HG002.sv.stats")
+                ).match("HG002_stats") },
+
+                { assert snapshot(
+                    path("$outputDir/bcftools1/stats/bcftools/bcftools1.small.bcftools.bcftools_stats.txt")
+                ).match("bcftools1_stats") },
+
+                { assert path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp.vcf.gz.tbi").name,
+                    file("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fn.vcf.gz.tbi").name,
+                    file("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.fp.vcf.gz.tbi").name,
+                    file("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.tp-baseline.vcf.gz.tbi").name,
+                    path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.non_snp_roc.tsv.gz"),
+                    path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.snp_roc.tsv.gz"),
+                    path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.weighted_roc.tsv.gz"),
+                    path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.phasing.txt"),
+                    path("$outputDir/bcftools1/rtgtools_bench/bcftools1.HG002.small.bcftools.summary.txt")
+                ).match("bcftools1_rtgtools_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.all.csv.gz"),
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.PASS.csv.gz"),
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.summary.csv"),
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.SNP.csv.gz"),
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.PASS.csv.gz"),
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.roc.Locations.INDEL.csv.gz"),
+                    file("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.metrics.json.gz").name,
+                    path("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.extended.csv"),
+                    file("$outputDir/bcftools1/happy_bench/bcftools1.HG002.small.bcftools.vcf.gz.tbi").name
+                ).match("bcftools1_happy_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/strelka1/stats/bcftools/strelka1.small.strelka.bcftools_stats.txt")
+                ).match("strelka1_stats") },
+
+                { assert path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+                { assert path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz").linesGzip.contains("##fileformat=VCFv4.2") },
+
+                { assert snapshot(
+                    file("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp.vcf.gz.tbi").name,
+                    file("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.tp-baseline.vcf.gz.tbi").name,
+                    path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.snp_roc.tsv.gz"),
+                    file("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fp.vcf.gz.tbi").name,
+                    path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.non_snp_roc.tsv.gz"),
+                    path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.weighted_roc.tsv.gz"),
+                    path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.summary.txt"),
+                    path("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.phasing.txt"),
+                    file("$outputDir/strelka1/rtgtools_bench/strelka1.HG002.small.strelka.fn.vcf.gz.tbi").name,
+                ).match("strelka1_rtgtools_bench") },
+
+                { assert snapshot(
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.summary.csv"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.csv.gz"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.all.csv.gz"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.INDEL.PASS.csv.gz"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.csv.gz"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.roc.Locations.SNP.PASS.csv.gz"),
+                    path("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.extended.csv"),
+                    file("$outputDir/strelka1/happy_bench/strelka1.HG002.small.strelka.metrics.json.gz").name,
+                ).match("strelka1_happy_bench") },
+
+                { assert snapshot(
+                    file("$outputDir/references/rtgtools/genome.sdf").name
+                ).match("references_rtgtools") },
+
+                { assert snapshot(
+                    file("$outputDir/summary/tables/sv/truvari/truvari.sv.summary.csv").name,
+                    file("$outputDir/summary/tables/sv/wittyer/wittyer.sv.summary.csv").name,
+                    file("$outputDir/summary/tables/sv/svbenchmark/svbenchmark.sv.summary.csv").name,
+                    file("$outputDir/summary/tables/small/rtgtools/rtgtools.small.summary.csv").name,
+                    file("$outputDir/summary/tables/small/happy/happy.small.summary.csv").name
+                ).match("summary_tables") },
+
+                { assert snapshot(
+                    file("$outputDir/summary/comparisons/sv/truvari.sv.TP_comp.csv").name,
+                    file("$outputDir/summary/comparisons/sv/svbenchmark.sv.FN.csv").name,
+                    file("$outputDir/summary/comparisons/sv/truvari.sv.TP_base.csv").name,
+                    file("$outputDir/summary/comparisons/sv/truvari.sv.FN.csv").name,
+                    file("$outputDir/summary/comparisons/sv/truvari.sv.FP.csv").name,
+                    file("$outputDir/summary/comparisons/sv/svbenchmark.sv.FP.csv").name,
+                    file("$outputDir/summary/comparisons/small/rtgtools.small.TP_base.csv").name,
+                    file("$outputDir/summary/comparisons/small/rtgtools.small.FP.csv").name,
+                    file("$outputDir/summary/comparisons/small/rtgtools.small.FN.csv").name,
+                    file("$outputDir/summary/comparisons/small/rtgtools.small.TP_comp.csv").name
+                ).match("summary_comparisons") },
+
+            )
+        }
+
+    }
+
+}
