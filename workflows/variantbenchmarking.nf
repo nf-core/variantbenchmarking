@@ -145,6 +145,7 @@ workflow VARIANTBENCHMARKING {
 
     out_vcf_ch  = Channel.empty()
 
+    input.multisample.view()
     SUBSAMPLE_VCF_TEST(
         input.multisample
     )
