@@ -250,6 +250,7 @@ def main(args=None):
 
 		summ_table.reset_index(drop=True, inplace=True)
 		summ_table.to_csv(args.output + ".summary.csv", index=False)
+
 	else:
 		raise ValueError('Analysis must be germline or somatic')
 
