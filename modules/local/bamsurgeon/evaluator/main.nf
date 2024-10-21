@@ -4,8 +4,8 @@ process BAMSURGEON_EVALUATOR {
 
     conda ""
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'docker://lethalfang/bamsurgeon:1.2':
-        'lethalfang/bamsurgeon:1.2' }"
+        'oras://community.wave.seqera.io/library/bamsurgeon_pysam_pyvcf:8cf4d158d3498e25':
+        'community.wave.seqera.io/library/bamsurgeon_pysam_pyvcf:8cf4d158d3498e25' }"
 
     input:
     tuple val(meta), path(vcf), path(tbi), path(truth_vcf), path(truth_tbi)
@@ -28,7 +28,7 @@ process BAMSURGEON_EVALUATOR {
     def muttype = meta.vartype.contains("snv") ? "SNV" : meta.vartype.contains("indel") ? "INDEL" : meta.vartype.contains("sv") ? "SV" : ""
 
     """
-    python3 /usr/local/bamsurgeon/scripts/evaluator.py \\
+    evaluator.py \\
         -v $vcf \\
         -t $truth_vcf \\
         -f $fasta \\

@@ -1,4 +1,4 @@
-process VARIANT_EXTRACTOR {
+process ONCOLINER_VARIANT_EXTRACTOR {
     tag "$meta.id"
     label 'process_single'
 

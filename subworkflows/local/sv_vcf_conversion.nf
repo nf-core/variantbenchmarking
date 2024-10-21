@@ -4,10 +4,10 @@ import groovy.io.FileType
 // SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
 //
 
-include { SVYNC                   } from '../../modules/nf-core/svync'
-include { BGZIP_TABIX             } from '../../modules/local/bgzip/tabix'
-include { VARIANT_EXTRACTOR       } from '../../modules/local/variant_extractor'
-include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'
+include { SVYNC                       } from '../../modules/nf-core/svync'
+include { BGZIP_TABIX                 } from '../../modules/local/bgzip/tabix'
+include { ONCOLINER_VARIANT_EXTRACTOR } from '../../modules/local/oncoliner/variant_extractor'
+include { BCFTOOLS_SORT               } from '../../modules/nf-core/bcftools/sort'
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -20,16 +20,16 @@ workflow SV_VCF_CONVERSIONS {
 
     if (params.sv_standardization.contains("homogenize")){
         // uses VariantExtractor to homogenize variants
-        VARIANT_EXTRACTOR(
+        ONCOLINER_VARIANT_EXTRACTOR(
             input_ch,
             fasta,
             fai
         )
-        versions = versions.mix(VARIANT_EXTRACTOR.out.versions.first())
+        versions = versions.mix(ONCOLINER_VARIANT_EXTRACTOR.out.versions.first())
 
         // sort vcf
         BCFTOOLS_SORT(
-            VARIANT_EXTRACTOR.out.output
+            ONCOLINER_VARIANT_EXTRACTOR.out.output
         )
         versions = versions.mix(BCFTOOLS_SORT.out.versions.first())
         input_ch = BCFTOOLS_SORT.out.vcf

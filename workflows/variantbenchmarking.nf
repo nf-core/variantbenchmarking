@@ -36,6 +36,7 @@ include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_
 include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
 include { CNV_GERMLINE_BENCHMARK      } from '../subworkflows/local/cnv_germline_benchmark'
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
+include { SV_SOMATIC_BENCHMARK        } from '../subworkflows/local/sv_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 
@@ -392,6 +393,14 @@ workflow VARIANTBENCHMARKING {
         )
         ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
         ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+
+        SV_SOMATIC_BENCHMARK(
+            bench_input.sv,
+            fasta,
+            fai
+        )
+        ch_versions = ch_versions.mix(SV_SOMATIC_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(SV_SOMATIC_BENCHMARK.out.summary_reports)
 
     }
 

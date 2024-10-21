@@ -43,9 +43,9 @@
                 },
                 "method": {
                     "type": "string",
-                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
-                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
+                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, bamsurgeon, oncoliner",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, bamsurgeon, oncoliner",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|bamsurgeon|oncoliner)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "high_conf_small": {
