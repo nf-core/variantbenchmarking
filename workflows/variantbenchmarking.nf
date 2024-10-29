@@ -361,7 +361,7 @@ workflow VARIANTBENCHMARKING {
 
         // Benchmarking spesific to small germline samples
         SMALL_GERMLINE_BENCHMARK(
-            bench_input.small,
+            bench_input.small.mix(bench_input.snv,bench_input.indel),
             fasta,
             fai,
             sdf
