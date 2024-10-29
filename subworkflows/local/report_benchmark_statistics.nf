@@ -26,11 +26,19 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
     versions = versions.mix(PLOTS.out.versions.first())
 
+    MERGE_REPORTS.out.summary
+        .map { meta, file -> tuple([vartype: meta.vartype] + [id: meta.benchmark_tool], file) }
+        .set { summary }
+
     // add path to csv file to the datavzrd input
-    template = Channel.fromPath( "$projectDir/assets/datavzrd/datavzrd.template.yaml", checkIfExists:true)
+    summary
+        .map { meta, summary ->
+                [ meta, summary, file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists:true) ]
+            }
+        .set {template}
+
     CREATE_DATAVZRD_INPUT (
-        template,
-        MERGE_REPORTS.out.summary
+        template
     )
 
     // use datavzrd to render the report based on the create input

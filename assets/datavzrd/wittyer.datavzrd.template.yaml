@@ -1,0 +1,20 @@
+datasets:
+  report:
+    path: CSVPATH #svbenchmark.sv.summary.csv
+    separator: ","
+views:
+  test:
+    dataset: report
+    render-table:
+      columns:
+        Tool:
+          display-mode: normal
+        TP_base:
+          display-mode: normal
+        FN:
+          display-mode: normal
+        TP_comp:
+          display-mode: normal
+        FP:
+          display-mode: normal
+# Tool,StatsType,TP_base,TP_comp,FP,FN,Precision,Recall,F1

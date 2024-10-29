@@ -66,7 +66,7 @@ def get_svbenchmark_resuls(file_paths):
 
 		df = pd.DataFrame(data)
 
-		merged_df = pd.concat([merged_df, df])
+		merged_df = pd.concat([merged_df, df], ignore_index=True)
 
 	return merged_df
 
@@ -94,7 +94,7 @@ def get_truvari_resuls(file_paths):
 				"F1": float(data["f1"].iloc[0])}
 
 		df = pd.DataFrame([relevant_data])
-		merged_df = pd.concat([merged_df, df])
+		merged_df = pd.concat([merged_df, df], ignore_index=True)
 
 	return merged_df
 
@@ -102,18 +102,6 @@ def get_wittyer_resuls(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
-		header = lines[0].strip().split()
-
-		# Extract data
-		data = []
-		for line in lines[2:]:
-			data.append(line.strip().split())
-
-		# Create DataFrame
-		df = pd.DataFrame(data, columns=header)
-		df['Tool'] = filename.split(".")[0]
-		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
-		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']# Iterate over each table file
 	for file in file_paths:
 	# Read the json into a DataFrame
 		filename = os.path.basename(file)
@@ -126,17 +114,17 @@ def get_wittyer_resuls(file_paths):
 					relevant_data.append({
 						"Tool": filename.split(".")[0],
 						"StatsType": stats["StatsType"],
-						"TP_base": stats["TruthTpCount"],
-						"TP_comp": stats["QueryTpCount"],
-						"FP": stats["QueryFpCount"],
-						"FN": stats["TruthFnCount"],
-						"Precision": stats["Precision"],
-						"Recall": stats["Recall"],
-						"F1": stats["Fscore"]}
-					)
+						"TP_base": int(stats["TruthTpCount"]) if pd.notna(stats["TruthTpCount"]) else 0,
+						"TP_comp": int(stats["QueryTpCount"]) if pd.notna(stats["QueryTpCount"]) else 0,
+						"FP": int(stats["QueryFpCount"]) if pd.notna(stats["QueryFpCount"]) else 0,
+						"FN": int(stats["TruthFnCount"]) if pd.notna(stats["TruthFnCount"]) else 0,
+						"Precision": float(stats["Precision"]) if pd.notna(stats["Precision"]) else float('nan'),
+						"Recall": float(stats["Recall"]) if pd.notna(stats["Recall"]) else float('nan'),
+						"F1": float(stats["Fscore"]) if pd.notna(stats["Fscore"]) else float('nan')
+					})
 
 		df = pd.DataFrame(relevant_data)
-		merged_df = pd.concat([merged_df, df])
+		merged_df = pd.concat([merged_df, df], ignore_index=True)
 
 	return merged_df
 
@@ -152,9 +140,26 @@ def get_rtgtools_resuls(file_paths):
 			lines = f.readlines()
 
 		# Extract header
+		header = lines[0].strip().split()
 
+		# Extract data
+		data = []
+		for line in lines[2:]:
+			data.append(line.strip().split())
 
-		merged_df = pd.concat([merged_df, df_redesigned])
+		# Create DataFrame
+		df = pd.DataFrame(data, columns=header)
+		df['Tool'] = filename.split(".")[0]
+		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
+		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']
+		# Convert relevant columns to integers, handling potential NaN values
+		int_columns = ['TP_base', 'FN', 'TP_call', 'FP']
+		float_columns = ['Recall','Precision','F1']
+		df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
+		df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
+
+		merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
+
 	return merged_df
 
 def get_happy_resuls(file_paths):
