@@ -1,6 +1,6 @@
 datasets:
   report:
-    path: CSVPATH #svbenchmark.sv.summary.csv
+    path: CSVPATH #wittyer.sv.summary.csv
     separator: ","
 views:
   test:
