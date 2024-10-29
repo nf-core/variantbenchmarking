@@ -56,10 +56,10 @@ def get_svbenchmark_resuls(file_paths):
 		# Initialize a dictionary to store the data
 		data = {
 			'Tool': [filename.split(".")[0]],
-			'TP_base': [DTP_match.group(1) if DTP_match else 'NA'],
-			'FP': [FP_match.group(1) if FP_match else 'NA'],
-			'TP_comp': [DTP_match.group(1) if DTP_match else 'NA'],
-			'FN': [FN_match.group(1) if FN_match else 'NA'],
+			'TP_base': [int(DTP_match.group(1)) if DTP_match else 'NA'],
+			'FP': [int(FP_match.group(1)) if FP_match else 'NA'],
+			'TP_comp': [int(DTP_match.group(1)) if DTP_match else 'NA'],
+			'FN': [int(FN_match.group(1)) if FN_match else 'NA'],
 			'Recall': [float(recall_match.group(1))/100 if recall_match else 'NA'],
 			'Precision': [float(precision_match.group(1))/100 if precision_match else 'NA'],
 			'F1': [float(f1_match.group(1)) if f1_match else 'NA']}
@@ -85,13 +85,13 @@ def get_truvari_resuls(file_paths):
 
 			relevant_data = {
 				"Tool": filename.split(".")[0],
-				"TP_base": data["TP-base"].iloc[0],
-				"TP_comp": data["TP-comp"].iloc[0],
-				"FP": data["FP"].iloc[0],
-				"FN": data["FN"].iloc[0],
-				"Precision": data["precision"].iloc[0],
-				"Recall": data["recall"].iloc[0],
-				"F1": data["f1"].iloc[0]}
+				"TP_base": int(data["TP-base"].iloc[0]),
+				"TP_comp": int(data["TP-comp"].iloc[0]),
+				"FP": int(data["FP"].iloc[0]),
+				"FN": int(data["FN"].iloc[0]),
+				"Precision": float(data["precision"].iloc[0]),
+				"Recall": float(data["recall"].iloc[0]),
+				"F1": float(data["f1"].iloc[0])}
 
 		df = pd.DataFrame([relevant_data])
 		merged_df = pd.concat([merged_df, df])
@@ -102,7 +102,18 @@ def get_wittyer_resuls(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
-	# Iterate over each table file
+		header = lines[0].strip().split()
+
+		# Extract data
+		data = []
+		for line in lines[2:]:
+			data.append(line.strip().split())
+
+		# Create DataFrame
+		df = pd.DataFrame(data, columns=header)
+		df['Tool'] = filename.split(".")[0]
+		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
+		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']# Iterate over each table file
 	for file in file_paths:
 	# Read the json into a DataFrame
 		filename = os.path.basename(file)
@@ -141,18 +152,7 @@ def get_rtgtools_resuls(file_paths):
 			lines = f.readlines()
 
 		# Extract header
-		header = lines[0].strip().split()
 
-		# Extract data
-		data = []
-		for line in lines[2:]:
-			data.append(line.strip().split())
-
-		# Create DataFrame
-		df = pd.DataFrame(data, columns=header)
-		df['Tool'] = filename.split(".")[0]
-		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
-		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']
 
 		merged_df = pd.concat([merged_df, df_redesigned])
 	return merged_df
@@ -172,7 +172,14 @@ def get_happy_resuls(file_paths):
 		df_redesigned = df[['Tool', 'Type','Filter','TRUTH.TOTAL','TRUTH.TP','TRUTH.FN','QUERY.TOTAL','QUERY.FP','QUERY.UNK','FP.gt','FP.al','METRIC.Recall','METRIC.Precision','METRIC.Frac_NA','METRIC.F1_Score','TRUTH.TOTAL.TiTv_ratio','QUERY.TOTAL.TiTv_ratio','TRUTH.TOTAL.het_hom_ratio','QUERY.TOTAL.het_hom_ratio']]
 		df_redesigned.columns = ['Tool', 'Type','Filter','TP_base','TP','FN','TP_call','FP','UNK','FP_gt','FP_al','Recall','Precision','Frac_NA','F1','TRUTH_TiTv_ratio','QUERY_TiTv_ratio','TRUTH_het_hom_ratio','QUERY_het_hom_ratio']
 
-		merged_df = pd.concat([merged_df, df_redesigned])
+		# Convert relevant columns to integers, handling potential NaN values
+		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK', 'FP_gt', 'FP_al']
+		float_columns = ['Recall','Precision','Frac_NA','F1','TRUTH_TiTv_ratio','QUERY_TiTv_ratio','TRUTH_het_hom_ratio','QUERY_het_hom_ratio']
+		df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
+		df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
+
+		# Concatenate with the merged DataFrame
+		merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
 
 	return merged_df
 
@@ -189,8 +196,13 @@ def get_sompy_resuls(file_paths, vartype):
 		df['Tool'] = filename.split(".")[0]
 		df_redesigned = df[['Tool','type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
 		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']
+		# Convert relevant columns to integers, handling potential NaN values
+		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK']
+		float_columns = ['Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']
+		df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
+		df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
 
-		merged_df = pd.concat([merged_df, df_redesigned])
+		merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
 
 	if vartype == "snv":
 		merged_df1 = merged_df[merged_df["Type"] == 'SNVs']
