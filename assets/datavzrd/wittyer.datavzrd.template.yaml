@@ -17,4 +17,3 @@ views:
           display-mode: normal
         FP:
           display-mode: normal
-# Tool,StatsType,TP_base,TP_comp,FP,FN,Precision,Recall,F1

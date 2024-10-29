@@ -23,4 +23,3 @@ views:
           display-mode: normal
         F1:
           display-mode: normal
-# Tool,TP_base,FP,TP_comp,FN,Recall,Precision,F1

@@ -43,4 +43,3 @@ views:
           display-mode: normal
         QUERY_het_hom_ratio:
           display-mode: normal
-# Tool,Type,Filter,TP_base,TP,FN,TP_call,FP,UNK,FP_gt,FP_al,Recall,Precision,Frac_NA,F1,TRUTH_TiTv_ratio,QUERY_TiTv_ratio,TRUTH_het_hom_ratio,QUERY_het_hom_ratio
