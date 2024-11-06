@@ -14,7 +14,7 @@ include { BEDTOOLS_MERGE                  } from '../../modules/nf-core/bedtools
 workflow LIFTOVER_VCFS_TRUTH {
     take:
     truth_ch        // channel: [val(meta), vcf]
-    high_conf_ch    // channel: [val(meta), bed]
+    high_conf_ch    // channel: [bed]
     fasta           // reference channel [val(meta), ref.fa]
     chain           // chain channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
@@ -58,7 +58,7 @@ workflow LIFTOVER_VCFS_TRUTH {
 
     // liftover high confidence file if given
     UCSC_LIFTOVER(
-        high_conf_ch,
+        high_conf_ch.map{file -> tuple([id: params.truth_id], file)},
         chain.map{meta, file -> file}
     )
     versions = versions.mix(UCSC_LIFTOVER.out.versions.first())

@@ -12,25 +12,29 @@ workflow REPORT_VCF_STATISTICS {
     main:
 
     versions = Channel.empty()
+    survivor_stats = Channel.empty()
 
-    input_ch.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv" || meta.vartype == "cnv"
-            other:  true
-        }
-        .set{input}
+    //input_ch.branch{
+    //        def meta = it[0]
+    //        sv:     meta.vartype == "sv" || meta.vartype == "cnv"
+    //        other:  true
+    //    }
+    //    .set{input}
 
-    // use survivor stats to get SV statistics by TYPE
-    SURVIVOR_STATS(
-        input.sv.map{ meta, vcf, tbi ->
-            [ meta, vcf ]
-        },
-        -1,
-        -1,
-        -1
-    )
-    survivor_stats = SURVIVOR_STATS.out.stats
-    versions = versions.mix(SURVIVOR_STATS.out.versions.first())
+    if (params.variant_type == "structural"){
+        // use survivor stats to get SV statistics by TYPE
+        SURVIVOR_STATS(
+            input_ch.map{ meta, vcf, tbi ->
+                [ meta, vcf ]
+            },
+            -1,
+            -1,
+            -1
+        )
+        survivor_stats = SURVIVOR_STATS.out.stats
+        versions = versions.mix(SURVIVOR_STATS.out.versions.first())
+    }
+
 
     // use bcftools stats for all files
     BCFTOOLS_STATS(

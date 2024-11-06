@@ -58,7 +58,7 @@ workflow SV_VCF_CONVERSIONS {
                 tool:  supported
                     return [ meta, vcf, tbi]
                 other: !supported
-                    return [ meta, vcf, tbi ]
+                    return [ meta, vcf ]
             }
             .set{input}
 
@@ -80,15 +80,10 @@ workflow SV_VCF_CONVERSIONS {
             .map{
                 def meta = it[0]
                 def vcf = it[1]
-                def tbi = it[2]
-                [ meta, vcf, tbi ]
+                [ meta, vcf ]
             }
             .set { vcf_ch }
-        out_vcf_ch = out_vcf_ch.mix(SVYNC.out.vcf,
-                                    input.other)
-        vcf_ch     = out_vcf_ch.map{it -> tuple(it[0], it[1], it[2])}
     }
-
 
     emit:
     vcf_ch

@@ -54,11 +54,6 @@ workflow VARIANTBENCHMARKING {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
     ch_reports       = Channel.empty()
-    truth_ch         = Channel.empty()
-    high_conf_ch     = Channel.empty()
-    bench_ch         = Channel.empty()
-    sv_evals_ch      = Channel.empty()
-    small_evals_ch   = Channel.empty()
 
     //// create reference channels ////
 
@@ -67,56 +62,16 @@ workflow VARIANTBENCHMARKING {
     fai         = Channel.fromPath(params.fai, checkIfExists: true)
                     .map{ fai -> tuple([id: fai.getSimpleName()], fai) }.collect()
 
-    //// check high confidence files ////
+    //// check Truth Files ////
 
-    // Germline
+    truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
+                    .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
 
-    truth_small     = params.truth_small        ? Channel.fromPath(params.truth_small, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"small"], vcf) }.collect()
+    regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                                 : Channel.empty()
-    truth_ch        = truth_ch.mix(truth_small)
-
-    high_conf_small = params.high_conf_small    ? Channel.fromPath(params.high_conf_small, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"small"], bed) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_small)
-
-    truth_sv        = params.truth_sv           ? Channel.fromPath(params.truth_sv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"sv"], vcf) }.collect()
-                                                : Channel.empty()
-    truth_ch        = truth_ch.mix(truth_sv)
-
-    high_conf_sv    = params.high_conf_sv       ? Channel.fromPath(params.high_conf_sv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"sv"], bed) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_sv)
-
-    truth_cnv       = params.truth_cnv          ? Channel.fromPath(params.truth_cnv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"cnv"], vcf) }.collect()
-                                                : Channel.empty()
-    truth_ch        = truth_ch.mix(truth_cnv)
-
-    high_conf_cnv   = params.high_conf_cnv      ? Channel.fromPath(params.high_conf_cnv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"cnv"], bed) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_cnv)
-
-    // Somatic
-    // snv and indel seperation only possible for somatic cases
-
-    truth_snv       = params.truth_snv          ? Channel.fromPath(params.truth_snv, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"snv"], vcf) }.collect()
-                                                : Channel.empty()
-    truth_ch        = truth_ch.mix(truth_snv)
-
-    high_conf_snv   = params.high_conf_snv      ? Channel.fromPath(params.high_conf_snv, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"snv"], bed) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_snv)
-
-    truth_indel     = params.truth_indel        ? Channel.fromPath(params.truth_indel, checkIfExists: true).map{ vcf -> tuple([id: params.sample, vartype:"indel"], vcf) }.collect()
-                                                : Channel.empty()
-    truth_ch        = truth_ch.mix(truth_indel)
-
-    high_conf_indel = params.high_conf_indel    ? Channel.fromPath(params.high_conf_indel, checkIfExists: true).map{ bed -> tuple([id: params.sample, vartype:"indel"], bed) }.collect()
-                                                : Channel.empty()
-    high_conf_ch    = high_conf_ch.mix(high_conf_indel)
-
 
     // SDF file for RTG-tools eval
-    sdf             = params.sdf                ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
+    sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
                                                 : Channel.empty()
 
     // read chainfile, liftover genome and rename chr files if liftover is true
@@ -145,7 +100,6 @@ workflow VARIANTBENCHMARKING {
 
     out_vcf_ch  = Channel.empty()
 
-    input.multisample.view()
     SUBSAMPLE_VCF_TEST(
         input.multisample
     )
@@ -154,27 +108,20 @@ workflow VARIANTBENCHMARKING {
                                 input.other)
     vcf_ch      = out_vcf_ch
 
-    // Branch out according to the analysis
-    vcf_ch.branch{
-            sv:  it[0].vartype == "sv"
-            other: true}
-            .set{test_ch}
 
-    out_vcf_ch = Channel.empty()
-
-    // Standardize SV VCFs, tool spesific modifications
-    SV_VCF_CONVERSIONS(
-        test_ch.sv,
-        fasta,
-        fai
-    )
-    ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
-    out_vcf_ch = out_vcf_ch.mix(SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])},
-                            test_ch.other)
-
+    if (params.variant_type == "structural"){
+        // Standardize SV VCFs, tool spesific modifications
+        SV_VCF_CONVERSIONS(
+            vcf_ch,
+            fasta,
+            fai
+        )
+        ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
+        vcf_ch = SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])}
+    }
     // Prepare and normalize input vcfs
     PREPARE_VCFS_TEST(
-        out_vcf_ch,
+        vcf_ch,
         fasta,
         fai
     )
@@ -183,14 +130,14 @@ workflow VARIANTBENCHMARKING {
     // Prepare and normalize truth vcfs
     PREPARE_VCFS_TRUTH(
         truth_ch,
-        high_conf_ch,
+        regions_bed_ch,
         fasta,
         fai,
         chain,
         rename_chr,
         dictionary
     )
-    high_conf_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+    regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
     ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // VCF REPORTS AND STATS
@@ -201,204 +148,73 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
-    // branch out input test files
-    PREPARE_VCFS_TEST.out.vcf_ch.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
-        .set{test}
+    // Prepare benchmark channel
+    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
+        .combine(regions_bed_ch.ifEmpty([[]]))
+        .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]}
+        .set{bench}
 
-    // branch out truth vcf files
-    PREPARE_VCFS_TRUTH.out.vcf_ch.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
-        .set{truth}
+    evals_ch = Channel.empty()
 
-    // branch out high confidence bed files
-    high_conf_ch.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
-        .set{high_conf}
-
-    // prepare  benchmark sets
-    if(params.truth_small){
-        if(params.high_conf_small){
-            test.small.combine(truth.small)
-                .combine(high_conf.small)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_meta, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-        else{
-            test.small.combine(truth.small)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [] ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-    }
-    if(params.truth_sv){
-        if(params.high_conf_sv){
-            test.sv.combine(truth.sv)
-                .combine(high_conf.sv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_meta, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-        else{
-            test.sv.combine(truth.sv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [] ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-    }
-    if(params.truth_cnv){
-        if(params.high_conf_cnv){
-            test.cnv.combine(truth.cnv)
-                .combine(high_conf.cnv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_meta, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-        else{
-            test.cnv.combine(truth.cnv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [] ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-    }
-    if(params.truth_snv){
-        if(params.high_conf_snv){
-            test.snv.combine(truth.snv)
-                .combine(high_conf.snv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_meta, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-        else{
-            test.snv.combine(truth.snv)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [] ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-    }
-    if(params.truth_indel){
-        if(params.high_conf_indel){
-            test.indel.combine(truth.indel)
-                .combine(high_conf.indel)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_meta, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-        else{
-            test.indel.combine(truth.indel)
-                .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [] ]
-                }
-                .set{bench}
-            bench_ch = bench_ch.mix(bench)
-        }
-    }
-
-    // branch out combined benchmark sets
-    bench_ch.branch{
-            def meta = it[0]
-            sv:     meta.vartype == "sv"
-            small:  meta.vartype == "small"
-            cnv:    meta.vartype == "cnv"
-            snv:    meta.vartype == "snv"
-            indel:  meta.vartype == "indel"
-            other:  false
-        }
-        .set{bench_input}
-
-
-    // Perform SV benchmarking - for now it also works for somatic cases!
-    SV_GERMLINE_BENCHMARK(
-        bench_input.sv,
-        fasta,
-        fai
-    )
-    ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-    ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
-    sv_evals_ch = sv_evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
-
-    if (params.analysis.contains("germline")){
-
-        // Benchmarking spesific to small germline samples
-        SMALL_GERMLINE_BENCHMARK(
-            bench_input.small.mix(bench_input.snv,bench_input.indel),
-            fasta,
-            fai,
-            sdf
-        )
-        ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
-        small_evals_ch = small_evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
-
-        // Benchmarking spesific to CNV germline samples
-        CNV_GERMLINE_BENCHMARK(
-            bench_input.cnv,
+    if (params.variant_type == "structural"){
+        // Perform SV benchmarking - for now it also works for somatic cases!
+        // this part will be changed!
+        SV_GERMLINE_BENCHMARK(
+            bench,
             fasta,
             fai
         )
-        ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
+        ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
+        ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+        evals_ch = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+    }
+
+    if (params.analysis.contains("germline")){
+
+        if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
+            // Benchmarking spesific to small germline samples
+            SMALL_GERMLINE_BENCHMARK(
+                bench,
+                fasta,
+                fai,
+                sdf
+            )
+            ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+            ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
+            evals_ch = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
+        }
+
+        if (params.variant_type == "copynumber"){
+            // Benchmarking spesific to CNV germline samples
+            CNV_GERMLINE_BENCHMARK(
+                bench,
+                fasta,
+                fai
+            )
+            ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
+            ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
+        }
     }
 
     // TODO: SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
-        somatic_small = bench_input.snv.mix(bench_input.indel)
-        // SOMATIC VARIANT BENCHMARKING
-        SMALL_SOMATIC_BENCHMARK(
-            somatic_small,
-            fasta,
-            fai
-        )
-        ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+        if (params.variant_type == "snv" | params.variant_type == "indel"){
+            // SOMATIC VARIANT BENCHMARKING
+            SMALL_SOMATIC_BENCHMARK(
+                bench,
+                fasta,
+                fai
+            )
+            ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
+            ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+        }
 
     }
-
     // compare tool spesfic benchmarks
     COMPARE_BENCHMARK_RESULTS(
-        small_evals_ch,
-        sv_evals_ch,
+        evals_ch,
         fasta,
         fai
     )

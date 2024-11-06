@@ -27,7 +27,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     versions = versions.mix(PLOTS.out.versions.first())
 
     MERGE_REPORTS.out.summary
-        .map { meta, file -> tuple([vartype: meta.vartype] + [id: meta.benchmark_tool], file) }
+        .map { meta, file -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], file) }
         .set { summary }
 
     // add path to csv file to the datavzrd input

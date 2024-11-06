@@ -33,30 +33,21 @@ workflow VCF_VARIANT_FILTERING {
         vcf_ch = BCFTOOLS_FILTER.out.vcf
     }
 
-    out_vcf_ch = Channel.empty()
-
     if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
-        vcf_ch.branch{
-                def meta = it[0]
-                sv:  meta.vartype == "sv"
-                other: true}
-                .set{vcf}
 
         // filters out smaller SVs than min_sv_size, only applicable to SV files
-        SURVIVOR_FILTER(
-            vcf.sv.map{meta, vcf -> tuple( meta, vcf, [])},
-            params.min_sv_size,
-            params.max_sv_size,
-            params.min_allele_freq,
-            params.min_num_reads
-        )
-        versions = versions.mix(SURVIVOR_FILTER.out.versions.first())
-
-        out_vcf_ch = out_vcf_ch.mix(SURVIVOR_FILTER.out.vcf,
-                                    vcf.other)
-        vcf_ch = out_vcf_ch
+        if (params.variant_type == "structural"){
+            SURVIVOR_FILTER(
+                vcf_ch.map{meta, vcf -> tuple( meta, vcf, [])},
+                params.min_sv_size,
+                params.max_sv_size,
+                params.min_allele_freq,
+                params.min_num_reads
+            )
+            versions = versions.mix(SURVIVOR_FILTER.out.versions.first())
+            vcf_ch = SURVIVOR_FILTER.out.vcf
+        }
     }
-
     // zip and index vcf files
     TABIX_BGZIPTABIX(
         vcf_ch
