@@ -31,15 +31,6 @@
                 "minLength": 1,
                 "errorMessage": "Variant caller has to be defined. Can also be unknown, undefined or merged"
             },
-            "vartype": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "description": "Variant type to apply benchmarking",
-                "meta": ["vartype"],
-                "minLength": 1,
-                "errorMessage": "Variant type can be only one of these: small, sv, snv, indel and cnv",
-                "enum": ["small", "sv", "snv", "indel", "cnv"]
-            },
             "subsample": {
                 "type": "string",
                 "pattern": "^\\S+$",
@@ -165,6 +156,6 @@
                 "default": null
             }
         },
-        "required": ["test_vcf", "caller", "vartype", "id"]
+        "required": ["test_vcf", "caller", "id"]
     }
 }

@@ -13,7 +13,7 @@ include { LIFTOVER_VCFS_TRUTH        } from '../local/liftover_vcfs_truth'
 workflow PREPARE_VCFS_TRUTH {
     take:
     truth_ch        // channel: [val(meta), vcf]
-    high_conf_ch    // channel: [val(meta), bed]
+    high_conf_ch    // channel: [bed]
     fasta           // reference channel [val(meta), ref.fa]
     fai             // reference channel [val(meta), ref.fa.fai]
     chain           // reference channel [val(meta), chain.gz]
@@ -37,7 +37,7 @@ workflow PREPARE_VCFS_TRUTH {
         )
         versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
         truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
-        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch
+        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch.map{ meta, bed -> [bed]}
     }
 
     // Reheader sample name for truth file - using meta.caller

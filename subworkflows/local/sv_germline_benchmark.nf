@@ -36,7 +36,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(TRUVARI_BENCH.out.versions.first())
 
         TRUVARI_BENCH.out.summary
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "truvari"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "truvari"], file) }
             .groupTuple()
             .set { report }
 
@@ -50,7 +50,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_1.out.versions)
 
         VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "truvari"], file) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "truvari"], file) }
             .set { vcf_fn }
 
         // reheader fp vcf files for tagged results
@@ -62,7 +62,7 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // add tag and to meta
         VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "truvari"], file) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "truvari"], file) }
             .set { vcf_fp }
 
         // reheader base tp vcf files for tagged results
@@ -74,7 +74,7 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // add tag and to meta
         VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [id: "truvari"], file) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "truvari"], file) }
             .set { vcf_tp_base }
 
         // reheader comp tp vcf files for tagged results
@@ -86,7 +86,7 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // add tag and to meta
         VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "truvari"], file) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "truvari"], file) }
             .set { vcf_tp_comp }
 
         // collect tagged variant files
@@ -108,7 +108,7 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // tag and collect summary file
         SVANALYZER_SVBENCHMARK.out.report
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "svbenchmark"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "svbenchmark"], file) }
             .groupTuple()
             .set{ report }
 
@@ -116,12 +116,12 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // reheader fn vcf files for tagged results
         SVANALYZER_SVBENCHMARK.out.fns
-            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "svbenchmark"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "svbenchmark"], file) }
             .set { vcf_fn }
 
 
         SVANALYZER_SVBENCHMARK.out.fps
-            .map { meta, file -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "svbenchmark"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "svbenchmark"], file) }
             .set { vcf_fp }
 
         tagged_variants = tagged_variants.mix(
@@ -163,7 +163,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(WITTYER.out.versions.first())
 
         WITTYER.out.report
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "wittyer"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)

@@ -1,5 +1,0 @@
-id,test_vcf,caller,vartype,refdist,chunksize,normshift,normdist,normsizediff,maxdist,typeignore,dup_to_ins,pctsize,pctseq,pctovl,evaluationmode,subsample
-test1,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/NIST_SV_v0.6/GIAB_Evaluations/BoutrosLab-SV_curation_GIABv0.6/manta_GIABv0.6/diploidSV_PASS_DUPtoINS.vcf.gz",manta,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts,
-test2,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/NIST_SV_v0.6/GIAB_Evaluations/BoutrosLab-SV_curation_GIABv0.6/delly_GIABv0.6/norm_recall_HG002.merged__filt_DUPtoINS.vcf.gz",delly,sv,100000,100000,0.3,0.3,0.3,100000,true,true,0.3,0,0,cts,
-test4,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/SevenBridges_GraphGATKRefine_05052017/HG002-NA24385-50x.union_170414.split.vcf.gz",graph,small,,,,,,,,,,,,,
-test5,"https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/OsloUniversityHospital_Exome_GATK_jointVC_11242015/HG002-HG003-HG004.jointVC.filter.vcf",gatk,small,,,,,,,,,,,,,"Sample_Diag-excap51-HG002-EEogPU"

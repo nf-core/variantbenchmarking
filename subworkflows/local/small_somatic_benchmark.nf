@@ -31,7 +31,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         versions = versions.mix(HAPPY_SOMPY.out.versions.first())
 
         HAPPY_SOMPY.out.stats
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "sompy"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
@@ -50,7 +50,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions.first())
 
         BAMSURGEON_EVALUATOR.out.stats
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "bamsurgeon"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "bamsurgeon"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)

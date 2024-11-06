@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "truth_id", "analysis", "variant_type", "method", "truth_vcf"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -29,9 +29,9 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "sample": {
+                "truth_id": {
                     "type": "string",
-                    "description": "Sample id",
+                    "description": "Truth id, sample name to define truth vcf",
                     "fa_icon": "fas fa-folder-open",
                     "errorMessage": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
                 },
@@ -39,6 +39,16 @@
                     "type": "string",
                     "description": "The analysis type used by the input files",
                     "enum": ["germline", "somatic"],
+                    "pattern": "(germline|somatic)",
+                    "fa_icon": "fas fa-folder-open",
+                    "errorMessage": "Analysis type has to be choosen: germline or somatic"
+                },
+                "variant_type": {
+                    "type": "string",
+                    "description": "Variant types to benchmark",
+                    "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
+                    "enum": ["small", "snv", "indel", "structural", "copynumber"],
+                    "pattern": "(small|snv|indel|structural|copynumber)",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "method": {
@@ -48,96 +58,24 @@
                     "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "high_conf_small": {
+                "regions_bed": {
                     "type": "string",
                     "format": "file-path",
-                    "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SMALL: Path to the high confidence BED or VCF files.",
-                    "help_text": "SMALL: High confidence BED files",
+                    "description": "Path to regions BED or VCF files.",
+                    "help_text": "Regions BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "truth_small": {
+                "truth_vcf": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": "SMALL: Path to the golden set VCF files.",
-                    "help_text": "SMALL: Truth or golden set VCF file, to be used for comparisons",
+                    "description": "Path to the golden set VCF files.",
+                    "help_text": "Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "high_conf_snv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SNVs: Path to the high confidence BED or VCF files.",
-                    "help_text": "SNVs: High confidence BED files",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "truth_snv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": "SNVs: Path to the golden set VCF files.",
-                    "help_text": "SNVs: Truth or golden set VCF file, to be used for comparisons",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "high_conf_indel": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "INDELs: Path to the high confidence BED or VCF files.",
-                    "help_text": "INDELs: High confidence BED files",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "truth_indel": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": "INDELs: Path to the golden set VCF files.",
-                    "help_text": "INDELs: Truth or golden set VCF file, to be used for comparisons",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "high_conf_sv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "SV: Path to the high confidence BED or VCF files.",
-                    "help_text": "SV: High confidence BED files",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "truth_sv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": " SV: Path to the golden set VCF files.",
-                    "help_text": "SV: Truth or golden set VCF file, to be used for comparisons",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "high_conf_cnv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "CNV: Path to the high confidence BED or VCF files.",
-                    "help_text": "CNV: High confidence BED files",
-                    "fa_icon": "fas fa-file-csv"
-                },
-                "truth_cnv": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
-                    "description": "CNV: Path to the golden set VCF files.",
-                    "help_text": "CNV: Truth or golden set VCF file, to be used for comparisons",
-                    "fa_icon": "fas fa-file-csv"
-                },
+
                 "preprocess": {
                     "type": "string",
                     "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: normalization, deduplication, prepy, filter_contigs",

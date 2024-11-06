@@ -9,9 +9,11 @@ views:
       columns:
         Tool:
           display-mode: normal
-        Threshold:
+        Type:
           display-mode: normal
         TP_base:
+          display-mode: normal
+        TP:
           display-mode: normal
         FN:
           display-mode: normal
@@ -23,5 +25,17 @@ views:
           display-mode: normal
         Recall:
           display-mode: normal
-        F1:
+        recall_lower:
+          display-mode: normal
+        recall_upper:
+          display-mode: normal
+        recall2:
+          display-mode: normal
+        precision_lower:
+          display-mode: normal
+        precision_upper:
+          display-mode: normal
+        fp.region.size:
+          display-mode: normal
+        fp.rate:
           display-mode: normal

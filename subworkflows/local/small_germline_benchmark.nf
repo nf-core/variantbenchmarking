@@ -48,7 +48,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         // collect summary reports
         RTGTOOLS_VCFEVAL.out.summary
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "rtgtools"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
             .groupTuple()
             .set{ report }
 
@@ -62,7 +62,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_1.out.versions)
 
         VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FN"] + [id: "rtgtools"], file, index) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file, index) }
             .set { vcf_fn }
 
         VCF_REHEADER_SAMPLENAME_2(
@@ -72,7 +72,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_2.out.versions)
 
         VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "FP"] + [id: "rtgtools"], file, index) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file, index) }
             .set { vcf_fp }
 
         VCF_REHEADER_SAMPLENAME_3(
@@ -82,7 +82,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_3.out.versions)
 
         VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_base }
 
         VCF_REHEADER_SAMPLENAME_4(
@@ -92,7 +92,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_4.out.versions)
 
         VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: meta.vartype] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
+            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_comp }
 
         tagged_variants = tagged_variants.mix(
@@ -146,7 +146,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         // tag meta and collect summary reports
         HAPPY_HAPPY.out.summary_csv
-            .map { meta, file -> tuple([vartype: meta.vartype] + [benchmark_tool: "happy"], file) }
+            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)

@@ -159,42 +159,42 @@ def getGenomeAttribute(attribute) {
 //
 def getTruthAttribute(attribute) {
     if (!params.itruth_ignore){
-            if (params.sample && params.analysis && params.genome)  {
+            if (params.truth_id && params.analysis && params.genome)  {
                 if (params.liftover){
                     if (params.genome == "GRCh38"){
                         if (params.analysis == "somatic"){
-                            if (params.somatic[ "GRCh37" ][ params.sample ].containsKey(attribute)){
-                                return params.somatic[ "GRCh37" ][ params.sample ][ attribute ]
+                            if (params.somatic[ "GRCh37" ][ params.truth_id ].containsKey(attribute)){
+                                return params.somatic[ "GRCh37" ][ params.truth_id ][ attribute ]
                             }
                         }
                         else if(params.analysis == "germline") {
-                            if (params.germline[ "GRCh37" ][ params.sample ].containsKey(attribute)){
-                                return params.germline[ "GRCh37" ][ params.sample ][ attribute ]
+                            if (params.germline[ "GRCh37" ][ params.truth_id ].containsKey(attribute)){
+                                return params.germline[ "GRCh37" ][ params.truth_id ][ attribute ]
                             }
                         }
                     }
                     else if (params.genome == "GRCh37"){
                         if (params.analysis == "somatic"){
-                            if (params.somatic[ "GRCh38" ][ params.sample ].containsKey(attribute)){
-                                return params.somatic[ "GRCh38" ][ params.sample ][ attribute ]
+                            if (params.somatic[ "GRCh38" ][ params.truth_id ].containsKey(attribute)){
+                                return params.somatic[ "GRCh38" ][ params.truth_id ][ attribute ]
                             }
                         }
                         else if(params.analysis == "germline") {
-                            if (params.germline[ "GRCh38" ][ params.sample ].containsKey(attribute)){
-                                return params.germline[ "GRCh38" ][ params.sample ][ attribute ]
+                            if (params.germline[ "GRCh38" ][ params.truth_id ].containsKey(attribute)){
+                                return params.germline[ "GRCh38" ][ params.truth_id ][ attribute ]
                             }
                         }
                     }
                 }
                 else{
                     if (params.analysis == "somatic"){
-                        if (params.somatic[ params.genome ][ params.sample ].containsKey(attribute)){
-                            return params.somatic[ params.genome ][ params.sample ][ attribute ]
+                        if (params.somatic[ params.genome ][ params.truth_id ].containsKey(attribute)){
+                            return params.somatic[ params.genome ][ params.truth_id ][ attribute ]
                         }
                     }
                     else if(params.analysis == "germline") {
-                        if (params.germline[ params.genome ][ params.sample ].containsKey(attribute)){
-                            return params.germline[ params.genome][ params.sample ][ attribute ]
+                        if (params.germline[ params.genome ][ params.truth_id ].containsKey(attribute)){
+                            return params.germline[ params.genome][ params.truth_id ][ attribute ]
                         }
                     }
 
