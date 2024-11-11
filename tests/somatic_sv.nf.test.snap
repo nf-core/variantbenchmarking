@@ -1,0 +1,226 @@
+{
+    "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
+        "content": [
+            69,
+            {
+                "BCFTOOLS_REHEADER": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.18
+                },
+                "BGZIP_TABIX": {
+                    "tabix": 1.12
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.8.6"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "SURVIVOR_MERGE": {
+                    "survivor": "1.0.7"
+                },
+                "SURVIVOR_STATS": {
+                    "survivor": "1.0.7"
+                },
+                "TABIX_BGZIP": {
+                    "tabix": "1.19.1"
+                },
+                "TABIX_BGZIPTABIX": {
+                    "tabix": "1.19.1"
+                },
+                "TABIX_TABIX": {
+                    "tabix": "1.19.1"
+                },
+                "TRUVARI_BENCH": {
+                    "truvari": "4.1.0)"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.0dev"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "structural",
+                "structural/SEQC2",
+                "structural/SEQC2/stats",
+                "structural/SEQC2/stats/bcftools",
+                "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
+                "structural/SEQC2/stats/survivor",
+                "structural/SEQC2/stats/survivor/SEQC2.stats",
+                "structural/multiqc",
+                "structural/multiqc/multiqc_data",
+                "structural/multiqc/multiqc_data/multiqc.log",
+                "structural/multiqc/multiqc_data/multiqc_citations.txt",
+                "structural/multiqc/multiqc_data/multiqc_data.json",
+                "structural/multiqc/multiqc_data/multiqc_software_versions.txt",
+                "structural/multiqc/multiqc_data/multiqc_sources.txt",
+                "structural/multiqc/multiqc_report.html",
+                "structural/summary",
+                "structural/summary/comparisons",
+                "structural/summary/comparisons/structural",
+                "structural/summary/comparisons/structural/truvari.FN.csv",
+                "structural/summary/comparisons/structural/truvari.FP.csv",
+                "structural/summary/comparisons/structural/truvari.TP_base.csv",
+                "structural/summary/comparisons/structural/truvari.TP_comp.csv",
+                "structural/summary/datavzrd",
+                "structural/summary/datavzrd/truvari",
+                "structural/summary/datavzrd/truvari/index.html",
+                "structural/summary/datavzrd/truvari/static",
+                "structural/summary/datavzrd/truvari/static/bootstrap-select.min.css",
+                "structural/summary/datavzrd/truvari/static/bootstrap-table-fixed-columns.min.css",
+                "structural/summary/datavzrd/truvari/static/bootstrap-table.min.css",
+                "structural/summary/datavzrd/truvari/static/bootstrap.min.css",
+                "structural/summary/datavzrd/truvari/static/bundle.js",
+                "structural/summary/datavzrd/truvari/static/datavzrd.css",
+                "structural/summary/datavzrd/truvari/test",
+                "structural/summary/datavzrd/truvari/test/config.js",
+                "structural/summary/datavzrd/truvari/test/data",
+                "structural/summary/datavzrd/truvari/test/data/data_1.js",
+                "structural/summary/datavzrd/truvari/test/functions.js",
+                "structural/summary/datavzrd/truvari/test/heatmap.js",
+                "structural/summary/datavzrd/truvari/test/index_1.html",
+                "structural/summary/datavzrd/truvari/test/plots",
+                "structural/summary/datavzrd/truvari/test/plots/plot_0.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_1.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_2.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_3.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_4.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_5.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_6.js",
+                "structural/summary/datavzrd/truvari/test/plots/plot_7.js",
+                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/plots",
+                "structural/summary/plots/truvari",
+                "structural/summary/plots/truvari/metric_by_tool_truvari.png",
+                "structural/summary/plots/truvari/variants_by_tool_truvari.png",
+                "structural/summary/tables",
+                "structural/summary/tables/truvari",
+                "structural/summary/tables/truvari/truvari.summary.csv",
+                "structural/test1",
+                "structural/test1/benchmarks",
+                "structural/test1/benchmarks/truvari",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fn.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fn.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fp.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fp.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.summary.json",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-base.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-base.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-comp.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
+                "structural/test1/preprocess",
+                "structural/test1/preprocess/HCC1395T_vs_HCC1395N.tiddit_sv_merge.sort.vcf.gz",
+                "structural/test1/preprocess/test1.filter.vcf",
+                "structural/test1/stats",
+                "structural/test1/stats/bcftools",
+                "structural/test1/stats/bcftools/test1.tiddit.bcftools_stats.txt",
+                "structural/test1/stats/survivor",
+                "structural/test1/stats/survivor/test1.tiddit.stats",
+                "structural/test2",
+                "structural/test2/benchmarks",
+                "structural/test2/benchmarks/truvari",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fn.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fn.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fp.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fp.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.summary.json",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-base.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-base.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-comp.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-comp.vcf.gz.tbi",
+                "structural/test2/preprocess",
+                "structural/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                "structural/test2/preprocess/test2.filter.vcf",
+                "structural/test2/stats",
+                "structural/test2/stats/bcftools",
+                "structural/test2/stats/bcftools/test2.manta.bcftools_stats.txt",
+                "structural/test2/stats/survivor",
+                "structural/test2/stats/survivor/test2.manta.stats"
+            ],
+            [
+                "SEQC2.bcftools_stats.txt:md5,a60de9c4d2f3db87d8ae404b73859bfa",
+                "SEQC2.stats:md5,a1327ec0cd3131f9e16cccf0024f61a1",
+                "truvari.FN.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
+                "truvari.FP.csv:md5,d47360e5f1260a7d1cfa1797a7814ef8",
+                "truvari.TP_base.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
+                "truvari.TP_comp.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
+                "index.html:md5,01d8751c7e9107446222eedc86ff3190",
+                "bootstrap-select.min.css:md5,a04495fa5762cca97a2df5b310e7a386",
+                "bootstrap-table-fixed-columns.min.css:md5,a5f4a3d7eeb08832c3d8d59ece24db2d",
+                "bootstrap-table.min.css:md5,3d1a5af7ebee2e0d5d8dc8e04493b2c6",
+                "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
+                "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
+                "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
+                "config.js:md5,77792b92cdcc9767e56fab1cc135ba0f",
+                "data_1.js:md5,56e4053c48e5858314cf3de8dac6dbe6",
+                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "heatmap.js:md5,885c02000a8bb539c1a9fd6e2d960ac4",
+                "index_1.html:md5,2a6fae72c38492533bfd7493beff0af2",
+                "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
+                "plot_1.js:md5,1963fdf668e3747ceea1114ff3b291c1",
+                "plot_2.js:md5,35ebace769c9125907fb52dc33b52a63",
+                "plot_3.js:md5,c52694fef1000a3d6db5cf760ae4463e",
+                "plot_4.js:md5,172b01dbc6ddf5cf142c47655459a40d",
+                "plot_5.js:md5,84e85e8b4a2c5ade8986bcc29fe2b3d3",
+                "plot_6.js:md5,ebca08a2054e0c93bc57285274346ea4",
+                "plot_7.js:md5,64477cb0971b929ba244e207c055a2a0",
+                "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
+                "metric_by_tool_truvari.png:md5,b4c3f9cf2f25fd8f3965f50e6e20e2b4",
+                "variants_by_tool_truvari.png:md5,217213991ae219644eb26370b20cf934",
+                "truvari.summary.csv:md5,b32bccb18529ca93336a8755adbfb58e",
+                "test1.SEQC2.tiddit.fn.vcf.gz:md5,c8a46622c09de222471cf94277206ee7",
+                "test1.SEQC2.tiddit.fn.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "test1.SEQC2.tiddit.fp.vcf.gz:md5,02a5f3d80ef1c1e286bf280ad43904bd",
+                "test1.SEQC2.tiddit.fp.vcf.gz.tbi:md5,ac46d7d3c842df5a4f8d9d68a1ea0d0b",
+                "test1.SEQC2.tiddit.summary.json:md5,df96cce87a1105fb5e9df59a83e8e671",
+                "test1.SEQC2.tiddit.tp-base.vcf.gz:md5,c8a46622c09de222471cf94277206ee7",
+                "test1.SEQC2.tiddit.tp-base.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "test1.SEQC2.tiddit.tp-comp.vcf.gz:md5,a5d6f474e1e0f9ac77257ba509464f05",
+                "test1.SEQC2.tiddit.tp-comp.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "HCC1395T_vs_HCC1395N.tiddit_sv_merge.sort.vcf.gz:md5,343bbbdfd16cf89e76480c7520313f56",
+                "test1.filter.vcf:md5,5d4bdf05f3cf8b1251fa10197729829c",
+                "test1.tiddit.bcftools_stats.txt:md5,56b036b7bd2d7368620713613dd0cae2",
+                "test1.tiddit.stats:md5,0eb749429a6072f6bf63d377e37514d1",
+                "test2.SEQC2.manta.fn.vcf.gz:md5,c8a46622c09de222471cf94277206ee7",
+                "test2.SEQC2.manta.fn.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "test2.SEQC2.manta.fp.vcf.gz:md5,28787426e3923d27da21562a1f612919",
+                "test2.SEQC2.manta.fp.vcf.gz.tbi:md5,527faf4496dac3a8434737149b336846",
+                "test2.SEQC2.manta.summary.json:md5,224d71ce921dd3863a4889a749fdcfde",
+                "test2.SEQC2.manta.tp-base.vcf.gz:md5,c8a46622c09de222471cf94277206ee7",
+                "test2.SEQC2.manta.tp-base.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "test2.SEQC2.manta.tp-comp.vcf.gz:md5,79ad4166fc48b9977f2f9daa00b53ccb",
+                "test2.SEQC2.manta.tp-comp.vcf.gz.tbi:md5,e7180bb953d2bd657c420a5f76a7164d",
+                "HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz:md5,4e8f2780fbaeec83203fa99b156a974b",
+                "test2.filter.vcf:md5,cc35443f70885fa14f8668988e002721",
+                "test2.manta.bcftools_stats.txt:md5,1c4cc5ab438537308e7f08a6c202118c",
+                "test2.manta.stats:md5,73bc60cd2754202ddca8be6552e85ffa"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-11T14:39:35.533136259"
+    }
+}

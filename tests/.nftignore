@@ -1,0 +1,6 @@
+**/*_report.html
+**/multiqc/multiqc_data/*
+**/multiqc/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}
+**/multiqc/multiqc_report.html
+pipeline_info/*.{html,json,txt,yml}
+**/summary/tables/*

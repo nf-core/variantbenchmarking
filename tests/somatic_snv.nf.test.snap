@@ -1,0 +1,188 @@
+{
+    "-stub": {
+        "content": [
+            38,
+            {
+                "BCFTOOLS_REHEADER": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.18
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "HAPPY_SOMPY": {
+                    "hap.py": "0.3.14"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.8.6"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "TABIX_BGZIP": {
+                    "tabix": "1.19.1"
+                },
+                "TABIX_BGZIPTABIX": {
+                    "tabix": "1.19.1"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.0dev"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "snv",
+                "snv/SEQC2",
+                "snv/SEQC2/stats",
+                "snv/SEQC2/stats/bcftools",
+                "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
+                "snv/multiqc",
+                "snv/multiqc/multiqc_data",
+                "snv/multiqc/multiqc_plots",
+                "snv/multiqc/multiqc_report.html",
+                "snv/summary",
+                "snv/summary/datavzrd",
+                "snv/summary/datavzrd/sompy",
+                "snv/summary/datavzrd/sompy/index.html",
+                "snv/summary/datavzrd/sompy/network",
+                "snv/summary/datavzrd/sompy/network/config.js",
+                "snv/summary/datavzrd/sompy/network/data",
+                "snv/summary/datavzrd/sompy/network/data/data_1.js",
+                "snv/summary/datavzrd/sompy/network/functions.js",
+                "snv/summary/datavzrd/sompy/network/heatmap.js",
+                "snv/summary/datavzrd/sompy/network/index_1.html",
+                "snv/summary/datavzrd/sompy/network/plots",
+                "snv/summary/datavzrd/sompy/network/plots/plot_0.js",
+                "snv/summary/datavzrd/sompy/static",
+                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
+                "snv/summary/datavzrd/sompy/static/bundle.js",
+                "snv/summary/datavzrd/sompy/static/datavzrd.css",
+                "snv/summary/datavzrd/versions.yml",
+                "snv/summary/plots",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/metric_by_tool_sompy.png",
+                "snv/summary/plots/sompy/variants_by_tool_sompy.png",
+                "snv/summary/tables",
+                "snv/summary/tables/sompy",
+                "snv/summary/tables/sompy/sompy.regions.csv",
+                "snv/summary/tables/sompy/sompy.summary.csv",
+                "snv/test1",
+                "snv/test1/benchmarks",
+                "snv/test1/benchmarks/sompy",
+                "snv/test1/benchmarks/sompy/test1.SEQC2.freebayes.features.csv",
+                "snv/test1/benchmarks/sompy/test1.SEQC2.freebayes.metrics.json",
+                "snv/test1/benchmarks/sompy/test1.SEQC2.freebayes.stats.csv",
+                "snv/test1/stats",
+                "snv/test1/stats/bcftools",
+                "snv/test1/stats/bcftools/test1.freebayes.bcftools_stats.txt",
+                "snv/test2",
+                "snv/test2/benchmarks",
+                "snv/test2/benchmarks/sompy",
+                "snv/test2/benchmarks/sompy/test2.SEQC2.manta.features.csv",
+                "snv/test2/benchmarks/sompy/test2.SEQC2.manta.metrics.json",
+                "snv/test2/benchmarks/sompy/test2.SEQC2.manta.stats.csv",
+                "snv/test2/preprocess",
+                "snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                "snv/test2/stats",
+                "snv/test2/stats/bcftools",
+                "snv/test2/stats/bcftools/test2.manta.bcftools_stats.txt",
+                "snv/test3",
+                "snv/test3/benchmarks",
+                "snv/test3/benchmarks/sompy",
+                "snv/test3/benchmarks/sompy/test3.SEQC2.strelka.features.csv",
+                "snv/test3/benchmarks/sompy/test3.SEQC2.strelka.metrics.json",
+                "snv/test3/benchmarks/sompy/test3.SEQC2.strelka.stats.csv",
+                "snv/test3/preprocess",
+                "snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
+                "snv/test3/stats",
+                "snv/test3/stats/bcftools",
+                "snv/test3/stats/bcftools/test3.strelka.bcftools_stats.txt"
+            ],
+            [
+                "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "multiqc_plots:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "index.html:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bootstrap-select.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bootstrap-table-fixed-columns.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bootstrap-table.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bootstrap.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bundle.js:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "datavzrd.css:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
+                "metric_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "variants_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "sompy.regions.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "sompy.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.SEQC2.freebayes.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.SEQC2.freebayes.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.SEQC2.freebayes.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test2.SEQC2.manta.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test2.SEQC2.manta.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test2.SEQC2.manta.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                {
+                    "directory": false,
+                    "file": true,
+                    "freeSpace": 1192700776448,
+                    "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                    "usableSpace": 1192700776448,
+                    "hidden": false,
+                    "totalSpace": 1288479703040,
+                    "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                    "name": "HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                    "absolute": true,
+                    "absolutePath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
+                    "parent": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess"
+                },
+                "test2.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test3.SEQC2.strelka.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test3.SEQC2.strelka.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test3.SEQC2.strelka.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                {
+                    "directory": false,
+                    "file": true,
+                    "freeSpace": 1192700776448,
+                    "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
+                    "usableSpace": 1192700776448,
+                    "hidden": false,
+                    "totalSpace": 1288479703040,
+                    "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
+                    "name": "HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
+                    "absolute": true,
+                    "absolutePath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
+                    "parent": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess"
+                },
+                "test3.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-11T14:36:57.021757547"
+    }
+}
