@@ -120,11 +120,8 @@
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "multiqc_plots:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "index.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "bootstrap-select.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "bootstrap-table-fixed-columns.min.css:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -135,8 +132,6 @@
                 "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
                 "metric_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "variants_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.regions.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.SEQC2.freebayes.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.SEQC2.freebayes.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -145,9 +140,9 @@
                 {
                     "directory": false,
                     "file": true,
-                    "freeSpace": 1188051619840,
+                    "freeSpace": 1230805327872,
                     "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
-                    "usableSpace": 1188051619840,
+                    "usableSpace": 1230805327872,
                     "hidden": false,
                     "totalSpace": 1288479703040,
                     "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
@@ -162,9 +157,9 @@
                 {
                     "directory": false,
                     "file": true,
-                    "freeSpace": 1188051619840,
+                    "freeSpace": 1230805327872,
                     "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
-                    "usableSpace": 1188051619840,
+                    "usableSpace": 1230805327872,
                     "hidden": false,
                     "totalSpace": 1288479703040,
                     "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
@@ -180,6 +175,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T13:15:54.644646851"
+        "timestamp": "2024-11-12T13:57:27.157417913"
     }
 }

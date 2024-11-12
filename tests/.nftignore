@@ -3,7 +3,11 @@
 **/multiqc/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}
 **/multiqc/multiqc_report.html
 pipeline_info/*.{html,json,txt,yml}
-**/summary/tables/*
-**/summary/datavzrd/config.json
-**/summary/datavzrd/index_1.html
-**/**/benchmarks/**/*.{json,tsv.gz,vcf.gz,gz.tbi}
+**/summary/tables/**/*.csv
+**/summary/datavzrd/**/config.json
+**/summary/datavzrd/**/config.js
+**/summary/datavzrd/**/index_1.html
+**/summary/datavzrd/**/data_1.js
+**/summary/comparisons/**/*.csv
+**/**/benchmarks/**/*.{json,json.gz,tsv.gz,vcf.gz,gz.tbi}
+**/**/preprocess/**/*.{vcf.gz,gz.tbi,vcf}

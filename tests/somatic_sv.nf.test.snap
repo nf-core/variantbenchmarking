@@ -161,10 +161,6 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,a60de9c4d2f3db87d8ae404b73859bfa",
                 "SEQC2.stats:md5,a1327ec0cd3131f9e16cccf0024f61a1",
-                "truvari.FN.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
-                "truvari.FP.csv:md5,d47360e5f1260a7d1cfa1797a7814ef8",
-                "truvari.TP_base.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
-                "truvari.TP_comp.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
                 "index.html:md5,01d8751c7e9107446222eedc86ff3190",
                 "bootstrap-select.min.css:md5,a04495fa5762cca97a2df5b310e7a386",
                 "bootstrap-table-fixed-columns.min.css:md5,a5f4a3d7eeb08832c3d8d59ece24db2d",
@@ -172,11 +168,8 @@
                 "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
                 "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
                 "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
-                "config.js:md5,98ed6b36ed012c5aa65e75c61ec3cb54",
-                "data_1.js:md5,56e4053c48e5858314cf3de8dac6dbe6",
                 "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "heatmap.js:md5,885c02000a8bb539c1a9fd6e2d960ac4",
-                "index_1.html:md5,a8d8f2128039044e7e3a3cd683d6f08a",
                 "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
                 "plot_1.js:md5,1963fdf668e3747ceea1114ff3b291c1",
                 "plot_2.js:md5,35ebace769c9125907fb52dc33b52a63",
@@ -188,13 +181,12 @@
                 "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
                 "metric_by_tool_truvari.png:md5,b4c3f9cf2f25fd8f3965f50e6e20e2b4",
                 "variants_by_tool_truvari.png:md5,217213991ae219644eb26370b20cf934",
-                "truvari.summary.csv:md5,b32bccb18529ca93336a8755adbfb58e",
                 "HCC1395T_vs_HCC1395N.tiddit_sv_merge.sort.vcf.gz:md5,343bbbdfd16cf89e76480c7520313f56",
-                "test1.filter.vcf:md5,7656f2afbfde001f4712b3e9f93366a2",
+                "test1.filter.vcf:md5,510eb4a0d9a07a889f1b5587fe44e557",
                 "test1.tiddit.bcftools_stats.txt:md5,56b036b7bd2d7368620713613dd0cae2",
                 "test1.tiddit.stats:md5,0eb749429a6072f6bf63d377e37514d1",
                 "HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz:md5,4e8f2780fbaeec83203fa99b156a974b",
-                "test2.filter.vcf:md5,8ec46db45095742cd2421c0d132b6708",
+                "test2.filter.vcf:md5,4a3ffa00cbc58758de82fc619710501f",
                 "test2.manta.bcftools_stats.txt:md5,1c4cc5ab438537308e7f08a6c202118c",
                 "test2.manta.stats:md5,73bc60cd2754202ddca8be6552e85ffa"
             ]
@@ -203,6 +195,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T13:20:59.230867837"
+        "timestamp": "2024-11-12T13:51:00.790106674"
     }
 }

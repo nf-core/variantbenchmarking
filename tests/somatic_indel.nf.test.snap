@@ -136,11 +136,8 @@
                 "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
                 "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
                 "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
-                "config.js:md5,b55917bb95097bf9c4228d66b33483af",
-                "data_1.js:md5,fed10370d1a4569e5e50a043191f6052",
                 "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "heatmap.js:md5,4b54716d3562e01c8957ffea6a091346",
-                "index_1.html:md5,10baf5f9b0604cb8e0fd2b33dafd083e",
                 "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
                 "plot_1.js:md5,84aa48f7741aaba5a48cc07c9a29847e",
                 "plot_10.js:md5,68400ad3129a9967e68e0f36dcc0a82e",
@@ -163,8 +160,6 @@
                 "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
                 "metric_by_tool_sompy.png:md5,27c2aefe65fd23344895343c1de228e9",
                 "variants_by_tool_sompy.png:md5,7ba77d46cfbefac1d057e2965925ad51",
-                "sompy.regions.csv:md5,3832053ae733a56579ccf1d8947dfee6",
-                "sompy.summary.csv:md5,4ba6196c6461f2af51c4ed2b71d6ad0b",
                 "test1.SEQC2.freebayes.features.csv:md5,41752d01679b1efee789bdf0573b6057",
                 "test1.SEQC2.freebayes.stats.csv:md5,b2c32225c192f4704f6ce16dfb64dacb",
                 "test1.freebayes.bcftools_stats.txt:md5,c5025b5c6256c1d808badee73a7c220c",
@@ -178,6 +173,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T12:56:25.362287984"
+        "timestamp": "2024-11-12T14:11:30.086388856"
     }
 }
