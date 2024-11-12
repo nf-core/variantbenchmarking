@@ -138,18 +138,16 @@
                 "sompy.regions.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "sompy.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.SEQC2.freebayes.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test1.SEQC2.freebayes.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.SEQC2.freebayes.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.SEQC2.manta.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test2.SEQC2.manta.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.SEQC2.manta.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 {
                     "directory": false,
                     "file": true,
-                    "freeSpace": 1192700776448,
+                    "freeSpace": 1188051619840,
                     "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
-                    "usableSpace": 1192700776448,
+                    "usableSpace": 1188051619840,
                     "hidden": false,
                     "totalSpace": 1288479703040,
                     "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
@@ -160,14 +158,13 @@
                 },
                 "test2.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.SEQC2.strelka.features.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test3.SEQC2.strelka.metrics.json:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.SEQC2.strelka.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 {
                     "directory": false,
                     "file": true,
-                    "freeSpace": 1192700776448,
+                    "freeSpace": 1188051619840,
                     "canonicalPath": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
-                    "usableSpace": 1192700776448,
+                    "usableSpace": 1188051619840,
                     "hidden": false,
                     "totalSpace": 1288479703040,
                     "path": "/workspace/variantbenchmarking/.nf-test/tests/85debb69fdfa1154bc487cb7ffc29e7f/output/snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
@@ -183,6 +180,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-11T14:36:57.021757547"
+        "timestamp": "2024-11-12T13:15:54.644646851"
     }
 }

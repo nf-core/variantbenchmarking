@@ -72,7 +72,7 @@
                     },
                     "happy/sompy": {
                         "branch": "master",
-                        "git_sha": "2f04da318223fd982f8aa3d5546dabdf42afa4eb",
+                        "git_sha": "52e382788f0a5eedf8acee8329c775358db09720",
                         "installed_by": ["modules"]
                     },
                     "manta/convertinversion": {

@@ -4,3 +4,6 @@
 **/multiqc/multiqc_report.html
 pipeline_info/*.{html,json,txt,yml}
 **/summary/tables/*
+**/summary/datavzrd/config.json
+**/summary/datavzrd/index_1.html
+**/**/benchmarks/**/*.{json,tsv.gz,vcf.gz,gz.tbi}
