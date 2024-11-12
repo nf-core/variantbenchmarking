@@ -1,5 +1,6 @@
 bump_version: null
-lint: null
+lint:
+  actions_ci: false
 nf_core_version: 3.0.1
 org_path: null
 repository_type: pipeline

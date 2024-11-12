@@ -62,9 +62,6 @@
                 }
             },
             [
-                "HG002",
-                "HG002/liftover",
-                "HG002/liftover/HG002.renamechr.vcf.gz",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "references",
@@ -72,6 +69,8 @@
                 "references/dictionary/genome.dict",
                 "structural",
                 "structural/HG002",
+                "structural/HG002/liftover",
+                "structural/HG002/liftover/HG002.renamechr.vcf.gz",
                 "structural/HG002/preprocess",
                 "structural/HG002/preprocess/HG002.renamechr.rh.norm.dedup.sort.vcf.gz",
                 "structural/HG002/stats",
@@ -170,37 +169,10 @@
                 "structural/test2/stats/survivor/test2.manta.stats"
             ],
             [
-                "HG002.renamechr.vcf.gz:md5,edd07af86ef9fe1e58904b2a4fd85edd",
-                "genome.dict:md5,2f33ed2b6a6f8a3c93f868af34fdc712",
-                "HG002.renamechr.rh.norm.dedup.sort.vcf.gz:md5,06f3242596585a68c311b6b4decc494f",
                 "HG002.bcftools_stats.txt:md5,c60ba56ddea48806895ffd3c1813d39f",
                 "HG002.stats:md5,68681df47b35e3193be03610f5c6e3d6",
-                "index.html:md5,01d8751c7e9107446222eedc86ff3190",
-                "bootstrap-select.min.css:md5,a04495fa5762cca97a2df5b310e7a386",
-                "bootstrap-table-fixed-columns.min.css:md5,a5f4a3d7eeb08832c3d8d59ece24db2d",
-                "bootstrap-table.min.css:md5,3d1a5af7ebee2e0d5d8dc8e04493b2c6",
-                "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
-                "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
-                "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,5b1417eee38958b81325fce37432cf77",
-                "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
-                "plot_1.js:md5,b04998edbc8d3dbcab1878f5e6af76b0",
-                "plot_2.js:md5,ca7cfcaf922101d92d8f69d7f8d53962",
-                "plot_3.js:md5,ce3e56291f0d106815814cc2eb5e1014",
-                "plot_4.js:md5,0661561b6500e7788bd3456ea0b5e9ab",
-                "plot_5.js:md5,0022f3c1c1cb3f978370dd8fc01a2215",
-                "plot_6.js:md5,31d47f95f5bec2a72fc6f6702e6a5246",
-                "plot_7.js:md5,0edfef497c2fd2d86a580e5057c1c2d6",
-                "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
-                "metric_by_tool_truvari.png:md5,484c87060e3ecd3f72acea847415f406",
-                "variants_by_tool_truvari.png:md5,4c01b95d2505e9f1f889aa0694de8bd4",
-                "test1.dedup.sort.vcf.gz:md5,9f92214d7f469ab0947f7bd919c611f3",
-                "test1.norm.filter.vcf:md5,d768bfa7c575cfe235499b6003b59a52",
                 "test1.delly.bcftools_stats.txt:md5,4f2d76bb6b8eef1c6a285e7b6a4e82cc",
                 "test1.delly.stats:md5,e140ad55975c767578b0dd6aff58ba29",
-                "test2.dedup.sort.vcf.gz:md5,c72139271f42316db44942aa739057c2",
-                "test2.norm.filter.vcf:md5,720f8eeacbdcb33f89f0822a536a90df",
                 "test2.manta.bcftools_stats.txt:md5,71700db9ad154859adef19c591da0f41",
                 "test2.manta.stats:md5,31e3d3047f38b25ae6eba9c4bd1a4292"
             ]
@@ -209,6 +181,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T14:41:43.201827786"
+        "timestamp": "2024-11-12T15:30:56.956725614"
     }
 }

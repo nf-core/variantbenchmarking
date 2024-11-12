@@ -129,43 +129,11 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,e530daf4f6a4923f1cd85c51893d5747",
-                "index.html:md5,01d8751c7e9107446222eedc86ff3190",
-                "bootstrap-select.min.css:md5,a04495fa5762cca97a2df5b310e7a386",
-                "bootstrap-table-fixed-columns.min.css:md5,a5f4a3d7eeb08832c3d8d59ece24db2d",
-                "bootstrap-table.min.css:md5,3d1a5af7ebee2e0d5d8dc8e04493b2c6",
-                "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
-                "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
-                "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,4b54716d3562e01c8957ffea6a091346",
-                "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
-                "plot_1.js:md5,84aa48f7741aaba5a48cc07c9a29847e",
-                "plot_10.js:md5,68400ad3129a9967e68e0f36dcc0a82e",
-                "plot_11.js:md5,40b5943d7df5d26a7ceb45881034b349",
-                "plot_12.js:md5,6a0c561bdb088a4a967a33d42635a8f9",
-                "plot_13.js:md5,975e6a96af7f03d364eb699c687e24e7",
-                "plot_14.js:md5,a099a79ba03db3418036c15ce507bea3",
-                "plot_15.js:md5,74f05929c870c62c4012072d10c8c1aa",
-                "plot_16.js:md5,432a3bb17514df82bceab5a36abbd310",
-                "plot_17.js:md5,3871c6edf898710e455360e639528577",
-                "plot_18.js:md5,233fe2365653a98a9b56cf0207acb4e5",
-                "plot_2.js:md5,0e6da5e16b0a1f6736d311ac07ae26d4",
-                "plot_3.js:md5,368da9a6a3bd03d5a635895eec4d3317",
-                "plot_4.js:md5,8dcdd36e1fd6562e0d6631dc83aedd8b",
-                "plot_5.js:md5,47d5977cfbb7e3cc82ff2a3033059e92",
-                "plot_6.js:md5,0a76f700a602ac3baa1a13aab9d13551",
-                "plot_7.js:md5,319d416f9d25c0a510c47ee170cfc46c",
-                "plot_8.js:md5,0b8ab6021c1aff0607cde3ac3c3fe845",
-                "plot_9.js:md5,2d68bcb4addc2653ebe0fc9752b0cd0f",
-                "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
-                "metric_by_tool_sompy.png:md5,27c2aefe65fd23344895343c1de228e9",
-                "variants_by_tool_sompy.png:md5,7ba77d46cfbefac1d057e2965925ad51",
                 "test1.SEQC2.freebayes.features.csv:md5,41752d01679b1efee789bdf0573b6057",
                 "test1.SEQC2.freebayes.stats.csv:md5,b2c32225c192f4704f6ce16dfb64dacb",
                 "test1.freebayes.bcftools_stats.txt:md5,c5025b5c6256c1d808badee73a7c220c",
                 "test2.SEQC2.strelka.features.csv:md5,c5af06f0e6d85e53f890826b86d2d0ec",
                 "test2.SEQC2.strelka.stats.csv:md5,dbf9f81ef2d2c92c70f845bf0ed21929",
-                "HCC1395T_vs_HCC1395N.strelka.somatic_indels.sort.vcf.gz:md5,2392f7c3d0bb613add3f90dcdfa9b04e",
                 "test2.strelka.bcftools_stats.txt:md5,ec553881bc70c786e8cec95192823634"
             ]
         ],
@@ -173,6 +141,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T14:11:30.086388856"
+        "timestamp": "2024-11-12T16:14:37.608031284"
     }
 }

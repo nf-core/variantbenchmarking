@@ -161,32 +161,8 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,a60de9c4d2f3db87d8ae404b73859bfa",
                 "SEQC2.stats:md5,a1327ec0cd3131f9e16cccf0024f61a1",
-                "index.html:md5,01d8751c7e9107446222eedc86ff3190",
-                "bootstrap-select.min.css:md5,a04495fa5762cca97a2df5b310e7a386",
-                "bootstrap-table-fixed-columns.min.css:md5,a5f4a3d7eeb08832c3d8d59ece24db2d",
-                "bootstrap-table.min.css:md5,3d1a5af7ebee2e0d5d8dc8e04493b2c6",
-                "bootstrap.min.css:md5,816af0eddd3b4822c2756227c7e7b7ee",
-                "bundle.js:md5,991c8d5442045b8afc071b4eee9b1796",
-                "datavzrd.css:md5,dfad5e534ff98d8d7642f080cd7d0ff5",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,885c02000a8bb539c1a9fd6e2d960ac4",
-                "plot_0.js:md5,dbe8a6f9908a3b27cb37296a68f8848f",
-                "plot_1.js:md5,1963fdf668e3747ceea1114ff3b291c1",
-                "plot_2.js:md5,35ebace769c9125907fb52dc33b52a63",
-                "plot_3.js:md5,c52694fef1000a3d6db5cf760ae4463e",
-                "plot_4.js:md5,172b01dbc6ddf5cf142c47655459a40d",
-                "plot_5.js:md5,84e85e8b4a2c5ade8986bcc29fe2b3d3",
-                "plot_6.js:md5,ebca08a2054e0c93bc57285274346ea4",
-                "plot_7.js:md5,64477cb0971b929ba244e207c055a2a0",
-                "versions.yml:md5,d503c03a8d9f5141f0bc1547d4edd8ec",
-                "metric_by_tool_truvari.png:md5,b4c3f9cf2f25fd8f3965f50e6e20e2b4",
-                "variants_by_tool_truvari.png:md5,217213991ae219644eb26370b20cf934",
-                "HCC1395T_vs_HCC1395N.tiddit_sv_merge.sort.vcf.gz:md5,343bbbdfd16cf89e76480c7520313f56",
-                "test1.filter.vcf:md5,510eb4a0d9a07a889f1b5587fe44e557",
                 "test1.tiddit.bcftools_stats.txt:md5,56b036b7bd2d7368620713613dd0cae2",
                 "test1.tiddit.stats:md5,0eb749429a6072f6bf63d377e37514d1",
-                "HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz:md5,4e8f2780fbaeec83203fa99b156a974b",
-                "test2.filter.vcf:md5,4a3ffa00cbc58758de82fc619710501f",
                 "test2.manta.bcftools_stats.txt:md5,1c4cc5ab438537308e7f08a6c202118c",
                 "test2.manta.stats:md5,73bc60cd2754202ddca8be6552e85ffa"
             ]
@@ -195,6 +171,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T13:51:00.790106674"
+        "timestamp": "2024-11-12T16:27:02.901069711"
     }
 }
