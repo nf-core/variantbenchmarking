@@ -1,6 +1,6 @@
 nextflow_pipeline {
 
-    name "Test pipeline for small germline variants, tested benchmarking methods are truvari, svbenchmark and wittyer"
+    name "Test pipeline for structural germline variants, tested benchmarking methods are truvari, svbenchmark and wittyer"
     script "../main.nf"
     tag "pipeline"
     tag "germline"

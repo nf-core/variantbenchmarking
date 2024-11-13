@@ -1,6 +1,6 @@
 nextflow_pipeline {
 
-    name "Test pipeline for small somatic variants, tested benchmarking methods are sompy"
+    name "Test pipeline for indel somatic variants, tested benchmarking methods are sompy"
     script "../main.nf"
     tag "pipeline"
     tag "somatic"
