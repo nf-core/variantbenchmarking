@@ -268,7 +268,6 @@
                 "small/test2/stats/bcftools/test2.bcftools.bcftools_stats.txt"
             ],
             [
-                "done:md5,095c6e81d56a0e3fe969e635ed49ff3b",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -313,7 +312,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-12T15:46:02.878306442"
+        "timestamp": "2024-11-13T09:00:38.410760165"
     },
     "-stub": {
         "content": [

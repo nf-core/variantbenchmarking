@@ -8,6 +8,7 @@ references/rtgtools/genome.sdf/summary.txt
 references/rtgtools/genome.sdf/progress
 references/rtgtools/genome.sdf/format.log
 references/rtgtools/genome.sdf/mainIndex
+references/rtgtools/genome.sdf/done
 **/summary/tables/**/*.csv
 **/summary/datavzrd/versions.yml
 **/summary/datavzrd/**/index.html
