@@ -14,4 +14,9 @@ process CREATE_DATAVZRD_INPUT {
 
     cat "$template" | sed "s|CSVPATH|$csv|g" > config.yaml
     """
+
+    stub:
+    """
+    touch config.yaml
+    """
 }
