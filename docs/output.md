@@ -13,18 +13,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Preprocesses ](#preprocesses)
 - [Liftover of truth sets](#liftover)
 - [Input vcf statistics](#stats)
-- [Benchmarking](#bench)
-  - [Truvari](#truvari_bench)
-  - [SVanalyzer](#svanalyzer_bench)
-  - [Wittyer](#wittyer_bench)
-  - [RTG-tools](#rtgtools_bench)
-  - [Happy](#happy_bench)
-  - [Sompy](#sompy_bench)
+- [Benchmarking](#benchmarks)
+  - [Truvari](#truvari)
+  - [SVanalyzer](#svanalyzer)
+  - [Wittyer](#wittyer)
+  - [RTG-tools](#rtgtools)
+  - [Happy](#happy)
+  - [Sompy](#sompyh)
 - [Summary statistics](#summary)
   - [Comparison of benchmarking results](#comparisons)
   - [Merged summary benchmark statistics](#tables)
   - [Plots](#plots)
-  - [datavzrd HTML reports](#html)
+  - [datavzrd HTML reports](#datavzrd)
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -75,7 +75,7 @@ bcftools stats applied into all variant types while survivor stats is only avail
 <details markdown="1">
 <summary>Output files</summary>
 
-- `truvari_bench/`
+- `truvari/`
   - `*.fn.vcf.gz` : False negative calls from comparison
   - `*.fn.vcf.gz.tbi` : False negative calls from comparison - index file
   - `*.fp.vcf.gz`: False positive calls from comparison
@@ -85,17 +85,17 @@ bcftools stats applied into all variant types while survivor stats is only avail
   - `*.tp-base.vcf.gz`: True positive calls form the base VCF
   - `*.tp-base.vcf.gz.tbi`: True positive calls form the base VCF - index file
   - `*.summary.json`: Json output of performance stats
-- `svanalyzer_bench/`
+- `svanalyzer/`
   - `*.distances`: Distances for comparisons
   - `*.falsenegatives.vcf.gz` : False negative calls from comparison
   - `*.falsepositives.vcf.gz`: False positive calls from comparison
   - `*.log`: Log of the run
   - `*.report`: Output report of performance stats
-- `wittyer_bench/`
+- `wittyer/`
   - `*.vcf.gz`: Calls from comparison
   - `*.vcf.gz.tbi`: Calls from comparison - index file
   - `*.json`: Json output of performance stats
-- `rtgtools_bench/`
+- `rtgtools/`
   - `*.vcf.gz`: Calls from comparison
   - `*.vcf.gz.tbi`: Calls from comparison - index file
   - `*.fn.vcf.gz` : Contains variants from the baseline VCF which were not correctly called
@@ -111,7 +111,7 @@ bcftools stats applied into all variant types while survivor stats is only avail
   - `*.snp_roc.tsv.gz`: Contains ROC data derived from only those variants which were represented as SNPs
   - `*.summary.txt`: Output summary of performance stats
   - `*.weighted_roc.tsv.gz`: Contains ROC data derived from all analyzed call variants, regardless of their representation
-- `happy_bench/`
+- `happy/`
   - `*.extended.csv`: Extended statistics
   - `*.metrics.json.gz`: JSON file containing all computed metrics and tables
   - `*.roc.all.csv.gz`: All precision / recall data points that were calculated
@@ -123,7 +123,7 @@ bcftools stats applied into all variant types while survivor stats is only avail
   - `*.summary.csv`: Output summary of performance stats
   - `*.vcf.gz`: Calls from comparison
   - `*.vcf.gz.tbi`: Calls from comparison - index file
-- `sompy_bench/`
+- `sompy/`
   - `*.features.csv`: Calls from comparison
   - `*.metrics.json`: JSON file containing all computed metrics and tables
   - `*.stats.csv`: Output summary of performance stats
@@ -200,11 +200,15 @@ Benchmark results are created separately for each test vcf and for each method u
   - `snv/`
     - `sompy.snv.summary.csv`: Summary of performance stats from callers
     - `sompy.snv.regions.csv`: Summary of performance stats split by region bins from callers
-- ## `html/`
+- ## `datavzrd/`
 
 </details>
+<summary>Output files</summary>
 
-Note that comparison results for happy and wittyer is missing since their output does not have FP/TP/FN called variants separably. For svbenchmark, TP_base and TP_comp are also missing from the same reason.
+- benchmark tool
+  - static
+  - test
+  - index.html: HTML file to open in the browser for datavzrd spedific tables and visualizations.
 
 ### References
 
