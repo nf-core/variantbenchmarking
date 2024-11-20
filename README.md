@@ -19,7 +19,7 @@
 
 ## Introduction
 
-**nf-core/variantbenchmarking** is designed to evaluate and validate the accuracy of variant calling methods in genomic research especially for Human data. Initially, the pipeline is tuned well for available gold standard truth sets (for example, Genome in a Bottle and SEQC2 samples) but it can be used to compare any two variant calling results. The workflow provides benchmarking tools for small variants including SNVs and INDELs, Structural Variants (SVs) and Copy Number Variations (CNVs) for germline and somatic analysis.
+**nf-core/variantbenchmarking** is designed to evaluate and validate the accuracy of variant calling methods in genomic research. Initially, the pipeline is tuned well for available gold standard truth sets (for example, Genome in a Bottle and SEQC2 samples) but it can be used to compare any two variant calling results. The workflow provides benchmarking tools for small variants including SNVs and INDELs, Structural Variants (SVs) and Copy Number Variations (CNVs) for germline and somatic analysis.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -113,15 +113,15 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-id,test_vcf,caller,vartype
-test1,test1.vcf.gz,delly,sv
-test2,test2.vcf,gatk,small
-test3,test3.vcf.gz,cnvkit,cnv
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
 ```
 
-Each row represents a vcf file (test-query file). For each vcf file, variant calling method (caller) and variant type (vartype) have to be defined.
+Each row represents a vcf file (test-query file). For each vcf file and variant calling method (caller) have to be defined.
 
-User has to define or provide truth vcf in config files. There are readily available vcf files for benchmarking from Genome in a bottle and SEQC2 studies which can be used readily.
+User has to define or provide truth vcf in config files. There are readily available vcf files for benchmarking from Genome in a bottle and SEQC2 studies which can be used readily. Please find detailed information about truth files [here](https://nf-co.re/variantbenchmarking/truth)
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 

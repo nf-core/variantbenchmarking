@@ -8,9 +8,13 @@
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
+Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf provided with params.truth_vcf.
+
+params.variant*type can be "small" or "structural" for params.analysis of "germline" or params.variant_type can be "snv", "indel" or "structural" for params.analysis of "somatic". Please be aware that \_only one type of varian_analysis is possible for each run*.
+
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the test vcf you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the test vcf you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -18,13 +22,13 @@ You will need to create a samplesheet with information about the test vcf you wo
 
 ### Full samplesheet
 
-The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 4 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller,vartype
-test1,test1.vcf.gz,delly,sv
-test2,test2.vcf,gatk,small
-test3,test3.vcf.gz,cnvkit,cnv
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
 ```
 
 | Column     | Description                                                                                                                                     |
@@ -32,44 +36,12 @@ test3,test3.vcf.gz,cnvkit,cnv
 | `id`       | Custom id name per test vcf. This entry will be identical.                                                                                      |
 | `test_vcf` | The VCF file to use as benchmarking test input. The same file can be used in more than one row. File can be either vcf or vcf.gz.               |
 | `caller`   | Variant caller method used to generate test VCF file. There can be more than one test vcf for the same caller. For unknown caller use 'unknown' |
-| `vartype`  | Variant type to apply benchmarking. Variant type can be only one of these: small, sv, snv, indel and cnv.                                       |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-## Defining Truth VCF and High confidence BED files
+## Truth samples
 
-The following parameters has to be defined for each type of benchmarking analysis. The following parameters defined the exact paths to the truth files:
-
-- `--sample`: Sample parameter defines the same name of the truth set. Examples: `HG002`, `SEQC2`, `HG001`, `HG003`, `CHM13`.
-- `--analysis`: The type of analysis to perform: `germline` or `somatic`.
-- `--method`: List the benchmarking methods to apply. By default all available tools will be applied according to the variant types provided. Available tools: `truvari, svanalyzer, happy, sompy, rtgtools, wittyer`.
-
-_Small variant benchmarking:_
-
-- `--truth_small`: Path to the golden set VCF files combined for SNVs and indels, required for germline benchmarking (vcf or vcf.gz)
-- `--high_conf_small`: Path to the high confidence BED files for SNVs and indels, required for germline benchmarking (bed or bed.gz)
-- `--truth_snv`: Path to the golden set VCF files for SNVs, required for somatic benchmarking (vcf or vcf.gz)
-- `--high_conf_snv`: Path to the high confidence BED files for SNVs, required for somatic benchmarking (bed or bed.gz)
-- `--truth_indel`: Path to the golden set VCF files for indels, required for somatic benchmarking (vcf or vcf.gz)
-- `--high_conf_indel`: Path to the high confidence BED files for indels, required for somatic benchmarking (bed or bed.gz)
-
-_Structural variant benchmarking:_
-
-- `--truth_sv`: Path to the golden set VCF files for SVs, required for germline and somatic benchmarking (vcf or vcf.gz)
-- `--high_conf_sv`: Path to the high confidence BED files for SVs, required for germline and somatic benchmarking (bed or bed.gz)
-
-_Copy Number Variation benchmarking:_
-
-- `--truth_cnv`: Path to the golden set VCF files for CNVs, required for germline and somatic benchmarking (vcf or vcf.gz)
-- `--high_conf_cnv`: Path to the high confidence BED files for CNVs, required for germline and somatic benchmarking (bed or bed.gz)
-
-_Using truth.config_
-
-`conf/truth.config` file contains some readily available truth files for germline and somatic analysis. In order to activate usage one has to
-
-1. use `--genome` [`GRCh37` or `GRCh38`]
-2. define `--sample` [`HG002` or `SEQC2`]
-3. turn off `--itruth_ignore false`
+Please find the detailed information about truth samples [here](https://nf-co.re/variantbenchmarking/truth).
 
 ## Lifting over truth sets
 
@@ -77,8 +49,6 @@ This workflow comes with a liftover option for truth sets. In order to activate 
 
 - `--chain`: This workflow uses picard tools for lifting over and a chain file has to be provided specific to the input truth vcf. Some examples can be found [here](https://genome.ucsc.edu/goldenPath/help/chain.html)
 - `--rename_chr`: Renaming chromosomes is required after liftover process. Some examples can be found under `assets/rename_contigs` directory.
-
-Note: these two files are also provided under `itruth.config`. An example usage can be found in `conf/test_liftover.config`
 
 ## Standardization and normalization parameters
 
@@ -100,10 +70,10 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
 If the input test vcf contains more than one sample, then user has to define which sample name to use. `subsample` will added to the samplesheet as an additional column as follows:
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller,vartype,subsample
-test1,test1.vcf.gz,delly,sv,"TUMOR"
-test2,test2.vcf,gatk,small,"NA128120"
-test3,test3.vcf.gz,cnvkit,cnv,
+id,test_vcf,caller,subsample
+test1,test1.vcf.gz,delly,"TUMOR"
+test2,test2.vcf,gatk,"NA128120"
+test3,test3.vcf.gz,cnvkit,
 ```
 
 Note that, this option can be inevitable for somatic analysis since most of the callers reports both normal and tumor genotypes in the same vcf file.
@@ -115,9 +85,9 @@ Benchmarking parameters may vary between the tools and for callers. In order to 
 _SVbenchmark_
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller,vartype,normshift,normdist,normsizediff,maxdist
-test1,test1.vcf.gz,delly,sv,0.7,0.7,0.7,100000
-test2,test2.vcf,gatk,sv,0.6,0.5,0.7,110000
+id,test_vcf,caller,normshift,normdist,normsizediff,maxdist
+test1,test1.vcf.gz,delly,0.7,0.7,0.7,100000
+test2,test2.vcf,gatk,0.6,0.5,0.7,110000
 ```
 
 - `normshift`: Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)
@@ -128,9 +98,9 @@ test2,test2.vcf,gatk,sv,0.6,0.5,0.7,110000
 _Truvari_
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller,vartype,pctsize,pctseq,pctovl,refdist,chunksize,dup_to_ins,typeignore
-test1,test1.vcf.gz,delly,sv,0.7,0.7,0.7,100000,50000,true,true
-test2,test2.vcf,gatk,sv,0.6,0.5,0.7,110000,40000,false,true
+id,test_vcf,caller,pctsize,pctseq,pctovl,refdist,chunksize,dup_to_ins,typeignore
+test1,test1.vcf.gz,delly,0.7,0.7,0.7,100000,50000,true,true
+test2,test2.vcf,gatk,0.6,0.5,0.7,110000,40000,false,true
 ```
 
 - `pctsize`: Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size)
@@ -172,7 +142,7 @@ _Parameters applicable only to Structural Variants_
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results -profile docker --genome GRCh37 --sample HG002 --analysis germline
+nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results -profile docker --genome GRCh37 --sample HG002 --analysis germline --variant_type small
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -261,14 +231,29 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `test`
   - A profile with a complete configuration for automated testing
   - Includes links to test data so needs no other parameters
-- `test_liftover`
+- `test_full`
+  - A profile with a complete configuration for full size of sample testing
+  - Includes links to test data so needs no other parameters
+- `liftover_hg37`
   - A profile with a complete configuration for using liftover of HG002 hg38 truth set to hg37
   - Includes links to test data so needs no other parameters
-- `test_germline`
-  - A profile with a complete configuration for a full test of HG002 sample from germline analysis
+- `liftover_hg38`
+  - A profile with a complete configuration for using liftover of HG002 hg37 truth set to hg38
   - Includes links to test data so needs no other parameters
-- `test_somatic`
-  - A profile with a complete configuration for a full test of SEQC2 sample from somatic analysis
+- `germline_small`
+  - A profile with a complete configuration for germline analysis with small variat type of data
+  - Includes links to test data so needs no other parameters
+- `germline_structural`
+  - A profile with a complete configuration for germline analysis with structural variat type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_structural`
+  - A profile with a complete configuration for somatic analysis with structural variat type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_snv`
+  - A profile with a complete configuration for somatic analysis with snv variat type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_indel`
+  - A profile with a complete configuration for somatic analysis with indel variat type of data
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)
