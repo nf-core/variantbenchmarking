@@ -22,7 +22,7 @@ You will need to create a samplesheet with information about the test vcf you wo
 
 ### Full samplesheet
 
-The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 4 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
 
 ```csv title="samplesheet.csv"
 id,test_vcf,caller
