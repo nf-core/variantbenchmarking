@@ -1,16 +1,5 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    CONFIG FILES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-ch_multiqc_config          = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_custom_config   = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
-ch_multiqc_logo            = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
-ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -18,11 +7,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
+include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap            } from 'plugin/nf-schema'
+include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
 
 //
 // SUBWORKFLOWS: Local Subworkflows
@@ -51,8 +40,11 @@ workflow VARIANTBENCHMARKING {
     ch_samplesheet // channel: samplesheet read in from --input
     main:
 
+    // To gather all QC reports for Multiqc
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
+    // To gather benchmark reports
     ch_reports       = Channel.empty()
 
     //// create reference channels ////
@@ -74,7 +66,7 @@ workflow VARIANTBENCHMARKING {
     sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
                                                 : Channel.empty()
 
-    // read chainfile, liftover genome and rename chr files if liftover is true
+    // read chain file, liftover genome and rename chr files if liftover is true
     chain           = Channel.empty()
     rename_chr      = Channel.empty()
     dictionary      = Channel.empty()
@@ -110,14 +102,14 @@ workflow VARIANTBENCHMARKING {
 
 
     if (params.variant_type == "structural"){
-        // Standardize SV VCFs, tool spesific modifications
+        // Standardize SV VCFs, tool specific modifications
         SV_VCF_CONVERSIONS(
             vcf_ch,
             fasta,
             fai
         )
         ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
-        vcf_ch = SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])}
+        vcf_ch      = SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])}
     }
     // Prepare and normalize input vcfs
     PREPARE_VCFS_TEST(
@@ -138,7 +130,7 @@ workflow VARIANTBENCHMARKING {
         dictionary
     )
     regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
+    ch_versions    = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
 
     // VCF REPORTS AND STATS
 
@@ -146,12 +138,13 @@ workflow VARIANTBENCHMARKING {
     REPORT_VCF_STATISTICS(
         PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
-    ch_versions = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
+    ch_versions       = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
+    ch_multiqc_files  = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
 
     // Prepare benchmark channel
     PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
         .combine(regions_bed_ch.ifEmpty([[]]))
-        .map{ test_meta, test_vcf, test_tbi, truth_meta, truth_vcf, truth_tbi, high_bed ->
+        .map{ test_meta, test_vcf, test_tbi, _truth_meta, truth_vcf, truth_tbi, high_bed ->
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]}
         .set{bench}
 
@@ -165,35 +158,33 @@ workflow VARIANTBENCHMARKING {
             fasta,
             fai
         )
-        ch_versions = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
-        ch_reports  = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
-        evals_ch = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+        ch_versions      = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
+        ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
+        evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
     }
 
     if (params.analysis.contains("germline")){
 
         if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
-            // Benchmarking spesific to small germline samples
+            // Benchmarking specific to small germline samples
             SMALL_GERMLINE_BENCHMARK(
                 bench,
                 fasta,
                 fai,
                 sdf
             )
-            ch_versions = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
-            ch_reports  = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
-            evals_ch = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
+            ch_versions      = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
+            ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
+            evals_ch         = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
         }
 
         if (params.variant_type == "copynumber"){
             // Benchmarking spesific to CNV germline samples
             CNV_GERMLINE_BENCHMARK(
-                bench,
-                fasta,
-                fai
+                bench
             )
-            ch_versions = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
-            ch_reports  = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
+            ch_versions      = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
+            ch_reports       = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
         }
     }
 
@@ -207,8 +198,8 @@ workflow VARIANTBENCHMARKING {
                 fasta,
                 fai
             )
-            ch_versions = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
-            ch_reports  = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+            ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
+            ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
         }
 
     }
@@ -224,7 +215,7 @@ workflow VARIANTBENCHMARKING {
     REPORT_BENCHMARK_STATISTICS(
         ch_reports
     )
-    ch_versions = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
+    ch_versions      = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
 
     // TODO: BENCHMARKING OF CNV
     // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
@@ -251,36 +242,19 @@ workflow VARIANTBENCHMARKING {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = Channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        Channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        Channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        Channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        Channel.empty()
+    ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) :Channel.empty()
+    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
+    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml',sort: true))
+    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots)
 
-
-    summary_params      = paramsSummaryMap(
-        workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary = Channel.value(paramsSummaryMultiqc(summary_params))
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
-        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = Channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description))
-
-    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_methods_description.collectFile(
-            name: 'methods_description_mqc.yaml',
-            sort: true
-        )
-    )
-
+    ch_multiqc_files.view()
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
@@ -291,7 +265,7 @@ workflow VARIANTBENCHMARKING {
     )
 
     emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    versions            = ch_versions                 // channel: [ path(versions.yml) ]
 
 }
 

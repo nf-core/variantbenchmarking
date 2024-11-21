@@ -30,7 +30,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
             // Use rtgtools format to generate sdf file if necessary
             RTGTOOLS_FORMAT(
-                fasta.map { meta, fasta -> [ meta, fasta, [], [] ] }
+                fasta.map { meta, file -> [ meta, file, [], [] ] }
             )
             versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
             sdf = RTGTOOLS_FORMAT.out.sdf
@@ -48,13 +48,13 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         // collect summary reports
         RTGTOOLS_VCFEVAL.out.summary
-            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
             .groupTuple()
             .set{ report }
 
         summary_reports = summary_reports.mix(report)
 
-        // reheader benchmarking results preperly and tag meta
+        // reheader benchmarking results properly and tag meta
         VCF_REHEADER_SAMPLENAME_1(
             RTGTOOLS_VCFEVAL.out.fn_vcf,
             fai
@@ -62,7 +62,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_1.out.versions)
 
         VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file, index) }
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file, index) }
             .set { vcf_fn }
 
         VCF_REHEADER_SAMPLENAME_2(
@@ -72,7 +72,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_2.out.versions)
 
         VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file, index) }
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file, index) }
             .set { vcf_fp }
 
         VCF_REHEADER_SAMPLENAME_3(
@@ -82,7 +82,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_3.out.versions)
 
         VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_base }
 
         VCF_REHEADER_SAMPLENAME_4(
@@ -92,7 +92,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         versions = versions.mix(VCF_REHEADER_SAMPLENAME_4.out.versions)
 
         VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
-            .map { meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_comp }
 
         tagged_variants = tagged_variants.mix(
@@ -106,13 +106,13 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('happy')){
 
         input_ch
-            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            .map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed ->
                 [ meta, vcf ]
             }
             .set { test_ch }
 
         input_ch
-            .map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            .map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, bed ->
                 [ meta, truth_vcf, bed, [] ]
             }
             .set { truth_ch }
@@ -121,7 +121,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
             // apply prepy if required
             HAPPY_PREPY(
-                input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+                input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, bed ->
                     [ meta, vcf, bed ]
                 },
                 fasta,
@@ -146,14 +146,14 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         // tag meta and collect summary reports
         HAPPY_HAPPY.out.summary_csv
-            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
     }
     emit:
-    versions
-    summary_reports
-    tagged_variants
+    summary_reports // channel: [val(meta), reports]
+    tagged_variants // channel: [val(meta), vcfs]
+    versions        // channel: [versions.yml]
 
 }

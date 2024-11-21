@@ -35,6 +35,6 @@ workflow SV_SOMATIC_BENCHMARK {
     }
 
     emit:
-    summary_reports
-    versions
+    summary_reports // channel: [val(meta), reports]
+    versions        // channel: [versions.yml]
 }

@@ -11,27 +11,20 @@ workflow REPORT_VCF_STATISTICS {
 
     main:
 
-    versions = Channel.empty()
-    survivor_stats = Channel.empty()
-
-    //input_ch.branch{
-    //        def meta = it[0]
-    //        sv:     meta.vartype == "sv" || meta.vartype == "cnv"
-    //        other:  true
-    //    }
-    //    .set{input}
+    versions     = Channel.empty()
+    ch_stats     = Channel.empty()
 
     if (params.variant_type == "structural"){
         // use survivor stats to get SV statistics by TYPE
         SURVIVOR_STATS(
-            input_ch.map{ meta, vcf, tbi ->
+            input_ch.map{ meta, vcf, _tbi ->
                 [ meta, vcf ]
             },
             -1,
             -1,
             -1
         )
-        survivor_stats = SURVIVOR_STATS.out.stats
+        ch_stats = ch_stats.mix(SURVIVOR_STATS.out.stats.map{_meta, stats -> stats})
         versions = versions.mix(SURVIVOR_STATS.out.versions.first())
     }
 
@@ -45,13 +38,12 @@ workflow REPORT_VCF_STATISTICS {
         [[],[]],
         [[],[]]
     )
-    bcftools_stats = BCFTOOLS_STATS.out.stats
+    ch_stats = ch_stats.mix(BCFTOOLS_STATS.out.stats.map{_meta, stats -> stats})
     versions = versions.mix(BCFTOOLS_STATS.out.versions.first())
 
-    // Add here a tool, to visualize SV statistics in a histogram.
+    // TODO: Add here a tool, to visualize SV statistics in a histogram.
 
     emit:
-    bcftools_stats
-    survivor_stats
-    versions
+    ch_stats  // channel: [stats]
+    versions  // channel: [versions.yml]
 }
