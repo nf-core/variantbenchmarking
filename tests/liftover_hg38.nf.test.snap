@@ -325,10 +325,6 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.sort.merged.bed:md5,5e997133249c2227cb5363b314245636",
                 "HG002.bcftools_stats.txt:md5,07fafa430abc857969015ea6a41d1032",
-                "rtgtools.FN.csv:md5,fb46816d5d479287984c4005fdd1631a",
-                "rtgtools.FP.csv:md5,24761919bc77724a3e1582e3bbee01cb",
-                "rtgtools.TP_base.csv:md5,ed42cd3e248812c1a3e1cf4985b92539",
-                "rtgtools.TP_comp.csv:md5,49259e81f11d9014c4ccea064a1a05b1",
                 "test1.HG002.strelka.extended.csv:md5,fadf06276179c1cc388007e5651fb9af",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,a08665be8ea20855a14d6418d07521dc",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8d4a20a5914379230952aeb252845e2d",
@@ -355,7 +351,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-22T10:25:06.723892719"
+        "timestamp": "2024-11-22T13:34:14.298465035"
     },
     "-stub": {
         "content": [

@@ -205,22 +205,6 @@
             [
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.TP_base.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
@@ -247,7 +231,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-22T10:13:33.920466332"
+        "timestamp": "2024-11-22T13:15:43.288411916"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -565,10 +549,6 @@
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.bcftools_stats.txt:md5,b215fc0030c53bc8887e28b23b97efb6",
-                "rtgtools.FN.csv:md5,80f23e0271742bc7400804311dd3b437",
-                "rtgtools.FP.csv:md5,c5229b5b7fd78d90e9a54e64885728e5",
-                "rtgtools.TP_base.csv:md5,aae4d65a540533faa4f275d0f7e9753a",
-                "rtgtools.TP_comp.csv:md5,b2d6fa254026b506ef64ccf1f12ab21a",
                 "test1.HG002.strelka.extended.csv:md5,098dc352d1beeab27e72f97e64fc182e",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,bd1f1a1e138f75511de7aae157fa2fa4",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8912022beb3c5b234d29300b764b56bc",
@@ -595,6 +575,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-22T10:11:26.258107754"
+        "timestamp": "2024-11-22T13:13:38.90109915"
     }
 }
