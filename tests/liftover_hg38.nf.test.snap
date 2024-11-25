@@ -113,11 +113,10 @@
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
                 "small/summary/comparisons",
-                "small/summary/comparisons/small",
-                "small/summary/comparisons/small/rtgtools.FN.csv",
-                "small/summary/comparisons/small/rtgtools.FP.csv",
-                "small/summary/comparisons/small/rtgtools.TP_base.csv",
-                "small/summary/comparisons/small/rtgtools.TP_comp.csv",
+                "small/summary/comparisons/rtgtools.FN.csv",
+                "small/summary/comparisons/rtgtools.FP.csv",
+                "small/summary/comparisons/rtgtools.TP_base.csv",
+                "small/summary/comparisons/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -286,6 +285,10 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.sort.merged.bed:md5,5e997133249c2227cb5363b314245636",
                 "HG002.bcftools_stats.txt:md5,07fafa430abc857969015ea6a41d1032",
+                "rtgtools.FN.csv:md5,7690798baa198e924c08e03e301148d4",
+                "rtgtools.FP.csv:md5,35f34c2f3b37f9c4a0617d450decee92",
+                "rtgtools.TP_base.csv:md5,344d3777b90a06e73aa59d1cc050015a",
+                "rtgtools.TP_comp.csv:md5,9ed56d1b7e88177723ad7b5bf584bc43",
                 "test1.HG002.strelka.extended.csv:md5,fadf06276179c1cc388007e5651fb9af",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,a08665be8ea20855a14d6418d07521dc",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8d4a20a5914379230952aeb252845e2d",
@@ -310,9 +313,9 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-13T09:00:38.410760165"
+        "timestamp": "2024-11-25T10:00:28.23191397"
     },
     "-stub": {
         "content": [
