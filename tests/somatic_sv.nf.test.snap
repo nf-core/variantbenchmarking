@@ -160,10 +160,6 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,a60de9c4d2f3db87d8ae404b73859bfa",
                 "SEQC2.stats:md5,a1327ec0cd3131f9e16cccf0024f61a1",
-                "truvari.FN.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
-                "truvari.FP.csv:md5,d47360e5f1260a7d1cfa1797a7814ef8",
-                "truvari.TP_base.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
-                "truvari.TP_comp.csv:md5,ec8c0aa9227f6e578136e2e53c15a097",
                 "test1.tiddit.bcftools_stats.txt:md5,56b036b7bd2d7368620713613dd0cae2",
                 "test1.tiddit.stats:md5,0eb749429a6072f6bf63d377e37514d1",
                 "test2.manta.bcftools_stats.txt:md5,1c4cc5ab438537308e7f08a6c202118c",
@@ -174,6 +170,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T10:08:50.703058874"
+        "timestamp": "2024-11-25T10:57:54.814250778"
     }
 }

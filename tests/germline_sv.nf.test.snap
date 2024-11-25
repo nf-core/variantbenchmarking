@@ -297,12 +297,6 @@
             [
                 "HG002.bcftools_stats.txt:md5,8294f172a72ca7219a32db9c27e2524c",
                 "HG002.stats:md5,68681df47b35e3193be03610f5c6e3d6",
-                "svbenchmark.FN.csv:md5,fda320e4b95452acedfdc8cc3a472ad3",
-                "svbenchmark.FP.csv:md5,35068a0c16903cba32257a8d9a6d51a2",
-                "truvari.FN.csv:md5,7d2992f331488dd307831a25b8157b0a",
-                "truvari.FP.csv:md5,cdc258e9153f7a75fc8340ce7211b577",
-                "truvari.TP_base.csv:md5,cd6d6a9c870739378c7e0ecc6868ebf6",
-                "truvari.TP_comp.csv:md5,4a47608038a1301cb518d872619245ff",
                 "test1.HG002.manta.distances:md5,33dcbe29f7129dc30c184b564803ec63",
                 "test1.HG002.manta.report:md5,91b0fbfd6fcdf45b85290f92c5a470fb",
                 "test1.manta.bcftools_stats.txt:md5,0e4cf1707b245c026fe6a0af6e8f8c0a",
@@ -321,7 +315,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T09:51:11.885074416"
+        "timestamp": "2024-11-25T10:42:37.100999399"
     },
     "-stub": {
         "content": [
@@ -597,30 +591,6 @@
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "multiqc_plots:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.TP_base.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "config.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "data_1.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "functions.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "heatmap.js:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "index_1.html:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "plot_0.js:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.manta.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -639,6 +609,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T09:53:34.16731435"
+        "timestamp": "2024-11-25T10:44:55.497510148"
     }
 }
