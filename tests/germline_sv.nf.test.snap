@@ -102,6 +102,7 @@
                 "structural/multiqc/multiqc_data/multiqc_general_stats.txt",
                 "structural/multiqc/multiqc_data/multiqc_software_versions.txt",
                 "structural/multiqc/multiqc_data/multiqc_sources.txt",
+                "structural/multiqc/multiqc_data/multiqc_survivor.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
                 "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths.pdf",
@@ -110,6 +111,8 @@
                 "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
                 "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
                 "structural/multiqc/multiqc_plots/pdf/general_stats_table.pdf",
+                "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
                 "structural/multiqc/multiqc_plots/png",
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths.png",
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
@@ -117,6 +120,8 @@
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
                 "structural/multiqc/multiqc_plots/png/general_stats_table.png",
+                "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
+                "structural/multiqc/multiqc_plots/png/survivor-pct.png",
                 "structural/multiqc/multiqc_plots/svg",
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths.svg",
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
@@ -124,6 +129,8 @@
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                 "structural/multiqc/multiqc_plots/svg/general_stats_table.svg",
+                "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
@@ -350,7 +357,7 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-22T12:36:40.054294704"
+        "timestamp": "2024-11-26T14:01:47.145700457"
     },
     "-stub": {
         "content": [
