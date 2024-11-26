@@ -17,6 +17,7 @@ ignore_images: false
 # Run only these modules
 run_modules:
   - bcftools
+  - custom_content
 
 custom_data:
   survivor:
@@ -29,15 +30,7 @@ custom_data:
       id: "survivor"
       namespace: "SURVIVOR variant statistics"
       table_title: "Variant statistics from survivor stats tool"
-      ylab: "Len"
-    headers:
-      - "Len"
-      - "Del"
-      - "INS"
-      - "Dup"
-      - "Inv"
-      - "TRA"
-      - "UNK"
+      ylab: "Count"
 
   summary_reports:
     id: "summary_reports"
