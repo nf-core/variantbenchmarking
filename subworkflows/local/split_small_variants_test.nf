@@ -54,5 +54,5 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
 
     emit:
     out_vcf_ch     // channel: [val(meta), vcf, index]
-    versions
+    versions       // channel: [versions.yml]
 }

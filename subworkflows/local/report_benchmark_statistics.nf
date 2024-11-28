@@ -4,8 +4,8 @@
 
 include { MERGE_REPORTS         } from '../../modules/local/merge_reports'
 include { PLOTS                 } from '../../modules/local/plots'
-include { CREATE_DATAVZRD_INPUT } from '../../modules/local/create_datavzrd_input'  addParams( options: params.options )
-include { DATAVZRD              } from '../../modules/nf-core/datavzrd'           addParams( options: params.options )
+include { CREATE_DATAVZRD_INPUT } from '../../modules/local/create_datavzrd_input'
+include { DATAVZRD              } from '../../modules/nf-core/datavzrd'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
@@ -14,6 +14,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
     main:
 
     versions = Channel.empty()
+    ch_plots = Channel.empty()
+
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
@@ -24,6 +26,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     PLOTS(
         MERGE_REPORTS.out.summary
     )
+    ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
     versions = versions.mix(PLOTS.out.versions.first())
 
     MERGE_REPORTS.out.summary
@@ -32,8 +35,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     // add path to csv file to the datavzrd input
     summary
-        .map { meta, summary ->
-                [ meta, summary, file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists:true) ]
+        .map { meta, summary_file ->
+                [ meta, summary_file, file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists:true) ]
             }
         .set {template}
 
@@ -48,8 +51,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
     versions = versions.mix(DATAVZRD.out.versions.first())
 
-    datavzrd_report = DATAVZRD.out.report
-
     emit:
-    versions
+    versions        // channel: [versions.yml]
+    ch_plots        // channel: [plots.png]
 }

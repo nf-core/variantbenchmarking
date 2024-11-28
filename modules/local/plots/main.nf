@@ -11,8 +11,8 @@ process PLOTS {
     tuple val(meta), path(summary)
 
     output:
-    tuple val(meta),path("*.png"), emit: plots
-    path "versions.yml"          , emit: versions
+    path("*.png")          , emit: plots
+    path "versions.yml"    , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

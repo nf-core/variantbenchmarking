@@ -56,6 +56,6 @@ workflow VCF_VARIANT_FILTERING {
     vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
 
     emit:
-    vcf_ch       // [val(meta), vcf.gz, index]
-    versions
+    vcf_ch    // [val(meta), vcf.gz, index]
+    versions  // channel: [versions.yml]
 }

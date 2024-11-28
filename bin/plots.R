@@ -13,21 +13,21 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
         table = table[table$Type == type & table$Filter == filter, ]
         title1 = paste("Type=",type," Filter=",filter, " | TP/FP/FN by tool", sep="")
         title2 = paste("Type=",type," Filter=",filter, " | Precision, Recall, and F1 by Tool", sep="")
-        name1 = paste(type, "_", filter, "_metric_by_tool_", benchmark, ".png", sep = "")
-        name2 = paste(type, "_", filter, "_variants_by_tool_", benchmark, ".png", sep = "")
+        name1 = paste(type, "_", filter, "_metric_by_tool_", benchmark, "_mqc.png", sep = "")
+        name2 = paste(type, "_", filter, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
     }
     else if (stats != "None" ){
         table = table[table$StatsType == stats, ]
         title1 = paste("StatsType=",stats, " | TP/FP/FN by tool", sep="")
         title2 = paste("StatsType=",stats, " | Precision, Recall, and F1 by Tool", sep="")
-        name1 = paste(stats, "_metric_by_tool_", benchmark, ".png", sep = "")
-        name2 = paste(stats, "_variants_by_tool_", benchmark, ".png", sep = "")
+        name1 = paste(stats, "_metric_by_tool_", benchmark, "_mqc.png", sep = "")
+        name2 = paste(stats, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
     }
     else{
         title1 = paste("TP/FP/FN by tool", sep="")
         title2 = paste("Precision, Recall, and F1 by Tool", sep="")
-        name1 = paste("metric_by_tool_", benchmark, ".png", sep = "")
-        name2 = paste("variants_by_tool_", benchmark, ".png", sep = "")
+        name1 = paste("metric_by_tool_", benchmark, "_mqc.png", sep = "")
+        name2 = paste("variants_by_tool_", benchmark, "_mqc.png", sep = "")
     }
     input_data_melted <- melt(table, id.vars = "Tool")
 

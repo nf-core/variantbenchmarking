@@ -40,6 +40,6 @@ workflow VCF_VARIANT_DEDUPLICATION {
 
     emit:
     ch_vcf      // channel: [ val(meta), vcf,index ]
-    versions    // channel: [ versions.yml ]
+    versions    // channel: [versions.yml ]
 
 }

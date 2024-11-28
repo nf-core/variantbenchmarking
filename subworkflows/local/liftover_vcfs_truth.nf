@@ -59,7 +59,7 @@ workflow LIFTOVER_VCFS_TRUTH {
     // liftover high confidence file if given
     UCSC_LIFTOVER(
         high_conf_ch.map{file -> tuple([id: params.truth_id], file)},
-        chain.map{meta, file -> file}
+        chain.map{_meta, file -> file}
     )
     versions = versions.mix(UCSC_LIFTOVER.out.versions.first())
 
@@ -73,11 +73,10 @@ workflow LIFTOVER_VCFS_TRUTH {
         SORT_BED.out.bed
     )
     versions = versions.mix(BEDTOOLS_MERGE.out.versions.first())
-
     bed_ch = BEDTOOLS_MERGE.out.bed
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]
     bed_ch      // channel: [val(meta), bed]
-    versions
+    versions    // channel: [versions.yml]
 }

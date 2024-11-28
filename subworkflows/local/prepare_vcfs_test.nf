@@ -87,29 +87,18 @@ workflow PREPARE_VCFS_TEST {
 
     if (params.analysis.contains("somatic")){
 
-        // somatic spesific preperations
-        //vcf_ch.branch{
-        //        def meta = it[0]
-        //        small: meta.vartype == "small"
-        //        other: true
-        //    }
-        //    .set{vcf}
-
+        // somatic specific preparations
         if (params.variant_type == "small"){
-            out_vcf_ch = Channel.empty()
-
             SPLIT_SMALL_VARIANTS_TEST(
-                vcf.small
+                vcf_ch
             )
             versions = versions.mix(SPLIT_SMALL_VARIANTS_TEST.out.versions.first())
-            out_vcf_ch = out_vcf_ch.mix(SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch,
-                                        vcf.other)
-            vcf_ch = out_vcf_ch
+            vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
         }
 
     }
 
     emit:
-    vcf_ch
-    versions
+    vcf_ch   // channel: [val(meta), vcf.gz, tbi]
+    versions // channel: [versions.yml]
 }

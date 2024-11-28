@@ -63,7 +63,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
         merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
     }
 
-
     // convert vcf files to csv
     VCF_TO_CSV(
         merged_vcfs
@@ -71,6 +70,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
     versions = versions.mix(VCF_TO_CSV.out.versions.first())
 
     emit:
-    versions
-    merged_vcfs
+    merged_vcfs  // channel: [val(meta), vcf]
+    versions     // channel: [versions.yml]
 }
