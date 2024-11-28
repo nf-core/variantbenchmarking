@@ -1,7 +1,7 @@
 import groovy.io.FileType
 
 //
-// SV_VCF_CONVERSIONS: SUBWORKFLOW TO apply tool spesific conversions
+// SV_VCF_CONVERSIONS: SUBWORKFLOW to apply tool spesific conversions
 //
 
 include { SVYNC                   } from '../../modules/nf-core/svync'
@@ -86,6 +86,6 @@ workflow SV_VCF_CONVERSIONS {
     }
 
     emit:
-    vcf_ch
-    versions
+    vcf_ch   // channel: [val(meta), vcf]
+    versions // channel: [versions.yml]
 }

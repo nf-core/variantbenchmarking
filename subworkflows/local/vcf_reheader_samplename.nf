@@ -35,7 +35,7 @@ workflow VCF_REHEADER_SAMPLENAME {
 
 
     emit:
-    ch_vcf      // channel: [ val(meta), vcf, index ]
-    versions    // channel: [ versions.yml ]
+    ch_vcf      // channel: [val(meta), vcf, index ]
+    versions    // channel: [versions.yml ]
 
 }

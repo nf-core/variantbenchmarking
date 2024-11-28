@@ -78,8 +78,8 @@
                 "snv/summary/datavzrd/versions.yml",
                 "snv/summary/plots",
                 "snv/summary/plots/sompy",
-                "snv/summary/plots/sompy/metric_by_tool_sompy.png",
-                "snv/summary/plots/sompy/variants_by_tool_sompy.png",
+                "snv/summary/plots/sompy/metric_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/sompy",
                 "snv/summary/tables/sompy/sompy.regions.csv",
@@ -118,7 +118,6 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "multiqc_plots:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
@@ -128,6 +127,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T10:55:52.928254209"
+        "timestamp": "2024-11-22T12:57:55.883023408"
     }
 }

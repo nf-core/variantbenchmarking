@@ -37,7 +37,7 @@ workflow PREPARE_VCFS_TRUTH {
         )
         versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
         truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
-        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch.map{ meta, bed -> [bed]}
+        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch.map{ _meta, bed -> [bed]}
     }
 
     // Reheader sample name for truth file - using meta.caller
@@ -50,7 +50,7 @@ workflow PREPARE_VCFS_TRUTH {
 
     if (params.preprocess.contains("normalization")){
 
-        // multi-allelic variants will be splitted.
+        // multi-allelic variants will be splitter.
         BCFTOOLS_NORM(
             vcf_ch,
             fasta
@@ -78,7 +78,7 @@ workflow PREPARE_VCFS_TRUTH {
     }
 
     emit:
-    vcf_ch
-    high_conf_ch
-    versions
+    vcf_ch       // channel: [val(meta), vcf, tbi]
+    high_conf_ch // channel: [val(meta), bed]
+    versions     // channel: [versions.yml]
 }

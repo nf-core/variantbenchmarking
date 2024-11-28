@@ -13,13 +13,13 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
     main:
 
-    versions =          Channel.empty()
-    summary_reports =   Channel.empty()
+    versions        = Channel.empty()
+    summary_reports = Channel.empty()
 
     if (params.method.contains('sompy')){
-        // apply sompy for small somatic variant ebnchmarking
+        // apply sompy for small somatic variant benchmarking
         HAPPY_SOMPY(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            input_ch.map { meta, vcf, _tbi, truth_vcf, _truth_tbi, bed ->
                 [ meta, vcf, truth_vcf, bed, [] ]
             },
             fasta,
@@ -31,7 +31,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         versions = versions.mix(HAPPY_SOMPY.out.versions.first())
 
         HAPPY_SOMPY.out.stats
-            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
@@ -41,7 +41,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('bamsurgeon')){
 
         BAMSURGEON_EVALUATOR(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, _bed ->
                 [ meta, vcf, tbi, truth_vcf, truth_tbi ]
             },
             fasta,
@@ -50,13 +50,13 @@ workflow SMALL_SOMATIC_BENCHMARK {
         versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions.first())
 
         BAMSURGEON_EVALUATOR.out.stats
-            .map { meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "bamsurgeon"], file) }
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "bamsurgeon"], file) }
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
     }
 
     emit:
-    summary_reports
-    versions
+    summary_reports // channel: [val(meta), reports]
+    versions        // channel: [versions.yml]
 }

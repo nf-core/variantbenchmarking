@@ -9,32 +9,30 @@ include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/b
 workflow CNV_GERMLINE_BENCHMARK {
     take:
     input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
-    fasta     // reference channel [val(meta), ref.fa]
-    fai       // reference channel [val(meta), ref.fa.fai]
 
     main:
 
-    versions =        Channel.empty()
+    versions        = Channel.empty()
     summary_reports = Channel.empty()
 
     // CNV benchmarking is only possible with wittyer now!
 
     TABIX_BGZIP_QUERY(
-        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+        input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed ->
             [ meta, vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
     TABIX_BGZIP_TRUTH(
-        input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
+        input_ch.map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed ->
             [ meta, truth_vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
 
-    input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
-            [ meta, bed ]
+    input_ch.map{ meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bedfile ->
+            [ meta, bedfile ]
         }
         .set { bed }
 
@@ -56,6 +54,6 @@ workflow CNV_GERMLINE_BENCHMARK {
 
 
     emit:
-    summary_reports
-    versions
+    summary_reports  // channel: [val(meta), summary]
+    versions         // channel: [versions.yml]
 }
