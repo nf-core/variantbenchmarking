@@ -5,7 +5,7 @@ process VARIANT_EXTRACTOR {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c9/c9964f2ad344f5df543a390ddceb308af0816bed9c9abb9cb400e65525580694/data':
-        'community.wave.seqera.io/library/htslib_pysam_tabix_pip_variant-extractor:9a7098708edb08d4' }"
+        'community.wave.seqera.io/library/htslib_pysam_tabix_pip_variant-extractor:a12ef217eccf6ba8' }"
 
     input:
     tuple val(meta), path(input)
