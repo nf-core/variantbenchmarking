@@ -229,9 +229,9 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.1"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-11-22T13:15:43.288411916"
+        "timestamp": "2024-11-28T16:47:47.024615694"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -573,8 +573,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.1"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-11-22T13:13:38.90109915"
+        "timestamp": "2024-11-28T16:45:26.990755841"
     }
 }
