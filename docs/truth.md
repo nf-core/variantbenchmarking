@@ -1,7 +1,5 @@
 # nf-core/variantbenchmarking: Truth files
 
-## :warning: Please read this documentation on the nf-core website: [https://nf-co.re/variantbenchmarking/truth](https://nf-co.re/variantbenchmarking/truth)
-
 ## Defining Truth VCF and High confidence BED files
 
 This pipeline requires a set of Truth VCF, as a baseline for comparisons, and a high confidence bed files, to restrict analysis to regions. Although, those sets can be anything depending on the type of the analysis, for benchmarking of human genomes there are golden set of samples provided by [Genome in a Bottle project](https://www.nist.gov/programs-projects/genome-bottle) and [SEQC2 consortium](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2).

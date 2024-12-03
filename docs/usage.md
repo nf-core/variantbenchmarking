@@ -41,7 +41,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 ## Truth samples
 
-Please find the detailed information about truth samples [here](https://nf-co.re/variantbenchmarking/truth).
+Please find the detailed information about truth samples [here](/workspace/variantbenchmarking/docs/truth.md).
 
 ## Lifting over truth sets
 
