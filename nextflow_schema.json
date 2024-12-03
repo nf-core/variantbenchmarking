@@ -53,7 +53,6 @@
                 },
                 "method": {
                     "type": "string",
-                    "default": "truvari,svanalyzer,happy,sompy,rtgtools,wittyer",
                     "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
                     "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
                     "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
