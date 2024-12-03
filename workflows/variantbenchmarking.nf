@@ -56,7 +56,7 @@ workflow VARIANTBENCHMARKING {
 
     //// check Truth Files ////
 
-    if (params.truth_id && params.truth_ch){
+    if (params.truth_id && params.truth_vcf){
         truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
                         .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
     }else{
