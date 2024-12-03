@@ -31,14 +31,12 @@
                 },
                 "truth_id": {
                     "type": "string",
-                    "default": "",
                     "description": "Truth id, sample name to define truth vcf",
                     "fa_icon": "fas fa-folder-open",
                     "errorMessage": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
                 },
                 "analysis": {
                     "type": "string",
-                    "default": "germline",
                     "description": "The analysis type used by the input files",
                     "enum": ["germline", "somatic"],
                     "pattern": "(germline|somatic)",
@@ -47,7 +45,6 @@
                 },
                 "variant_type": {
                     "type": "string",
-                    "default": "small",
                     "description": "Variant types to benchmark",
                     "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
                     "enum": ["small", "snv", "indel", "structural", "copynumber"],

@@ -56,8 +56,14 @@ workflow VARIANTBENCHMARKING {
 
     //// check Truth Files ////
 
-    truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
-                    .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    if (params.truth_id && params.truth_ch){
+        truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
+                        .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    }else{
+        log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
+        exit 1
+    }
+
 
     regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                                 : Channel.empty()
