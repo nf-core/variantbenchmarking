@@ -38,7 +38,7 @@
                 },
                 "analysis": {
                     "type": "string",
-                    "default": "",
+                    "default": "germline",
                     "description": "The analysis type used by the input files",
                     "enum": ["germline", "somatic"],
                     "pattern": "(germline|somatic)",
@@ -47,7 +47,7 @@
                 },
                 "variant_type": {
                     "type": "string",
-                    "default": "",
+                    "default": "small",
                     "description": "Variant types to benchmark",
                     "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
                     "enum": ["small", "snv", "indel", "structural", "copynumber"],
