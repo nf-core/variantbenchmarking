@@ -7,7 +7,7 @@ include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm
 include { TABIX_TABIX                } from '../../modules/nf-core/tabix/tabix'
 include { VCF_REHEADER_SAMPLENAME    } from '../local/vcf_reheader_samplename'
 include { VCF_VARIANT_DEDUPLICATION  } from '../local/vcf_variant_deduplication'
-include { LIFTOVER_VCFS_TRUTH        } from '../local/liftover_vcfs_truth'
+include { LIFTOVER_VCFS              } from '../local/liftover_vcfs'
 
 
 workflow PREPARE_VCFS_TRUTH {
@@ -25,9 +25,9 @@ workflow PREPARE_VCFS_TRUTH {
     versions = Channel.empty()
 
     // if liftover option is set convert truth files
-    if (params.liftover){
+    if (params.liftover.contains("truth")){
 
-        LIFTOVER_VCFS_TRUTH(
+        LIFTOVER_VCFS(
             truth_ch,
             high_conf_ch,
             fasta,
@@ -35,9 +35,9 @@ workflow PREPARE_VCFS_TRUTH {
             rename_chr,
             dictionary
         )
-        versions = versions.mix(LIFTOVER_VCFS_TRUTH.out.versions.first())
-        truth_ch = LIFTOVER_VCFS_TRUTH.out.vcf_ch
-        high_conf_ch = LIFTOVER_VCFS_TRUTH.out.bed_ch.map{ _meta, bed -> [bed]}
+        versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
+        truth_ch = LIFTOVER_VCFS.out.vcf_ch
+        high_conf_ch = LIFTOVER_VCFS.out.bed_ch.map{ _meta, bed -> [bed]}
     }
 
     // Reheader sample name for truth file - using meta.caller
