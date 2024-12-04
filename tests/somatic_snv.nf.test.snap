@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            38,
+            39,
             {
                 "BCFTOOLS_REHEADER": {
                     "bcftools": 1.18
@@ -30,6 +30,9 @@
                 "MERGE_REPORTS": {
                     "python": "3.8.6"
                 },
+                "PICARD_CREATESEQUENCEDICTIONARY": {
+                    "picard": "3.2.0-1-g3948afb6b"
+                },
                 "PLOTS": {
                     "r-base": "4.3.1"
                 },
@@ -46,6 +49,9 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "references",
+                "references/dictionary",
+                "references/dictionary/genome.dict",
                 "snv",
                 "snv/SEQC2",
                 "snv/SEQC2/stats",
@@ -125,8 +131,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.1"
+            "nextflow": "24.10.2"
         },
-        "timestamp": "2024-11-22T12:57:55.883023408"
+        "timestamp": "2024-12-04T09:53:59.901867572"
     }
 }

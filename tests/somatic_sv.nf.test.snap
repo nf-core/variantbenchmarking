@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
-            69,
+            70,
             {
                 "BCFTOOLS_REHEADER": {
                     "bcftools": 1.18
@@ -29,6 +29,9 @@
                 },
                 "MERGE_REPORTS": {
                     "python": "3.8.6"
+                },
+                "PICARD_CREATESEQUENCEDICTIONARY": {
+                    "picard": "3.2.0-1-g3948afb6b"
                 },
                 "PLOTS": {
                     "r-base": "4.3.1"
@@ -61,6 +64,9 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "references",
+                "references/dictionary",
+                "references/dictionary/genome.dict",
                 "structural",
                 "structural/SEQC2",
                 "structural/SEQC2/stats",
@@ -206,6 +212,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-11-28T16:58:12.671419675"
+        "timestamp": "2024-12-04T09:56:29.305188123"
     }
 }
