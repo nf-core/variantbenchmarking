@@ -10,9 +10,9 @@
             "test_vcf": {
                 "type": "string",
                 "exists": true,
-                "pattern": "\\S+\\.vcf(\\.gz)?$",
+                "pattern": "\\S+\\.(vcf|bcf)(\\.gz)?$",
                 "format": "file-path",
-                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz' or '.vcf'",
+                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz', '.vcf', '.bcf.gz' or 'bcf'",
                 "description": "The VCF file to use as benchmarking test input"
             },
             "id": {

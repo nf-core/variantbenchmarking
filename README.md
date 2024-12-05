@@ -50,9 +50,9 @@ Applying filtering on the process of benchmarking itself might makes it impossib
 10. Include or exclude SNVs and INDELs ([bcftools filter](https://samtools.github.io/bcftools/bcftools.html#filter))
 11. Size and quality filtering for SVs ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
 
-### Liftover of truth sets:
+### Liftover of vcfs:
 
-This sub-workflow provides option to convert genome coordinates of truth VCF and high confidence BED file to a new assembly. Golden standard truth files are build upon specific reference genomes which makes the necessity of lifting over depending on the test VCF in query.
+This sub-workflow provides option to convert genome coordinates of truth VCF and high confidence BED file to a new assembly. Golden standard truth files are build upon specific reference genomes which makes the necessity of lifting over depending on the test VCF in query. Lifting over one or more test vcfs is also possible.
 
 12. Create sequence dictionary for the reference ([picard CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard)). This file can be saved and reused.
 13. Lifting over truth variants ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
