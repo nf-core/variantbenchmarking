@@ -45,10 +45,24 @@ Please find the detailed information about truth samples [here](../docs/truth.md
 
 ## Lifting over truth sets
 
-This workflow comes with a liftover option for truth sets. In order to activate liftover use `--liftover true`.
+This workflow comes with a liftover option for truth sets. In order to activate liftover use `--liftover "truth"`.
 
 - `--chain`: This workflow uses picard tools for lifting over and a chain file has to be provided specific to the input truth vcf. Some examples can be found [here](https://genome.ucsc.edu/goldenPath/help/chain.html)
 - `--rename_chr`: Renaming chromosomes is required after liftover process. Some examples can be found under `assets/rename_contigs` directory.
+- `--dictionary`: .dict file is required to run liftover process. If dictionary file is not provided, picard createsequencedictionary will create and use the file.
+
+## Lifting over test sets
+
+Lifting over test samples is also possible through this pipeline, if you want to liftover at least one of the samples first use `--liftover "test"` and add liftover option to samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,liftover
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
+Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
 
 ## Standardization and normalization parameters
 
@@ -234,10 +248,10 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `test_full`
   - A profile with a complete configuration for full size of sample testing
   - Includes links to test data so needs no other parameters
-- `liftover_hg37`
-  - A profile with a complete configuration for using liftover of HG002 hg38 truth set to hg37
+- `liftover_test`
+  - A profile with a complete configuration for using liftover of HG002 hg38 test set to hg37
   - Includes links to test data so needs no other parameters
-- `liftover_hg38`
+- `liftover_truth`
   - A profile with a complete configuration for using liftover of HG002 hg37 truth set to hg38
   - Includes links to test data so needs no other parameters
 - `germline_small`
