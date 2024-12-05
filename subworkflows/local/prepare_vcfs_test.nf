@@ -2,13 +2,14 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-include { VCF_REHEADER_SAMPLENAME     } from '../local/vcf_reheader_samplename'
-include { VCF_VARIANT_DEDUPLICATION   } from '../local/vcf_variant_deduplication'
-include { VCF_VARIANT_FILTERING       } from '../local/vcf_variant_filtering'
-include { SPLIT_SMALL_VARIANTS_TEST   } from '../local/split_small_variants_test'
-include { BCFTOOLS_NORM               } from '../../modules/nf-core/bcftools/norm'
-include { TABIX_BGZIPTABIX            } from '../../modules/nf-core/tabix/bgziptabix'
-include { TABIX_TABIX                 } from '../../modules/nf-core/tabix/tabix'
+include { VCF_REHEADER_SAMPLENAME      } from '../local/vcf_reheader_samplename'
+include { VCF_VARIANT_DEDUPLICATION    } from '../local/vcf_variant_deduplication'
+include { VCF_VARIANT_FILTERING        } from '../local/vcf_variant_filtering'
+include { SPLIT_SMALL_VARIANTS_TEST    } from '../local/split_small_variants_test'
+include { BCFTOOLS_NORM                } from '../../modules/nf-core/bcftools/norm'
+include { TABIX_BGZIPTABIX             } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_TABIX                  } from '../../modules/nf-core/tabix/tabix'
+include { LIFTOVER_VCFS                } from '../local/liftover_vcfs'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'
 
 
@@ -17,14 +18,35 @@ workflow PREPARE_VCFS_TEST {
     test_ch     // channel: [val(meta), vcf]
     fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
+    chain       // reference channel [val(meta), chain.gz]
+    rename_chr  // reference channel [val(meta), chrlist.txt]
+    dictionary  // reference channel [val(meta), genome.dict]
 
     main:
 
     versions = Channel.empty()
 
+    test_ch.branch{
+        def meta = it[0]
+        liftover: meta.liftover
+        other: true}.set{vcf}
+
+    vcf_ch = Channel.empty()
+
+    LIFTOVER_VCFS(
+        vcf.liftover,
+        Channel.empty(),
+        fasta,
+        chain,
+        rename_chr,
+        dictionary
+    )
+    versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
+    vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch,vcf.other)
+
     // Add "query" to test sample
     VCF_REHEADER_SAMPLENAME(
-        test_ch,
+        vcf_ch,
         fai
     )
     versions = versions.mix(VCF_REHEADER_SAMPLENAME.out.versions.first())

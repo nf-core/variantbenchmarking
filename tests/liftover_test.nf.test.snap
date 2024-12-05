@@ -1,24 +1,15 @@
 {
-    "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
+    "Params: --analysis 'germline' --variant_type 'structural' --method 'truvari' --liftover 'test'": {
         "content": [
-            70,
+            67,
             {
                 "BCFTOOLS_REHEADER": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_SORT": {
                     "bcftools": 1.18
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.18
                 },
                 "BGZIP_TABIX": {
@@ -68,12 +59,14 @@
                 "references/dictionary",
                 "references/dictionary/genome.dict",
                 "structural",
-                "structural/SEQC2",
-                "structural/SEQC2/stats",
-                "structural/SEQC2/stats/bcftools",
-                "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
-                "structural/SEQC2/stats/survivor",
-                "structural/SEQC2/stats/survivor/SEQC2_mqc.stats",
+                "structural/HG002",
+                "structural/HG002/liftover",
+                "structural/HG002/liftover/test2.renamechr.vcf.gz",
+                "structural/HG002/stats",
+                "structural/HG002/stats/bcftools",
+                "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
+                "structural/HG002/stats/survivor",
+                "structural/HG002/stats/survivor/HG002_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
                 "structural/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
@@ -161,37 +154,35 @@
                 "structural/test1",
                 "structural/test1/benchmarks",
                 "structural/test1/benchmarks/truvari",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fn.vcf.gz",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fn.vcf.gz.tbi",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fp.vcf.gz",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.fp.vcf.gz.tbi",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.summary.json",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-base.vcf.gz",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-base.vcf.gz.tbi",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-comp.vcf.gz",
-                "structural/test1/benchmarks/truvari/test1.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.fn.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.fn.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.fp.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.fp.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.summary.json",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-base.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-base.vcf.gz.tbi",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz",
+                "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz.tbi",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/HCC1395T_vs_HCC1395N.tiddit_sv_merge.sort.vcf.gz",
                 "structural/test1/preprocess/test1.filter.vcf",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
-                "structural/test1/stats/bcftools/test1.tiddit.bcftools_stats.txt",
+                "structural/test1/stats/bcftools/test1.delly.bcftools_stats.txt",
                 "structural/test1/stats/survivor",
-                "structural/test1/stats/survivor/test1.tiddit_mqc.stats",
+                "structural/test1/stats/survivor/test1.delly_mqc.stats",
                 "structural/test2",
                 "structural/test2/benchmarks",
                 "structural/test2/benchmarks/truvari",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fn.vcf.gz",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fn.vcf.gz.tbi",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fp.vcf.gz",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.fp.vcf.gz.tbi",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.summary.json",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-base.vcf.gz",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-base.vcf.gz.tbi",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-comp.vcf.gz",
-                "structural/test2/benchmarks/truvari/test2.SEQC2.manta.tp-comp.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.fn.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.fn.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.fp.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.fp.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.summary.json",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-base.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-base.vcf.gz.tbi",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz",
+                "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz.tbi",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
                 "structural/test2/preprocess/test2.filter.vcf",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
@@ -200,18 +191,18 @@
                 "structural/test2/stats/survivor/test2.manta_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,a60de9c4d2f3db87d8ae404b73859bfa",
-                "SEQC2_mqc.stats:md5,a1327ec0cd3131f9e16cccf0024f61a1",
-                "test1.tiddit.bcftools_stats.txt:md5,56b036b7bd2d7368620713613dd0cae2",
-                "test1.tiddit_mqc.stats:md5,0eb749429a6072f6bf63d377e37514d1",
-                "test2.manta.bcftools_stats.txt:md5,1c4cc5ab438537308e7f08a6c202118c",
-                "test2.manta_mqc.stats:md5,73bc60cd2754202ddca8be6552e85ffa"
+                "HG002.bcftools_stats.txt:md5,7c007a87b5730787e570712e784d3cc3",
+                "HG002_mqc.stats:md5,68681df47b35e3193be03610f5c6e3d6",
+                "test1.delly.bcftools_stats.txt:md5,d32a9bea755d2065e19e88b9159e2502",
+                "test1.delly_mqc.stats:md5,e140ad55975c767578b0dd6aff58ba29",
+                "test2.manta.bcftools_stats.txt:md5,99f8a0b12efa30c6253b44ebfeb9b1d6",
+                "test2.manta_mqc.stats:md5,1d74b41c6b970992e3a39682b0a68e23"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T09:56:29.305188123"
+        "timestamp": "2024-12-03T15:52:10.533611573"
     }
 }

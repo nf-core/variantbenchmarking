@@ -1,5 +1,5 @@
 //
-// LIFTOVER_VCFS_TRUTH: SUBWORKFLOW TO LIFTOVER TRUTH VCFS HG37 TO HG38 OR HG38 TO HG37
+// LIFTOVER_VCFS: SUBWORKFLOW TO LIFTOVER VCFS HG37 TO HG38 OR HG38 TO HG37
 //
 
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../../modules/nf-core/picard/createsequencedictionary'
@@ -11,10 +11,10 @@ include { SORT_BED                        } from '../../modules/local/custom/sor
 include { BEDTOOLS_MERGE                  } from '../../modules/nf-core/bedtools/merge'
 
 
-workflow LIFTOVER_VCFS_TRUTH {
+workflow LIFTOVER_VCFS {
     take:
-    truth_ch        // channel: [val(meta), vcf]
-    high_conf_ch    // channel: [bed]
+    ch_vcf          // channel: [val(meta), vcf]
+    ch_bed          // channel: [bed]
     fasta           // reference channel [val(meta), ref.fa]
     chain           // chain channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
@@ -35,7 +35,7 @@ workflow LIFTOVER_VCFS_TRUTH {
 
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(
-        truth_ch,
+        ch_vcf,
         dictionary,
         fasta,
         chain
@@ -56,9 +56,9 @@ workflow LIFTOVER_VCFS_TRUTH {
     )
     vcf_ch = BCFTOOLS_RENAME_CHR.out.vcf
 
-    // liftover high confidence file if given
+    // liftover high confidence bed file if given
     UCSC_LIFTOVER(
-        high_conf_ch.map{file -> tuple([id: params.truth_id], file)},
+        ch_bed.map{file -> tuple([id: params.truth_id], file)},
         chain.map{_meta, file -> file}
     )
     versions = versions.mix(UCSC_LIFTOVER.out.versions.first())

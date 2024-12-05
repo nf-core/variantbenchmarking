@@ -56,8 +56,14 @@ workflow VARIANTBENCHMARKING {
 
     //// check Truth Files ////
 
-    truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
-                    .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    if (params.truth_id && params.truth_vcf){
+        truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
+                        .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    }else{
+        log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
+        exit 1
+    }
+
 
     regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                                 : Channel.empty()
@@ -67,20 +73,24 @@ workflow VARIANTBENCHMARKING {
                                                 : Channel.empty()
 
     // read chain file, liftover genome and rename chr files if liftover is true
-    chain           = Channel.empty()
-    rename_chr      = Channel.empty()
-    dictionary      = Channel.empty()
-
     if (params.liftover){
-        chain           = params.chain          ? Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
-                                                : Channel.empty()
 
-        rename_chr      = params.rename_chr     ? Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
-                                                : Channel.empty()
+        if (params.chain && params.rename_chr){
+            chain           = Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
+            rename_chr      = Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+        }else{
+            log.error "Please specify params.chain and params.rename_chr to process liftover of the files"
+            exit 1
+        }
 
-        dictionary      = params.dictionary     ? Channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()
-                                                : Channel.empty()
+        // if dictinoary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
+        dictionary      = params.dictionary ? Channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()                                           : Channel.empty()
+    }else{
+        chain           = Channel.empty()
+        rename_chr      = Channel.empty()
+        dictionary      = Channel.empty()
     }
+
     // PREPROCESSES
 
     // subsample multisample vcf if necessary
@@ -115,7 +125,10 @@ workflow VARIANTBENCHMARKING {
     PREPARE_VCFS_TEST(
         vcf_ch,
         fasta,
-        fai
+        fai,
+        chain,
+        rename_chr,
+        dictionary
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 

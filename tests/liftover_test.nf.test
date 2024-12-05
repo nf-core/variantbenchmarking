@@ -1,15 +1,15 @@
 nextflow_pipeline {
 
-    name "Test pipeline for small germline variants, tested benchmarking methods are happy and rtgtools"
+    name "Test pipeline for liftover structural germline variants, tested benchmarking methods are truvari"
     script "../main.nf"
     tag "pipeline"
-    tag "small"
+    tag "structural"
     tag "germline"
     tag "liftover"
-    tag "hg38"
-    config "../conf/tests/liftover_hg38.config"
+    tag "hg37"
+    config "../conf/tests/liftover_test.config"
 
-    test("Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover") {
+    test("Params: --analysis 'germline' --variant_type 'structural' --method 'truvari' --liftover 'test'") {
 
         when {
             params {

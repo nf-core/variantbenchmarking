@@ -197,18 +197,19 @@
                     "default": "s3://ngi-igenomes/igenomes/"
                 },
                 "liftover": {
-                    "type": "boolean",
-                    "description": "Run liftover workflow",
+                    "type": "string",
+                    "description": "Run liftover workflow: test,truth",
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
-                    "help_text": "Makes the use of liftover subworkflow, hg37 truth sets will liftover to hg38 and visa versa. Has to be either combined with itruth.config or --chain and --rename_chr."
+                    "pattern": "^((test|truth)?,?)*(?<!,)$",
+                    "help_text": "Makes the use of liftover subworkflow, hg37 truth sets will liftover to hg38 and visa versa. Has to be either combined with --chain and --rename_chr."
                 },
                 "chain": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(chain|bed)?(\\.gz)?$",
-                    "description": "Path to the chain file sey required for liftover.",
+                    "description": "Path to the chain file required for liftover.",
                     "help_text": "This parameter is *mandatory* if `--liftover` is true",
                     "fa_icon": "fas fa-file-csv"
                 },

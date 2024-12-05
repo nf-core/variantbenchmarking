@@ -154,6 +154,12 @@
                 "enum": ["sc", "cts", "d"],
                 "minLength": 1,
                 "default": null
+            },
+            "liftover": {
+                "type": "boolean",
+                "description": "Liftover option for test vcfs, to activate add params.liftover='test' ",
+                "meta": ["liftover"],
+                "default": false
             }
         },
         "required": ["test_vcf", "caller", "id"]
