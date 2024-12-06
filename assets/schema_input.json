@@ -160,6 +160,12 @@
                 "description": "Liftover option for test vcfs, to activate add params.liftover='test' ",
                 "meta": ["liftover"],
                 "default": false
+            },
+            "fix_prefix": {
+                "type": "boolean",
+                "description": "Fixing prefix is sometimes necessary for input files, activate it if your input is not adhering to GRCh38 with chr and GRCh37 without chr standards ",
+                "meta": ["fix_prefix"],
+                "default": false
             }
         },
         "required": ["test_vcf", "caller", "id"]

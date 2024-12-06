@@ -72,22 +72,39 @@ workflow VARIANTBENCHMARKING {
     sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
                                                 : Channel.empty()
 
-    // read chain file, liftover genome and rename chr files if liftover is true
-    if (params.liftover){
-
-        if (params.chain && params.rename_chr){
-            chain           = Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
-            rename_chr      = Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
-        }else{
-            log.error "Please specify params.chain and params.rename_chr to process liftover of the files"
+    if (params.rename_chr){
+        rename_chr = Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+        if (!params.genome){
+            log.error "Please specify params.genome to fix chromosome prefix"
             exit 1
         }
 
+    }else{
+        if (params.genome == "GRCh38"){
+            rename_chr = Channel.fromPath("assets/rename_contigs/grch37_grch38.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+        }
+        else if(params.genome == "GRCh37")
+        {
+            rename_chr = Channel.fromPath("assets/rename_contigs/grch38_grch37.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+        }
+        else{
+            rename_chr = Channel.empty()
+        }
+    }
+
+    // read chain file, liftover genome and rename chr files if liftover is true
+    if (params.liftover){
+
+        if (params.chain){
+            chain           = Channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
+        }else{
+            log.error "Please specify params.chain to process liftover of the files"
+            exit 1
+        }
         // if dictinoary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
         dictionary      = params.dictionary ? Channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()                                           : Channel.empty()
     }else{
         chain           = Channel.empty()
-        rename_chr      = Channel.empty()
         dictionary      = Channel.empty()
     }
 
