@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'sompy'": {
         "content": [
-            28,
+            27,
             {
                 "BCFTOOLS_REHEADER": {
                     "bcftools": 1.18
@@ -29,9 +29,6 @@
                 },
                 "MERGE_REPORTS": {
                     "python": "3.8.6"
-                },
-                "PICARD_CREATESEQUENCEDICTIONARY": {
-                    "picard": "3.2.0-1-g3948afb6b"
                 },
                 "PLOTS": {
                     "r-base": "4.3.1"
@@ -168,10 +165,7 @@
                 "indel/test2/stats/bcftools",
                 "indel/test2/stats/bcftools/test2.strelka.bcftools_stats.txt",
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
-                "references",
-                "references/dictionary",
-                "references/dictionary/genome.dict"
+                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,e530daf4f6a4923f1cd85c51893d5747",
@@ -183,6 +177,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T09:59:41.934881268"
+        "timestamp": "2024-12-10T11:27:48.141030523"
     }
 }

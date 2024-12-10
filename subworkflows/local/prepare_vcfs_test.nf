@@ -44,7 +44,7 @@ workflow PREPARE_VCFS_TEST {
             dictionary
         )
         versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
-        vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch,vcf.other)
+        vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch)
     }
     vcf_ch = vcf_ch.mix(vcf.other)
 
