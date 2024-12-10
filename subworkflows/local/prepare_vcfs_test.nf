@@ -11,6 +11,7 @@ include { TABIX_BGZIPTABIX             } from '../../modules/nf-core/tabix/bgzip
 include { TABIX_TABIX                  } from '../../modules/nf-core/tabix/tabix'
 include { LIFTOVER_VCFS                } from '../local/liftover_vcfs'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'
+include { FIX_VCF_PREFIX               } from '../../modules/local/custom/fix_vcf_prefix'
 
 
 workflow PREPARE_VCFS_TEST {
@@ -33,16 +34,37 @@ workflow PREPARE_VCFS_TEST {
 
     vcf_ch = Channel.empty()
 
-    LIFTOVER_VCFS(
-        vcf.liftover,
-        Channel.empty(),
-        fasta,
-        chain,
-        rename_chr,
-        dictionary
+    if (params.liftover.contains("test")){
+        LIFTOVER_VCFS(
+            vcf.liftover,
+            Channel.empty(),
+            fasta,
+            chain,
+            rename_chr,
+            dictionary
+        )
+        versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
+        vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch)
+    }
+    vcf_ch = vcf_ch.mix(vcf.other)
+
+    // if prefix of chromosomes needs to be fixed
+    vcf_ch.branch{
+        def meta = it[0]
+        prefix: meta.fix_prefix
+        other: true}.set{fix}
+
+    vcf_ch = Channel.empty()
+
+    fix.prefix.view()
+
+    FIX_VCF_PREFIX(
+        fix.prefix,
+        rename_chr
     )
-    versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
-    vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch,vcf.other)
+    versions = versions.mix(FIX_VCF_PREFIX.out.versions.first())
+    vcf_ch = vcf_ch.mix(FIX_VCF_PREFIX.out.vcf,fix.other)
+
 
     // Add "query" to test sample
     VCF_REHEADER_SAMPLENAME(

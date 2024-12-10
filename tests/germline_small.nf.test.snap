@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            77,
+            76,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
@@ -33,9 +33,6 @@
                 "MERGE_REPORTS": {
                     "python": "3.8.6"
                 },
-                "PICARD_CREATESEQUENCEDICTIONARY": {
-                    "picard": "3.2.0-1-g3948afb6b"
-                },
                 "PLOTS": {
                     "r-base": "4.3.1"
                 },
@@ -65,8 +62,6 @@
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "references",
-                "references/dictionary",
-                "references/dictionary/genome.dict",
                 "references/rtgtools",
                 "references/rtgtools/genome.sdf",
                 "small",
@@ -236,11 +231,11 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T10:12:17.779754389"
+        "timestamp": "2024-12-10T10:55:37.880792825"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
-            77,
+            76,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
@@ -272,9 +267,6 @@
                 "MERGE_REPORTS": {
                     "python": "3.8.6"
                 },
-                "PICARD_CREATESEQUENCEDICTIONARY": {
-                    "picard": "3.2.0-1-g3948afb6b"
-                },
                 "PLOTS": {
                     "r-base": "4.3.1"
                 },
@@ -304,8 +296,6 @@
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "references",
-                "references/dictionary",
-                "references/dictionary/genome.dict",
                 "references/rtgtools",
                 "references/rtgtools/genome.sdf",
                 "references/rtgtools/genome.sdf/done",
@@ -585,6 +575,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T10:10:09.338722844"
+        "timestamp": "2024-12-10T10:53:32.971378431"
     }
 }
