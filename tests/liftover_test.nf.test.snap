@@ -3,6 +3,9 @@
         "content": [
             67,
             {
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_REHEADER": {
                     "bcftools": 1.18
                 },
@@ -164,6 +167,7 @@
                 "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz",
                 "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz.tbi",
                 "structural/test1/preprocess",
+                "structural/test1/preprocess/test1.filter.filter.vcf",
                 "structural/test1/preprocess/test1.filter.vcf",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
@@ -183,6 +187,7 @@
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz",
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz.tbi",
                 "structural/test2/preprocess",
+                "structural/test2/preprocess/test2.filter.filter.vcf",
                 "structural/test2/preprocess/test2.filter.vcf",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
@@ -193,16 +198,16 @@
             [
                 "HG002.bcftools_stats.txt:md5,7c007a87b5730787e570712e784d3cc3",
                 "HG002_mqc.stats:md5,68681df47b35e3193be03610f5c6e3d6",
-                "test1.delly.bcftools_stats.txt:md5,d32a9bea755d2065e19e88b9159e2502",
-                "test1.delly_mqc.stats:md5,e140ad55975c767578b0dd6aff58ba29",
-                "test2.manta.bcftools_stats.txt:md5,99f8a0b12efa30c6253b44ebfeb9b1d6",
-                "test2.manta_mqc.stats:md5,1d74b41c6b970992e3a39682b0a68e23"
+                "test1.delly.bcftools_stats.txt:md5,aace5a23af8b02f56bcaf03722f9bb50",
+                "test1.delly_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
+                "test2.manta.bcftools_stats.txt:md5,1e700076bd303ee079b23658485eb7d4",
+                "test2.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-03T15:52:10.533611573"
+        "timestamp": "2025-01-13T14:41:30.39094733"
     }
 }

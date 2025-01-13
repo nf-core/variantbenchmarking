@@ -6,6 +6,9 @@
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
                 },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_MERGE": {
                     "bcftools": 1.2
                 },
@@ -44,9 +47,6 @@
                 },
                 "RTGTOOLS_VCFEVAL": {
                     "rtg-tools": "3.12.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
                 },
                 "TABIX_BGZIPTABIX": {
                     "tabix": "1.19.1"
@@ -269,6 +269,7 @@
                 "small/test1/benchmarks/rtgtools/test1.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test1/preprocess",
                 "small/test1/preprocess/test1.dedup.sort.vcf.gz",
+                "small/test1/preprocess/test1.norm.filter.vcf",
                 "small/test1/stats",
                 "small/test1/stats/bcftools",
                 "small/test1/stats/bcftools/test1.strelka.bcftools_stats.txt",
@@ -302,6 +303,7 @@
                 "small/test2/benchmarks/rtgtools/test2.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test2/preprocess",
                 "small/test2/preprocess/test2.dedup.sort.vcf.gz",
+                "small/test2/preprocess/test2.norm.filter.vcf",
                 "small/test2/stats",
                 "small/test2/stats/bcftools",
                 "small/test2/stats/bcftools/test2.bcftools.bcftools_stats.txt"
@@ -325,16 +327,16 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.sort.merged.bed:md5,5e997133249c2227cb5363b314245636",
                 "HG002.bcftools_stats.txt:md5,07fafa430abc857969015ea6a41d1032",
-                "test1.HG002.strelka.extended.csv:md5,fadf06276179c1cc388007e5651fb9af",
-                "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,a08665be8ea20855a14d6418d07521dc",
-                "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8d4a20a5914379230952aeb252845e2d",
-                "test1.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,c546609a3e23b4c5c97ee0fc2e864e07",
-                "test1.HG002.strelka.roc.Locations.SNP.csv.gz:md5,8d2600c17665ed1299e2dd483705ddaa",
-                "test1.HG002.strelka.roc.all.csv.gz:md5,d0a4408438b2182cb82caec918c090f1",
-                "test1.HG002.strelka.summary.csv:md5,001fa2371777d1d2dc3eb0f4dcaca197",
-                "test1.HG002.strelka.phasing.txt:md5,0c9340e64e032b5f74d0ea3773464afd",
-                "test1.HG002.strelka.summary.txt:md5,4b775edb878759727ef66d5d5b2b9ee8",
-                "test1.strelka.bcftools_stats.txt:md5,f9f8cf5c1be9c88754888ef8cbfb06f4",
+                "test1.HG002.strelka.extended.csv:md5,111a236ca6b747face70e8111c09c51f",
+                "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,5425b34f4688dda4d55f9f7a73667b18",
+                "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,eb9834ec5660d1e32ade0c856b9cfb7c",
+                "test1.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,778eb91f54cb830fb91fcddc688668e0",
+                "test1.HG002.strelka.roc.Locations.SNP.csv.gz:md5,516a4b58814cf32245a5b2f2c0445c8e",
+                "test1.HG002.strelka.roc.all.csv.gz:md5,a69fb6ae5cd051d4607da0224009f1d1",
+                "test1.HG002.strelka.summary.csv:md5,d29cba645e161dbdeb6247f57fce5780",
+                "test1.HG002.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "test1.HG002.strelka.summary.txt:md5,6c43a0d1ad065f851942828259d551a5",
+                "test1.strelka.bcftools_stats.txt:md5,7d65792aa3a84de09675facf62135c93",
                 "test2.HG002.bcftools.extended.csv:md5,05c6efd85a9b9823a5ddfe6619be3323",
                 "test2.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,463cee548b7bdf133c0ae9b5803a50ca",
                 "test2.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,424e39c327ae6ef9001942bc895abdc9",
@@ -348,9 +350,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T10:20:35.930923969"
+        "timestamp": "2025-01-13T14:48:00.444469734"
     }
 }
