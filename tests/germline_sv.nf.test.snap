@@ -6,6 +6,9 @@
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
                 },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.18
                 },
@@ -264,6 +267,7 @@
                 "structural/test1/preprocess/manta.HG002.chr21.norm.vcf.gz",
                 "structural/test1/preprocess/test1.dedup.sort.vcf.gz",
                 "structural/test1/preprocess/test1.manta.svync.vcf.gz",
+                "structural/test1/preprocess/test1.norm.filter.filter.vcf",
                 "structural/test1/preprocess/test1.norm.filter.vcf",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
@@ -296,6 +300,7 @@
                 "structural/test2/preprocess/Ashkenazim_HG002.filtered.sv.chr21.norm.sort.vcf.gz",
                 "structural/test2/preprocess/Ashkenazim_HG002.filtered.sv.chr21.norm.vcf.gz",
                 "structural/test2/preprocess/test2.dedup.sort.vcf.gz",
+                "structural/test2/preprocess/test2.norm.filter.filter.vcf",
                 "structural/test2/preprocess/test2.norm.filter.vcf",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
@@ -329,6 +334,7 @@
                 "structural/test3/preprocess/HG002_DRAGEN_SV_hg19.chr21.norm.vcf.gz",
                 "structural/test3/preprocess/test3.dedup.sort.vcf.gz",
                 "structural/test3/preprocess/test3.dragen.svync.vcf.gz",
+                "structural/test3/preprocess/test3.norm.filter.filter.vcf",
                 "structural/test3/preprocess/test3.norm.filter.vcf",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
@@ -339,25 +345,25 @@
             [
                 "HG002.bcftools_stats.txt:md5,8294f172a72ca7219a32db9c27e2524c",
                 "HG002_mqc.stats:md5,68681df47b35e3193be03610f5c6e3d6",
-                "test1.HG002.manta.distances:md5,33dcbe29f7129dc30c184b564803ec63",
-                "test1.HG002.manta.report:md5,91b0fbfd6fcdf45b85290f92c5a470fb",
-                "test1.manta.bcftools_stats.txt:md5,0e4cf1707b245c026fe6a0af6e8f8c0a",
-                "test1.manta_mqc.stats:md5,6f25a9372095052218110390e8e75c54",
+                "test1.HG002.manta.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
+                "test1.HG002.manta.report:md5,4a53712a9d15fa6dfe6ddd5848ca691c",
+                "test1.manta.bcftools_stats.txt:md5,7d65792aa3a84de09675facf62135c93",
+                "test1.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
                 "test2.HG002.merged.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
-                "test2.HG002.merged.report:md5,6466d73155f88084efc69cad3628eb8c",
-                "test2.merged.bcftools_stats.txt:md5,576f9bc7e06bc2bbfccceb9da161a467",
-                "test2.merged_mqc.stats:md5,36d80468e13b583d0761b434d095312d",
+                "test2.HG002.merged.report:md5,4a53712a9d15fa6dfe6ddd5848ca691c",
+                "test2.merged.bcftools_stats.txt:md5,1445742129b0ee67d8706af3dcf0ab2d",
+                "test2.merged_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
                 "test3.HG002.dragen.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
-                "test3.HG002.dragen.report:md5,b295d4867b7a96f0ca0bb5e8bb45eb68",
-                "test3.dragen.bcftools_stats.txt:md5,0683a5d3c47a5a6a43ad2b6a0387672e",
-                "test3.dragen_mqc.stats:md5,5c59cceb2e7d909d91074bb8e5804abc"
+                "test3.HG002.dragen.report:md5,4a53712a9d15fa6dfe6ddd5848ca691c",
+                "test3.dragen.bcftools_stats.txt:md5,5d2b48ac5f194f5a2cf01b9623a28cce",
+                "test3.dragen_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T10:42:14.227940401"
+        "timestamp": "2025-01-13T13:53:07.620717905"
     },
     "-stub": {
         "content": [
@@ -365,6 +371,9 @@
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
+                },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.18
@@ -563,6 +572,7 @@
                 "structural/test1/preprocess/manta.HG002.chr21.norm.vcf.gz",
                 "structural/test1/preprocess/test1.dedup.sort.vcf.gz",
                 "structural/test1/preprocess/test1.manta.svync.vcf.gz",
+                "structural/test1/preprocess/test1.norm.filter.filter.vcf",
                 "structural/test1/preprocess/test1.norm.filter.vcf",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
@@ -595,6 +605,7 @@
                 "structural/test2/preprocess/Ashkenazim_HG002.filtered.sv.chr21.norm.sort.vcf.gz",
                 "structural/test2/preprocess/Ashkenazim_HG002.filtered.sv.chr21.norm.vcf.gz",
                 "structural/test2/preprocess/test2.dedup.sort.vcf.gz",
+                "structural/test2/preprocess/test2.norm.filter.filter.vcf",
                 "structural/test2/preprocess/test2.norm.filter.vcf",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
@@ -628,6 +639,7 @@
                 "structural/test3/preprocess/HG002_DRAGEN_SV_hg19.chr21.norm.vcf.gz",
                 "structural/test3/preprocess/test3.dedup.sort.vcf.gz",
                 "structural/test3/preprocess/test3.dragen.svync.vcf.gz",
+                "structural/test3/preprocess/test3.norm.filter.filter.vcf",
                 "structural/test3/preprocess/test3.norm.filter.vcf",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
@@ -653,9 +665,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T10:44:36.4725572"
+        "timestamp": "2025-01-13T13:55:36.985456265"
     }
 }

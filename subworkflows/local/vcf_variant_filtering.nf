@@ -16,14 +16,7 @@ workflow VCF_VARIANT_FILTERING {
 
     versions = Channel.empty()
 
-    // unzip vcf file, required for survivor filter
-    TABIX_BGZIP(
-        vcf_ch.map{ meta, vcf, index -> tuple(meta, vcf)}
-    )
-    versions = versions.mix(TABIX_BGZIP.out.versions.first())
-    vcf_ch = TABIX_BGZIP.out.output
-
-    if(params.exclude_expression  != null & params.include_expression  != null){
+    if(params.exclude_expression  != null | params.include_expression  != null){
 
         // filter vcf files using bcftools expressions
         BCFTOOLS_FILTER(
@@ -31,6 +24,14 @@ workflow VCF_VARIANT_FILTERING {
         )
         versions = versions.mix(BCFTOOLS_FILTER.out.versions.first())
         vcf_ch = BCFTOOLS_FILTER.out.vcf
+    }
+    else{
+        // unzip vcf file, required for survivor filter
+        TABIX_BGZIP(
+            vcf_ch.map{ meta, vcf, index -> tuple(meta, vcf)}
+        )
+        versions = versions.mix(TABIX_BGZIP.out.versions.first())
+        vcf_ch = TABIX_BGZIP.out.output
     }
 
     if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){

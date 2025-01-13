@@ -6,6 +6,9 @@
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
                 },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_MERGE": {
                     "bcftools": 1.2
                 },
@@ -44,9 +47,6 @@
                 },
                 "RTGTOOLS_VCFEVAL": {
                     "rtg-tools": "3.12.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
                 },
                 "TABIX_TABIX": {
                     "tabix": "1.19.1"
@@ -162,6 +162,7 @@
                 "small/test1/benchmarks/rtgtools/test1.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test1/benchmarks/rtgtools/test1.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test1/preprocess",
+                "small/test1/preprocess/HG002.strelka.variants.chr21.rh.norm.filter.vcf",
                 "small/test1/preprocess/test1.HG002.strelka.prepy.vcf.gz",
                 "small/test1/preprocess/test1.dedup.sort.vcf.gz",
                 "small/test1/stats",
@@ -196,6 +197,7 @@
                 "small/test2/benchmarks/rtgtools/test2.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test2/benchmarks/rtgtools/test2.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test2/preprocess",
+                "small/test2/preprocess/HG002.bcftools.chr21.rh.norm.filter.vcf",
                 "small/test2/preprocess/test2.HG002.bcftools.prepy.vcf.gz",
                 "small/test2/preprocess/test2.dedup.sort.vcf.gz",
                 "small/test2/stats",
@@ -228,10 +230,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T10:55:37.880792825"
+        "timestamp": "2025-01-13T13:40:17.22451061"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -239,6 +241,9 @@
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.18
+                },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_MERGE": {
                     "bcftools": 1.2
@@ -278,9 +283,6 @@
                 },
                 "RTGTOOLS_VCFEVAL": {
                     "rtg-tools": "3.12.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
                 },
                 "TABIX_TABIX": {
                     "tabix": "1.19.1"
@@ -491,6 +493,7 @@
                 "small/test1/benchmarks/rtgtools/test1.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test1/benchmarks/rtgtools/test1.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test1/preprocess",
+                "small/test1/preprocess/HG002.strelka.variants.chr21.rh.norm.filter.vcf",
                 "small/test1/preprocess/test1.HG002.strelka.prepy.vcf.gz",
                 "small/test1/preprocess/test1.dedup.sort.vcf.gz",
                 "small/test1/stats",
@@ -525,6 +528,7 @@
                 "small/test2/benchmarks/rtgtools/test2.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test2/benchmarks/rtgtools/test2.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test2/preprocess",
+                "small/test2/preprocess/HG002.bcftools.chr21.rh.norm.filter.vcf",
                 "small/test2/preprocess/test2.HG002.bcftools.prepy.vcf.gz",
                 "small/test2/preprocess/test2.dedup.sort.vcf.gz",
                 "small/test2/stats",
@@ -549,32 +553,32 @@
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.bcftools_stats.txt:md5,b215fc0030c53bc8887e28b23b97efb6",
-                "test1.HG002.strelka.extended.csv:md5,098dc352d1beeab27e72f97e64fc182e",
-                "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,bd1f1a1e138f75511de7aae157fa2fa4",
-                "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8912022beb3c5b234d29300b764b56bc",
-                "test1.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,63279f14076a5a9919a4d30b0fbb7746",
-                "test1.HG002.strelka.roc.Locations.SNP.csv.gz:md5,77aedefc4516566b136acfba82bed147",
-                "test1.HG002.strelka.roc.all.csv.gz:md5,ccefcf1ff7ef04c9d97b8afbbcfb3c51",
-                "test1.HG002.strelka.summary.csv:md5,c14117d825b861657b38c058644896f9",
-                "test1.HG002.strelka.phasing.txt:md5,5ab9ffbd7c18a5512851086b6e7ecf59",
-                "test1.HG002.strelka.summary.txt:md5,e045d6a048bdec24cb55f9dd1b55ffe7",
-                "test1.strelka.bcftools_stats.txt:md5,f9f8cf5c1be9c88754888ef8cbfb06f4",
-                "test2.HG002.bcftools.extended.csv:md5,14392c3b5a1c060d63414cfc10e670b6",
-                "test2.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,507b54e5b6d1f956f557b39a7dc38ff4",
-                "test2.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,4694d6169ce0819d36768045a7ef43d0",
-                "test2.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz:md5,83d1fa126072c16b0471fb8877c5c818",
-                "test2.HG002.bcftools.roc.Locations.SNP.csv.gz:md5,10045ce81f85c51e142a7ff30d7579bb",
-                "test2.HG002.bcftools.roc.all.csv.gz:md5,b176e3c9910ecf3209353682553c1a06",
-                "test2.HG002.bcftools.summary.csv:md5,3815ea18e8fc11f198a5821dee79a3c7",
+                "test1.HG002.strelka.extended.csv:md5,4362260b357ac0221414095f4c5a8981",
+                "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,a5ba4044a89ae80fb0ddf95147b5ae4c",
+                "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,52edef7d20ac8a7e03771037f5c93fe4",
+                "test1.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,f71e697d7ebaf1d670e5dc2c0e0106d3",
+                "test1.HG002.strelka.roc.Locations.SNP.csv.gz:md5,c388d5a15ba2ae8dff709b030f1b4828",
+                "test1.HG002.strelka.roc.all.csv.gz:md5,59ebbe78bf428b5c2c78c8ff92f54545",
+                "test1.HG002.strelka.summary.csv:md5,60af846379cf4fe078fbed6b9d1e8178",
+                "test1.HG002.strelka.phasing.txt:md5,838e67ae5b9cd9e218095596c03fbee3",
+                "test1.HG002.strelka.summary.txt:md5,e79779d3faebe02bae943ddc17c4cf91",
+                "test1.strelka.bcftools_stats.txt:md5,492f42090004470e7e0ea7abc5f89bdf",
+                "test2.HG002.bcftools.extended.csv:md5,2f8ef20f46c821333ba970e3034a6ccd",
+                "test2.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,cdf3fdb7c5b4c54d9896e37a99dbf4f9",
+                "test2.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,9b16abcfe483356020c550e1292554ed",
+                "test2.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz:md5,f71e697d7ebaf1d670e5dc2c0e0106d3",
+                "test2.HG002.bcftools.roc.Locations.SNP.csv.gz:md5,c388d5a15ba2ae8dff709b030f1b4828",
+                "test2.HG002.bcftools.roc.all.csv.gz:md5,e772fefec84f9a6e60c6979bac14cedc",
+                "test2.HG002.bcftools.summary.csv:md5,05722d23f523141fdce842a18f1d8aa2",
                 "test2.HG002.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
-                "test2.HG002.bcftools.summary.txt:md5,b9a0c74a8b5af4f2c1c0623b61d7cbe3",
-                "test2.bcftools.bcftools_stats.txt:md5,57aff2f0a6f830e920869b987502a343"
+                "test2.HG002.bcftools.summary.txt:md5,a7bbcdf86cd3f1f7815ea9bc25b57b61",
+                "test2.bcftools.bcftools_stats.txt:md5,440fd66ee557b215bbacd05953215f7a"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T10:53:32.971378431"
+        "timestamp": "2025-01-13T14:00:31.553072869"
     }
 }
