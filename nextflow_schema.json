@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/nextflow_schema.json",
     "title": "nf-core/variantbenchmarking pipeline parameters",
-    "description": "Benchmarking pipeline for germline and somatic variant callers ",
+    "description": "Master benchmarking pipeline for variant callers ",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -10,15 +10,15 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "truth_id", "analysis", "variant_type", "method", "truth_vcf"],
             "properties": {
                 "input": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/variantbenchmarking/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -28,6 +28,103 @@
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "truth_id": {
+                    "type": "string",
+                    "description": "Truth id, sample name to define truth vcf",
+                    "fa_icon": "fas fa-folder-open",
+                    "errorMessage": "The sample name of the truth case. Examples: HG002, SEQC2, HG001, HG003, CHM13"
+                },
+                "analysis": {
+                    "type": "string",
+                    "description": "The analysis type used by the input files",
+                    "enum": ["germline", "somatic"],
+                    "pattern": "(germline|somatic)",
+                    "fa_icon": "fas fa-folder-open",
+                    "errorMessage": "Analysis type has to be choosen: germline or somatic"
+                },
+                "variant_type": {
+                    "type": "string",
+                    "description": "Variant types to benchmark",
+                    "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
+                    "enum": ["small", "snv", "indel", "structural", "copynumber"],
+                    "pattern": "(small|snv|indel|structural|copynumber)",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The benchmarking methods to use. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "regions_bed": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
+                    "description": "Path to regions BED or VCF files.",
+                    "help_text": "Regions BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "truth_vcf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "description": "Path to the golden set VCF files.",
+                    "help_text": "Truth or golden set VCF file, to be used for comparisons",
+                    "fa_icon": "fas fa-file-csv"
+                },
+
+                "preprocess": {
+                    "type": "string",
+                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: normalization, deduplication, prepy, filter_contigs",
+                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: normalization, deduplication, prepy, filter_contigs",
+                    "pattern": "^((normalization|deduplication|prepy|filter_contigs)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "sv_standardization": {
+                    "type": "string",
+                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: homogenize, svync",
+                    "pattern": "^((homogenize|svync)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_sv_size": {
+                    "type": "integer",
+                    "description": "Minimum SV size of variants to benchmark, 0 to disable , Default:30",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": 0
+                },
+                "max_sv_size": {
+                    "type": "integer",
+                    "description": "Maximum SV size of variants to benchmark, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
+                },
+                "min_allele_freq": {
+                    "type": "number",
+                    "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
+                },
+                "min_num_reads": {
+                    "type": "integer",
+                    "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": -1
+                },
+                "exclude_expression": {
+                    "type": "string",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Default:null",
+                    "fa_icon": "fas fa-folder-open",
+                    "minLength": 1
+                },
+                "include_expression": {
+                    "type": "string",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Default:null",
+                    "fa_icon": "fas fa-folder-open",
+                    "minLength": 1
                 },
                 "email": {
                     "type": "string",
@@ -48,6 +145,7 @@
             "type": "object",
             "fa_icon": "fas fa-dna",
             "description": "Reference genome related files and options required for the workflow.",
+            "required": ["fasta", "fai"],
             "properties": {
                 "genome": {
                     "type": "string",
@@ -65,6 +163,24 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
                     "fa_icon": "far fa-file-code"
                 },
+                "fai": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to FAI genome file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "sdf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.sdf$",
+                    "description": "The SDF file needed to run rtgtools vcfeval",
+                    "help_text": "This will be automatically generated by the pipeline when missing",
+                    "fa_icon": "fas fa-file-csv"
+                },
                 "igenomes_ignore": {
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",
@@ -79,6 +195,42 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "default": "s3://ngi-igenomes/igenomes/"
+                },
+                "liftover": {
+                    "type": "string",
+                    "description": "Run liftover workflow: test,truth",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "pattern": "^((test|truth)?,?)*(?<!,)$",
+                    "help_text": "Makes the use of liftover subworkflow, hg37 truth sets will liftover to hg38 and visa versa. Has to be either combined with --chain and --rename_chr."
+                },
+                "chain": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(chain|bed)?(\\.gz)?$",
+                    "description": "Path to the chain file required for liftover.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "rename_chr": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.txt$",
+                    "description": "Path to the ranaming chromosomes for lifting over.",
+                    "help_text": "This parameter is *mandatory* if `--liftover` is true",
+                    "fa_icon": "far fa-file-code"
+                },
+                "dictionary": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.dict$",
+                    "description": "The dictionary file is required ofr liftover process. It has to be .dict of genome file used in the workflow. ",
+                    "help_text": "This will be automatically generated by the pipeline when missing",
+                    "fa_icon": "fas fa-file-csv"
                 }
             }
         },
@@ -86,8 +238,8 @@
             "title": "Institutional config options",
             "type": "object",
             "fa_icon": "fas fa-university",
-            "description": "Parameters used to describe centralised config profiles. These should not be edited.",
-            "help_text": "The centralised nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "description": "Parameters used to describe centralized config profiles. These should not be edited.",
+            "help_text": "The centralized nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
             "properties": {
                 "custom_config_version": {
                     "type": "string",
@@ -175,6 +327,12 @@
                     "hidden": true
                 },
                 "monochrome_logs": {
+                    "type": "boolean",
+                    "description": "Do not use coloured log outputs.",
+                    "fa_icon": "fas fa-palette",
+                    "hidden": true
+                },
+                "monochromeLogs": {
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
