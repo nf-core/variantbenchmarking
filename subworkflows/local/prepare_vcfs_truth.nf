@@ -3,11 +3,11 @@
 //
 
 
-include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm'
-include { TABIX_TABIX                } from '../../modules/nf-core/tabix/tabix'
 include { VCF_REHEADER_SAMPLENAME    } from '../local/vcf_reheader_samplename'
 include { VCF_VARIANT_DEDUPLICATION  } from '../local/vcf_variant_deduplication'
 include { LIFTOVER_VCFS              } from '../local/liftover_vcfs'
+include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI } from '../../modules/nf-core/bcftools/norm'
 
 
 workflow PREPARE_VCFS_TRUTH {
@@ -48,25 +48,20 @@ workflow PREPARE_VCFS_TRUTH {
     versions = versions.mix(VCF_REHEADER_SAMPLENAME.out.versions.first())
     vcf_ch   = VCF_REHEADER_SAMPLENAME.out.ch_vcf
 
-    if (params.preprocess.contains("normalization")){
+    if (params.preprocess.contains("split_multiallelic")){
 
-        // multi-allelic variants will be splitter.
-        BCFTOOLS_NORM(
+        // Split -any- multi-allelic variants
+        BCFTOOLS_SPLIT_MULTI(
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
+        versions = versions.mix(BCFTOOLS_SPLIT_MULTI.out.versions.first())
 
-        // index vcf file
-        TABIX_TABIX(
-            BCFTOOLS_NORM.out.vcf
-        )
-        versions = versions.mix(TABIX_TABIX.out.versions)
-
-        BCFTOOLS_NORM.out.vcf.join(TABIX_TABIX.out.tbi, by:0)
+        BCFTOOLS_SPLIT_MULTI.out.vcf.join(BCFTOOLS_SPLIT_MULTI.out.tbi, by:0)
                             .set{vcf_ch}
     }
-    if (params.preprocess.contains("deduplication")){
+
+    if (params.preprocess.contains("deduplicate")){
 
         // Deduplicates variants at the same position test
         VCF_VARIANT_DEDUPLICATION(
@@ -75,6 +70,19 @@ workflow PREPARE_VCFS_TRUTH {
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
         versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
+    }
+
+    if (params.preprocess.contains("normalize")){
+
+        // Turn on left alignment and m\normalization
+        BCFTOOLS_NORM(
+            vcf_ch,
+            fasta
+        )
+        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
+
+        BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
+                            .set{vcf_ch}
     }
 
     emit:
