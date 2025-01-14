@@ -3,6 +3,9 @@
         "content": [
             27,
             {
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_REHEADER": {
                     "bcftools": 1.18
                 },
@@ -32,9 +35,6 @@
                 },
                 "PLOTS": {
                     "r-base": "4.3.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
                 },
                 "TABIX_BGZIPTABIX": {
                     "tabix": "1.19.1"
@@ -150,6 +150,8 @@
                 "indel/test1/benchmarks/sompy/test1.SEQC2.freebayes.features.csv",
                 "indel/test1/benchmarks/sompy/test1.SEQC2.freebayes.metrics.json",
                 "indel/test1/benchmarks/sompy/test1.SEQC2.freebayes.stats.csv",
+                "indel/test1/preprocess",
+                "indel/test1/preprocess/test1.filter.vcf",
                 "indel/test1/stats",
                 "indel/test1/stats/bcftools",
                 "indel/test1/stats/bcftools/test1.freebayes.bcftools_stats.txt",
@@ -161,6 +163,7 @@
                 "indel/test2/benchmarks/sompy/test2.SEQC2.strelka.stats.csv",
                 "indel/test2/preprocess",
                 "indel/test2/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_indels.sort.vcf.gz",
+                "indel/test2/preprocess/test2.filter.vcf",
                 "indel/test2/stats",
                 "indel/test2/stats/bcftools",
                 "indel/test2/stats/bcftools/test2.strelka.bcftools_stats.txt",
@@ -170,13 +173,13 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,e530daf4f6a4923f1cd85c51893d5747",
                 "test1.freebayes.bcftools_stats.txt:md5,c5025b5c6256c1d808badee73a7c220c",
-                "test2.strelka.bcftools_stats.txt:md5,ec553881bc70c786e8cec95192823634"
+                "test2.strelka.bcftools_stats.txt:md5,1e700076bd303ee079b23658485eb7d4"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.2"
+            "nf-test": "0.9.2",
+            "nextflow": "24.10.3"
         },
-        "timestamp": "2024-12-10T11:27:48.141030523"
+        "timestamp": "2025-01-13T14:32:00.898226798"
     }
 }
