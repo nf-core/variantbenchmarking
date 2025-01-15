@@ -3,7 +3,7 @@
 //
 
 
-include { VCF_REHEADER_SAMPLENAME    } from '../local/vcf_reheader_samplename'
+include { BCFTOOLS_REHEADER          } from '../../modules/nf-core/bcftools/reheader'
 include { VCF_VARIANT_DEDUPLICATION  } from '../local/vcf_variant_deduplication'
 include { LIFTOVER_VCFS              } from '../local/liftover_vcfs'
 include { BCFTOOLS_NORM              } from '../../modules/nf-core/bcftools/norm'
@@ -41,12 +41,17 @@ workflow PREPARE_VCFS_TRUTH {
     }
 
     // Reheader sample name for truth file - using meta.caller
-    VCF_REHEADER_SAMPLENAME(
-        truth_ch,
+    // rename sample name
+    BCFTOOLS_REHEADER(
+        truth_ch.map{ meta, file ->
+            [ meta, file, [], [] ]
+        },
         fai
     )
-    versions = versions.mix(VCF_REHEADER_SAMPLENAME.out.versions.first())
-    vcf_ch   = VCF_REHEADER_SAMPLENAME.out.ch_vcf
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions.first())
+
+    BCFTOOLS_REHEADER.out.vcf.join(BCFTOOLS_REHEADER.out.index)
+        .set{vcf_ch}
 
     if (params.preprocess.contains("split_multiallelic")){
 

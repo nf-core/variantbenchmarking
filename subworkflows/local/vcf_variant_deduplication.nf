@@ -3,7 +3,6 @@
 //
 
 include { BCFTOOLS_SORT                     } from '../../modules/nf-core/bcftools/sort'
-include { TABIX_TABIX                       } from '../../modules/nf-core/tabix/tabix'
 include { BCFTOOLS_NORM as BCFTOOLS_DEDUP   } from '../../modules/nf-core/bcftools/norm'
 
 workflow VCF_VARIANT_DEDUPLICATION {
@@ -29,13 +28,7 @@ workflow VCF_VARIANT_DEDUPLICATION {
     )
     versions = versions.mix(BCFTOOLS_SORT.out.versions.first())
 
-    TABIX_TABIX(
-        BCFTOOLS_SORT.out.vcf
-    )
-    versions = versions.mix(TABIX_TABIX.out.versions.first())
-
-    BCFTOOLS_SORT.out.vcf
-        .join(TABIX_TABIX.out.tbi, failOnDuplicate:true, failOnMismatch:true)
+    BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi)
         .set{ch_vcf}
 
     emit:

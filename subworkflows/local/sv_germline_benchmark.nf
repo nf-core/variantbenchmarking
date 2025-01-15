@@ -2,15 +2,15 @@
 // SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
 //
 
-include { TRUVARI_BENCH                                         } from '../../modules/nf-core/truvari/bench'
-include { SVANALYZER_SVBENCHMARK                                } from '../../modules/nf-core/svanalyzer/svbenchmark'
-include { WITTYER                                               } from '../../modules/nf-core/wittyer'
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY                      } from '../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH                      } from '../../modules/nf-core/tabix/bgzip'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_1  } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_2  } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_3  } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_4  } from '../local/vcf_reheader_samplename'
+include { TRUVARI_BENCH            } from '../../modules/nf-core/truvari/bench'
+include { SVANALYZER_SVBENCHMARK   } from '../../modules/nf-core/svanalyzer/svbenchmark'
+include { WITTYER                  } from '../../modules/nf-core/wittyer'
+include { TABIX_BGZIP as TABIX_BGZIP_QUERY          } from '../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_TRUTH          } from '../../modules/nf-core/tabix/bgzip'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../modules/nf-core/bcftools/reheader'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
@@ -43,49 +43,61 @@ workflow SV_GERMLINE_BENCHMARK {
         summary_reports = summary_reports.mix(report)
 
         // reheader fn vcf files for tagged results
-        VCF_REHEADER_SAMPLENAME_1(
-            TRUVARI_BENCH.out.fn_vcf,
+        BCFTOOLS_REHEADER_1(
+            TRUVARI_BENCH.out.fn_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_1.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_1.out.versions)
 
-        VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
+        BCFTOOLS_REHEADER_1.out.vcf
+            .join(BCFTOOLS_REHEADER_1.out.index)
             .map { _meta, file, _index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "truvari"], file) }
             .set { vcf_fn }
 
         // reheader fp vcf files for tagged results
-        VCF_REHEADER_SAMPLENAME_2(
-            TRUVARI_BENCH.out.fp_vcf,
+        BCFTOOLS_REHEADER_2(
+            TRUVARI_BENCH.out.fp_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_2.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_2.out.versions)
 
         // add tag and to meta
-        VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
+        BCFTOOLS_REHEADER_2.out.vcf
+            .join(BCFTOOLS_REHEADER_2.out.index)
             .map { _meta, file, _index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "truvari"], file) }
             .set { vcf_fp }
 
         // reheader base tp vcf files for tagged results
-        VCF_REHEADER_SAMPLENAME_3(
-            TRUVARI_BENCH.out.tp_base_vcf,
+        BCFTOOLS_REHEADER_3(
+            TRUVARI_BENCH.out.tp_base_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_3.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_3.out.versions)
 
         // add tag and to meta
-        VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
+        BCFTOOLS_REHEADER_3.out.vcf
+            .join(BCFTOOLS_REHEADER_3.out.index)
             .map { _meta, file, _index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "truvari"], file) }
             .set { vcf_tp_base }
 
         // reheader comp tp vcf files for tagged results
-        VCF_REHEADER_SAMPLENAME_4(
-            TRUVARI_BENCH.out.tp_comp_vcf,
+        BCFTOOLS_REHEADER_4(
+            TRUVARI_BENCH.out.tp_comp_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_4.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_4.out.versions)
 
         // add tag and to meta
-        VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
+        BCFTOOLS_REHEADER_4.out.vcf
+            .join(BCFTOOLS_REHEADER_4.out.index)
             .map { _meta, file, _index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "truvari"], file) }
             .set { vcf_tp_comp }
 

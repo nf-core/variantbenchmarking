@@ -2,7 +2,7 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-include { VCF_REHEADER_SAMPLENAME      } from '../local/vcf_reheader_samplename'
+include { BCFTOOLS_REHEADER            } from '../../modules/nf-core/bcftools/reheader'
 include { VCF_VARIANT_DEDUPLICATION    } from '../local/vcf_variant_deduplication'
 include { VCF_VARIANT_FILTERING        } from '../local/vcf_variant_filtering'
 include { SPLIT_SMALL_VARIANTS_TEST    } from '../local/split_small_variants_test'
@@ -68,12 +68,18 @@ workflow PREPARE_VCFS_TEST {
 
 
     // Add "query" to test sample
-    VCF_REHEADER_SAMPLENAME(
-        vcf_ch,
+    // rename sample name
+    BCFTOOLS_REHEADER(
+
+        vcf_ch.map{ meta, file ->
+            [ meta, file, [], [] ]
+        },
         fai
     )
-    versions = versions.mix(VCF_REHEADER_SAMPLENAME.out.versions.first())
-    vcf_ch   = VCF_REHEADER_SAMPLENAME.out.ch_vcf
+    versions = versions.mix(BCFTOOLS_REHEADER.out.versions.first())
+
+    BCFTOOLS_REHEADER.out.vcf.join(BCFTOOLS_REHEADER.out.index)
+        .set{vcf_ch}
 
     if (params.preprocess.contains("filter_contigs")){
         // filter out extra contigs!
