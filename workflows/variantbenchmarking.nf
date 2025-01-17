@@ -81,11 +81,11 @@ workflow VARIANTBENCHMARKING {
 
     }else{
         if (params.genome == "GRCh38"){
-            rename_chr = Channel.fromPath("assets/rename_contigs/grch37_grch38.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+            rename_chr = Channel.fromPath("${projectDir}/assets/rename_contigs/grch37_grch38.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
         }
         else if(params.genome == "GRCh37")
         {
-            rename_chr = Channel.fromPath("assets/rename_contigs/grch38_grch37.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
+            rename_chr = Channel.fromPath("${projectDir}/assets/rename_contigs/grch38_grch37.txt", checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
         }
         else{
             rename_chr = Channel.empty()
