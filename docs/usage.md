@@ -73,11 +73,23 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
   - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
   - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
 
-- `--preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `normalization,deduplication,prepy,filter_contigs`
-  - `normalization`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-  - `deduplication`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- `--preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
+  - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `normalize`: Left aligns variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `deduplicate`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `prepy`: Uses prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
   - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
+
+Filtration of tst variants are controlled through the following parameters:
+
+- `exclude_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants)
+- `include_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants)
+- `min_sv_size`: Minimum SV size of variants to benchmark. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `max_sv_size`: Maximum SV size of variants to benchmark. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `min_allele_freq`: Minimum Alele Frequency of variants to benchmark for SVs. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `min_num_reads`: Minimum number of read supporting variants to benchmark for SVs. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+
+_tip_: One can use _exclude_expression_ or _include_expression_ to limit indel or SV variant size as well.
 
 ## Using multi-sample vcf inputs
 

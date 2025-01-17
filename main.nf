@@ -35,7 +35,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_vari
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// WORKFLOW: Run main nf-core/sarek analysis pipeline
+// WORKFLOW: Run main nf-core/variantbenchmarking analysis pipeline
 workflow NFCORE_VARIANTBENCHMARKING {
 
     take:

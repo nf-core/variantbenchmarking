@@ -39,31 +39,32 @@ This initial step ensures consistent formatting and alignment of variants in tes
 4. Rename sample names in test and truth VCF files ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
 5. Splitting multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 6. Deduplication of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-7. Use prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
-8. Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+7. Left aligning of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+8. Use prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
+9. Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
 
 ### Filtering options:
 
 Applying filtering on the process of benchmarking itself might makes it impossible to compare different benchmarking strategies. Therefore, for whom like to compare benchmarking methods this subworkflow aims to provide filtering options for variants.
 
-9. Filtration of contigs ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
-10. Include or exclude SNVs and INDELs ([bcftools filter](https://samtools.github.io/bcftools/bcftools.html#filter))
-11. Size and quality filtering for SVs ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+10. Filtration of contigs ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+11. Include or exclude SNVs and INDELs ([bcftools filter](https://samtools.github.io/bcftools/bcftools.html#filter))
+12. Size and quality filtering for SVs ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
 
 ### Liftover of vcfs:
 
-This sub-workflow provides option to convert genome coordinates of truth VCF and high confidence BED file to a new assembly. Golden standard truth files are build upon specific reference genomes which makes the necessity of lifting over depending on the test VCF in query. Lifting over one or more test vcfs is also possible.
+This sub-workflow provides option to convert genome coordinates of truth VCF and test VCFs and high confidence BED file to a new assembly. Golden standard truth files are build upon specific reference genomes which makes the necessity of lifting over depending on the test VCF in query. Lifting over one or more test VCFs is also possible.
 
-12. Create sequence dictionary for the reference ([picard CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard)). This file can be saved and reused.
-13. Lifting over truth variants ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
-14. Lifting over high confidence coordinates ([UCSC liftover](http://hgdownload.cse.ucsc.edu/admin/exe))
+13. Create sequence dictionary for the reference ([picard CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard)). This file can be saved and reused.
+14. Lifting over VCFs ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
+15. Lifting over high confidence coordinates ([UCSC liftover](http://hgdownload.cse.ucsc.edu/admin/exe))
 
 ### Statistical inference of input test and truth variants:
 
 This step provides insights into the distribution of variants before benchmarking.
 
-15. Get statistics of SNVs, INDELs and complex variants ([bcftools stats](https://samtools.github.io/bcftools/bcftools.html#stats))
-16. Get statistics of SVs by type ([SURVIVOR stats](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+16. Get statistics of SNVs, INDELs and complex variants ([bcftools stats](https://samtools.github.io/bcftools/bcftools.html#stats))
+17. Get statistics of SVs by type ([SURVIVOR stats](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
 
 ### Benchmarking of variants:
 
@@ -71,34 +72,35 @@ Actual benchmarking of variants are split between SVs and small variants:
 
 Available methods for SVs:
 
-17. Germline and somatic variant benchmarking using Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
-18. Germline and somatic variant benchmarking using SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
+18. Germline and somatic variant benchmarking using Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
+19. Germline and somatic variant benchmarking using SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
 
 Available methods for CNVs:
 
-19. Germline and somatic variant benchmarking using Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+20. Germline and somatic variant benchmarking using Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
 
 Available methods for SNVs and INDELs:
 
-20. Germline variant benchmarking using RTG-tools ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
-21. Germline variant benchmarking using Happy tools ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
-22. Somatic variant benchmarking using Sompy ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+21. Germline variant benchmarking using RTG-tools ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+22. Germline variant benchmarking using Happy tools ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
+23. Somatic variant benchmarking using Sompy ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 
 ### Comparison of benchmarking results per TP, FP and FN files
 
 It is essential to compare benchmarking results in order to infer uniquely or commonly seen TPs, FPs and FNs.
 
-23. Merging TP, FP and FN results for happy, rtgtools and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
-24. Merging TP, FP and FN results for Truvari and SVanalyzer ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
-25. Conversion of VCF files to CSV to infer common and unique variants per caller (python script)
+24. Merging TP, FP and FN results for happy, rtgtools and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
+25. Merging TP, FP and FN results for Truvari and SVanalyzer ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+26. Conversion of VCF files to CSV to infer common and unique variants per caller (python script)
 
 ### Reporting of benchmark results
 
 The generation of comprehensive report that consolidates all benchmarking results.
 
-26. Merging summary statistics per benchmarking tool (python script)
-27. Plotting benchmark metrics per benchmarking tool (R script)
-28. Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
+27. Merging summary statistics per benchmarking tool (python script)
+28. Plotting benchmark metrics per benchmarking tool (R script)
+29. Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
+30. Apply MultiQC to visualize results
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
@@ -121,7 +123,7 @@ test3,test3.vcf.gz,cnvkit
 
 Each row represents a vcf file (test-query file). For each vcf file and variant calling method (caller) have to be defined.
 
-User has to define or provide truth vcf in config files. There are readily available vcf files for benchmarking from Genome in a bottle and SEQC2 studies which can be used readily. Please find detailed information about truth files [here](https://nf-co.re/variantbenchmarking/truth)
+User _has to provide truth vcf in config files_. There are readily available vcf files for benchmarking from Genome in a bottle and SEQC2 studies which can be used readily. Please find detailed information about truth files [here](https://nf-co.re/variantbenchmarking/truth)
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
@@ -133,8 +135,9 @@ nextflow run nf-core/variantbenchmarking \
    --input samplesheet.csv \
    --outdir <OUTDIR> \
    --genome GRCh37 \
-   --sample HG002
-   --analysis germline
+   --analysis germline \
+   --truth_id HG002 \
+   --truth_vcf truth.vcf.gz
 ```
 
 > [!WARNING]

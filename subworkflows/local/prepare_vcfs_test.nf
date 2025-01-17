@@ -2,15 +2,16 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-include { BCFTOOLS_REHEADER            } from '../../modules/nf-core/bcftools/reheader'
 include { VCF_VARIANT_DEDUPLICATION    } from '../local/vcf_variant_deduplication'
 include { VCF_VARIANT_FILTERING        } from '../local/vcf_variant_filtering'
 include { SPLIT_SMALL_VARIANTS_TEST    } from '../local/split_small_variants_test'
 include { LIFTOVER_VCFS                } from '../local/liftover_vcfs'
 include { BCFTOOLS_NORM                } from '../../modules/nf-core/bcftools/norm'
 include { FIX_VCF_PREFIX               } from '../../modules/local/custom/fix_vcf_prefix'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI  } from '../../modules/nf-core/bcftools/norm'
+include { PUBLISH_PROCESSED_VCF        } from '../../modules/local/custom/publish_processed_vcf'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../modules/nf-core/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TEST {
@@ -58,7 +59,7 @@ workflow PREPARE_VCFS_TEST {
 
     vcf_ch = Channel.empty()
 
-    // fic vcf chromosome prefix according to reference genome
+    // fix vcf chromosome prefix according to reference genome
     FIX_VCF_PREFIX(
         fix.prefix,
         rename_chr
@@ -69,16 +70,16 @@ workflow PREPARE_VCFS_TEST {
 
     // Add "query" to test sample
     // rename sample name
-    BCFTOOLS_REHEADER(
+    BCFTOOLS_REHEADER_QUERY(
 
         vcf_ch.map{ meta, file ->
             [ meta, file, [], [] ]
         },
         fai
     )
-    versions = versions.mix(BCFTOOLS_REHEADER.out.versions.first())
+    versions = versions.mix(BCFTOOLS_REHEADER_QUERY.out.versions.first())
 
-    BCFTOOLS_REHEADER.out.vcf.join(BCFTOOLS_REHEADER.out.index)
+    BCFTOOLS_REHEADER_QUERY.out.vcf.join(BCFTOOLS_REHEADER_QUERY.out.index)
         .set{vcf_ch}
 
     if (params.preprocess.contains("filter_contigs")){
@@ -131,7 +132,7 @@ workflow PREPARE_VCFS_TEST {
 
     if (params.preprocess.contains("normalize")){
 
-        // Turn on left alignment and m\normalization
+        // Turn on left alignment and normalization
         BCFTOOLS_NORM(
             vcf_ch,
             fasta
@@ -154,6 +155,10 @@ workflow PREPARE_VCFS_TEST {
         }
 
     }
+
+    PUBLISH_PROCESSED_VCF(
+        vcf_ch
+    )
 
     emit:
     vcf_ch   // channel: [val(meta), vcf.gz, tbi]
