@@ -1,28 +1,28 @@
 {
     "-stub": {
         "content": [
-            38,
+            29,
             {
-                "BCFTOOLS_FILTER": {
+                "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
                 },
-                "BCFTOOLS_REHEADER": {
-                    "bcftools": 1.18
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.18
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.18
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
-                    "bcftools": 1.18
+                    "bcftools": 1.2
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -36,9 +36,6 @@
                 "PLOTS": {
                     "r-base": "4.3.1"
                 },
-                "TABIX_BGZIPTABIX": {
-                    "tabix": "1.19.1"
-                },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.0dev"
                 }
@@ -48,6 +45,9 @@
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "snv",
                 "snv/SEQC2",
+                "snv/SEQC2/preprocess",
+                "snv/SEQC2/preprocess/SEQC2.vcf.gz",
+                "snv/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
                 "snv/SEQC2/stats",
                 "snv/SEQC2/stats/bcftools",
                 "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -91,7 +91,8 @@
                 "snv/test1/benchmarks/sompy/test1.SEQC2.freebayes.metrics.json",
                 "snv/test1/benchmarks/sompy/test1.SEQC2.freebayes.stats.csv",
                 "snv/test1/preprocess",
-                "snv/test1/preprocess/test1.filter.vcf",
+                "snv/test1/preprocess/test1.vcf.gz",
+                "snv/test1/preprocess/test1.vcf.gz.tbi",
                 "snv/test1/stats",
                 "snv/test1/stats/bcftools",
                 "snv/test1/stats/bcftools/test1.freebayes.bcftools_stats.txt",
@@ -102,8 +103,8 @@
                 "snv/test2/benchmarks/sompy/test2.SEQC2.manta.metrics.json",
                 "snv/test2/benchmarks/sompy/test2.SEQC2.manta.stats.csv",
                 "snv/test2/preprocess",
-                "snv/test2/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.sort.vcf.gz",
-                "snv/test2/preprocess/test2.filter.vcf",
+                "snv/test2/preprocess/test2.vcf.gz",
+                "snv/test2/preprocess/test2.vcf.gz.tbi",
                 "snv/test2/stats",
                 "snv/test2/stats/bcftools",
                 "snv/test2/stats/bcftools/test2.manta.bcftools_stats.txt",
@@ -114,8 +115,8 @@
                 "snv/test3/benchmarks/sompy/test3.SEQC2.strelka.metrics.json",
                 "snv/test3/benchmarks/sompy/test3.SEQC2.strelka.stats.csv",
                 "snv/test3/preprocess",
-                "snv/test3/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.vcf.gz",
-                "snv/test3/preprocess/test3.filter.vcf",
+                "snv/test3/preprocess/test3.vcf.gz",
+                "snv/test3/preprocess/test3.vcf.gz.tbi",
                 "snv/test3/stats",
                 "snv/test3/stats/bcftools",
                 "snv/test3/stats/bcftools/test3.strelka.bcftools_stats.txt"
@@ -131,6 +132,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.3"
         },
-        "timestamp": "2025-01-13T14:15:33.922876808"
+        "timestamp": "2025-01-17T09:17:06.41202116"
     }
 }

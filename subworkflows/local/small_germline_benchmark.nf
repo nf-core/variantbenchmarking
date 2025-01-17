@@ -2,14 +2,14 @@
 // SMALL_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SMALL GERMLINE VARIANTS
 //
 
-include { RTGTOOLS_FORMAT                                      } from '../../modules/nf-core/rtgtools/format/main'
-include { RTGTOOLS_VCFEVAL                                     } from '../../modules/nf-core/rtgtools/vcfeval/main'
-include { HAPPY_HAPPY                                          } from '../../modules/nf-core/happy/happy/main'
-include { HAPPY_PREPY                                          } from '../../modules/nf-core/happy/prepy/main'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_1 } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_2 } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_3 } from '../local/vcf_reheader_samplename'
-include { VCF_REHEADER_SAMPLENAME as VCF_REHEADER_SAMPLENAME_4 } from '../local/vcf_reheader_samplename'
+include { RTGTOOLS_FORMAT  } from '../../modules/nf-core/rtgtools/format/main'
+include { RTGTOOLS_VCFEVAL } from '../../modules/nf-core/rtgtools/vcfeval/main'
+include { HAPPY_HAPPY      } from '../../modules/nf-core/happy/happy/main'
+include { HAPPY_PREPY      } from '../../modules/nf-core/happy/prepy/main'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../modules/nf-core/bcftools/reheader'
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
@@ -55,43 +55,55 @@ workflow SMALL_GERMLINE_BENCHMARK {
         summary_reports = summary_reports.mix(report)
 
         // reheader benchmarking results properly and tag meta
-        VCF_REHEADER_SAMPLENAME_1(
-            RTGTOOLS_VCFEVAL.out.fn_vcf,
+        BCFTOOLS_REHEADER_1(
+            RTGTOOLS_VCFEVAL.out.fn_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_1.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_1.out.versions.first())
 
-        VCF_REHEADER_SAMPLENAME_1.out.ch_vcf
+        BCFTOOLS_REHEADER_1.out.vcf
+            .join(BCFTOOLS_REHEADER_1.out.index)
             .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file, index) }
             .set { vcf_fn }
 
-        VCF_REHEADER_SAMPLENAME_2(
-            RTGTOOLS_VCFEVAL.out.fp_vcf,
+        BCFTOOLS_REHEADER_2(
+            RTGTOOLS_VCFEVAL.out.fp_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_2.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_2.out.versions)
 
-        VCF_REHEADER_SAMPLENAME_2.out.ch_vcf
+        BCFTOOLS_REHEADER_2.out.vcf
+            .join(BCFTOOLS_REHEADER_2.out.index)
             .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file, index) }
             .set { vcf_fp }
 
-        VCF_REHEADER_SAMPLENAME_3(
-            RTGTOOLS_VCFEVAL.out.baseline_vcf,
+        BCFTOOLS_REHEADER_3(
+            RTGTOOLS_VCFEVAL.out.baseline_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_3.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_3.out.versions)
 
-        VCF_REHEADER_SAMPLENAME_3.out.ch_vcf
+        BCFTOOLS_REHEADER_3.out.vcf
+            .join(BCFTOOLS_REHEADER_3.out.index)
             .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_base }
 
-        VCF_REHEADER_SAMPLENAME_4(
-            RTGTOOLS_VCFEVAL.out.tp_vcf,
+        BCFTOOLS_REHEADER_4(
+            RTGTOOLS_VCFEVAL.out.tp_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
             fai
         )
-        versions = versions.mix(VCF_REHEADER_SAMPLENAME_4.out.versions)
+        versions = versions.mix(BCFTOOLS_REHEADER_4.out.versions)
 
-        VCF_REHEADER_SAMPLENAME_4.out.ch_vcf
+        BCFTOOLS_REHEADER_4.out.vcf
+            .join(BCFTOOLS_REHEADER_4.out.index)
             .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file, index) }
             .set { vcf_tp_comp }
 

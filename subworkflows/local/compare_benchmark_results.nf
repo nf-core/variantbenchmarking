@@ -6,8 +6,8 @@
 include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
 include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
 include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
-include { TABIX_BGZIP       } from '../../modules/nf-core/tabix/bgzip'
 include { REFORMAT_HEADER   } from '../../modules/local/custom/reformat_header'
+include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../modules/nf-core/tabix/bgzip'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
@@ -40,12 +40,12 @@ workflow COMPARE_BENCHMARK_RESULTS {
     else{
         // SV part
         // unzip vcfs
-        TABIX_BGZIP(
+        TABIX_BGZIP_UNZIP(
             evaluations
         )
-        versions = versions.mix(TABIX_BGZIP.out.versions.first())
+        versions = versions.mix(TABIX_BGZIP_UNZIP.out.versions.first())
 
-        TABIX_BGZIP.out.output
+        TABIX_BGZIP_UNZIP.out.output
             .groupTuple()
             .set{vcf_ch}
 

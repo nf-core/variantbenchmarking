@@ -33,7 +33,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <details markdown="1">
 <summary>Output files</summary>
 
-- `preprocesses/`
+- `mpreprocesses/`
   - `*.vcf.gz`: The standardized and normalized VCF files
 
 </details>
@@ -47,7 +47,7 @@ Outputs from standardization, normalization and filtration processes saved. When
 
 - ## `liftover/`
 
-- `liftover/`
+- `preporocesses/liftover/`
   - `*.vcf.gz`: Lifted over variants
   - `*.bed`: Lifted over regions
 

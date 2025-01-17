@@ -1,19 +1,31 @@
 {
     "Params: --analysis 'germline' --variant_type 'structural' --method 'truvari' --liftover 'test'": {
         "content": [
-            67,
+            57,
             {
-                "BCFTOOLS_FILTER": {
+                "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
                 },
-                "BCFTOOLS_REHEADER": {
-                    "bcftools": 1.18
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_3": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_4": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.2
                 },
                 "BGZIP_TABIX": {
                     "tabix": 1.12
@@ -39,10 +51,7 @@
                 "TABIX_BGZIP": {
                     "tabix": "1.19.1"
                 },
-                "TABIX_BGZIPTABIX": {
-                    "tabix": "1.19.1"
-                },
-                "TABIX_TABIX": {
+                "TABIX_BGZIP_UNZIP": {
                     "tabix": "1.19.1"
                 },
                 "TRUVARI_BENCH": {
@@ -63,8 +72,9 @@
                 "references/dictionary/genome.dict",
                 "structural",
                 "structural/HG002",
-                "structural/HG002/liftover",
-                "structural/HG002/liftover/test2.renamechr.vcf.gz",
+                "structural/HG002/preprocess",
+                "structural/HG002/preprocess/HG002.vcf.gz",
+                "structural/HG002/preprocess/HG002.vcf.gz.tbi",
                 "structural/HG002/stats",
                 "structural/HG002/stats/bcftools",
                 "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -167,8 +177,8 @@
                 "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz",
                 "structural/test1/benchmarks/truvari/test1.HG002.delly.tp-comp.vcf.gz.tbi",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/test1.filter.filter.vcf",
-                "structural/test1/preprocess/test1.filter.vcf",
+                "structural/test1/preprocess/test1.vcf.gz",
+                "structural/test1/preprocess/test1.vcf.gz.tbi",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
                 "structural/test1/stats/bcftools/test1.delly.bcftools_stats.txt",
@@ -186,9 +196,12 @@
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-base.vcf.gz.tbi",
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz",
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz.tbi",
+                "structural/test2/preporcess",
+                "structural/test2/preporcess/liftover",
+                "structural/test2/preporcess/liftover/test2.reformatted.renamechr.vcf.gz",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/test2.filter.filter.vcf",
-                "structural/test2/preprocess/test2.filter.vcf",
+                "structural/test2/preprocess/test2.vcf.gz",
+                "structural/test2/preprocess/test2.vcf.gz.tbi",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
                 "structural/test2/stats/bcftools/test2.manta.bcftools_stats.txt",
@@ -196,18 +209,18 @@
                 "structural/test2/stats/survivor/test2.manta_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,7c007a87b5730787e570712e784d3cc3",
+                "HG002.bcftools_stats.txt:md5,142c1fab782c9eb2aa932440e1589461",
                 "HG002_mqc.stats:md5,68681df47b35e3193be03610f5c6e3d6",
-                "test1.delly.bcftools_stats.txt:md5,aace5a23af8b02f56bcaf03722f9bb50",
-                "test1.delly_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
-                "test2.manta.bcftools_stats.txt:md5,1e700076bd303ee079b23658485eb7d4",
-                "test2.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b"
+                "test1.delly.bcftools_stats.txt:md5,f204ab10d82b3cbc9ee51cb6ad548121",
+                "test1.delly_mqc.stats:md5,e140ad55975c767578b0dd6aff58ba29",
+                "test2.manta.bcftools_stats.txt:md5,0de1446278a5448b7dc5a02bcbf927a4",
+                "test2.manta_mqc.stats:md5,1d74b41c6b970992e3a39682b0a68e23"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "24.10.3"
         },
-        "timestamp": "2025-01-13T14:41:30.39094733"
+        "timestamp": "2025-01-17T10:22:18.275352814"
     }
 }

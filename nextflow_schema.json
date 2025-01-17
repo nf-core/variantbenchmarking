@@ -41,7 +41,7 @@
                     "enum": ["germline", "somatic"],
                     "pattern": "(germline|somatic)",
                     "fa_icon": "fas fa-folder-open",
-                    "errorMessage": "Analysis type has to be choosen: germline or somatic"
+                    "errorMessage": "Analysis type has to be chosen: germline or somatic"
                 },
                 "variant_type": {
                     "type": "string",
@@ -78,9 +78,9 @@
 
                 "preprocess": {
                     "type": "string",
-                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: normalization, deduplication, prepy, filter_contigs",
-                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: normalization, deduplication, prepy, filter_contigs",
-                    "pattern": "^((normalization|deduplication|prepy|filter_contigs)?,?)*(?<!,)$",
+                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: split_multiallelic, normalizate, deduplicate, prepy, filter_contigs",
+                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: split_multiallelic, normalize, deduplicate, prepy, filter_contigs",
+                    "pattern": "^((normalize|split_multiallelic|deduplicate|prepy|filter_contigs)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "sv_standardization": {

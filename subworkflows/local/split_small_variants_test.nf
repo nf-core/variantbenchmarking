@@ -4,8 +4,8 @@
 
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SNV     } from '../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_INDEL   } from '../../modules/nf-core/bcftools/view'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_1 } from '../../modules/nf-core/tabix/bgziptabix'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_2 } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_SNV   } from '../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_INDEL } from '../../modules/nf-core/tabix/bgziptabix'
 
 workflow SPLIT_SMALL_VARIANTS_TEST {
     take:
@@ -25,12 +25,12 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
     )
     versions = versions.mix(BCFTOOLS_VIEW_SNV.out.versions.first())
 
-    TABIX_BGZIPTABIX_1(
+    TABIX_BGZIPTABIX_SNV(
         BCFTOOLS_VIEW_SNV.out.vcf
     )
-    versions = versions.mix(TABIX_BGZIPTABIX_1.out.versions.first())
+    versions = versions.mix(TABIX_BGZIPTABIX_SNV.out.versions.first())
 
-    TABIX_BGZIPTABIX_1.out.gz_tbi
+    TABIX_BGZIPTABIX_SNV.out.gz_tbi
         .map { meta, file, index -> tuple(meta + [vartype: "snv"], file, index) }
         .set{split_snv_vcf}
     out_vcf_ch = out_vcf_ch.mix(split_snv_vcf)
@@ -43,11 +43,11 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
     )
     versions = versions.mix(BCFTOOLS_VIEW_INDEL.out.versions.first())
 
-    TABIX_BGZIPTABIX_2(
+    TABIX_BGZIPTABIX_INDEL(
         BCFTOOLS_VIEW_INDEL.out.vcf
     )
-    versions = versions.mix(TABIX_BGZIPTABIX_2.out.versions.first())
-    TABIX_BGZIPTABIX_2.out.gz_tbi
+    versions = versions.mix(TABIX_BGZIPTABIX_INDEL.out.versions.first())
+    TABIX_BGZIPTABIX_INDEL.out.gz_tbi
         .map { meta, file, index -> tuple(meta + [vartype: "indel"], file, index) }
         .set{split_indel_vcf}
     out_vcf_ch = out_vcf_ch.mix(split_indel_vcf)
