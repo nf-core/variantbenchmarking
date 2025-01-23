@@ -1,3 +1,0 @@
-id,test_vcf,caller,subsample
-test1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.freebayes.chr21.vcf.gz,freebayes,
-test2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek_full_test_somatic_v3.4.2/HCC1395T_vs_HCC1395N.strelka.somatic_indels.vcf.gz,strelka,"TUMOR"
