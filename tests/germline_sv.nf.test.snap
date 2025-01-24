@@ -46,7 +46,7 @@
                     "datavzrd": "2.36.12"
                 },
                 "MERGE_REPORTS": {
-                    "python": "3.8.6"
+                    "python": "3.13.0"
                 },
                 "PLOTS": {
                     "r-base": "4.3.1"
@@ -360,9 +360,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-17T09:36:16.512872909"
+        "timestamp": "2025-01-23T14:44:34.135136556"
     },
     "-stub": {
         "content": [
@@ -411,7 +411,7 @@
                     "datavzrd": "2.36.12"
                 },
                 "MERGE_REPORTS": {
-                    "python": "3.8.6"
+                    "python": "3.13.0"
                 },
                 "PLOTS": {
                     "r-base": "4.3.1"
@@ -664,8 +664,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-16T15:43:53.130315988"
+        "timestamp": "2025-01-23T14:46:46.270536815"
     }
 }
