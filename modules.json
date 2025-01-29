@@ -25,11 +25,6 @@
                         "git_sha": "08108058ea36a63f141c25c4e75f9f872a5b2296",
                         "installed_by": ["modules"]
                     },
-                    "bcftools/query": {
-                        "branch": "master",
-                        "git_sha": "a5ba4d59c2b248c0379b0f8aeb4e7e754566cd1f",
-                        "installed_by": ["modules"]
-                    },
                     "bcftools/reheader": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
