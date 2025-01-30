@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="406mm"
+   width="785mm"
    height="156mm"
-   viewBox="0 0 406 156"
+   viewBox="0 0 785 156"
    version="1.1"
    id="svg1"
    xml:space="preserve"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
-   sodipodi:docname="nf-core-variantbenchmarking_logo_light copy.svg"
+   sodipodi:docname="nf-core-variantbenchmarking_logo_dark.svg"
    inkscape:export-filename="nf-core-variantbenchmarking_logo_dark.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300"
@@ -174,7 +174,7 @@
          stop-color="#25af64" /></linearGradient><clipPath
        id="e"><path
          id="path9"
-         d="m280.17 136.33-21.5-21.584h61v21.584z" /></clipPath></defs><g
+         d="m 280.17,136.33 -21.5,-21.584 h 61 v 21.584 z" /></clipPath></defs><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"><g
