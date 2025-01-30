@@ -2,71 +2,10 @@
     "Params: --analysis 'germline' --variant_type 'structural' --method 'truvari' --liftover 'test'": {
         "content": [
             57,
-            {
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_4": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
-                },
-                "BGZIP_TABIX": {
-                    "tabix": 1.12
-                },
-                "DATAVZRD": {
-                    "datavzrd": "2.36.12"
-                },
-                "MERGE_REPORTS": {
-                    "python": "3.8.6"
-                },
-                "PICARD_CREATESEQUENCEDICTIONARY": {
-                    "picard": "3.2.0-1-g3948afb6b"
-                },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "SURVIVOR_MERGE": {
-                    "survivor": "1.0.7"
-                },
-                "SURVIVOR_STATS": {
-                    "survivor": "1.0.7"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
-                },
-                "TABIX_BGZIP_UNZIP": {
-                    "tabix": "1.19.1"
-                },
-                "TRUVARI_BENCH": {
-                    "truvari": "4.1.0)"
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.12.4"
-                },
-                "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.0dev"
-                }
-            },
+            null,
             [
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
                 "references/dictionary",
                 "references/dictionary/genome.dict",
@@ -196,10 +135,9 @@
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-base.vcf.gz.tbi",
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz",
                 "structural/test2/benchmarks/truvari/test2.HG002.manta.tp-comp.vcf.gz.tbi",
-                "structural/test2/preporcess",
-                "structural/test2/preporcess/liftover",
-                "structural/test2/preporcess/liftover/test2.reformatted.renamechr.vcf.gz",
                 "structural/test2/preprocess",
+                "structural/test2/preprocess/liftover",
+                "structural/test2/preprocess/liftover/test2.reformatted.renamechr.vcf.gz",
                 "structural/test2/preprocess/test2.vcf.gz",
                 "structural/test2/preprocess/test2.vcf.gz.tbi",
                 "structural/test2/stats",
@@ -209,8 +147,8 @@
                 "structural/test2/stats/survivor/test2.manta_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,142c1fab782c9eb2aa932440e1589461",
-                "HG002_mqc.stats:md5,68681df47b35e3193be03610f5c6e3d6",
+                "HG002.bcftools_stats.txt:md5,f63d8da43be98bae4e02c43966313e5c",
+                "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
                 "test1.delly.bcftools_stats.txt:md5,f204ab10d82b3cbc9ee51cb6ad548121",
                 "test1.delly_mqc.stats:md5,e140ad55975c767578b0dd6aff58ba29",
                 "test2.manta.bcftools_stats.txt:md5,0de1446278a5448b7dc5a02bcbf927a4",
@@ -219,8 +157,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-17T10:22:18.275352814"
+        "timestamp": "2025-01-29T16:59:49.763590382"
     }
 }

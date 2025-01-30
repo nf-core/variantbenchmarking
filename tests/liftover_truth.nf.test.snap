@@ -2,80 +2,10 @@
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
             68,
-            {
-                "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_4": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
-                },
-                "DATAVZRD": {
-                    "datavzrd": "2.36.12"
-                },
-                "HAPPY_HAPPY": {
-                    "hap.py": "0.3.14"
-                },
-                "MERGE_REPORTS": {
-                    "python": "3.8.6"
-                },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "REFORMAT_HEADER": {
-                    "tabix": 1.12
-                },
-                "RTGTOOLS_FORMAT": {
-                    "rtg-tools": "3.12.1"
-                },
-                "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": "3.12.1"
-                },
-                "UCSC_LIFTOVER": {
-                    "ucsc": 377
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.12.4"
-                },
-                "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.0dev"
-                }
-            },
+            null,
             [
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
                 "references/dictionary",
                 "references/dictionary/genome.dict",
@@ -361,8 +291,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-17T09:02:13.833941457"
+        "timestamp": "2025-01-29T17:04:40.563386602"
     }
 }

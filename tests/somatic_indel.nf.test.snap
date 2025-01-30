@@ -2,44 +2,7 @@
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'sompy'": {
         "content": [
             21,
-            {
-                "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
-                },
-                "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_SUBSAMPLE": {
-                    "bcftools": 1.2
-                },
-                "DATAVZRD": {
-                    "datavzrd": "2.36.12"
-                },
-                "HAPPY_SOMPY": {
-                    "hap.py": "0.3.14"
-                },
-                "MERGE_REPORTS": {
-                    "python": "3.8.6"
-                },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.0dev"
-                }
-            },
+            null,
             [
                 "indel",
                 "indel/SEQC2",
@@ -169,7 +132,7 @@
                 "indel/test2/stats/bcftools",
                 "indel/test2/stats/bcftools/test2.strelka.bcftools_stats.txt",
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,97beec3b6ce6471625018d91c75df08d",
@@ -179,8 +142,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-17T09:20:01.232442793"
+        "timestamp": "2025-01-29T17:06:57.061841561"
     }
 }
