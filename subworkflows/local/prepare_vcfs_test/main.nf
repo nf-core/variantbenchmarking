@@ -2,16 +2,16 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-include { VCF_VARIANT_DEDUPLICATION    } from '../local/vcf_variant_deduplication'
-include { VCF_VARIANT_FILTERING        } from '../local/vcf_variant_filtering'
-include { SPLIT_SMALL_VARIANTS_TEST    } from '../local/split_small_variants_test'
-include { LIFTOVER_VCFS                } from '../local/liftover_vcfs'
-include { BCFTOOLS_NORM                } from '../../modules/nf-core/bcftools/norm'
-include { FIX_VCF_PREFIX               } from '../../modules/local/custom/fix_vcf_prefix'
-include { PUBLISH_PROCESSED_VCF        } from '../../modules/local/custom/publish_processed_vcf'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../modules/nf-core/bcftools/reheader'
+include { VCF_VARIANT_DEDUPLICATION    } from '../../local/vcf_variant_deduplication'
+include { VCF_VARIANT_FILTERING        } from '../../local/vcf_variant_filtering'
+include { SPLIT_SMALL_VARIANTS_TEST    } from '../../local/split_small_variants_test'
+include { LIFTOVER_VCFS                } from '../../local/liftover_vcfs'
+include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools/norm'
+include { FIX_VCF_PREFIX               } from '../../../modules/local/custom/fix_vcf_prefix'
+include { PUBLISH_PROCESSED_VCF        } from '../../../modules/local/custom/publish_processed_vcf'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/nf-core/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TEST {

@@ -4,10 +4,10 @@ import groovy.io.FileType
 // SV_VCF_CONVERSIONS: SUBWORKFLOW to apply tool spesific conversions
 //
 
-include { SVYNC                   } from '../../modules/nf-core/svync'
-include { BGZIP_TABIX             } from '../../modules/local/bgzip/tabix'
-include { VARIANT_EXTRACTOR       } from '../../modules/local/custom/variant_extractor'
-include { BCFTOOLS_SORT           } from '../../modules/nf-core/bcftools/sort'
+include { SVYNC                   } from '../../../modules/nf-core/svync'
+include { BGZIP_TABIX             } from '../../../modules/local/bgzip/tabix'
+include { VARIANT_EXTRACTOR       } from '../../../modules/local/custom/variant_extractor'
+include { BCFTOOLS_SORT           } from '../../../modules/nf-core/bcftools/sort'
 
 workflow SV_VCF_CONVERSIONS {
     take:

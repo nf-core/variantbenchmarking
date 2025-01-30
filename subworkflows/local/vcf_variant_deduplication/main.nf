@@ -2,8 +2,8 @@
 // VCF_VARIANT_DEDUPLICATION: deduplicate, sort and index vcf files
 //
 
-include { BCFTOOLS_SORT                     } from '../../modules/nf-core/bcftools/sort'
-include { BCFTOOLS_NORM as BCFTOOLS_DEDUP   } from '../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_SORT                     } from '../../../modules/nf-core/bcftools/sort'
+include { BCFTOOLS_NORM as BCFTOOLS_DEDUP   } from '../../../modules/nf-core/bcftools/norm'
 
 workflow VCF_VARIANT_DEDUPLICATION {
     take:

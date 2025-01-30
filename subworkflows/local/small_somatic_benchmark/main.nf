@@ -2,8 +2,8 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-include { HAPPY_SOMPY           } from '../../modules/nf-core/happy/sompy/main'
-include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon/evaluator'
+include { HAPPY_SOMPY           } from '../../../modules/nf-core/happy/sompy/main'
+include { BAMSURGEON_EVALUATOR  } from '../../../modules/local/bamsurgeon/evaluator'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:

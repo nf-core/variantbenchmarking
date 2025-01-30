@@ -2,9 +2,9 @@
 // SUBSAMPLE_VCF_TEST: SUBWORKFLOW TO PREPARE SUBSET SAMPLES
 //
 
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE     } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING } from '../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_SORT  } from '../../modules/nf-core/bcftools/sort'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE     } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_SORT  } from '../../../modules/nf-core/bcftools/sort'
 
 
 workflow SUBSAMPLE_VCF_TEST {
