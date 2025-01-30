@@ -1,3 +1,0 @@
-id,test_vcf,caller
-test1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/hg38/HG002.strelka.variants.chr21.vcf.gz,strelka
-test2,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/sarek/hg38/HG002.bcftools.chr21.vcf.gz,bcftools

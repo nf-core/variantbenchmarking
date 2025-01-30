@@ -177,7 +177,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-29T12:14:19.21651889"
+        "timestamp": "2025-01-29T16:49:56.446350013"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -467,6 +467,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.4"
         },
-        "timestamp": "2025-01-29T12:12:18.418200369"
+        "timestamp": "2025-01-29T16:47:42.84439134"
     }
 }
