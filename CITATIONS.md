@@ -8,6 +8,14 @@
 
 > Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
 
+## [nf-test](https://doi.org/10.1101/2024.05.25.595877)
+
+> Forer, L., & Schönherr, S. (2024). Improving the Reliability and Quality of Nextflow Pipelines with nf-test. bioRxiv. https://doi.org/10.1101/2024.05.25.595877
+
+## [nf-prov](https://github.com/nextflow-io/nf-prov)
+
+## [nf-schema](https://nextflow-io.github.io/nf-schema/latest/)
+
 ## Pipeline tools
 
 - [Bcftools](http://samtools.github.io/bcftools/bcftools.html)
