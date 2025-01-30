@@ -2,9 +2,9 @@
 // CNV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR CNV GERMLINE VARIANTS
 //
 
-include { WITTYER                          } from '../../modules/nf-core/wittyer'
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../modules/nf-core/tabix/bgzip'
+include { WITTYER                          } from '../../../modules/nf-core/wittyer'
+include { TABIX_BGZIP as TABIX_BGZIP_QUERY } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow CNV_GERMLINE_BENCHMARK {
     take:

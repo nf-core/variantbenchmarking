@@ -2,10 +2,10 @@
 // VCF_VARIANT_FILTERING: Filter SV using survivor and bcftools
 //
 
-include { SURVIVOR_FILTER     } from '../../modules/nf-core/survivor/filter'
-include { TABIX_BGZIP         } from '../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIPTABIX    } from '../../modules/nf-core/tabix/bgziptabix'
-include { BCFTOOLS_FILTER     } from '../../modules/nf-core/bcftools/filter'
+include { SURVIVOR_FILTER     } from '../../../modules/nf-core/survivor/filter'
+include { TABIX_BGZIP         } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIPTABIX    } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_FILTER     } from '../../../modules/nf-core/bcftools/filter'
 
 
 workflow VCF_VARIANT_FILTERING {

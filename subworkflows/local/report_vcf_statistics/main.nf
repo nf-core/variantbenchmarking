@@ -2,8 +2,8 @@
 // REPORT_VCF_STATISTICS: SUBWORKFLOW TO REPORT VCF STATS
 //
 
-include { SURVIVOR_STATS    } from '../../modules/nf-core/survivor/stats'
-include { BCFTOOLS_STATS    } from '../../modules/nf-core/bcftools/stats'
+include { SURVIVOR_STATS    } from '../../../modules/nf-core/survivor/stats'
+include { BCFTOOLS_STATS    } from '../../../modules/nf-core/bcftools/stats'
 
 workflow REPORT_VCF_STATISTICS {
     take:

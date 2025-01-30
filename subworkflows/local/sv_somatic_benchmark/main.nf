@@ -2,7 +2,7 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-include { BAMSURGEON_EVALUATOR  } from '../../modules/local/bamsurgeon/evaluator'
+include { BAMSURGEON_EVALUATOR  } from '../../../modules/local/bamsurgeon/evaluator'
 
 workflow SV_SOMATIC_BENCHMARK {
     take:

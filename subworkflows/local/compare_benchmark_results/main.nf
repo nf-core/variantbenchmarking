@@ -3,11 +3,11 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-include { SURVIVOR_MERGE    } from '../../modules/nf-core/survivor/merge'
-include { BCFTOOLS_MERGE    } from '../../modules/nf-core/bcftools/merge'
-include { VCF_TO_CSV        } from '../../modules/local/vcf_to_csv'
-include { REFORMAT_HEADER   } from '../../modules/local/custom/reformat_header'
-include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../modules/nf-core/tabix/bgzip'
+include { SURVIVOR_MERGE    } from '../../../modules/nf-core/survivor/merge'
+include { BCFTOOLS_MERGE    } from '../../../modules/nf-core/bcftools/merge'
+include { VCF_TO_CSV        } from '../../../modules/local/custom/vcf_to_csv'
+include { REFORMAT_HEADER   } from '../../../modules/local/custom/reformat_header'
+include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
