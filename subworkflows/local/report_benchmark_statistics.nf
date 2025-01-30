@@ -2,9 +2,9 @@
 // REPORT_BENCHMARK_STATISTICS: SUMMARIZE BENCHMARK REPORTS
 //
 
-include { MERGE_REPORTS         } from '../../modules/local/merge_reports'
-include { PLOTS                 } from '../../modules/local/plots'
-include { CREATE_DATAVZRD_INPUT } from '../../modules/local/create_datavzrd_input'
+include { MERGE_REPORTS         } from '../../modules/local/custom/merge_reports'
+include { PLOTS                 } from '../../modules/local/custom/plots'
+include { CREATE_DATAVZRD_INPUT } from '../../modules/local/custom/create_datavzrd_input'
 include { DATAVZRD              } from '../../modules/nf-core/datavzrd'
 
 workflow REPORT_BENCHMARK_STATISTICS {
