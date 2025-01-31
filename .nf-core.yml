@@ -2,11 +2,13 @@ lint:
   actions_ci: false
   files_unchanged:
     - .gitignore
+    - docs/images/nf-core-variantbenchmarking_logo_dark.png
+    - docs/images/nf-core-variantbenchmarking_logo_light.png
 nf_core_version: 3.2.0
 repository_type: pipeline
 template:
   author: kuebra.narci@dkfz-heidelberg.de
-  description: "Benchmarking pipeline for germline and somatic variant callers "
+  description: "Variant Benchmarking pipeline for germline and somatic variant callers "
   force: false
   is_nfcore: true
   name: variantbenchmarking
