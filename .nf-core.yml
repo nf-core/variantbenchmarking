@@ -4,7 +4,6 @@ lint:
     - .gitignore
     - docs/images/nf-core-variantbenchmarking_logo_dark.png
     - docs/images/nf-core-variantbenchmarking_logo_light.png
-    - conf/test_full.config
 nf_core_version: 3.2.0
 repository_type: pipeline
 template:

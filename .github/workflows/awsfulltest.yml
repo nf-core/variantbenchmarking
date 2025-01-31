@@ -10,7 +10,7 @@ on:
       - master
   workflow_dispatch:
     inputs:
-      germline:
+      test_full:
         description: "Germline full test"
         type: boolean
         default: true
@@ -27,8 +27,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - profile: test_full_germline
-            test: germline
+          - profile: test_full
+            test: test_full
             cloud: aws
             compute_env: TOWER_COMPUTE_ENV
             workdir: TOWER_BUCKET_AWS
