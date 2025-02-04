@@ -143,6 +143,7 @@ nextflow run nf-core/variantbenchmarking \
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
+> Conda profile is not available for SVanalyzer (SVBenchmark) tool, if you are planing to use the tool either choose docker or singularity.
 
 ## Pipeline output
 
