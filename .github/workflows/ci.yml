@@ -1,10 +1,12 @@
 name: nf-core CI
 # This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
 on:
-  pull_request:
+  push:
     branches:
       - dev
-      - master
+  pull_request:
+    paths-ignore:
+      - "docs/**"
   release:
     types: [published]
   workflow_dispatch:
@@ -35,7 +37,6 @@ jobs:
           - "24.04.2"
           - "latest-everything"
         profile:
-          - "conda"
           - "docker"
           - "singularity"
         isMaster:
