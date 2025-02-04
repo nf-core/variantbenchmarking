@@ -12,6 +12,7 @@ nextflow_pipeline {
         when {
             params {
                 outdir               = "$outputDir"
+                test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
             }
         }
 

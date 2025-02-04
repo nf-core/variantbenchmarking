@@ -14,4 +14,4 @@ template:
   name: variantbenchmarking
   org: nf-core
   outdir: .
-  version: 1.0dev
+  version: 1.0.0
