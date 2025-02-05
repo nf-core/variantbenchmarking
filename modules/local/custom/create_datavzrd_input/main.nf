@@ -2,7 +2,7 @@ process CREATE_DATAVZRD_INPUT {
     tag "$meta.id"
     label 'process_single'
 
-    conda "conda-forge::tar=1.34"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/ubuntu:20.04' :
         'quay.io/nf-core/ubuntu:20.04' }"
@@ -18,10 +18,20 @@ process CREATE_DATAVZRD_INPUT {
     #!/bin/bash
 
     cat "$template" | sed "s|CSVPATH|$csv|g" > config.yaml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        cat: \$(echo \$(cat --version 2>&1) | sed 's/^.*(GNU coreutils) //; s/ Copyright.*\$//')
+    END_VERSIONS
     """
 
     stub:
     """
     touch config.yaml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        cat: \$(echo \$(cat --version 2>&1) | sed 's/^.*(GNU coreutils) //; s/ Copyright.*\$//')
+    END_VERSIONS
     """
 }

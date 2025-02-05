@@ -3,7 +3,6 @@
 //
 
 include { HAPPY_SOMPY           } from '../../../modules/nf-core/happy/sompy/main'
-include { BAMSURGEON_EVALUATOR  } from '../../../modules/local/bamsurgeon/evaluator'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
@@ -36,26 +35,6 @@ workflow SMALL_SOMATIC_BENCHMARK {
             .set{ report }
         summary_reports = summary_reports.mix(report)
     }
-
-    // not working for now
-    if (params.method.contains('bamsurgeon')){
-
-        BAMSURGEON_EVALUATOR(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, _bed ->
-                [ meta, vcf, tbi, truth_vcf, truth_tbi ]
-            },
-            fasta,
-            fai
-        )
-        versions = versions.mix(BAMSURGEON_EVALUATOR.out.versions.first())
-
-        BAMSURGEON_EVALUATOR.out.stats
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "bamsurgeon"], file) }
-            .groupTuple()
-            .set{ report }
-        summary_reports = summary_reports.mix(report)
-    }
-
     emit:
     summary_reports // channel: [val(meta), reports]
     versions        // channel: [versions.yml]

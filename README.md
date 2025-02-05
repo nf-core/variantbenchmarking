@@ -75,9 +75,15 @@ Available methods for SVs:
 18. Germline and somatic variant benchmarking using Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 19. Germline and somatic variant benchmarking using SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
 
+> [!NOTE]
+> Please note that there is no somatic spesific tool for SV benchmarking in this pipeline.
+
 Available methods for CNVs:
 
 20. Germline and somatic variant benchmarking using Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+
+> [!NOTE]
+> Please note that there is no somatic spesific tool for CNV benchmarking in this pipeline.
 
 Available methods for SNVs and INDELs:
 
@@ -101,10 +107,6 @@ The generation of comprehensive report that consolidates all benchmarking result
 28. Plotting benchmark metrics per benchmarking tool (R script)
 29. Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 30. Apply MultiQC to visualize results
-
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
@@ -160,7 +162,10 @@ nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarc
 We thank the following people for their extensive assistance in the development of this pipeline:
 
 - Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk)),
-- Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
+- Maxime Garcia ([@maxulysse](https://github.com/maxulysse)),
+- Sameesh Kher ([@khersameesh24](https://github.com/khersameesh24))
+- Florian Heyl ([@heylf](https://github.com/heyl))
+- Elad Herz ([@EladH1](https://github.com/EladH1))
 
 ## Acknowledgements
 
