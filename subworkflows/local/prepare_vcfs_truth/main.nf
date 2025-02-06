@@ -36,7 +36,7 @@ workflow PREPARE_VCFS_TRUTH {
             rename_chr,
             dictionary
         )
-        versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
+        versions = versions.mix(LIFTOVER_VCFS.out.versions)
         truth_ch = LIFTOVER_VCFS.out.vcf_ch
         high_conf_ch = LIFTOVER_VCFS.out.bed_ch.map{ _meta, bed -> [bed]}
     }
@@ -49,7 +49,7 @@ workflow PREPARE_VCFS_TRUTH {
         },
         fai
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions.first())
+    versions = versions.mix(BCFTOOLS_REHEADER_TRUTH.out.versions)
 
     BCFTOOLS_REHEADER_TRUTH.out.vcf.join(BCFTOOLS_REHEADER_TRUTH.out.index)
         .set{vcf_ch}
@@ -61,7 +61,7 @@ workflow PREPARE_VCFS_TRUTH {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_SPLIT_MULTI.out.versions.first())
+        versions = versions.mix(BCFTOOLS_SPLIT_MULTI.out.versions)
 
         BCFTOOLS_SPLIT_MULTI.out.vcf.join(BCFTOOLS_SPLIT_MULTI.out.tbi, by:0)
                             .set{vcf_ch}
@@ -85,7 +85,7 @@ workflow PREPARE_VCFS_TRUTH {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
+        versions = versions.mix(BCFTOOLS_NORM.out.versions)
 
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
                             .set{vcf_ch}
@@ -94,6 +94,8 @@ workflow PREPARE_VCFS_TRUTH {
     PUBLISH_PROCESSED_VCF(
         vcf_ch
     )
+    versions = versions.mix(PUBLISH_PROCESSED_VCF.out.versions)
+
     emit:
     vcf_ch       // channel: [val(meta), vcf, tbi]
     high_conf_ch // channel: [val(meta), bed]

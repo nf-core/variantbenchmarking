@@ -1,5 +1,3 @@
-import groovy.io.FileType
-
 //
 // SV_VCF_CONVERSIONS: SUBWORKFLOW to apply tool spesific conversions
 //

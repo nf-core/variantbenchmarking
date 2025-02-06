@@ -30,7 +30,7 @@ workflow LIFTOVER_VCFS {
             fasta
         )
         dictionary = PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
-        versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions.first())
+        versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions)
     }
 
     // Use picard liftovervcf tool to convert vcfs
@@ -40,14 +40,14 @@ workflow LIFTOVER_VCFS {
         fasta,
         chain
     )
-    versions = versions.mix(PICARD_LIFTOVERVCF.out.versions.first())
+    versions = versions.mix(PICARD_LIFTOVERVCF.out.versions)
     vcf_ch   = PICARD_LIFTOVERVCF.out.vcf_lifted
 
     // reformat header, convert PS TYPE integer to string after liftover
     REFORMAT_HEADER(
         vcf_ch.map{meta, vcf -> tuple(meta, vcf, [])}
     )
-    versions = versions.mix(REFORMAT_HEADER.out.versions.first())
+    versions = versions.mix(REFORMAT_HEADER.out.versions)
 
     // rename chr after liftover
     BCFTOOLS_RENAME_CHR(
@@ -55,24 +55,26 @@ workflow LIFTOVER_VCFS {
         rename_chr
     )
     vcf_ch = BCFTOOLS_RENAME_CHR.out.vcf
+    versions = versions.mix(BCFTOOLS_RENAME_CHR.out.versions)
 
     // liftover high confidence bed file if given
     UCSC_LIFTOVER(
         ch_bed.map{file -> tuple([id: params.truth_id], file)},
         chain.map{_meta, file -> file}
     )
-    versions = versions.mix(UCSC_LIFTOVER.out.versions.first())
+    versions = versions.mix(UCSC_LIFTOVER.out.versions)
 
     // sort bed file
     SORT_BED(
         UCSC_LIFTOVER.out.lifted
     )
+    versions = versions.mix(SORT_BED.out.versions)
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
         SORT_BED.out.bed
     )
-    versions = versions.mix(BEDTOOLS_MERGE.out.versions.first())
+    versions = versions.mix(BEDTOOLS_MERGE.out.versions)
     bed_ch = BEDTOOLS_MERGE.out.bed
 
     emit:

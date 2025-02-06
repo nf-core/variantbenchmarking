@@ -33,7 +33,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <details markdown="1">
 <summary>Output files</summary>
 
-- `mpreprocesses/`
+- `preprocess/`
   - `*.vcf.gz`: The standardized and normalized VCF files
 
 </details>
@@ -47,7 +47,7 @@ Outputs from standardization, normalization and filtration processes saved. When
 
 - ## `liftover/`
 
-- `preporocesses/liftover/`
+- `preproces/liftover/`
   - `*.vcf.gz`: Lifted over variants
   - `*.bed`: Lifted over regions
 
@@ -74,6 +74,8 @@ bcftools stats applied into all variant types while survivor stats is only avail
 
 <details markdown="1">
 <summary>Output files</summary>
+
+-`benchmarks/`
 
 - `truvari/`
   - `*.fn.vcf.gz` : False negative calls from comparison
@@ -137,78 +139,83 @@ Benchmark results are created separately for each test vcf and for each method u
 <details markdown="1">
 <summary>Output files</summary>
 
-- `comparisons/`
-  - `small/`
-    - `rtgtools.small.FN.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were not correctly called
-    - `rtgtools.small.FP.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do not agree with baseline variant
-    - `rtgtools.small.TP_base.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were correctly called
-    - `rtgtools.small.TP_comp.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do agree with baseline variant
-  - `sv/`
-    - `svbenchmark.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of svbenchmark which were not correctly called
-    - `svbenchmark.sv.FP.csv`: Summarizes and compares variants from the calls VCF of svbenchmark which do not agree with baseline variant
-    - `truvari.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of truvari which were not correctly called
-    - `truvari.sv.FP.csv`: Summarizes and compares variants from the calls VCF of truvari which do not agree with baseline variant
-    - `truvari.sv.TP_base.csv`: Summarizes and compares variants from the baseline VCF of truvari which were correctly called
-    - `truvari.sv.TP_comp.csv`: Summarizes and compares variants from the calls VCF of truvari which do agree with baseline variant
-- `plots/`
-  - `cnv/`
-    - `wittyer/`
-      - `Base_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per base in wittyer
-      - `Base_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per base in wittyer
-      - `Event_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per event in wittyer
-      - `Event_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per ecent in wittyer
-  - `sv/`
-    - `truvari/`
-      - `metric_by_tool_truvari.png`: Summary plot for callers on precision, recall and F1 in truvari
-      - `variants_by_tool_truvari.png`: Summary plot for callers on TP, FP and FN numbers in truvari
-    - `svbenchmark/`
-      - `metric_by_tool_svbenchmark.png`: Summary plot for callers on precision, recall and F1 in svbenchmark
-      - `variants_by_tool_svbenchmark.png`: Summary plot for callers on TP, FP and FN numbers in svbenchmark
-  - `small/`
-    - `happy/`
-      - `INDEL_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all INDELs in happy
-      - `INDEL_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all INDELs in happy
-      - `INDEL_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed INDELs in happy
-      - `INDEL_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed INDELs in happy
-      - `SNP_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all SNPs in happy
-      - `SNP_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all SNPs in happy
-      - `SNP_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed SNPs in happy
-      - `SNP_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed SNPs in happy
-    - `rtgtools/`
-      - `metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in rtgtools
-      - `variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in rtgtools
-  - `indel/`
-    - `sompy/`
-      - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of indels in sompy
-      - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of indels in sompy
-  - `snv/`
-    - `sompy/`
-      - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of SNVs in sompy
-      - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of SNVs in sompy
-- `tables/`
-  - `cnv/`
-    - `wittyer.cnv.summary.csv`: Summary of performance stats from callers
-  - `sv/`
-    - `truvari.sv.summary.csv`: Summary of performance stats from callers
-    - `svbenchmark.sv.summary.csv`: Summary of performance stats from callers
-  - `small/`
-    - `happy.sv.summary.csv`: Summary of performance stats from callers
-    - `rtgtools.sv.summary.csv`: Summary of performance stats from callers
-  - `indel/`
-    - `sompy.indel.summary.csv`: Summary of performance stats from callers
-    - `sompy.indel.regions.csv`: Summary of performance stats split by region bins from callers
-  - `snv/`
-    - `sompy.snv.summary.csv`: Summary of performance stats from callers
-    - `sompy.snv.regions.csv`: Summary of performance stats split by region bins from callers
+- `summary/`
+
+  - `comparisons/`
+    - `small/`
+      - `rtgtools.small.FN.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were not correctly called
+      - `rtgtools.small.FP.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do not agree with baseline variant
+      - `rtgtools.small.TP_base.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were correctly called
+      - `rtgtools.small.TP_comp.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do agree with baseline variant
+    - `sv/`
+      - `svbenchmark.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of svbenchmark which were not correctly called
+      - `svbenchmark.sv.FP.csv`: Summarizes and compares variants from the calls VCF of svbenchmark which do not agree with baseline variant
+      - `truvari.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of truvari which were not correctly called
+      - `truvari.sv.FP.csv`: Summarizes and compares variants from the calls VCF of truvari which do not agree with baseline variant
+      - `truvari.sv.TP_base.csv`: Summarizes and compares variants from the baseline VCF of truvari which were correctly called
+      - `truvari.sv.TP_comp.csv`: Summarizes and compares variants from the calls VCF of truvari which do agree with baseline variant
+  - `plots/`
+    - `cnv/`
+      - `wittyer/`
+        - `Base_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per base in wittyer
+        - `Base_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per base in wittyer
+        - `Event_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per event in wittyer
+        - `Event_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per ecent in wittyer
+    - `sv/`
+      - `truvari/`
+        - `metric_by_tool_truvari.png`: Summary plot for callers on precision, recall and F1 in truvari
+        - `variants_by_tool_truvari.png`: Summary plot for callers on TP, FP and FN numbers in truvari
+      - `svbenchmark/`
+        - `metric_by_tool_svbenchmark.png`: Summary plot for callers on precision, recall and F1 in svbenchmark
+        - `variants_by_tool_svbenchmark.png`: Summary plot for callers on TP, FP and FN numbers in svbenchmark
+    - `small/`
+      - `happy/`
+        - `INDEL_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all INDELs in happy
+        - `INDEL_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all INDELs in happy
+        - `INDEL_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed INDELs in happy
+        - `INDEL_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed INDELs in happy
+        - `SNP_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all SNPs in happy
+        - `SNP_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all SNPs in happy
+        - `SNP_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed SNPs in happy
+        - `SNP_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed SNPs in happy
+      - `rtgtools/`
+        - `metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in rtgtools
+        - `variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in rtgtools
+    - `indel/`
+      - `sompy/`
+        - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of indels in sompy
+        - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of indels in sompy
+    - `snv/`
+      - `sompy/`
+        - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of SNVs in sompy
+        - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of SNVs in sompy
+  - `tables/`
+    - `cnv/`
+      - `wittyer.cnv.summary.csv`: Summary of performance stats from callers
+    - `sv/`
+      - `truvari.sv.summary.csv`: Summary of performance stats from callers
+      - `svbenchmark.sv.summary.csv`: Summary of performance stats from callers
+    - `small/`
+      - `happy.sv.summary.csv`: Summary of performance stats from callers
+      - `rtgtools.sv.summary.csv`: Summary of performance stats from callers
+    - `indel/`
+      - `sompy.indel.summary.csv`: Summary of performance stats from callers
+      - `sompy.indel.regions.csv`: Summary of performance stats split by region bins from callers
+    - `snv/`
+      - `sompy.snv.summary.csv`: Summary of performance stats from callers
+      - `sompy.snv.regions.csv`: Summary of performance stats split by region bins from callers
+
 - ## `datavzrd/`
 
 </details>
 <summary>Output files</summary>
 
-- benchmark tool
-  - static
-  - test
-  - index.html: HTML file to open in the browser for datavzrd spedific tables and visualizations.
+- `summary/`
+  - `datavzrd/`
+    - benchmark_tool
+      - `static` : all static files necessary for datavzrd visualization
+      - `test` : all data and plots necessary for datavzrd visualization
+      - `index.html`: HTML file to open in the browser for datavzrd spesific tables and visualizations.
 
 ### References
 
