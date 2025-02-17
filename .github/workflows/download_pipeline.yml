@@ -80,7 +80,7 @@ jobs:
         run: tree ./${{ needs.configure.outputs.REPOTITLE_LOWERCASE }}
 
       - name: Inspect container images
-        run: tree ./singularity_container_images | tee ./container_initial{% if test_config %}{% raw %}
+        run: tree ./singularity_container_images | tee ./container_initial
 
       - name: Count the downloaded number of container images
         id: count_initial
