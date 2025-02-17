@@ -21,7 +21,7 @@ env:
 
 jobs:
   configure:
-    runs-on: ubuntu-latest{% raw %}
+    runs-on: ubuntu-latest
     outputs:
       REPO_LOWERCASE: ${{ steps.get_repo_properties.outputs.REPO_LOWERCASE }}
       REPOTITLE_LOWERCASE: ${{ steps.get_repo_properties.outputs.REPOTITLE_LOWERCASE }}
