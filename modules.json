@@ -72,7 +72,7 @@
                     },
                     "manta/convertinversion": {
                         "branch": "master",
-                        "git_sha": "1e2b7fb7106852388610c0360d234b0829eb980e",
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
