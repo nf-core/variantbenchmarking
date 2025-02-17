@@ -77,7 +77,7 @@ jobs:
           --download-configuration 'yes'
 
       - name: Inspect download
-        run: tree ./${{ needs.configure.outputs.REPOTITLE_LOWERCASE }}{% endraw %}
+        run: tree ./${{ needs.configure.outputs.REPOTITLE_LOWERCASE }}
 
       - name: Inspect container images
         run: tree ./singularity_container_images | tee ./container_initial{% if test_config %}{% raw %}
