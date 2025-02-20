@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Copyright 2024 - GHGA
-# Author: Kuebra Narci
+# Author: Kuebra Narci - @kubranarci
 '''
 Generates a CSV file from a VCF
 Expected usage:
