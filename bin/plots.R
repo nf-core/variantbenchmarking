@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+# Copyright 2024 - GHGA
+# Author: Kuebra Narci - @kubranarci
+
 # Load necessary libraries
 suppressWarnings(library(ggplot2))
 suppressWarnings(library(reshape2))

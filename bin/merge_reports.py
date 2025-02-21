@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Copyright 2024 - GHGA
+# Author: Kuebra Narci - @kubranarci
+
 import pandas as pd
 import glob
 import re
