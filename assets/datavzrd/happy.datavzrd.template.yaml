@@ -1,0 +1,45 @@
+datasets:
+  report:
+    path: CSVPATH #happy.sv.summary.csv
+    separator: ","
+views:
+  test:
+    dataset: report
+    render-table:
+      columns:
+        Tool:
+          display-mode: normal
+        Type:
+          display-mode: normal
+        Filter:
+          display-mode: normal
+        TP_base:
+          display-mode: normal
+        FN:
+          display-mode: normal
+        TP_call:
+          display-mode: normal
+        FP:
+          display-mode: normal
+        UNK:
+          display-mode: normal
+        Precision:
+          display-mode: normal
+        Recall:
+          display-mode: normal
+        F1:
+          display-mode: normal
+        FP_gt:
+          display-mode: normal
+        FP_al:
+          display-mode: normal
+        Frac_NA:
+          display-mode: normal
+        TRUTH_TiTv_ratio:
+          display-mode: normal
+        QUERY_TiTv_ratio:
+          display-mode: normal
+        TRUTH_het_hom_ratio:
+          display-mode: normal
+        QUERY_het_hom_ratio:
+          display-mode: normal

@@ -6,3 +6,11 @@ results/
 testing/
 testing*
 *.pyc
+test_small*/
+test_sv*/
+test/
+null/*
+results*/*
+.nf-test/
+.nf-test.log
+test/.nf-test.log
