@@ -24,7 +24,7 @@
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 <p align="center">
-    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=50%>
+    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=100%>
 </p>
 
 The workflow involves several key processes to ensure reliable and reproducible results as follows:
@@ -181,10 +181,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use nf-core/variantbenchmarking for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
+If you use nf-core/variantbenchmarking for your analysis, please cite it using the following doi: [110.5281/zenodo.14916661](https://doi.org/10.5281/zenodo.14916661)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
