@@ -6,7 +6,7 @@
 </h1>
 
 [![GitHub Actions CI Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/ci.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/variantbenchmarking/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![GitHub Actions Linting Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/variantbenchmarking/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.14916661-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.14916661)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
@@ -24,7 +24,7 @@
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 <p align="center">
-    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=50%>
+    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=100%>
 </p>
 
 The workflow involves several key processes to ensure reliable and reproducible results as follows:
@@ -181,10 +181,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use nf-core/variantbenchmarking for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
+If you use nf-core/variantbenchmarking for your analysis, please cite it using the following doi: [110.5281/zenodo.14916661](https://doi.org/10.5281/zenodo.14916661)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
