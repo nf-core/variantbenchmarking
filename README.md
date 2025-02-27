@@ -76,14 +76,14 @@ Available methods for SVs:
 19. Germline and somatic variant benchmarking using SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
 
 > [!NOTE]
-> Please note that there is no somatic spesific tool for SV benchmarking in this pipeline.
+> Please note that there is no somatic specific tool for SV benchmarking in this pipeline.
 
 Available methods for CNVs:
 
 20. Germline and somatic variant benchmarking using Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
 
 > [!NOTE]
-> Please note that there is no somatic spesific tool for CNV benchmarking in this pipeline.
+> Please note that there is no somatic specific tool for CNV benchmarking in this pipeline.
 
 Available methods for SNVs and INDELs:
 
