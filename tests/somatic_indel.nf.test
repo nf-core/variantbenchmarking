@@ -7,7 +7,7 @@ nextflow_pipeline {
     tag "indel"
     config "../conf/tests/somatic_indel.config"
 
-    test("Params: --analysis 'somatic' --variant_type 'indel' --method 'sompy'") {
+    test("Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'") {
 
         when {
             params {

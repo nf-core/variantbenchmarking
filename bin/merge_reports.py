@@ -260,13 +260,16 @@ def main(args=None):
 			summ_table2.reset_index(drop=True, inplace=True)
 			summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
+		elif args.bench == "rtgtools":
+			summ_table = get_rtgtools_resuls(args.inputs)
+
 		elif args.bench == "truvari":
 			summ_table = get_truvari_resuls(args.inputs)
 
 		elif args.bench == "svbenchmark":
 			summ_table = get_svbenchmark_resuls(args.inputs)
 		else:
-			raise ValueError('Only truvari/svbenchmark/sompy results can be merged for somatic analysis!!')
+			raise ValueError('Only truvari/svbenchmark/sompy/rtgtools results can be merged for somatic analysis!!')
 
 		summ_table.reset_index(drop=True, inplace=True)
 		summ_table.to_csv(args.output + ".summary.csv", index=False)
