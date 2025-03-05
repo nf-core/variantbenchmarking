@@ -231,47 +231,31 @@ def get_sompy_resuls(file_paths, vartype):
 def main(args=None):
 	args = parse_args(args)
 
-	#check if the files are from svanalyzer or truvari
+	if args.bench == "truvari":
+		summ_table = get_truvari_resuls(args.inputs)
 
-	if args.analysis == "germline":
-		if args.bench == "truvari":
-			summ_table = get_truvari_resuls(args.inputs)
+	elif args.bench == "svbenchmark":
+		summ_table = get_svbenchmark_resuls(args.inputs)
 
-		elif args.bench == "svbenchmark":
-			summ_table = get_svbenchmark_resuls(args.inputs)
+	elif args.bench == "wittyer":
+		summ_table = get_wittyer_resuls(args.inputs)
 
-		elif args.bench == "wittyer":
-			summ_table = get_wittyer_resuls(args.inputs)
+	elif args.bench == "rtgtools":
+		summ_table = get_rtgtools_resuls(args.inputs)
 
-		elif args.bench == "rtgtools":
-			summ_table = get_rtgtools_resuls(args.inputs)
+	elif args.bench == "happy":
+		summ_table = get_happy_resuls(args.inputs)
 
-		elif args.bench == "happy":
-			summ_table = get_happy_resuls(args.inputs)
-		else:
-			raise ValueError('Only truvari/svbenchmark/wittyer/rtgtools/happy results can be merged for germline analysis!!')
+	elif args.bench == "sompy":
+		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
+		summ_table2.reset_index(drop=True, inplace=True)
+		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
-		summ_table.reset_index(drop=True, inplace=True)
-		summ_table.to_csv(args.output + ".summary.csv", index=False)
-
-	elif args.analysis == "somatic":
-		if args.bench == "sompy":
-			summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
-			summ_table2.reset_index(drop=True, inplace=True)
-			summ_table2.to_csv(args.output + ".regions.csv", index=False)
-
-		elif args.bench == "truvari":
-			summ_table = get_truvari_resuls(args.inputs)
-
-		elif args.bench == "svbenchmark":
-			summ_table = get_svbenchmark_resuls(args.inputs)
-		else:
-			raise ValueError('Only truvari/svbenchmark/sompy results can be merged for somatic analysis!!')
-
-		summ_table.reset_index(drop=True, inplace=True)
-		summ_table.to_csv(args.output + ".summary.csv", index=False)
 	else:
-		raise ValueError('Analysis must be germline or somatic')
+		raise ValueError('only results from truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
+
+	summ_table.reset_index(drop=True, inplace=True)
+	summ_table.to_csv(args.output + ".summary.csv", index=False)
 
 if __name__ == "__main__":
 	sys.exit(main())

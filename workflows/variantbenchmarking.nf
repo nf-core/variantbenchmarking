@@ -12,6 +12,7 @@ include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
+include { BEDTOOLS_INTERSECT          } from '../modules/local/custom/bedtools_intersect/main'
 
 //
 // SUBWORKFLOWS: Local Subworkflows
@@ -56,17 +57,17 @@ workflow VARIANTBENCHMARKING {
 
     //// check Truth Files ////
 
-    if (params.truth_id && params.truth_vcf){
-        truth_ch     = Channel.fromPath(params.truth_vcf, checkIfExists: true)
-                        .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    if (params.truth_vcf || params.regions_bed){
+        truth_ch        = params.truth_vcf ? Channel.fromPath(params.truth_vcf, checkIfExists: true)
+                                                    .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+                                                    : Channel.empty()
+
+        regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
+                                                    : Channel.empty()
     }else{
-        log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
+        log.error "Please specify params.truth_id and params.truth_vcf or regions_bed to perform benchmarking analysis"
         exit 1
     }
-
-
-    regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
-                                                : Channel.empty()
 
     // SDF file for RTG-tools eval
     sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
@@ -101,34 +102,73 @@ workflow VARIANTBENCHMARKING {
             log.error "Please specify params.chain to process liftover of the files"
             exit 1
         }
-        // if dictinoary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
+        // if dictionary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
         dictionary      = params.dictionary ? Channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()                                           : Channel.empty()
     }else{
         chain           = Channel.empty()
         dictionary      = Channel.empty()
     }
 
+    // check tool - benchmark compatibility
+    if (params.variant_type.contains("copynumber")){
+        if (params.method.contains("sompy") || params.method.contains("happy") || params.method.contains("rtgtools") || params.method.contains("svanalyzer")){
+            log.error "Only wittyer and truvari can be used for copynumber variant analysis"
+            exit 1
+        }
+    }
+    if (params.variant_type.contains("structural")){
+        if (params.method.contains("sompy") || params.method.contains("happy") || params.method.contains("rtgtools")){
+            log.error "Only wittyer, svanalyzer or truvari can be used for structural variant analysis"
+            exit 1
+        }
+    }
+    if (params.variant_type.contains("small") || params.variant_type.contains("indel") || params.variant_type.contains("snv")){
+        if (params.method.contains("wittyer") || params.method.contains("truvari") || params.method.contains("svanalyzer")){
+            log.error "Only happy, sompy, or rtgtools can be used for small (or indel and snv) variant analysis"
+            exit 1
+        }
+        if (params.analysis.contains("somatic")){
+            if (params.method.contains("happy")){
+                log.error "Use sompy instead of happy for somatic small variant analysis"
+                exit 1
+            }
+        }
+        if (params.analysis.contains("germline")){
+            if (params.method.contains("sompy")){
+                log.error "Use happy instead of sompy for germline small variant analysis"
+                exit 1
+            }
+        }
+    }
+    if(params.method.contains("intersect")){
+        if(!params.regions_bed){
+            log.error "Regions BED is required for intersection analysis"
+            exit 1
+        }
+    }
+
     // PREPROCESSES
 
+    // split out samples for intersection analysis
     // subsample multisample vcf if necessary
     ch_samplesheet.branch{
             def meta = it[0]
+            def regions_file = it[2]
             multisample: meta.subsample != null
+            regions : regions_file
             other: true}
-        .set{input}
+        .set{sample}
 
     out_vcf_ch  = Channel.empty()
 
     SUBSAMPLE_VCF_TEST(
-        input.multisample
+        sample.multisample.map{meta, vcf, bed -> [meta, vcf]}
     )
     ch_versions = ch_versions.mix(SUBSAMPLE_VCF_TEST.out.versions)
-    out_vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
-                                input.other)
-    vcf_ch      = out_vcf_ch
+    vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
+                                sample.other.map{meta, vcf, bed -> [meta, vcf]})
 
-
-    if (params.variant_type == "structural"){
+    if (params.variant_type == "structural" ){
         // Standardize SV VCFs, tool specific modifications
         SV_VCF_CONVERSIONS(
             vcf_ch,
@@ -171,6 +211,22 @@ workflow VARIANTBENCHMARKING {
     ch_versions       = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
     ch_multiqc_files  = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
 
+
+    // If intersect is in the methods, perform bedtools intersect to region files given
+    if (params.method.contains("intersect")){
+
+        sample.regions
+            .combine(regions_bed_ch)
+            .map{test_meta, testvcf, testbed, truthbed -> [test_meta, truthbed, testbed]}
+            .set{intersect_ch}
+
+        BEDTOOLS_INTERSECT(
+            intersect_ch
+        )
+        ch_versions      = ch_versions.mix(BEDTOOLS_INTERSECT.out.versions)
+        ch_reports       = ch_reports.mix(BEDTOOLS_INTERSECT.out.summary)
+    }
+
     // Prepare benchmark channel
     PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
         .combine(regions_bed_ch.ifEmpty([[]]))
@@ -180,7 +236,8 @@ workflow VARIANTBENCHMARKING {
 
     evals_ch = Channel.empty()
 
-    if (params.variant_type == "structural"){
+
+    if (params.variant_type == "structural" || params.variant_type == "copynumber"){
         // Perform SV benchmarking - for now it also works for somatic cases!
         // this part will be changed!
         SV_GERMLINE_BENCHMARK(
@@ -206,15 +263,6 @@ workflow VARIANTBENCHMARKING {
             ch_versions      = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
             evals_ch         = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
-        }
-
-        if (params.variant_type == "copynumber"){
-            // Benchmarking spesific to CNV germline samples
-            CNV_GERMLINE_BENCHMARK(
-                bench
-            )
-            ch_versions      = ch_versions.mix(CNV_GERMLINE_BENCHMARK.out.versions)
-            ch_reports       = ch_reports.mix(CNV_GERMLINE_BENCHMARK.out.summary_reports)
         }
     }
 
