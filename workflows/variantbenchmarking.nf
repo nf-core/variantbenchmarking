@@ -12,7 +12,6 @@ include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
-include { BEDTOOLS_INTERSECT          } from '../modules/local/custom/bedtools_intersect/main'
 
 //
 // SUBWORKFLOWS: Local Subworkflows
@@ -28,6 +27,7 @@ include { CNV_GERMLINE_BENCHMARK      } from '../subworkflows/local/cnv_germline
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
+include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -215,16 +215,13 @@ workflow VARIANTBENCHMARKING {
     // If intersect is in the methods, perform bedtools intersect to region files given
     if (params.method.contains("intersect")){
 
-        sample.regions
-            .combine(regions_bed_ch)
-            .map{test_meta, testvcf, testbed, truthbed -> [test_meta, truthbed, testbed]}
-            .set{intersect_ch}
-
-        BEDTOOLS_INTERSECT(
-            intersect_ch
+        INTERSECT_STATISTICS(
+            sample.regions,
+            regions_bed_ch
         )
-        ch_versions      = ch_versions.mix(BEDTOOLS_INTERSECT.out.versions)
-        ch_reports       = ch_reports.mix(BEDTOOLS_INTERSECT.out.summary)
+    ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
+    ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
+
     }
 
     // Prepare benchmark channel

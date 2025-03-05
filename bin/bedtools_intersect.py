@@ -13,7 +13,8 @@ def read_bed(file):
 def convert_caveman_to_bed(caveman_file, output_bed):
     """Convert CAVEMAN output format to BED format."""
     df = pd.read_csv(caveman_file, sep=",", header=None)
-    bed_df = df.rename(columns={1: "chrom", 2: "start", 3: "end", 4: "major_cn_n", 5: "minor_cn_n", 6: "major_cn_t", 7: "minor_cn_t"})
+    df = df.iloc[:, 1: 8]
+    bed_df = df.rename(columns={1: "chrom", 2: "start", 3: "end", 4: "major_cn_n", 6: "major_cn_t"})
     bed_df["chrom"] = bed_df["chrom"].astype(str)
     bed_df.to_csv(output_bed, sep="\t", header=False, index=False)
     return output_bed
@@ -68,17 +69,16 @@ def compute_statistics(truth_file, test_file):
         "TP": TP,
         "FN": FN,
         "FP": FP,
-        "precision": precision,
-        "recall": recall,
-        "f1_score": f1_score
+        "Precision": precision,
+        "Recall": recall,
+        "F1": f1_score
     }, intersect, FN_regions, FP_regions
 
 def save_statistics(stats, output_prefix):
-    """Save statistics to a text file."""
-    with open(f"{output_prefix}_stats.txt", "w") as f:
-        f.write("Intersection statistics:\n")
-        for key, value in stats.items():
-            f.write(f"{key}: {value}\n")
+    """Save statistics to a CSV file."""
+
+    df = pd.DataFrame([stats])
+    df.to_csv(f"{output_prefix}_stats.csv", index=False)
 
 def save_bedfile(bedtool_obj, filename):
     """Save the BedTool object to a BED file."""
@@ -96,6 +96,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     test_bed_file = args.test_file
+
     if args.test_tool == "facets":
         test_bed_file = f"{args.output_prefix}_converted.bed"
         convert_facest_to_bed(args.test_file, test_bed_file)
@@ -118,7 +119,7 @@ if __name__ == "__main__":
     save_bedfile(missed, f"{args.output_prefix}_FN.bed")
     save_bedfile(extra, f"{args.output_prefix}_FP.bed")
 
-    print("Statistics saved to", f"{args.output_prefix}_stats.txt")
+    print("Statistics saved to", f"{args.output_prefix}_stats.csv")
     print("Intersected regions saved to", f"{args.output_prefix}_TP.bed")
     print("Missed regions saved to", f"{args.output_prefix}_FN.bed")
     print("Extra regions saved to", f"{args.output_prefix}_FP.bed")

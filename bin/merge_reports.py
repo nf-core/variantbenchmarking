@@ -191,6 +191,29 @@ def get_happy_resuls(file_paths):
 
 	return merged_df
 
+def get_intersect_resuls(file_paths):
+	# Initialize an empty DataFrame to store the merged data
+	merged_df = pd.DataFrame()
+
+	# Iterate over each table file
+	for file in file_paths:
+		filename = os.path.basename(file)
+
+		df = pd.read_csv(file)
+
+		df['Tool'] = filename.split(".")[0]
+
+		# Convert relevant columns to integers, handling potential NaN values
+		int_columns = ['TP', 'FN', 'FP']
+		float_columns = ['Recall','Precision','F1']
+		df[int_columns] = df[int_columns].fillna(0).astype(int)
+		df[float_columns] = df[float_columns].fillna(0).astype(float)
+
+		# Concatenate with the merged DataFrame
+		merged_df = pd.concat([merged_df, df], ignore_index=True)
+
+	return merged_df
+
 def get_sompy_resuls(file_paths, vartype):
 # Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
@@ -246,13 +269,16 @@ def main(args=None):
 	elif args.bench == "happy":
 		summ_table = get_happy_resuls(args.inputs)
 
+	elif args.bench == "intersect":
+		summ_table = get_intersect_resuls(args.inputs)
+
 	elif args.bench == "sompy":
 		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
 		summ_table2.reset_index(drop=True, inplace=True)
 		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
 	else:
-		raise ValueError('only results from truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
+		raise ValueError('only results from intersect, truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
 
 	summ_table.reset_index(drop=True, inplace=True)
 	summ_table.to_csv(args.output + ".summary.csv", index=False)

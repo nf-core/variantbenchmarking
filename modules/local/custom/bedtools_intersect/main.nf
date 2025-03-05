@@ -4,14 +4,14 @@ process BEDTOOLS_INTERSECT {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/ab/ab3b0054e3111812d8f2deb12345d5b7ca7ea7b18a2dbcbf174d46274c28deba/data':
-        'community.wave.seqera.io/library/pip_pandas:40d2e76c16c136f0' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/6f/6f12bf7e05df84523fa897da87c135edef2dee90a0567a6bf70f2f81ada6cc25/data' :
+        'community.wave.seqera.io/library/pybedtools_pandas:6eae56b7891a94c6' }"
 
     input:
     tuple val(meta), path(truth), path(test)
 
     output:
-    tuple val(meta),path("*stats.txt")    , emit: summary
+    tuple val(meta),path("*stats.csv")    , emit: summary
     tuple val(meta),path("*TP.bed")       , emit: tp
     tuple val(meta),path("*FP.bed")       , emit: fp
     tuple val(meta),path("*FN.bed")       , emit: fn
@@ -26,10 +26,10 @@ process BEDTOOLS_INTERSECT {
     def format = meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" ? "${meta.caller}" : "bed"
 
     """
-    bedtools_intersect.py
-        $truth
-        $test
-        $meta.id
+    bedtools_intersect.py \\
+        $truth \\
+        $test \\
+        $meta.id \\
         $format
 
     cat <<-END_VERSIONS > versions.yml
