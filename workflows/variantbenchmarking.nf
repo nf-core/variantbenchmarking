@@ -216,7 +216,7 @@ workflow VARIANTBENCHMARKING {
     if (params.method.contains("intersect")){
 
         INTERSECT_STATISTICS(
-            sample.regions,
+            sample.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
     ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
