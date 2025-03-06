@@ -263,7 +263,7 @@ workflow VARIANTBENCHMARKING {
         }
     }
 
-    // TODO: SOMATIC BENCHMARKING
+    // SOMATIC BENCHMARKING
     if (params.analysis.contains("somatic")){
 
         if (params.variant_type == "snv" | params.variant_type == "indel"){
@@ -271,10 +271,12 @@ workflow VARIANTBENCHMARKING {
             SMALL_SOMATIC_BENCHMARK(
                 bench,
                 fasta,
-                fai
+                fai,
+                sdf
             )
             ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
+            evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
         }
 
     }
