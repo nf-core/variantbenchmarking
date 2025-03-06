@@ -26,6 +26,10 @@
 
 > Aaron R. Quinlan, Ira M. Hall, BEDTools: a flexible suite of utilities for comparing genomic features, Bioinformatics, Volume 26, Issue 6, March 2010, Pages 841–842, https://doi.org/10.1093/bioinformatics/btq033
 
+- [bedops](https://bedops.readthedocs.io/en/latest/)
+
+> Shane Neph, M. Scott Kuehn, Alex P. Reynolds, Eric Haugen, Robert E. Thurman, Audra K. Johnson, Eric Rynes, Matthew T. Maurano, Jeff Vierstra, Sean Thomas, Richard Sandstrom, Richard Humbert, John A. Stamatoyannopoulos, BEDOPS: high-performance genomic feature operations, Bioinformatics, Volume 28, Issue 14, July 2012, Pages 1919–1920, https://doi.org/10.1093/bioinformatics/bts277
+
 - [datavzrd](https://datavzrd.github.io/docs/index.html)
 
 - [hap.py](https://www.illumina.com/products/by-type/informatics-products/basespace-sequence-hub/apps/hap-py-benchmarking.html)
@@ -49,6 +53,8 @@
 > Jeffares, D., Jolly, C., Hoti, M. et al. Transient structural variations have strong effects on quantitative traits and reproductive isolation in fission yeast. Nat Commun 8, 14061 (2017). https://doi.org/10.1038/ncomms14061
 
 - [SVanalyzer](https://svanalyzer.readthedocs.io/en/latest/index.html)
+
+- [svtk](https://github.com/broadinstitute/gatk-sv/tree/master/src/svtk)
 
 - [svync](https://github.com/nvnieuwk/svync)
 
