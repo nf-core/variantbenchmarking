@@ -1,7 +1,8 @@
 id,test_vcf,test_regions,caller,evaluationmode,bpDistance,percentThreshold
-test1,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CNV_testdata/SEQC2/dragen/dragen.RunDragenCnvStep-HCC1395_FDA_WES_EA_1_tumor.INV354922-EId1.cnv.vcf,,dragen,cts,10000000,0.01
+test1,https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/test/somatic/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz,,manta,cts,10000000,0.01
 test2,,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CNV_testdata/SEQC2/ascat/WES_EA_T_1.copynumber.caveman.csv,caveman,,,
 test3,,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CNV_testdata/SEQC2/cnvkit/WES_EA_1.call.cns,cnvkit,,,
 test4,,https://raw.githubusercontent.com/kubranarci/benchmark_datasets/main/CNV_testdata/SEQC2/hatchet/WES_EA_1.hatchet.txt,hatchet,,,
+
 
 

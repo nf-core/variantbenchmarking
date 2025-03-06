@@ -1,5 +1,5 @@
 //
-// INTERSECT_STATISTICS
+// INTERSECTION ANALYSIS OF BED FILES
 //
 
 include { BEDTOOLS_INTERSECT     } from '../../../modules/local/custom/bedtools_intersect'
@@ -9,14 +9,12 @@ include { TABIX_BGZIP            } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow INTERSECT_STATISTICS {
     take:
-    test
-    truth_regions
+    test             // channel: [val(meta), vcf, regions]
+    truth_regions    // channel: [truth bed]
 
     main:
 
     versions        = Channel.empty()
-
-    test.view()
 
     test.branch{
             def vcf_file = it[1]
@@ -26,7 +24,6 @@ workflow INTERSECT_STATISTICS {
             other: false}
             .set{test_samples}
 
-    // add a part to convert vcf2bed --> small files https://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/vcf2bed.html
 
     test_beds_ch = test_samples.regions.map{meta, vcf, bed -> [meta, bed]}
 
