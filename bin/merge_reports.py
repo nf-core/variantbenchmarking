@@ -276,7 +276,7 @@ def main(args=None):
 		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
 		summ_table2.reset_index(drop=True, inplace=True)
 		summ_table2.to_csv(args.output + ".regions.csv", index=False)
-    
+
 	else:
 		raise ValueError('only results from intersect, truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
 

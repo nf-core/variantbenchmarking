@@ -127,7 +127,7 @@
                     },
                     "svtk/vcf2bed": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "68abc8db1794ab6be75c235c2725d19668632501",
                         "installed_by": ["modules"]
                     },
                     "svync": {
