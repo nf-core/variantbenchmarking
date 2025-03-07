@@ -108,8 +108,8 @@ workflow SV_GERMLINE_BENCHMARK {
                                             vcf_tp_comp)
     }
 
-    if (params.method.contains('svanalyzer')){
-
+    if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
+        // svbenchmark cannot be run with copynumber analysis
         // apply svanalyzer to benchmark SVs
         SVANALYZER_SVBENCHMARK(
             input_ch,

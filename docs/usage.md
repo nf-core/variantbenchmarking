@@ -39,10 +39,6 @@ test3,test3.vcf.gz,cnvkit
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-## Truth samples
-
-Please find the detailed information about truth samples [here](../docs/truth.md).
-
 ## Lifting over truth sets
 
 This workflow comes with a liftover option for truth sets. In order to activate liftover use `--liftover "truth"`.
@@ -62,6 +58,9 @@ test2,test2.vcf,gatk,false
 test3,test3.vcf.gz,cnvkit,true
 ```
 
+- `liftover`: to which test files to apply liftover. Boolean. Default: false
+- `--liftover`: Select _test_ or _truth_, to apply liftover.
+
 Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
 
 ## Standardization and normalization parameters
@@ -73,7 +72,7 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
   - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
   - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
 
-- `--preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
+- `preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
   - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `normalize`: Left aligns variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `deduplicate`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
@@ -101,6 +100,8 @@ test1,test1.vcf.gz,delly,"TUMOR"
 test2,test2.vcf,gatk,"NA128120"
 test3,test3.vcf.gz,cnvkit,
 ```
+
+- `subsample`: Sample name in the multi-sample VCF file to be used for benchmark analysis.
 
 Note that, this option can be inevitable for somatic analysis since most of the callers reports both normal and tumor genotypes in the same vcf file.
 
@@ -140,9 +141,9 @@ test2,test2.vcf,gatk,0.6,0.5,0.7,110000,40000,false,true
 _Wittyer_
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller,vartype,bpDistance,percentThreshold,absoluteThreshold,maxMatches,evaluationmode
-test1,test1.vcf.gz,delly,sv,200,0.5,17000,100,sc
-test2,test2.vcf,gatk,sv,100,0.5,11000,-1,cts
+id,test_vcf,caller,bpDistance,percentThreshold,absoluteThreshold,maxMatches,evaluationmode
+test1,test1.vcf.gz,delly,200,0.5,17000,100,sc
+test2,test2.vcf,gatk,100,0.5,11000,-1,cts
 ```
 
 - `bpDistance`: Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.
@@ -162,6 +163,20 @@ _Parameters applicable only to Structural Variants_
 - `--max_sv_size`: Maximum SV size of variants to benchmark, -1 to disable , Default:-1
 - `--min_allele_freq`: Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1
 - `--min_num_reads`: Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1
+
+## Intersection analysis
+
+CNV benchmarking might get tricky especially since CNV callers tend to output the results in various formats including vcf, bed, cns, tab or txt. The common benchmarking method for those is to intersection of the truth and test regions.
+
+In order to perform intersection analysis, just add _--method "intersect"_ and make sure to provide _--params.regions_bed_ as input. If user provides test_regions through the samplesheet, the analysis will be the intersection of regions_bed and test_regions. The other option is to use input vcf instead of test_regions. Then, VCF file will be converted to BED to perform the analysis.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,test_regions
+test1,test1.vcf.gz,dragen,
+test2,,cnvkit,cnvkit.cns
+```
+
+- `test_regions`: Test regions to be used for intersection analysis. Default: .bed format.
 
 ## Running the pipeline
 
@@ -263,19 +278,22 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A profile with a complete configuration for using liftover of HG002 hg37 truth set to hg38
   - Includes links to test data so needs no other parameters
 - `germline_small`
-  - A profile with a complete configuration for germline analysis with small variat type of data
+  - A profile with a complete configuration for germline analysis with small variant type of data
   - Includes links to test data so needs no other parameters
-- `germline_structural`
-  - A profile with a complete configuration for germline analysis with structural variat type of data
+- `germline_sv`
+  - A profile with a complete configuration for germline analysis with structural variant type of data
   - Includes links to test data so needs no other parameters
-- `somatic_structural`
-  - A profile with a complete configuration for somatic analysis with structural variat type of data
+- `somatic_sv`
+  - A profile with a complete configuration for somatic analysis with structural variant type of data
   - Includes links to test data so needs no other parameters
 - `somatic_snv`
-  - A profile with a complete configuration for somatic analysis with snv variat type of data
+  - A profile with a complete configuration for somatic analysis with snv variant type of data
   - Includes links to test data so needs no other parameters
 - `somatic_indel`
-  - A profile with a complete configuration for somatic analysis with indel variat type of data
+  - A profile with a complete configuration for somatic analysis with indel variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_cnv`
+  - A profile with a complete configuration for somatic analysis with copy number variant type of data
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)
