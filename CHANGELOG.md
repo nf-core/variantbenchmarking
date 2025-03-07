@@ -9,10 +9,10 @@ Initial release of nf-core/variantbenchmarking, created with the [nf-core](https
 
 ### `Added`
 
-- CNV benchmarking subworkflow
-- Method: _intersect_ to intersect two regions (BED) files given
-- zenodoid
-- rtgtools vcfeval added for small somatic variant benchmarking
+- CNV benchmarking subworkflow: Truvari (without sequence resolution pctseq = 0) is added as an option.
+- _--method intersect_ is implemented enabling intersection two regions (BED) files given. This is especially useful for CNV comparisons where user might only need the segmental matches. The input regions file does not need to be BED file, can also be tool spesfic outputs. According to the tool, formatting will be converted to BED files to be used with bedtools intersect.
+- zenodoid added.
+- rtgtools vcfeval added for small somatic variant benchmarking with _--squash-ploidy_ parameter.
 
 ### `Fixed`
 
