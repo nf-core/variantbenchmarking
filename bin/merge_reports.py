@@ -27,7 +27,7 @@ def parse_args(args=None):
 
 
 ## SVanalyzer results
-def get_svbenchmark_resuls(file_paths):
+def get_svbenchmark_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -75,7 +75,7 @@ def get_svbenchmark_resuls(file_paths):
 
 ## Truvari results
 
-def get_truvari_resuls(file_paths):
+def get_truvari_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -101,7 +101,7 @@ def get_truvari_resuls(file_paths):
 
 	return merged_df
 
-def get_wittyer_resuls(file_paths):
+def get_wittyer_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -131,7 +131,7 @@ def get_wittyer_resuls(file_paths):
 
 	return merged_df
 
-def get_rtgtools_resuls(file_paths):
+def get_rtgtools_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -165,7 +165,7 @@ def get_rtgtools_resuls(file_paths):
 
 	return merged_df
 
-def get_happy_resuls(file_paths):
+def get_happy_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -191,7 +191,30 @@ def get_happy_resuls(file_paths):
 
 	return merged_df
 
-def get_sompy_resuls(file_paths, vartype):
+def get_intersect_results(file_paths):
+	# Initialize an empty DataFrame to store the merged data
+	merged_df = pd.DataFrame()
+
+	# Iterate over each table file
+	for file in file_paths:
+		filename = os.path.basename(file)
+
+		df = pd.read_csv(file)
+
+		df['Tool'] = filename.split(".")[0]
+
+		# Convert relevant columns to integers, handling potential NaN values
+		int_columns = ['TP', 'FN', 'FP']
+		float_columns = ['Recall','Precision','F1']
+		df[int_columns] = df[int_columns].fillna(0).astype(int)
+		df[float_columns] = df[float_columns].fillna(0).astype(float)
+
+		# Concatenate with the merged DataFrame
+		merged_df = pd.concat([merged_df, df], ignore_index=True)
+
+	return merged_df
+
+def get_sompy_results(file_paths, vartype):
 # Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -231,47 +254,34 @@ def get_sompy_resuls(file_paths, vartype):
 def main(args=None):
 	args = parse_args(args)
 
-	#check if the files are from svanalyzer or truvari
+	if args.bench == "truvari":
+		summ_table = get_truvari_results(args.inputs)
 
-	if args.analysis == "germline":
-		if args.bench == "truvari":
-			summ_table = get_truvari_resuls(args.inputs)
+	elif args.bench == "svbenchmark":
+		summ_table = get_svbenchmark_results(args.inputs)
 
-		elif args.bench == "svbenchmark":
-			summ_table = get_svbenchmark_resuls(args.inputs)
+	elif args.bench == "wittyer":
+		summ_table = get_wittyer_results(args.inputs)
 
-		elif args.bench == "wittyer":
-			summ_table = get_wittyer_resuls(args.inputs)
+	elif args.bench == "rtgtools":
+		summ_table = get_rtgtools_results(args.inputs)
 
-		elif args.bench == "rtgtools":
-			summ_table = get_rtgtools_resuls(args.inputs)
+	elif args.bench == "happy":
+		summ_table = get_happy_results(args.inputs)
 
-		elif args.bench == "happy":
-			summ_table = get_happy_resuls(args.inputs)
-		else:
-			raise ValueError('Only truvari/svbenchmark/wittyer/rtgtools/happy results can be merged for germline analysis!!')
+	elif args.bench == "intersect":
+		summ_table = get_intersect_results(args.inputs)
 
-		summ_table.reset_index(drop=True, inplace=True)
-		summ_table.to_csv(args.output + ".summary.csv", index=False)
+	elif args.bench == "sompy":
+		summ_table,summ_table2 = get_sompy_results(args.inputs,args.vartype)
+		summ_table2.reset_index(drop=True, inplace=True)
+		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
-	elif args.analysis == "somatic":
-		if args.bench == "sompy":
-			summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
-			summ_table2.reset_index(drop=True, inplace=True)
-			summ_table2.to_csv(args.output + ".regions.csv", index=False)
-
-		elif args.bench == "truvari":
-			summ_table = get_truvari_resuls(args.inputs)
-
-		elif args.bench == "svbenchmark":
-			summ_table = get_svbenchmark_resuls(args.inputs)
-		else:
-			raise ValueError('Only truvari/svbenchmark/sompy results can be merged for somatic analysis!!')
-
-		summ_table.reset_index(drop=True, inplace=True)
-		summ_table.to_csv(args.output + ".summary.csv", index=False)
 	else:
-		raise ValueError('Analysis must be germline or somatic')
+		raise ValueError('only results from intersect, truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
+
+	summ_table.reset_index(drop=True, inplace=True)
+	summ_table.to_csv(args.output + ".summary.csv", index=False)
 
 if __name__ == "__main__":
 	sys.exit(main())

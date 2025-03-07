@@ -15,6 +15,13 @@
                 "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz', '.vcf', '.bcf.gz' or 'bcf'",
                 "description": "The VCF file to use as benchmarking test input"
             },
+            "test_regions": {
+                "type": "string",
+                "exists": true,
+                "format": "file-path",
+                "errorMessage": "Test file, regions file can be in multiple format and be used for intersect analysis.",
+                "description": "Test regions, format can be changed by variant caller"
+            },
             "id": {
                 "type": "string",
                 "pattern": "^\\S+$",
@@ -168,6 +175,19 @@
                 "default": false
             }
         },
-        "required": ["test_vcf", "caller", "id"]
+        "anyOf": [
+            {
+                "dependentRequired": {
+                    "id": ["test_vcf"]
+                }
+            },
+            {
+                "dependentRequired": {
+                    "id": ["test_regions"]
+                }
+            }
+        ],
+        "required": ["caller", "id"],
+        "uniqueEntries": ["id"]
     }
 }

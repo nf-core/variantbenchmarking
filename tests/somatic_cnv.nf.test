@@ -1,19 +1,18 @@
 nextflow_pipeline {
 
-    name "Test pipeline for indel somatic variants, tested benchmarking methods are sompy"
+    name "Test pipeline for somatic copy number variants, tested benchmarking methods are truvari and intersect"
     script "../main.nf"
     tag "pipeline"
     tag "somatic"
-    tag "indel"
-    config "../conf/tests/somatic_indel.config"
+    tag "structural"
+    config "../conf/tests/somatic_cnv.config"
 
-    test("Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'") {
+    test("Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'") {
 
         when {
             params {
                 outdir               = "$outputDir"
                 test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
-
             }
         }
 
