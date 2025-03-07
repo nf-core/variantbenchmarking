@@ -65,7 +65,7 @@ workflow VARIANTBENCHMARKING {
         regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                                     : Channel.empty()
     }else{
-        log.error "Please specify params.truth_id and params.truth_vcf or regions_bed to perform benchmarking analysis"
+        log.error "Please specify params.truth_id and params.truth_vcf or params.regions_bed to perform benchmarking analysis"
         exit 1
     }
 

@@ -27,7 +27,7 @@ def parse_args(args=None):
 
 
 ## SVanalyzer results
-def get_svbenchmark_resuls(file_paths):
+def get_svbenchmark_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -75,7 +75,7 @@ def get_svbenchmark_resuls(file_paths):
 
 ## Truvari results
 
-def get_truvari_resuls(file_paths):
+def get_truvari_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -101,7 +101,7 @@ def get_truvari_resuls(file_paths):
 
 	return merged_df
 
-def get_wittyer_resuls(file_paths):
+def get_wittyer_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -131,7 +131,7 @@ def get_wittyer_resuls(file_paths):
 
 	return merged_df
 
-def get_rtgtools_resuls(file_paths):
+def get_rtgtools_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -165,7 +165,7 @@ def get_rtgtools_resuls(file_paths):
 
 	return merged_df
 
-def get_happy_resuls(file_paths):
+def get_happy_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -191,7 +191,7 @@ def get_happy_resuls(file_paths):
 
 	return merged_df
 
-def get_intersect_resuls(file_paths):
+def get_intersect_results(file_paths):
 	# Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -214,7 +214,7 @@ def get_intersect_resuls(file_paths):
 
 	return merged_df
 
-def get_sompy_resuls(file_paths, vartype):
+def get_sompy_results(file_paths, vartype):
 # Initialize an empty DataFrame to store the merged data
 	merged_df = pd.DataFrame()
 
@@ -255,25 +255,25 @@ def main(args=None):
 	args = parse_args(args)
 
 	if args.bench == "truvari":
-		summ_table = get_truvari_resuls(args.inputs)
+		summ_table = get_truvari_results(args.inputs)
 
 	elif args.bench == "svbenchmark":
-		summ_table = get_svbenchmark_resuls(args.inputs)
+		summ_table = get_svbenchmark_results(args.inputs)
 
 	elif args.bench == "wittyer":
-		summ_table = get_wittyer_resuls(args.inputs)
+		summ_table = get_wittyer_results(args.inputs)
 
 	elif args.bench == "rtgtools":
-		summ_table = get_rtgtools_resuls(args.inputs)
+		summ_table = get_rtgtools_results(args.inputs)
 
 	elif args.bench == "happy":
-		summ_table = get_happy_resuls(args.inputs)
+		summ_table = get_happy_results(args.inputs)
 
 	elif args.bench == "intersect":
-		summ_table = get_intersect_resuls(args.inputs)
+		summ_table = get_intersect_results(args.inputs)
 
 	elif args.bench == "sompy":
-		summ_table,summ_table2 = get_sompy_resuls(args.inputs,args.vartype)
+		summ_table,summ_table2 = get_sompy_results(args.inputs,args.vartype)
 		summ_table2.reset_index(drop=True, inplace=True)
 		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
