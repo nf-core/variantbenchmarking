@@ -85,9 +85,9 @@
                 },
                 "sv_standardization": {
                     "type": "string",
-                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: homogenize, svync",
-                    "pattern": "^((homogenize|svync)?,?)*(?<!,)$",
+                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync, svtk_standardize",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: variant_extractor, svync, svtk_standardize",
+                    "pattern": "^((homogenize|svync|svtk)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "min_sv_size": {

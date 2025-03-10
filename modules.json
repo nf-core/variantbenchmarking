@@ -125,6 +125,11 @@
                         "git_sha": "8a2dd9e84cde68ebba45fb2c602c312c999c02a0",
                         "installed_by": ["modules"]
                     },
+                    "svtk/standardize": {
+                        "branch": "master",
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "installed_by": ["modules"]
+                    },
                     "svtk/vcf2bed": {
                         "branch": "master",
                         "git_sha": "68abc8db1794ab6be75c235c2725d19668632501",

@@ -67,10 +67,11 @@ Please note that you should still provide chain and reame_chr files, and lifting
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
 
-- `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync`.
+- `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync,svtk_standardize`.
 
-  - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
-  - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
+  - `variant_extractor`: use [variant-extractor](https://github.com/EUCANCan/variant-extractor) for homogenization of variants
+  - `svync`: use [svync](https://github.com/nvnieuwk/svync) for reformatting variant callers. Applicable only to delly, dragen, gridss, manta, and smoove.
+  - `svtk_standardize`: use [svtk standardize - from GATK](https://github.com/broadinstitute/gatk-sv/tree/main/src/svtk) to standardize structural variants. Applicable only to delly, manta, melt and wham.
 
 - `preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
   - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
@@ -79,7 +80,7 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
   - `prepy`: Uses prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
   - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
 
-Filtration of tst variants are controlled through the following parameters:
+Filtration of the variants are controlled through the following parameters:
 
 - `exclude_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants)
 - `include_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants)

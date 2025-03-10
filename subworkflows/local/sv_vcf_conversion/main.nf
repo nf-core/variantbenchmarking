@@ -5,7 +5,9 @@
 include { SVYNC                   } from '../../../modules/nf-core/svync'
 include { BGZIP_TABIX             } from '../../../modules/local/bgzip/tabix'
 include { VARIANT_EXTRACTOR       } from '../../../modules/local/custom/variant_extractor'
-include { BCFTOOLS_SORT           } from '../../../modules/nf-core/bcftools/sort'
+include { SVTK_STANDARDIZE        } from '../../../modules/nf-core/svtk/standardize/main.nf'
+include { BCFTOOLS_SORT as BCFTOOLS_SORT1 } from '../../../modules/nf-core/bcftools/sort'
+include { BCFTOOLS_SORT as BCFTOOLS_SORT2 } from '../../../modules/nf-core/bcftools/sort'
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -16,7 +18,7 @@ workflow SV_VCF_CONVERSIONS {
     main:
     versions   = Channel.empty()
 
-    if (params.sv_standardization.contains("homogenize")){
+    if (params.sv_standardization.contains("variant_extractor")){
         // uses VariantExtractor to homogenize variants
         VARIANT_EXTRACTOR(
             input_ch,
@@ -26,11 +28,47 @@ workflow SV_VCF_CONVERSIONS {
         versions = versions.mix(VARIANT_EXTRACTOR.out.versions.first())
 
         // sort vcf
-        BCFTOOLS_SORT(
+        BCFTOOLS_SORT1(
             VARIANT_EXTRACTOR.out.output
         )
-        versions = versions.mix(BCFTOOLS_SORT.out.versions.first())
-        input_ch = BCFTOOLS_SORT.out.vcf
+        versions = versions.mix(BCFTOOLS_SORT1.out.versions.first())
+        input_ch = BCFTOOLS_SORT1.out.vcf
+
+    }
+
+    if (params.sv_standardization.contains("svtk_standardize")){
+
+        out_vcf_ch = Channel.empty()
+
+        supported_callers2 = ["delly", "melt", "manta", "wham"]
+
+        input_ch
+            .branch{ meta, vcf->
+                def caller = meta.caller
+                def supported = supported_callers2.contains(caller)
+                if(!supported) {
+                    log.warn("Standardization for SV caller '${caller}' is not supported. Skipping standardization...")
+                }
+                tool:  supported
+                other: !supported
+            }
+            .set{input}
+
+        SVTK_STANDARDIZE(
+            input.tool,
+            fai.map{meta, file -> file}
+        )
+        versions = versions.mix(SVTK_STANDARDIZE.out.versions.first())
+
+        BCFTOOLS_SORT2(
+            SVTK_STANDARDIZE.out.standardized_vcf
+        )
+        versions = versions.mix(BCFTOOLS_SORT2.out.versions.first())
+
+        out_vcf_ch.mix(
+                BCFTOOLS_SORT2.out.vcf,
+                input.other
+            ).set{input_ch}
 
     }
 
@@ -44,7 +82,7 @@ workflow SV_VCF_CONVERSIONS {
     // RUN SVYNC tool to reformat SV callers
     if(params.sv_standardization.contains("svync")){
         out_vcf_ch = Channel.empty()
-        supported_callers = ["delly", "dragen", "gridss", "manta", "delly", "smoove"]
+        supported_callers = ["delly", "dragen", "gridss", "manta", "smoove"]
 
         vcf_ch
             .branch{ meta, vcf, tbi ->
