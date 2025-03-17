@@ -13,10 +13,13 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/nf-
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
-    fasta     // reference channel [val(meta), ref.fa]
-    fai       // reference channel [val(meta), ref.fa.fai]
-    sdf       // reference channel [val(meta), sdf]
+    input_ch           // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
+    fasta              // reference channel [val(meta), ref.fa]
+    fai                // reference channel [val(meta), ref.fa.fai]
+    sdf                // reference channel [val(meta), sdf]
+    falsepositive_bed  // reference channel [val(meta), bed]
+    stratification_bed // reference channel [val(meta), bed files]
+    stratification_tsv // reference channel [val(meta), tsv]
 
     main:
 
@@ -150,9 +153,9 @@ workflow SMALL_GERMLINE_BENCHMARK {
             test_ch.join(truth_ch, failOnDuplicate:true, failOnMismatch:true),
             fasta,
             fai,
-            [[],[]],
-            [[],[]],
-            [[],[]]
+            falsepositive_bed,
+            stratification_tsv,
+            stratification_bed
         )
         versions = versions.mix(HAPPY_HAPPY.out.versions.first())
 

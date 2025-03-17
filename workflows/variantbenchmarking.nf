@@ -69,9 +69,21 @@ workflow VARIANTBENCHMARKING {
         exit 1
     }
 
+    // Optional files for Happy
+    falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
+                                                    : Channel.of([[id: "falsepositive"],[]]).collect()
+
+    if (params.stratification_bed && params.stratification_tsv){
+        stratification_bed  = Channel.fromPath(params.stratification_bed, checkIfExists: true, type: 'dir').map{ bed -> tuple([id: "stratification"], bed) }.collect()
+        stratification_tsv  = Channel.fromPath(params.stratification_tsv, checkIfExists: true).map{ tsv -> tuple([id: "stratification"], tsv) }.collect()
+    }else{
+        stratification_bed  = Channel.of([[id: "stratification"],[]]).collect()
+        stratification_tsv  = Channel.of([[id: "stratification"],[]]).collect()
+    }
+
     // SDF file for RTG-tools eval
     sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
-                                                : Channel.empty()
+                                        : Channel.empty()
 
     if (params.rename_chr){
         rename_chr = Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
@@ -255,7 +267,10 @@ workflow VARIANTBENCHMARKING {
                 bench,
                 fasta,
                 fai,
-                sdf
+                sdf,
+                falsepositive_bed,
+                stratification_bed,
+                stratification_tsv
             )
             ch_versions      = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
