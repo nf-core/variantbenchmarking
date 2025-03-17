@@ -13,7 +13,7 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/nf-
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
-    input_ch           // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
+    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
     fasta              // reference channel [val(meta), ref.fa]
     fai                // reference channel [val(meta), ref.fa.fai]
     sdf                // reference channel [val(meta), sdf]
@@ -42,9 +42,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         // apply rtgtools eval method
         RTGTOOLS_VCFEVAL(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
-                [ meta, vcf, tbi, truth_vcf, truth_tbi, bed, [] ]
-            },
+            input_ch,
             sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions.first())
@@ -121,14 +119,14 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('happy')){
 
         input_ch
-            .map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed ->
+            .map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
                 [ meta, vcf ]
             }
             .set { test_ch }
 
         input_ch
-            .map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, bed ->
-                [ meta, truth_vcf, bed, [] ]
+            .map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                [ meta, truth_vcf, _regionsbed, _targets_bed ]
             }
             .set { truth_ch }
 
@@ -136,8 +134,8 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
             // apply prepy if required
             HAPPY_PREPY(
-                input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, bed ->
-                    [ meta, vcf, bed ]
+                input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                    [ meta, vcf, _regionsbed ]
                 },
                 fasta,
                 fai

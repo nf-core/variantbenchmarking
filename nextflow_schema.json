@@ -72,7 +72,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to targets BED. Works similar to Bcftools -T. It will be only used if the corresponding benchmark tool has the targets option.",
+                    "description": "Path to targets BED. Works similar to Bcftools -T. It will be only used with happy, sompy or rtgtools.",
                     "help_text": "Target BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
