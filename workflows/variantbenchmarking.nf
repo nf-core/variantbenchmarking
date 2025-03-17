@@ -69,10 +69,11 @@ workflow VARIANTBENCHMARKING {
         exit 1
     }
 
-    // Optional files for Happy
+    // Optional files for Happy or Sompy
     falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
                                                     : Channel.of([[id: "falsepositive"],[]]).collect()
-
+    ambiguous_beds      = params.ambiguous_beds     ? Channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
+                                                    : Channel.of([[id: "ambiguous"],[]]).collect()
     if (params.stratification_bed && params.stratification_tsv){
         stratification_bed  = Channel.fromPath(params.stratification_bed, checkIfExists: true, type: 'dir').map{ bed -> tuple([id: "stratification"], bed) }.collect()
         stratification_tsv  = Channel.fromPath(params.stratification_tsv, checkIfExists: true).map{ tsv -> tuple([id: "stratification"], tsv) }.collect()
@@ -287,7 +288,9 @@ workflow VARIANTBENCHMARKING {
                 bench,
                 fasta,
                 fai,
-                sdf
+                sdf,
+                falsepositive_bed,
+                ambiguous_beds
             )
             ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)

@@ -63,7 +63,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to regions BED or VCF files.",
+                    "description": "Path to regions BED or VCF files. Works similar to Bcftools -R.",
                     "help_text": "Regions BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -80,8 +80,17 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to false positive BED. Only applicable to happy tool.",
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "Path to false positive BED. Only applicable to happy and sompy tool.",
+                    "help_text": "Falsepositive BED files",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "ambiguous_beds": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
+                    "description": "Path to ambiguous BED. Only applicable to sompy tool.",
                     "help_text": "Falsepositive BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
