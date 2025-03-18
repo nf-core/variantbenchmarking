@@ -28,7 +28,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('sompy')){
         // apply sompy for small somatic variant benchmarking
         HAPPY_SOMPY(
-            input_ch,
+            input_ch.map{meta, test, test_index, truth, truth_index, regions, target -> [meta, test, truth, regions, target]},
             fasta,
             fai,
             falsepositive_bed,
