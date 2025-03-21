@@ -12,10 +12,12 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4       } from '../../../module
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
-    input_ch    // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, bed]
-    fasta       // reference channel [val(meta), ref.fa]
-    fai         // reference channel [val(meta), ref.fa.fai]
-    sdf       // reference channel [val(meta), sdf]
+    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index,  regionsbed, targets_bed ]
+    fasta              // reference channel [val(meta), ref.fa]
+    fai                // reference channel [val(meta), ref.fa.fai]
+    sdf                // reference channel [val(meta), sdf]
+    falsepositive_bed  // reference channel [val(meta), bed]
+    ambiguous_beds     // reference channel [val(meta), bed]
 
     main:
 
@@ -26,13 +28,11 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('sompy')){
         // apply sompy for small somatic variant benchmarking
         HAPPY_SOMPY(
-            input_ch.map { meta, vcf, _tbi, truth_vcf, _truth_tbi, bed ->
-                [ meta, vcf, truth_vcf, bed, [] ]
-            },
+            input_ch.map{meta, test, test_index, truth, truth_index, regions, target -> [meta, test, truth, regions, target]},
             fasta,
             fai,
-            [[],[]],
-            [[],[]],
+            falsepositive_bed,
+            ambiguous_beds,
             [[],[]]
         )
         versions = versions.mix(HAPPY_SOMPY.out.versions.first())
@@ -59,9 +59,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
         // apply rtgtools eval method
         RTGTOOLS_VCFEVAL_SOMATIC(
-            input_ch.map { meta, vcf, tbi, truth_vcf, truth_tbi, bed ->
-                [ meta, vcf, tbi, truth_vcf, truth_tbi, bed, [] ]
-            },
+            input_ch,
             sdf
         )
         versions = versions.mix(RTGTOOLS_VCFEVAL_SOMATIC.out.versions.first())

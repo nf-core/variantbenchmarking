@@ -8,7 +8,7 @@ include { TABIX_BGZIP as TABIX_BGZIP_TRUTH } from '../../../modules/nf-core/tabi
 
 workflow CNV_GERMLINE_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
+    input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regions_bed, targets_bed]
 
     main:
 
@@ -18,21 +18,21 @@ workflow CNV_GERMLINE_BENCHMARK {
     // CNV benchmarking is only possible with wittyer now!
 
     TABIX_BGZIP_QUERY(
-        input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed ->
+        input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
             [ meta, vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
     TABIX_BGZIP_TRUTH(
-        input_ch.map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed ->
+        input_ch.map{ meta, _vcf, _tbi, truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
             [ meta, truth_vcf ]
         }
     )
     versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
 
-    input_ch.map{ meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bedfile ->
-            [ meta, bedfile ]
+    input_ch.map{ meta, _vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+            [ meta, _regionsbed ]
         }
         .set { bed }
 
