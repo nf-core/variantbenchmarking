@@ -16,7 +16,6 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "mimetype": "text/csv",
                     "schema": "assets/schema_input.json",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
@@ -39,7 +38,6 @@
                     "type": "string",
                     "description": "The analysis type used by the input files",
                     "enum": ["germline", "somatic"],
-                    "pattern": "(germline|somatic)",
                     "fa_icon": "fas fa-folder-open",
                     "errorMessage": "Analysis type has to be chosen: germline or somatic"
                 },
@@ -48,7 +46,6 @@
                     "description": "Variant types to benchmark",
                     "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
                     "enum": ["small", "snv", "indel", "structural", "copynumber"],
-                    "pattern": "(small|snv|indel|structural|copynumber)",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "method": {
@@ -98,7 +95,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "pattern": "^\\S+\\.(vcf)?(\\.gz)?$",
+                    "pattern": "^\\S+\\.vcf(\\.gz)?$",
                     "description": "Path to the golden set VCF files.",
                     "help_text": "Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
@@ -119,37 +116,41 @@
                 },
                 "min_sv_size": {
                     "type": "integer",
-                    "description": "Minimum SV size of variants to benchmark, 0 to disable , Default:30",
+                    "description": "Minimum SV size of variants to benchmark, 0 to disable",
+                    "default": 0,
                     "fa_icon": "fas fa-folder-open",
                     "minimum": 0
                 },
                 "max_sv_size": {
                     "type": "integer",
-                    "description": "Maximum SV size of variants to benchmark, -1 to disable , Default:-1",
+                    "description": "Maximum SV size of variants to benchmark, -1 to disable",
+                    "default": -1,
                     "fa_icon": "fas fa-folder-open",
                     "minimum": -1
                 },
                 "min_allele_freq": {
                     "type": "number",
-                    "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1",
+                    "description": "Minimum Alele Frequency of variants to benchmark, Use -1 to disable",
+                    "default": -1,
                     "fa_icon": "fas fa-folder-open",
                     "minimum": -1
                 },
                 "min_num_reads": {
                     "type": "integer",
-                    "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1",
+                    "description": "Minimum number of read supporting variants to benchmark, Use, -1 to disable",
+                    "default": -1,
                     "fa_icon": "fas fa-folder-open",
                     "minimum": -1
                 },
                 "exclude_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants. Default:null",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to exclude variants",
                     "fa_icon": "fas fa-folder-open",
                     "minLength": 1
                 },
                 "include_expression": {
                     "type": "string",
-                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants. Default:null",
+                    "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants",
                     "fa_icon": "fas fa-folder-open",
                     "minLength": 1
                 },
@@ -194,6 +195,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "pattern": "^\\S+\\.fai$",
                     "mimetype": "text/plain",
                     "description": "Path to FAI genome file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
@@ -209,9 +211,10 @@
                     "fa_icon": "fas fa-file-csv"
                 },
                 "stratification_bed": {
+                    "format": "directory-path",
                     "type": "string",
                     "exists": true,
-                    "description": "Path to stratification BED files provided in a directory. This director has to be given together with stratification_tsv. Only applicable to happy tool.",
+                    "description": "Path to stratification BED files provided in a directory. This directory has to be given together with stratification_tsv. Only applicable to happy tool.",
                     "help_text": "Stratification BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -219,7 +222,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "pattern": "^\\S+\\.(tsv)$",
+                    "pattern": "^\\S+\\.tsv$",
                     "description": "List the.",
                     "help_text": "Stratification TSV file. List the stratification BED files in this file and use together with stratification_bed.  Only applicable to happy tool",
                     "fa_icon": "fas fa-file-csv"

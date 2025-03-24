@@ -3,6 +3,18 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## dev
+
+### `Added`
+
+### `Fixed`
+
+- Updated input validation of the pipeline to be more strict
+
+### `Dependencies`
+
+### `Deprecated`
+
 ## 1.1.0 - [07.03.2025]
 
 Initial release of nf-core/variantbenchmarking, created with the [nf-core](https://nf-co.re/) template.
