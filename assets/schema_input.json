@@ -18,7 +18,7 @@
             "test_regions": {
                 "type": "string",
                 "exists": true,
-                "pattern": "^\\S+\\.(vcf|bed|txt)(\\.gz)?$",
+                "pattern": "^\\S+\\.(vcf|bed|txt|cnn)(\\.gz)?$",
                 "format": "file-path",
                 "errorMessage": "Test file, regions file can be in multiple format and be used for intersect analysis. The file has to exist",
                 "description": "Test regions, format can be changed by variant caller"
