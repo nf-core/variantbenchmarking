@@ -7,10 +7,10 @@ include { SVANALYZER_SVBENCHMARK   } from '../../../modules/nf-core/svanalyzer/s
 include { WITTYER                  } from '../../../modules/nf-core/wittyer'
 include { TABIX_BGZIP as TABIX_BGZIP_QUERY          } from '../../../modules/nf-core/tabix/bgzip'
 include { TABIX_BGZIP as TABIX_BGZIP_TRUTH          } from '../../../modules/nf-core/tabix/bgzip'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/local/bcftools/reheader'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
