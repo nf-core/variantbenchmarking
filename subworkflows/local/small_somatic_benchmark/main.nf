@@ -5,10 +5,10 @@
 include { HAPPY_SOMPY           } from '../../../modules/nf-core/happy/sompy/main'
 include { RTGTOOLS_FORMAT  } from '../../../modules/nf-core/rtgtools/format/main'
 include { RTGTOOLS_VCFEVAL  as RTGTOOLS_VCFEVAL_SOMATIC  } from '../../../modules/nf-core/rtgtools/vcfeval/main'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1       } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2       } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3       } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4       } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1       } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2       } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3       } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4       } from '../../../modules/local/bcftools/reheader'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:

@@ -11,7 +11,7 @@ include { FIX_VCF_PREFIX               } from '../../../modules/local/custom/fix
 include { PUBLISH_PROCESSED_VCF        } from '../../../modules/local/custom/publish_processed_vcf'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/local/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TEST {
