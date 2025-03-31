@@ -214,7 +214,7 @@
                     "format": "directory-path",
                     "type": "string",
                     "exists": true,
-                    "description": "Path to stratification BED files provided in a directory. This directory has to be given together with stratification_tsv. Only applicable to happy tool.",
+                    "description": "Path to stratification BED files provided in a directory. This directory has to be given together with stratification_tsv, list BED files in stratification_tsv. Only applicable to happy tool.",
                     "help_text": "Stratification BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -223,7 +223,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.tsv$",
-                    "description": "List the.",
+                    "description": "List the stratification BED files in this file, to be used with stratification_bed",
                     "help_text": "Stratification TSV file. List the stratification BED files in this file and use together with stratification_bed.  Only applicable to happy tool",
                     "fa_icon": "fas fa-file-csv"
                 },
