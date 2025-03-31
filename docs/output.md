@@ -20,7 +20,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
   - [RTG-tools](#rtgtools)
   - [Happy](#happy)
   - [Sompy](#sompy)
-  - [Intersect](#intersect)
 - [Summary statistics](#summary)
   - [Comparison of benchmarking results](#comparisons)
   - [Merged summary benchmark statistics](#tables)
