@@ -7,14 +7,14 @@ include { SVANALYZER_SVBENCHMARK   } from '../../../modules/nf-core/svanalyzer/s
 include { WITTYER                  } from '../../../modules/nf-core/wittyer'
 include { TABIX_BGZIP as TABIX_BGZIP_QUERY          } from '../../../modules/nf-core/tabix/bgzip'
 include { TABIX_BGZIP as TABIX_BGZIP_TRUTH          } from '../../../modules/nf-core/tabix/bgzip'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/local/bcftools/reheader'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
-    input_ch  // channel: [val(meta),test_vcf,test_index,truth_vcf,truth_index, bed]
+    input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targets_bed ]
     fasta     // reference channel [val(meta), ref.fa]
     fai       // reference channel [val(meta), ref.fa.fai]
 
@@ -29,7 +29,9 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // use truvari benchmarking
         TRUVARI_BENCH(
-            input_ch,
+            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+                },
             fasta,
             fai
         )
@@ -112,7 +114,9 @@ workflow SV_GERMLINE_BENCHMARK {
         // svbenchmark cannot be run with copynumber analysis
         // apply svanalyzer to benchmark SVs
         SVANALYZER_SVBENCHMARK(
-            input_ch,
+            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+                },
             fasta,
             fai
         )
@@ -146,20 +150,20 @@ workflow SV_GERMLINE_BENCHMARK {
 
         // unzip vcf.gz files
         TABIX_BGZIP_QUERY(
-            input_ch.map { meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed ->
+            input_ch.map { meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed  ->
                 [ meta, vcf ]
             }
         )
         versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
 
         TABIX_BGZIP_TRUTH(
-            input_ch.map { meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed ->
+            input_ch.map { meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed, _targets_bed  ->
                 [ meta, truth_vcf ]
             }
         )
         versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
 
-        input_ch.map { meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bed ->
+        input_ch.map { meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bed, _targets_bed  ->
                 [ meta, bed ]
             }
             .set { bed }

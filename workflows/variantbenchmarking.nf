@@ -64,14 +64,29 @@ workflow VARIANTBENCHMARKING {
 
         regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                                     : Channel.empty()
+        targets_bed_ch = params.targets_bed ? Channel.fromPath(params.targets_bed, checkIfExists: true).collect()
+                                                    : Channel.empty()
     }else{
         log.error "Please specify params.truth_id and params.truth_vcf or params.regions_bed to perform benchmarking analysis"
         exit 1
     }
 
+    // Optional files for Happy or Sompy
+    falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
+                                                    : Channel.of([[id: "falsepositive"],[]]).collect()
+    ambiguous_beds      = params.ambiguous_beds     ? Channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
+                                                    : Channel.of([[id: "ambiguous"],[]]).collect()
+    if (params.stratification_bed && params.stratification_tsv){
+        stratification_bed  = Channel.fromPath(params.stratification_bed, checkIfExists: true, type: 'dir').map{ bed -> tuple([id: "stratification"], bed) }.collect()
+        stratification_tsv  = Channel.fromPath(params.stratification_tsv, checkIfExists: true).map{ tsv -> tuple([id: "stratification"], tsv) }.collect()
+    }else{
+        stratification_bed  = Channel.of([[id: "stratification"],[]]).collect()
+        stratification_tsv  = Channel.of([[id: "stratification"],[]]).collect()
+    }
+
     // SDF file for RTG-tools eval
     sdf             = params.sdf        ? Channel.fromPath(params.sdf, checkIfExists: true).map{ sdf -> tuple([id: sdf.getSimpleName()], sdf) }.collect()
-                                                : Channel.empty()
+                                        : Channel.empty()
 
     if (params.rename_chr){
         rename_chr = Channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
@@ -227,8 +242,9 @@ workflow VARIANTBENCHMARKING {
     // Prepare benchmark channel
     PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
         .combine(regions_bed_ch.ifEmpty([[]]))
-        .map{ test_meta, test_vcf, test_tbi, _truth_meta, truth_vcf, truth_tbi, high_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, high_bed ]}
+        .combine(targets_bed_ch.ifEmpty([[]]))
+        .map{ test_meta, test_vcf, test_tbi, _truth_meta, truth_vcf, truth_tbi, regions_bed, targets_bed  ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
 
     evals_ch = Channel.empty()
@@ -255,7 +271,10 @@ workflow VARIANTBENCHMARKING {
                 bench,
                 fasta,
                 fai,
-                sdf
+                sdf,
+                falsepositive_bed,
+                stratification_bed,
+                stratification_tsv
             )
             ch_versions      = ch_versions.mix(SMALL_GERMLINE_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
@@ -272,7 +291,9 @@ workflow VARIANTBENCHMARKING {
                 bench,
                 fasta,
                 fai,
-                sdf
+                sdf,
+                falsepositive_bed,
+                ambiguous_beds
             )
             ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
@@ -293,10 +314,6 @@ workflow VARIANTBENCHMARKING {
         ch_reports
     )
     ch_versions      = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
-
-    // TODO: BENCHMARKING OF CNV
-    // https://bioconductor.org/packages/release/bioc/manuals/CNVfilteR/man/CNVfilteR.pdf
-
 
     // TODO: TRIO ANALYSIS : MENDELIAN INCONSISTANCE
 

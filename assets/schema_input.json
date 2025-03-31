@@ -12,14 +12,15 @@
                 "exists": true,
                 "pattern": "\\S+\\.(vcf|bcf)(\\.gz)?$",
                 "format": "file-path",
-                "errorMessage": "Test VCF must be provided, cannot contain spaces and must have extension '.vcf.gz', '.vcf', '.bcf.gz' or 'bcf'",
+                "errorMessage": "Test VCF must be provided, cannot contain spaces, has to exist and must have extension '.vcf.gz', '.vcf', '.bcf.gz' or 'bcf'",
                 "description": "The VCF file to use as benchmarking test input"
             },
             "test_regions": {
                 "type": "string",
                 "exists": true,
+                "pattern": "^\\S+\\.(vcf|bed|txt|cnn|csv|cns)(\\.gz)?$",
                 "format": "file-path",
-                "errorMessage": "Test file, regions file can be in multiple format and be used for intersect analysis.",
+                "errorMessage": "Test file, regions file can be in multiple format and be used for intersect analysis. The file has to exist",
                 "description": "Test regions, format can be changed by variant caller"
             },
             "id": {
@@ -28,7 +29,7 @@
                 "description": "Sample id",
                 "meta": ["id"],
                 "minLength": 1,
-                "errorMessage": "A custom id must be provided per test vcf"
+                "errorMessage": "A custom id must be provided per test vcf. This id needs to be a string without spaces"
             },
             "caller": {
                 "type": "string",

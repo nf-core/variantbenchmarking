@@ -274,8 +274,8 @@
                 "test1.HG002.strelka.roc.Locations.SNP.csv.gz:md5,8d2600c17665ed1299e2dd483705ddaa",
                 "test1.HG002.strelka.roc.all.csv.gz:md5,d0a4408438b2182cb82caec918c090f1",
                 "test1.HG002.strelka.summary.csv:md5,001fa2371777d1d2dc3eb0f4dcaca197",
-                "test1.HG002.strelka.phasing.txt:md5,0c9340e64e032b5f74d0ea3773464afd",
-                "test1.HG002.strelka.summary.txt:md5,4b775edb878759727ef66d5d5b2b9ee8",
+                "test1.HG002.strelka.phasing.txt:md5,0e7014af5954cdd0aaba75bf74cd7820",
+                "test1.HG002.strelka.summary.txt:md5,499484e299cb7b1e776413d321ccf3ef",
                 "test1.strelka.bcftools_stats.txt:md5,869e7eac4d1bde15c33ac3598af3b58e",
                 "test2.HG002.bcftools.extended.csv:md5,05c6efd85a9b9823a5ddfe6619be3323",
                 "test2.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,463cee548b7bdf133c0ae9b5803a50ca",
@@ -291,8 +291,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "24.10.5"
         },
-        "timestamp": "2025-01-29T17:04:40.563386602"
+        "timestamp": "2025-03-18T10:51:00.027786897"
     }
 }
