@@ -8,7 +8,7 @@ include { LIFTOVER_VCFS              } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM              } from '../../../modules/nf-core/bcftools/norm'
 include { PUBLISH_PROCESSED_VCF      } from '../../../modules/local/custom/publish_processed_vcf'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/local/bcftools/reheader'
 
 
 workflow PREPARE_VCFS_TRUTH {

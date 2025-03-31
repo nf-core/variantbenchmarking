@@ -23,8 +23,6 @@ process BCFTOOLS_REHEADER {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def fai_argument      = fai ? "--fai $fai" : ""
-    def header_argument   = header ? "--header $header" : ""
-    def samples_argument  = samples ? "--samples $samples" : ""
 
     def args2 = task.ext.args2 ?: '--output-type z'
     def extension = args2.contains("--output-type b") || args2.contains("-Ob") ? "bcf.gz" :
@@ -33,11 +31,12 @@ process BCFTOOLS_REHEADER {
                     args2.contains("--output-type v") || args2.contains("-Ov") ? "vcf" :
                     "vcf"
     """
+    echo ${meta.id} > ${meta.id}.txt
+
     bcftools \\
         reheader \\
         $fai_argument \\
-        $header_argument \\
-        $samples_argument \\
+        --samples ${meta.id}.txt \\
         $args \\
         --threads $task.cpus \\
         $vcf \\
