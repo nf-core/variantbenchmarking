@@ -8,14 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - Updated metromap
-- Implementing optional bed files for benchmarking tools (happy, rtgtools, sompy)
-- Adding stratifications for genome
+- [Implementing optional bed files for benchmarking tools (happy, rtgtools, sompy) & adding stratifications for genome](https://github.com/nf-core/variantbenchmarking/pull/167)
 
 ### `Fixed`
 
-- official logo
-- bcftools_reheader issue for HPCs
-- json-schema-improvements
+- [official logo cleanup](https://github.com/nf-core/variantbenchmarking/pull/171)
+- [bcftools_reheader issue for HPCs](https://github.com/nf-core/variantbenchmarking/pull/170)
+- [json-schema-improvements](https://github.com/nf-core/variantbenchmarking/pull/168)
 
 ### `Dependencies`
 
