@@ -178,6 +178,7 @@ We thank the following people for their extensive assistance in the development 
 - Maxime Garcia ([@maxulysse](https://github.com/maxulysse)),
 - Sameesh Kher ([@khersameesh24](https://github.com/khersameesh24))
 - Florian Heyl ([@heylf](https://github.com/heyl))
+- Krešimir Beštak ([@kbestak](https://github.com/kbestak))
 - Elad Herz ([@EladH1](https://github.com/EladH1))
 
 ## Acknowledgements
