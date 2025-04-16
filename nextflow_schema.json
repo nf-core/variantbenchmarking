@@ -51,8 +51,8 @@
                 "method": {
                     "type": "string",
                     "description": "The benchmarking methods to use. For germline small variants (SNV and INDEL) use happy and/or rtgtools, for somatic small variants (SNV and INDEL) use sompy and/or rtgtools, for structural variants use wittyer, truvari and/or svanalyzer, for copy number variations use wittyer and/or truvari. Use intersect to intersect BED files. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect",
-                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect)?,?)*(?<!,)$",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect, bndeval",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect|bndeval)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "regions_bed": {
