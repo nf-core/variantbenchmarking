@@ -23,14 +23,17 @@ process BEDTOOLS_INTERSECT {
 
     script:
     def args = task.ext.args ?: ''
-    def format = meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" ? "${meta.caller}" : "bed"
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    // caveman, cnvkit, controlfreec, facets and ascat has different cnv file beds which needs to be converted, yet if a
+    def format = (meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" || meta.caller == "ascat") && (!meta.converted) ? "${meta.caller}" : "bed"
 
     """
     bedtools_intersect.py \\
         $truth \\
         $test \\
-        $meta.id \\
-        $format
+        $prefix \\
+        $format \\
+        $params.genome
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
