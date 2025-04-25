@@ -271,6 +271,12 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `test_full`
   - A profile with a complete configuration for full size of sample testing
   - Includes links to test data so needs no other parameters
+- `test_happy`
+  - A profile with a complete configuration for running happy tool with stratification files
+  - Includes links to test data so needs no other parameters
+- `test_ga4gh`
+  - A profile with a complete configuration for running happy with rtgtools as comparison engine, this showcases GA4GH best practices.
+  - Includes links to test data so needs no other parameters
 - `liftover_test`
   - A profile with a complete configuration for using liftover of HG002 hg38 test set to hg37
   - Includes links to test data so needs no other parameters
