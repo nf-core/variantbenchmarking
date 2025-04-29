@@ -12,7 +12,8 @@ process BEDTOOLS_INTERSECT {
 
     output:
     tuple val(meta),path("*stats.csv")    , emit: summary
-    tuple val(meta),path("*TP.bed")       , emit: tp
+    tuple val(meta),path("*TP_base.bed")  , emit: tp_base
+    tuple val(meta),path("*TP_comp.bed")  , emit: tp_comp
     tuple val(meta),path("*FP.bed")       , emit: fp
     tuple val(meta),path("*FN.bed")       , emit: fn
     tuple val(meta),path("*converted.bed"), emit: out_bed, optional: true
@@ -33,7 +34,8 @@ process BEDTOOLS_INTERSECT {
         $test \\
         $prefix \\
         $format \\
-        $params.genome
+        $params.genome \\
+        $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -43,7 +45,8 @@ process BEDTOOLS_INTERSECT {
     stub:
     """
     touch ${meta.id}_stats.txt
-    touch ${meta.id}_TP.bed
+    touch ${meta.id}_TP_comp.bed
+    touch ${meta.id}_TP_base.bed
     touch ${meta.id}_FP.bed
     touch ${meta.id}_FN.bed
     touch ${meta.id}_converted.bed

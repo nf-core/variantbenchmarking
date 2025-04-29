@@ -6,10 +6,6 @@
 import pandas as pd
 from pybedtools import BedTool
 
-def read_bed(file):
-    """Read a BED file into a BedTool object."""
-    return BedTool(file)
-
 def fix_chrom_prefix(chrom_series, reference):
     if reference == "GRCh38":
         return chrom_series.apply(lambda x: x if x.startswith("chr") else f"chr{x}")
@@ -62,29 +58,43 @@ def compute_statistics(truth_file, test_file):
     bed1 = BedTool(truth_file)  # Ground truth
     bed2 = BedTool(test_file)   # Test file
 
-    # Compute intersections
-    intersect = bed1.intersect(bed2, u=True)
-    TP = len(intersect)
+
+    # Convert to sets of string lines for comparison
+    tp_from_truth = bed1.intersect(bed2, u=True, f=args.min_overlap, r=True)
+    bed1_lines = set(str(feature) for feature in bed1)
+    bed2_lines = set(str(feature) for feature in bed2)
+    tp_lines = set(str(feature) for feature in tp_from_truth)
+
+    # False Negatives = in truth but not in TP
+    fn_lines = bed1_lines - tp_lines
+
+    # False Positives = in test but not in TP (from test's perspective)
+    # So we need to find TP regions from bed2's point of view
+    tp_from_test = bed2.intersect(bed1, u=True, f=args.min_overlap, r=True)
+    tp_test_lines = set(str(feature) for feature in tp_from_test)
+    fp_lines = bed2_lines - tp_test_lines
 
     # Compute false negatives (FN) and false positives (FP)
-    FN_regions = bed1.intersect(bed2, v=True)  # Regions in truth file missed by test file
-    FP_regions = bed2.intersect(bed1, v=True)  # Extra regions in test file not in truth file
-    FN = len(FN_regions)
-    FP = len(FP_regions)
+    TP_base = len(tp_lines)
+    TP_comp = len(tp_test_lines)
+    FN = len(fn_lines)
+    FP = len(fp_lines)
+
 
     # Precision, Recall, F1-score
-    precision = TP / (TP + FP) if (TP + FP) > 0 else 0
-    recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+    precision = TP_comp / (TP_comp + FP) if (TP_comp + FP) > 0 else 0
+    recall = TP_base / (TP_base + FN) if (TP_base + FN) > 0 else 0
     f1_score = (2 * precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
 
     return {
-        "TP": TP,
+        "TP_base": TP_base,
+        "TP_comp": TP_comp,
         "FN": FN,
         "FP": FP,
         "Precision": precision,
         "Recall": recall,
         "F1": f1_score
-    }, intersect, FN_regions, FP_regions
+    }, tp_from_truth, tp_from_test, fn_lines, fp_lines
 
 def save_statistics(stats, output_prefix):
     """Save statistics to a CSV file."""
@@ -92,9 +102,14 @@ def save_statistics(stats, output_prefix):
     df = pd.DataFrame([stats])
     df.to_csv(f"{output_prefix}_stats.csv", index=False)
 
-def save_bedfile(bedtool_obj, filename):
-    """Save the BedTool object to a BED file."""
-    bedtool_obj.saveas(filename)
+def write_bed(features, output_path):
+    features = sorted(features, key=lambda x: (x.chrom, x.start, x.end)) if hasattr(next(iter(features)), 'chrom') else sorted(features)
+    with open(output_path, 'w') as out:
+        for item in features:
+            if isinstance(item, str):
+                out.write(item if item.endswith('\n') else item + '\n')
+            else:
+                out.write(str(item))
 
 if __name__ == "__main__":
     import argparse
@@ -106,6 +121,7 @@ if __name__ == "__main__":
     parser.add_argument("output_prefix", help="Prefix for output files")
     parser.add_argument("test_tool", choices=["bed", "facets", "controlfreec", "cnvkit", "caveman", "ascat"], default="bed", help="Specify the tool used for test file (default: bed)")
     parser.add_argument("genome", choices=["GRCh37", "GRCh38"], help="Reference genome build: GRCh37 (no 'chr' prefix) or GRCh38 (with 'chr' prefix)")
+    parser.add_argument("min_overlap", default=0.000000001, help="Minimum overlap required as a fraction between the files")
 
     args = parser.parse_args()
 
@@ -134,14 +150,9 @@ if __name__ == "__main__":
 
         write_to_csv(df, test_bed_file, args.genome)
 
-    stats, intersect, missed, extra = compute_statistics(args.truth_file, test_bed_file)
+    stats, tp_from_truth, tp_from_test, fn_lines, fp_lines = compute_statistics(args.truth_file, test_bed_file)
     save_statistics(stats, args.output_prefix)
-    save_bedfile(intersect, f"{args.output_prefix}_TP.bed")
-    save_bedfile(missed, f"{args.output_prefix}_FN.bed")
-    save_bedfile(extra, f"{args.output_prefix}_FP.bed")
-
-    print("Statistics saved to", f"{args.output_prefix}_stats.csv")
-    print("Intersected regions saved to", f"{args.output_prefix}_TP.bed")
-    print("Missed regions saved to", f"{args.output_prefix}_FN.bed")
-    print("Extra regions saved to", f"{args.output_prefix}_FP.bed")
-    print("Converted BED file", f"{args.output_prefix}_converted.bed")
+    write_bed(tp_from_truth, f"{args.output_prefix}_TP_base.bed")
+    write_bed(tp_from_test, f"{args.output_prefix}_TP_comp.bed")
+    write_bed(fn_lines, f"{args.output_prefix}_FN.bed")
+    write_bed(fp_lines, f"{args.output_prefix}_FP.bed")
