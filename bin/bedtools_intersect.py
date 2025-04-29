@@ -103,7 +103,14 @@ def save_statistics(stats, output_prefix):
     df.to_csv(f"{output_prefix}_stats.csv", index=False)
 
 def write_bed(features, output_path):
-    features = sorted(features, key=lambda x: (x.chrom, x.start, x.end)) if hasattr(next(iter(features)), 'chrom') else sorted(features)
+    features = list(features)  # Force materialization once
+
+    # Try sorting based on whether it's Interval or str
+    if features and hasattr(features[0], 'chrom'):
+        features = sorted(features, key=lambda x: (x.chrom, x.start, x.end))
+    else:
+        features = sorted(features)
+
     with open(output_path, 'w') as out:
         for item in features:
             if isinstance(item, str):

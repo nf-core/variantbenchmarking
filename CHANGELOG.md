@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [Fixing bedtools intersection logic for CNV calculations](https://github.com/nf-core/variantbenchmarking/pull/192)
+
 ### `Dependencies`
 
 ### `Deprecated`
