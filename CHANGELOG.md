@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [Adding a test profile to showcase running with GA4GH best practices happy with rtgtools engine](https://github.com/nf-core/variantbenchmarking/pull/189)
+- Adding a test profile to showcase running with GA4GH best practices happy with rtgtools engine ([#189](https://github.com/nf-core/variantbenchmarking/pull/189))
 
 ### `Fixed`
 
-- [Fixing bedtools intersection logic for CNV calculations](https://github.com/nf-core/variantbenchmarking/pull/192)
+- Fixing bedtools intersection logic for CNV calculations ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
 
 ### `Dependencies`
+
+- Downgrade nf-schema to fix CI tests ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
 
 ### `Deprecated`
 
