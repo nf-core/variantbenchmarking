@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/variantbenchmarking/master/nextflow_schema.json",
     "title": "nf-core/variantbenchmarking pipeline parameters",
-    "description": "Benchmarking pipeline for germline and somatic variant callers ",
+    "description": "Variant Benchmarking pipeline for germline and somatic variant callers ",
     "type": "object",
     "$defs": {
         "input_output_options": {
