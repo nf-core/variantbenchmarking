@@ -175,10 +175,11 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,2a3294dcbb89d63042d713a7bb6f32ee",
-                "truvari.FN.csv:md5,35e9e78da64de71a4b30e01556332411",
-                "truvari.FP.csv:md5,6186838a4dbb1e98bb7e65e50c3c0331",
-                "truvari.TP_base.csv:md5,9377e4ae17ffd532663ae86cfd3b0b6e",
-                "truvari.TP_comp.csv:md5,9377e4ae17ffd532663ae86cfd3b0b6e",
+                "test1.SEQC2.manta.converted_FN.bed:md5,ddbcf134600fbacf9fae1926a36e8334",
+                "test1.SEQC2.manta.converted_FP.bed:md5,1c5d89b7fa46e521f1169eb0e733c90f",
+                "test1.SEQC2.manta.converted_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.SEQC2.manta.converted_TP_comp.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test1.SEQC2.manta.converted_stats.csv:md5,4f5d8361d6d70a436bb2024a15ad8a9b",
                 "test1.bed:md5,b9460589a20c8cba779d9d2ee00a386b",
                 "test1.manta.bcftools_stats.txt:md5,25db74402d4ab56558ab44ab0a1214df",
                 "test2.SEQC2.caveman_FN.bed:md5,78d78fe7a01c697f4d0d55798cc7ec42",
@@ -204,6 +205,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-05-02T12:45:13.100999082"
+        "timestamp": "2025-05-02T14:34:00.41665881"
     }
 }

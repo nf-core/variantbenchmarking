@@ -27,7 +27,7 @@ references/rtgtools/genome.sdf/done
 **/summary/plots/happy/*.png
 **/summary/plots/rtgtools/*.png
 **/summary/plots/**/*.png
-**/summary/comparisons/*.csv
+**/summary/comparisons/**/*.csv
 **/summary/tables/**/*.csv
 **/**/benchmarks/**/*.{json,json.gz,tsv.gz,vcf.gz,gz.tbi}
 **/**/benchmarks/svanalyzer/*.log
