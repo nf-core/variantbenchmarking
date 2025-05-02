@@ -65,10 +65,11 @@
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
-                "structural/summary/comparisons/truvari.FN.csv",
-                "structural/summary/comparisons/truvari.FP.csv",
-                "structural/summary/comparisons/truvari.TP_base.csv",
-                "structural/summary/comparisons/truvari.TP_comp.csv",
+                "structural/summary/comparisons/truvari",
+                "structural/summary/comparisons/truvari/truvari.FN.csv",
+                "structural/summary/comparisons/truvari/truvari.FP.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_base.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "structural/summary/datavzrd",
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
@@ -149,6 +150,10 @@
             [
                 "HG002.bcftools_stats.txt:md5,f63d8da43be98bae4e02c43966313e5c",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
+                "truvari.FN.csv:md5,fd4899b6668478eb498d2ce9eaeab396",
+                "truvari.FP.csv:md5,df0048e399e665a2227f053754ea8460",
+                "truvari.TP_base.csv:md5,21fdd89fea5d89a8354015d4d7897ab8",
+                "truvari.TP_comp.csv:md5,d1e5abb6b028d846212323f8ad3844c1",
                 "test1.delly.bcftools_stats.txt:md5,f204ab10d82b3cbc9ee51cb6ad548121",
                 "test1.delly_mqc.stats:md5,e140ad55975c767578b0dd6aff58ba29",
                 "test2.manta.bcftools_stats.txt:md5,0de1446278a5448b7dc5a02bcbf927a4",
@@ -157,8 +162,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "24.10.6"
         },
-        "timestamp": "2025-01-29T16:59:49.763590382"
+        "timestamp": "2025-05-02T11:45:25.030479701"
     }
 }

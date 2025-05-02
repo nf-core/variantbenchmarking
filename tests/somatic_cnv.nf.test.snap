@@ -51,10 +51,11 @@
                 "copynumber/multiqc/multiqc_report.html",
                 "copynumber/summary",
                 "copynumber/summary/comparisons",
-                "copynumber/summary/comparisons/truvari.FN.csv",
-                "copynumber/summary/comparisons/truvari.FP.csv",
-                "copynumber/summary/comparisons/truvari.TP_base.csv",
-                "copynumber/summary/comparisons/truvari.TP_comp.csv",
+                "copynumber/summary/comparisons/truvari",
+                "copynumber/summary/comparisons/truvari/truvari.FN.csv",
+                "copynumber/summary/comparisons/truvari/truvari.FP.csv",
+                "copynumber/summary/comparisons/truvari/truvari.TP_base.csv",
+                "copynumber/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "copynumber/summary/datavzrd",
                 "copynumber/summary/datavzrd/intersect",
                 "copynumber/summary/datavzrd/intersect/index.html",
@@ -167,6 +168,10 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,2a3294dcbb89d63042d713a7bb6f32ee",
+                "truvari.FN.csv:md5,35e9e78da64de71a4b30e01556332411",
+                "truvari.FP.csv:md5,6186838a4dbb1e98bb7e65e50c3c0331",
+                "truvari.TP_base.csv:md5,9377e4ae17ffd532663ae86cfd3b0b6e",
+                "truvari.TP_comp.csv:md5,9377e4ae17ffd532663ae86cfd3b0b6e",
                 "test1.bed:md5,b9460589a20c8cba779d9d2ee00a386b",
                 "test1_FN.bed:md5,4dbcd67d71549712e61fb72717b55b08",
                 "test1_FP.bed:md5,18b5ec0a7f698f78a0e46668a5ffb2eb",
@@ -191,8 +196,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "24.10.6"
         },
-        "timestamp": "2025-03-26T14:30:18.601486506"
+        "timestamp": "2025-05-02T11:52:44.639309585"
     }
 }

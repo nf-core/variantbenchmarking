@@ -62,10 +62,11 @@
                 "indel/multiqc/multiqc_report.html",
                 "indel/summary",
                 "indel/summary/comparisons",
-                "indel/summary/comparisons/rtgtools.FN.csv",
-                "indel/summary/comparisons/rtgtools.FP.csv",
-                "indel/summary/comparisons/rtgtools.TP_base.csv",
-                "indel/summary/comparisons/rtgtools.TP_comp.csv",
+                "indel/summary/comparisons/rtgtools",
+                "indel/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "indel/summary/datavzrd",
                 "indel/summary/datavzrd/rtgtools",
                 "indel/summary/datavzrd/rtgtools/index.html",
@@ -174,6 +175,10 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,97beec3b6ce6471625018d91c75df08d",
+                "rtgtools.FN.csv:md5,b0428b7dcdddfd6852050c018324399f",
+                "rtgtools.FP.csv:md5,169df17d9b08b02f74a4403281ac0772",
+                "rtgtools.TP_base.csv:md5,5186ec7648467fdee122e3a225d63d8a",
+                "rtgtools.TP_comp.csv:md5,5186ec7648467fdee122e3a225d63d8a",
                 "test1.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test1.SEQC2.freebayes.summary.txt:md5,fbbaa4938809fe8672a67d0b258bfeb3",
                 "test1.freebayes.bcftools_stats.txt:md5,ca4f9a72e5cb852b78dbdf92142a4a6f",
@@ -200,8 +205,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "24.10.6"
         },
-        "timestamp": "2025-03-04T13:28:48.675855936"
+        "timestamp": "2025-05-02T11:49:26.084080915"
     }
 }
