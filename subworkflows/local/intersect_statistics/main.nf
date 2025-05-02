@@ -19,8 +19,8 @@ workflow INTERSECT_STATISTICS {
     test.branch{
             def vcf_file = it[1]
             def regions_file = it[2]
+            regions : regions_file.extension != "tbi"
             vcf : vcf_file
-            regions : regions_file
             other: false}
             .set{test_samples}
 
@@ -32,8 +32,14 @@ workflow INTERSECT_STATISTICS {
         SVTK_VCF2BED(
             test_samples.vcf
         )
-        test_beds_ch = test_beds_ch.mix(SVTK_VCF2BED.out.bed)
+
+        // collect summary reports
+        SVTK_VCF2BED.out.bed
+            .map { meta, file -> tuple(meta + [converted: true], file) }
+            .set{ converted_beds }
+        test_beds_ch = test_beds_ch.mix(converted_beds)
         versions  = versions.mix(SVTK_VCF2BED.out.versions)
+
     }
 
     if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
@@ -47,7 +53,11 @@ workflow INTERSECT_STATISTICS {
         BEDOPS_CONVERT2BED(
             TABIX_BGZIP.out.output
         )
-        test_beds_ch = test_beds_ch.mix(BEDOPS_CONVERT2BED.out.bed)
+        // collect summary reports
+        BEDOPS_CONVERT2BED.out.bed
+            .map { meta, file -> tuple(meta + [converted: true], file) }
+            .set{ converted_beds }
+        test_beds_ch = test_beds_ch.mix(converted_beds)
         versions  = versions.mix(BEDOPS_CONVERT2BED.out.versions)
     }
 
