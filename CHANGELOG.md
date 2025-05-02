@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [Adding a test profile to showcase running with GA4GH best practices happy with rtgtools engine](https://github.com/nf-core/variantbenchmarking/pull/189)
-- nf-core-template-merge-3.2.1
+- nf-core-template-merge-3.2.1 ([#193](https://github.com/nf-core/variantbenchmarking/pull/193))
 
 ### `Fixed`
 
