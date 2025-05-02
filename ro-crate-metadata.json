@@ -32,6 +32,9 @@
                     "@id": "assets/"
                 },
                 {
+                    "@id": "bin/"
+                },
+                {
                     "@id": "conf/"
                 },
                 {
@@ -42,6 +45,9 @@
                 },
                 {
                     "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
                 },
                 {
                     "@id": "modules/nf-core/"
@@ -125,9 +131,20 @@
             "dateCreated": "",
             "dateModified": "2025-04-30T12:28:46Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
-            "keywords": ["nf-core", "nextflow", "benchmark", "draft", "structural-variants", "variant-calling"],
-            "license": ["MIT"],
-            "name": ["nf-core/variantbenchmarking"],
+            "keywords": [
+                "nf-core",
+                "nextflow",
+                "benchmark",
+                "draft",
+                "structural-variants",
+                "variant-calling"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "name": [
+                "nf-core/variantbenchmarking"
+            ],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
@@ -186,6 +203,11 @@
             "description": "Additional files"
         },
         {
+            "@id": "bin/",
+            "@type": "Dataset",
+            "description": "Scripts that must be callable from a pipeline process"
+        },
+        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -204,6 +226,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -290,6 +317,24 @@
             "@type": "Organization",
             "name": "nf-core",
             "url": "https://nf-co.re/"
+        },
+        {
+            "@id": "#max.u.garcia@gmail.com",
+            "@type": "Person",
+            "email": "max.u.garcia@gmail.com",
+            "name": "Maxime U Garcia"
+        },
+        {
+            "@id": "https://orcid.org/0009-0003-5619-1555",
+            "@type": "Person",
+            "email": "101190534+nvnieuwk@users.noreply.github.com",
+            "name": "Nicolas Vannieuwkerke"
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-3532-2152",
+            "@type": "Person",
+            "email": "kbrnrc@gmail.com",
+            "name": "K\u00fcbra Narc\u0131"
         }
     ]
 }

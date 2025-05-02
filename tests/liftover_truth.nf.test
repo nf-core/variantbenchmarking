@@ -1,0 +1,42 @@
+nextflow_pipeline {
+
+    name "Test pipeline for liftover small germline variants, tested benchmarking methods are happy and rtgtools"
+    script "../main.nf"
+    tag "pipeline"
+    tag "small"
+    tag "germline"
+    tag "liftover"
+    tag "hg38"
+    config "../conf/tests/liftover_truth.config"
+
+    test("Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'") {
+
+        when {
+            params {
+                outdir               = "$outputDir"
+                test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
+
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}

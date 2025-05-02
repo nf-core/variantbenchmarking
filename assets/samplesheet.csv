@@ -1,3 +1,4 @@
-sample,fastq_1,fastq_2
-SAMPLE_PAIRED_END,/path/to/fastq/files/AEG588A1_S1_L002_R1_001.fastq.gz,/path/to/fastq/files/AEG588A1_S1_L002_R2_001.fastq.gz
-SAMPLE_SINGLE_END,/path/to/fastq/files/AEG588A4_S4_L003_R1_001.fastq.gz,
+id,test_vcf,caller
+test1,https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg37/test/germline/HG002_delly_SV_hg19.chr21.vcf.gz,delly
+test2,https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg37/test/germline/HG002_lumpy_SV_hg19.sorted.vcf.gz,lumpy
+test3,https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg37/test/germline/HG002_manta_SV_hg19_genotype.chr21.vcf.gz,manta
