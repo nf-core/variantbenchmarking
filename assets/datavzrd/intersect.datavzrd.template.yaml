@@ -9,7 +9,9 @@ views:
       columns:
         Tool:
           display-mode: normal
-        TP:
+        TP_base:
+          display-mode: normal
+        TP_comp:
           display-mode: normal
         FN:
           display-mode: normal

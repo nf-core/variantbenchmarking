@@ -101,6 +101,7 @@
                 "structural/summary/datavzrd/svbenchmark/test/plots/plot_5.js",
                 "structural/summary/datavzrd/svbenchmark/test/plots/plot_6.js",
                 "structural/summary/datavzrd/svbenchmark/test/plots/plot_7.js",
+                "structural/summary/datavzrd/svbenchmark/test/plots/plot_8.js",
                 "structural/summary/datavzrd/versions.yml",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
@@ -157,8 +158,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.4"
+            "nextflow": "24.10.6"
         },
-        "timestamp": "2025-02-04T10:56:57.458901208"
+        "timestamp": "2025-04-29T15:14:41.617520369"
     }
 }

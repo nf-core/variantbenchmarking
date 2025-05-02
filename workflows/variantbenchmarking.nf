@@ -164,14 +164,14 @@ workflow VARIANTBENCHMARKING {
 
     // PREPROCESSES
 
-    // split out samples for intersection analysis
-    // subsample multisample vcf if necessary
+    // subsample multisample vcf if necessary, filter out cases without test vcf (only regions)
+
     ch_samplesheet.branch{
             def meta = it[0]
-            def regions_file = it[2]
+            def vcf = it[1]
             multisample: meta.subsample != null
-            regions : regions_file
-            other: true}
+            singlesample : vcf
+            other: false}
         .set{sample}
 
     out_vcf_ch  = Channel.empty()
@@ -181,7 +181,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(SUBSAMPLE_VCF_TEST.out.versions)
     vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
-                                sample.other.map{meta, vcf, bed -> [meta, vcf]})
+                                sample.singlesample.map{meta, vcf, bed -> [meta, vcf]})
 
     if (params.variant_type == "structural" ){
         // Standardize SV VCFs, tool specific modifications
@@ -228,14 +228,21 @@ workflow VARIANTBENCHMARKING {
 
 
     // If intersect is in the methods, perform bedtools intersect to region files given
+    ch_samplesheet.branch{
+        def meta = it[0]
+        def regions_file = it[2]
+        regions : regions_file
+        other: false}
+        .set{intersect}
+
     if (params.method.contains("intersect")){
 
         INTERSECT_STATISTICS(
-            sample.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
+            intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-    ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
-    ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
+        ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
+        ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
 
     }
 
