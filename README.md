@@ -173,7 +173,6 @@ This pipeline outputs benchmarking results per method besides to the inferred an
 
 ## Credits
 
-
 nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarci](https://github.com/kubranarci)) as a part of benchmarking studies in German Human Genome Phenome Archieve Project ([GHGA](https://www.ghga.de/)).
 
 We thank the following people for their extensive assistance in the development of this pipeline:
