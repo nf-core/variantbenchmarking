@@ -4,7 +4,7 @@ lint:
     - .gitignore
     - docs/images/nf-core-variantbenchmarking_logo_dark.png
     - docs/images/nf-core-variantbenchmarking_logo_light.png
-nf_core_version: 3.2.0
+nf_core_version: 3.2.1
 repository_type: pipeline
 template:
   author: kuebra.narci@dkfz-heidelberg.de
