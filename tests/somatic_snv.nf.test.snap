@@ -91,9 +91,6 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.FN.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.FP.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.TP.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
@@ -103,7 +100,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-04-30T15:09:30.331599552"
+        "timestamp": "2025-05-05T08:25:35.989597725"
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'": {
         "content": [
@@ -259,9 +256,6 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,2a23dd61a56e7e6435a8ba4617fd793d",
-                "sompy.FN.summary.csv:md5,9f9e7373db3e3f99c22cb75c8aa035e9",
-                "sompy.FP.summary.csv:md5,aa67b1d3eece596ea84e384c1ae33856",
-                "sompy.TP.summary.csv:md5,d91001f76b715e35201c9962805f07f3",
                 "test1.freebayes.bcftools_stats.txt:md5,ca4f9a72e5cb852b78dbdf92142a4a6f",
                 "test2.manta.bcftools_stats.txt:md5,0806ab1c22d599b40abc4d22a129a1e2",
                 "test3.strelka.bcftools_stats.txt:md5,9fc6a285b83b2c2652080562ba9e94d6"
@@ -271,6 +265,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-04-30T15:07:33.870108002"
+        "timestamp": "2025-05-05T08:23:44.051896776"
     }
 }

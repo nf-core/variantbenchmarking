@@ -264,12 +264,6 @@
             [
                 "HG002.bcftools_stats.txt:md5,bc95472c545c41b97fc6c657ebb1132b",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "svbenchmark.FN.csv:md5,a42df44657c674ca56a1af5ced3f72b3",
-                "svbenchmark.FP.csv:md5,35ffa6f0dc7a388edcaf715e7eb0522e",
-                "truvari.FN.csv:md5,337a0432453f67d12daf5c7679fe1b5e",
-                "truvari.FP.csv:md5,dc48e51d30fbdb596e54c7a7a36b1e75",
-                "truvari.TP_base.csv:md5,6e4122d6f36781059e368360dce6e4a9",
-                "truvari.TP_comp.csv:md5,4833dbe3bbf31399e419f200718690f7",
                 "test1.HG002.manta.distances:md5,b66127be418228969d3db50dd54f82ae",
                 "test1.HG002.manta.report:md5,710cf6d3a7d94b82ce40fd6fab195f35",
                 "test1.manta.bcftools_stats.txt:md5,db893fb61ca1ec2f2be4dcf17502c78f",
@@ -288,7 +282,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-05-02T11:26:42.940253626"
+        "timestamp": "2025-05-05T07:52:45.004576165"
     },
     "-stub": {
         "content": [
@@ -491,12 +485,6 @@
             [
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.TP_base.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "truvari.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.manta.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -515,6 +503,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-05-02T11:28:57.257492987"
+        "timestamp": "2025-05-05T07:55:04.557039165"
     }
 }

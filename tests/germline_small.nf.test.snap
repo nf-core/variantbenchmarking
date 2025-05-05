@@ -152,10 +152,6 @@
             [
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.TP_base.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
@@ -182,7 +178,7 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-05-02T12:10:39.434422582"
+        "timestamp": "2025-05-05T08:01:14.504196953"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -447,10 +443,6 @@
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002.bcftools_stats.txt:md5,25a566bfca26275fbdce5d80b4c43d45",
-                "rtgtools.FN.csv:md5,23d2b1f5f9082cb2e44f74b5d2c665d3",
-                "rtgtools.FP.csv:md5,ff927fa4aea144b59d365acd394976e0",
-                "rtgtools.TP_base.csv:md5,b657f746e64bbdadb4ce0a30d66d464f",
-                "rtgtools.TP_comp.csv:md5,986234d1c9c14c0c7da6c7139740029a",
                 "test1.HG002.strelka.extended.csv:md5,07297e4480e0b765b290a10f8bddbfe8",
                 "test1.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,0f68dbeccf04d6bbe942ae90a70da219",
                 "test1.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,f15e3ec73cba5af3632bd276e9d93278",
@@ -477,6 +469,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-05-02T12:08:34.918527463"
+        "timestamp": "2025-05-05T07:58:58.191485841"
     }
 }
