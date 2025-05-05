@@ -92,6 +92,9 @@ Available methods for *small variants: SNVs and INDEL*s:
 - Germline variant benchmarking using ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - Somatic variant benchmarking using ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 
+> [!NOTE]
+> Please note that using happ.py and som.py with rtgtools as comparison engine is also possible. Check conf/tests/test_ga4gh.config as an example.
+
 ### Intersection of benchmark regions:
 
 Intersecting test and truth BED regions produces benchmark metrics. Intersection analysis is especially recommended for _CNV benchmarking_ where result reports may variate per tool.

@@ -12,7 +12,8 @@ process BEDTOOLS_INTERSECT {
 
     output:
     tuple val(meta),path("*stats.csv")    , emit: summary
-    tuple val(meta),path("*TP.bed")       , emit: tp
+    tuple val(meta),path("*TP_base.bed")  , emit: tp_base
+    tuple val(meta),path("*TP_comp.bed")  , emit: tp_comp
     tuple val(meta),path("*FP.bed")       , emit: fp
     tuple val(meta),path("*FN.bed")       , emit: fn
     tuple val(meta),path("*converted.bed"), emit: out_bed, optional: true
@@ -23,14 +24,18 @@ process BEDTOOLS_INTERSECT {
 
     script:
     def args = task.ext.args ?: ''
-    def format = meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" ? "${meta.caller}" : "bed"
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    // caveman, cnvkit, controlfreec, facets and ascat has different cnv file beds which needs to be converted, yet if a
+    def format = (meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" || meta.caller == "ascat") && (!meta.converted) ? "${meta.caller}" : "bed"
 
     """
     bedtools_intersect.py \\
         $truth \\
         $test \\
-        $meta.id \\
-        $format
+        $prefix \\
+        $format \\
+        $params.genome \\
+        $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -40,7 +45,8 @@ process BEDTOOLS_INTERSECT {
     stub:
     """
     touch ${meta.id}_stats.txt
-    touch ${meta.id}_TP.bed
+    touch ${meta.id}_TP_comp.bed
+    touch ${meta.id}_TP_base.bed
     touch ${meta.id}_FP.bed
     touch ${meta.id}_FN.bed
     touch ${meta.id}_converted.bed
