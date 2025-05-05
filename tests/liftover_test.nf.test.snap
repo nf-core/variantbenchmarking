@@ -65,10 +65,11 @@
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
-                "structural/summary/comparisons/truvari.FN.csv",
-                "structural/summary/comparisons/truvari.FP.csv",
-                "structural/summary/comparisons/truvari.TP_base.csv",
-                "structural/summary/comparisons/truvari.TP_comp.csv",
+                "structural/summary/comparisons/truvari",
+                "structural/summary/comparisons/truvari/truvari.FN.csv",
+                "structural/summary/comparisons/truvari/truvari.FP.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_base.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "structural/summary/datavzrd",
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
@@ -160,6 +161,6 @@
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-04-30T08:37:29.484526225"
+        "timestamp": "2025-05-02T14:31:14.171311857"
     }
 }

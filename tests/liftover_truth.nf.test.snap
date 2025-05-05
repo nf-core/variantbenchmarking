@@ -93,10 +93,11 @@
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
                 "small/summary/comparisons",
-                "small/summary/comparisons/rtgtools.FN.csv",
-                "small/summary/comparisons/rtgtools.FP.csv",
-                "small/summary/comparisons/rtgtools.TP_base.csv",
-                "small/summary/comparisons/rtgtools.TP_comp.csv",
+                "small/summary/comparisons/rtgtools",
+                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -291,8 +292,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "24.10.6"
         },
-        "timestamp": "2025-03-18T10:51:00.027786897"
+        "timestamp": "2025-05-05T08:45:44.201923986"
     }
 }

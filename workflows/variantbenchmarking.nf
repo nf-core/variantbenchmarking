@@ -254,7 +254,8 @@ workflow VARIANTBENCHMARKING {
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
 
-    evals_ch = Channel.empty()
+    evals_ch     = Channel.empty()
+    evals_csv_ch = Channel.empty()
 
 
     if (params.variant_type == "structural" || params.variant_type == "copynumber"){
@@ -305,12 +306,15 @@ workflow VARIANTBENCHMARKING {
             ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
             evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
+            evals_csv_ch     = evals_csv_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants_csv)
         }
 
     }
+
     // compare tool spesfic benchmarks
     COMPARE_BENCHMARK_RESULTS(
         evals_ch,
+        evals_csv_ch,
         fasta,
         fai
     )
