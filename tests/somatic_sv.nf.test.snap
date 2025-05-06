@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
-            37,
+            43,
             null,
             [
                 "pipeline_info",
@@ -147,19 +147,19 @@
                 "SEQC2.bcftools_stats.txt:md5,e1a7c33b75d3e2688ba48b1b9975b467",
                 "SEQC2_mqc.stats:md5,cb253f3829a25286d572c91a9ea75e9e",
                 "test1.SEQC2.freebayes.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
-                "test1.SEQC2.freebayes.report:md5,8140e61dd8527ba0cbd63cb52aa93219",
-                "test1.freebayes.bcftools_stats.txt:md5,4a7f705c0411cf01c3ec0914b945dcfd",
-                "test1.freebayes_mqc.stats:md5,d7782c48b7721cc5a707ed913f7df910",
+                "test1.SEQC2.freebayes.report:md5,e7837d3f732ecc70d8b379a7b83091e4",
+                "test1.freebayes.bcftools_stats.txt:md5,2cbe6615b45daf53460edf3fae855ccd",
+                "test1.freebayes_mqc.stats:md5,10c47f239ae838d4601adaf2f2d43381",
                 "test2.SEQC2.strelka.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
-                "test2.SEQC2.strelka.report:md5,151562898a99713affbcb3e834d824ad",
-                "test2.strelka.bcftools_stats.txt:md5,1d41ebd0fd21a2a3d204b4ce390db815",
-                "test2.strelka_mqc.stats:md5,ec044ea659043ecbc5a140d040d871c6"
+                "test2.SEQC2.strelka.report:md5,031c48c8e6c88545b2a85bc42565505b",
+                "test2.strelka.bcftools_stats.txt:md5,7e968b37dd84be58cac93052f6821c74",
+                "test2.strelka_mqc.stats:md5,cbbf9cd2e4b751b261f29f56cdca508e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "24.10.6"
         },
-        "timestamp": "2025-04-29T15:14:41.617520369"
+        "timestamp": "2025-05-06T15:01:50.78256681"
     }
 }
