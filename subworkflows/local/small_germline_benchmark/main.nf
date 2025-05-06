@@ -6,10 +6,16 @@ include { RTGTOOLS_FORMAT  } from '../../../modules/nf-core/rtgtools/format/main
 include { RTGTOOLS_VCFEVAL } from '../../../modules/nf-core/rtgtools/vcfeval/main'
 include { HAPPY_HAPPY      } from '../../../modules/nf-core/happy/happy/main'
 include { HAPPY_PREPY      } from '../../../modules/nf-core/happy/prepy/main'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2  } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3  } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4  } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3    } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4    } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TRUTH        } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_QUERY        } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_TRUTH_TP } from '../../../modules/nf-core/bcftools/filter'
+include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_TRUTH_FN } from '../../../modules/nf-core/bcftools/filter'
+include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_QUERY_TP } from '../../../modules/nf-core/bcftools/filter'
+include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_QUERY_FP } from '../../../modules/nf-core/bcftools/filter'
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
@@ -163,6 +169,71 @@ workflow SMALL_GERMLINE_BENCHMARK {
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
+
+        // Subsample TRUTH column from happy results
+        BCFTOOLS_VIEW_TRUTH(
+            HAPPY_HAPPY.out.vcf.join(HAPPY_HAPPY.out.tbi),
+            [],
+            [],
+            []
+            )
+        versions = versions.mix(BCFTOOLS_VIEW_TRUTH.out.versions.first())
+
+        // Subsample QUERY column from happy results
+        BCFTOOLS_VIEW_QUERY(
+            HAPPY_HAPPY.out.vcf.join(HAPPY_HAPPY.out.tbi),
+            [],
+            [],
+            []
+        )
+        versions = versions.mix(BCFTOOLS_VIEW_QUERY.out.versions)
+
+        BCFTOOLS_FILTER_TRUTH_TP(
+            BCFTOOLS_VIEW_TRUTH.out.vcf.join(BCFTOOLS_VIEW_TRUTH.out.tbi)
+        )
+        versions = versions.mix(BCFTOOLS_FILTER_TRUTH_TP.out.versions)
+
+        BCFTOOLS_FILTER_TRUTH_TP.out.vcf
+            .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "happy"], file, index) }
+            .set { vcf_tp_comp }
+
+        BCFTOOLS_FILTER_TRUTH_FN(
+            BCFTOOLS_VIEW_TRUTH.out.vcf.join(BCFTOOLS_VIEW_TRUTH.out.tbi)
+        )
+        versions = versions.mix(BCFTOOLS_FILTER_TRUTH_FN.out.versions)
+
+        BCFTOOLS_FILTER_TRUTH_FN.out.vcf
+            .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "happy"], file, index) }
+            .set { vcf_fn }
+
+        BCFTOOLS_FILTER_QUERY_TP(
+            BCFTOOLS_VIEW_QUERY.out.vcf.join(BCFTOOLS_VIEW_QUERY.out.tbi)
+        )
+        versions = versions.mix(BCFTOOLS_FILTER_QUERY_TP.out.versions)
+
+        BCFTOOLS_FILTER_QUERY_TP.out.vcf
+            .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "happy"], file, index) }
+            .set { vcf_tp_base }
+
+        BCFTOOLS_FILTER_QUERY_FP(
+            BCFTOOLS_VIEW_QUERY.out.vcf.join(BCFTOOLS_VIEW_QUERY.out.tbi)
+        )
+        versions = versions.mix(BCFTOOLS_FILTER_QUERY_FP.out.versions)
+
+        BCFTOOLS_FILTER_QUERY_FP.out.vcf
+            .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)
+            .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "happy"], file, index) }
+            .set { vcf_fp }
+
+        tagged_variants = tagged_variants.mix(
+            vcf_fn,
+            vcf_fp,
+            vcf_tp_base,
+            vcf_tp_comp
+        )
     }
     emit:
     summary_reports // channel: [val(meta), reports]
