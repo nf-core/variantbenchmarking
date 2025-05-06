@@ -3,17 +3,19 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-include { SURVIVOR_MERGE    } from '../../../modules/nf-core/survivor/merge'
-include { BCFTOOLS_MERGE    } from '../../../modules/nf-core/bcftools/merge'
-include { VCF_TO_CSV        } from '../../../modules/local/custom/vcf_to_csv'
-include { REFORMAT_HEADER   } from '../../../modules/local/custom/reformat_header'
+include { SURVIVOR_MERGE       } from '../../../modules/nf-core/survivor/merge'
+include { BCFTOOLS_MERGE       } from '../../../modules/nf-core/bcftools/merge'
+include { VCF_TO_CSV           } from '../../../modules/local/custom/vcf_to_csv'
+include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
+include { MERGE_SOMPY_FEATURES } from '../../../modules/local/custom/merge_sompy_features'
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
-    evaluations // channel: [val(meta), vcf.gz, index]
-    fasta       // reference channel [val(meta), ref.fa]
-    fai         // reference channel [val(meta), ref.fa.fai]
+    evaluations     // channel: [val(meta), vcf.gz, index]
+    evaluations_csv // channel: [val(meta), csv]
+    fasta           // reference channel [val(meta), ref.fa]
+    fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
     versions    = Channel.empty()
@@ -68,6 +70,12 @@ workflow COMPARE_BENCHMARK_RESULTS {
         merged_vcfs
     )
     versions = versions.mix(VCF_TO_CSV.out.versions.first())
+
+
+    MERGE_SOMPY_FEATURES(
+        evaluations_csv.groupTuple()
+    )
+    versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
 
     emit:
     merged_vcfs  // channel: [val(meta), vcf]

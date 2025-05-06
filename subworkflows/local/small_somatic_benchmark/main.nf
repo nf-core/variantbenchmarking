@@ -2,9 +2,10 @@
 // SOMATIC: SUBWORKFLOW FOR SMALL SOMATIC VARIANTS
 //
 
-include { HAPPY_SOMPY           } from '../../../modules/nf-core/happy/sompy/main'
-include { RTGTOOLS_FORMAT  } from '../../../modules/nf-core/rtgtools/format/main'
-include { RTGTOOLS_VCFEVAL  as RTGTOOLS_VCFEVAL_SOMATIC  } from '../../../modules/nf-core/rtgtools/vcfeval/main'
+include { HAPPY_SOMPY          } from '../../../modules/nf-core/happy/sompy'
+include { RTGTOOLS_FORMAT      } from '../../../modules/nf-core/rtgtools/format'
+include { SPLIT_SOMPY_FEATURES } from '../../../modules/local/custom/split_sompy_features'
+include { RTGTOOLS_VCFEVAL  as RTGTOOLS_VCFEVAL_SOMATIC  } from '../../../modules/nf-core/rtgtools/vcfeval'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1       } from '../../../modules/local/bcftools/reheader'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2       } from '../../../modules/local/bcftools/reheader'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_3       } from '../../../modules/local/bcftools/reheader'
@@ -21,9 +22,10 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    summary_reports = Channel.empty()
-    tagged_variants = Channel.empty()
+    versions            = Channel.empty()
+    summary_reports     = Channel.empty()
+    tagged_variants     = Channel.empty()
+    tagged_variants_csv = Channel.empty()
 
     if (params.method.contains('sompy')){
         // apply sompy for small somatic variant benchmarking
@@ -42,6 +44,28 @@ workflow SMALL_SOMATIC_BENCHMARK {
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
+
+        SPLIT_SOMPY_FEATURES(
+            HAPPY_SOMPY.out.features
+        )
+        versions = versions.mix(SPLIT_SOMPY_FEATURES.out.versions)
+
+        SPLIT_SOMPY_FEATURES.out.TP
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP"] + [id: "sompy"], file) }
+            .set{tp_vars}
+
+        SPLIT_SOMPY_FEATURES.out.FP
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "sompy"], file) }
+            .set{fp_vars}
+
+        SPLIT_SOMPY_FEATURES.out.FN
+            .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "sompy"], file) }
+            .set{fn_vars}
+
+        tagged_variants_csv = tagged_variants_csv
+                                .mix(tp_vars)
+                                .mix(fp_vars)
+                                .mix(fn_vars)
     }
 
     if (params.method.contains('rtgtools')){
@@ -134,7 +158,8 @@ workflow SMALL_SOMATIC_BENCHMARK {
     }
 
     emit:
-    summary_reports // channel: [val(meta), reports]
-    tagged_variants // channel: [val(meta), vcfs]
-    versions        // channel: [versions.yml]
+    summary_reports     // channel: [val(meta), reports]
+    tagged_variants     // channel: [val(meta), vcfs]
+    tagged_variants_csv // channel: [val(meta), csvs]
+    versions            // channel: [versions.yml]
 }
