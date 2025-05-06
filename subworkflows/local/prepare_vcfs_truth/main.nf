@@ -9,6 +9,7 @@ include { BCFTOOLS_NORM              } from '../../../modules/nf-core/bcftools/n
 include { PUBLISH_PROCESSED_VCF      } from '../../../modules/local/custom/publish_processed_vcf'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/local/bcftools/reheader'
+include { RTGTOOLS_SVDECOMPOSE    } from '../../../modules/nf-core/rtgtools/svdecompose'
 
 
 workflow PREPARE_VCFS_TRUTH {
@@ -89,6 +90,14 @@ workflow PREPARE_VCFS_TRUTH {
 
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
                             .set{vcf_ch}
+    }
+
+    if (params.sv_standardization.contains("svdecompose")){
+        RTGTOOLS_SVDECOMPOSE(
+            vcf_ch
+        )
+        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
+        vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
     PUBLISH_PROCESSED_VCF(

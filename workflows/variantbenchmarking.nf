@@ -27,7 +27,8 @@ include { CNV_GERMLINE_BENCHMARK      } from '../subworkflows/local/cnv_germline
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
-include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics/main'
+include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
+include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,37 +125,6 @@ workflow VARIANTBENCHMARKING {
         dictionary      = Channel.empty()
     }
 
-    // check tool - benchmark compatibility
-    if (params.variant_type.contains("copynumber")){
-        if (params.method.contains("sompy") || params.method.contains("happy") || params.method.contains("rtgtools") || params.method.contains("svanalyzer")){
-            log.error "Only wittyer and truvari can be used for copynumber variant analysis"
-            exit 1
-        }
-    }
-    if (params.variant_type.contains("structural")){
-        if (params.method.contains("sompy") || params.method.contains("happy") || params.method.contains("rtgtools")){
-            log.error "Only wittyer, svanalyzer or truvari can be used for structural variant analysis"
-            exit 1
-        }
-    }
-    if (params.variant_type.contains("small") || params.variant_type.contains("indel") || params.variant_type.contains("snv")){
-        if (params.method.contains("wittyer") || params.method.contains("truvari") || params.method.contains("svanalyzer")){
-            log.error "Only happy, sompy, or rtgtools can be used for small (or indel and snv) variant analysis"
-            exit 1
-        }
-        if (params.analysis.contains("somatic")){
-            if (params.method.contains("happy")){
-                log.error "Use sompy instead of happy for somatic small variant analysis"
-                exit 1
-            }
-        }
-        if (params.analysis.contains("germline")){
-            if (params.method.contains("sompy")){
-                log.error "Use happy instead of sompy for germline small variant analysis"
-                exit 1
-            }
-        }
-    }
     if(params.method.contains("intersect")){
         if(!params.regions_bed){
             log.error "Regions BED is required for intersection analysis"
@@ -268,6 +238,18 @@ workflow VARIANTBENCHMARKING {
         ch_versions      = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+
+        if (params.method.contains("bndeval")){
+            // running bndeval might require svdecompose
+            BND_BENCHMARK(
+                bench,
+                fai
+            )
+
+            ch_versions      = ch_versions.mix(BND_BENCHMARK.out.versions)
+            ch_reports       = ch_reports.mix(BND_BENCHMARK.out.summary_reports)
+            evals_ch         = evals_ch.mix(BND_BENCHMARK.out.tagged_variants)
+        }
     }
 
     if (params.analysis.contains("germline")){
@@ -321,12 +303,6 @@ workflow VARIANTBENCHMARKING {
         ch_reports
     )
     ch_versions      = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
-
-    // TODO: TRIO ANALYSIS : MENDELIAN INCONSISTANCE
-
-    // TODO: Compare benchmarking methods!
-
-    //
 
     //
     // Collate and save software versions

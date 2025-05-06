@@ -90,9 +90,19 @@
                         "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
                         "installed_by": ["modules"]
                     },
+                    "rtgtools/bndeval": {
+                        "branch": "master",
+                        "git_sha": "0fb653bd46f503cf1cf77dd97f408dc9f55cd9ad",
+                        "installed_by": ["modules"]
+                    },
                     "rtgtools/format": {
                         "branch": "master",
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
+                    "rtgtools/svdecompose": {
+                        "branch": "master",
+                        "git_sha": "e71f6b6ad31982175fa9068443a9e5acec126b6c",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/vcfeval": {

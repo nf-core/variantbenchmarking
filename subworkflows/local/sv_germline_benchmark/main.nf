@@ -5,8 +5,6 @@
 include { TRUVARI_BENCH            } from '../../../modules/nf-core/truvari/bench'
 include { SVANALYZER_SVBENCHMARK   } from '../../../modules/nf-core/svanalyzer/svbenchmark'
 include { WITTYER                  } from '../../../modules/nf-core/wittyer'
-include { RTGTOOLS_BNDEVAL         } from '../../../modules/nf-core/rtgtools/bndeval'
-include { RTGTOOLS_SVDECOMPOSE     } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { TABIX_BGZIP as TABIX_BGZIP_QUERY          } from '../../../modules/nf-core/tabix/bgzip'
 include { TABIX_BGZIP as TABIX_BGZIP_TRUTH          } from '../../../modules/nf-core/tabix/bgzip'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1  } from '../../../modules/local/bcftools/reheader'
@@ -113,7 +111,8 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
-        // svbenchmark cannot be run with copynumber analysis
+        // WARN: svbenchmark cannot be run with copynumber analysis
+
         // apply svanalyzer to benchmark SVs
         SVANALYZER_SVBENCHMARK(
             input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -186,24 +185,6 @@ workflow SV_GERMLINE_BENCHMARK {
             .set{ report }
         summary_reports = summary_reports.mix(report)
 
-    }
-    if (params.method.contains('bndeval')) {
-
-        RTGTOOLS_SVDECOMPOSE(
-            input_ch.map { meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-                [ meta, truth_vcf, _truth_tbi  ]
-            }
-        )
-
-        input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-                    [ meta, vcf, _tbi, _bed ]
-                }.join(RTGTOOLS_SVDECOMPOSE.out.bnd)
-                .map{meta, vcf, tbi, bed, bnd -> [meta, vcf, tbi, bnd, [], bed]}
-                .set{bndeval_input}
-
-        RTGTOOLS_BNDEVAL(
-            bndeval_input
-        )
     }
 
     emit:

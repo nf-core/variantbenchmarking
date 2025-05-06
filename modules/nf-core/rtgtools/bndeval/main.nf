@@ -8,7 +8,7 @@ process RTGTOOLS_BNDEVAL {
         'biocontainers/rtg-tools:3.12.1--hdfd78af_0' }"
 
     input:
-    tuple val(meta), path(query_vcf), path(query_vcf_tbi), path(truth_vcf), path(truth_vcf_tbi), path(truth_bed)
+    tuple val(meta), path(query_vcf), path(query_vcf_tbi), path(truth_vcf), path(truth_vcf_tbi), path(regions_bed)
 
     output:
     tuple val(meta), path("*.tp.vcf.gz")                , emit: tp_vcf
@@ -19,7 +19,7 @@ process RTGTOOLS_BNDEVAL {
     tuple val(meta), path("*.fp.vcf.gz.tbi")            , emit: fp_tbi
     tuple val(meta), path("*.tp-baseline.vcf.gz")       , emit: baseline_vcf
     tuple val(meta), path("*.tp-baseline.vcf.gz.tbi")   , emit: baseline_tbi
-    tuple val(meta), path("*.weighted_roc.tsv.gz")      , emit: weighted_roc , optional: true
+    tuple val(meta), path("*.weighted_roc.tsv.gz")      , emit: weighted_roc
     tuple val(meta), path("*.summary.txt")              , emit: summary
     path "versions.yml"                                 , emit: versions
 
@@ -29,27 +29,18 @@ process RTGTOOLS_BNDEVAL {
     script:
     def args = task.ext.args ?: ""
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def bed_regions = truth_bed ? "--bed-regions=${truth_bed}" : ""
-    def truth_index = truth_vcf_tbi ? "" : "rtg index ${truth_vcf}"
-    def query_index = query_vcf_tbi ? "" : "rtg index ${query_vcf}"
+    def bed_regions = regions_bed ? "--bed-regions=${regions_bed}" : ""
     def avail_mem = task.memory.toGiga() + "G"
 
     """
-    ${truth_index}
-    ${query_index}
-
     rtg RTG_MEM=$avail_mem bndeval \\
         ${args} \\
-        --tolerance=10000 \\
-        --no-roc \\
-        --all-records \\
-        --bidirectional \\
         --baseline=${truth_vcf} \\
         ${bed_regions} \\
         --calls=${query_vcf} \\
-        --output=output 
-        
-    cd output/
+        --output=${prefix}
+
+    cd ${prefix}/
     mv done progress ..
     for f in * ; do mv "\$f" "../${prefix}.\$f" ; done
     cd ..
@@ -64,9 +55,15 @@ process RTGTOOLS_BNDEVAL {
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    touch ${prefix}.baseline.vcf.gz
-    touch ${prefix}.calls.vcf.gz
-    touch ${prefix}.weighted_roc.tsv.gz
+    echo | gzip > ${prefix}.tp.vcf.gz
+    touch ${prefix}.tp.vcf.gz.tbi
+    echo | gzip > ${prefix}.fn.vcf.gz
+    touch ${prefix}.fn.vcf.gz.tbi
+    echo | gzip > ${prefix}.fp.vcf.gz
+    touch ${prefix}.fp.vcf.gz.tbi
+    echo | gzip > ${prefix}.tp-baseline.vcf.gz
+    touch ${prefix}.tp-baseline.vcf.gz.tbi
+    echo | gzip > ${prefix}.weighted_roc.tsv.gz
     touch ${prefix}.summary.txt
 
     cat <<-END_VERSIONS > versions.yml
