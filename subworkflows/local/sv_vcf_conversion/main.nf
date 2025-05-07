@@ -6,6 +6,7 @@ include { SVYNC                   } from '../../../modules/nf-core/svync'
 include { BGZIP_TABIX             } from '../../../modules/local/bgzip/tabix'
 include { VARIANT_EXTRACTOR       } from '../../../modules/local/custom/variant_extractor'
 include { BCFTOOLS_SORT           } from '../../../modules/nf-core/bcftools/sort'
+include { RTGTOOLS_SVDECOMPOSE    } from '../../../modules/nf-core/rtgtools/svdecompose'
 
 workflow SV_VCF_CONVERSIONS {
     take:
@@ -32,6 +33,14 @@ workflow SV_VCF_CONVERSIONS {
         versions = versions.mix(BCFTOOLS_SORT.out.versions.first())
         input_ch = BCFTOOLS_SORT.out.vcf
 
+    }
+
+    if (params.sv_standardization.contains("svdecompose")){
+        RTGTOOLS_SVDECOMPOSE(
+            input_ch.map{ meta, vcf -> tuple(meta, vcf, [])}
+        )
+        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
+        input_ch = RTGTOOLS_SVDECOMPOSE.out.vcf
     }
 
     // zip and index input test files

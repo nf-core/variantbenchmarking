@@ -111,7 +111,8 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
-        // svbenchmark cannot be run with copynumber analysis
+        // WARN: svbenchmark cannot be run with copynumber analysis
+
         // apply svanalyzer to benchmark SVs
         SVANALYZER_SVBENCHMARK(
             input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->

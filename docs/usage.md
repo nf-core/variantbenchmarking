@@ -6,8 +6,6 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
-
 Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf provided with params.truth_vcf.
 
 params.variant*type can be "small" or "structural" for params.analysis of "germline" or params.variant_type can be "snv", "indel" or "structural" for params.analysis of "somatic". Please be aware that \_only one type of varian_analysis is possible for each run*.
@@ -67,10 +65,11 @@ Please note that you should still provide chain and reame_chr files, and lifting
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
 
-- `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync`.
+- `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync,svdecompose`.
 
-  - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor)
-  - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync)
+  - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor). Homogenizes the structural variants in a common format.
+  - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync). Reformats VCF headers properly.
+  - `svdecompose`: makes use of [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf). Decomposes SVs into BND. Combine it only if you plan to run rtgtools bndeval!
 
 - `preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
   - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
@@ -163,6 +162,57 @@ _Parameters applicable only to Structural Variants_
 - `--max_sv_size`: Maximum SV size of variants to benchmark, -1 to disable , Default:-1
 - `--min_allele_freq`: Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1
 - `--min_num_reads`: Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1
+
+## Benchmark analysis
+
+Benchmarking method can be spesified using `--method` parameter. If not spesified, all the available method per variant type will be applied. Below, find the available methods:
+
+- _Germline small variants_: Germline samples for small variant type of variants, SNVs and INDELs together. If you think your file includes structural variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+
+Example cmd:
+`--analysis germline --variant_type small --method "happy,rtgtools"`
+
+- ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
+- ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+
+Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
+
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+
+Example cmd:
+`--analysis germline --variant_type snv --method "sompy,rtgtools"`
+`--analysis germline --variant_type indel --method "sompy,rtgtools"`
+
+- ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+- ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
+
+- _Structural variants_: Germline or somatic samples for structural variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above.
+
+Example cmd:
+`--analysis germline --variant_type structural --method "truvari,svanalyzer,wittyer"`
+`--analysis somatic --variant_type structural --method "truvari,svanalyzer,wittyer"`
+
+- ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
+- ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
+- ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+
+Please note that truvari is the only tool which can work with UNRESOLVED (without sequence) structural variants. Moreover, svbenchmark and wittyer analysis will require explicte SVTYPE and SVLEN annotations.
+
+- A special analysis for Break-Ends (SVTYPE=BND) is also possible. Please combine it with (_svdecompose_) to convert structural variants (both from truth and test cases) to Break-Ends if your inputs are not already in that type.
+
+  - ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
+
+Example cmd:
+`--analysis germline --variant_type structural --method "bndeval" --sv_standardization svdecompose`
+
+- _Copy number variations_: Germline or somatic samples for copy number variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above. You can also filter SVTYPE=CNV using bcftools expressions (`include_expression`)
+
+Example cmd:
+`--analysis germline --variant_type copynumber --method "truvari,wittyer"`
+`--analysis somatic --variant_type copynumber --method "truvari,wittyer"`
+
+- ([truvari bench --pctseq 0](https://github.com/acenglish/truvari/wiki/bench))
+- ([witty.er](https://github.com/Illumina/witty.er/tree/master))
 
 ## Intersection analysis
 
