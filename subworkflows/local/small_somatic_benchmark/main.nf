@@ -31,9 +31,9 @@ workflow SMALL_SOMATIC_BENCHMARK {
             falsepositive_bed,
             ambiguous_beds
         )
-        versions        = versions.mix(SOMPY_BENCHMARK.out.versions)
-        summary_reports = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
-        tagged_variants = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
+        versions            = versions.mix(SOMPY_BENCHMARK.out.versions)
+        summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
+        tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
     }
 
     if (params.method.contains('rtgtools')){
