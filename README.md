@@ -74,7 +74,7 @@ Available methods for germline and somatic _structural variant (SV)_ benchmarkin
 
 - Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 - SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
-- rtgtools (only for BND) ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
+- Rtgtools (only for BND) ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
 
 > [!NOTE]
 > Please note that there is no somatic specific tool for SV benchmarking in this pipeline.
