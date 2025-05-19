@@ -231,13 +231,13 @@ def get_sompy_results(file_paths, vartype):
 		df = pd.read_csv(file)
 
 		df['Tool'] = filename.split(".")[0]
-		df['Tool'] = filename
+		df['File'] = filename
 
 		df_redesigned = df[['Tool','type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
-		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']
+		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
 		# Convert relevant columns to integers, handling potential NaN values
 		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK']
-		float_columns = ['Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']
+		float_columns = ['Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
 		df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
 		df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
 
