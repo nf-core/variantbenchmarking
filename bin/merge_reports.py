@@ -36,8 +36,8 @@ def get_svbenchmark_results(file_paths):
 	FN_pattern = re.compile(r'Number of undetected true variants \(.*\): (\d+)')
 	PTP_pattern = re.compile(r'Number of predictions that are true \(.*\): (\d+)')
 	FP_pattern = re.compile(r'Number of false positives \(.*\): (\d+)')
-	recall_pattern = re.compile(r'Recall \(.*\): (\d+\.\d+)%')
-	precision_pattern = re.compile(r'Precision \(.*\): (\d+\.\d+)%')
+	recall_pattern = re.compile(r'Recall\s*\(.*?\):\s*(\d+(?:\.\d+)?)%')
+	precision_pattern = re.compile(r'Precision\s*\(.*?\):\s*(\d+(?:\.\d+)?)%')
 	f1_pattern = re.compile(r'F1 \(.*\): ([\d\.]+(?:e[+-]?\d+)?)')
 
 	# Iterate over each table file
