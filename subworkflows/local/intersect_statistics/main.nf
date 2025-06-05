@@ -2,10 +2,10 @@
 // INTERSECTION ANALYSIS OF BED FILES
 //
 
-include { BEDTOOLS_INTERSECT     } from '../../../modules/local/custom/bedtools_intersect'
-include { SVTK_VCF2BED           } from '../../../modules/nf-core/svtk/vcf2bed'
-include { BEDOPS_CONVERT2BED     } from '../../../modules/nf-core/bedops/convert2bed'
-include { TABIX_BGZIP            } from '../../../modules/nf-core/tabix/bgzip'
+include { BEDTOOLS_INTERSECT_BENCH } from '../../../modules/local/custom/bedtools_intersect_bench'
+include { SVTK_VCF2BED             } from '../../../modules/nf-core/svtk/vcf2bed'
+include { BEDOPS_CONVERT2BED       } from '../../../modules/nf-core/bedops/convert2bed'
+include { TABIX_BGZIP              } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow INTERSECT_STATISTICS {
     take:
@@ -67,13 +67,13 @@ workflow INTERSECT_STATISTICS {
             .set{intersect_ch}
 
     // Intersect bed files and gather statistics
-    BEDTOOLS_INTERSECT(
+    BEDTOOLS_INTERSECT_BENCH(
         intersect_ch
     )
-    versions      = versions.mix(BEDTOOLS_INTERSECT.out.versions)
+    versions      = versions.mix(BEDTOOLS_INTERSECT_BENCH.out.versions)
 
     // collect summary reports
-    BEDTOOLS_INTERSECT.out.summary
+    BEDTOOLS_INTERSECT_BENCH.out.summary
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "intersect"], file) }
         .groupTuple()
         .set{ summary_reports }

@@ -3,10 +3,10 @@
 //
 
 include { TRUVARI_BENCHMARK        } from '../../../subworkflows/local/truvari_benchmark'
-include { SVANALYZER_SVBENCHMARK   } from '../../../modules/nf-core/svanalyzer/svbenchmark'
+include { SVANALYZER_BENCHMARK     } from '../../../subworkflows/local/svanalyzer_benchmark'
 include { WITTYER                  } from '../../../modules/nf-core/wittyer'
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY          } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH          } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_QUERY  } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_TRUTH  } from '../../../modules/nf-core/tabix/bgzip'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
@@ -22,7 +22,6 @@ workflow SV_GERMLINE_BENCHMARK {
 
     // SV benchmarking
     if (params.method.contains('truvari')){
-
         // use truvari benchmarking
         TRUVARI_BENCHMARK(
             input_ch,
@@ -30,49 +29,23 @@ workflow SV_GERMLINE_BENCHMARK {
             fai
         )
         versions = versions.mix(TRUVARI_BENCHMARK.out.versions)
-
         summary_reports = summary_reports.mix(TRUVARI_BENCHMARK.out.report)
-
         tagged_variants = tagged_variants.mix(TRUVARI_BENCHMARK.out.tagged_variants)
     }
 
     if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
         // WARN: svbenchmark cannot be run with copynumber analysis
-
         // apply svanalyzer to benchmark SVs
-        SVANALYZER_SVBENCHMARK(
-            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
-                },
+        SVANALYZER_BENCHMARK(
+            input_ch,
             fasta,
             fai
         )
-        versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions.first())
-
-        // tag and collect summary file
-        SVANALYZER_SVBENCHMARK.out.report
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "svbenchmark"], file) }
-            .groupTuple()
-            .set{ report }
-
-        summary_reports = summary_reports.mix(report)
-
-        // reheader fn vcf files for tagged results
-        SVANALYZER_SVBENCHMARK.out.fns
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "svbenchmark"], file) }
-            .set { vcf_fn }
-
-
-        SVANALYZER_SVBENCHMARK.out.fps
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "svbenchmark"], file) }
-            .set { vcf_fp }
-
-        tagged_variants = tagged_variants.mix(
-            vcf_fn,
-            vcf_fp
-        )
-
+        versions = versions.mix(SVANALYZER_BENCHMARK.out.versions)
+        summary_reports = summary_reports.mix(SVANALYZER_BENCHMARK.out.report)
+        tagged_variants = tagged_variants.mix(SVANALYZER_BENCHMARK.out.tagged_variants)
     }
+
     if (params.method.contains('wittyer')){
 
         // unzip vcf.gz files
@@ -110,7 +83,6 @@ workflow SV_GERMLINE_BENCHMARK {
             .groupTuple()
             .set{ report }
         summary_reports = summary_reports.mix(report)
-
     }
 
     emit:

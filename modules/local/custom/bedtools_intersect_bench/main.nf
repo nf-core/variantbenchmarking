@@ -1,4 +1,4 @@
-process BEDTOOLS_INTERSECT {
+process BEDTOOLS_INTERSECT_BENCH {
     tag "$meta.id"
     label 'process_single'
 
