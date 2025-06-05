@@ -2,11 +2,9 @@
 // SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
 //
 
-include { TRUVARI_BENCHMARK        } from '../../../subworkflows/local/truvari_benchmark'
-include { SVANALYZER_BENCHMARK     } from '../../../subworkflows/local/svanalyzer_benchmark'
-include { WITTYER                  } from '../../../modules/nf-core/wittyer'
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY  } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH  } from '../../../modules/nf-core/tabix/bgzip'
+include { TRUVARI_BENCHMARK      } from '../../../subworkflows/local/truvari_benchmark'
+include { SVANALYZER_BENCHMARK   } from '../../../subworkflows/local/svanalyzer_benchmark'
+include { WITTYER_BENCHMARK      } from '../../../subworkflows/local/wittyer_benchmark'
 
 workflow SV_GERMLINE_BENCHMARK {
     take:
@@ -47,42 +45,12 @@ workflow SV_GERMLINE_BENCHMARK {
     }
 
     if (params.method.contains('wittyer')){
-
-        // unzip vcf.gz files
-        TABIX_BGZIP_QUERY(
-            input_ch.map { meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-                [ meta, vcf ]
-            }
+        WITTYER_BENCHMARK(
+            input_ch
         )
-        versions = versions.mix(TABIX_BGZIP_QUERY.out.versions.first())
+        versions = versions.mix(WITTYER_BENCHMARK.out.versions)
+        summary_reports = summary_reports.mix(WITTYER_BENCHMARK.out.report)
 
-        TABIX_BGZIP_TRUTH(
-            input_ch.map { meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-                [ meta, truth_vcf ]
-            }
-        )
-        versions = versions.mix(TABIX_BGZIP_TRUTH.out.versions.first())
-
-        input_ch.map { meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bed, _targets_bed  ->
-                [ meta, bed ]
-            }
-            .set { bed }
-
-        //
-        // MODULE: WITTYER
-        //
-        WITTYER(
-            TABIX_BGZIP_QUERY.out.output
-                .join(TABIX_BGZIP_TRUTH.out.output, failOnDuplicate:true, failOnMismatch:true)
-                .join(bed, failOnDuplicate:true, failOnMismatch:true)
-        )
-        versions = versions.mix(WITTYER.out.versions.first())
-
-        WITTYER.out.report
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], file) }
-            .groupTuple()
-            .set{ report }
-        summary_reports = summary_reports.mix(report)
     }
 
     emit:
