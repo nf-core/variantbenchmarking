@@ -44,15 +44,15 @@ workflow SVANALYZER_BENCHMARK {
 
     // subtract FPs from Query to find TPs in Query
     SUBTRACT_VCF_QUERY(
-        input_ch.map{ meta, vcf, tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-            [ meta, vcf, tbi ]}.join(SVANALYZER_SVBENCHMARK.out.fps)
+        input_ch.map{ meta, vcf, tbi, _truth_vcf, _truth_tbi, regionsbed, targets_bed  ->
+            [ meta, vcf, tbi,regionsbed, targets_bed ]}.join(SVANALYZER_SVBENCHMARK.out.fps)
         )
     versions = versions.mix(SUBTRACT_VCF_QUERY.out.versions)
 
     // subtract Fns from Truth to find TPs in tRUTH
     SUBTRACT_VCF_TRUTH(
-        input_ch.map{ meta, _vcf, _tbi, truth_vcf, truth_tbi, _regionsbed, _targets_bed  ->
-            [ meta, truth_vcf, truth_tbi ]}.join(SVANALYZER_SVBENCHMARK.out.fns)
+        input_ch.map{ meta, _vcf, _tbi, truth_vcf, truth_tbi, regionsbed, targets_bed  ->
+            [ meta, truth_vcf, truth_tbi, regionsbed, targets_bed ]}.join(SVANALYZER_SVBENCHMARK.out.fns)
         )
     versions = versions.mix(SUBTRACT_VCF_TRUTH.out.versions)
 

@@ -4,11 +4,11 @@ process SUBTRACT_VCF {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/bedtools:2.31.1--hf5e1c6e_0' :
-        'biocontainers/bedtools:2.31.1--hf5e1c6e_0' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/1c/1cc0a8019c9e5473261c959c2ca234914fa61267cd4bd7c66a2f8cbfc7e06f70/data' :
+        'community.wave.seqera.io/library/bcftools_bedtools:8ae45183a3924432' }"
 
     input:
-    tuple val(meta), path(vcf), path(index), path(regions)
+    tuple val(meta), path(vcf), path(index), path(regions), path(targets), path(exclude)
 
     output:
     tuple val(meta), path("*remain.vcf.gz"), emit: vcf, optional:true
@@ -23,11 +23,18 @@ process SUBTRACT_VCF {
 
     """
     #!/usr/bin/env bash
-    zcat $regions | awk 'BEGIN{OFS="\\t"} {print \$1, \$2-1, \$2}' > exclude.bed
+    zcat $exclude | awk 'BEGIN{OFS="\\t"} {print \$1, \$2-1, \$2}' > exclude.bed
+
+    if [ -s "${regions}" ]; then
+        bcftools view -R ${regions} $vcf -O z -o ${prefix}.truth.vcf.gz
+    elif [ -s "${targets}" ]; then
+        bcftools view -T ${targets} $vcf -O z -o ${prefix}.truth.vcf.gz
+    else
+        mv $vcf ${prefix}.truth.vcf.gz
+    fi
 
     if [ -s exclude.bed ]; then
-
-        bedtools intersect -v -a $vcf -b exclude.bed > ${prefix}.remain.vcf
+        bedtools intersect -v -a ${prefix}.truth.vcf.gz -b exclude.bed > ${prefix}.remain.vcf
         gzip -c ${prefix}.remain.vcf > ${prefix}.remain.vcf.gz
     fi
 

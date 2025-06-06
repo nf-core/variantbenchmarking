@@ -2,7 +2,7 @@
 
 ## Defining Truth VCF and High confidence BED files
 
-This pipeline requires a set of Truth VCF, as a baseline for comparisons, and a high confidence bed files, to restrict analysis to regions. Although, those sets can be anything depending on the type of the analysis, for benchmarking of human genomes there are golden set of samples provided by [Genome in a Bottle project](https://www.nist.gov/programs-projects/genome-bottle) and [SEQC2 consortium](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2).
+This pipeline requires a set of Truth VCF, as a baseline for comparisons, and a high confidence bed files, to restrict analysis to regions. Although, those sets can be anything depending on the type of the analysis, for benchmarking of human genomes there are golden set of samples provided by [Genome in a Bottle project](https://www.nist.gov/programs-projects/genome-bottle) and [SEQC2 consortium](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2). Another somatic benchmarking analysis for COLO829 cell line can be found under [epi2me project](https://epi2me.nanoporetech.com/colo-2024.03/).
 
 Below, please find some set truths can be used for analysis:
 
@@ -51,3 +51,10 @@ Below, please find some set truths can be used for analysis:
                     truth_id          = "SEQC2"
                     truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/seqc/Somatic_Mutation_WG/release/latest/high-confidence_sINDEL_in_HC_regions_v1.2.1.vcf.gz"
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/seqc/Somatic_Mutation_WG/release/latest/High-Confidence_Regions_v1.2.bed"
+
+  - params.genome == 'GRCh37'
+
+    - params.vartype == 'structural'
+      // zenado records available: https://zenodo.org/records/7515830
+      truth_id = "COLO829"
+      truth_vcf = "https://github.com/UMCUGenetics/COLO829_somaticSV/blob/master/truthset_somaticSVs_COLO829.vcf"
