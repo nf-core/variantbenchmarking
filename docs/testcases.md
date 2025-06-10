@@ -56,7 +56,7 @@ The number of TPs found in SVbenchmark is significanly lower than Truvari and Wi
 ### Analysis
 
 - 4 different publicly available structural variant calls for HG002 are being benchmarked against Genome in a Bottle HG002 SV analysis. Only chromosome 21 will be used for the analysis.
-- Size filtering by >30 bases applied to test files to ensure equal SV size in becnhmarking.
+- Size filtering by >30 bases applied to test files to ensure equal SV size in benchmarking.
 - svdecompose is used to convert SVTYPEs to "BND"
 - RTGtools bndeval is used as benchmarking method.
 
@@ -71,7 +71,7 @@ The number of TPs found in SVbenchmark is significanly lower than Truvari and Wi
 
 Note that RTGtools bndeval is only configured to benchmark SVTYPE=BND. Eventough we decomposed SV tpes to BND, SVs with other types can remain and they might be matched with the tool. That is why both precison and recall values are signififcanly lower than SVBenchmark and Truvari. bndeval should only be used for BND SV analysis with corresponding truths.
 
-## Case 3 : Linting over one test file for Structural Variant benchmarking
+## Case 3 : Lifting over one test file for Structural Variant benchmarking
 
 ### Config file
 
@@ -81,7 +81,7 @@ Note that RTGtools bndeval is only configured to benchmark SVTYPE=BND. Eventough
 
 - Besides to the 4 test cases, we are adding another test case here whom is generated through GRCh38 reference instead of GRCh37. This test case will be lifted over to GRCh37 by the pipeline.
 - Preprocessing includes normalization enabling left alignment of the variants, splitting multi allelic variants, and deduplication.
-- Size filtering by >30 bases applied to test files to ensure equal SV size in becnhmarking.
+- Size filtering by >30 bases applied to test files to ensure equal SV size in benchmarking.
 - Truvari is used as benchmarking method. Tools spesific parameters are given in the corresponding samplesheet.
 
 ### Results
@@ -95,3 +95,86 @@ Note that RTGtools bndeval is only configured to benchmark SVTYPE=BND. Eventough
 | test5 | test5.HG002.dragen.summary.json | 15      | 15      | 12  | 341 | 0.5556    | 0.0421 | 0.0783 |
 
 Now we can also take test5 into account. test5 originally includes small variants, since we filtered them by lenght they are not involved to the analysis.
+
+## Case 4 : Germline Small Variant benchmarking
+
+### Config file
+
+- [test config](../conf/tests/germline_small.config)
+
+### Analysis
+
+- Now we are using two HG002 variant calls from a germline analysis for small variant benchmarking. Chromosome 21 is extracted both from the test and truth cases.
+- We normalize, deduplicate and prepy to preprocess the variants
+- Both RTGtools vcfeval and hap.py methods are used for benchmarking.
+
+### Results
+
+_Hap.py_
+
+| Tool  | File                             | Type  | Filter | TP_base | TP    | FN  | TP_call | FP  | UNK | FP_gt | FP_al | Recall   | Precision | Frac_NA | F1       | TRUTH_TiTv_ratio | QUERY_TiTv_ratio   | TRUTH_het_hom_ratio | QUERY_het_hom_ratio |
+| ----- | -------------------------------- | ----- | ------ | ------- | ----- | --- | ------- | --- | --- | ----- | ----- | -------- | --------- | ------- | -------- | ---------------- | ------------------ | ------------------- | ------------------- |
+| test6 | test6.HG002.strelka.summary.csv  | INDEL | ALL    | 7675    | 7581  | 94  | 7889    | 88  | 0   | 10    | 42    | 0.987752 | 0.988845  | 0.0     | 0.988299 | 0.0              | 0.0                | 1.087144089732528   | 1.2469600463231036  |
+| test6 | test6.HG002.strelka.summary.csv  | INDEL | PASS   | 7675    | 7567  | 108 | 7841    | 53  | 0   | 2     | 31    | 0.985928 | 0.993241  | 0.0     | 0.989571 | 0.0              | 0.0                | 1.087144089732528   | 1.2372389791183294  |
+| test6 | test6.HG002.strelka.summary.csv  | SNP   | ALL    | 45057   | 44701 | 356 | 45380   | 622 | 0   | 30    | 33    | 0.992099 | 0.986294  | 0.0     | 0.989188 | 2.14825682945574 | 2.1273428886438808 | 1.434554690877648   | 1.4639947865754317  |
+| test6 | test6.HG002.strelka.summary.csv  | SNP   | PASS   | 45057   | 44602 | 455 | 44767   | 110 | 0   | 10    | 5     | 0.989902 | 0.997543  | 0.0     | 0.993708 | 2.14825682945574 | 2.140281966753174  | 1.434554690877648   | 1.434936350777935   |
+| test7 | test7.HG002.bcftools.summary.csv | INDEL | ALL    | 7675    | 7212  | 463 | 7741    | 330 | 0   | 252   | 61    | 0.939674 | 0.95737   | 0.0     | 0.94844  | 0.0              | 0.0                | 1.087144089732528   | 1.3940917661847894  |
+| test7 | test7.HG002.bcftools.summary.csv | INDEL | PASS   | 7675    | 7212  | 463 | 7741    | 330 | 0   | 252   | 61    | 0.939674 | 0.95737   | 0.0     | 0.94844  | 0.0              | 0.0                | 1.087144089732528   | 1.3940917661847894  |
+| test7 | test7.HG002.bcftools.summary.csv | SNP   | ALL    | 45057   | 44703 | 354 | 45708   | 949 | 0   | 32    | 75    | 0.992143 | 0.979238  | 0.0     | 0.985648 | 2.14825682945574 | 2.1275314723590584 | 1.434554690877648   | 1.4739605889995668  |
+| test7 | test7.HG002.bcftools.summary.csv | SNP   | PASS   | 45057   | 44703 | 354 | 45708   | 949 | 0   | 32    | 75    | 0.992143 | 0.979238  | 0.0     | 0.985648 | 2.14825682945574 | 2.1275314723590584 | 1.434554690877648   | 1.4739605889995668  |
+
+_RTGtools_
+
+| Tool  | File                             | Threshold | TP_base | TP_call | FP   | FN  | Precision | Recall | F1     |
+| ----- | -------------------------------- | --------- | ------- | ------- | ---- | --- | --------- | ------ | ------ |
+| test6 | test6.HG002.strelka.summary.txt  | 30.000    | 52163   | 52187   | 405  | 569 | 0.9923    | 0.9892 | 0.9908 |
+| test6 | test6.HG002.strelka.summary.txt  | None      | 52281   | 52305   | 708  | 451 | 0.9866    | 0.9914 | 0.989  |
+| test7 | test7.HG002.bcftools.summary.txt | None      | 51920   | 51947   | 1270 | 812 | 0.9761    | 0.9846 | 0.9804 |
+
+While hap.py reports the metrics SNP and INDELs seperated, RTGtools provides all merged. As you can see, even for small variant benchmarking there are differences with the results.
+
+## Case 5 : Lifting over truth vcf for Germline Small Variant benchmarking
+
+### Config file
+
+- [test config](../conf/tests/liftover_truth.config)
+
+### Analysis
+
+- We are using the same test cases used in _Case 4_ but in this case, we will try to becnhamark them against a truth file which is generated with GRCh37 using lifting over strategy.
+- Both RTGtools vcfeval and hap.py methods are used for benchmarking.
+
+_Hap.py_
+
+| Tool  | File                             | Type  | Filter | TP_base | TP    | FN  | TP_call | FP  | UNK | FP_gt | FP_al | Recall   | Precision | Frac_NA | F1       | TRUTH_TiTv_ratio | QUERY_TiTv_ratio | TRUTH_het_hom_ratio | QUERY_het_hom_ratio |
+| ----- | -------------------------------- | ----- | ------ | ------- | ----- | --- | ------- | --- | --- | ----- | ----- | -------- | --------- | ------- | -------- | ---------------- | ---------------- | ------------------- | ------------------- |
+| test6 | test6.HG002.strelka.summary.csv  | INDEL | ALL    | 7737    | 7560  | 177 | 7864    | 78  | 0   | 10    | 45    | 0.977123 | 0.990081  | 0.0     | 0.983559 | 0.0              | 0.0              | 1.053963            | 1.249636            |
+| test6 | test6.HG002.strelka.summary.csv  | INDEL | PASS   | 7737    | 7545  | 192 | 7817    | 43  | 0   | 1     | 33    | 0.975184 | 0.994499  | 0.0     | 0.984747 | 0.0              | 0.0              | 1.053963            | 1.239219            |
+| test6 | test6.HG002.strelka.summary.csv  | SNP   | ALL    | 44530   | 44467 | 63  | 44898   | 375 | 0   | 26    | 36    | 0.998585 | 0.991648  | 0.0     | 0.995104 | 2.148685         | 2.140509         | 1.434783            | 1.446479            |
+| test6 | test6.HG002.strelka.summary.csv  | SNP   | PASS   | 44530   | 44389 | 141 | 44564   | 122 | 0   | 9     | 7     | 0.996834 | 0.997262  | 0.0     | 0.997048 | 2.148685         | 2.148195         | 1.434783            | 1.431323            |
+| test7 | test7.HG002.bcftools.summary.csv | INDEL | ALL    | 7737    | 7196  | 541 | 7737    | 335 | 0   | 252   | 63    | 0.930076 | 0.956702  | 0.0     | 0.943201 | 0.0              | 0.0              | 1.053963            | 1.398046            |
+| test7 | test7.HG002.bcftools.summary.csv | INDEL | PASS   | 7737    | 7196  | 541 | 7737    | 335 | 0   | 252   | 63    | 0.930076 | 0.956702  | 0.0     | 0.943201 | 0.0              | 0.0              | 1.053963            | 1.398046            |
+| test7 | test7.HG002.bcftools.summary.csv | SNP   | ALL    | 44530   | 44451 | 79  | 45236   | 731 | 0   | 29    | 72    | 0.998226 | 0.983840  | 0.0     | 0.990981 | 2.148685         | 2.139269         | 1.434783            | 1.460743            |
+| test7 | test7.HG002.bcftools.summary.csv | SNP   | PASS   | 44530   | 44451 | 79  | 45236   | 731 | 0   | 29    | 72    | 0.998226 | 0.983840  | 0.0     | 0.990981 | 2.148685         | 2.139269         | 1.434783            | 1.460743            |
+
+_RTGtools_
+
+| Tool  | File                             | Threshold | TP_base | TP_call | FP   | FN  | Precision | Recall | F1     |
+| ----- | -------------------------------- | --------- | ------- | ------- | ---- | --- | --------- | ------ | ------ |
+| test6 | test6.HG002.strelka.summary.txt  | 24.000    | 51964   | 51989   | 301  | 303 | 0.9942    | 0.9942 | 0.9942 |
+| test6 | test6.HG002.strelka.summary.txt  | None      | 52028   | 52053   | 449  | 239 | 0.9914    | 0.9954 | 0.9934 |
+| test7 | test7.HG002.bcftools.summary.txt | None      | 51650   | 51675   | 1060 | 617 | 0.9799    | 0.9882 | 0.984  |
+
+As you can see, lifting over files from GRCh37 to GRCh38 worked quite well, there is not too much difference.
+
+## Case 6 : GH4GH Germline Small Variant benchmarking
+
+## Case 7 : Germline Small Variant benchmarking with stratifications
+
+## Case 8 : Somatic SNV Variant benchmarking
+
+## Case 9 : Somatic INDEL Variant benchmarking
+
+## Case 10 : Somatic SV Variant benchmarking
+
+## Case 11 : Somatic CNV Variant benchmarking
