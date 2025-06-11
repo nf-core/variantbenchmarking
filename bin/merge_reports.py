@@ -233,8 +233,8 @@ def get_sompy_results(file_paths, vartype):
 		df['Tool'] = filename.split(".")[0]
 		df['File'] = filename
 
-		df_redesigned = df[['Tool','type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
-		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
+		df_redesigned = df[['Tool','File', 'type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
+		df_redesigned.columns = ['Tool', 'File', 'Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
 		# Convert relevant columns to integers, handling potential NaN values
 		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK']
 		float_columns = ['Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
