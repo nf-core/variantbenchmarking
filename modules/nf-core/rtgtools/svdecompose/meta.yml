@@ -44,7 +44,7 @@ output:
           description: A VCF file with SVTYPE BND variants
           pattern: "*.vcf.gz"
           ontologies:
-            - edam: "http://edamontology.org/format_3016"
+          - edam: "http://edamontology.org/format_3016"
   - index:
       - meta:
           type: map
@@ -56,7 +56,7 @@ output:
           description: Index of VCF file with SVTYPE BND variants
           pattern: "*.vcf.gz.tbi"
           ontologies:
-            - edam: "http://edamontology.org/format_3616"
+          - edam: "http://edamontology.org/format_3616"
   - versions:
       - versions.yml:
           type: file

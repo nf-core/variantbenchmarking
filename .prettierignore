@@ -11,3 +11,5 @@ testing*
 *.pyc
 bin/
 ro-crate-metadata.json
+modules/nf-core/rtgtools/bndeval/meta.yml
+modules/nf-core/rtgtools/svdecompose/meta.yml
