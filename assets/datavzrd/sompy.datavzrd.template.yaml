@@ -1,0 +1,41 @@
+datasets:
+  report:
+    path: CSVPATH #sompy.sv.summary.csv
+    separator: ","
+views:
+  test:
+    dataset: report
+    render-table:
+      columns:
+        Tool:
+          display-mode: normal
+        Type:
+          display-mode: normal
+        TP_base:
+          display-mode: normal
+        TP:
+          display-mode: normal
+        FN:
+          display-mode: normal
+        TP_call:
+          display-mode: normal
+        FP:
+          display-mode: normal
+        Precision:
+          display-mode: normal
+        Recall:
+          display-mode: normal
+        recall_lower:
+          display-mode: normal
+        recall_upper:
+          display-mode: normal
+        recall2:
+          display-mode: normal
+        precision_lower:
+          display-mode: normal
+        precision_upper:
+          display-mode: normal
+        fp.region.size:
+          display-mode: normal
+        F1:
+          display-mode: normal

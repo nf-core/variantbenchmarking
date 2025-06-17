@@ -7,27 +7,188 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "test_vcf": {
+                "type": "string",
+                "exists": true,
+                "pattern": "\\S+\\.(vcf|bcf)(\\.gz)?$",
+                "format": "file-path",
+                "errorMessage": "Test VCF must be provided, cannot contain spaces, has to exist and must have extension '.vcf.gz', '.vcf', '.bcf.gz' or 'bcf'",
+                "description": "The VCF file to use as benchmarking test input"
+            },
+            "test_regions": {
+                "type": "string",
+                "exists": true,
+                "pattern": "^\\S+\\.(vcf|bed|txt|cnn|csv|cns|gz_CNVs)(\\.gz)?$",
+                "format": "file-path",
+                "errorMessage": "Test file, regions file can be in multiple format and be used for intersect analysis. The file has to exist",
+                "description": "Test regions, format can be changed by variant caller"
+            },
+            "id": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "description": "Sample id",
+                "meta": ["id"],
+                "minLength": 1,
+                "errorMessage": "A custom id must be provided per test vcf. This id needs to be a string without spaces"
             },
-            "fastq_1": {
+            "caller": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+$",
+                "description": "Name of the variant caller used to generate test file",
+                "meta": ["caller"],
+                "minLength": 1,
+                "errorMessage": "Variant caller has to be defined. Can also be unknown, undefined or merged"
             },
-            "fastq_2": {
+            "subsample": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+$",
+                "description": "Name to subsample in the multisample VCF, might be required for somatic cases",
+                "meta": ["subsample"],
+                "minLength": 1,
+                "default": null
+            },
+            "normshift": {
+                "type": "number",
+                "description": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)",
+                "meta": ["normshift"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "normdist": {
+                "type": "number",
+                "description": "normshift is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)",
+                "meta": ["normdist"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "normsizediff": {
+                "type": "number",
+                "description": "normsizediff is a svbenchmark parameter. Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)",
+                "meta": ["normsizediff"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "maxdist": {
+                "type": "integer",
+                "description": "maxdist is a svbenchmark parameter. Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000).",
+                "minimum": 0,
+                "meta": ["maxdist"],
+                "default": null
+            },
+            "pctsize": {
+                "type": "number",
+                "description": "pctsize is a truvari parameter. Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size).",
+                "meta": ["pctsize"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "pctseq": {
+                "type": "number",
+                "description": "pctseq is a truvari parameter. Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. turn it off (0) for no sequence comparison.",
+                "meta": ["pctseq"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "pctovl": {
+                "type": "number",
+                "description": "pctovl is a truvari parameter. Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)",
+                "meta": ["pctovl"],
+                "minimum": 0,
+                "maximum": 1,
+                "default": null
+            },
+            "refdist": {
+                "type": "integer",
+                "description": "refdist is a truvari parameter. Maximum distance comparison calls must be within from base call's start/end ",
+                "meta": ["refdist"],
+                "minimum": 0,
+                "default": null
+            },
+            "chunksize": {
+                "type": "integer",
+                "description": "chunksize is a truvari parameter. Create chunks of all calls overlapping within ±`--chunksize` basepairs",
+                "meta": ["chunksize"],
+                "minimum": 0,
+                "default": null
+            },
+            "dup_to_ins": {
+                "type": "boolean",
+                "description": "a truvari parameter. converts DUP to INS type",
+                "meta": ["dup_to_ins"],
+                "default": null
+            },
+            "typeignore": {
+                "type": "boolean",
+                "description": "a truvari parameter. Ignore SVTYPE matching",
+                "meta": ["typeignore"],
+                "default": null
+            },
+            "bpDistance": {
+                "type": "integer",
+                "description": "bpDistance is a wittyer parameter. Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.",
+                "meta": ["bpDistance"],
+                "minimum": 0,
+                "default": null
+            },
+            "percentThreshold": {
+                "type": "number",
+                "description": "percentThreshold is a wittyer parameter. This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)",
+                "meta": ["percentThreshold"],
+                "minimum": 0,
+                "default": null
+            },
+            "absoluteThreshold": {
+                "type": "integer",
+                "description": "absoluteThreshold is a wittyer parameter. This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)",
+                "meta": ["absoluteThreshold"],
+                "minimum": 0,
+                "default": null
+            },
+            "maxMatches": {
+                "type": "integer",
+                "description": "maxMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).",
+                "meta": ["maxMatches"],
+                "default": null
+            },
+            "evaluationmode": {
+                "type": "string",
+                "description": "evaluationmode is a wittyer parameter. It is by default requires genotype matching.  simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d  ",
+                "meta": ["evaluationmode"],
+                "enum": ["sc", "cts", "d"],
+                "minLength": 1,
+                "default": null
+            },
+            "liftover": {
+                "type": "boolean",
+                "description": "Liftover option for test vcfs, to activate add params.liftover='test' ",
+                "meta": ["liftover"],
+                "default": false
+            },
+            "fix_prefix": {
+                "type": "boolean",
+                "description": "Fixing prefix is sometimes necessary for input files, activate it if your input is not adhering to GRCh38 with chr and GRCh37 without chr standards ",
+                "meta": ["fix_prefix"],
+                "default": false
             }
         },
-        "required": ["sample", "fastq_1"]
+        "anyOf": [
+            {
+                "dependentRequired": {
+                    "id": ["test_vcf"]
+                }
+            },
+            {
+                "dependentRequired": {
+                    "id": ["test_regions"]
+                }
+            }
+        ],
+        "required": ["caller", "id"],
+        "uniqueEntries": ["id"]
     }
 }
