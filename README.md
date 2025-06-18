@@ -123,6 +123,10 @@ The generation of comprehensive report that consolidates all benchmarking result
 - Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 - Apply _MultiQC_ to visualize results
 
+## Test cases
+
+A number of test cases can be find under conf/tests directory. [Here](docs/testcases.md) please find the results and explanations of those config files.
+
 ## Usage
 
 > [!NOTE]
@@ -144,7 +148,7 @@ Each row represents a vcf file (test-query file). For each vcf file and variant 
 User _has to provide truth_vcf and truth_id in config files_.
 
 > [!NOTE]
-> There are publicly available truth sources. For germline analysis, it is common to use [genome in a bottle (GiAB)](https://www.nist.gov/programs-projects/genome-bottle) variants. There are variate type of golden truths and high confidence regions for hg37 and hg38 references. Please select and use carefully.
+> There are publicly available truth sources. For germline analysis, it is common to use [genome in a bottle (GiAB)](https://www.nist.gov/programs-projects/genome-bottle) variants. There are variate type of golden truths and high confidence regions for hg37 and hg38 references. [Here](docs/truth.md) there is a list of resources to use in this pipeline, please select and use carefully.
 > For somatic analysis, [SEQC2 project](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2) released SNV, INDEL and CNV regions. One, can select and use those files.
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
