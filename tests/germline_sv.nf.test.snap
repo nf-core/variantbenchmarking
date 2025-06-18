@@ -334,16 +334,10 @@
             [
                 "HG002.bcftools_stats.txt:md5,bc95472c545c41b97fc6c657ebb1132b",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "test1.HG002.manta.distances:md5,0b7d7ba9c133f49aa60d9e2584e7e6ef",
-                "test1.HG002.manta.report:md5,18e1fa4990e086d43b014a49036896ea",
                 "test1.manta.bcftools_stats.txt:md5,db893fb61ca1ec2f2be4dcf17502c78f",
                 "test1.manta_mqc.stats:md5,377494563323ef6d078e71ded42c24ce",
-                "test2.HG002.lumpy.distances:md5,416462faec48301ab36bef5071db7017",
-                "test2.HG002.lumpy.report:md5,19b2579e7042558421731ab9c7ec847f",
                 "test2.lumpy.bcftools_stats.txt:md5,681916c18ba7f61815fec0b09e390922",
                 "test2.lumpy_mqc.stats:md5,1c029d583c409ea1e32658dd1e5c4e4a",
-                "test3.HG002.delly.distances:md5,346f18a5cbeece98716951c8fc2aaea4",
-                "test3.HG002.delly.report:md5,8838f9ab41d9cc6fd7df7449fb21e47e",
                 "test3.delly.bcftools_stats.txt:md5,1b51ef9562e3ee97953c1f6714b5b917",
                 "test3.delly_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b"
             ]
@@ -352,7 +346,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-17T19:20:30.10674869"
+        "timestamp": "2025-06-18T10:39:40.169105148"
     },
     "-stub": {
         "content": [
@@ -555,16 +549,10 @@
             [
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test1.HG002.manta.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test1.HG002.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test2.HG002.lumpy.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test2.HG002.lumpy.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test3.HG002.delly.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test3.HG002.delly.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.delly.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
@@ -573,6 +561,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-17T19:22:38.905356571"
+        "timestamp": "2025-06-18T10:41:55.659844601"
     }
 }
