@@ -18,11 +18,7 @@
                 "structural/HG002/stats/survivor/HG002_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
-                "structural/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
-                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
-                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
-                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
-                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                "structural/multiqc/multiqc_data/BETA-multiqc.parquet",
                 "structural/multiqc/multiqc_data/multiqc.log",
                 "structural/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
                 "structural/multiqc/multiqc_data/multiqc_citations.txt",
@@ -33,30 +29,12 @@
                 "structural/multiqc/multiqc_data/multiqc_survivor.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
-                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths.pdf",
-                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
-                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
-                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
-                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
-                "structural/multiqc/multiqc_plots/pdf/general_stats_table.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
                 "structural/multiqc/multiqc_plots/png",
-                "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths.png",
-                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
-                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
-                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
-                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
-                "structural/multiqc/multiqc_plots/png/general_stats_table.png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
                 "structural/multiqc/multiqc_plots/svg",
-                "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths.svg",
-                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
-                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
-                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
-                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
-                "structural/multiqc/multiqc_plots/svg/general_stats_table.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
                 "structural/multiqc/multiqc_report.html",
@@ -95,7 +73,8 @@
                 "structural/summary/datavzrd/versions.yml",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
-                "structural/summary/plots/svbenchmark/metric_by_tool_svbenchmark_mqc.png",
+                "structural/summary/plots/svbenchmark/f1_by_tool_svbenchmark_mqc.png",
+                "structural/summary/plots/svbenchmark/pr_recall_by_tool_svbenchmark_mqc.png",
                 "structural/summary/plots/svbenchmark/variants_by_tool_svbenchmark_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
@@ -152,25 +131,19 @@
             [
                 "HG002.bcftools_stats.txt:md5,12b09b32a2793b52830091a5895e00d0",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "test1.HG002.delly.distances:md5,a726347df41ebafd480e274105926606",
-                "test1.HG002.delly.report:md5,578be6e52289fba8a2949788d6c09d4f",
                 "test1.delly.bcftools_stats.txt:md5,209604ebf522660875a29723798e03ae",
                 "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
-                "test2.HG002.lumpy.distances:md5,0f8f3a33cfaa22913b1e76596c6886f1",
-                "test2.HG002.lumpy.report:md5,2ce78dd8de9f8afcd4ed666a3c50f8aa",
                 "test2.lumpy.bcftools_stats.txt:md5,793655055cdb78556ae6b8e126ff743f",
                 "test2.lumpy_mqc.stats:md5,6a22796091a559398e14325a4349f19e",
-                "test3.HG002.manta.distances:md5,8bbecb45e074b416152b4b43fbad8878",
-                "test3.HG002.manta.report:md5,7931e8a4f87ea471d6128af55b50febb",
                 "test3.manta.bcftools_stats.txt:md5,a3f6a0e9aa7dbade8528836d3a2c8c85",
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.6"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-05-05T08:55:10.109747926"
+        "timestamp": "2025-06-18T11:00:28.010121683"
     },
     "-stub": {
         "content": [
@@ -278,24 +251,18 @@
             [
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test1.HG002.delly.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test1.HG002.delly.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test2.HG002.lumpy.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test2.HG002.lumpy.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test3.HG002.manta.distances:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test3.HG002.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.6"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-05-05T08:57:11.854081812"
+        "timestamp": "2025-06-18T11:02:22.342189681"
     }
 }

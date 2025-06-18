@@ -34,3 +34,5 @@ references/rtgtools/genome.sdf/done
 **/**/benchmarks/sompy/*.csv
 **/**/preprocess/*.{vcf.gz,gz.tbi,vcf}
 **/**/liftover/*.{vcf.gz,gz.tbi,vcf}
+**/**/benchmarks/svanalyzer/*.distances
+**/**/benchmarks/svanalyzer/*.report
