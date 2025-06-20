@@ -14,7 +14,7 @@
                 "copynumber/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
                 "copynumber/multiqc",
                 "copynumber/multiqc/multiqc_data",
-                "copynumber/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "copynumber/multiqc/multiqc_data/BETA-multiqc.parquet",
                 "copynumber/multiqc/multiqc_data/multiqc.log",
                 "copynumber/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_citations.txt",
@@ -24,14 +24,8 @@
                 "copynumber/multiqc/multiqc_data/multiqc_sources.txt",
                 "copynumber/multiqc/multiqc_plots",
                 "copynumber/multiqc/multiqc_plots/pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/general_stats_table.pdf",
                 "copynumber/multiqc/multiqc_plots/png",
-                "copynumber/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths.png",
-                "copynumber/multiqc/multiqc_plots/png/general_stats_table.png",
                 "copynumber/multiqc/multiqc_plots/svg",
-                "copynumber/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths.svg",
-                "copynumber/multiqc/multiqc_plots/svg/general_stats_table.svg",
                 "copynumber/multiqc/multiqc_report.html",
                 "copynumber/summary",
                 "copynumber/summary/comparisons",
@@ -231,6 +225,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.4"
         },
-        "timestamp": "2025-06-17T09:57:51.109112374"
+        "timestamp": "2025-06-20T12:55:55.257523702"
     }
 }
