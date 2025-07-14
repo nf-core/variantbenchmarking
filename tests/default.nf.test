@@ -1,14 +1,18 @@
 nextflow_pipeline {
 
-    name "Test pipeline"
+    name "Test pipeline for structural germline variants, tested benchmarking methods is svanalyzer"
     script "../main.nf"
     tag "pipeline"
+    tag "germline"
+    tag "structural"
+    config "../conf/test.config"
 
-    test("-profile test") {
+    test("Params: --analysis 'germline' --variant_type 'structural' --method 'svanalyzer'") {
 
         when {
             params {
-                outdir = "$outputDir"
+                outdir               = "$outputDir"
+                test_data_base = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
             }
         }
 
@@ -18,12 +22,43 @@ nextflow_pipeline {
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
             assertAll(
-                { assert workflow.success},
+                { assert workflow.success },
                 { assert snapshot(
                     // Number of successful tasks
                     workflow.trace.succeeded().size(),
-                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_name,
+                    // All files with stable contents
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+    test("-stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                outdir               = "$outputDir"
+                test_data_base = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
                     // All stable path name, with a relative path
                     stable_name,
                     // All files with stable contents

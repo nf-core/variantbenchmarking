@@ -1,0 +1,19 @@
+datasets:
+  report:
+    path: CSVPATH #wittyer.sv.summary.csv
+    separator: ","
+views:
+  test:
+    dataset: report
+    render-table:
+      columns:
+        Tool:
+          display-mode: normal
+        TP_base:
+          display-mode: normal
+        FN:
+          display-mode: normal
+        TP_comp:
+          display-mode: normal
+        FP:
+          display-mode: normal
