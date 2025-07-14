@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `rtg bndeval` for SVTPE=BND benchmarking ([#195](https://github.com/nf-core/variantbenchmarking/pull/195))
 - Split benchmarking VCF for happy properly to create comparison tables ([#196](https://github.com/nf-core/variantbenchmarking/pull/196))
 - Template update to v3.3.1 [#200](https://github.com/nf-core/variantbenchmarking/pull/200)
+- Template update to v3.3.2 [#205](https://github.com/nf-core/variantbenchmarking/pull/205)
 
 ### `Fixed`
 
