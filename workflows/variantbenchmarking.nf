@@ -139,7 +139,7 @@ workflow VARIANTBENCHMARKING {
     ch_samplesheet.branch{
             def meta = it[0]
             def vcf = it[1]
-            multisample: meta.subsample != null
+            multisample: meta.subsample
             singlesample : vcf
             other: false}
         .set{sample}
