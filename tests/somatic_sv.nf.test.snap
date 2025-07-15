@@ -2,7 +2,65 @@
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
             43,
-            null,
+            {
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.2
+                },
+                "BGZIP_TABIX": {
+                    "tabix": 1.12
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "SURVIVOR_MERGE": {
+                    "survivor": "1.0.7"
+                },
+                "SURVIVOR_STATS": {
+                    "survivor": "1.0.7"
+                },
+                "SVANALYZER_SVBENCHMARK": {
+                    "svanalyzer": 0.36
+                },
+                "TABIX_BGZIP": {
+                    "tabix": "1.19.1"
+                },
+                "TABIX_BGZIP_UNZIP": {
+                    "tabix": "1.19.1"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
@@ -149,6 +207,56 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,e1a7c33b75d3e2688ba48b1b9975b467",
                 "SEQC2_mqc.stats:md5,cb253f3829a25286d572c91a9ea75e9e",
+                "BETA-multiqc.parquet:md5,05e6ed584071641207424a1f102dd435",
+                "bcftools-stats-subtypes.txt:md5,95fa0d99c5a01496c6cf869cd92723ed",
+                "bcftools_stats_indel-lengths.txt:md5,442dd383128f8823b79c0b8cedb9846f",
+                "bcftools_stats_variant_depths.txt:md5,0e49f777d0fdc410fd1bc9808065b3fe",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,2e6bf6f536443f7f78df5e2cfd78e846",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,60fe18fab01817de05ae3032b6c91bd9",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,7ca1e04e43bf0884c16a8a5c90c8311c",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,3557801526bd83501411f080b81da866",
+                "multiqc.log:md5,dd7a74f6d89bfa63781ff50f8e2a32d3",
+                "multiqc_bcftools_stats.txt:md5,95262aefdc5c0682a9b93062de6992a1",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "multiqc_data.json:md5,a68663c2bfc5300cec34fe47d3540499",
+                "multiqc_general_stats.txt:md5,a52fa325da3764297e0eb8e1b9ae5300",
+                "multiqc_software_versions.txt:md5,d420645609d60bc338b0f846104fd9b4",
+                "multiqc_sources.txt:md5,6c939515e7909dad983e151cd18696e4",
+                "multiqc_survivor.txt:md5,87a65e44808b28501b486e0ec66eaf52",
+                "bcftools-stats-subtypes-cnt.pdf:md5,c5a7c4cec60ae0241c39ec7e9f1404c2",
+                "bcftools-stats-subtypes-pct.pdf:md5,021b64bd5a593366c537bedaf4a56a47",
+                "bcftools_stats_indel-lengths-cnt.pdf:md5,bf55e72cb4793dccf7683a813915432a",
+                "bcftools_stats_indel-lengths-log.pdf:md5,d098d304f49491bccd47c8f6e4d89e9f",
+                "bcftools_stats_variant_depths.pdf:md5,ae02181636dfd0680260e895b7bee10a",
+                "bcftools_stats_vqc_Count_Indels.pdf:md5,b1a9ec7f4fa5f80ad620dbc2a01c5256",
+                "bcftools_stats_vqc_Count_SNP.pdf:md5,cfff42e2842818fc6b1c352dd3be4c99",
+                "bcftools_stats_vqc_Count_Transitions.pdf:md5,a0c194a62405f8222d309c68c2708dc2",
+                "bcftools_stats_vqc_Count_Transversions.pdf:md5,55c93f8842de8ee5e781c7e1216700d9",
+                "survivor-cnt.pdf:md5,530579a68eb30775c923b2903f50cbec",
+                "survivor-pct.pdf:md5,7daca96a7455c99919c109fb7babac41",
+                "bcftools-stats-subtypes-cnt.png:md5,11b0db92d05c6b15d61676225dc01838",
+                "bcftools-stats-subtypes-pct.png:md5,eaea1a337af0d6dbfc36deb87a7f06ea",
+                "bcftools_stats_indel-lengths-cnt.png:md5,e41d614896a4ccbeecd3c726462d767f",
+                "bcftools_stats_indel-lengths-log.png:md5,c4f1d0caba29cb5c0266e5607579b46d",
+                "bcftools_stats_variant_depths.png:md5,18a3614aa68a2bdccab6a3271dbe36ab",
+                "bcftools_stats_vqc_Count_Indels.png:md5,8fa4a20ff90e5442a1536b7ab4e8eb2f",
+                "bcftools_stats_vqc_Count_SNP.png:md5,98477d9a85cee7dc8313ced42cd11f15",
+                "bcftools_stats_vqc_Count_Transitions.png:md5,8ce0fc0eb5ba51825af4b743a3e8e1b2",
+                "bcftools_stats_vqc_Count_Transversions.png:md5,75568a5fe5b6b3f75d8f6400a4bdd4ae",
+                "survivor-cnt.png:md5,99bb09e2bd03fdeabf7f431f9cac6c2e",
+                "survivor-pct.png:md5,ef915d36047a113783b73df153faf628",
+                "bcftools-stats-subtypes-cnt.svg:md5,8c945557efbea5e37ccf7deedbd6662d",
+                "bcftools-stats-subtypes-pct.svg:md5,55857d1d0c082963d3fce5bfc1e72103",
+                "bcftools_stats_indel-lengths-cnt.svg:md5,1310d23300a7bdfa69a44abda9529bee",
+                "bcftools_stats_indel-lengths-log.svg:md5,b14805af5930f5347a9b4b8563bf4866",
+                "bcftools_stats_variant_depths.svg:md5,4fc3bb1e980aad5dbf9c5d7f442f28b3",
+                "bcftools_stats_vqc_Count_Indels.svg:md5,e24e72742df21d4563630200aea96fa6",
+                "bcftools_stats_vqc_Count_SNP.svg:md5,cbd751e5c75891e2d15ada8ee2e10866",
+                "bcftools_stats_vqc_Count_Transitions.svg:md5,ac546a5eb6d1ecfdff5873618174e014",
+                "bcftools_stats_vqc_Count_Transversions.svg:md5,e922249a873426855d00e181f115606e",
+                "survivor-cnt.svg:md5,6b91922605fc6f7c62322cc2ba20205b",
+                "survivor-pct.svg:md5,37a86c5179be92155aa53d6b250f64ab",
+                "multiqc_report.html:md5,92e50cc3dd6dd7b56cb0a8c3959bc0c7",
                 "test1.freebayes.bcftools_stats.txt:md5,2cbe6615b45daf53460edf3fae855ccd",
                 "test1.freebayes_mqc.stats:md5,10c47f239ae838d4601adaf2f2d43381",
                 "test2.strelka.bcftools_stats.txt:md5,7e968b37dd84be58cac93052f6821c74",
@@ -157,8 +265,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T11:05:11.515598203"
+        "timestamp": "2025-07-15T12:00:25.567511145"
     }
 }

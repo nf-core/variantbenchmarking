@@ -2,7 +2,62 @@
     "Params: --analysis 'germline' --variant_type 'structural' --method 'svanalyzer'": {
         "content": [
             52,
-            null,
+            {
+                "BCFTOOLS_DEDUP": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BGZIP_TABIX": {
+                    "tabix": 1.12
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "SURVIVOR_MERGE": {
+                    "survivor": "1.0.7"
+                },
+                "SURVIVOR_STATS": {
+                    "survivor": "1.0.7"
+                },
+                "SVANALYZER_SVBENCHMARK": {
+                    "svanalyzer": 0.36
+                },
+                "TABIX_BGZIP_UNZIP": {
+                    "tabix": "1.19.1"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
@@ -131,6 +186,22 @@
             [
                 "HG002.bcftools_stats.txt:md5,12b09b32a2793b52830091a5895e00d0",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
+                "BETA-multiqc.parquet:md5,4234017b2817f38d3188d7be946cdc82",
+                "multiqc.log:md5,ee58edefd77c383274c4d7b795abbee4",
+                "multiqc_bcftools_stats.txt:md5,fced87ee1b40160c0fad29f1adc1bd1e",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_data.json:md5,4ef7b992faf151181348542b59b44c52",
+                "multiqc_general_stats.txt:md5,7e8d9987c0d5593efdaa077d8d9bfa4d",
+                "multiqc_software_versions.txt:md5,7d1e9380c6af5aef1561d5b0a7ca5fec",
+                "multiqc_sources.txt:md5,4b6abae27b0c9c964e96607bd30a3f35",
+                "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
+                "survivor-cnt.pdf:md5,5f2f4a1c17ac4422c5d7aae98aff0347",
+                "survivor-pct.pdf:md5,f9fe6cd35ed3854970dd9a591fff77b5",
+                "survivor-cnt.png:md5,5c4b506e41bf4b30af223dfbda516784",
+                "survivor-pct.png:md5,28c19beda3e937f90592ca563e84aeed",
+                "survivor-cnt.svg:md5,b7bcec51741fc0edcb79ee58bc76698d",
+                "survivor-pct.svg:md5,3d3b07f4097a6c8e42745859211f20b5",
+                "multiqc_report.html:md5,97e046c576b90abf75e8b130a331a6e0",
                 "test1.delly.bcftools_stats.txt:md5,209604ebf522660875a29723798e03ae",
                 "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
                 "test2.lumpy.bcftools_stats.txt:md5,793655055cdb78556ae6b8e126ff743f",
@@ -141,14 +212,69 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T11:00:28.010121683"
+        "timestamp": "2025-07-15T10:06:34.958216013"
     },
     "-stub": {
         "content": [
             52,
-            null,
+            {
+                "BCFTOOLS_DEDUP": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BGZIP_TABIX": {
+                    "tabix": 1.12
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "SURVIVOR_MERGE": {
+                    "survivor": "1.0.7"
+                },
+                "SURVIVOR_STATS": {
+                    "survivor": "1.0.7"
+                },
+                "SVANALYZER_SVBENCHMARK": {
+                    "svanalyzer": 0.36
+                },
+                "TABIX_BGZIP_UNZIP": {
+                    "tabix": "1.19.1"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
@@ -251,6 +377,7 @@
             [
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "multiqc_report.html:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -261,8 +388,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-18T11:02:22.342189681"
+        "timestamp": "2025-07-15T10:08:40.976438773"
     }
 }

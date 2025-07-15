@@ -2,7 +2,68 @@
     "Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'": {
         "content": [
             40,
-            null,
+            {
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_3": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_4": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SPLIT_MULTI": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BEDTOOLS_INTERSECT": {
+                    "python": "3.12.8"
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "SURVIVOR_MERGE": {
+                    "survivor": "1.0.7"
+                },
+                "SVTK_VCF2BED": {
+                    "svtk": "0.0.20190615"
+                },
+                "TABIX_BGZIP_UNZIP": {
+                    "tabix": "1.19.1"
+                },
+                "TRUVARI_BENCH": {
+                    "truvari": "4.1.0)"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "copynumber",
                 "copynumber/SEQC2",
@@ -155,6 +216,15 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,2a3294dcbb89d63042d713a7bb6f32ee",
+                "BETA-multiqc.parquet:md5,164af2a5f73e98e2414f7630fab64808",
+                "multiqc.log:md5,166c73d98b76e2a6d564642e0de139ec",
+                "multiqc_bcftools_stats.txt:md5,077fa14a878273d9d33ab727244c8fb0",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_data.json:md5,b631748e0b0c76795078de7ee96a48cf",
+                "multiqc_general_stats.txt:md5,2b0bf34a04cc0df803d06f67f20493e8",
+                "multiqc_software_versions.txt:md5,d5ae2d5fef957ec0c1d971597bd2c52e",
+                "multiqc_sources.txt:md5,5e75a779600aa9708846e46a9763dce4",
+                "multiqc_report.html:md5,ea45781ebe5184a7148253e5a572ab82",
                 "test1.SEQC2.manta.converted_FN.bed:md5,ddbcf134600fbacf9fae1926a36e8334",
                 "test1.SEQC2.manta.converted_FP.bed:md5,1c5d89b7fa46e521f1169eb0e733c90f",
                 "test1.SEQC2.manta.converted_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -183,8 +253,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-17T15:51:07.095542286"
+        "timestamp": "2025-07-15T11:45:46.004730925"
     }
 }

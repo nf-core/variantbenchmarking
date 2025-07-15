@@ -2,7 +2,104 @@
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
             100,
-            null,
+            {
+                "BCFTOOLS_DEDUP": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_FILTER_QUERY_FP": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_FILTER_QUERY_TP": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_FILTER_TRUTH_FN": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_FILTER_TRUTH_TP": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_RENAME_CHR": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SPLIT_MULTI": {
+                    "bcftools": 1.21
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BEDTOOLS_MERGE": {
+                    "bedtools": "2.31.1"
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "HAPPY_HAPPY": {
+                    "hap.py": "0.3.14"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PICARD_CREATESEQUENCEDICTIONARY": {
+                    "picard": "3.2.0-1-g3948afb6b"
+                },
+                "PICARD_LIFTOVERVCF": {
+                    "picard": "3.2.0-1-g3948afb6b"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "REFORMAT_HEADER": {
+                    "tabix": 1.12
+                },
+                "RTGTOOLS_FORMAT": {
+                    "rtg-tools": "3.12.1"
+                },
+                "SORT_BED": {
+                    "sort": 8.3
+                },
+                "UCSC_LIFTOVER": {
+                    "ucsc": 377
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
@@ -279,6 +376,49 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002_GRCh37_1_22_v4.2.1_highconf.liftedsort.merged.bed:md5,5e997133249c2227cb5363b314245636",
                 "HG002.bcftools_stats.txt:md5,db248c6e7e92253abd836c1d8a326371",
+                "BETA-multiqc.parquet:md5,57eb9f0920c0adeedc79e23d6f00d775",
+                "bcftools-stats-subtypes.txt:md5,db4599b310609ae25b915de0e71fdc5e",
+                "bcftools_stats_indel-lengths.txt:md5,862651fc0dba4621d337c0b3348ee24f",
+                "bcftools_stats_variant_depths.txt:md5,c76ee1e0b5d3a5c053712cf30d5db2bb",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,7a17913857b3c99048c9c727afe25964",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,eceac0f1b2aab68b4a35b2b5c3aafd85",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,ad560a107c840ac71737c5a91b7e11e6",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,bfdf4f4ab7582e221cdee2e3d70ba2b0",
+                "multiqc.log:md5,2356f97c7a84fb4cf8b66dd9b3377164",
+                "multiqc_bcftools_stats.txt:md5,3be2ae2f42da55e49435e3112f0135d3",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "multiqc_data.json:md5,7708d0100825aed8f106e37ab2284bab",
+                "multiqc_general_stats.txt:md5,5d8c3e324f2559d12854b50d713ccc3a",
+                "multiqc_software_versions.txt:md5,8fe1ec6d315579fc39ea434a8d2520c1",
+                "multiqc_sources.txt:md5,7aa181859824ce80dbc3738752f8e6fb",
+                "bcftools-stats-subtypes-cnt.pdf:md5,284eb1cd778b8360899cd6e90f26e8f0",
+                "bcftools-stats-subtypes-pct.pdf:md5,7eb33390301f80420c10a8043dd77a0c",
+                "bcftools_stats_indel-lengths-cnt.pdf:md5,492a64c5b730de840e4cc4b107c610eb",
+                "bcftools_stats_indel-lengths-log.pdf:md5,c16dd06ec0c674d2b4b53d2ede3e84a5",
+                "bcftools_stats_variant_depths.pdf:md5,d57cc12044729245e668c6fb47ae733e",
+                "bcftools_stats_vqc_Count_Indels.pdf:md5,6f73e6f32b0204828a26d161a0fcea1c",
+                "bcftools_stats_vqc_Count_SNP.pdf:md5,20e0f92f05a7f57c0200cc912a7a3f7a",
+                "bcftools_stats_vqc_Count_Transitions.pdf:md5,38ef40f075fc3f45e9a0a84eb876276c",
+                "bcftools_stats_vqc_Count_Transversions.pdf:md5,3612480a326820fd192e2294556ac1d5",
+                "bcftools-stats-subtypes-cnt.png:md5,2ffe44f8f72bc5d844c6c2df2fe53627",
+                "bcftools-stats-subtypes-pct.png:md5,e1db25d162eacd94cccfcf6e472323f8",
+                "bcftools_stats_indel-lengths-cnt.png:md5,c4d7ed6b7dea408745edf31b64646d87",
+                "bcftools_stats_indel-lengths-log.png:md5,86bd086f03c58f4ff300f88918f712a5",
+                "bcftools_stats_variant_depths.png:md5,86943dd9d91981e63b04e6a5b0b9d85d",
+                "bcftools_stats_vqc_Count_Indels.png:md5,0b1a06c6be63130eada51af8d2471e7b",
+                "bcftools_stats_vqc_Count_SNP.png:md5,62d79b2b1eb230ad31a9115bcca308f4",
+                "bcftools_stats_vqc_Count_Transitions.png:md5,64c2d19c56fe3b9676917e95e184aca4",
+                "bcftools_stats_vqc_Count_Transversions.png:md5,485522f8857e38fa4691da56e4c30a6a",
+                "bcftools-stats-subtypes-cnt.svg:md5,46e5543c70a4745785a7ea229d419b99",
+                "bcftools-stats-subtypes-pct.svg:md5,46c3a31115663ed40ca3255017274b8e",
+                "bcftools_stats_indel-lengths-cnt.svg:md5,438c1c04fe352ce9042de75537cc8b12",
+                "bcftools_stats_indel-lengths-log.svg:md5,6c6801754ed43042456b5a8eca501991",
+                "bcftools_stats_variant_depths.svg:md5,f54a584570a4d4ec81ba64a2af5d2634",
+                "bcftools_stats_vqc_Count_Indels.svg:md5,2b078fa2c5e31641c4b8e00be44653e1",
+                "bcftools_stats_vqc_Count_SNP.svg:md5,eae49ae4e2f02e433eb5258725879e2b",
+                "bcftools_stats_vqc_Count_Transitions.svg:md5,bad7c1264e01ed9d64818e0069e9e0e8",
+                "bcftools_stats_vqc_Count_Transversions.svg:md5,fce689b2c5b07be90c58adca62cd2462",
+                "multiqc_report.html:md5,87a2fed15f662b19c5bae3300f55ef6d",
                 "test6.HG002.strelka.extended.csv:md5,fadf06276179c1cc388007e5651fb9af",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,a08665be8ea20855a14d6418d07521dc",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,8d4a20a5914379230952aeb252845e2d",
@@ -303,8 +443,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-17T16:07:16.648051836"
+        "timestamp": "2025-07-15T12:46:22.349993508"
     }
 }

@@ -1,111 +1,96 @@
 {
     "-stub": {
         "content": [
-            38,
-            null,
+            14,
+            {
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.2
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "snv",
-                "snv/SEQC2",
-                "snv/SEQC2/preprocess",
-                "snv/SEQC2/preprocess/SEQC2.vcf.gz",
-                "snv/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
-                "snv/SEQC2/stats",
-                "snv/SEQC2/stats/bcftools",
-                "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
                 "snv/multiqc",
                 "snv/multiqc/multiqc_data",
                 "snv/multiqc/multiqc_plots",
-                "snv/multiqc/multiqc_report.html",
-                "snv/summary",
-                "snv/summary/comparisons",
-                "snv/summary/comparisons/sompy",
-                "snv/summary/comparisons/sompy/sompy.FN.summary.csv",
-                "snv/summary/comparisons/sompy/sompy.FP.summary.csv",
-                "snv/summary/comparisons/sompy/sompy.TP.summary.csv",
-                "snv/summary/datavzrd",
-                "snv/summary/datavzrd/sompy",
-                "snv/summary/datavzrd/sompy/index.html",
-                "snv/summary/datavzrd/sompy/network",
-                "snv/summary/datavzrd/sompy/network/config.js",
-                "snv/summary/datavzrd/sompy/network/data",
-                "snv/summary/datavzrd/sompy/network/data/data_1.js",
-                "snv/summary/datavzrd/sompy/network/functions.js",
-                "snv/summary/datavzrd/sompy/network/heatmap.js",
-                "snv/summary/datavzrd/sompy/network/index_1.html",
-                "snv/summary/datavzrd/sompy/network/plots",
-                "snv/summary/datavzrd/sompy/network/plots/plot_0.js",
-                "snv/summary/datavzrd/sompy/static",
-                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
-                "snv/summary/datavzrd/sompy/static/bundle.js",
-                "snv/summary/datavzrd/sompy/static/datavzrd.css",
-                "snv/summary/datavzrd/versions.yml",
-                "snv/summary/plots",
-                "snv/summary/plots/sompy",
-                "snv/summary/plots/sompy/metric_by_tool_sompy_mqc.png",
-                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
-                "snv/summary/tables",
-                "snv/summary/tables/sompy",
-                "snv/summary/tables/sompy/sompy.regions.csv",
-                "snv/summary/tables/sompy/sompy.summary.csv",
-                "snv/test10",
-                "snv/test10/benchmarks",
-                "snv/test10/benchmarks/sompy",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.features.csv",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.metrics.json",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.stats.csv",
-                "snv/test10/preprocess",
-                "snv/test10/preprocess/test10.vcf.gz",
-                "snv/test10/preprocess/test10.vcf.gz.tbi",
-                "snv/test10/stats",
-                "snv/test10/stats/bcftools",
-                "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
-                "snv/test8",
-                "snv/test8/benchmarks",
-                "snv/test8/benchmarks/sompy",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.features.csv",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.metrics.json",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.stats.csv",
-                "snv/test8/preprocess",
-                "snv/test8/preprocess/test8.vcf.gz",
-                "snv/test8/preprocess/test8.vcf.gz.tbi",
-                "snv/test8/stats",
-                "snv/test8/stats/bcftools",
-                "snv/test8/stats/bcftools/test8.freebayes.bcftools_stats.txt",
-                "snv/test9",
-                "snv/test9/benchmarks",
-                "snv/test9/benchmarks/sompy",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.features.csv",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.metrics.json",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.stats.csv",
-                "snv/test9/preprocess",
-                "snv/test9/preprocess/test9.vcf.gz",
-                "snv/test9/preprocess/test9.vcf.gz.tbi",
-                "snv/test9/stats",
-                "snv/test9/stats/bcftools",
-                "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
+                "snv/multiqc/multiqc_report.html"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test10.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test8.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                "multiqc_report.html:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-17T15:41:18.119097044"
+        "timestamp": "2025-07-15T11:50:41.918888434"
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'": {
         "content": [
             38,
-            null,
+            {
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.2
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "HAPPY_SOMPY": {
+                    "hap.py": "0.3.14"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "MERGE_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "SPLIT_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
@@ -258,6 +243,49 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,2a23dd61a56e7e6435a8ba4617fd793d",
+                "BETA-multiqc.parquet:md5,41dd767a4b5d542bec65948538a91538",
+                "bcftools-stats-subtypes.txt:md5,8fda5c956bfec413f0ea82bcc0224a50",
+                "bcftools_stats_indel-lengths.txt:md5,c320fdc4ab67592cc29da3752d526121",
+                "bcftools_stats_variant_depths.txt:md5,4820ca6db218572a8bc459b1595fa434",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,f8ad6a9991c4c52678b1ce258878a0cc",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,f0e53c9fc9a4ebf97b9eeb9f62be2f63",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,3a719edcd100b539bd4954df9d663c07",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,f170365dddffd1c2c203074d88361498",
+                "multiqc.log:md5,bd061ce23339168c684d8ae6b0d5a60f",
+                "multiqc_bcftools_stats.txt:md5,eb9e2abae009a74a2dea426199196611",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "multiqc_data.json:md5,e350fd600ab9cae7632a6b3fd5296d66",
+                "multiqc_general_stats.txt:md5,d98f73694928a03ef80bc494da7d1649",
+                "multiqc_software_versions.txt:md5,3ef3dc6fe301f5ce1a15eee314381b16",
+                "multiqc_sources.txt:md5,9897d2543c6ecb0d31ea85cc661fee0e",
+                "bcftools-stats-subtypes-cnt.pdf:md5,3f6a305260ec9bbe0b7f03de918cf1b9",
+                "bcftools-stats-subtypes-pct.pdf:md5,5469498719e775f2ee1eb7566c959814",
+                "bcftools_stats_indel-lengths-cnt.pdf:md5,eba1bd24625962970ef7d2db6074ad53",
+                "bcftools_stats_indel-lengths-log.pdf:md5,440d2c68e519e1321ffbd0988f3a8b6c",
+                "bcftools_stats_variant_depths.pdf:md5,1bb6a3f20ba8d29ce323e47a34ff7982",
+                "bcftools_stats_vqc_Count_Indels.pdf:md5,5946e1600db63c9f2c1cd516a7066f85",
+                "bcftools_stats_vqc_Count_SNP.pdf:md5,8a37a28d7daabc1aca63f3a17cd23a43",
+                "bcftools_stats_vqc_Count_Transitions.pdf:md5,feb83de0aa13aebeebb8a1225ea4c997",
+                "bcftools_stats_vqc_Count_Transversions.pdf:md5,4aa84194609d52805ffe99bb149eb533",
+                "bcftools-stats-subtypes-cnt.png:md5,09aa0d83bb23a436066c11a58bb02e10",
+                "bcftools-stats-subtypes-pct.png:md5,cb89b056d656665a145f87be8f2918dc",
+                "bcftools_stats_indel-lengths-cnt.png:md5,c935f8b3a8df4c7246ad22304a677e55",
+                "bcftools_stats_indel-lengths-log.png:md5,ef6768767658a08671cce720178cb951",
+                "bcftools_stats_variant_depths.png:md5,d785e67d4d4e9b578d37e6d3e743e6c3",
+                "bcftools_stats_vqc_Count_Indels.png:md5,524e1b921c70f2f9af5733a2b7ab3aac",
+                "bcftools_stats_vqc_Count_SNP.png:md5,48a166ecb7e790178020c4528e8bb460",
+                "bcftools_stats_vqc_Count_Transitions.png:md5,a5998304c4ab44c47da9893ed163fd98",
+                "bcftools_stats_vqc_Count_Transversions.png:md5,5b5a8aaf694f770bc1d2566fd8a956cc",
+                "bcftools-stats-subtypes-cnt.svg:md5,a2be7459406c087992781eb6f555ab8d",
+                "bcftools-stats-subtypes-pct.svg:md5,6755d40c470069224b87c8bba17e1f78",
+                "bcftools_stats_indel-lengths-cnt.svg:md5,1572eab010b70bbb4c8cbf44cee14695",
+                "bcftools_stats_indel-lengths-log.svg:md5,3d6365ddd1d1b2b964c5be5e3ee52ff3",
+                "bcftools_stats_variant_depths.svg:md5,c98b3cdadabc3de33a35e1bd8a255fc5",
+                "bcftools_stats_vqc_Count_Indels.svg:md5,3b92473adb31791c5fd3c2a5bad36892",
+                "bcftools_stats_vqc_Count_SNP.svg:md5,65006dfc98978790f15c583c06615aeb",
+                "bcftools_stats_vqc_Count_Transitions.svg:md5,c89945ceba73390590bcbf8f2409fb6b",
+                "bcftools_stats_vqc_Count_Transversions.svg:md5,a5c67f14ec29f132bfe3b33cc35d4a3b",
+                "multiqc_report.html:md5,5df3e290b318f708956d34dec5ed34a5",
                 "test10.strelka.bcftools_stats.txt:md5,9fc6a285b83b2c2652080562ba9e94d6",
                 "test8.freebayes.bcftools_stats.txt:md5,d77ea46ddd14b533afc99175dffb1d11",
                 "test9.mutect2.bcftools_stats.txt:md5,eee5cab56339d542b955bd36d88107e2"
@@ -265,8 +293,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-17T15:39:26.197031184"
+        "timestamp": "2025-07-15T11:49:59.083309649"
     }
 }
