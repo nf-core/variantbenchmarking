@@ -36,8 +36,8 @@ def get_svbenchmark_results(file_paths):
 	FN_pattern = re.compile(r'Number of undetected true variants \(.*\): (\d+)')
 	PTP_pattern = re.compile(r'Number of predictions that are true \(.*\): (\d+)')
 	FP_pattern = re.compile(r'Number of false positives \(.*\): (\d+)')
-	recall_pattern = re.compile(r'Recall \(.*\): (\d+\.\d+)%')
-	precision_pattern = re.compile(r'Precision \(.*\): (\d+\.\d+)%')
+	recall_pattern = re.compile(r'Recall\s*\(.*?\):\s*(\d+(?:\.\d+)?)%')
+	precision_pattern = re.compile(r'Precision\s*\(.*?\):\s*(\d+(?:\.\d+)?)%')
 	f1_pattern = re.compile(r'F1 \(.*\): ([\d\.]+(?:e[+-]?\d+)?)')
 
 	# Iterate over each table file
@@ -157,8 +157,8 @@ def get_rtgtools_results(file_paths):
 		df = pd.DataFrame(data, columns=header)
 		df['Tool'] = filename.split(".")[0]
 		df['File'] = filename
-		df_redesigned = df[['Tool', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
-		df_redesigned.columns = ['Tool', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']
+		df_redesigned = df[['Tool', 'File', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
+		df_redesigned.columns = ['Tool','File', 'Threshold','TP_base','TP_call','FP','FN','Precision','Recall','F1']
 		# Convert relevant columns to integers, handling potential NaN values
 		int_columns = ['TP_base', 'FN', 'TP_call', 'FP']
 		float_columns = ['Recall','Precision','F1']
@@ -182,8 +182,8 @@ def get_happy_results(file_paths):
 		df['Tool'] = filename.split(".")[0]
 		df['File'] = filename
 
-		df_redesigned = df[['Tool', 'Type','Filter','TRUTH.TOTAL','TRUTH.TP','TRUTH.FN','QUERY.TOTAL','QUERY.FP','QUERY.UNK','FP.gt','FP.al','METRIC.Recall','METRIC.Precision','METRIC.Frac_NA','METRIC.F1_Score','TRUTH.TOTAL.TiTv_ratio','QUERY.TOTAL.TiTv_ratio','TRUTH.TOTAL.het_hom_ratio','QUERY.TOTAL.het_hom_ratio']]
-		df_redesigned.columns = ['Tool', 'Type','Filter','TP_base','TP','FN','TP_call','FP','UNK','FP_gt','FP_al','Recall','Precision','Frac_NA','F1','TRUTH_TiTv_ratio','QUERY_TiTv_ratio','TRUTH_het_hom_ratio','QUERY_het_hom_ratio']
+		df_redesigned = df[['Tool', 'File', 'Type','Filter','TRUTH.TOTAL','TRUTH.TP','TRUTH.FN','QUERY.TOTAL','QUERY.FP','QUERY.UNK','FP.gt','FP.al','METRIC.Recall','METRIC.Precision','METRIC.Frac_NA','METRIC.F1_Score','TRUTH.TOTAL.TiTv_ratio','QUERY.TOTAL.TiTv_ratio','TRUTH.TOTAL.het_hom_ratio','QUERY.TOTAL.het_hom_ratio']]
+		df_redesigned.columns = ['Tool', 'File', 'Type','Filter','TP_base','TP','FN','TP_call','FP','UNK','FP_gt','FP_al','Recall','Precision','Frac_NA','F1','TRUTH_TiTv_ratio','QUERY_TiTv_ratio','TRUTH_het_hom_ratio','QUERY_het_hom_ratio']
 
 		# Convert relevant columns to integers, handling potential NaN values
 		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK', 'FP_gt', 'FP_al']
@@ -233,8 +233,8 @@ def get_sompy_results(file_paths, vartype):
 		df['Tool'] = filename.split(".")[0]
 		df['File'] = filename
 
-		df_redesigned = df[['Tool','type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
-		df_redesigned.columns = ['Tool','Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
+		df_redesigned = df[['Tool','File', 'type','total.truth','tp','fn','total.query','fp','unk','recall','precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','fp.rate']]
+		df_redesigned.columns = ['Tool', 'File', 'Type','TP_base','TP','FN','TP_call','FP','UNK','Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']
 		# Convert relevant columns to integers, handling potential NaN values
 		int_columns = ['TP_base', 'TP', 'FN', 'TP_call', 'FP', 'UNK']
 		float_columns = ['Recall','Precision','recall_lower','recall_upper','recall2','precision_lower','precision_upper','na','ambiguous','fp.region.size','F1']

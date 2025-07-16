@@ -110,5 +110,8 @@ if (benchmark == "happy") {
     generate_plots(table, benchmark, "None", "None", "Event")
 
 }else {
+    if (benchmark == "rtgtools") {
+        table <- table[table$Threshold == "None", ]
+    }
     generate_plots(table, benchmark, "None", "None", "None")
 }
