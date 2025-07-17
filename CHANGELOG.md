@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixing bedtools intersection logic for CNV calculations ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
 - Seperate subworkflows for each benchmark method ([#203](https://github.com/nf-core/variantbenchmarking/pull/203))
+- Making test cases more realistic and adding docs how to use different tools in different context ([#204](https://github.com/nf-core/variantbenchmarking/pull/204))
 
 ### `Dependencies`
 

@@ -10,7 +10,7 @@
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -354,14 +354,24 @@
                 "SEQC2_mutect2.mutect2.bcftools_stats.txt:md5,50c7a986792c906ecac862457103636e",
                 "SEQC2_strelka.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "SEQC2_strelka.SEQC2.strelka.summary.txt:md5,7a3fe0bd6bfbbc7fc78f37babbf10a83",
-                "SEQC2_strelka.strelka.bcftools_stats.txt:md5,7c318290c6e4d5cb34084ab0d6e85f92"
+                "SEQC2_strelka.strelka.bcftools_stats.txt:md5,7c318290c6e4d5cb34084ab0d6e85f92",
+                "bcftools-stats-subtypes.txt:md5,b64526e6dd0304c5f80b322fa3e7dbd7",
+                "bcftools_stats_indel-lengths.txt:md5,f41153e4dadd4b24344768ae6b9ff64c",
+                "bcftools_stats_variant_depths.txt:md5,3625be13beddb17ce52950deaf5b6478",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,930e9e126d4c8fbe2592ec4578726f0b",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,7f2f8cffa8def587a4643bb0425e1eb2",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,a19c5dfc401b8dc4eb18f07f768f987f",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,fdf3335c8d737127277bb4cd36bbcc82",
+                "multiqc_bcftools_stats.txt:md5,8cec113a64a1f77c2ce40861141a0f8c",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "multiqc_general_stats.txt:md5,6a8ed0a44c3a8ab0130b47801b8cb7c2"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:38:35.34016454"
+        "timestamp": "2025-07-17T07:58:51.015752223"
     },
     "-stub": {
         "content": [

@@ -10,7 +10,7 @@
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -305,6 +305,9 @@
                 "SEQC2_strelka.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "SEQC2_strelka.SEQC2.strelka.summary.txt:md5,74d09547622c9dc49dce86593acfcea7",
                 "SEQC2_strelka.strelka.bcftools_stats.txt:md5,e40da50258b0e6fd3327db7edd4e427a",
+                "multiqc_bcftools_stats.txt:md5,43f525ca30e1a48ef24a5436065f1cbb",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_general_stats.txt:md5,7652ea7808eb520292a17925c8474cf6",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -327,6 +330,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:32:33.745488234"
+        "timestamp": "2025-07-17T08:36:17.506086264"
     }
 }
