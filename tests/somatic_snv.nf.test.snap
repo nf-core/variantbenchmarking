@@ -371,7 +371,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-17T07:58:51.015752223"
+        "timestamp": "2025-07-17T13:58:46.475740524"
     },
     "-stub": {
         "content": [
@@ -384,7 +384,7 @@
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -625,6 +625,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:49:13.140969491"
+        "timestamp": "2025-07-17T14:01:04.968432599"
     }
 }
