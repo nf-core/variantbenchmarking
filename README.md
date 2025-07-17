@@ -148,6 +148,8 @@ User _has to provide truth_vcf and truth_id in config files_.
 > There are publicly available truth sources. For germline analysis, it is common to use [genome in a bottle (GiAB)](https://www.nist.gov/programs-projects/genome-bottle) variants. There are variate type of golden truths and high confidence regions for hg37 and hg38 references. Please select and use carefully.
 > For somatic analysis, [SEQC2 project](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2) released SNV, INDEL and CNV regions. One, can select and use those files.
 
+Here you can find example combinations of [truth files](truth.md)
+
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
 Now, you can run the pipeline using:
@@ -166,6 +168,10 @@ nextflow run nf-core/variantbenchmarking \
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
 > Conda profile is not available for SVanalyzer (SVBenchmark) tool, if you are planing to use the tool either choose docker or singularity.
+
+### Example usages
+
+This pipeline enables quite a number of subworkflows suitable for different benchmarking senarios. Please go through [this documentation](testcases.md) to learn some example usages which discusses about the test config files under conf/tests and tests/.
 
 ## Pipeline output
 

@@ -1,13 +1,13 @@
 {
     "Params: --analysis 'germline' --variant_type 'structural' --method 'svanalyzer'": {
         "content": [
-            52,
+            68,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
@@ -38,6 +38,12 @@
                 },
                 "PUBLISH_PROCESSED_VCF": {
                     "cp": 8.3
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "bedtools": "2.31.1"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "bedtools": "2.31.1"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -98,6 +104,8 @@
                 "structural/summary/comparisons/svbenchmark",
                 "structural/summary/comparisons/svbenchmark/svbenchmark.FN.csv",
                 "structural/summary/comparisons/svbenchmark/svbenchmark.FP.csv",
+                "structural/summary/comparisons/svbenchmark/svbenchmark.TP_base.csv",
+                "structural/summary/comparisons/svbenchmark/svbenchmark.TP_comp.csv",
                 "structural/summary/datavzrd",
                 "structural/summary/datavzrd/svbenchmark",
                 "structural/summary/datavzrd/svbenchmark/index.html",
@@ -214,17 +222,17 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-15T10:06:34.958216013"
+        "timestamp": "2025-07-16T10:04:45.841302129"
     },
     "-stub": {
         "content": [
-            52,
+            58,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.2
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
@@ -255,6 +263,12 @@
                 },
                 "PUBLISH_PROCESSED_VCF": {
                     "cp": 8.3
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "bedtools": "2.31.1"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "bedtools": "2.31.1"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -390,6 +404,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-15T10:08:40.976438773"
+        "timestamp": "2025-07-16T10:06:53.78222734"
     }
 }

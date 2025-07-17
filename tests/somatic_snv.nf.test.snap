@@ -1,69 +1,39 @@
 {
-    "-stub": {
-        "content": [
-            14,
-            {
-                "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_SUBSAMPLE": {
-                    "bcftools": 1.2
-                },
-                "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.2.0"
-                }
-            },
-            [
-                "pipeline_info",
-                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
-                "snv",
-                "snv/multiqc",
-                "snv/multiqc/multiqc_data",
-                "snv/multiqc/multiqc_plots",
-                "snv/multiqc/multiqc_report.html"
-            ],
-            [
-                "multiqc_report.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-07-15T11:50:41.918888434"
-    },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'": {
         "content": [
-            38,
+            79,
             {
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_3": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_4": {
+                    "bcftools": 1.2
+                },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_SORT": {
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.2
                 },
                 "DATAVZRD": {
@@ -84,8 +54,20 @@
                 "PUBLISH_PROCESSED_VCF": {
                     "cp": 8.3
                 },
+                "REFORMAT_HEADER": {
+                    "tabix": 1.12
+                },
+                "RTGTOOLS_FORMAT": {
+                    "rtg-tools": "3.12.1"
+                },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtg-tools": "3.12.1"
+                },
                 "SPLIT_SOMPY_FEATURES": {
                     "python": "3.13.0"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.2.0"
@@ -94,6 +76,30 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "references",
+                "references/rtgtools",
+                "references/rtgtools/genome.sdf",
+                "references/rtgtools/genome.sdf/done",
+                "references/rtgtools/genome.sdf/format.log",
+                "references/rtgtools/genome.sdf/mainIndex",
+                "references/rtgtools/genome.sdf/nameIndex0",
+                "references/rtgtools/genome.sdf/namedata0",
+                "references/rtgtools/genome.sdf/namepointer0",
+                "references/rtgtools/genome.sdf/progress",
+                "references/rtgtools/genome.sdf/reference.txt",
+                "references/rtgtools/genome.sdf/seqdata0",
+                "references/rtgtools/genome.sdf/seqdata1",
+                "references/rtgtools/genome.sdf/seqdata2",
+                "references/rtgtools/genome.sdf/seqdata3",
+                "references/rtgtools/genome.sdf/seqpointer0",
+                "references/rtgtools/genome.sdf/seqpointer1",
+                "references/rtgtools/genome.sdf/seqpointer2",
+                "references/rtgtools/genome.sdf/seqpointer3",
+                "references/rtgtools/genome.sdf/sequenceIndex0",
+                "references/rtgtools/genome.sdf/suffixIndex0",
+                "references/rtgtools/genome.sdf/suffixdata0",
+                "references/rtgtools/genome.sdf/suffixpointer0",
+                "references/rtgtools/genome.sdf/summary.txt",
                 "snv",
                 "snv/SEQC2",
                 "snv/SEQC2/preprocess",
@@ -102,6 +108,84 @@
                 "snv/SEQC2/stats",
                 "snv/SEQC2/stats/bcftools",
                 "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
+                "snv/SEQC2_freebayes",
+                "snv/SEQC2_freebayes/benchmarks",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fn.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fn.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fp.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fp.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.non_snp_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.phasing.txt",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.snp_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.summary.txt",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp-baseline.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.weighted_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/sompy",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.features.csv",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.metrics.json",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.stats.csv",
+                "snv/SEQC2_freebayes/preprocess",
+                "snv/SEQC2_freebayes/preprocess/SEQC2_freebayes.vcf.gz",
+                "snv/SEQC2_freebayes/preprocess/SEQC2_freebayes.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/stats",
+                "snv/SEQC2_freebayes/stats/bcftools",
+                "snv/SEQC2_freebayes/stats/bcftools/SEQC2_freebayes.freebayes.bcftools_stats.txt",
+                "snv/SEQC2_mutect2",
+                "snv/SEQC2_mutect2/benchmarks",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fn.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fn.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fp.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fp.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.non_snp_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.phasing.txt",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.snp_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.summary.txt",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp-baseline.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.weighted_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/sompy",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.features.csv",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.metrics.json",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.stats.csv",
+                "snv/SEQC2_mutect2/preprocess",
+                "snv/SEQC2_mutect2/preprocess/SEQC2_mutect2.vcf.gz",
+                "snv/SEQC2_mutect2/preprocess/SEQC2_mutect2.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/stats",
+                "snv/SEQC2_mutect2/stats/bcftools",
+                "snv/SEQC2_mutect2/stats/bcftools/SEQC2_mutect2.mutect2.bcftools_stats.txt",
+                "snv/SEQC2_strelka",
+                "snv/SEQC2_strelka/benchmarks",
+                "snv/SEQC2_strelka/benchmarks/rtgtools",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fn.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fn.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fp.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fp.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.non_snp_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.phasing.txt",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.snp_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.summary.txt",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp-baseline.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.weighted_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/sompy",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.features.csv",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.metrics.json",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.stats.csv",
+                "snv/SEQC2_strelka/preprocess",
+                "snv/SEQC2_strelka/preprocess/SEQC2_strelka.vcf.gz",
+                "snv/SEQC2_strelka/preprocess/SEQC2_strelka.vcf.gz.tbi",
+                "snv/SEQC2_strelka/stats",
+                "snv/SEQC2_strelka/stats/bcftools",
+                "snv/SEQC2_strelka/stats/bcftools/SEQC2_strelka.strelka.bcftools_stats.txt",
                 "snv/multiqc",
                 "snv/multiqc/multiqc_data",
                 "snv/multiqc/multiqc_data/BETA-multiqc.parquet",
@@ -153,11 +237,43 @@
                 "snv/multiqc/multiqc_report.html",
                 "snv/summary",
                 "snv/summary/comparisons",
+                "snv/summary/comparisons/rtgtools",
+                "snv/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "snv/summary/comparisons/sompy",
                 "snv/summary/comparisons/sompy/sompy.FN.summary.csv",
                 "snv/summary/comparisons/sompy/sompy.FP.summary.csv",
                 "snv/summary/comparisons/sompy/sompy.TP.summary.csv",
                 "snv/summary/datavzrd",
+                "snv/summary/datavzrd/rtgtools",
+                "snv/summary/datavzrd/rtgtools/index.html",
+                "snv/summary/datavzrd/rtgtools/static",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bundle.js",
+                "snv/summary/datavzrd/rtgtools/static/datavzrd.css",
+                "snv/summary/datavzrd/rtgtools/test",
+                "snv/summary/datavzrd/rtgtools/test/config.js",
+                "snv/summary/datavzrd/rtgtools/test/data",
+                "snv/summary/datavzrd/rtgtools/test/data/data_1.js",
+                "snv/summary/datavzrd/rtgtools/test/functions.js",
+                "snv/summary/datavzrd/rtgtools/test/heatmap.js",
+                "snv/summary/datavzrd/rtgtools/test/index_1.html",
+                "snv/summary/datavzrd/rtgtools/test/plots",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_0.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_1.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_2.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_3.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_4.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_5.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_6.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_7.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_8.js",
+                "snv/summary/datavzrd/rtgtools/test/plots/plot_9.js",
                 "snv/summary/datavzrd/sompy",
                 "snv/summary/datavzrd/sompy/index.html",
                 "snv/summary/datavzrd/sompy/static",
@@ -186,6 +302,7 @@
                 "snv/summary/datavzrd/sompy/test/plots/plot_16.js",
                 "snv/summary/datavzrd/sompy/test/plots/plot_17.js",
                 "snv/summary/datavzrd/sompy/test/plots/plot_18.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_19.js",
                 "snv/summary/datavzrd/sompy/test/plots/plot_2.js",
                 "snv/summary/datavzrd/sompy/test/plots/plot_3.js",
                 "snv/summary/datavzrd/sompy/test/plots/plot_4.js",
@@ -196,105 +313,308 @@
                 "snv/summary/datavzrd/sompy/test/plots/plot_9.js",
                 "snv/summary/datavzrd/versions.yml",
                 "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "snv/summary/plots/sompy",
                 "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
                 "snv/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
                 "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "snv/summary/tables",
+                "snv/summary/tables/rtgtools",
+                "snv/summary/tables/rtgtools/rtgtools.summary.csv",
                 "snv/summary/tables/sompy",
                 "snv/summary/tables/sompy/sompy.regions.csv",
-                "snv/summary/tables/sompy/sompy.summary.csv",
-                "snv/test10",
-                "snv/test10/benchmarks",
-                "snv/test10/benchmarks/sompy",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.features.csv",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.metrics.json",
-                "snv/test10/benchmarks/sompy/test10.SEQC2.strelka.stats.csv",
-                "snv/test10/preprocess",
-                "snv/test10/preprocess/test10.vcf.gz",
-                "snv/test10/preprocess/test10.vcf.gz.tbi",
-                "snv/test10/stats",
-                "snv/test10/stats/bcftools",
-                "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
-                "snv/test8",
-                "snv/test8/benchmarks",
-                "snv/test8/benchmarks/sompy",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.features.csv",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.metrics.json",
-                "snv/test8/benchmarks/sompy/test8.SEQC2.freebayes.stats.csv",
-                "snv/test8/preprocess",
-                "snv/test8/preprocess/test8.vcf.gz",
-                "snv/test8/preprocess/test8.vcf.gz.tbi",
-                "snv/test8/stats",
-                "snv/test8/stats/bcftools",
-                "snv/test8/stats/bcftools/test8.freebayes.bcftools_stats.txt",
-                "snv/test9",
-                "snv/test9/benchmarks",
-                "snv/test9/benchmarks/sompy",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.features.csv",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.metrics.json",
-                "snv/test9/benchmarks/sompy/test9.SEQC2.mutect2.stats.csv",
-                "snv/test9/preprocess",
-                "snv/test9/preprocess/test9.vcf.gz",
-                "snv/test9/preprocess/test9.vcf.gz.tbi",
-                "snv/test9/stats",
-                "snv/test9/stats/bcftools",
-                "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
+                "snv/summary/tables/sompy/sompy.summary.csv"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,2a23dd61a56e7e6435a8ba4617fd793d",
-                "BETA-multiqc.parquet:md5,41dd767a4b5d542bec65948538a91538",
-                "bcftools-stats-subtypes.txt:md5,8fda5c956bfec413f0ea82bcc0224a50",
-                "bcftools_stats_indel-lengths.txt:md5,c320fdc4ab67592cc29da3752d526121",
-                "bcftools_stats_variant_depths.txt:md5,4820ca6db218572a8bc459b1595fa434",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,f8ad6a9991c4c52678b1ce258878a0cc",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,f0e53c9fc9a4ebf97b9eeb9f62be2f63",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,3a719edcd100b539bd4954df9d663c07",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,f170365dddffd1c2c203074d88361498",
-                "multiqc.log:md5,bd061ce23339168c684d8ae6b0d5a60f",
-                "multiqc_bcftools_stats.txt:md5,eb9e2abae009a74a2dea426199196611",
-                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                "multiqc_data.json:md5,e350fd600ab9cae7632a6b3fd5296d66",
-                "multiqc_general_stats.txt:md5,d98f73694928a03ef80bc494da7d1649",
-                "multiqc_software_versions.txt:md5,3ef3dc6fe301f5ce1a15eee314381b16",
-                "multiqc_sources.txt:md5,9897d2543c6ecb0d31ea85cc661fee0e",
-                "bcftools-stats-subtypes-cnt.pdf:md5,3f6a305260ec9bbe0b7f03de918cf1b9",
-                "bcftools-stats-subtypes-pct.pdf:md5,5469498719e775f2ee1eb7566c959814",
-                "bcftools_stats_indel-lengths-cnt.pdf:md5,eba1bd24625962970ef7d2db6074ad53",
-                "bcftools_stats_indel-lengths-log.pdf:md5,440d2c68e519e1321ffbd0988f3a8b6c",
-                "bcftools_stats_variant_depths.pdf:md5,1bb6a3f20ba8d29ce323e47a34ff7982",
-                "bcftools_stats_vqc_Count_Indels.pdf:md5,5946e1600db63c9f2c1cd516a7066f85",
-                "bcftools_stats_vqc_Count_SNP.pdf:md5,8a37a28d7daabc1aca63f3a17cd23a43",
-                "bcftools_stats_vqc_Count_Transitions.pdf:md5,feb83de0aa13aebeebb8a1225ea4c997",
-                "bcftools_stats_vqc_Count_Transversions.pdf:md5,4aa84194609d52805ffe99bb149eb533",
-                "bcftools-stats-subtypes-cnt.png:md5,09aa0d83bb23a436066c11a58bb02e10",
-                "bcftools-stats-subtypes-pct.png:md5,cb89b056d656665a145f87be8f2918dc",
-                "bcftools_stats_indel-lengths-cnt.png:md5,c935f8b3a8df4c7246ad22304a677e55",
-                "bcftools_stats_indel-lengths-log.png:md5,ef6768767658a08671cce720178cb951",
-                "bcftools_stats_variant_depths.png:md5,d785e67d4d4e9b578d37e6d3e743e6c3",
-                "bcftools_stats_vqc_Count_Indels.png:md5,524e1b921c70f2f9af5733a2b7ab3aac",
-                "bcftools_stats_vqc_Count_SNP.png:md5,48a166ecb7e790178020c4528e8bb460",
-                "bcftools_stats_vqc_Count_Transitions.png:md5,a5998304c4ab44c47da9893ed163fd98",
-                "bcftools_stats_vqc_Count_Transversions.png:md5,5b5a8aaf694f770bc1d2566fd8a956cc",
-                "bcftools-stats-subtypes-cnt.svg:md5,a2be7459406c087992781eb6f555ab8d",
-                "bcftools-stats-subtypes-pct.svg:md5,6755d40c470069224b87c8bba17e1f78",
-                "bcftools_stats_indel-lengths-cnt.svg:md5,1572eab010b70bbb4c8cbf44cee14695",
-                "bcftools_stats_indel-lengths-log.svg:md5,3d6365ddd1d1b2b964c5be5e3ee52ff3",
-                "bcftools_stats_variant_depths.svg:md5,c98b3cdadabc3de33a35e1bd8a255fc5",
-                "bcftools_stats_vqc_Count_Indels.svg:md5,3b92473adb31791c5fd3c2a5bad36892",
-                "bcftools_stats_vqc_Count_SNP.svg:md5,65006dfc98978790f15c583c06615aeb",
-                "bcftools_stats_vqc_Count_Transitions.svg:md5,c89945ceba73390590bcbf8f2409fb6b",
-                "bcftools_stats_vqc_Count_Transversions.svg:md5,a5c67f14ec29f132bfe3b33cc35d4a3b",
-                "multiqc_report.html:md5,5df3e290b318f708956d34dec5ed34a5",
-                "test10.strelka.bcftools_stats.txt:md5,9fc6a285b83b2c2652080562ba9e94d6",
-                "test8.freebayes.bcftools_stats.txt:md5,d77ea46ddd14b533afc99175dffb1d11",
-                "test9.mutect2.bcftools_stats.txt:md5,eee5cab56339d542b955bd36d88107e2"
+                "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
+                "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
+                "namepointer0:md5,319f9f665b338f0e218677e036637e94",
+                "reference.txt:md5,c9f7ef637449eb0f006d90080a130e30",
+                "seqdata0:md5,ea8728adf43db158305ba188de66e838",
+                "seqdata1:md5,d3470516d52b20e9477323d051846c3f",
+                "seqdata2:md5,1fd1a98f39b966aac0b696b122a1c6d5",
+                "seqdata3:md5,49ba3e2d1b4ada1d7ed2c29079833491",
+                "seqpointer0:md5,77ad13d617e120eadad10bdec41cc00f",
+                "seqpointer1:md5,fce3fdba9b237ec51f3c356086d0f8b9",
+                "seqpointer2:md5,3d99bc0313f17f491a0a2903d6585b14",
+                "seqpointer3:md5,2a69114e099aa0752e78f417cc8fe7bb",
+                "sequenceIndex0:md5,18c7d37abf02d389fda5d9945b16b614",
+                "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
+                "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
+                "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
+                "SEQC2.bcftools_stats.txt:md5,b54ef62c30c850827bbc5ac1b0557988",
+                "SEQC2_freebayes.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "SEQC2_freebayes.SEQC2.freebayes.summary.txt:md5,f2197ea4880bb81cb5bad21aa3e4e493",
+                "SEQC2_freebayes.freebayes.bcftools_stats.txt:md5,755ab4214cac06e35bf02e0cd25f6a0b",
+                "SEQC2_mutect2.SEQC2.mutect2.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "SEQC2_mutect2.SEQC2.mutect2.summary.txt:md5,7a3fe0bd6bfbbc7fc78f37babbf10a83",
+                "SEQC2_mutect2.mutect2.bcftools_stats.txt:md5,50c7a986792c906ecac862457103636e",
+                "SEQC2_strelka.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "SEQC2_strelka.SEQC2.strelka.summary.txt:md5,7a3fe0bd6bfbbc7fc78f37babbf10a83",
+                "SEQC2_strelka.strelka.bcftools_stats.txt:md5,7c318290c6e4d5cb34084ab0d6e85f92"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-15T11:49:59.083309649"
+        "timestamp": "2025-07-16T10:38:35.34016454"
+    },
+    "-stub": {
+        "content": [
+            79,
+            {
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_3": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_4": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.2
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.18
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.2
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "HAPPY_SOMPY": {
+                    "hap.py": "0.3.14"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "MERGE_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PUBLISH_PROCESSED_VCF": {
+                    "cp": 8.3
+                },
+                "REFORMAT_HEADER": {
+                    "tabix": 1.12
+                },
+                "RTGTOOLS_FORMAT": {
+                    "rtg-tools": "3.12.1"
+                },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtg-tools": "3.12.1"
+                },
+                "SPLIT_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.12.4"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.2.0"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "references",
+                "references/rtgtools",
+                "references/rtgtools/genome.sdf",
+                "snv",
+                "snv/SEQC2",
+                "snv/SEQC2/preprocess",
+                "snv/SEQC2/preprocess/SEQC2.vcf.gz",
+                "snv/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
+                "snv/SEQC2/stats",
+                "snv/SEQC2/stats/bcftools",
+                "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
+                "snv/SEQC2_freebayes",
+                "snv/SEQC2_freebayes/benchmarks",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fn.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fn.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fp.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.fp.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.non_snp_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.phasing.txt",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.snp_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.summary.txt",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp-baseline.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp.vcf.gz",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.tp.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/benchmarks/rtgtools/SEQC2_freebayes.SEQC2.freebayes.weighted_roc.tsv.gz",
+                "snv/SEQC2_freebayes/benchmarks/sompy",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.features.csv",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.metrics.json",
+                "snv/SEQC2_freebayes/benchmarks/sompy/SEQC2_freebayes.SEQC2.freebayes.stats.csv",
+                "snv/SEQC2_freebayes/preprocess",
+                "snv/SEQC2_freebayes/preprocess/SEQC2_freebayes.vcf.gz",
+                "snv/SEQC2_freebayes/preprocess/SEQC2_freebayes.vcf.gz.tbi",
+                "snv/SEQC2_freebayes/stats",
+                "snv/SEQC2_freebayes/stats/bcftools",
+                "snv/SEQC2_freebayes/stats/bcftools/SEQC2_freebayes.freebayes.bcftools_stats.txt",
+                "snv/SEQC2_mutect2",
+                "snv/SEQC2_mutect2/benchmarks",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fn.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fn.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fp.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.fp.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.non_snp_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.phasing.txt",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.snp_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.summary.txt",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp-baseline.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp.vcf.gz",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.tp.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/benchmarks/rtgtools/SEQC2_mutect2.SEQC2.mutect2.weighted_roc.tsv.gz",
+                "snv/SEQC2_mutect2/benchmarks/sompy",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.features.csv",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.metrics.json",
+                "snv/SEQC2_mutect2/benchmarks/sompy/SEQC2_mutect2.SEQC2.mutect2.stats.csv",
+                "snv/SEQC2_mutect2/preprocess",
+                "snv/SEQC2_mutect2/preprocess/SEQC2_mutect2.vcf.gz",
+                "snv/SEQC2_mutect2/preprocess/SEQC2_mutect2.vcf.gz.tbi",
+                "snv/SEQC2_mutect2/stats",
+                "snv/SEQC2_mutect2/stats/bcftools",
+                "snv/SEQC2_mutect2/stats/bcftools/SEQC2_mutect2.mutect2.bcftools_stats.txt",
+                "snv/SEQC2_strelka",
+                "snv/SEQC2_strelka/benchmarks",
+                "snv/SEQC2_strelka/benchmarks/rtgtools",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fn.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fn.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fp.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.fp.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.non_snp_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.phasing.txt",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.snp_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.summary.txt",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp-baseline.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp-baseline.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp.vcf.gz",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.tp.vcf.gz.tbi",
+                "snv/SEQC2_strelka/benchmarks/rtgtools/SEQC2_strelka.SEQC2.strelka.weighted_roc.tsv.gz",
+                "snv/SEQC2_strelka/benchmarks/sompy",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.features.csv",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.metrics.json",
+                "snv/SEQC2_strelka/benchmarks/sompy/SEQC2_strelka.SEQC2.strelka.stats.csv",
+                "snv/SEQC2_strelka/preprocess",
+                "snv/SEQC2_strelka/preprocess/SEQC2_strelka.vcf.gz",
+                "snv/SEQC2_strelka/preprocess/SEQC2_strelka.vcf.gz.tbi",
+                "snv/SEQC2_strelka/stats",
+                "snv/SEQC2_strelka/stats/bcftools",
+                "snv/SEQC2_strelka/stats/bcftools/SEQC2_strelka.strelka.bcftools_stats.txt",
+                "snv/multiqc",
+                "snv/multiqc/multiqc_data",
+                "snv/multiqc/multiqc_plots",
+                "snv/multiqc/multiqc_report.html",
+                "snv/summary",
+                "snv/summary/comparisons",
+                "snv/summary/comparisons/rtgtools",
+                "snv/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
+                "snv/summary/comparisons/sompy",
+                "snv/summary/comparisons/sompy/sompy.FN.summary.csv",
+                "snv/summary/comparisons/sompy/sompy.FP.summary.csv",
+                "snv/summary/comparisons/sompy/sompy.TP.summary.csv",
+                "snv/summary/datavzrd",
+                "snv/summary/datavzrd/rtgtools",
+                "snv/summary/datavzrd/rtgtools/index.html",
+                "snv/summary/datavzrd/rtgtools/network",
+                "snv/summary/datavzrd/rtgtools/network/config.js",
+                "snv/summary/datavzrd/rtgtools/network/data",
+                "snv/summary/datavzrd/rtgtools/network/data/data_1.js",
+                "snv/summary/datavzrd/rtgtools/network/functions.js",
+                "snv/summary/datavzrd/rtgtools/network/heatmap.js",
+                "snv/summary/datavzrd/rtgtools/network/index_1.html",
+                "snv/summary/datavzrd/rtgtools/network/plots",
+                "snv/summary/datavzrd/rtgtools/network/plots/plot_0.js",
+                "snv/summary/datavzrd/rtgtools/static",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bootstrap.min.css",
+                "snv/summary/datavzrd/rtgtools/static/bundle.js",
+                "snv/summary/datavzrd/rtgtools/static/datavzrd.css",
+                "snv/summary/datavzrd/sompy",
+                "snv/summary/datavzrd/sompy/index.html",
+                "snv/summary/datavzrd/sompy/network",
+                "snv/summary/datavzrd/sompy/network/config.js",
+                "snv/summary/datavzrd/sompy/network/data",
+                "snv/summary/datavzrd/sompy/network/data/data_1.js",
+                "snv/summary/datavzrd/sompy/network/functions.js",
+                "snv/summary/datavzrd/sompy/network/heatmap.js",
+                "snv/summary/datavzrd/sompy/network/index_1.html",
+                "snv/summary/datavzrd/sompy/network/plots",
+                "snv/summary/datavzrd/sompy/network/plots/plot_0.js",
+                "snv/summary/datavzrd/sompy/static",
+                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
+                "snv/summary/datavzrd/sompy/static/bundle.js",
+                "snv/summary/datavzrd/sompy/static/datavzrd.css",
+                "snv/summary/datavzrd/versions.yml",
+                "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/metric_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
+                "snv/summary/tables",
+                "snv/summary/tables/rtgtools",
+                "snv/summary/tables/rtgtools/rtgtools.regions.csv",
+                "snv/summary/tables/rtgtools/rtgtools.summary.csv",
+                "snv/summary/tables/sompy",
+                "snv/summary/tables/sompy/sompy.regions.csv",
+                "snv/summary/tables/sompy/sompy.summary.csv"
+            ],
+            [
+                "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_freebayes.SEQC2.freebayes.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_freebayes.SEQC2.freebayes.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_freebayes.freebayes.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_mutect2.SEQC2.mutect2.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_mutect2.SEQC2.mutect2.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_mutect2.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_strelka.SEQC2.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_strelka.SEQC2.strelka.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "SEQC2_strelka.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-07-16T10:49:13.140969491"
     }
 }
