@@ -14,11 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split benchmarking VCF for happy properly to create comparison tables ([#196](https://github.com/nf-core/variantbenchmarking/pull/196))
 - Documentation about test configs in conf/tests ([#203](https://github.com/nf-core/variantbenchmarking/pull/203))
 - Template update to v3.3.1 [#200](https://github.com/nf-core/variantbenchmarking/pull/200)
+- Template update to v3.3.2 [#205](https://github.com/nf-core/variantbenchmarking/pull/205)
 
 ### `Fixed`
 
 - Fixing bedtools intersection logic for CNV calculations ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
 - Seperate subworkflows for each benchmark method ([#203](https://github.com/nf-core/variantbenchmarking/pull/203))
+- Making test cases more realistic and adding docs how to use different tools in different context ([#204](https://github.com/nf-core/variantbenchmarking/pull/204))
 
 ### `Dependencies`
 

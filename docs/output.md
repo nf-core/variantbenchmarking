@@ -141,7 +141,6 @@ Benchmark results are created separately for each test vcf and for each method u
 <summary>Output files</summary>
 
 - `summary/`
-
   - `comparisons/`
     - `small/`
       - `rtgtools.small.FN.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were not correctly called

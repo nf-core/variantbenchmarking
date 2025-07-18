@@ -7,9 +7,7 @@ This pipeline requires a set of Truth VCF, as a baseline for comparisons, and a 
 Below, please find some set truths can be used for analysis:
 
 - params.analysis == 'germline'
-
   - params.genome == 'GRCh38'
-
     - params.vartype == 'small'
 
                     truth_id          = "HG001"
@@ -47,7 +45,6 @@ Below, please find some set truths can be used for analysis:
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/CMRG_v1.00/GRCh38/StructuralVariant/HG002_GRCh38_CMRG_SV_v1.00.bed"
 
   - params.genome == 'GRCh37'
-
     - params.vartype == 'small'
 
                     truth_id          = "HG001"
@@ -89,9 +86,7 @@ Below, please find some set truths can be used for analysis:
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/CMRG_v1.00/GRCh37/StructuralVariant/HG002_GRCh37_CMRG_SV_v1.00.bed"
 
 - params.analysis == 'somatic'
-
   - params.genome == 'GRCh38'
-
     - params.vartype == 'structural'
 
                     truth_id          = "HG002"
@@ -111,7 +106,6 @@ Below, please find some set truths can be used for analysis:
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/seqc/Somatic_Mutation_WG/release/latest/High-Confidence_Regions_v1.2.bed"
 
   - params.genome == 'GRCh37'
-
     - params.vartype == 'structural'
       // zenado records available: https://zenodo.org/records/7515830
       truth_id = "COLO829"

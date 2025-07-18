@@ -4,13 +4,13 @@
             132,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -34,7 +34,7 @@
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
@@ -339,6 +339,10 @@
             [
                 "HG002.bcftools_stats.txt:md5,bc95472c545c41b97fc6c657ebb1132b",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
+                "multiqc_bcftools_stats.txt:md5,e8d53120deaf86c44159757d587035db",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_general_stats.txt:md5,1b9c0295ce5c8ce4282ff872fa4e875c",
+                "multiqc_survivor.txt:md5,70c8bd08ee63a75a8913bacf3b8cf571",
                 "test1.manta.bcftools_stats.txt:md5,e649e55cb381e7ac51605ec3649b2756",
                 "test1.manta_mqc.stats:md5,f32d0269e380f1f7ddfdcec72dc7288b",
                 "test2.lumpy.bcftools_stats.txt:md5,29bcff200d6617d091714c28ffbd68ab",
@@ -349,22 +353,22 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-20T11:00:21.766656321"
+        "timestamp": "2025-07-17T08:24:09.600428846"
     },
     "-stub": {
         "content": [
             122,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -388,7 +392,7 @@
                     "bcftools": 1.2
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.18
@@ -657,6 +661,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:19:45.758912927"
+        "timestamp": "2025-07-17T13:38:37.432264452"
     }
 }

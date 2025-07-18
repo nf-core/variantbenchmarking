@@ -66,7 +66,6 @@ Please note that you should still provide chain and reame_chr files, and lifting
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
 
 - `--sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync,svdecompose`.
-
   - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor). Homogenizes the structural variants in a common format.
   - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync). Reformats VCF headers properly.
   - `svdecompose`: makes use of [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf). Decomposes SVs into BND. Combine it only if you plan to run rtgtools bndeval!
@@ -199,7 +198,6 @@ Example cmd:
 Please note that truvari is the only tool which can work with UNRESOLVED (without sequence) structural variants. Moreover, svbenchmark and wittyer analysis will require explicte SVTYPE and SVLEN annotations.
 
 - A special analysis for Break-Ends (SVTYPE=BND) is also possible. Please combine it with (_svdecompose_) to convert structural variants (both from truth and test cases) to Break-Ends if your inputs are not already in that type.
-
   - ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
 
 Example cmd:

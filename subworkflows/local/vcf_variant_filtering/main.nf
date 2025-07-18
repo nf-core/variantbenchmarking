@@ -16,7 +16,7 @@ workflow VCF_VARIANT_FILTERING {
 
     versions = Channel.empty()
 
-    if(params.exclude_expression  != null || params.include_expression  != null){
+    if(params.exclude_expression || params.include_expression){
 
         // filter vcf files using bcftools expressions
         BCFTOOLS_FILTER(

@@ -4,10 +4,10 @@
             68,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
@@ -194,6 +194,10 @@
             [
                 "HG002.bcftools_stats.txt:md5,12b09b32a2793b52830091a5895e00d0",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
+                "multiqc_bcftools_stats.txt:md5,fced87ee1b40160c0fad29f1adc1bd1e",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_general_stats.txt:md5,7e8d9987c0d5593efdaa077d8d9bfa4d",
+                "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
                 "test1.delly.bcftools_stats.txt:md5,209604ebf522660875a29723798e03ae",
                 "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
                 "test2.lumpy.bcftools_stats.txt:md5,793655055cdb78556ae6b8e126ff743f",
@@ -206,17 +210,17 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:04:45.841302129"
+        "timestamp": "2025-07-17T08:02:58.814612498"
     },
     "-stub": {
         "content": [
             58,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.2
@@ -387,6 +391,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:06:53.78222734"
+        "timestamp": "2025-07-17T13:19:55.786093886"
     }
 }

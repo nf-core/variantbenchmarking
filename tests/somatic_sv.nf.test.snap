@@ -4,7 +4,7 @@
             59,
             {
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.2
+                    "bcftools": 1.21
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.2
@@ -198,6 +198,10 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,98d52a15cf5e4ef38225dde69f256121",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
+                "multiqc_bcftools_stats.txt:md5,7fdb5db45c4c5ff9515fd796b4e41053",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_general_stats.txt:md5,b16e981416f421eaec8648b72d12d92c",
+                "multiqc_survivor.txt:md5,b561da31ca099187bf268627fa759fcc",
                 "test11.manta.bcftools_stats.txt:md5,7d9f3046ca1c311769876e33f045eaba",
                 "test11.manta_mqc.stats:md5,73bc60cd2754202ddca8be6552e85ffa",
                 "test12.tiddit.bcftools_stats.txt:md5,b6e384f4b86d86fd3bbb7b6ca8851682",
@@ -208,6 +212,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-16T10:55:07.892749091"
+        "timestamp": "2025-07-17T08:57:03.681535046"
     }
 }
