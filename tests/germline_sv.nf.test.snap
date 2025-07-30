@@ -85,13 +85,13 @@
                     "truvari": "4.1.0)"
                 },
                 "VCF_TO_CSV": {
-                    "python": "3.12.4"
+                    "python": "3.13.0"
                 },
                 "WITTYER": {
                     "wittyer": "0.5.2.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.2.0"
+                    "nf-core/variantbenchmarking": "v1.3.0"
                 }
             },
             [
@@ -355,7 +355,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-17T08:24:09.600428846"
+        "timestamp": "2025-07-29T16:10:48.291007276"
     },
     "-stub": {
         "content": [
@@ -443,13 +443,13 @@
                     "truvari": "4.1.0)"
                 },
                 "VCF_TO_CSV": {
-                    "python": "3.12.4"
+                    "python": "3.13.0"
                 },
                 "WITTYER": {
                     "wittyer": "0.5.2.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.2.0"
+                    "nf-core/variantbenchmarking": "v1.3.0"
                 }
             },
             [
@@ -661,6 +661,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-17T13:38:37.432264452"
+        "timestamp": "2025-07-29T16:13:23.960962791"
     }
 }

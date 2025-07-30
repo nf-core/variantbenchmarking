@@ -70,10 +70,10 @@
                     "truvari": "4.1.0)"
                 },
                 "VCF_TO_CSV": {
-                    "python": "3.12.4"
+                    "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.2.0"
+                    "nf-core/variantbenchmarking": "v1.3.0"
                 }
             },
             [
@@ -212,6 +212,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-17T08:57:03.681535046"
+        "timestamp": "2025-07-30T09:53:00.222165634"
     }
 }
