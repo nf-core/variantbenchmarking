@@ -31,7 +31,7 @@
                     "bcftools": 1.2
                 },
                 "BEDTOOLS_INTERSECT_BENCH": {
-                    "python": "3.12.8"
+                    "python": "3.12.11"
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -298,6 +298,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-30T11:08:17.221959174"
+        "timestamp": "2025-07-31T09:56:15.943384955"
     }
 }

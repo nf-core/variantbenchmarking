@@ -4,8 +4,8 @@ process BEDTOOLS_INTERSECT_BENCH {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/6f/6f12bf7e05df84523fa897da87c135edef2dee90a0567a6bf70f2f81ada6cc25/data' :
-        'community.wave.seqera.io/library/pybedtools_pandas:6eae56b7891a94c6' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/71/710294e18c04918cbd5dedd64abb3f43b34fb0f8399a1ed314316151a74a6147/data' :
+        'community.wave.seqera.io/library/pybedtools_pandas:003b11d9e5690eba' }"
 
     input:
     tuple val(meta), path(truth), path(test)
