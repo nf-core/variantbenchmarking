@@ -60,6 +60,9 @@ This sub-workflow provides option to convert genome coordinates of truth VCF and
 - Lifting over VCFs ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
 - Lifting over high confidence coordinates ([UCSC liftover](http://hgdownload.cse.ucsc.edu/admin/exe))
 
+> [!NOTE]
+> Check docs/truth.md to view available sources.
+
 ### Statistical inference of input test and truth variants:
 
 This step provides insights into the distribution of variants before benchmarking by extracting variant statistics:.
