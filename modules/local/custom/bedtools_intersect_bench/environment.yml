@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::pybedtools=0.12.0
+  - conda-forge::pandas=2.3.1

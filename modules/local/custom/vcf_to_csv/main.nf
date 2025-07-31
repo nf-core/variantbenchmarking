@@ -4,8 +4,8 @@ process VCF_TO_CSV {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/30/30151e7153f1f845e2723b29048a3cdf842e2dcb1384cfcc86ced0211d5e4895/data':
-        'community.wave.seqera.io/library/pysam_pandas_pip_variant-extractor:a2d9ec4a4efadbc3' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/ab/ab3b0054e3111812d8f2deb12345d5b7ca7ea7b18a2dbcbf174d46274c28deba/data':
+        'community.wave.seqera.io/library/pip_pandas:40d2e76c16c136f0' }"
 
     input:
     tuple val(meta), path(input)

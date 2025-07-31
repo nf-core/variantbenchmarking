@@ -5,17 +5,18 @@
   </picture>
 </h1>
 
-[![GitHub Actions CI Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/ci.yml)
+[![GitHub Actions CI Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/nf-test.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/variantbenchmarking/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.14916661-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.14916661)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/version-%E2%89%A524.10.5-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
+[![nf-core template version](https://img.shields.io/badge/nf--core_template-3.3.2-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/3.3.2)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 [![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nf-core/variantbenchmarking)
 
-[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23benchmark-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/variantbenchmarking)[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)[![Follow on Mastodon](https://img.shields.io/badge/mastodon-nf__core-6364ff?labelColor=FFFFFF&logo=mastodon)](https://mstdn.science/@nf_core)[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
+[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23variantbenchmarking-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/variantbenchmarking)[![Follow on Bluesky](https://img.shields.io/badge/bluesky-%40nf__core-1185fe?labelColor=000000&logo=bluesky)](https://bsky.app/profile/nf-co.re)[![Follow on Mastodon](https://img.shields.io/badge/mastodon-nf__core-6364ff?labelColor=FFFFFF&logo=mastodon)](https://mstdn.science/@nf_core)[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
 
 ## Introduction
 
@@ -74,6 +75,7 @@ Available methods for germline and somatic _structural variant (SV)_ benchmarkin
 
 - Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 - SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
+- Rtgtools (only for BND) ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
 
 > [!NOTE]
 > Please note that there is no somatic specific tool for SV benchmarking in this pipeline.
@@ -82,6 +84,7 @@ Available methods for germline and somatic _CNVs (copy number variations)_ are:
 
 - Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 - Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+- Intersection ([bedtools intersect](https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html))
 
 > [!NOTE]
 > Please note that there is no somatic specific tool for CNV benchmarking in this pipeline.
@@ -90,7 +93,11 @@ Available methods for *small variants: SNVs and INDEL*s:
 
 - Germline variant benchmarking using ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
 - Germline variant benchmarking using ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
+- Somatic variant benchmarking using ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
 - Somatic variant benchmarking using ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+
+> [!NOTE]
+> Please note that using happ.py and som.py with rtgtools as comparison engine is also possible. Check conf/tests/test_ga4gh.config as an example.
 
 ### Intersection of benchmark regions:
 
@@ -141,6 +148,8 @@ User _has to provide truth_vcf and truth_id in config files_.
 > There are publicly available truth sources. For germline analysis, it is common to use [genome in a bottle (GiAB)](https://www.nist.gov/programs-projects/genome-bottle) variants. There are variate type of golden truths and high confidence regions for hg37 and hg38 references. Please select and use carefully.
 > For somatic analysis, [SEQC2 project](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2) released SNV, INDEL and CNV regions. One, can select and use those files.
 
+Here you can find example combinations of [truth files](docs/truth.md)
+
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
 Now, you can run the pipeline using:
@@ -159,6 +168,10 @@ nextflow run nf-core/variantbenchmarking \
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
 > Conda profile is not available for SVanalyzer (SVBenchmark) tool, if you are planing to use the tool either choose docker or singularity.
+
+### Example usages
+
+This pipeline enables quite a number of subworkflows suitable for different benchmarking senarios. Please go through [this documentation](docs/testcases.md) to learn some example usages which discusses about the test config files under conf/tests and tests/.
 
 ## Pipeline output
 

@@ -3,6 +3,33 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.3.0 - dev
+
+### `Added`
+
+- Add Precision vs recall plot to compare benchmarking tools ([#198](https://github.com/nf-core/variantbenchmarking/pull/198))
+- Adding a test profile to showcase running with GA4GH best practices happy with rtgtools engine([#189](https://github.com/nf-core/variantbenchmarking/pull/189))
+- nf-core-template-merge-3.2.1 ([#193](https://github.com/nf-core/variantbenchmarking/pull/193))
+- Add `rtg bndeval` for SVTPE=BND benchmarking ([#195](https://github.com/nf-core/variantbenchmarking/pull/195))
+- Split benchmarking VCF for happy properly to create comparison tables ([#196](https://github.com/nf-core/variantbenchmarking/pull/196))
+- Documentation about test configs in conf/tests ([#203](https://github.com/nf-core/variantbenchmarking/pull/203))
+- Template update to v3.3.1 [#200](https://github.com/nf-core/variantbenchmarking/pull/200)
+- Template update to v3.3.2 [#205](https://github.com/nf-core/variantbenchmarking/pull/205)
+
+### `Fixed`
+
+- Fixing bedtools intersection logic for CNV calculations ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
+- Seperate subworkflows for each benchmark method ([#203](https://github.com/nf-core/variantbenchmarking/pull/203))
+- Making test cases more realistic and adding docs how to use different tools in different context ([#204](https://github.com/nf-core/variantbenchmarking/pull/204))
+- #205 overwrites #192 making nf-schema to latest, update metromap [#206](https://github.com/nf-core/variantbenchmarking/pull/206)
+- Fixing singularity containers, issue arrised as seqera container change python version [#208](https://github.com/nf-core/variantbenchmarking/pull/208), [#209](https://github.com/nf-core/variantbenchmarking/pull/209) and [#210](https://github.com/nf-core/variantbenchmarking/pull/210)
+
+### `Dependencies`
+
+- Downgrade nf-schema to fix CI tests ([#192](https://github.com/nf-core/variantbenchmarking/pull/192))
+
+### `Deprecated`
+
 ## 1.2.0 - [31.03.2025]
 
 ### `Added`

@@ -9,6 +9,7 @@ include { LIFTOVER_VCFS                } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools/norm'
 include { FIX_VCF_PREFIX               } from '../../../modules/local/custom/fix_vcf_prefix'
 include { PUBLISH_PROCESSED_VCF        } from '../../../modules/local/custom/publish_processed_vcf'
+include { RTGTOOLS_SVDECOMPOSE         } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/local/bcftools/reheader'
@@ -154,6 +155,14 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
         }
 
+    }
+
+    if (params.sv_standardization.contains("svdecompose")){
+        RTGTOOLS_SVDECOMPOSE(
+            vcf_ch
+        )
+        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
+        vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
     PUBLISH_PROCESSED_VCF(
