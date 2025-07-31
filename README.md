@@ -60,9 +60,6 @@ This sub-workflow provides option to convert genome coordinates of truth VCF and
 - Lifting over VCFs ([picard LiftoverVcf](https://gatk.broadinstitute.org/hc/en-us/articles/360037060932-LiftoverVcf-Picard))
 - Lifting over high confidence coordinates ([UCSC liftover](http://hgdownload.cse.ucsc.edu/admin/exe))
 
-> [!NOTE]
-> Check docs/truth.md to view available sources.
-
 ### Statistical inference of input test and truth variants:
 
 This step provides insights into the distribution of variants before benchmarking by extracting variant statistics:.
@@ -151,7 +148,7 @@ User _has to provide truth_vcf and truth_id in config files_.
 > There are publicly available truth sources. For germline analysis, it is common to use [genome in a bottle (GiAB)](https://www.nist.gov/programs-projects/genome-bottle) variants. There are variate type of golden truths and high confidence regions for hg37 and hg38 references. Please select and use carefully.
 > For somatic analysis, [SEQC2 project](https://sites.google.com/view/seqc2/home/data-analysis/high-confidence-somatic-snv-and-indel-v1-2) released SNV, INDEL and CNV regions. One, can select and use those files.
 
-Here you can find example combinations of [truth files](truth.md)
+Here you can find example combinations of [truth files](docs/truth.md)
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/variantbenchmarking/usage) and the [parameter documentation](https://nf-co.re/variantbenchmarking/parameters).
 
@@ -174,7 +171,7 @@ nextflow run nf-core/variantbenchmarking \
 
 ### Example usages
 
-This pipeline enables quite a number of subworkflows suitable for different benchmarking senarios. Please go through [this documentation](testcases.md) to learn some example usages which discusses about the test config files under conf/tests and tests/.
+This pipeline enables quite a number of subworkflows suitable for different benchmarking senarios. Please go through [this documentation](docs/testcases.md) to learn some example usages which discusses about the test config files under conf/tests and tests/.
 
 ## Pipeline output
 
