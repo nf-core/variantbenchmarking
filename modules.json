@@ -92,7 +92,7 @@
                     },
                     "rtgtools/bndeval": {
                         "branch": "master",
-                        "git_sha": "0fb653bd46f503cf1cf77dd97f408dc9f55cd9ad",
+                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/format": {
@@ -102,7 +102,7 @@
                     },
                     "rtgtools/svdecompose": {
                         "branch": "master",
-                        "git_sha": "e71f6b6ad31982175fa9068443a9e5acec126b6c",
+                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/vcfeval": {
