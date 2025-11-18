@@ -10,21 +10,12 @@ import argparse
 import numpy as np
 import gzip
 import csv
+import pandas as pd
+import matplotlib.transforms as mtrans
 
 def get_sample_name(vcf_file):
     base_name = os.path.basename(vcf_file)
     return base_name.split('.')[0]
-
-def format_bp_label(value, pos):
-    value = abs(value)
-    if value >= 1e6:
-        return f'{value / 1e6:.1f} Mbp'
-    elif value >= 1e3:
-        return f'{value / 1e3:.1f} kbp'
-    elif value > 0:
-        return f'{int(value)} bp'
-    else:
-        return '0'
 
 def parse_vcf_data(vcf_files):
     """
@@ -173,62 +164,190 @@ def parse_csv_data(csv_files):
     return svlen_data, max_svlen
 
 
-def plot_svlen_distributions(svlen_data, max_svlen, output_file, plot_title):
+def format_bp_label(bin_edges,half_open=True,format="sci",decimals=1):
     """
-    Plots the SVLEN distributions based on the parsed data using a mirrored linear scale and a log y-axis.
+    Creates a string using the edges of the bins.
+    Returns:
+        A string of the form [lef_edge,right_edge]
+
     """
-    plt.rcParams.update({
-        'font.size': 14,
-        'axes.titlesize': 18,
-        'axes.labelsize': 16,
-        'xtick.labelsize': 14,
-        'ytick.labelsize': 14,
-        'legend.fontsize': 14,
-        'legend.title_fontsize': 16,
-        'figure.titlesize': 20
-    })
+    
+    if format=="sci":
+        format_type="E"
+    elif format=="raw":
+        format_type="f"
+    
+    if half_open:
+        symbol=")"
+    else:
+        symbol="]"
+    
+    label="[{left},{right}{S}".format(left= f"{bin_edges[0]:.{decimals}{format_type}}",
+                                    right=f"{bin_edges[1]:.{decimals}{format_type}}",
+                                    S=symbol
+                                    )
+    return label
 
-    # Create larger figure
-    plt.figure(figsize=(14, 10))
+def default_bins():
+    """
+    Creates a set of bins based on typical orders of magnitue(kilo,Mega,Giga,Tera)
+    Returns:
+        A list of bins as described above.
 
-    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
-    line_styles = ['-', '--', ':', '-.']
+    """
+    exps=[1,2,3,6,9,12]#bp,kbp,Mbp,Gbp,Tbp
+    bins_pos=[10**i for i in exps]
+    bins_neg=[ -val for val in bins_pos ]
+    bins=sorted(bins_pos+bins_neg+[0])
+    return bins
 
-    num_bins = 50
-    bins = np.linspace(-max_svlen, max_svlen, num_bins * 2)
+def filter_frame(df):
+    """
+    Filters a data frame based on the bin_label categories, if a category is empty for all
+    samples it will be filtered out.
+    Returns:
+        A filtered pandas data frame.
 
-    for i, (file_name, lengths_dict) in enumerate(svlen_data.items()):
-        current_color = colors[i % len(colors)]
-        current_linestyle = line_styles[i % len(line_styles)]
+    """
+    group=df.groupby("bin_label",sort=False)["counts"]
+    categ=group.sum().index
+    idx_non_empty=group.sum().values>0
+    categ_filt=list(categ[idx_non_empty])
+    df_upt=df.loc[df["bin_label"].isin(categ_filt)]
+    return df_upt
+
+
+def data2frame(sv_data,bin_edges="default"):
+    """
+    Takes the sv_data and calculates the histogram of the counts of insertions and deletions
+    using the list of bin_edges. 
+    Returns:
+        A pandas dataframe with the information organized for casting a bar plot.
+
+    """
+
+    data_table={
+                "sample":[],
+                "bin_left_edge":[],
+                "bin_right_edge":[],
+                "bin_label":[],
+                "type":[],
+                "counts":[]
+                }
+
+
+    if bin_edges=="default":
+        bins=default_bins()
+    elif isinstance(bin_edges, (list, np.ndarray)):
+        bins=sorted(bin_edges)
+        
+    bin_left_edge=bins[:-1]
+    bin_right_edge=bins[1::]
+    bin_intervals=list(zip(bin_left_edge,bin_right_edge))
+
+    """
+    Note: In the following 2 lines the label of the intervals
+    is formatted to comply with the np.histogram output, i.e.
+    all bins are considered half-open [) except the right-most bin which is closed
+    [].  Chek np.histogram documentation.
+    """
+    bin_labels=list ( map( format_bp_label, bin_intervals[0:-1] ) )
+    bin_labels.append( format_bp_label(bin_intervals[-1],half_open=False) )
+    mod_type=["insertion" if l>=0 else "deletion" for l,r in bin_intervals ]
+
+
+    for file_name, lengths_dict in sv_data.items():
 
         all_lengths = lengths_dict['positive'] + lengths_dict['negative']
 
         if all_lengths:
-            counts, bin_edges = np.histogram(all_lengths, bins=bins)
-            bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+            counts, _ = np.histogram(all_lengths, bins=bins)
+            data_table["sample"].extend([file_name]*len(counts))
+            data_table["bin_left_edge"].extend(bin_left_edge)
+            data_table["bin_right_edge"].extend(bin_right_edge)
+            data_table["bin_label"].extend(bin_labels)
+            data_table["type"].extend(mod_type)
+            data_table["counts"].extend(counts)
+            
+    df_table=pd.DataFrame(data_table) 
+    return df_table
 
-            plt.plot(bin_centers, counts, label=file_name,
-                     color=current_color, linestyle=current_linestyle, linewidth=3)
+def plot_svlen_distributions(sv_data, output_file, plot_title):
+    """
+    CreateS a bar plot and writes it in the output_file path
+    Returns:
+        A .png figure saved in the output_file path.
 
-    plt.yscale('log')
+    """
+    df_table=data2frame(sv_data,bin_edges="default")
+    df_upt=filter_frame(df_table)
+    
+    category_label=df_upt["bin_label"].unique()
+    files=df_upt["sample"].unique()
+    bar_height={sample: df_upt.loc[ df_upt["sample"]==sample, "counts"].values for sample in files }
 
-    plt.xlabel("Deletions   |   Insertions", fontsize=16, fontweight='bold')
-    plt.ylabel("Count (Log10)", fontsize=16, fontweight='bold')
-    plt.title(plot_title, fontsize=18, fontweight='bold', pad=20)
+    types_list=df_upt["type"].unique()
 
-    legend = plt.legend(title="Tool", title_fontsize=16, fontsize=14)
-    for handle in legend.legendHandles:
-        handle.set_linewidth(4.0)
+    width = 0.11  # the width of the bars
+    interval_capacity=1/width
+    interval_load=len(category_label)
 
-    plt.grid(True, which="both", linestyle='--', alpha=0.7)
+    if interval_load<interval_capacity:
+        x = np.arange(len(category_label))  # the label locations
+    else:
+        x=(width*interval_load)*np.array(list(range(interval_load)))
+    
 
-    plt.xlim(-max_svlen, max_svlen)
+    if len(types_list)==2:
+        xlabel_text="Deletions | Insertions"
+        xlabel_future_action="reposition"
+        ref_file=df_upt["sample"].unique()[0]
+        aux=df_upt.loc[df_upt["sample"]==ref_file]
+        transition_index=(aux["type"].values!="deletion").argmax()
+        xlabel_position=x[transition_index]
+    
+    elif len(types_list)==1:
+        xlabel_future_action=None
+        if types_list[0]=="insertion":
+            xlabel_text="Insertions"
+            
+        elif types_list[0]=="deletion":
+            xlabel_text="Deletions"
+            
+    
+    plt.style.use('seaborn-v0_8-colorblind')
+    fig, ax = plt.subplots(figsize=(14, 10),layout='constrained')
+    multiplier = 0
+    pads=[-1,2]
+    for attribute, measurement in bar_height.items():
+        offset = width * multiplier
+        rects = ax.bar(x + offset, measurement, width, label=attribute,alpha=1)
+        ax.bar_label(rects, padding=pads[multiplier%len(pads)])
+        multiplier += 1
 
-    plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(format_bp_label))
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_title(plot_title,fontsize=18, fontweight='bold', pad=20)
+    ax.grid(True, which="major", linestyle='--', alpha=0.6)
+    ax.set_xticks(x + width, category_label,rotation=35,fontsize=14)
+    ax.set_xlabel(xlabel_text, fontsize=16, fontweight='bold')
+    if xlabel_future_action=="reposition":
+        trans = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
+        ax.xaxis.set_label_coords(xlabel_position, -0.3,transform=trans)
 
-    plt.tight_layout()
+    ax.set_yscale('log')
+    ax.tick_params(axis='y', which='major', labelsize=14)
+    ax.set_ylabel("Count (Log10)", fontsize=16, fontweight='bold')
 
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    ax.legend(title="Tool",
+          loc='upper right',
+          title_fontsize=16,
+          fancybox=True,
+          shadow=True,
+          bbox_to_anchor=(1.4, 1),
+          prop={'size': 14}
+          )
+    fig.tight_layout()
+    fig.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"Plot saved to {output_file}")
 
 if __name__ == "__main__":
@@ -260,6 +379,6 @@ if __name__ == "__main__":
             max_len = csv_max_len
 
     if sv_data:
-        plot_svlen_distributions(sv_data, max_len, args.output_file, args.plot_title)
+        plot_svlen_distributions(sv_data, args.output_file, args.plot_title)
     else:
         print("No valid input files found to plot.")
