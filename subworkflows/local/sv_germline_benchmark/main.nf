@@ -17,6 +17,7 @@ workflow SV_GERMLINE_BENCHMARK {
     versions        = Channel.empty()
     summary_reports = Channel.empty()
     tagged_variants = Channel.empty()
+    logs            = Channel.empty()
 
     // SV benchmarking
     if (params.method.contains('truvari')){
@@ -29,6 +30,7 @@ workflow SV_GERMLINE_BENCHMARK {
         versions = versions.mix(TRUVARI_BENCHMARK.out.versions)
         summary_reports = summary_reports.mix(TRUVARI_BENCHMARK.out.report)
         tagged_variants = tagged_variants.mix(TRUVARI_BENCHMARK.out.tagged_variants)
+        logs            = logs.mix(TRUVARI_BENCHMARK.out.logs)
     }
 
     if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
@@ -56,5 +58,6 @@ workflow SV_GERMLINE_BENCHMARK {
     emit:
     tagged_variants // channel: [val(meta), vcfs]
     summary_reports // channel: [val(meta), reports]
+    logs            // channel: [log.txt]
     versions        // channel: [val(meta), versions.yml]
 }

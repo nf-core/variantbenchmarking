@@ -18,6 +18,7 @@ workflow TRUVARI_BENCHMARK {
 
     versions        = Channel.empty()
     tagged_variants = Channel.empty()
+    logs            = Channel.empty()
 
     TRUVARI_BENCH(
         input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -27,6 +28,7 @@ workflow TRUVARI_BENCHMARK {
         fai
     )
     versions = versions.mix(TRUVARI_BENCH.out.versions.first())
+    logs    = logs.mix(TRUVARI_BENCH.out.log)
 
     TRUVARI_BENCH.out.summary
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "truvari"], file) }
@@ -101,5 +103,6 @@ workflow TRUVARI_BENCHMARK {
     emit:
     tagged_variants // channel: [val(meta), vcfs]
     report          // channel: [val(meta), reports]
-    versions        // channel: [val(meta), versions.yml]
+    logs            // channel: [log.txt]
+    versions        // channel: [versions.yml]
 }

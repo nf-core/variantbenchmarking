@@ -80,22 +80,24 @@ workflow COMPARE_BENCHMARK_RESULTS {
     )
     versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
 
-    VCF_TO_CSV.out.output.mix(MERGE_SOMPY_FEATURES.out.output).map{
-        meta, csv ->
-            def newMeta = meta.clone()
-            newMeta.remove('tag')
-        tuple(newMeta,csv)
-    }.set{upset_input}
+    if (!params.skip_plots.contains("upset")){
+        VCF_TO_CSV.out.output.mix(MERGE_SOMPY_FEATURES.out.output).map{
+            meta, csv ->
+                def newMeta = meta.clone()
+                newMeta.remove('tag')
+            tuple(newMeta,csv)
+        }.set{upset_input}
 
-    PLOT_UPSET(
-        upset_input.groupTuple()
-    )
-    versions = versions.mix(PLOT_UPSET.out.versions)
-    ch_plots = ch_plots.mix(PLOT_UPSET.out.plot)
+        PLOT_UPSET(
+            upset_input.groupTuple()
+        )
+        versions = versions.mix(PLOT_UPSET.out.versions)
+        ch_plots = ch_plots.mix(PLOT_UPSET.out.plot)
+    }
 
     emit:
     merged_vcfs  // channel: [val(meta), vcf]
-    ch_plots     // channel: [val(meta), .png]
+    ch_plots     // channel: [.png]
     versions     // channel: [versions.yml]
 
 }

@@ -1,0 +1,28 @@
+Changes in component 'nf-core/gatk4/concordance'
+Changes in 'gatk4/concordance/meta.yml':
+--- modules/nf-core/gatk4/concordance/meta.yml
++++ modules/nf-core/gatk4/concordance/meta.yml
+@@ -120,7 +120,7 @@
+           description: |
+             Groovy Map containing sample information
+             e.g. `[ id:'sample1' ]`
+-      - "*.tpfn.vcf": 
++      - "*.tpfn.vcf":
+           type: file
+           description: Eval VCF file with tagged with TP or FN in "INFO/STATUS"
+           pattern: "*.vcf"
+@@ -132,7 +132,7 @@
+           description: |
+             Groovy Map containing sample information
+             e.g. `[ id:'sample1' ]`
+-      - "*.tpfp.vcf": 
++      - "*.tpfp.vcf":
+           type: file
+           description: Eval VCF file with tagged with TP or FP in "INFO/STATUS"
+           pattern: "*.vcf"
+
+'modules/nf-core/gatk4/concordance/main.nf' is unchanged
+'modules/nf-core/gatk4/concordance/environment.yml' is unchanged
+'modules/nf-core/gatk4/concordance/tests/main.nf.test' is unchanged
+'modules/nf-core/gatk4/concordance/tests/main.nf.test.snap' is unchanged
+************************************************************

@@ -215,6 +215,29 @@ def get_intersect_results(file_paths):
 
 	return merged_df
 
+def get_concordance_results(file_paths):
+	merged_df = pd.DataFrame()
+
+	for file in file_paths:
+		filename = os.path.basename(file)
+		df = pd.read_csv(file, delimiter='\t')
+		df['File'] = filename
+		df['Tool'] = filename.split(".")[0]
+
+		df['F1'] = 2 * (df["PRECISION"] * df["RECALL"]) / (df["PRECISION"] + df["RECALL"])
+		df['F1'] = df['F1'].fillna(0)
+
+		int_columns = ['TP', 'FN', 'FP']
+		float_columns = ['RECALL','PRECISION','F1']
+		df[int_columns] = df[int_columns].fillna(0).astype(int)
+		df[float_columns] = df[float_columns].fillna(0).astype(float)
+		df_redesigned = df[['Tool','File','type', 'TP', 'FP', 'FN','RECALL','PRECISION','F1']]
+		df_redesigned.columns = ['Tool','File','Type','TP','FP','FN','Precision','Recall','F1']
+
+		merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
+
+	return merged_df
+
 def get_sompy_results(file_paths, vartype):
 	merged_df = pd.DataFrame()
 
@@ -276,13 +299,16 @@ def main(args=None):
 	elif args.bench == "intersect":
 		summ_table = get_intersect_results(args.inputs)
 
+	elif args.bench == "concordance":
+		summ_table = get_concordance_results(args.inputs)
+
 	elif args.bench == "sompy":
 		summ_table,summ_table2 = get_sompy_results(args.inputs,args.vartype)
 		summ_table2.reset_index(drop=True, inplace=True)
 		summ_table2.to_csv(args.output + ".regions.csv", index=False)
 
 	else:
-		raise ValueError('only results from intersect, truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
+		raise ValueError('only results from concordance, intersect, truvari, svbenchmark, wittyer, rtgtools, happy or sompy tools can be merged')
 
 	summ_table.reset_index(drop=True, inplace=True)
 	summ_table.to_csv(args.output + ".summary.csv", index=False)

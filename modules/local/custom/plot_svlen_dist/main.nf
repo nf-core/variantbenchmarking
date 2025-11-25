@@ -4,8 +4,8 @@ process PLOT_SVLEN_DIST {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/matplotlib:3.1.2--2' :
-        'biocontainers/matplotlib:3.1.2--2' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/24/24f902548e45e009de670f96def94e83a1da47af87e793389091413a0182a820/data' :
+        'community.wave.seqera.io/library/matplotlib_numpy_pandas:1503a72c3e08341d' }"
 
     input:
     tuple val(meta), path(input)

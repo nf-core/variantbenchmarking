@@ -18,6 +18,7 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_vari
 
 params.fasta = getGenomeAttribute('fasta')
 params.fai   = getGenomeAttribute('fai')
+params.dictionary = getGenomeAttribute('dict')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +72,10 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input
+        params.input,
+        params.help,
+        params.help_full,
+        params.show_hidden
     )
 
     //

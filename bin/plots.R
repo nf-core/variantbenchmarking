@@ -20,6 +20,11 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
         name1 <- paste(stats, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
         name2 <- paste(stats, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
         name3 <- paste(stats, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
+    } else if (type != "None") {
+        table <- table[table$Type == type, ]
+        name1 <- paste(type, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
+        name2 <- paste(type, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
+        name3 <- paste(type, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
     } else {
         name1 <- paste("f1_by_tool_", benchmark, "_mqc.png", sep = "")
         name2 <- paste("variants_by_tool_", benchmark, "_mqc.png", sep = "")
@@ -143,7 +148,9 @@ if (benchmark == "happy") {
 }else if (benchmark == "wittyer") {
     generate_plots(table, benchmark, "None", "None", "Base")
     generate_plots(table, benchmark, "None", "None", "Event")
-
+}else if (benchmark == "concordance") {
+    generate_plots(table, benchmark, "SNP", "None", "None")
+    generate_plots(table, benchmark, "INDEL", "None", "None")
 }else {
     if (benchmark == "rtgtools") {
         table <- table[table$Threshold == "None", ]

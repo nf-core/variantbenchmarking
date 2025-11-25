@@ -16,6 +16,7 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 //
 // SUBWORKFLOWS: Local Subworkflows
 //
+include { PREPARE_REFERENCES          } from '../subworkflows/local/prepare_references'
 include { SUBSAMPLE_VCF_TEST          } from '../subworkflows/local/subsample_vcf_test'
 include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs_truth'
 include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
@@ -23,12 +24,12 @@ include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conve
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
 include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
 include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
-include { CNV_GERMLINE_BENCHMARK      } from '../subworkflows/local/cnv_germline_benchmark'
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
 include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
+include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,20 +58,30 @@ workflow VARIANTBENCHMARKING {
                     .map{ fai -> tuple([id: fai.getSimpleName()], fai) }.collect()
 
     //// check Truth Files ////
+    truth_ch        = params.truth_vcf ? Channel.fromPath(params.truth_vcf, checkIfExists: true)
+                                            .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+                                        : Channel.empty()
 
-    if (params.truth_vcf || params.regions_bed){
-        truth_ch        = params.truth_vcf ? Channel.fromPath(params.truth_vcf, checkIfExists: true)
-                                                    .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
-                                                    : Channel.empty()
+    regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
+                                        : Channel.empty()
+    targets_bed_ch = params.targets_bed ? Channel.fromPath(params.targets_bed, checkIfExists: true).collect()
+                                        : Channel.empty()
 
-        regions_bed_ch = params.regions_bed ? Channel.fromPath(params.regions_bed, checkIfExists: true).collect()
-                                                    : Channel.empty()
-        targets_bed_ch = params.targets_bed ? Channel.fromPath(params.targets_bed, checkIfExists: true).collect()
-                                                    : Channel.empty()
-    }else{
-        log.error "Please specify params.truth_id and params.truth_vcf or params.regions_bed to perform benchmarking analysis"
-        exit 1
+
+    if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer|bndeval).*/) {
+        if (!params.truth_vcf || !params.truth_id){
+            log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
+            exit 1
+        }
     }
+    if (params.method ==~ /.*(?:intersect).*/) {
+        if (!params.regions_bed || !params.truth_vcf){
+            log.error "Please specify params.regions_bed to perform intersect analysis"
+            exit 1
+        }
+    }
+
+    // Note: concordance analysis does not require truth files
 
     // Optional files for Happy or Sompy
     falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
@@ -125,12 +136,15 @@ workflow VARIANTBENCHMARKING {
         dictionary      = Channel.empty()
     }
 
-    if(params.method.contains("intersect")){
-        if(!params.regions_bed){
-            log.error "Regions BED is required for intersection analysis"
-            exit 1
-        }
-    }
+    //prepare references and libraries
+    PREPARE_REFERENCES(
+        fasta,
+        dictionary,
+        sdf
+    )
+    ch_versions = ch_versions.mix(PREPARE_REFERENCES.out.versions)
+    dictionary  = PREPARE_REFERENCES.out.dictionary
+    sdf         = PREPARE_REFERENCES.out.sdf
 
     // PREPROCESSES
 
@@ -194,7 +208,6 @@ workflow VARIANTBENCHMARKING {
         PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
     )
     ch_versions       = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
-    ch_multiqc_files  = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
 
 
     // If intersect is in the methods, perform bedtools intersect to region files given
@@ -216,6 +229,23 @@ workflow VARIANTBENCHMARKING {
 
     }
 
+    evals_ch     = Channel.empty()
+    evals_csv_ch = Channel.empty()
+
+    // Concordance analysis can only be performed small variants for now
+    if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/) ){
+      CONCORDANCE_ANALYSIS(
+            PREPARE_VCFS_TEST.out.vcf_ch,
+            regions_bed_ch,
+            fasta,
+            fai,
+            dictionary
+        )
+        ch_versions      = ch_versions.mix(CONCORDANCE_ANALYSIS.out.versions)
+        ch_reports       = ch_reports.mix(CONCORDANCE_ANALYSIS.out.summary_reports)
+        evals_ch         = evals_ch.mix(CONCORDANCE_ANALYSIS.out.tagged_variants)
+    }
+
     // Prepare benchmark channel
     PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
         .combine(regions_bed_ch.ifEmpty([[]]))
@@ -223,10 +253,6 @@ workflow VARIANTBENCHMARKING {
         .map{ test_meta, test_vcf, test_tbi, _truth_meta, truth_vcf, truth_tbi, regions_bed, targets_bed  ->
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
-
-    evals_ch     = Channel.empty()
-    evals_csv_ch = Channel.empty()
-
 
     if (params.variant_type == "structural" || params.variant_type == "copynumber"){
         // Perform SV benchmarking - for now it also works for somatic cases!
@@ -239,6 +265,7 @@ workflow VARIANTBENCHMARKING {
         ch_versions      = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
+        ch_multiqc_files = ch_multiqc_files.mix(SV_GERMLINE_BENCHMARK.out.logs.map{ meta, log -> log })
 
         if (params.method.contains("bndeval")){
             // running bndeval might require svdecompose
@@ -313,7 +340,25 @@ workflow VARIANTBENCHMARKING {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = Channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'variantbenchmarking_software_'  + 'mqc_'  + 'versions.yml',
@@ -335,8 +380,11 @@ workflow VARIANTBENCHMARKING {
     ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml',sort: true))
-    ch_multiqc_files                      = ch_multiqc_files.mix(COMPARE_BENCHMARK_RESULTS.out.ch_plots)
-    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots)
+    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
+    ch_multiqc_files                      = ch_multiqc_files.mix(COMPARE_BENCHMARK_RESULTS.out.ch_plots.flatten())
+    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots.flatten())
+    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.merged_reports.map{ meta, report -> report }.flatten())
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_reports.map{ meta, report -> report }.flatten())
 
     MULTIQC (
         ch_multiqc_files.collect(),

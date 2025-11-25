@@ -320,4 +320,30 @@ _Intersect_
 Only CNVkit was reporting the variants in VCF format that is why truvari and wittyer was running only that test sample. Wittyer was not proprely running as variants are not sequence resolved.
 We also have two type of results for CNVkit for intersection analysis. \*\_converted one show the result from the VCF input being converted to BED for ntersection analysis while the other result is using input BED file directly.
 
-As a final note, it is highly encourged to run all those test and investigate comparions, plots and tables created. This pipeline serves for multiple tools enabling efficient benchmark analysis.
+## Case 12 : Concordance analysis
+
+### Config file
+
+- [test config](../conf/tests/concordance.config)
+
+### Analysis
+
+### Analysis
+
+- Now we are using two HG002 variant calls from germline variant calling analysis to perform concordance analysis. In order to do concordance comparison, we dont need to provide truth VCF! as we are comparing test VCFs with each other.
+- Chromosome 21 is extracted both from the test and truth cases.
+- We normalize, split multialalelics and deduplicate variants to preprocess the variants
+
+### Results
+
+_GATK4 Concordance_
+
+| Tool        | File                    | Type  | TP    | FP   | FN    | Precision | Recall | F1      |
+| ----------- | ----------------------- | ----- | ----- | ---- | ----- | --------- | ------ | ------- |
+| test6-test7 | test6-test7.summary.tsv | SNP   | 52696 | 288  | 20581 | 0.719     | 0.995  | 0.83477 |
+| test6-test7 | test6-test7.summary.tsv | INDEL | 12132 | 1933 | 1933  | 0.814     | 0.863  | 0.83778 |
+
+Concordance statistics are based on tool comparisons, the pairs are generated randomly for each run therefore the order of the comparison may change. Here, test6 is considered as BASE whole test7 is being considered as COMP set. Therefore, be aware that FP, FN and Preciison and Recall may switch.
+
+> [!NOTE]
+> As a final note, it is highly encourged to run all those test and investigate comparions, plots and tables created. This pipeline serves for multiple tools enabling efficient benchmark analysis.

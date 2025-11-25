@@ -32,6 +32,8 @@
 
 > Shane Neph, M. Scott Kuehn, Alex P. Reynolds, Eric Haugen, Robert E. Thurman, Audra K. Johnson, Eric Rynes, Matthew T. Maurano, Jeff Vierstra, Sean Thomas, Richard Sandstrom, Richard Humbert, John A. Stamatoyannopoulos, BEDOPS: high-performance genomic feature operations, Bioinformatics, Volume 28, Issue 14, July 2012, Pages 1919–1920, https://doi.org/10.1093/bioinformatics/bts277
 
+- [gatk4-concordance](https://gatk.broadinstitute.org/hc/en-us/articles/360040509811-Concordance)
+
 - [datavzrd](https://datavzrd.github.io/docs/index.html)
 
 - [hap.py](https://www.illumina.com/products/by-type/informatics-products/basespace-sequence-hub/apps/hap-py-benchmarking.html)
@@ -54,6 +56,8 @@
 
 > Jeffares, D., Jolly, C., Hoti, M. et al. Transient structural variations have strong effects on quantitative traits and reproductive isolation in fission yeast. Nat Commun 8, 14061 (2017). https://doi.org/10.1038/ncomms14061
 
+- [som.py](https://github.com/Illumina/hap.py/blob/master/doc/sompy.md)
+
 - [SVanalyzer](https://svanalyzer.readthedocs.io/en/latest/index.html)
 
 - [svtk](https://github.com/broadinstitute/gatk-sv/tree/master/src/svtk)
@@ -71,6 +75,8 @@
 - [UCSC](http://hgdownload.cse.ucsc.edu/admin/exe)
 
 > Hinrichs AS, Karolchik D, Baertsch R, Barber GP, Bejerano G, Clawson H, Diekhans M, Furey TS, Harte RA, Hsu F et al. The UCSC Genome Browser Database: update 2006. Nucleic Acids Res. 2006 Jan 1;34(Database issue):D590-8.
+
+- [variant-extractor](https://github.com/EUCANCan/variant-extractor)
 
 - [witty.er](https://github.com/Illumina/witty.er)
 

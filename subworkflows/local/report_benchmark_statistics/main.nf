@@ -18,21 +18,25 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     versions = Channel.empty()
     ch_plots = Channel.empty()
+    merged_reports = Channel.empty()
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
     )
     versions = versions.mix(MERGE_REPORTS.out.versions.first())
+    merged_reports = merged_reports.mix(MERGE_REPORTS.out.summary)
 
-    // plot summary statistics
-    PLOTS(
-        MERGE_REPORTS.out.summary
-    )
-    ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
-    versions = versions.mix(PLOTS.out.versions.first())
+    if (!params.skip_plots.contains("metrics")){
+        // plot summary statistics
+        PLOTS(
+            MERGE_REPORTS.out.summary
+        )
+        ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
+        versions = versions.mix(PLOTS.out.versions.first())
+    }
 
-    if (params.variant_type != "snv"){
+    if (params.variant_type != "snv" && !params.skip_plots.contains("svlenght")){
         // plot INDEL/SV distribution plots
         PLOT_SVLEN_DIST(
             evaluations.groupTuple().mix(evaluations_csv.groupTuple())
@@ -66,4 +70,5 @@ workflow REPORT_BENCHMARK_STATISTICS {
     emit:
     versions        // channel: [versions.yml]
     ch_plots        // channel: [plots.png]
+    merged_reports  // channel: [ summary.csv]
 }

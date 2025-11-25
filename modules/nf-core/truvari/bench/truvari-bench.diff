@@ -1,0 +1,19 @@
+Changes in component 'nf-core/truvari/bench'
+'modules/nf-core/truvari/bench/environment.yml' is unchanged
+Changes in 'truvari/bench/meta.yml':
+--- modules/nf-core/truvari/bench/meta.yml
++++ modules/nf-core/truvari/bench/meta.yml
+@@ -184,7 +184,7 @@
+           description: Log file from Truvari run
+           pattern: "*.log.txt"
+           ontologies:
+-            - edam: http://edamontology.org/format_1964        
++            - edam: http://edamontology.org/format_1964
+   versions:
+     - versions.yml:
+         type: file
+
+'modules/nf-core/truvari/bench/main.nf' is unchanged
+'modules/nf-core/truvari/bench/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/truvari/bench/tests/main.nf.test' is unchanged
+************************************************************

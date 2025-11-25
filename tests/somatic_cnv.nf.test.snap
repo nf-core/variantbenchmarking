@@ -43,7 +43,7 @@
                     "r-base": "4.3.1"
                 },
                 "PLOT_SVLEN_DIST": {
-                    "python": "3.8.1"
+                    "python": "3.14.0"
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
@@ -76,7 +76,7 @@
                     "wittyer": "0.5.2.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.3.0"
+                    "nf-core/variantbenchmarking": "v1.4.0-dev"
                 }
             },
             [
@@ -90,18 +90,56 @@
                 "copynumber/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
                 "copynumber/multiqc",
                 "copynumber/multiqc/multiqc_data",
-                "copynumber/multiqc/multiqc_data/BETA-multiqc.parquet",
+                "copynumber/multiqc/multiqc_data/llms-full.txt",
                 "copynumber/multiqc/multiqc_data/multiqc.log",
+                "copynumber/multiqc/multiqc_data/multiqc.parquet",
                 "copynumber/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_citations.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_data.json",
                 "copynumber/multiqc/multiqc_data/multiqc_general_stats.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_software_versions.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_sources.txt",
+                "copynumber/multiqc/multiqc_data/multiqc_truvari_bench.txt",
+                "copynumber/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
+                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_Base.txt",
+                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_Comp.txt",
+                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_base_GT.txt",
+                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_comp_GT.txt",
+                "copynumber/multiqc/multiqc_data/truvari-bench-pre-rec-plot.txt",
                 "copynumber/multiqc/multiqc_plots",
                 "copynumber/multiqc/multiqc_plots/pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-cnt.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-pct.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-cnt.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-pct.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-cnt.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-pct.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-cnt.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-pct.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
+                "copynumber/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "copynumber/multiqc/multiqc_plots/png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-cnt.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-pct.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-cnt.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-pct.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-cnt.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-pct.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-cnt.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-pct.png",
+                "copynumber/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
+                "copynumber/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "copynumber/multiqc/multiqc_plots/svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-cnt.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-pct.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-cnt.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-pct.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-cnt.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-pct.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-cnt.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-pct.svg",
+                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-pre-rec-plot.svg",
+                "copynumber/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "copynumber/multiqc/multiqc_report.html",
                 "copynumber/summary",
                 "copynumber/summary/comparisons",
@@ -280,8 +318,8 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,2a3294dcbb89d63042d713a7bb6f32ee",
                 "multiqc_bcftools_stats.txt:md5,e50d652f48e58b3a96f04837acf7185b",
-                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_general_stats.txt:md5,649df71c73eedf340ee0ae6e5c4ae86e",
+                "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
+                "multiqc_variant_calling_summary.txt:md5,c403fa3d80e0bc667f6220d646a54c83",
                 "test13.SEQC2.controlfreec_FN.bed:md5,bcbdf273e3d60c0aaa8afb4a8b0a5ff5",
                 "test13.SEQC2.controlfreec_FP.bed:md5,36be4b1c9f99af66e548eb1a7ce5548c",
                 "test13.SEQC2.controlfreec_TP_base.bed:md5,e5c439e0e4b2136e44d5fde760785795",
@@ -310,9 +348,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.09.0"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-24T15:40:47.319435368"
+        "timestamp": "2025-11-18T10:22:00.953028725"
     }
 }

@@ -13,7 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - svtk/standardize from GATK to standardize SVs to BND format. [#218](https://github.com/nf-core/variantbenchmarking/pull/218)
 - svync update to 0.3.0 [#219](https://github.com/nf-core/variantbenchmarking/pull/219)
 - UPSET plot for TP/FP/FN numbers [#223](https://github.com/nf-core/variantbenchmarking/pull/223)
-- 228 nf-co2footplot plugin is added [#224](https://github.com/nf-core/variantbenchmarking/pull/224)
+- nf-co2footplot plugin is added [#224](https://github.com/nf-core/variantbenchmarking/pull/224)
+- Template update for nf-core/tools v3.4.1 [#235](https://github.com/nf-core/variantbenchmarking/pull/235)
+- Adding concordance analysis (pairwise comparison of test VCFs) can be used without peforming benchmarking with truth VCF [#237](https://github.com/nf-core/variantbenchmarking/pull/237)
+- Adding support for hap.py, som.py and truvari results to multiqc report. Also refactoring the report better [#249](https://github.com/nf-core/variantbenchmarking/pull/249)
 
 ### `Fixed`
 
@@ -22,6 +25,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixing wrongly transmitted TP numbers and plots [#224](https://github.com/nf-core/variantbenchmarking/pull/224)
 - Fixing sompy split tag script [#230](https://github.com/nf-core/variantbenchmarking/pull/230)
 - Wittyer doesnt support BND type of variants, added better documentation [#231](https://github.com/nf-core/variantbenchmarking/pull/231)
+- Fixing the handling of params (when value is 0) from schema_input.json [#234](https://github.com/nf-core/variantbenchmarking/pull/234)
+- Fixing and reformatting svlen distribution plot [#250](https://github.com/nf-core/variantbenchmarking/pull/250)
+  - Old graph is replaced with histogram
+- Filtering of non-called variants after multi-sample VCF split to selected sample is fixed [#251](https://github.com/nf-core/variantbenchmarking/pull/251)
+  - Fix for strelka added, if no GT field exist, tools will be added the code manually.
 
 ### `Dependencies`
 

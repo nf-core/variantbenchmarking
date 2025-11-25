@@ -2,7 +2,6 @@
 // RTGTOOLS_BENCHMARK: SUBWORKFLOW FOR RTGTOOLS_BENCHMARKING
 //
 
-include { RTGTOOLS_FORMAT  } from '../../../modules/nf-core/rtgtools/format/main'
 include { RTGTOOLS_VCFEVAL } from '../../../modules/nf-core/rtgtools/vcfeval/main'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/local/bcftools/reheader'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/local/bcftools/reheader'
@@ -12,7 +11,6 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_4    } from '../../../modules/l
 workflow RTGTOOLS_BENCHMARK {
     take:
     input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
-    fasta              // reference channel [val(meta), ref.fa]
     fai                // reference channel [val(meta), ref.fa.fai]
     sdf                // reference channel [val(meta), sdf]
 
@@ -20,16 +18,6 @@ workflow RTGTOOLS_BENCHMARK {
 
     versions        = Channel.empty()
     tagged_variants = Channel.empty()
-
-    if (!params.sdf){
-
-        // Use rtgtools format to generate sdf file if necessary
-        RTGTOOLS_FORMAT(
-            fasta.map { meta, file -> [ meta, file, [], [] ] }
-        )
-        versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
-        sdf = RTGTOOLS_FORMAT.out.sdf
-    }
 
     // apply rtgtools eval method
     RTGTOOLS_VCFEVAL(

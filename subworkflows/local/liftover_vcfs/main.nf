@@ -2,13 +2,12 @@
 // LIFTOVER_VCFS: SUBWORKFLOW TO LIFTOVER VCFS HG37 TO HG38 OR HG38 TO HG37
 //
 
-include { PICARD_CREATESEQUENCEDICTIONARY } from '../../../modules/nf-core/picard/createsequencedictionary'
-include { PICARD_LIFTOVERVCF              } from '../../../modules/nf-core/picard/liftovervcf'
-include { REFORMAT_HEADER                 } from '../../../modules/local/custom/reformat_header'
-include { BCFTOOLS_RENAME_CHR             } from '../../../modules/local/bcftools/rename_chr'
-include { UCSC_LIFTOVER                   } from '../../../modules/nf-core/ucsc/liftover'
-include { SORT_BED                        } from '../../../modules/local/custom/sort_bed'
-include { BEDTOOLS_MERGE                  } from '../../../modules/nf-core/bedtools/merge'
+include { PICARD_LIFTOVERVCF   } from '../../../modules/nf-core/picard/liftovervcf'
+include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
+include { BCFTOOLS_RENAME_CHR  } from '../../../modules/local/bcftools/rename_chr'
+include { UCSC_LIFTOVER        } from '../../../modules/nf-core/ucsc/liftover'
+include { SORT_BED             } from '../../../modules/local/custom/sort_bed'
+include { BEDTOOLS_MERGE       } from '../../../modules/nf-core/bedtools/merge'
 
 
 workflow LIFTOVER_VCFS {
@@ -23,15 +22,6 @@ workflow LIFTOVER_VCFS {
     main:
 
     versions = Channel.empty()
-
-    //prepare dict file for liftover of vcf files
-    if (!params.dictionary){
-        PICARD_CREATESEQUENCEDICTIONARY(
-            fasta
-        )
-        dictionary = PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
-        versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions)
-    }
 
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(

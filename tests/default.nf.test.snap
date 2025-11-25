@@ -37,7 +37,7 @@
                     "r-base": "4.3.1"
                 },
                 "PLOT_SVLEN_DIST": {
-                    "python": "3.8.1"
+                    "python": "3.14.0"
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
@@ -67,7 +67,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.3.0"
+                    "nf-core/variantbenchmarking": "v1.4.0-dev"
                 }
             },
             [
@@ -85,8 +85,9 @@
                 "structural/HG002/stats/survivor/HG002_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
-                "structural/multiqc/multiqc_data/BETA-multiqc.parquet",
+                "structural/multiqc/multiqc_data/llms-full.txt",
                 "structural/multiqc/multiqc_data/multiqc.log",
+                "structural/multiqc/multiqc_data/multiqc.parquet",
                 "structural/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
                 "structural/multiqc/multiqc_data/multiqc_citations.txt",
                 "structural/multiqc/multiqc_data/multiqc_data.json",
@@ -94,16 +95,20 @@
                 "structural/multiqc/multiqc_data/multiqc_software_versions.txt",
                 "structural/multiqc/multiqc_data/multiqc_sources.txt",
                 "structural/multiqc/multiqc_data/multiqc_survivor.txt",
+                "structural/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "structural/multiqc/multiqc_plots/png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
+                "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "structural/multiqc/multiqc_plots/svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
@@ -209,8 +214,8 @@
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
                 "multiqc_bcftools_stats.txt:md5,fced87ee1b40160c0fad29f1adc1bd1e",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_general_stats.txt:md5,7e8d9987c0d5593efdaa077d8d9bfa4d",
                 "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
+                "multiqc_variant_calling_summary.txt:md5,de653cd3599f286c3f065b2c0f923532",
                 "test1.delly.bcftools_stats.txt:md5,209604ebf522660875a29723798e03ae",
                 "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
                 "test2.lumpy.bcftools_stats.txt:md5,793655055cdb78556ae6b8e126ff743f",
@@ -220,10 +225,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.09.0"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-09-24T15:18:52.7644923"
+        "timestamp": "2025-11-17T15:57:40.119156284"
     },
     "-stub": {
         "content": [
@@ -263,7 +268,7 @@
                     "r-base": "4.3.1"
                 },
                 "PLOT_SVLEN_DIST": {
-                    "python": "3.8.1"
+                    "python": "3.14.0"
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
@@ -293,7 +298,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.3.0"
+                    "nf-core/variantbenchmarking": "v1.4.0-dev"
                 }
             },
             [
@@ -414,9 +419,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.09.0"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-09-24T15:21:19.575313741"
+        "timestamp": "2025-11-17T16:00:18.736648776"
     }
 }

@@ -227,6 +227,27 @@ test2,,cnvkit,cnvkit.cns
 
 - `test_regions`: Test regions to be used for intersection analysis. Default: .bed format.
 
+## Concordance analysis
+
+Concordance analysis enables comparison of test VCFs with each other without the need of truth VCF. GATK4 Concordance can only be applied to small (including snv and indel for somatic samples) variants.
+
+In order to perform concordance analysis, just add _--method "concordance"_ . There is no need to provide truth VCF or id for concordance analysis. However, be carefull as concordance can be coupled to benchmarking analysis which requires truth VCF.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
+```
+
+## Analysis Plots
+
+There are 3 types of plots generated through the pipeline
+
+1. Metrics plots: TP/FN/FP Numbers, Recal vs precison, and F1 score (can be skipped by --skip_plots "metrics")
+2. Upset plots: TP_comp vs FP and TP_bse vs FN upset plots (can be skipped by --skip_plots "upset")
+3. SV lenght distribitions plots: INDEL lenght distribition histograms per TP_comp, TP_Base, FP, and FN variants (can be skipped by --skip_plots "svlenght")
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
@@ -359,7 +380,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `shifter`
   - A generic configuration profile to be used with [Shifter](https://nersc.gitlab.io/development/shifter/how-to-use/)
 - `charliecloud`
-  - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
+  - A generic configuration profile to be used with [Charliecloud](https://charliecloud.io/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`

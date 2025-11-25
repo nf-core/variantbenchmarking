@@ -50,6 +50,6 @@ workflow WITTYER_BENCHMARK {
         .set{ report }
 
     emit:
-    report         // channel: [val(meta), reports]
+    report       // channel: [val(meta), reports]
     versions     // channel: [val(meta), versions.yml]
 }

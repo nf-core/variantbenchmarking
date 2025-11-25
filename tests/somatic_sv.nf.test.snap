@@ -43,7 +43,7 @@
                     "r-base": "4.3.1"
                 },
                 "PLOT_SVLEN_DIST": {
-                    "python": "3.8.1"
+                    "python": "3.14.0"
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
@@ -70,7 +70,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.3.0"
+                    "nf-core/variantbenchmarking": "v1.4.0-dev"
                 }
             },
             [
@@ -88,8 +88,9 @@
                 "structural/SEQC2/stats/survivor/SEQC2_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
-                "structural/multiqc/multiqc_data/BETA-multiqc.parquet",
+                "structural/multiqc/multiqc_data/llms-full.txt",
                 "structural/multiqc/multiqc_data/multiqc.log",
+                "structural/multiqc/multiqc_data/multiqc.parquet",
                 "structural/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
                 "structural/multiqc/multiqc_data/multiqc_citations.txt",
                 "structural/multiqc/multiqc_data/multiqc_data.json",
@@ -97,16 +98,53 @@
                 "structural/multiqc/multiqc_data/multiqc_software_versions.txt",
                 "structural/multiqc/multiqc_data/multiqc_sources.txt",
                 "structural/multiqc/multiqc_data/multiqc_survivor.txt",
+                "structural/multiqc/multiqc_data/multiqc_truvari_bench.txt",
+                "structural/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Base.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Comp.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_base_GT.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_comp_GT.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-pre-rec-plot.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
+                "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "structural/multiqc/multiqc_plots/png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
+                "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "structural/multiqc/multiqc_plots/svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-pre-rec-plot.svg",
+                "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
@@ -203,9 +241,9 @@
                 "SEQC2.bcftools_stats.txt:md5,98d52a15cf5e4ef38225dde69f256121",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
                 "multiqc_bcftools_stats.txt:md5,d15679c9ce48a885c28263f78302ae28",
-                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_general_stats.txt:md5,84d590d8e5c60a7d743641eb8c21342e",
+                "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
+                "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
                 "test11.manta.bcftools_stats.txt:md5,3b1da2e2c9c96f4aae2f3bc0490e1346",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
                 "test12.tiddit.bcftools_stats.txt:md5,d24a1fee7a43e7bc6c09c595371eda59",
@@ -213,9 +251,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.09.0"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-24T15:54:55.779419269"
+        "timestamp": "2025-11-18T10:33:58.958494895"
     }
 }

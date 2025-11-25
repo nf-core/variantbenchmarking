@@ -40,7 +40,6 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
         RTGTOOLS_BENCHMARK(
             input_ch,
-            fasta,
             fai,
             sdf
         )

@@ -26,7 +26,6 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
         RTGTOOLS_BENCHMARK(
             input_ch,
-            fasta,
             fai,
             sdf
         )
