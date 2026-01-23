@@ -6,7 +6,7 @@ include { PICARD_LIFTOVERVCF   } from '../../../modules/nf-core/picard/liftoverv
 include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
 include { BCFTOOLS_ANNOTATE    } from '../../../modules/nf-core/bcftools/annotate'
 include { UCSC_LIFTOVER        } from '../../../modules/nf-core/ucsc/liftover'
-include { SORT_BED             } from '../../../modules/local/custom/sort_bed'
+include { GNU_SORT             } from '../../../modules/nf-core/gnu/sort'
 include { BEDTOOLS_MERGE       } from '../../../modules/nf-core/bedtools/merge'
 
 
@@ -56,14 +56,13 @@ workflow LIFTOVER_VCFS {
     versions = versions.mix(UCSC_LIFTOVER.out.versions)
 
     // sort bed file
-    SORT_BED(
+    GNU_SORT(
         UCSC_LIFTOVER.out.lifted
     )
-    versions = versions.mix(SORT_BED.out.versions)
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
-        SORT_BED.out.bed
+        GNU_SORT.out.bed
     )
     versions = versions.mix(BEDTOOLS_MERGE.out.versions)
     bed_ch = BEDTOOLS_MERGE.out.bed
