@@ -4,8 +4,8 @@
 //
 
 include { GAWK as REFORMAT_HEADER          } from '../../../modules/nf-core/gawk'
-include { TABIX_BGZIPTABIX                 } from '../../../modules/nf-core/tabix/bgziptabix'
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIPTABIX                 } from '../../../modules/nf-core/tabix/bgziptabix'
 include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
 include { SURVIVOR_MERGE                   } from '../../../modules/nf-core/survivor/merge'
 include { VCF_TO_CSV                       } from '../../../modules/local/custom/vcf_to_csv'
@@ -29,7 +29,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
         // Small Variants
         REFORMAT_HEADER(
-            evaluations,
+            evaluations.map { meta, vcf, tbi -> [meta, vcf] },
             [],
             false
         )
