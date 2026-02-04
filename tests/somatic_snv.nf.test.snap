@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'": {
         "content": [
-            91,
+            103,
             {
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.2
@@ -70,7 +70,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -388,42 +388,42 @@
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "SEQC2.bcftools_stats.txt:md5,b54ef62c30c850827bbc5ac1b0557988",
-                "bcftools-stats-subtypes.txt:md5,6270ef24a39dd4b98161c0ce92a513ce",
-                "bcftools_stats_indel-lengths.txt:md5,9e58aff219fe0d9d363a293e34200bfe",
-                "bcftools_stats_variant_depths.txt:md5,0110c87402d72090a633e9142fc24a94",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,50cc31a2c46c04b9f90668d16ec3fa8d",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,56fc9e9fb1b8fc00f50c081eefcc6882",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,7c1f35af6720b30aedbdabd149e4abbc",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,acab66a56f50f93573e3290c47e077b7",
-                "multiqc_bcftools_stats.txt:md5,472ed5c2042b9f630c10ec3a3ca4d71c",
+                "bcftools-stats-subtypes.txt:md5,be3081c4a3732648b47a814019bd9d65",
+                "bcftools_stats_indel-lengths.txt:md5,eef82a7abb4e6eccf9e0b0e5260a466e",
+                "bcftools_stats_variant_depths.txt:md5,9642bb160c872f5df09ef7bdda5ce897",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,22f15eb0bf314b4183dc241780ee7af6",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,78c48b9a4151a435ca2fa89f75b53f98",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,a522e533c1c6a3f705b027e28f086a52",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,3a366c82e83cbe0738df2cb921b09695",
+                "multiqc_bcftools_stats.txt:md5,e4db685e6b270189cafd9dca7fa708ba",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                "multiqc_sompy_combined_data.txt:md5,9694026d08f0ef8d1b387b2a0bacbb37",
-                "multiqc_sompy_indel_data.txt:md5,0a23dd0a9d1e78b2dad07e9fa728c676",
-                "multiqc_sompy_snv_data.txt:md5,f26401f255f7967b991c1da5cce7a667",
+                "multiqc_sompy_combined_data.txt:md5,41945b715f4f83646156d228cbe8b7be",
+                "multiqc_sompy_indel_data.txt:md5,45af96a0187f60ca9a011267770f42cb",
+                "multiqc_sompy_snv_data.txt:md5,18df14ab36b70db20878b7128f56457b",
                 "multiqc_variant_calling_summary.txt:md5,84ab636a3662209667da9b60488c12aa",
                 "sompy_combined_plot.txt:md5,303d98a4ff60449bf41415d54b776d47",
                 "sompy_indel_plot.txt:md5,072e830d52939faeae5795e6f1cbaed8",
                 "sompy_snv_plot.txt:md5,2d45934632b62920395a058b3b43e83d",
                 "test10.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test10.SEQC2.strelka.summary.txt:md5,7a3fe0bd6bfbbc7fc78f37babbf10a83",
-                "test10.strelka.bcftools_stats.txt:md5,c9925eafd68f95edbeceec760e17dca7",
+                "test10.strelka.bcftools_stats.txt:md5,1b088b80b58c7c7fc4c0a369a8329c23",
                 "test8.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test8.SEQC2.freebayes.summary.txt:md5,538928aaa876747a4b5b80a043804153",
-                "test8.freebayes.bcftools_stats.txt:md5,b58169953cb48d9bfb78186d8d58ed45",
+                "test8.freebayes.bcftools_stats.txt:md5,f60673b9194e7cfe22ac69b5a27f35ed",
                 "test9.SEQC2.mutect2.phasing.txt:md5,6d29664d5d20e216220ae051a677eec5",
                 "test9.SEQC2.mutect2.summary.txt:md5,0839c17833ad17028b7c2cd5c64c87d7",
-                "test9.mutect2.bcftools_stats.txt:md5,bd77c71486ce252202be388b18d05390"
+                "test9.mutect2.bcftools_stats.txt:md5,188ef1fa78a385266f8df70e25719e88"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-21T16:39:16.379486635"
+        "timestamp": "2026-02-04T16:24:35.18858525"
     },
     "-stub": {
         "content": [
-            91,
+            103,
             {
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.2
@@ -492,7 +492,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -688,8 +688,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-21T16:42:29.882514565"
+        "timestamp": "2026-02-04T16:27:07.502714494"
     }
 }

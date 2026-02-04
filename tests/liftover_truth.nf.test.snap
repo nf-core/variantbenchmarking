@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
-            107,
+            124,
             {
                 "BCFTOOLS_ANNOTATE": {
                     "bcftools": 1.22
@@ -91,7 +91,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -99,8 +99,9 @@
                 "RTGTOOLS_VCFEVAL": {
                     "rtg-tools": 3.13
                 },
-                "SORT_BED": {
-                    "sort": 8.3
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "UCSC_LIFTOVER": {
                     "ucsc": 377
@@ -147,8 +148,8 @@
                 "small/HG002/preprocess/HG002.vcf.gz",
                 "small/HG002/preprocess/HG002.vcf.gz.tbi",
                 "small/HG002/preprocess/liftover",
-                "small/HG002/preprocess/liftover/HG002.reformatted.renamechr.vcf.gz",
-                "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.liftedsort.merged.bed",
+                "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.lifted..reformatted.renamechr.vcf.gz",
+                "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.lifted.sort.merged.bed",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -415,18 +416,18 @@
                 "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
-                "HG002_GRCh37_1_22_v4.2.1_highconf.liftedsort.merged.bed:md5,5e997133249c2227cb5363b314245636",
-                "HG002.bcftools_stats.txt:md5,8dddf8349a02348229565c050c6312a6",
-                "bcftools-stats-subtypes.txt:md5,097a3439e691728f80e7fc426582639e",
-                "bcftools_stats_indel-lengths.txt:md5,2822c1c56b7c4fd795218773e9073b15",
+                "HG002_GRCh37_1_22_v4.2.1_highconf.lifted.sort.merged.bed:md5,5e997133249c2227cb5363b314245636",
+                "HG002.bcftools_stats.txt:md5,f2e49ea6a17ad3d9bca7c31490f83da3",
+                "bcftools-stats-subtypes.txt:md5,4f20ae363305652383b834ff4f55ae93",
+                "bcftools_stats_indel-lengths.txt:md5,cb55629d6a8ca6ca41321d0cbcd6429a",
                 "bcftools_stats_variant_depths.txt:md5,638d6fe45cec24e52b6eb1471a4344cf",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,edfd8eb64521a6c6da54d562e3f2e6eb",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,cfd88145d6a5b9c92db8c00ed9ad54c5",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,47342e090c15bfb1667d4871f5a31f3a",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,8e1f8d503ff652c09df1c4f73cf60c50",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,7a95b4a7752e07df6bebc06612c4ba23",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,976ddb083095975f4425f1a392005332",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,b32c4899f3b4e21ba0638871252905f2",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,1a81a6fb715913bdff9f2830eb6216b1",
                 "happy_indel_plot.txt:md5,2e9b1288afeabd6b62431630108ff59f",
                 "happy_snp_plot.txt:md5,b41aa6387ed8e9a44e7b91d103e7d1d3",
-                "multiqc_bcftools_stats.txt:md5,06efbea184d493e6f4b555014adbaf22",
+                "multiqc_bcftools_stats.txt:md5,5838942d16858dee8ee74632d16fa357",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,54965d7a060d617b20e0728661677668",
                 "test6.HG002.strelka.extended.csv:md5,f18ca7e3374f3ce7861d6907d7e1cb3d",
@@ -453,8 +454,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-21T16:29:12.441490242"
+        "timestamp": "2026-02-04T16:13:59.228696151"
     }
 }

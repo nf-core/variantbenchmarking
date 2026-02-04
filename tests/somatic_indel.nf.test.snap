@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'": {
         "content": [
-            91,
+            103,
             {
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.2
@@ -70,7 +70,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -338,24 +338,24 @@
             ],
             [
                 "SEQC2.bcftools_stats.txt:md5,52f437871e43b97f6517ddc7aa735c4b",
-                "multiqc_bcftools_stats.txt:md5,fea8ee31bb6eac8bb7d6c58ee8d0348b",
+                "multiqc_bcftools_stats.txt:md5,cd7a8ec6dc0a0e279b61fdc168a586b7",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_sompy_combined_data.txt:md5,0d3468b1798f62b795f6d8b66e2512cf",
-                "multiqc_sompy_indel_data.txt:md5,2668cc49b75388cbd602baf6c133e9f2",
-                "multiqc_sompy_snv_data.txt:md5,b95d8ca0333e2057f1533ef74e646767",
+                "multiqc_sompy_combined_data.txt:md5,50bdc40c4fe6c05852cf10c814231fcc",
+                "multiqc_sompy_indel_data.txt:md5,0bc73ef9c1674f92cfbe2ce31e81d656",
+                "multiqc_sompy_snv_data.txt:md5,d366ea07c595ab01fb09b08bc150df2c",
                 "multiqc_variant_calling_summary.txt:md5,405ad19cc6cdac86594eba1a4ffbf3d3",
                 "sompy_combined_plot.txt:md5,9950bb4dcb57750c492a78b22766ce8e",
                 "sompy_indel_plot.txt:md5,1d289c4a407de7ec6936e1a49f1fd6ef",
                 "sompy_snv_plot.txt:md5,370db91dd8d8ec6b98a0c20e969e29ee",
                 "test10.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test10.SEQC2.strelka.summary.txt:md5,444ebec598780a630f12cc48953c077f",
-                "test10.strelka.bcftools_stats.txt:md5,91c384818a7fdc8b650848635bd09ce3",
+                "test10.strelka.bcftools_stats.txt:md5,60cf9e745c45b33ee7d3f92c51ebd4c9",
                 "test8.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test8.SEQC2.freebayes.summary.txt:md5,98291a704b23bc72494df77ee647d015",
-                "test8.freebayes.bcftools_stats.txt:md5,7224f345341edbdac990eaebfcd99a99",
+                "test8.freebayes.bcftools_stats.txt:md5,e210212c409ee7b118fbeceef7ec3f84",
                 "test9.SEQC2.mutect2.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test9.SEQC2.mutect2.summary.txt:md5,0c3107b6083a60f4ee57fe97e9297a9c",
-                "test9.mutect2.bcftools_stats.txt:md5,ad3d4cc6601e4ddb4158677f5034ca25",
+                "test9.mutect2.bcftools_stats.txt:md5,5aaabdcc219065403a47a35676922921",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -376,8 +376,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-22T08:48:59.87162822"
+        "timestamp": "2026-02-04T16:18:38.620931038"
     }
 }
