@@ -282,7 +282,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
     group_spacing = 1.3
     x = np.arange(len(category_label)) * group_spacing
 
-    xlabel_text = "Variant Length Range" 
+    xlabel_text = "Variant Length Range"
     xlabel_future_action = None
     xlabel_position = 0
 
@@ -303,28 +303,28 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
 
     plt.style.use('seaborn-v0_8-colorblind')
     fig, ax = plt.subplots(figsize=(26, 16))
-    
+
     multiplier = 0
     for attribute, measurement in bar_height.items():
         offset = width * multiplier
         rects = ax.bar(x + offset, measurement, width, label=attribute, alpha=1)
-        
+
         if show_labels:
-            ax.bar_label(rects, 
-                         padding=10, 
-                         rotation=45, 
-                         fontsize=24, 
+            ax.bar_label(rects,
+                         padding=10,
+                         rotation=45,
+                         fontsize=24,
                          fontweight='bold',
                          clip_on=False)
         multiplier += 1
 
     ax.set_title(plot_title, fontsize=42, fontweight='bold', pad=60)
     ax.grid(True, which="major", linestyle='--', alpha=0.6)
-    
+
     tick_pos = x + (width * (len(files)-1)/2)
     ax.set_xticks(tick_pos)
     ax.set_xticklabels(category_label, rotation=40, fontsize=32, ha='right')
-    
+
     ax.set_xlabel(xlabel_text, fontsize=36, fontweight='bold')
     if xlabel_future_action == "reposition":
         trans = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
@@ -333,7 +333,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
     ax.set_yscale('log')
     headroom_factor = 20 if show_labels else 5
     ax.set_ylim(ax.get_ylim()[0], ax.get_ylim()[1] * headroom_factor)
-    
+
     ax.tick_params(axis='y', which='major', labelsize=32)
     ax.set_ylabel("Count (Log10)", fontsize=36, fontweight='bold')
 
@@ -346,7 +346,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
           prop={'size': 32}
           )
     ax.set_facecolor((0.95, 0.95, 0.95))
-    
+
     fig.savefig(output_file, dpi=100, bbox_inches='tight')
     print(f"Plot saved to {output_file}")
 
@@ -355,13 +355,13 @@ if __name__ == "__main__":
     parser.add_argument('input_files', nargs='+', help="One or more VCF or CSV files to process.")
     parser.add_argument('--output', '-o', dest='output_file', default='svlen_distributions.png')
     parser.add_argument('--title', '-t', dest='plot_title', default='Structural Variant Length Distributions by Type')
-    parser.add_argument('--bins', '-b', nargs='+', type=str, default=None, 
+    parser.add_argument('--bins', '-b', nargs='+', type=str, default=None,
                         help="""
                         List of integer numbers representing the bin_edges for the plot.
                         If no list is given the default edges are bp,kbp,Mbp,Gbp,Tbp in both
                         negative(Deletions) and positive(Insertions) directions. The counts of
                         the histogram are carried out by numpy.histogram.
-                        """) 
+                        """)
 
     parser.add_argument('--no-labels', action='store_true', help="Hide the count labels on top of the bars.")
 
