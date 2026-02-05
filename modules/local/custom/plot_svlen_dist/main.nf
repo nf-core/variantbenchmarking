@@ -18,12 +18,14 @@ process PLOT_SVLEN_DIST {
     task.ext.when == null || task.ext.when
 
     script:
+    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     plot_svlendist.py \\
         $input \\
         -o ${prefix}.${params.variant_type}.mqc.png \\
-        --title "INDEL Length Distributions of ${meta.tag} Variants"
+        --title "INDEL Length Distributions of ${meta.tag} Variants" \\
+        $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
