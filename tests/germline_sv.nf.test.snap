@@ -366,23 +366,23 @@
             [
                 "HG002.bcftools_stats.txt:md5,bc95472c545c41b97fc6c657ebb1132b",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "multiqc_bcftools_stats.txt:md5,6faf8d69bb278a448d964980040e4119",
+                "multiqc_bcftools_stats.txt:md5,6198b3f3ce651489eec1f3f2a30acd6a",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_survivor.txt:md5,9d7cb093118b42cabfc8d9d9f7cc21bd",
                 "multiqc_variant_calling_summary.txt:md5,bc447c5d92b0e5ceb220b5d1b4272530",
-                "test1.manta.bcftools_stats.txt:md5,0bdf40b561ea15c4678f3f2dab913b87",
+                "test1.manta.bcftools_stats.txt:md5,bf2bae39ec64eb088ae314da2407b908",
                 "test1.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
-                "test2.lumpy.bcftools_stats.txt:md5,902988ad414dbb55d106aa465832a85f",
+                "test2.lumpy.bcftools_stats.txt:md5,79495c1b0f014679d57e71fb748dadd5",
                 "test2.lumpy_mqc.stats:md5,f3a75d802c37cd363f1b68695463a5b3",
-                "test3.delly.bcftools_stats.txt:md5,9a81357c971d0161666b11e1aa674b45",
+                "test3.delly.bcftools_stats.txt:md5,a106eb284d48aff27874fe0500f6c9d5",
                 "test3.delly_mqc.stats:md5,f5fa584015eadb2ef33c831f3479c0d4"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-22T10:54:33.472493123"
+        "timestamp": "2026-02-04T17:12:25.414132285"
     },
     "-stub": {
         "content": [

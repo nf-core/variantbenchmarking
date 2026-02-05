@@ -2,12 +2,13 @@
 // LIFTOVER_VCFS: SUBWORKFLOW TO LIFTOVER VCFS HG37 TO HG38 OR HG38 TO HG37
 //
 
-include { PICARD_LIFTOVERVCF   } from '../../../modules/nf-core/picard/liftovervcf'
-include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
-include { BCFTOOLS_ANNOTATE    } from '../../../modules/nf-core/bcftools/annotate'
-include { UCSC_LIFTOVER        } from '../../../modules/nf-core/ucsc/liftover'
-include { SORT_BED             } from '../../../modules/local/custom/sort_bed'
-include { BEDTOOLS_MERGE       } from '../../../modules/nf-core/bedtools/merge'
+include { PICARD_LIFTOVERVCF           } from '../../../modules/nf-core/picard/liftovervcf'
+include { GAWK as REFORMAT_HEADER      } from '../../../modules/nf-core/gawk'
+include { BCFTOOLS_ANNOTATE            } from '../../../modules/nf-core/bcftools/annotate'
+include { UCSC_LIFTOVER                } from '../../../modules/nf-core/ucsc/liftover'
+include { GNU_SORT                     } from '../../../modules/nf-core/gnu/sort'
+include { BEDTOOLS_MERGE               } from '../../../modules/nf-core/bedtools/merge'
+include { TABIX_BGZIPTABIX             } from '../../../modules/nf-core/tabix/bgziptabix'
 
 
 workflow LIFTOVER_VCFS {
@@ -35,13 +36,20 @@ workflow LIFTOVER_VCFS {
 
     // reformat header, convert PS TYPE integer to string after liftover
     REFORMAT_HEADER(
-        vcf_ch.map{meta, vcf -> tuple(meta, vcf, [])}
+        vcf_ch,
+        [],
+        false
     )
     versions = versions.mix(REFORMAT_HEADER.out.versions)
 
+    TABIX_BGZIPTABIX(
+        REFORMAT_HEADER.out.output
+    )
+    versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
+
     // rename chr after liftover
     BCFTOOLS_ANNOTATE(
-        REFORMAT_HEADER.out.gz_tbi.map{meta, vcf, tbi -> tuple(meta, vcf, tbi, [], [])},
+        TABIX_BGZIPTABIX.out.gz_index.map{meta, vcf, tbi -> tuple(meta, vcf, tbi, [], [])},
         [],
         [],
         rename_chr.map{_meta, file -> file}
@@ -56,14 +64,13 @@ workflow LIFTOVER_VCFS {
     versions = versions.mix(UCSC_LIFTOVER.out.versions)
 
     // sort bed file
-    SORT_BED(
+    GNU_SORT(
         UCSC_LIFTOVER.out.lifted
     )
-    versions = versions.mix(SORT_BED.out.versions)
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
-        SORT_BED.out.bed
+        GNU_SORT.out.sorted
     )
     versions = versions.mix(BEDTOOLS_MERGE.out.versions)
     bed_ch = BEDTOOLS_MERGE.out.bed

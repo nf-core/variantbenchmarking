@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            100,
+            116,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.21
@@ -79,7 +79,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -282,13 +282,13 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-22T11:24:20.888140227"
+        "timestamp": "2026-02-04T15:52:12.682098138"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
-            100,
+            116,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.21
@@ -366,7 +366,7 @@
                     "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtg-tools": 3.13
@@ -716,8 +716,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-21T16:12:37.280394425"
+        "timestamp": "2026-02-04T15:49:30.035252137"
     }
 }

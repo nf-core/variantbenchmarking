@@ -3,13 +3,15 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-include { SURVIVOR_MERGE       } from '../../../modules/nf-core/survivor/merge'
-include { BCFTOOLS_MERGE       } from '../../../modules/nf-core/bcftools/merge'
-include { VCF_TO_CSV           } from '../../../modules/local/custom/vcf_to_csv'
-include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
-include { MERGE_SOMPY_FEATURES } from '../../../modules/local/custom/merge_sompy_features'
-include { PLOT_UPSET           } from '../../../modules/local/custom/plot_upset'
+include { GAWK as REFORMAT_HEADER          } from '../../../modules/nf-core/gawk'
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIPTABIX                 } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
+include { SURVIVOR_MERGE                   } from '../../../modules/nf-core/survivor/merge'
+include { VCF_TO_CSV                       } from '../../../modules/local/custom/vcf_to_csv'
+include { MERGE_SOMPY_FEATURES             } from '../../../modules/local/custom/merge_sompy_features'
+include { PLOT_UPSET                       } from '../../../modules/local/custom/plot_upset'
+
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
@@ -27,13 +29,19 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
         // Small Variants
         REFORMAT_HEADER(
-            evaluations
+            evaluations.map { meta, vcf, tbi -> [meta, vcf] },
+            [],
+            false
         )
         versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
+        TABIX_BGZIPTABIX(
+            REFORMAT_HEADER.out.output
+        )
+
         // merge small variants
         BCFTOOLS_MERGE(
-            evaluations.groupTuple(),
+            TABIX_BGZIPTABIX.out.gz_index.groupTuple(),
             fasta,
             fai,
             []
