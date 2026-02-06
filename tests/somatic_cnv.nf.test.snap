@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'": {
         "content": [
-            52,
+            44,
             {
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -38,15 +38,6 @@
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
-                },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "PLOT_SVLEN_DIST": {
-                    "python": "3.14.0"
-                },
-                "PLOT_UPSET": {
-                    "python": "3.13.7"
                 },
                 "PUBLISH_PROCESSED_VCF": {
                     "cp": 8.3
@@ -227,27 +218,6 @@
                 "copynumber/summary/datavzrd/wittyer/test/plots/plot_7.js",
                 "copynumber/summary/datavzrd/wittyer/test/plots/plot_8.js",
                 "copynumber/summary/datavzrd/wittyer/test/plots/plot_9.js",
-                "copynumber/summary/plots",
-                "copynumber/summary/plots/intersect",
-                "copynumber/summary/plots/intersect/f1_by_tool_intersect_mqc.png",
-                "copynumber/summary/plots/intersect/pr_recall_by_tool_intersect_mqc.png",
-                "copynumber/summary/plots/intersect/variants_by_tool_intersect_mqc.png",
-                "copynumber/summary/plots/truvari",
-                "copynumber/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
-                "copynumber/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
-                "copynumber/summary/plots/truvari/truvari.FN.copynumber.mqc.png",
-                "copynumber/summary/plots/truvari/truvari.FP.copynumber.mqc.png",
-                "copynumber/summary/plots/truvari/truvari.TP_base.copynumber.mqc.png",
-                "copynumber/summary/plots/truvari/truvari.TP_comp.copynumber.mqc.png",
-                "copynumber/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
-                "copynumber/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
-                "copynumber/summary/plots/wittyer",
-                "copynumber/summary/plots/wittyer/Base_f1_by_tool_wittyer_mqc.png",
-                "copynumber/summary/plots/wittyer/Base_pr_recall_by_tool_wittyer_mqc.png",
-                "copynumber/summary/plots/wittyer/Base_variants_by_tool_wittyer_mqc.png",
-                "copynumber/summary/plots/wittyer/Event_f1_by_tool_wittyer_mqc.png",
-                "copynumber/summary/plots/wittyer/Event_pr_recall_by_tool_wittyer_mqc.png",
-                "copynumber/summary/plots/wittyer/Event_variants_by_tool_wittyer_mqc.png",
                 "copynumber/summary/tables",
                 "copynumber/summary/tables/intersect",
                 "copynumber/summary/tables/intersect/intersect.summary.csv",
@@ -345,6 +315,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-01-22T15:15:28.738750746"
+        "timestamp": "2026-02-05T16:38:03.018053745"
     }
 }

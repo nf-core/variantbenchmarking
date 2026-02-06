@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
-            124,
+            112,
             {
                 "BCFTOOLS_ANNOTATE": {
                     "bcftools": 1.22
@@ -77,15 +77,6 @@
                 },
                 "PICARD_LIFTOVERVCF": {
                     "picard": "3.2.0-1-g3948afb6b"
-                },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "PLOT_SVLEN_DIST": {
-                    "python": "3.14.0"
-                },
-                "PLOT_UPSET": {
-                    "python": "3.13.7"
                 },
                 "PUBLISH_PROCESSED_VCF": {
                     "cp": 8.3
@@ -295,36 +286,6 @@
                 "small/summary/datavzrd/rtgtools/test/plots/plot_8.js",
                 "small/summary/datavzrd/rtgtools/test/plots/plot_9.js",
                 "small/summary/datavzrd/versions.yml",
-                "small/summary/plots",
-                "small/summary/plots/happy",
-                "small/summary/plots/happy/INDEL_ALL_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_ALL_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_ALL_variants_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_PASS_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_PASS_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_PASS_variants_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_variants_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_PASS_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_PASS_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_PASS_variants_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/happy.FN.small.mqc.png",
-                "small/summary/plots/happy/happy.FP.small.mqc.png",
-                "small/summary/plots/happy/happy.TP_base.small.mqc.png",
-                "small/summary/plots/happy/happy.TP_comp.small.mqc.png",
-                "small/summary/plots/happy/upset_happy_tp_fn_mqc.png",
-                "small/summary/plots/happy/upset_happy_tp_fp_mqc.png",
-                "small/summary/plots/rtgtools",
-                "small/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
-                "small/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
-                "small/summary/plots/rtgtools/rtgtools.FN.small.mqc.png",
-                "small/summary/plots/rtgtools/rtgtools.FP.small.mqc.png",
-                "small/summary/plots/rtgtools/rtgtools.TP_base.small.mqc.png",
-                "small/summary/plots/rtgtools/rtgtools.TP_comp.small.mqc.png",
-                "small/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
-                "small/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
-                "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
                 "small/summary/tables/happy/happy.summary.csv",
@@ -454,8 +415,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T16:13:59.228696151"
+        "timestamp": "2026-02-05T16:32:17.857126473"
     }
 }

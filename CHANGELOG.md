@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- increasing font sizes, making labelling optional and some fixes around plots. Tests are editted to observe optional plot arguments. [#270](https://github.com/nf-core/variantbenchmarking/pull/270)
+
 ### `Dependencies`
 
 | Dependency        | Old version | New version |

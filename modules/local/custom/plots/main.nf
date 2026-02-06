@@ -22,7 +22,7 @@ process PLOTS {
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
 
     """
-    plots.R $summary $meta.benchmark_tool
+    plots.R $summary $meta.benchmark_tool $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
