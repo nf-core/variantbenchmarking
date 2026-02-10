@@ -16,8 +16,8 @@ workflow SOMPY_BENCHMARK {
 
     main:
 
-    versions            = Channel.empty()
-    tagged_variants_csv = Channel.empty()
+    versions            = channel.empty()
+    tagged_variants_csv = channel.empty()
 
     // apply sompy for small somatic variant benchmarking
     HAPPY_SOMPY(

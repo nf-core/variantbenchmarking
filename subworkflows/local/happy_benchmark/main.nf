@@ -24,8 +24,8 @@ workflow HAPPY_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    versions        = channel.empty()
+    tagged_variants = channel.empty()
 
     input_ch
         .map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -78,7 +78,6 @@ workflow HAPPY_BENCHMARK {
         [],
         []
         )
-    versions = versions.mix(BCFTOOLS_VIEW_TRUTH.out.versions.first())
 
     // reheader benchmarking results properly and tag meta
     BCFTOOLS_REHEADER_1(
@@ -95,7 +94,6 @@ workflow HAPPY_BENCHMARK {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_QUERY.out.versions)
 
     // reheader benchmarking results properly and tag meta
     BCFTOOLS_REHEADER_2(
@@ -108,7 +106,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_TRUTH_TP(
         BCFTOOLS_REHEADER_1.out.vcf.join(BCFTOOLS_REHEADER_1.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_TRUTH_TP.out.versions)
 
     BCFTOOLS_FILTER_TRUTH_TP.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
@@ -118,7 +115,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_TRUTH_FN(
         BCFTOOLS_REHEADER_1.out.vcf.join(BCFTOOLS_REHEADER_1.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_TRUTH_FN.out.versions)
 
     BCFTOOLS_FILTER_TRUTH_FN.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
@@ -128,7 +124,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_QUERY_TP(
         BCFTOOLS_REHEADER_2.out.vcf.join(BCFTOOLS_REHEADER_2.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_QUERY_TP.out.versions)
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
@@ -138,7 +133,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_QUERY_FP(
         BCFTOOLS_REHEADER_2.out.vcf.join(BCFTOOLS_REHEADER_2.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_QUERY_FP.out.versions)
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)

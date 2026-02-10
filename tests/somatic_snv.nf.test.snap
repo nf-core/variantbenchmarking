@@ -4,13 +4,13 @@
             103,
             {
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_PLUGINSETGT": {
                     "bcftools": 1.22
@@ -34,19 +34,19 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -387,7 +387,7 @@
                 "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
-                "SEQC2.bcftools_stats.txt:md5,b54ef62c30c850827bbc5ac1b0557988",
+                "SEQC2.bcftools_stats.txt:md5,12df63b57583d894231c8546634e542d",
                 "bcftools-stats-subtypes.txt:md5,be3081c4a3732648b47a814019bd9d65",
                 "bcftools_stats_indel-lengths.txt:md5,eef82a7abb4e6eccf9e0b0e5260a466e",
                 "bcftools_stats_variant_depths.txt:md5,9642bb160c872f5df09ef7bdda5ce897",
@@ -406,33 +406,33 @@
                 "sompy_snv_plot.txt:md5,2d45934632b62920395a058b3b43e83d",
                 "test10.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test10.SEQC2.strelka.summary.txt:md5,7a3fe0bd6bfbbc7fc78f37babbf10a83",
-                "test10.strelka.bcftools_stats.txt:md5,1b088b80b58c7c7fc4c0a369a8329c23",
+                "test10.strelka.bcftools_stats.txt:md5,d01afcc83546a2fff0edd2411a31772f",
                 "test8.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test8.SEQC2.freebayes.summary.txt:md5,538928aaa876747a4b5b80a043804153",
-                "test8.freebayes.bcftools_stats.txt:md5,f60673b9194e7cfe22ac69b5a27f35ed",
+                "test8.freebayes.bcftools_stats.txt:md5,e97dc3c1a81d5c36cc3274d2d458c880",
                 "test9.SEQC2.mutect2.phasing.txt:md5,6d29664d5d20e216220ae051a677eec5",
                 "test9.SEQC2.mutect2.summary.txt:md5,0839c17833ad17028b7c2cd5c64c87d7",
-                "test9.mutect2.bcftools_stats.txt:md5,188ef1fa78a385266f8df70e25719e88"
+                "test9.mutect2.bcftools_stats.txt:md5,9725d51300f6f0fa507afa5fb74f29e9"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T16:24:35.18858525"
+        "timestamp": "2026-02-10T12:28:54.67768461"
     },
     "-stub": {
         "content": [
             103,
             {
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_PLUGINSETGT": {
                     "bcftools": 1.22
@@ -456,19 +456,19 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -688,8 +688,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T16:27:07.502714494"
+        "timestamp": "2026-02-10T12:35:07.721074414"
     }
 }

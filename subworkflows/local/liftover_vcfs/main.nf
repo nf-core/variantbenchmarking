@@ -22,7 +22,7 @@ workflow LIFTOVER_VCFS {
 
     main:
 
-    versions = Channel.empty()
+    versions = channel.empty()
 
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(

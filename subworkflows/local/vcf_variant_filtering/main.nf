@@ -14,7 +14,7 @@ workflow VCF_VARIANT_FILTERING {
 
     main:
 
-    versions = Channel.empty()
+    versions = channel.empty()
 
     if(params.exclude_expression || params.include_expression){
 
@@ -22,7 +22,6 @@ workflow VCF_VARIANT_FILTERING {
         BCFTOOLS_FILTER(
             vcf_ch
         )
-        versions = versions.mix(BCFTOOLS_FILTER.out.versions.first())
         vcf_ch = BCFTOOLS_FILTER.out.vcf
     }
     else{

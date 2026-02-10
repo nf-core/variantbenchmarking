@@ -21,15 +21,15 @@ workflow COMPARE_BENCHMARK_RESULTS {
     fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions    = Channel.empty()
-    merged_vcfs = Channel.empty()
-    ch_plots    = Channel.empty()
+    versions    = channel.empty()
+    merged_vcfs = channel.empty()
+    ch_plots    = channel.empty()
 
     if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
 
         // Small Variants
         REFORMAT_HEADER(
-            evaluations.map { meta, vcf, tbi -> [meta, vcf] },
+            evaluations.map { meta, vcf, _tbi -> [meta, vcf] },
             [],
             false
         )
@@ -44,10 +44,9 @@ workflow COMPARE_BENCHMARK_RESULTS {
             TABIX_BGZIPTABIX.out.gz_index.groupTuple(),
             fasta,
             fai,
-            []
+            [[],[]]
         )
-        versions = versions.mix(BCFTOOLS_MERGE.out.versions.first())
-        merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.merged_variants)
+        merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.vcf)
     }
     else{
         // SV part

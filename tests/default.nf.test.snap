@@ -4,10 +4,10 @@
             73,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.22
@@ -16,13 +16,13 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -210,17 +210,17 @@
                 "structural/test3/stats/survivor/test3.manta_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,12b09b32a2793b52830091a5895e00d0",
+                "HG002.bcftools_stats.txt:md5,08a23b4f0845cfaa25cdab625a7d104a",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "multiqc_bcftools_stats.txt:md5,cde88ce0913e6c210887b0f757d6d6c0",
+                "multiqc_bcftools_stats.txt:md5,fa6c9aae371de11c4048c772b183d89d",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
                 "multiqc_variant_calling_summary.txt:md5,de653cd3599f286c3f065b2c0f923532",
-                "test1.delly.bcftools_stats.txt:md5,0e543f5cfd3ca37e034faff63c54347a",
+                "test1.delly.bcftools_stats.txt:md5,de8f68003eed23af75f051aa74757167",
                 "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
-                "test2.lumpy.bcftools_stats.txt:md5,6e9cbd41d6629a66898d5e94bac45178",
+                "test2.lumpy.bcftools_stats.txt:md5,95c352e2dfa3cb67b6c84d7bf812fe80",
                 "test2.lumpy_mqc.stats:md5,6a22796091a559398e14325a4349f19e",
-                "test3.manta.bcftools_stats.txt:md5,d5ad992449bb9c770078358df3a8e99b",
+                "test3.manta.bcftools_stats.txt:md5,aeb2bc4d09599752c3ef2fa25cf2370b",
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
@@ -228,17 +228,17 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-01-22T11:10:19.451368557"
+        "timestamp": "2026-02-10T11:22:22.933470514"
     },
     "-stub": {
         "content": [
             73,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.22
@@ -247,13 +247,13 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -422,6 +422,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-01-22T11:13:03.89670906"
+        "timestamp": "2026-02-10T11:29:25.335154529"
     }
 }

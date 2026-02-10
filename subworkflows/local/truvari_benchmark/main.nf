@@ -16,9 +16,9 @@ workflow TRUVARI_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
-    logs            = Channel.empty()
+    versions        = channel.empty()
+    tagged_variants = channel.empty()
+    logs            = channel.empty()
 
     TRUVARI_BENCH(
         input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->

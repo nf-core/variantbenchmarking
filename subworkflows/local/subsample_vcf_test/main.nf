@@ -13,13 +13,10 @@ workflow SUBSAMPLE_VCF_TEST {
 
     main:
 
-    versions = Channel.empty()
-
     // sorts multisample vcf
     BCFTOOLS_SORT(
         input_ch
     )
-    versions = versions.mix(BCFTOOLS_SORT.out.versions)
 
     // Subsample sample name for multisample vcfs
     BCFTOOLS_VIEW_SUBSAMPLE(
@@ -28,7 +25,6 @@ workflow SUBSAMPLE_VCF_TEST {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_SUBSAMPLE.out.versions.first())
 
     // Add the tools known not to have GT field here (only strelka for now)
     ch_branched_vcf = BCFTOOLS_VIEW_SUBSAMPLE.out.vcf
@@ -44,7 +40,6 @@ workflow SUBSAMPLE_VCF_TEST {
         [], // regions
         []  // targets
     )
-    versions = versions.mix(BCFTOOLS_PLUGINSETGT.out.versions.first())
 
     ch_for_filtering = BCFTOOLS_PLUGINSETGT.out.vcf.mix(ch_branched_vcf.ok)
 
@@ -56,10 +51,8 @@ workflow SUBSAMPLE_VCF_TEST {
         []
 
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FILTERMISSING.out.versions.first())
     vcf_ch   = BCFTOOLS_VIEW_FILTERMISSING.out.vcf
 
     emit:
     vcf_ch      // channel: [val(meta), vcf]
-    versions    // channel: [versions.yml]
 }

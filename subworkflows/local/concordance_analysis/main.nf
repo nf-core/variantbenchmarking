@@ -22,8 +22,8 @@ workflow CONCORDANCE_ANALYSIS {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    versions        = channel.empty()
+    tagged_variants = channel.empty()
 
     ch_pairs = input_ch
         .map { meta, vcf1, tbi1 ->
@@ -79,7 +79,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FN.out.versions.first())
 
     // Reheader FN variants
     BCFTOOLS_REHEADER_FN(
@@ -103,7 +102,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_TP_BASE.out.versions.first())
 
     // Reheader TP variants
     BCFTOOLS_REHEADER_TP_BASE(
@@ -127,7 +125,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_TP_COMP.out.versions.first())
 
     // Reheader TP comp variants
     BCFTOOLS_REHEADER_TP_COMP(
@@ -151,7 +148,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FP.out.versions.first())
 
     // Reheader FP variants
     BCFTOOLS_REHEADER_FP(

@@ -16,8 +16,8 @@ workflow RTGTOOLS_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    versions        = channel.empty()
+    tagged_variants = channel.empty()
 
     // apply rtgtools eval method
     RTGTOOLS_VCFEVAL(

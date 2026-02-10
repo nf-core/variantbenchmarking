@@ -7,25 +7,25 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -46,16 +46,16 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BEDTOOLS_MERGE": {
                     "bedtools": "2.31.1"
@@ -139,7 +139,7 @@
                 "small/HG002/preprocess/HG002.vcf.gz",
                 "small/HG002/preprocess/HG002.vcf.gz.tbi",
                 "small/HG002/preprocess/liftover",
-                "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.lifted..reformatted.renamechr.vcf.gz",
+                "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.lifted.reformatted.renamechr.vcf.gz",
                 "small/HG002/preprocess/liftover/HG002_GRCh37_1_22_v4.2.1_highconf.lifted.sort.merged.bed",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
@@ -378,17 +378,17 @@
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
                 "HG002_GRCh37_1_22_v4.2.1_highconf.lifted.sort.merged.bed:md5,5e997133249c2227cb5363b314245636",
-                "HG002.bcftools_stats.txt:md5,f2e49ea6a17ad3d9bca7c31490f83da3",
-                "bcftools-stats-subtypes.txt:md5,4f20ae363305652383b834ff4f55ae93",
-                "bcftools_stats_indel-lengths.txt:md5,cb55629d6a8ca6ca41321d0cbcd6429a",
+                "HG002.bcftools_stats.txt:md5,84370621a8ff340ad6082d20ddb4de93",
+                "bcftools-stats-subtypes.txt:md5,9a7d84e3b99f0a259ed1d5b5d8af38ae",
+                "bcftools_stats_indel-lengths.txt:md5,780b1645493e53c67351784a8b41c794",
                 "bcftools_stats_variant_depths.txt:md5,638d6fe45cec24e52b6eb1471a4344cf",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,7a95b4a7752e07df6bebc06612c4ba23",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,976ddb083095975f4425f1a392005332",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,b32c4899f3b4e21ba0638871252905f2",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,1a81a6fb715913bdff9f2830eb6216b1",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,33c4e8fb864d8a73db38359fb8b67539",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,b0d190277e6d5add716e02609ec593ae",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,086594bd3fc6ee7a7a26b2730f329465",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,22a18a56702ae0ae7bd255fbef020f94",
                 "happy_indel_plot.txt:md5,2e9b1288afeabd6b62431630108ff59f",
                 "happy_snp_plot.txt:md5,b41aa6387ed8e9a44e7b91d103e7d1d3",
-                "multiqc_bcftools_stats.txt:md5,5838942d16858dee8ee74632d16fa357",
+                "multiqc_bcftools_stats.txt:md5,81b3b7c947d1900491c0ec015ba15c3f",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,54965d7a060d617b20e0728661677668",
                 "test6.HG002.strelka.extended.csv:md5,f18ca7e3374f3ce7861d6907d7e1cb3d",
@@ -400,7 +400,7 @@
                 "test6.HG002.strelka.summary.csv:md5,6141a8d3081586d646c17853f36c5c69",
                 "test6.HG002.strelka.phasing.txt:md5,74beb1b5143dc805429ba83161a1ddb1",
                 "test6.HG002.strelka.summary.txt:md5,aef91ec7a1ddc4a6630433f6758ce92c",
-                "test6.strelka.bcftools_stats.txt:md5,bcc46a7b008c4e814547cb5c6d7dca6d",
+                "test6.strelka.bcftools_stats.txt:md5,3cd7a59f198fa5786528f1875ffb9e29",
                 "test7.HG002.bcftools.extended.csv:md5,b5db7cb67af04ca3a1a7497d0feecea5",
                 "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,eab526036509a758b3f9f817f426e9a1",
                 "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,8c3a819f88efe8b7ef3e6219a5272c54",
@@ -410,13 +410,13 @@
                 "test7.HG002.bcftools.summary.csv:md5,eae40dc5cb770b8a0823dc3158da2eee",
                 "test7.HG002.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test7.HG002.bcftools.summary.txt:md5,fba45e70adf949ec87ab21cbcf0ef1e8",
-                "test7.bcftools.bcftools_stats.txt:md5,70f24cedd2233623f63f886e37977b93"
+                "test7.bcftools.bcftools_stats.txt:md5,c6e015938fd48f53a675867fe65084b3"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-05T16:32:17.857126473"
+        "timestamp": "2026-02-10T12:08:09.440108783"
     }
 }

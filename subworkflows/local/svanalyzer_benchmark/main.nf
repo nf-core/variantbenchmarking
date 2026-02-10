@@ -14,8 +14,8 @@ workflow SVANALYZER_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    versions        = channel.empty()
+    tagged_variants = channel.empty()
 
     // apply svanalyzer to benchmark SVs
     SVANALYZER_SVBENCHMARK(

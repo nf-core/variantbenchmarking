@@ -44,11 +44,11 @@ workflow VARIANTBENCHMARKING {
     main:
 
     // To gather all QC reports for Multiqc
-    ch_versions      = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions      = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     // To gather benchmark reports
-    ch_reports       = Channel.empty()
+    ch_reports       = channel.empty()
 
     //// create reference channels ////
 
@@ -150,22 +150,21 @@ workflow VARIANTBENCHMARKING {
 
     // subsample multisample vcf if necessary, filter out cases without test vcf (only regions)
 
-    ch_samplesheet.branch{
-            def meta = it[0]
-            def vcf = it[1]
+    ch_samplesheet.branch{ input ->
+            def meta = input[0]
+            def vcf = input[1]
             multisample: meta.subsample
             singlesample : vcf
             other: false}
         .set{sample}
 
-    out_vcf_ch  = Channel.empty()
-
+    out_vcf_ch  = channel.empty()
+    sample.multisample.view()
     SUBSAMPLE_VCF_TEST(
-        sample.multisample.map{meta, vcf, bed -> [meta, vcf]}
+        sample.multisample.map{meta, vcf, _bed -> [meta, vcf]}
     )
-    ch_versions = ch_versions.mix(SUBSAMPLE_VCF_TEST.out.versions)
     vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
-                                sample.singlesample.map{meta, vcf, bed -> [meta, vcf]})
+                                sample.singlesample.map{meta, vcf, _bed -> [meta, vcf]})
 
     if (params.variant_type == "structural" ){
         // Standardize SV VCFs, tool specific modifications
@@ -229,8 +228,8 @@ workflow VARIANTBENCHMARKING {
 
     }
 
-    evals_ch     = Channel.empty()
-    evals_csv_ch = Channel.empty()
+    evals_ch     = channel.empty()
+    evals_csv_ch = channel.empty()
 
     // Concordance analysis can only be performed small variants for now
     if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/) ){

@@ -24,7 +24,7 @@ workflow PREPARE_VCFS_TRUTH {
 
     main:
 
-    versions = Channel.empty()
+    versions = channel.empty()
 
     // if liftover option is set convert truth files
     if (params.liftover.contains("truth")){
@@ -61,7 +61,6 @@ workflow PREPARE_VCFS_TRUTH {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_SPLIT_MULTI.out.versions)
 
         BCFTOOLS_SPLIT_MULTI.out.vcf.join(BCFTOOLS_SPLIT_MULTI.out.tbi, by:0)
                             .set{vcf_ch}
@@ -75,7 +74,6 @@ workflow PREPARE_VCFS_TRUTH {
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
-        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions)
     }
 
     if (params.preprocess.contains("normalize")){
@@ -85,8 +83,6 @@ workflow PREPARE_VCFS_TRUTH {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions)
-
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
                             .set{vcf_ch}
     }

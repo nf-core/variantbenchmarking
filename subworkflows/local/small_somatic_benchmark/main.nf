@@ -17,10 +17,10 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
     main:
 
-    versions            = Channel.empty()
-    summary_reports     = Channel.empty()
-    tagged_variants     = Channel.empty()
-    tagged_variants_csv = Channel.empty()
+    versions            = channel.empty()
+    summary_reports     = channel.empty()
+    tagged_variants     = channel.empty()
+    tagged_variants_csv = channel.empty()
 
     if (params.method.contains('sompy')){
         // apply sompy for small somatic variant benchmarking
