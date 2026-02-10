@@ -4,13 +4,13 @@
             149,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -31,16 +31,16 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT2": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -65,6 +65,9 @@
                 },
                 "SUBTRACT_VCF_TRUTH": {
                     "python": "3.13.0"
+                },
+                "SURVIVOR_FILTER": {
+                    "survivor": "1.0.7"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -364,38 +367,38 @@
                 "structural/test3/stats/survivor/test3.delly_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,bc95472c545c41b97fc6c657ebb1132b",
+                "HG002.bcftools_stats.txt:md5,2e41fdead08540e636ac6eb267c475b6",
                 "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
                 "multiqc_bcftools_stats.txt:md5,6198b3f3ce651489eec1f3f2a30acd6a",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_survivor.txt:md5,9d7cb093118b42cabfc8d9d9f7cc21bd",
                 "multiqc_variant_calling_summary.txt:md5,bc447c5d92b0e5ceb220b5d1b4272530",
-                "test1.manta.bcftools_stats.txt:md5,bf2bae39ec64eb088ae314da2407b908",
+                "test1.manta.bcftools_stats.txt:md5,20f831b9d5c34a00d9b6992cb716abc8",
                 "test1.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
-                "test2.lumpy.bcftools_stats.txt:md5,79495c1b0f014679d57e71fb748dadd5",
+                "test2.lumpy.bcftools_stats.txt:md5,aff272dc77d9d52f66f5abe07ee82baf",
                 "test2.lumpy_mqc.stats:md5,f3a75d802c37cd363f1b68695463a5b3",
-                "test3.delly.bcftools_stats.txt:md5,a106eb284d48aff27874fe0500f6c9d5",
+                "test3.delly.bcftools_stats.txt:md5,a9fdfbb2dff9c96a04212f4a7512069b",
                 "test3.delly_mqc.stats:md5,f5fa584015eadb2ef33c831f3479c0d4"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T17:12:25.414132285"
+        "timestamp": "2026-02-10T11:52:48.246588369"
     },
     "-stub": {
         "content": [
             149,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -416,16 +419,16 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT2": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -450,6 +453,9 @@
                 },
                 "SUBTRACT_VCF_TRUTH": {
                     "python": "3.13.0"
+                },
+                "SURVIVOR_FILTER": {
+                    "survivor": "1.0.7"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -706,6 +712,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-01-22T10:57:51.041513426"
+        "timestamp": "2026-02-10T11:59:42.163806317"
     }
 }

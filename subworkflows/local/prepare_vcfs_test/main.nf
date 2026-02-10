@@ -26,22 +26,22 @@ workflow PREPARE_VCFS_TEST {
 
     main:
 
-    versions = Channel.empty()
+    versions = channel.empty()
 
     // branch out test samples with metadata liftover is true
-    test_ch.branch{
-        def meta = it[0]
+    test_ch.branch{input ->
+        def meta = input[0]
         liftover: meta.liftover
         other: true}.set{vcf}
 
-    vcf_ch = Channel.empty()
+    vcf_ch = channel.empty()
 
     if (params.liftover.contains("test")){
 
         // apply liftover test vcfs
         LIFTOVER_VCFS(
             vcf.liftover,
-            Channel.empty(),
+            channel.empty(),
             fasta,
             chain,
             rename_chr,
@@ -53,8 +53,8 @@ workflow PREPARE_VCFS_TEST {
     vcf_ch = vcf_ch.mix(vcf.other)
 
     // if prefix of chromosomes needs to be fixed
-    vcf_ch.branch{
-        def meta = it[0]
+    vcf_ch.branch{ input ->
+        def meta = input[0]
         prefix: meta.fix_prefix
         other: true}.set{fix}
 
@@ -89,7 +89,6 @@ workflow PREPARE_VCFS_TEST {
             [],
             []
         )
-        versions = versions.mix(BCFTOOLS_VIEW_CONTIGS.out.versions.first())
 
         BCFTOOLS_VIEW_CONTIGS.out.vcf.join(BCFTOOLS_VIEW_CONTIGS.out.tbi, by:0)
                             .set{vcf_ch}
@@ -101,7 +100,6 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_SPLIT_MULTI.out.versions.first())
 
         BCFTOOLS_SPLIT_MULTI.out.vcf.join(BCFTOOLS_SPLIT_MULTI.out.tbi, by:0)
                             .set{vcf_ch}
@@ -125,7 +123,6 @@ workflow PREPARE_VCFS_TEST {
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
-        versions = versions.mix(VCF_VARIANT_DEDUPLICATION.out.versions.first())
 
     }
 
@@ -136,7 +133,6 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch,
             fasta
         )
-        versions = versions.mix(BCFTOOLS_NORM.out.versions.first())
 
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
                             .set{vcf_ch}

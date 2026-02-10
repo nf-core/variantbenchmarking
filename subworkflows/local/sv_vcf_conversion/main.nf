@@ -20,7 +20,7 @@ workflow SV_VCF_CONVERSIONS {
     fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = Channel.empty()
+    versions   = channel.empty()
 
     if (params.sv_standardization.contains("variant_extractor")){
         // uses VariantExtractor to homogenize variants
@@ -35,7 +35,6 @@ workflow SV_VCF_CONVERSIONS {
         BCFTOOLS_SORT1(
             VARIANT_EXTRACTOR.out.output
         )
-        versions = versions.mix(BCFTOOLS_SORT1.out.versions)
         input_ch = BCFTOOLS_SORT1.out.vcf
 
     }
@@ -71,7 +70,6 @@ workflow SV_VCF_CONVERSIONS {
         BCFTOOLS_SORT2(
             SVTK_STANDARDIZE.out.vcf
         )
-        versions = versions.mix(BCFTOOLS_SORT2.out.versions)
 
         out_vcf_ch.mix(
                 BCFTOOLS_SORT2.out.vcf,
@@ -88,9 +86,9 @@ workflow SV_VCF_CONVERSIONS {
         input_ch = RTGTOOLS_SVDECOMPOSE.out.vcf
     }
 
-   input_ch
-        .branch {
-            compressed:   it[1].getName().endsWith('.gz')
+    input_ch
+        .branch { input ->
+            compressed:   input[1].getName().endsWith('.gz')
             uncompressed: true
         }
         .set { ch_inputs }
@@ -141,9 +139,9 @@ workflow SV_VCF_CONVERSIONS {
                 SVYNC.out.vcf,
                 input.other
             )
-            .map{
-                def meta = it[0]
-                def vcf = it[1]
+            .map{ input ->
+                def meta = input[0]
+                def vcf = input[1]
                 [ meta, vcf ]
             }
             .set { vcf_ch }

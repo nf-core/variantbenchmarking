@@ -14,18 +14,21 @@ workflow INTERSECT_STATISTICS {
 
     main:
 
-    versions        = Channel.empty()
+    versions        = channel.empty()
 
-    test.branch{
-            def vcf_file = it[1]
-            def regions_file = it[2]
-            regions : regions_file.extension != "tbi"
-            vcf : vcf_file
-            other: false}
-            .set{test_samples}
+    test.branch { input ->
+        def meta         = input[0]
+        def vcf_file     = input[1]
+        def regions_file = input[2]
+
+        regions: regions_file.extension != "tbi"
+        vcf: vcf_file
+        other: false
+    }
+    .set { test_samples }
 
 
-    test_beds_ch = test_samples.regions.map{meta, vcf, bed -> [meta, bed]}
+    test_beds_ch = test_samples.regions.map{meta, _vcf, bed -> [meta, bed]}
 
     // convert VCF files to BED format
     if (params.variant_type == "structural" || params.variant_type == "copynumber"){

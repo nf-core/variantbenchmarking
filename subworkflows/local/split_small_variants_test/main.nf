@@ -13,8 +13,8 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
 
     main:
 
-    versions   = Channel.empty()
-    out_vcf_ch = Channel.empty()
+    versions   = channel.empty()
+    out_vcf_ch = channel.empty()
 
     // split small into snv and indel if somatic
     BCFTOOLS_VIEW_SNV(
@@ -23,7 +23,6 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_SNV.out.versions.first())
 
     TABIX_BGZIPTABIX_SNV(
         BCFTOOLS_VIEW_SNV.out.vcf
@@ -40,7 +39,6 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_INDEL.out.versions.first())
 
     TABIX_BGZIPTABIX_INDEL(
         BCFTOOLS_VIEW_INDEL.out.vcf

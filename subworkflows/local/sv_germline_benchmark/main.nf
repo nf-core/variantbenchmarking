@@ -14,10 +14,10 @@ workflow SV_GERMLINE_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    summary_reports = Channel.empty()
-    tagged_variants = Channel.empty()
-    logs            = Channel.empty()
+    versions        = channel.empty()
+    summary_reports = channel.empty()
+    tagged_variants = channel.empty()
+    logs            = channel.empty()
 
     // SV benchmarking
     if (params.method.contains('truvari')){

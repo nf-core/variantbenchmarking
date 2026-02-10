@@ -4,25 +4,25 @@
             116,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -43,16 +43,16 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -284,32 +284,32 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-05T16:05:45.97505835"
+        "timestamp": "2026-02-10T11:44:12.581257788"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
             116,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -330,16 +330,16 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -679,7 +679,7 @@
                 "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
-                "HG002.bcftools_stats.txt:md5,c485794beee06218d5edd3508bb42ac4",
+                "HG002.bcftools_stats.txt:md5,53aeae330b848d21485037c7e968cfd9",
                 "bcftools-stats-subtypes.txt:md5,965f411af59054fab11733b7ff86a8e6",
                 "bcftools_stats_indel-lengths.txt:md5,8c7a2983b3fe7772f8c9d8f72757047e",
                 "bcftools_stats_variant_depths.txt:md5,638d6fe45cec24e52b6eb1471a4344cf",
@@ -701,7 +701,7 @@
                 "test6.HG002.strelka.summary.csv:md5,b422654175083bcdf17ba7c377925450",
                 "test6.HG002.strelka.phasing.txt:md5,2cb3c919b1aacee7193543a21f538f8d",
                 "test6.HG002.strelka.summary.txt:md5,0ec44b030ffb77a2883894e2976bfa42",
-                "test6.strelka.bcftools_stats.txt:md5,bcc46a7b008c4e814547cb5c6d7dca6d",
+                "test6.strelka.bcftools_stats.txt:md5,3cd7a59f198fa5786528f1875ffb9e29",
                 "test7.HG002.bcftools.extended.csv:md5,5b48d6c9dfd67813dfab3bf1cdab85a7",
                 "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,c1e554f0df835826d1e5df2799b0ad85",
                 "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,f2630ffc050976945585e7be4e22f09b",
@@ -711,13 +711,13 @@
                 "test7.HG002.bcftools.summary.csv:md5,773e1bbed3b7dd893d64271fc43aa43e",
                 "test7.HG002.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test7.HG002.bcftools.summary.txt:md5,24907ee063ded5bbc39cd0d2ab102684",
-                "test7.bcftools.bcftools_stats.txt:md5,70f24cedd2233623f63f886e37977b93"
+                "test7.bcftools.bcftools_stats.txt:md5,c6e015938fd48f53a675867fe65084b3"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T15:49:30.035252137"
+        "timestamp": "2026-02-10T11:38:01.058796585"
     }
 }

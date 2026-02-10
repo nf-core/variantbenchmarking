@@ -13,7 +13,7 @@ workflow PREPARE_REFERENCES {
 
     main:
 
-    versions = Channel.empty()
+    versions = channel.empty()
 
     //prepare dict file for liftover of vcf files
     if (!params.dictionary && (params.method.contains("concordance") || params.liftover ) ){

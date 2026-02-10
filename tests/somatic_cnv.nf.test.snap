@@ -22,13 +22,13 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BEDTOOLS_INTERSECT_BENCH": {
                     "python": "3.12.11"
@@ -280,7 +280,7 @@
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,2a3294dcbb89d63042d713a7bb6f32ee",
+                "SEQC2.bcftools_stats.txt:md5,b7b9fa940d45626eedb29268576c1b2b",
                 "multiqc_bcftools_stats.txt:md5,e50d652f48e58b3a96f04837acf7185b",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_variant_calling_summary.txt:md5,c403fa3d80e0bc667f6220d646a54c83",
@@ -302,7 +302,7 @@
                 "test14.SEQC2.cnvkit_converted.bed:md5,d34b17a68de65b754d7402a5f133f421",
                 "test14.SEQC2.cnvkit_stats.csv:md5,f2d97f069697b4069fc3e723028ecb8a",
                 "test14.bed:md5,e2618e061f32b9c8545faa9eb5a3e1a4",
-                "test14.cnvkit.bcftools_stats.txt:md5,29028112b028b319064a36c98ba978d8",
+                "test14.cnvkit.bcftools_stats.txt:md5,1435bdb43d00938aab0e6ae087520ef4",
                 "test15.SEQC2.ascat_FN.bed:md5,3e2976bf335e9c3f83cfb6bee74cdcc5",
                 "test15.SEQC2.ascat_FP.bed:md5,b3a2d0c1755f13c7bfb9c1d57a93143d",
                 "test15.SEQC2.ascat_TP_base.bed:md5,301d3e309f159cc2bddc966f23d4aced",
@@ -315,6 +315,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-05T16:38:03.018053745"
+        "timestamp": "2026-02-10T12:14:21.185299024"
     }
 }

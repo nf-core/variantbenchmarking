@@ -19,7 +19,6 @@ process FIX_VCF_PREFIX {
     task.ext.when == null || task.ext.when
 
     script:
-    def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
 
     if ("$input" == "${prefix}.vcf.gz") error "Input and output names are the same, set prefix in module configuration to disambiguate!"
@@ -37,7 +36,6 @@ process FIX_VCF_PREFIX {
     """
 
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """

@@ -16,9 +16,9 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
-    versions = Channel.empty()
-    ch_plots = Channel.empty()
-    merged_reports = Channel.empty()
+    versions = channel.empty()
+    ch_plots = channel.empty()
+    merged_reports = channel.empty()
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(

@@ -4,7 +4,7 @@
             61,
             {
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -25,10 +25,10 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
@@ -238,22 +238,22 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,98d52a15cf5e4ef38225dde69f256121",
+                "SEQC2.bcftools_stats.txt:md5,e0080c6ad6d7c906dd3ced860afb3b0f",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "multiqc_bcftools_stats.txt:md5,2bac7fc07ca539aeb43727d4b4a17fdc",
+                "multiqc_bcftools_stats.txt:md5,6a615f82eec14811470d4f0c336cf097",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
                 "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
-                "test11.manta.bcftools_stats.txt:md5,265450c1e0fac1e84217a04ce8c0402a",
+                "test11.manta.bcftools_stats.txt:md5,89f26d4fb48d825e5d249460873fbb6c",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
-                "test12.tiddit.bcftools_stats.txt:md5,af1a81c6f8b4b1213373c15afb7c0a73",
+                "test12.tiddit.bcftools_stats.txt:md5,392ee4348cb1dc7c68db8d25586b048f",
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-04T17:29:18.646612285"
+        "timestamp": "2026-02-10T12:42:13.888518486"
     }
 }
