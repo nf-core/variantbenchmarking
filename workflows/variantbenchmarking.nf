@@ -149,7 +149,6 @@ workflow VARIANTBENCHMARKING {
     // PREPROCESSES
 
     // subsample multisample vcf if necessary, filter out cases without test vcf (only regions)
-
     ch_samplesheet.branch{ input ->
             def meta = input[0]
             def vcf = input[1]
@@ -159,7 +158,7 @@ workflow VARIANTBENCHMARKING {
         .set{sample}
 
     out_vcf_ch  = channel.empty()
-    sample.multisample.view()
+    
     SUBSAMPLE_VCF_TEST(
         sample.multisample.map{meta, vcf, _bed -> [meta, vcf]}
     )

@@ -14,14 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - increasing font sizes, making labelling optional and some fixes around plots. Tests are editted to observe optional plot arguments. [#270](https://github.com/nf-core/variantbenchmarking/pull/270)
+- Improving the pipeline towards strict syntax health & adding topic channels - 1 [#272](https://github.com/nf-core/variantbenchmarking/pull/272)
 
 ### `Dependencies`
 
 | Dependency        | Old version | New version |
 | ----------------- | ----------- | ----------- |
 | rtgtools          | 3.12.1      | 3.13        |
-| bcftools/reheader | 1.2         | 1.22        |
+| bcftools          | 1.2         | 1.22        |
 | tabix             | 1.19.1      | 1.21        |
+| bcftools/stats    | 1.18        | 1.22        |
+
 
 ## 1.4.0
 
