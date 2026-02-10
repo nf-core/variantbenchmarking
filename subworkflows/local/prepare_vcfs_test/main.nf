@@ -53,7 +53,7 @@ workflow PREPARE_VCFS_TEST {
     vcf_ch = vcf_ch.mix(vcf.other)
 
     // if prefix of chromosomes needs to be fixed
-    vcf_ch.branch{ input -> 
+    vcf_ch.branch{ input ->
         def meta = input[0]
         prefix: meta.fix_prefix
         other: true}.set{fix}

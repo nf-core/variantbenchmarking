@@ -139,7 +139,7 @@ workflow SV_VCF_CONVERSIONS {
                 SVYNC.out.vcf,
                 input.other
             )
-            .map{ input -> 
+            .map{ input ->
                 def meta = input[0]
                 def vcf = input[1]
                 [ meta, vcf ]

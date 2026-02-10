@@ -158,7 +158,7 @@ workflow VARIANTBENCHMARKING {
         .set{sample}
 
     out_vcf_ch  = channel.empty()
-    
+
     SUBSAMPLE_VCF_TEST(
         sample.multisample.map{meta, vcf, _bed -> [meta, vcf]}
     )
