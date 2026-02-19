@@ -53,13 +53,14 @@ workflow CONCORDANCE_ANALYSIS {
             return result
         }
 
-    if (!params.regions_bed){
-        bed_ch = Channel.of([[id: "bed"],[]]).collect()
-        }
+    ch_bed_input = bed_ch
+        .map { file -> tuple(["id": "intervals"], file) }
+        .ifEmpty([[:], []])
+
     // GATK4 concordance does not support structural variants now - GATK4 SVCONCORDANCE is in beta
     GATK4_CONCORDANCE(
         ch_pairs,
-        bed_ch,
+        ch_bed_input,
         fasta_ch,
         fai_ch,
         dictionary
