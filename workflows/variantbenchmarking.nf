@@ -233,7 +233,8 @@ workflow VARIANTBENCHMARKING {
     evals_csv_ch = Channel.empty()
 
     // Concordance analysis can only be performed small variants for now
-    if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/) ){
+
+    if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/)){
       CONCORDANCE_ANALYSIS(
             PREPARE_VCFS_TEST.out.vcf_ch,
             regions_bed_ch,
@@ -244,6 +245,10 @@ workflow VARIANTBENCHMARKING {
         ch_versions      = ch_versions.mix(CONCORDANCE_ANALYSIS.out.versions)
         ch_reports       = ch_reports.mix(CONCORDANCE_ANALYSIS.out.summary_reports)
         evals_ch         = evals_ch.mix(CONCORDANCE_ANALYSIS.out.tagged_variants)
+
+    }else if (params.method.contains("concordance")){
+        log.error "Concordance analysis can only be performed small (snv and indels) variants for now"
+        exit 1
     }
 
     // Prepare benchmark channel
