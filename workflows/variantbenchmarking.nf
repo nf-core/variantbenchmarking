@@ -30,6 +30,7 @@ include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benc
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
 include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
+include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,6 +70,7 @@ workflow VARIANTBENCHMARKING {
 
 
     if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer|bndeval).*/) {
+        // Note: concordance analysis does not require truth files
         if (!params.truth_vcf || !params.truth_id){
             log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
             exit 1
@@ -81,8 +83,7 @@ workflow VARIANTBENCHMARKING {
         }
     }
 
-    // Note: concordance analysis does not require truth files
-
+    
     // Optional files for Happy or Sompy
     falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
                                                     : Channel.of([[id: "falsepositive"],[]]).collect()
@@ -197,13 +198,26 @@ workflow VARIANTBENCHMARKING {
         dictionary
     )
     regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+    truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
     ch_versions    = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
+
+
+    // Ensebmle and prepare truth file using input VCFs if ensemble_truth approach is choosen
+    if (params.ensemble_truth){
+        ENSEMLE_TEST_VCFS(
+            PREPARE_VCFS_TEST.out.vcf_ch,
+            fasta,
+            fai
+        )
+        truth_ch    = ENSEMLE_TEST_VCFS.out.truth_vcf
+        ch_versions = ch_versions.mix(ENSEMLE_TEST_VCFS.out.versions)
+    }
 
     // VCF REPORTS AND STATS
 
     // get statistics for normalized input files
     REPORT_VCF_STATISTICS(
-        PREPARE_VCFS_TEST.out.vcf_ch.mix(PREPARE_VCFS_TRUTH.out.vcf_ch)
+        PREPARE_VCFS_TEST.out.vcf_ch.mix(truth_ch)
     )
     ch_versions       = ch_versions.mix(REPORT_VCF_STATISTICS.out.versions)
 
