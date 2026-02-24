@@ -26,25 +26,24 @@ _Truvari_
 | test2 | test2.HG002.lumpy.summary.json | 38      | 38      | 20  | 800 | 0.65517   | 0.04535 | 0.08482 |
 | test3 | test3.HG002.delly.summary.json | 50      | 50      | 27  | 788 | 0.64935   | 0.05967 | 0.10929 |
 
-
 _SVbenchmark_
 
-| Tool  | File                     | TP_base | FP  | TP_comp | FN  | Recall | Precision | F1                 |
-| ----- | ------------------------ | ------- | --- | ------- | --- | ------ | --------- | ------------------ |
-| test1 | test1.HG002.manta.report | 195     | 142 | 195     | 643 | 0.2327 | 0.5684    | 0.330207687187869  |
-| test2 | test2.HG002.lumpy.report | 30      | 29  | 30      | 808 | 0.0358 | 0.5       | 0.066815144766147  |
-| test3 | test3.HG002.delly.report | 18      | 60  | 18      | 820 | 0.0215 | 0.2208    | 0.039150460593654  |
+| Tool  | File                     | TP_base | FP  | TP_comp | FN  | Recall | Precision | F1                |
+| ----- | ------------------------ | ------- | --- | ------- | --- | ------ | --------- | ----------------- |
+| test1 | test1.HG002.manta.report | 195     | 142 | 195     | 643 | 0.2327 | 0.5684    | 0.330207687187869 |
+| test2 | test2.HG002.lumpy.report | 30      | 29  | 30      | 808 | 0.0358 | 0.5       | 0.066815144766147 |
+| test3 | test3.HG002.delly.report | 18      | 60  | 18      | 820 | 0.0215 | 0.2208    | 0.039150460593654 |
 
 _Wittyer_
 
-| Tool  | File                   | StatsType | TP_base | TP_comp | FP       | FN    | Precision             | Recall                | F1                  |
-| ----- | ---------------------- | --------- | ------- | ------- | -------- | ----- | --------------------- | --------------------- | ------------------- |
-| test1 | test1.HG002.manta.json | Event     | 222     | 192     | 137      | 616   | 0.583586626139817     | 0.26491646778042904   | 0.364410474749288   |
-| test1 | test1.HG002.manta.json | Base      | 21082   | 21082   | 43165    | 31669 | 0.32813983532305      | 0.39965119144660705   | 0.36038222875604703 |
-| test2 | test2.HG002.lumpy.json | Event     | 31      | 30      | 28       | 807   | 0.5172413793103441    | 0.036992840095465     | 0.069047442274853   |
-| test2 | test2.HG002.lumpy.json | Base      | 18845   | 18845   | 41765    | 33906 | 0.310922290051146     | 0.35724441242820004   | 0.332477659865385   |
-| test3 | test3.HG002.delly.json | Event     | 22      | 21      | 52       | 816   | 0.28767123287671204   | 0.026252983293556003  | 0.048114976046656   |
-| test3 | test3.HG002.delly.json | Base      | 14271   | 14271   | 27535165 | 38480 | 0.0005180142344830001 | 0.270535155731644     | 0.001034048497678   |
+| Tool  | File                   | StatsType | TP_base | TP_comp | FP       | FN    | Precision             | Recall               | F1                  |
+| ----- | ---------------------- | --------- | ------- | ------- | -------- | ----- | --------------------- | -------------------- | ------------------- |
+| test1 | test1.HG002.manta.json | Event     | 222     | 192     | 137      | 616   | 0.583586626139817     | 0.26491646778042904  | 0.364410474749288   |
+| test1 | test1.HG002.manta.json | Base      | 21082   | 21082   | 43165    | 31669 | 0.32813983532305      | 0.39965119144660705  | 0.36038222875604703 |
+| test2 | test2.HG002.lumpy.json | Event     | 31      | 30      | 28       | 807   | 0.5172413793103441    | 0.036992840095465    | 0.069047442274853   |
+| test2 | test2.HG002.lumpy.json | Base      | 18845   | 18845   | 41765    | 33906 | 0.310922290051146     | 0.35724441242820004  | 0.332477659865385   |
+| test3 | test3.HG002.delly.json | Event     | 22      | 21      | 52       | 816   | 0.28767123287671204   | 0.026252983293556003 | 0.048114976046656   |
+| test3 | test3.HG002.delly.json | Base      | 14271   | 14271   | 27535165 | 38480 | 0.0005180142344830001 | 0.270535155731644    | 0.001034048497678   |
 
 The number of TPs found in SVbenchmark is significanly lower than Truvari and Wittyer yet this is not primarly as methodological differences but also because of differences of the parameters defining SV comparions. Therefore, it is highly important to set meaningful parameters before starting to perform benchmarks. Furthermore, precisions in Truvari are higher than two other methods as we used more relaxed parameters for truvari.
 
@@ -219,11 +218,11 @@ Don't forget that the only difference between the cases in 4,5 and 6 are the met
 
 _Som.py_
 
-| Tool   | File                            | Type | TP_base | TP   | FN    | TP_call | FP   | UNK | Recall             | Precision          | recall_lower          | recall_upper       | recall2            | precision_lower      | precision_upper    | na  | ambiguous | fp.region.size | F1                      |
-| ------ | ------------------------------- | ---- | ------- | ---- | ----- | ------- | ---- | --- | ------------------ | ------------------ | --------------------- | ------------------ | ------------------ | -------------------- | ------------------ | --- | --------- | -------------- | ----------------------- |
-| test8  | test8.SEQC2.freebayes.stats.csv | SNVs | 39447   | 7    | 39440 | 1808    | 1801 | 0   | 0.0001774532917585 | 0.0038716814159292 | 7.937745863543826e-05 | 0.0003483898507791 | 0.0001774532917585 | 0.0017334020987412   | 0.0075866570604652 | 0.0 | 0.0       | 2875001522.0   | 0.0003393528057204051   |
-| test9  | test9.SEQC2.mutect2.stats.csv   | SNVs | 39447   | 6    | 39441 | 6       | 0    | 0   | 0.0001521028215073 | 1.0                | 6.348950120714873e-05 | 0.0003135023155461 | 0.0001521028215073 | 0.5407418735600996   | 1.0                | 0.0 | 0.0       | 2875001522.0   | 0.0003041593795147879   |
-| test10 | test10.SEQC2.strelka.stats.csv  | SNVs | 39447   | 1419 | 38028 | 2604    | 1185 | 0   | 0.0359723172864856 | 0.5449308755760369 | 0.0341685494392541    | 0.0378441736192306 | 0.0359723172864856 | 0.525763248380803    | 0.5639986848401537 | 0.0 | 0.0       | 2875001522.0   | 0.06748947706356555     |
+| Tool   | File                            | Type | TP_base | TP   | FN    | TP_call | FP   | UNK | Recall             | Precision          | recall_lower          | recall_upper       | recall2            | precision_lower    | precision_upper    | na  | ambiguous | fp.region.size | F1                    |
+| ------ | ------------------------------- | ---- | ------- | ---- | ----- | ------- | ---- | --- | ------------------ | ------------------ | --------------------- | ------------------ | ------------------ | ------------------ | ------------------ | --- | --------- | -------------- | --------------------- |
+| test8  | test8.SEQC2.freebayes.stats.csv | SNVs | 39447   | 7    | 39440 | 1808    | 1801 | 0   | 0.0001774532917585 | 0.0038716814159292 | 7.937745863543826e-05 | 0.0003483898507791 | 0.0001774532917585 | 0.0017334020987412 | 0.0075866570604652 | 0.0 | 0.0       | 2875001522.0   | 0.0003393528057204051 |
+| test9  | test9.SEQC2.mutect2.stats.csv   | SNVs | 39447   | 6    | 39441 | 6       | 0    | 0   | 0.0001521028215073 | 1.0                | 6.348950120714873e-05 | 0.0003135023155461 | 0.0001521028215073 | 0.5407418735600996 | 1.0                | 0.0 | 0.0       | 2875001522.0   | 0.0003041593795147879 |
+| test10 | test10.SEQC2.strelka.stats.csv  | SNVs | 39447   | 1419 | 38028 | 2604    | 1185 | 0   | 0.0359723172864856 | 0.5449308755760369 | 0.0341685494392541    | 0.0378441736192306 | 0.0359723172864856 | 0.525763248380803  | 0.5639986848401537 | 0.0 | 0.0       | 2875001522.0   | 0.06748947706356555   |
 
 _RTGtools_
 
@@ -333,7 +332,7 @@ In order to do concordance comparison, we dont need to provide truth VCF! as we 
 
 ### Analysis
 
-- Now we are using two HG002 variant calls from germline variant calling analysis to perform concordance analysis. 
+- Now we are using two HG002 variant calls from germline variant calling analysis to perform concordance analysis.
 - Chromosome 21 is extracted both from the test and truth cases.
 - We normalize, split multiallelics and deduplicate variants to preprocess the variants
 
@@ -353,7 +352,7 @@ Concordance statistics are based on tool comparisons, the pairs are generated ra
 
 ## Case 13 : Ensembling test files to generate a proxy truth for small variants
 
-Truth/Golden set of samples to use as a baseline for benchmarking analysis is a challenge especially for somatic studies. One of the common approaches reseacrhes uses is to generate a proxy set of truth using input (test) VCF files, first ensembling the variants and then filtering them down with a majority vote system.   
+Truth/Golden set of samples to use as a baseline for benchmarking analysis is a challenge especially for somatic studies. One of the common approaches reseacrhes uses is to generate a proxy set of truth using input (test) VCF files, first ensembling the variants and then filtering them down with a majority vote system.
 
 ### Config file
 
@@ -362,7 +361,7 @@ Truth/Golden set of samples to use as a baseline for benchmarking analysis is a 
 ### Analysis
 
 - Benchmarking somatic variants is possible using this pipeline. In order to demonstare SNV type of benchmarking, 3 example somatic variant calls will be used.
-- Truth generation is done accordingly: ensemble_truth is used as 2,  so the variant is kept only if it exist in 2 or more callers (test vcfs)
+- Truth generation is done accordingly: ensemble_truth is used as 2, so the variant is kept only if it exist in 2 or more callers (test vcfs)
 - Preprocessing includes normalization enabling left alignment of the variants.
 - Using som.py.
 
@@ -370,11 +369,11 @@ Truth/Golden set of samples to use as a baseline for benchmarking analysis is a 
 
 _Som.py_
 
-| Tool   | File                             | Type | TP_base | TP  | FN  | TP_call | FP   | UNK | Recall             | Precision          | recall_lower       | recall_upper | recall2            | precision_lower    | precision_upper    | na  | ambiguous | fp.region.size | F1                   |
-| ------ | -------------------------------- | ---- | ------- | --- | --- | ------- | ---- | --- | ------------------ | ------------------ | ------------------ | ------------ | ------------------ | ------------------ | ------------------ | --- | --------- | -------------- | -------------------- |
-| test8  | test8.truth.freebayes.stats.csv   | SNVs | 7       | 7   | 0   | 1898    | 1891 | 0   | 1.0                | 0.0036880927291886 | 0.5903836027749967 | 1.0          | 1.0                | 0.0016511339351389 | 0.0072275976268013 | 0.0 | 0.0       | 46709983.0     | 0.007349081364829357 |
-| test9  | test9.truth.mutect2.stats.csv     | SNVs | 7       | 6   | 1   | 8       | 2    | 0   | 0.8571428571428571 | 0.75               | 0.4992025383809224 | 1.0          | 0.8571428571428571 | 0.4083764894266625 | 0.9440331102753412 | 0.0 | 0.0       | 46709983.0     | 0.7999999999999999   |
-| test10 | test10.truth.strelka.stats.csv    | SNVs | 7       | 7   | 0   | 5251    | 5244 | 0   | 1.0                | 0.001333079413445  | 0.5903836027749967 | 1.0          | 1.0                | 0.0005964718908893 | 0.0026156384477055 | 0.0 | 0.0       | 46709983.0     | 0.002662609357169911 |
+| Tool   | File                            | Type | TP_base | TP  | FN  | TP_call | FP   | UNK | Recall             | Precision          | recall_lower       | recall_upper | recall2            | precision_lower    | precision_upper    | na  | ambiguous | fp.region.size | F1                   |
+| ------ | ------------------------------- | ---- | ------- | --- | --- | ------- | ---- | --- | ------------------ | ------------------ | ------------------ | ------------ | ------------------ | ------------------ | ------------------ | --- | --------- | -------------- | -------------------- |
+| test8  | test8.truth.freebayes.stats.csv | SNVs | 7       | 7   | 0   | 1898    | 1891 | 0   | 1.0                | 0.0036880927291886 | 0.5903836027749967 | 1.0          | 1.0                | 0.0016511339351389 | 0.0072275976268013 | 0.0 | 0.0       | 46709983.0     | 0.007349081364829357 |
+| test9  | test9.truth.mutect2.stats.csv   | SNVs | 7       | 6   | 1   | 8       | 2    | 0   | 0.8571428571428571 | 0.75               | 0.4992025383809224 | 1.0          | 0.8571428571428571 | 0.4083764894266625 | 0.9440331102753412 | 0.0 | 0.0       | 46709983.0     | 0.7999999999999999   |
+| test10 | test10.truth.strelka.stats.csv  | SNVs | 7       | 7   | 0   | 5251    | 5244 | 0   | 1.0                | 0.001333079413445  | 0.5903836027749967 | 1.0          | 1.0                | 0.0005964718908893 | 0.0026156384477055 | 0.0 | 0.0       | 46709983.0     | 0.002662609357169911 |
 
 ## Case 14 : Ensembling test files to generate a proxy truth for structual variants
 
@@ -389,7 +388,7 @@ This is another example to generate a proxy truth file using test files for stru
 - In this case we are using nf-core/sarek variant calls from manta and tiddit. AWS stored files are being pulled automatically with the pipeline.
 - We are filtering out extra contigs, and taking only the variants longer than 30bp.
 - We use truvari as benchmarking method and all the method related parameters are in samplesheet.
-- Truth generation is done accordingly: ensemble_truth is used as 2,  so the variant is kept only if it exist in 2 or more callers (test vcfs)
+- Truth generation is done accordingly: ensemble_truth is used as 2, so the variant is kept only if it exist in 2 or more callers (test vcfs)
 
 ### Results
 

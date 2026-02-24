@@ -158,7 +158,7 @@ workflow PREPARE_VCFS_TEST {
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
-    // filters out ./. or 0/0 or non-somatic genotypes 
+    // filters out ./. or 0/0 or non-somatic genotypes
     BCFTOOLS_VIEW_FILTERMISSING(
         vcf_ch,
         [],
