@@ -1,6 +1,6 @@
 
 //
-// ENSEMLE_TEST_VCFS: SUBWORKFLOW to ENSEMBLE TEST VCFS and PREPARE TRUTH VCF. 
+// ENSEMLE_TEST_VCFS: SUBWORKFLOW to ENSEMBLE TEST VCFS and PREPARE TRUTH VCF.
 //
 
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_SMALL } from '../../../modules/nf-core/tabix/bgziptabix'
@@ -33,7 +33,7 @@ workflow ENSEMLE_TEST_VCFS {
     INJECT_MISSING_GT(
         branched_vcfs.missing_gt.map { meta, vcf, index -> tuple(meta, vcf) },
         [],
-        false      
+        false
     )
 
     TABIX_BGZIPTABIX_GT(
@@ -69,7 +69,7 @@ workflow ENSEMLE_TEST_VCFS {
         REFORMAT_TRUTH(
             FILTER_MAJORITY.out.vcf,
             [],
-            false           
+            false
         )
 
         TABIX_BGZIPTABIX_SMALL(
@@ -109,13 +109,13 @@ workflow ENSEMLE_TEST_VCFS {
         REFORMAT_TRUTH_SV(
             SURVIVOR_ENSEMBLE.out.vcf,
             [],
-            false           
+            false
         )
 
         BCFTOOLS_SORT_SV(
             REFORMAT_TRUTH_SV.out.output
         )
-        truth_vcf = BCFTOOLS_SORT_SV.out.vcf.join(BCFTOOLS_SORT_SV.out.tbi)    
+        truth_vcf = BCFTOOLS_SORT_SV.out.vcf.join(BCFTOOLS_SORT_SV.out.tbi)
 
     }
     emit:

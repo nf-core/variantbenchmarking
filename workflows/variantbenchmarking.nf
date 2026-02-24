@@ -74,8 +74,8 @@ workflow VARIANTBENCHMARKING {
         // Note: concordance analysis does not require truth files
         if (params.ensemble_truth){
             log.warn "params.truth_id will be treaded as 'truth'"
-            } 
-        else  
+            }
+        else
         {
             if (!params.truth_vcf || !params.truth_id){
             log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
@@ -90,7 +90,7 @@ workflow VARIANTBENCHMARKING {
         }
     }
 
-    
+
     // Optional files for Happy or Sompy
     falsepositive_bed   = params.falsepositive_bed  ? Channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
                                                     : Channel.of([[id: "falsepositive"],[]]).collect()

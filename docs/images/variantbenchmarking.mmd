@@ -10,7 +10,7 @@
 %%metro line: snv_indel_benchmarking | SNV/INDEL Benchmarking | #f321cd
 %%metro line: concordance | Concordance Analysis| #da630e
 %%metro line: intersection | Intersection Analysis | #da930e
-%%metro line: output_proc | Output Processing | #03A9F4 
+%%metro line: output_proc | Output Processing | #03A9F4
 
 %% Overall graph direction to Top-to-Bottom
 graph TB
@@ -40,7 +40,7 @@ graph TB
     %% 2. PREPROCESSING SUBGRAPH (Merged)
     %% =========================================
     subgraph SG2_Preproc [Preprocessing (Optional)]
-        %%metro direction: LR 
+        %%metro direction: LR
         %% --- Shared Start Nodes & Connections ---
         Liftover((Liftover (picard, UCSC)))
         Subsample (bcftools view)
@@ -49,9 +49,9 @@ graph TB
 
     %% --- Test Nodes & Connections (Orange) ---
     subgraph SG23_SVprocess [Variant Normalization (Optional)]
-        SVDecompose((SV Processing))              
+        SVDecompose((SV Processing))
         Norm((Variant Normalization))
-        SVDecompose -->|test_preproc| Norm 
+        SVDecompose -->|test_preproc| Norm
     end
 
     %% --- Nested Filters Subgraph ---
@@ -71,7 +71,7 @@ graph TB
         bcftoolsStats((bcftools stats))
         SURVIVORStats((SURVIVOR stats))
         bcftoolsStats -->|output_proc| VariantStats1
-        SURVIVORStats -->|output_proc| VariantStats2            
+        SURVIVORStats -->|output_proc| VariantStats2
     end
 
     %% --- Nested Ensemble Subgraph (Renamed) ---
@@ -83,7 +83,7 @@ graph TB
         EnsembleMerge1 -->|test_preproc| Consensus
         EnsembleMerge2 -->|test_preproc| Consensus
     end
-    
+
 
     %% =========================================
     %% 6. BENCHMARKING SUBGRAPH (Renumbered)
@@ -164,11 +164,11 @@ graph TB
     %% SG2 Internal Crossings (between nodes and nested subgraphs)
     Liftover -->|test_preproc| SVDecompose
     Liftover -->|truth_preproc| Norm
-    
+
     %% Test to Ensemble & Stats
     Filterbcftools -->|test_preproc| EnsembleMerge1
     SURVIVORFilter -->|test_preproc| EnsembleMerge2
-    
+
     Filterbcftools -->|test_preproc| bcftoolsStats
     SURVIVORFilter -->|test_preproc| SURVIVORStats
 

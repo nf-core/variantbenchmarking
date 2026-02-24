@@ -250,8 +250,7 @@ test3,test3.vcf.gz,cnvkit
 
 In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers.
 
-In order to turn the analysis on  `--ensemble_truth n` where n is an integer bigger than 0.  
-
+In order to turn the analysis on `--ensemble_truth n` where n is an integer bigger than 0.
 
 ```csv title="samplesheet.csv"
 id,test_vcf,caller
@@ -260,7 +259,7 @@ test2,test2.vcf,gatk
 test3,test3.vcf.gz,cnvkit
 ```
 
-Please note that, using ensemble_truth will lead to ignore any --truth files given. 
+Please note that, using ensemble_truth will lead to ignore any --truth files given.
 
 ## Analysis Plots
 
