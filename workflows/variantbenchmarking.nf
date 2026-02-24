@@ -69,11 +69,18 @@ workflow VARIANTBENCHMARKING {
                                         : Channel.empty()
 
 
+
     if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer|bndeval).*/) {
         // Note: concordance analysis does not require truth files
-        if (!params.truth_vcf || !params.truth_id){
+        if (params.ensemble_truth){
+            log.warn "params.truth_id will be treaded as 'truth'"
+            } 
+        else  
+        {
+            if (!params.truth_vcf || !params.truth_id){
             log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
             exit 1
+            }
         }
     }
     if (params.method ==~ /.*(?:intersect).*/) {
@@ -187,22 +194,7 @@ workflow VARIANTBENCHMARKING {
     )
     ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
-    // Prepare and normalize truth vcfs
-    PREPARE_VCFS_TRUTH(
-        truth_ch,
-        regions_bed_ch,
-        fasta,
-        fai,
-        chain,
-        rename_chr,
-        dictionary
-    )
-    regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
-    truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
-    ch_versions    = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
-
-
-    // Ensebmle and prepare truth file using input VCFs if ensemble_truth approach is choosen
+    // Ensemble and prepare truth file using input VCFs if ensemble_truth approach is choosen
     if (params.ensemble_truth){
         ENSEMLE_TEST_VCFS(
             PREPARE_VCFS_TEST.out.vcf_ch,
@@ -211,6 +203,20 @@ workflow VARIANTBENCHMARKING {
         )
         truth_ch    = ENSEMLE_TEST_VCFS.out.truth_vcf
         ch_versions = ch_versions.mix(ENSEMLE_TEST_VCFS.out.versions)
+    }else{
+        // Prepare and normalize truth vcf provided
+        PREPARE_VCFS_TRUTH(
+            truth_ch,
+            regions_bed_ch,
+            fasta,
+            fai,
+            chain,
+            rename_chr,
+            dictionary
+        )
+        regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
+        ch_versions    = ch_versions.mix(PREPARE_VCFS_TRUTH.out.versions)
     }
 
     // VCF REPORTS AND STATS
@@ -259,7 +265,7 @@ workflow VARIANTBENCHMARKING {
     }
 
     // Prepare benchmark channel
-    PREPARE_VCFS_TEST.out.vcf_ch.combine(PREPARE_VCFS_TRUTH.out.vcf_ch)
+    PREPARE_VCFS_TEST.out.vcf_ch.combine(truth_ch)
         .combine(regions_bed_ch.ifEmpty([[]]))
         .combine(targets_bed_ch.ifEmpty([[]]))
         .map{ test_meta, test_vcf, test_tbi, _truth_meta, truth_vcf, truth_tbi, regions_bed, targets_bed  ->

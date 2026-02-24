@@ -10,12 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RTGtools update to 3.13 [#261](https://github.com/nf-core/variantbenchmarking/issues/261)
 - Transforming local modules with bcftools and tabix to standard nf-core modules [#267](https://github.com/nf-core/variantbenchmarking/pull/267)
 - Replace local modules SORT_BED and REFORMAT_HEADER with nf-core ones. [#268](https://github.com/nf-core/variantbenchmarking/pull/268)
+- Introducing a new subworkflow to generate truth vcf with ensembl approach. Test VCFs are being merged and accroding to ensembl_truth rule (the minimum number of samples to keep) the merged VCFs filters out. This apporach is especially important and needed for somatic benchmarks where truth is often missing. 
 
 ### `Fixed`
 
 - increasing font sizes, making labelling optional and some fixes around plots. Tests are editted to observe optional plot arguments. [#270](https://github.com/nf-core/variantbenchmarking/pull/270)
 - Improving the pipeline towards strict syntax health & adding topic channels - 1 [#272](https://github.com/nf-core/variantbenchmarking/pull/272)
 - Fixing the bed file bug in concordance analysis [#260](https://github.com/nf-core/variantbenchmarking/pull/275)
+- Missing --sample for meta.id is fixed in BCFTOOLS_REHEADER
 
 ### `Dependencies`
 

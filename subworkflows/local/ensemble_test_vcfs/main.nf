@@ -4,11 +4,13 @@
 //
 
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_SMALL } from '../../../modules/nf-core/tabix/bgziptabix'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_GT    } from '../../../modules/nf-core/tabix/bgziptabix'
 include { BCFTOOLS_MERGE as BCFTOOLS_ENSEMBLE } from '../../../modules/nf-core/bcftools/merge'
 include { SURVIVOR_MERGE as SURVIVOR_ENSEMBLE } from '../../../modules/nf-core/survivor/merge'
 include { BCFTOOLS_VIEW as FILTER_MAJORITY    } from '../../../modules/nf-core/bcftools/view'
 include { GAWK as REFORMAT_TRUTH              } from '../../../modules/nf-core/gawk'
 include { GAWK as REFORMAT_TRUTH_SV           } from '../../../modules/nf-core/gawk'
+include { GAWK as INJECT_MISSING_GT           } from '../../../modules/nf-core/gawk'
 include { BCFTOOLS_SORT as BCFTOOLS_SORT_SV   } from '../../../modules/nf-core/bcftools/sort'
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP    } from '../../../modules/nf-core/tabix/bgzip'
 
@@ -22,8 +24,28 @@ workflow ENSEMLE_TEST_VCFS {
     versions    = channel.empty()
     merged_vcfs = channel.empty()
 
+    test_vcfs.branch { meta, vcf, index ->
+        missing_gt: meta.caller == "strelka" || meta.caller == "manta" && params.analysis == "somatic"
+        other:   true
+    }.set { branched_vcfs }
+
+    // Run the injection process ONLY on  strelka
+    INJECT_MISSING_GT(
+        branched_vcfs.missing_gt.map { meta, vcf, index -> tuple(meta, vcf) },
+        [],
+        false      
+    )
+
+    TABIX_BGZIPTABIX_GT(
+        INJECT_MISSING_GT.out.output
+    )
+
+    ch_ready_for_merge = branched_vcfs.other.mix(
+        TABIX_BGZIPTABIX_GT.out.gz_index
+    )
+
     // drop meta information from vcf test samples
-    ch_test_vcfs = test_vcfs.map { meta, vcf, index ->
+    ch_test_vcfs = ch_ready_for_merge.map { meta, vcf, index ->
         [ [id: 'truth'], vcf, index ]
     }
 
@@ -71,17 +93,13 @@ workflow ENSEMLE_TEST_VCFS {
             .set{vcf_ch}
 
         // Dynamically calculate the minimum callers based on the number of files
-        ch_min_callers = vcf_ch.map { meta, vcfs -> 
-            def threshold = params.ensemble_truth as Float
-            Math.floor(vcfs.size() * threshold).toInteger()
-        }
 
         // Merge Benchmark SVs from different tools
         SURVIVOR_ENSEMBLE(
             vcf_ch,
             10000,
             1,
-            ch_min_callers,
+            params.ensemble_truth ,
             0,
             0,
             params.min_sv_size

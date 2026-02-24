@@ -52,7 +52,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
         // SV part
         // unzip vcfs
         TABIX_BGZIP_UNZIP(
-            evaluations
+            evaluations.map { item -> tuple(item[0], item[1]) }
         )
         versions = versions.mix(TABIX_BGZIP_UNZIP.out.versions.first())
 

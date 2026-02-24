@@ -3,7 +3,6 @@
 //
 
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE     } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_SORT         } from '../../../modules/nf-core/bcftools/sort'
 include { BCFTOOLS_PLUGINSETGT  } from '../../../modules/nf-core/bcftools/pluginsetgt/main'
 
@@ -41,17 +40,7 @@ workflow SUBSAMPLE_VCF_TEST {
         []  // targets
     )
 
-    ch_for_filtering = BCFTOOLS_PLUGINSETGT.out.vcf.mix(ch_branched_vcf.ok)
-
-    // filters out ./. genotypes (remaining from multisample vcf)
-    BCFTOOLS_VIEW_FILTERMISSING(
-        ch_for_filtering.map{ meta, vcf -> tuple(meta, vcf, []) },
-        [],
-        [],
-        []
-
-    )
-    vcf_ch   = BCFTOOLS_VIEW_FILTERMISSING.out.vcf
+    vcf_ch = BCFTOOLS_PLUGINSETGT.out.vcf.mix(ch_branched_vcf.ok)
 
     emit:
     vcf_ch      // channel: [val(meta), vcf]

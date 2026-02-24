@@ -27,27 +27,44 @@
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
-<p align="center">
-    <img title="variantbenchmarking metro map" src="docs/images/variantbenchmarking_metromap.png" width=100%>
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/variantbenchmarking.svg">
+  <img alt="nf-core/variantbenchmarking metro map" src="docs/images/variantbenchmarking.svg">
+</picture>
 
 The workflow involves several key processes to ensure reliable and reproducible results as follows:
 
-### Standardization and normalization of variants:
+### Standardization and normalization of test (query/comparison) variants:
 
 This initial step ensures consistent formatting and alignment of variants in test and truth VCF files for accurate comparison.
 
-- Subsample if input test vcf is multisample ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+- Subsample if input vcf is multisample ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
 - Homogenization of multi-allelic variants, MNPs and SVs (including imprecise paired breakends and single breakends) ([variant-extractor](https://github.com/EUCANCan/variant-extractor))
-- Reformatting test VCF files from different SV callers ([svync](https://github.com/nvnieuwk/svync))
+- Reformatting VCF files from different SV callers ([svync](https://github.com/nvnieuwk/svync))
 - Standardize SV variants to BND ([SVTK standardize](https://github.com/broadinstitute/gatk-sv/blob/main/src/svtk/scripts/svtk))
 - Decompose SVs to BND [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf)
-- Rename sample names in test and truth VCF files ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
-- Splitting multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-- Deduplication of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-- Left aligning of variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-- Use prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
+- Rename sample names ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
+- Splitting multi-allelic variants([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- Deduplication of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- Left aligning of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- Use prepy in order to normalize. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
 - Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
+
+### Standardization and normalization of truth (baseline) variants:
+
+- Decompose SVs to BND [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf)
+- Rename sample names ([bcftools reheader](https://samtools.github.io/bcftools/bcftools.html#reheader))
+- Splitting multi-allelic variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- Deduplication of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+- Left aligning of variants([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+
+### Ensemble (majority rule) approcah to prepare truth variants:
+
+In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers. If $--ensemble_thruth$ > 0:
+
+- Merge small (SNVs and INDELs) using ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
+- Merge Structual Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- Filtering the variants according to $--ensemble_thruth$.
 
 ### Filtering options:
 
@@ -80,7 +97,7 @@ Available methods for germline and somatic _structural variant (SV)_ benchmarkin
 
 - Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 - SVanalyzer ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
-- Rtgtools (only for BND) ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
+- RTGtools (only for BND) ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
 
 > [!NOTE]
 > Please note that there is no somatic specific tool for SV benchmarking in this pipeline.
@@ -201,6 +218,7 @@ We thank the following people for their extensive assistance in the development 
 
 - Nicolas Vannieuwkerke ([@nvnienwk](https://github.com/nvnieuwk))
 - Maxime Garcia ([@maxulysse](https://github.com/maxulysse))
+- Georgia Kesisoglu ([@georgiakes](https://github.com/georgiakes))
 - Sameesh Kher ([@khersameesh24](https://github.com/khersameesh24))
 - Florian Heyl ([@heylf](https://github.com/heyl))
 - Krešimir Beštak ([@kbestak](https://github.com/kbestak))

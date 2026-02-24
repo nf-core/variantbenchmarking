@@ -101,12 +101,11 @@
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ensemble_truth": {
-                    "type": "number",
+                    "type": "integer",
                     "description": "Ensemble truth using input VCF files following the majority rule spesifed. This method should be used only if truth file is not available",
-                    "errorMessage": "Specify majority rule, following percentages: min 0.5 -  max 1",
+                    "errorMessage": "Specify majority rule, select the minimum number of samples to ensemble",
                     "fa_icon": "fas fa-folder-open",
-                    "minimum": 0.5,
-                    "maximum": 1.0
+                    "minimum": 1
                 },
                 "preprocess": {
                     "type": "string",
