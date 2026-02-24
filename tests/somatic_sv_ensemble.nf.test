@@ -5,7 +5,7 @@ nextflow_pipeline {
     tag "pipeline"
     tag "somatic"
     tag "structural"
-    config "../conf/tests/somatic_sv_ensembl.config"
+    config "../conf/tests/somatic_sv_ensemble.config"
 
     test("Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari' --ensemble_truth 2") {
 

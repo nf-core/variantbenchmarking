@@ -5,7 +5,7 @@ nextflow_pipeline {
     tag "somatic"
     tag "pipeline"
     tag "snv"
-    config "../conf/tests/somatic_snv_ensembl.config"
+    config "../conf/tests/somatic_snv_ensemble.config"
 
     test("Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy' --ensemble_truth 2") {
 

@@ -48,6 +48,9 @@
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_VIEW_QUERY": {
                     "bcftools": 1.22
                 },
@@ -75,9 +78,6 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
-                },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
                 },
@@ -103,8 +103,8 @@
                 "small",
                 "small/HG002",
                 "small/HG002/preprocess",
-                "small/HG002/preprocess/HG002.vcf.gz",
-                "small/HG002/preprocess/HG002.vcf.gz.tbi",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -215,8 +215,8 @@
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test6/preprocess",
-                "small/test6/preprocess/test6.vcf.gz",
-                "small/test6/preprocess/test6.vcf.gz.tbi",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test6/stats",
                 "small/test6/stats/bcftools",
                 "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
@@ -249,8 +249,8 @@
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test7/preprocess",
-                "small/test7/preprocess/test7.vcf.gz",
-                "small/test7/preprocess/test7.vcf.gz.tbi",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test7/stats",
                 "small/test7/stats/bcftools",
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
@@ -284,7 +284,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T11:44:12.581257788"
+        "timestamp": "2026-02-24T15:59:30.728291022"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -335,6 +335,9 @@
                 "BCFTOOLS_STATS": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_VIEW_QUERY": {
                     "bcftools": 1.22
                 },
@@ -361,9 +364,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
@@ -411,8 +411,8 @@
                 "small",
                 "small/HG002",
                 "small/HG002/preprocess",
-                "small/HG002/preprocess/HG002.vcf.gz",
-                "small/HG002/preprocess/HG002.vcf.gz.tbi",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -622,8 +622,8 @@
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test6/preprocess",
-                "small/test6/preprocess/test6.vcf.gz",
-                "small/test6/preprocess/test6.vcf.gz.tbi",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test6/stats",
                 "small/test6/stats/bcftools",
                 "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
@@ -656,8 +656,8 @@
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test7/preprocess",
-                "small/test7/preprocess/test7.vcf.gz",
-                "small/test7/preprocess/test7.vcf.gz.tbi",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test7/stats",
                 "small/test7/stats/bcftools",
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
@@ -679,17 +679,17 @@
                 "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
-                "HG002.bcftools_stats.txt:md5,53aeae330b848d21485037c7e968cfd9",
-                "bcftools-stats-subtypes.txt:md5,965f411af59054fab11733b7ff86a8e6",
+                "HG002.bcftools_stats.txt:md5,8751de64885b806474883f0f1eecb1c9",
+                "bcftools-stats-subtypes.txt:md5,0c3c9f37764bb1e3f0cd6be949ae74d5",
                 "bcftools_stats_indel-lengths.txt:md5,8c7a2983b3fe7772f8c9d8f72757047e",
-                "bcftools_stats_variant_depths.txt:md5,638d6fe45cec24e52b6eb1471a4344cf",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,6a3bb786304a8f771e6b644bb4098842",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,64e96ac1b20f1c1800c46b008619c8c7",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,202a84803a2d68ff8b099dcd480d97e8",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,09076bfe13a14524442df3b3d504b50c",
+                "bcftools_stats_variant_depths.txt:md5,c9509c46d5d114e6c4b8d510ac10414b",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,61a3e5696679369856bea204c9c4003d",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,36101777a58c30d86bfb3d8bc86b71a3",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,21b0181b6ba7ee2463a8e5509756281d",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,952d77917830b4fc92b9af888b804aed",
                 "happy_indel_plot.txt:md5,c172a9a6c47719a3de8eef92f01d3063",
                 "happy_snp_plot.txt:md5,ffb95929d2cc0acb352103680ae75291",
-                "multiqc_bcftools_stats.txt:md5,5657aab7df35255ebf1e623bc1161d7b",
+                "multiqc_bcftools_stats.txt:md5,d6908affe4a63624cdef969bf08f431c",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,ee3a241e3a6f134d5488a848a8cfed93",
                 "test6.HG002.strelka.extended.csv:md5,1d7e794eec466dcc9b26259ad5d977c0",
@@ -701,7 +701,7 @@
                 "test6.HG002.strelka.summary.csv:md5,b422654175083bcdf17ba7c377925450",
                 "test6.HG002.strelka.phasing.txt:md5,2cb3c919b1aacee7193543a21f538f8d",
                 "test6.HG002.strelka.summary.txt:md5,0ec44b030ffb77a2883894e2976bfa42",
-                "test6.strelka.bcftools_stats.txt:md5,3cd7a59f198fa5786528f1875ffb9e29",
+                "test6.strelka.bcftools_stats.txt:md5,05d4cd5191bc0ec87506816b171a7ae2",
                 "test7.HG002.bcftools.extended.csv:md5,5b48d6c9dfd67813dfab3bf1cdab85a7",
                 "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,c1e554f0df835826d1e5df2799b0ad85",
                 "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,f2630ffc050976945585e7be4e22f09b",
@@ -711,13 +711,13 @@
                 "test7.HG002.bcftools.summary.csv:md5,773e1bbed3b7dd893d64271fc43aa43e",
                 "test7.HG002.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test7.HG002.bcftools.summary.txt:md5,24907ee063ded5bbc39cd0d2ab102684",
-                "test7.bcftools.bcftools_stats.txt:md5,c6e015938fd48f53a675867fe65084b3"
+                "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T11:38:01.058796585"
+        "timestamp": "2026-02-24T15:55:54.419092093"
     }
 }

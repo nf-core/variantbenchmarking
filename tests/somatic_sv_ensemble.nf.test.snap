@@ -1,7 +1,7 @@
 {
-    "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
+    "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari' --ensemble_truth 2": {
         "content": [
-            61,
+            65,
             {
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
@@ -21,7 +21,7 @@
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.22
                 },
-                "BCFTOOLS_REHEADER_TRUTH": {
+                "BCFTOOLS_SORT_SV": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
@@ -47,6 +47,9 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
+                },
+                "SURVIVOR_ENSEMBLE": {
+                    "survivor": "1.0.7"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -77,15 +80,6 @@
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "structural",
-                "structural/SEQC2",
-                "structural/SEQC2/preprocess",
-                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz",
-                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz.tbi",
-                "structural/SEQC2/stats",
-                "structural/SEQC2/stats/bcftools",
-                "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
-                "structural/SEQC2/stats/survivor",
-                "structural/SEQC2/stats/survivor/SEQC2_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
                 "structural/multiqc/multiqc_data/llms-full.txt",
@@ -199,15 +193,15 @@
                 "structural/test11",
                 "structural/test11/benchmarks",
                 "structural/test11/benchmarks/truvari",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.fn.vcf.gz",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.fn.vcf.gz.tbi",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.fp.vcf.gz",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.fp.vcf.gz.tbi",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.summary.json",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-base.vcf.gz",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-base.vcf.gz.tbi",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz",
-                "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz.tbi",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.fn.vcf.gz",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.fn.vcf.gz.tbi",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.fp.vcf.gz",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.fp.vcf.gz.tbi",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.summary.json",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.tp-base.vcf.gz",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.tp-base.vcf.gz.tbi",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.tp-comp.vcf.gz",
+                "structural/test11/benchmarks/truvari/test11.truth.manta.tp-comp.vcf.gz.tbi",
                 "structural/test11/preprocess",
                 "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
                 "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
@@ -219,15 +213,15 @@
                 "structural/test12",
                 "structural/test12/benchmarks",
                 "structural/test12/benchmarks/truvari",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.fn.vcf.gz",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.fn.vcf.gz.tbi",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.fp.vcf.gz",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.fp.vcf.gz.tbi",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.summary.json",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-base.vcf.gz",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-base.vcf.gz.tbi",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz",
-                "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.fn.vcf.gz",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.fn.vcf.gz.tbi",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.fp.vcf.gz",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.fp.vcf.gz.tbi",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.summary.json",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.tp-base.vcf.gz",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.tp-base.vcf.gz.tbi",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.tp-comp.vcf.gz",
+                "structural/test12/benchmarks/truvari/test12.truth.tiddit.tp-comp.vcf.gz.tbi",
                 "structural/test12/preprocess",
                 "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
                 "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
@@ -235,25 +229,34 @@
                 "structural/test12/stats/bcftools",
                 "structural/test12/stats/bcftools/test12.tiddit.bcftools_stats.txt",
                 "structural/test12/stats/survivor",
-                "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
+                "structural/test12/stats/survivor/test12.tiddit_mqc.stats",
+                "structural/truth",
+                "structural/truth/preprocess",
+                "structural/truth/preprocess/truth.ensemble.reformatted.sort.vcf.gz",
+                "structural/truth/preprocess/truth.ensemble.reformatted.sort.vcf.gz.tbi",
+                "structural/truth/stats",
+                "structural/truth/stats/bcftools",
+                "structural/truth/stats/bcftools/truth.bcftools_stats.txt",
+                "structural/truth/stats/survivor",
+                "structural/truth/stats/survivor/truth_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
-                "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
+                "multiqc_bcftools_stats.txt:md5,6ceccab13a0d656642e8aea2a0d7e889",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
-                "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
-                "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
+                "multiqc_survivor.txt:md5,b5786d324c7ef28813099e0fe5855bd1",
+                "multiqc_variant_calling_summary.txt:md5,f03e47ccd7ece57697f09f9e42629cab",
                 "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
                 "test12.tiddit.bcftools_stats.txt:md5,d40e3c575e4f7ebb3883e9ebd16f49bb",
-                "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
+                "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8",
+                "truth.bcftools_stats.txt:md5,d22cdded8dbd9e86b862b8d456074aad",
+                "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-24T16:30:14.923359556"
+        "timestamp": "2026-02-24T17:28:36.484197354"
     }
 }

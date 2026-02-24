@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'": {
         "content": [
-            103,
+            100,
             {
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.22
@@ -66,9 +66,6 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
-                },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
                 },
@@ -92,8 +89,8 @@
                 "indel",
                 "indel/SEQC2",
                 "indel/SEQC2/preprocess",
-                "indel/SEQC2/preprocess/SEQC2.vcf.gz",
-                "indel/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
+                "indel/SEQC2/preprocess/high-confidence_sINDEL_in_HC_regions_v1.2_gt.reheader.norm.filtermissing.vcf.gz",
+                "indel/SEQC2/preprocess/high-confidence_sINDEL_in_HC_regions_v1.2_gt.reheader.norm.filtermissing.vcf.gz.tbi",
                 "indel/SEQC2/stats",
                 "indel/SEQC2/stats/bcftools",
                 "indel/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -252,8 +249,8 @@
                 "indel/test10/benchmarks/sompy/test10.SEQC2.strelka.metrics.json",
                 "indel/test10/benchmarks/sompy/test10.SEQC2.strelka.stats.csv",
                 "indel/test10/preprocess",
-                "indel/test10/preprocess/test10.vcf.gz",
-                "indel/test10/preprocess/test10.vcf.gz.tbi",
+                "indel/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_indels.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "indel/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_indels.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
                 "indel/test10/stats",
                 "indel/test10/stats/bcftools",
                 "indel/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
@@ -278,8 +275,8 @@
                 "indel/test8/benchmarks/sompy/test8.SEQC2.freebayes.metrics.json",
                 "indel/test8/benchmarks/sompy/test8.SEQC2.freebayes.stats.csv",
                 "indel/test8/preprocess",
-                "indel/test8/preprocess/test8.vcf.gz",
-                "indel/test8/preprocess/test8.vcf.gz.tbi",
+                "indel/test8/preprocess/HCC1395T_vs_HCC1395N.freebayes.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "indel/test8/preprocess/HCC1395T_vs_HCC1395N.freebayes.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
                 "indel/test8/stats",
                 "indel/test8/stats/bcftools",
                 "indel/test8/stats/bcftools/test8.freebayes.bcftools_stats.txt",
@@ -304,8 +301,8 @@
                 "indel/test9/benchmarks/sompy/test9.SEQC2.mutect2.metrics.json",
                 "indel/test9/benchmarks/sompy/test9.SEQC2.mutect2.stats.csv",
                 "indel/test9/preprocess",
-                "indel/test9/preprocess/test9.vcf.gz",
-                "indel/test9/preprocess/test9.vcf.gz.tbi",
+                "indel/test9/preprocess/HCC1395T_vs_HCC1395N.mutect2.filtered.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "indel/test9/preprocess/HCC1395T_vs_HCC1395N.mutect2.filtered.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
                 "indel/test9/stats",
                 "indel/test9/stats/bcftools",
                 "indel/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt",
@@ -337,25 +334,25 @@
                 "references/rtgtools/genome.sdf/summary.txt"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,6233b3cf1d8d57c57dc3a99ae852e9c7",
-                "multiqc_bcftools_stats.txt:md5,cd7a8ec6dc0a0e279b61fdc168a586b7",
+                "SEQC2.bcftools_stats.txt:md5,47f7b5da20bbab097d28fc71b898b143",
+                "multiqc_bcftools_stats.txt:md5,65a5d8d34b665311607d2d3a1a1cb517",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_sompy_combined_data.txt:md5,50bdc40c4fe6c05852cf10c814231fcc",
-                "multiqc_sompy_indel_data.txt:md5,0bc73ef9c1674f92cfbe2ce31e81d656",
-                "multiqc_sompy_snv_data.txt:md5,d366ea07c595ab01fb09b08bc150df2c",
-                "multiqc_variant_calling_summary.txt:md5,405ad19cc6cdac86594eba1a4ffbf3d3",
-                "sompy_combined_plot.txt:md5,9950bb4dcb57750c492a78b22766ce8e",
-                "sompy_indel_plot.txt:md5,1d289c4a407de7ec6936e1a49f1fd6ef",
+                "multiqc_sompy_combined_data.txt:md5,6517a75e96910ade14e8a9ef587dc23c",
+                "multiqc_sompy_indel_data.txt:md5,06f5ac2b8d7392b9aedbf4be52bb1f8b",
+                "multiqc_sompy_snv_data.txt:md5,8345743ed0247d8f329548dedf36929e",
+                "multiqc_variant_calling_summary.txt:md5,c303501030f6adea87e0a1ea99b2cbe7",
+                "sompy_combined_plot.txt:md5,aeb950aa8f723d1c32ee68ce5842a889",
+                "sompy_indel_plot.txt:md5,585a4cf684e12d25ec72bbd25d4df769",
                 "sompy_snv_plot.txt:md5,370db91dd8d8ec6b98a0c20e969e29ee",
                 "test10.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test10.SEQC2.strelka.summary.txt:md5,444ebec598780a630f12cc48953c077f",
-                "test10.strelka.bcftools_stats.txt:md5,01975542a2be6eba22e4576239cacd97",
+                "test10.strelka.bcftools_stats.txt:md5,b64e7ad94c4e0cb8607ecb83356a14f1",
                 "test8.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test8.SEQC2.freebayes.summary.txt:md5,98291a704b23bc72494df77ee647d015",
-                "test8.freebayes.bcftools_stats.txt:md5,ed56d133cdf7b50d035fd429c8bfc1fc",
+                "test8.freebayes.bcftools_stats.txt:md5,cabd582340677dbbfd4e6002feffc390",
                 "test9.SEQC2.mutect2.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test9.SEQC2.mutect2.summary.txt:md5,0c3107b6083a60f4ee57fe97e9297a9c",
-                "test9.mutect2.bcftools_stats.txt:md5,bcbfc1888055147ec782ea7187e1a9dd",
+                "test9.mutect2.bcftools_stats.txt:md5,88dc79172f15baa6f24e197f14cf09cb",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -378,6 +375,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T12:21:17.225090322"
+        "timestamp": "2026-02-24T16:19:46.809952518"
     }
 }
