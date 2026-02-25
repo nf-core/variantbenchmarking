@@ -2,97 +2,131 @@
 %%metro style: dark
 %%metro nodeSpacing: 2000
 %%metro rankSpacing: 1500
+%%metro legend: bl
+%%metro compact_offsets: true
+%%metro file: ref_genome_file | FASTA
+%%metro file: truth_vcf_file | VCF
+%%metro file: regions_bed_file | BED
+%%metro file: targets_bed_file | BED
+%%metro file: samplesheet_file | TSV
+%%metro file: snv_stats_out | TSV
+%%metro file: sv_stats_out | TSV
+%%metro file: html_out | HTML
+%%metro file: multiqc_out | YML
+%%metro file: plots_out | PNG
+%%metro file: merged_csv | CSV
+%%metro file: bench_sum | TXT
+
 
 %% Define Metro Lines
-%%metro line: truth_preproc | Truth Preprocessing | #4CAF50
-%%metro line: test_preproc | Test Preprocessing | #ff9800
-%%metro line: sv_cnv_benchmarking | SV/CNV Benchmarking | #F44336
-%%metro line: snv_indel_benchmarking | SNV/INDEL Benchmarking | #f321cd
+%%metro line: truth | Truth Preprocessing | #4CAF50
+%%metro line: test| Test Preprocessing | #ff9800
+%%metro line: sv_cnv | SV/CNV Benchmarking | #F44336
+%%metro line: snv_indel | SNV/INDEL Benchmarking | #f321cd
 %%metro line: concordance | Concordance Analysis| #da630e
 %%metro line: intersection | Intersection Analysis | #da930e
-%%metro line: output_proc | Output Processing | #03A9F4
+%%metro line: output | Output Processing | #03A9F4
 
-%% Overall graph direction to Top-to-Bottom
-graph TB
+graph LR
 
-    %% =========================================
-    %% 1. INPUTS SUBGRAPH
-    %% =========================================
     subgraph SG1_Inputs [Inputs]
         %%metro direction: LR
-        InputsHub((INPUTS))
+        ref_genome_file[ ]
         ref_genome[Reference Genome]
+        truth_vcf_file[ ]
         truth_vcf[Truth VCF]
+        regions_bed_file[ ]
         regions_bed[Regions BED]
+        targets_bed_file[ ]
         targets_bed[Targets BED]
-        samplesheet[Samplesheet (Test VCFs)]
+        samplesheet_file[ ]
+        samplesheet[Samplesheet]
+        _inputs_hub[hidden]
 
-        %% Internal connections
-        ref_genome -->|truth_preproc| InputsHub
-        truth_vcf -->|truth_preproc| InputsHub
-        regions_bed -->|truth_preproc| InputsHub
-        targets_bed -->|truth_preproc| InputsHub
-        samplesheet -->|test_preproc| InputsHub
+        ref_genome_file -->|truth| ref_genome
+        truth_vcf_file -->|truth| truth_vcf
+        regions_bed_file -->|truth| regions_bed
+        targets_bed_file -->|truth| targets_bed
+        samplesheet_file -->|test| samplesheet
+        ref_genome -->|truth| _inputs_hub
+        truth_vcf -->|truth| _inputs_hub
+        regions_bed -->|truth| _inputs_hub
+        targets_bed -->|truth| _inputs_hub
+        samplesheet -->|test| _inputs_hub
     end
 
-
-    %% =========================================
-    %% 2. PREPROCESSING SUBGRAPH (Merged)
-    %% =========================================
     subgraph SG2_Preproc [Preprocessing (Optional)]
         %%metro direction: LR
-        %% --- Shared Start Nodes & Connections ---
+        %%metro entry: left | truth, test
+        %%metro exit: right | truth, test
         Liftover((Liftover (picard, UCSC)))
         Subsample (bcftools view)
-        Subsample -->|test_preproc| Liftover
+        Subsample -->|test,truth| Liftover
     end
 
-    %% --- Test Nodes & Connections (Orange) ---
-    subgraph SG23_SVprocess [Variant Normalization (Optional)]
-        SVDecompose((SV Processing))
+    subgraph SG23_SVprocess [SV Processing (Optional)]
+        %%metro entry: left | test
+        %%metro exit: right | test
+        %%metro exit: bottom | truth
+        SVProcess((SV Processing))
+        Liftover -->|test| SVProcess
+    end
+
+    subgraph SG23_Norm [Variant Normalization (Optional)]
+        %%metro entry: left | test
+        %%metro exit: right | test
+        %%metro exit: bottom | truth
         Norm((Variant Normalization))
-        SVDecompose -->|test_preproc| Norm
+        SVProcess -->|test| Norm
+        Liftover -->|truth| Norm
     end
 
-    %% --- Nested Filters Subgraph ---
     subgraph SG2e_Filter [Variant Filtering (Optional)]
+        %%metro entry: left | truth, test
+        %%metro exit: right | truth, test
         Filterbcftools((bcftools filter))
         SURVIVORFilter(SURVIVOR filter)
         FilterContigs((filter contigs))
-        Norm -->|test_preproc| FilterContigs
-        FilterContigs -->|test_preproc| Filterbcftools
-        FilterContigs -->|test_preproc| SURVIVORFilter
-    end
+        _h1[hidden]
+        Norm -->|test| FilterContigs
+        FilterContigs -->|test| Filterbcftools
+        FilterContigs -->|test| SURVIVORFilter
+        Norm -->|truth,test| _h1
 
-    %% --- Nested Stats Subgraph ---
+    end
+    _h2[hidden2]
+    _h1 -->|truth,test| _h2
+
     subgraph SG2e_Stats [Variant Statistics]
+        %%metro entry: left | truth, test
+        %%metro exit: right | truth, test
         VariantStats1((SNV stats))
         VariantStats2((SV stats))
         bcftoolsStats((bcftools stats))
         SURVIVORStats((SURVIVOR stats))
-        bcftoolsStats -->|output_proc| VariantStats1
-        SURVIVORStats -->|output_proc| VariantStats2
+        snv_stats_out[ ]
+        sv_stats_out[ ]
+        bcftoolsStats -->|test,truth| VariantStats1
+        SURVIVORStats -->|test,truth| VariantStats2
+        VariantStats1 -->|output| snv_stats_out
+        VariantStats2 -->|output| sv_stats_out
     end
 
-    %% --- Nested Ensemble Subgraph (Renamed) ---
     subgraph SG2d_Ensemble [Ensemble Truth (Optional - to generate a proxy truth)]
+        %%metro entry: left | test
+        %%metro exit: right | truth
+
         EnsembleMerge1((bcftools merge))
         EnsembleMerge2((SURVIVOR merge))
         Consensus((Consensus Filter))
         %% Internal connections
-        EnsembleMerge1 -->|test_preproc| Consensus
-        EnsembleMerge2 -->|test_preproc| Consensus
+        EnsembleMerge1 -->|test| Consensus
+        EnsembleMerge2 -->|test| Consensus
     end
 
-
-    %% =========================================
-    %% 6. BENCHMARKING SUBGRAPH (Renumbered)
-    %% =========================================
     subgraph SG3_Benchmarking [Benchmarking]
         %%metro direction: LR
         BenchHub((BENCHMARKING))
-
-        %% Tools
         Truvari((Truvari))
         RTGvcfeval((RTGtools vcfeval))
         SVanalyzer((SVanalyzer))
@@ -104,21 +138,17 @@ graph TB
         GATK4Conc((GATK4 Concordance))
 
         %% Hub to Tools connections
-        BenchHub -->|sv_cnv_benchmarking| Truvari
-        BenchHub -->|snv_indel_benchmarking| RTGvcfeval
-        BenchHub -->|sv_cnv_benchmarking| SVanalyzer
-        BenchHub -->|sv_cnv_benchmarking| RTGbndeval
-        BenchHub -->|snv_indel_benchmarking| happy
-        BenchHub -->|sv_cnv_benchmarking| Wittyer
-        BenchHub -->|snv_indel_benchmarking| sompy
+        BenchHub -->|sv_cnv| Truvari
+        BenchHub -->|snv_indel| RTGvcfeval
+        BenchHub -->|sv_cnv| SVanalyzer
+        BenchHub -->|sv_cnv| RTGbndeval
+        BenchHub -->|snv_indel| happy
+        BenchHub -->|sv_cnv| Wittyer
+        BenchHub -->|snv_indel| sompy
         BenchHub -->|intersection| Intersection
         BenchHub -->|concordance| GATK4Conc
     end
 
-
-    %% =========================================
-    %% 7. OUTPUT PROCESSING SUBGRAPH
-    %% =========================================
     subgraph SG4_Outputs [Output Processing]
         %%metro direction: LR
         ResultsHub((RESULTS))
@@ -131,59 +161,67 @@ graph TB
         BenchSummaries[Benchmarking Summaries]
         HTMLReport[HTML Report]
         MultiQC[MultiQC Report]
+        html_out[ ]
+        multiqc_out[ ]
+        plots_out[ ]
+        merged_csv[ ]
+        bench_sum[ ]
 
         %% Internal Processing connections
-        ResultsHub -->|output_proc| MergeRes
-        MergeRes -->|output_proc| VCF2CSV
-        ResultsHub -->|output_proc| SumStats
-        SumStats -->|output_proc| Plots
-        SumStats -->|output_proc| datavzrd
-        VCF2CSV -->|output_proc| Plots
+        ResultsHub -->|output| MergeRes
+        MergeRes -->|output| VCF2CSV
+        ResultsHub -->|output| SumStats
+        SumStats -->|output| Plots
+        SumStats -->|output| datavzrd
+        VCF2CSV -->|output| Plots
 
         %% Final Files connections
-        VCF2CSV -->|output_proc| MergedCSVs
-        ResultsHub -->|output_proc| BenchSummaries
-        datavzrd -->|output_proc| HTMLReport
-        SumStats -->|output_proc| MultiQC
-        BenchSummaries -->|output_proc| MultiQC
-        Plots -->|output_proc| MultiQC
+        VCF2CSV -->|output| MergedCSVs
+        MergedCSVs -->|output|merged_csv
+        ResultsHub -->|output| BenchSummaries
+        BenchSummaries -->|output|bench_sum
+        datavzrd -->|output| HTMLReport
+        HTMLReport -->|output|html_out
+        SumStats -->|output| MultiQC
+        BenchSummaries -->|output| MultiQC
+        Plots -->|output| MultiQC
+        Plots -->|output|plots_out
+        MultiQC -->|output|multiqc_out
+
     end
 
-
-    %% =========================================
-    %% CROSS-SUBGRAPH CONNECTIONS (Defined Last)
-    %% =========================================
-
     %% SG1 -> SG2
-    InputsHub -->|truth_preproc| Liftover
-    InputsHub -->|test_preproc| Liftover
-    InputsHub -->|test_preproc| Subsample
-    InputsHub -->|test_preproc| SVDecompose
-    InputsHub -->|truth_preproc,test_preproc| Norm
+    _inputs_hub -->|truth| Liftover
+    _inputs_hub -->|test| Liftover
+    _inputs_hub -->|test| Subsample
+    _inputs_hub -->|test| SVProcess
+    _inputs_hub -->|truth,test| Norm
 
-    %% SG2 Internal Crossings (between nodes and nested subgraphs)
-    Liftover -->|test_preproc| SVDecompose
-    Liftover -->|truth_preproc| Norm
+    %% SG2 Internal Crossings
+    Liftover -->|test| SVProcess
+    Liftover -->|truth| Norm
 
     %% Test to Ensemble & Stats
-    Filterbcftools -->|test_preproc| EnsembleMerge1
-    SURVIVORFilter -->|test_preproc| EnsembleMerge2
+    Filterbcftools -->|test| EnsembleMerge1
+    SURVIVORFilter -->|test| EnsembleMerge2
 
-    Filterbcftools -->|test_preproc| bcftoolsStats
-    SURVIVORFilter -->|test_preproc| SURVIVORStats
+    Filterbcftools -->|test| bcftoolsStats
+    SURVIVORFilter -->|test| SURVIVORStats
+    _h1 -->|truth| bcftoolsStats
+    _h1 -->|truth| SURVIVORStats
 
     %% SG2 -> SG3 (Connecting track ends to Shared Stats)
-    FilterContigs -->|test_preproc| BenchHub
-    Norm -->|truth_preproc| BenchHub
-    Consensus -->|truth_preproc| BenchHub
+    _h2 -->|test| BenchHub
+    _h2 -->|truth| BenchHub
+    Consensus -->|truth| BenchHub
 
     %% SG3 -> SG4 (Connecting tools to Results Hub)
-    Truvari -->|sv_cnv_benchmarking| ResultsHub
-    RTGvcfeval -->|snv_indel_benchmarking| ResultsHub
-    SVanalyzer -->|sv_cnv_benchmarking| ResultsHub
-    RTGbndeval -->|sv_cnv_benchmarking| ResultsHub
-    happy -->|snv_indel_benchmarking| ResultsHub
-    Wittyer -->|sv_cnv_benchmarking| ResultsHub
-    sompy -->|snv_indel_benchmarking| ResultsHub
+    Truvari -->|sv_cnv| ResultsHub
+    RTGvcfeval -->|snv_indel| ResultsHub
+    SVanalyzer -->|sv_cnv| ResultsHub
+    RTGbndeval -->|sv_cnv| ResultsHub
+    happy -->|snv_indel| ResultsHub
+    Wittyer -->|sv_cnv| ResultsHub
+    sompy -->|snv_indel| ResultsHub
     Intersection -->|intersection| ResultsHub
     GATK4Conc -->|concordance| ResultsHub
