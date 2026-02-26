@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RTGtools update to 3.13 [#261](https://github.com/nf-core/variantbenchmarking/issues/261)
 - Transforming local modules with bcftools and tabix to standard nf-core modules [#267](https://github.com/nf-core/variantbenchmarking/pull/267)
 - Replace local modules SORT_BED and REFORMAT_HEADER with nf-core ones. [#268](https://github.com/nf-core/variantbenchmarking/pull/268)
-- Introducing a new subworkflow to generate truth vcf with ensembl approach. Test VCFs are being merged and accroding to ensembl_truth rule (the minimum number of samples to keep) the merged VCFs filters out. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
+- Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 
 ### `Fixed`
 
