@@ -1,9 +1,8 @@
 %%metro title: nf-core/variantbenchmarking Pipeline
 %%metro style: dark
-%%metro nodeSpacing: 2000
-%%metro rankSpacing: 1500
+%%metro nodeSpacing: 200
+%%metro rankSpacing: 150
 %%metro legend: bl
-%%metro compact_offsets: true
 %%metro file: ref_genome_file | FASTA
 %%metro file: truth_vcf_file | VCF
 %%metro file: regions_bed_file | BED
@@ -126,6 +125,8 @@ graph LR
 
     subgraph SG3_Benchmarking [Benchmarking]
         %%metro direction: LR
+        %%metro entry: bottom | test,truth
+        %%metro exit: right | sv_cnv,snv_indel
         BenchHub((BENCHMARKING))
         Truvari((Truvari))
         RTGvcfeval((RTGtools vcfeval))
@@ -194,12 +195,10 @@ graph LR
     _inputs_hub -->|truth| Liftover
     _inputs_hub -->|test| Liftover
     _inputs_hub -->|test| Subsample
-    _inputs_hub -->|test| SVProcess
-    _inputs_hub -->|truth,test| Norm
 
     %% SG2 Internal Crossings
     Liftover -->|test| SVProcess
-    Liftover -->|truth| Norm
+    Liftover -->|truth,test| Norm
 
     %% Test to Ensemble & Stats
     Filterbcftools -->|test| EnsembleMerge1
