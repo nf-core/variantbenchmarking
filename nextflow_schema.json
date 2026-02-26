@@ -102,7 +102,7 @@
                 },
                 "ensemble_truth": {
                     "type": "integer",
-                    "description": "Ensemble truth using input VCF files following the majority rule spesifed. This method should be used only if truth file is not available",
+                    "description": "Ensemble truth using input VCF files following the majority rule specified. This method should be used only if truth file is not available",
                     "errorMessage": "Specify majority rule, select the minimum number of samples to ensemble",
                     "fa_icon": "fas fa-folder-open",
                     "minimum": 1
