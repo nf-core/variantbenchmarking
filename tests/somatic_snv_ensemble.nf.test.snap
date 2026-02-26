@@ -1,0 +1,271 @@
+{
+    "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy' --ensemble_truth 2": {
+        "content": [
+            50,
+            {
+                "BCFTOOLS_ENSEMBLE": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_FILTER": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_PLUGINSETGT": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_CONTIGS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_SUBSAMPLE": {
+                    "bcftools": 1.22
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.36.12"
+                },
+                "FILTER_MAJORITY": {
+                    "bcftools": 1.22
+                },
+                "HAPPY_SOMPY": {
+                    "hap.py": "0.3.14"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "MERGE_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "PLOTS": {
+                    "r-base": "4.3.1"
+                },
+                "PLOT_UPSET": {
+                    "python": "3.13.7"
+                },
+                "SPLIT_SOMPY_FEATURES": {
+                    "python": "3.13.0"
+                },
+                "TABIX_BGZIPTABIX_SMALL": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.5.0dev"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "snv",
+                "snv/multiqc",
+                "snv/multiqc/multiqc_data",
+                "snv/multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                "snv/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                "snv/multiqc/multiqc_data/llms-full.txt",
+                "snv/multiqc/multiqc_data/multiqc.log",
+                "snv/multiqc/multiqc_data/multiqc.parquet",
+                "snv/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                "snv/multiqc/multiqc_data/multiqc_citations.txt",
+                "snv/multiqc/multiqc_data/multiqc_data.json",
+                "snv/multiqc/multiqc_data/multiqc_general_stats.txt",
+                "snv/multiqc/multiqc_data/multiqc_software_versions.txt",
+                "snv/multiqc/multiqc_data/multiqc_sompy_combined_data.txt",
+                "snv/multiqc/multiqc_data/multiqc_sompy_indel_data.txt",
+                "snv/multiqc/multiqc_data/multiqc_sompy_snv_data.txt",
+                "snv/multiqc/multiqc_data/multiqc_sources.txt",
+                "snv/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
+                "snv/multiqc/multiqc_data/sompy_combined_plot.txt",
+                "snv/multiqc/multiqc_data/sompy_indel_plot.txt",
+                "snv/multiqc/multiqc_data/sompy_snv_plot.txt",
+                "snv/multiqc/multiqc_plots",
+                "snv/multiqc/multiqc_plots/pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                "snv/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                "snv/multiqc/multiqc_plots/pdf/sompy_combined_plot.pdf",
+                "snv/multiqc/multiqc_plots/pdf/sompy_indel_plot.pdf",
+                "snv/multiqc/multiqc_plots/pdf/sompy_snv_plot.pdf",
+                "snv/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
+                "snv/multiqc/multiqc_plots/png",
+                "snv/multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                "snv/multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                "snv/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                "snv/multiqc/multiqc_plots/png/sompy_combined_plot.png",
+                "snv/multiqc/multiqc_plots/png/sompy_indel_plot.png",
+                "snv/multiqc/multiqc_plots/png/sompy_snv_plot.png",
+                "snv/multiqc/multiqc_plots/png/variant_calling_summary.png",
+                "snv/multiqc/multiqc_plots/svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                "snv/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                "snv/multiqc/multiqc_plots/svg/sompy_combined_plot.svg",
+                "snv/multiqc/multiqc_plots/svg/sompy_indel_plot.svg",
+                "snv/multiqc/multiqc_plots/svg/sompy_snv_plot.svg",
+                "snv/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
+                "snv/multiqc/multiqc_report.html",
+                "snv/summary",
+                "snv/summary/comparisons",
+                "snv/summary/comparisons/sompy",
+                "snv/summary/comparisons/sompy/sompy.FN.csv",
+                "snv/summary/comparisons/sompy/sompy.FP.csv",
+                "snv/summary/comparisons/sompy/sompy.TP_comp.csv",
+                "snv/summary/datavzrd",
+                "snv/summary/datavzrd/sompy",
+                "snv/summary/datavzrd/sompy/index.html",
+                "snv/summary/datavzrd/sompy/static",
+                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
+                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
+                "snv/summary/datavzrd/sompy/static/bundle.js",
+                "snv/summary/datavzrd/sompy/static/datavzrd.css",
+                "snv/summary/datavzrd/sompy/test",
+                "snv/summary/datavzrd/sompy/test/config.js",
+                "snv/summary/datavzrd/sompy/test/data",
+                "snv/summary/datavzrd/sompy/test/data/data_1.js",
+                "snv/summary/datavzrd/sompy/test/functions.js",
+                "snv/summary/datavzrd/sompy/test/heatmap.js",
+                "snv/summary/datavzrd/sompy/test/index_1.html",
+                "snv/summary/datavzrd/sompy/test/plots",
+                "snv/summary/datavzrd/sompy/test/plots/plot_0.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_1.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_10.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_11.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_12.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_13.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_14.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_15.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_16.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_17.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_18.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_19.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_2.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_20.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_21.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_3.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_4.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_5.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_6.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_7.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_8.js",
+                "snv/summary/datavzrd/sompy/test/plots/plot_9.js",
+                "snv/summary/datavzrd/versions.yml",
+                "snv/summary/plots",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
+                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
+                "snv/summary/tables",
+                "snv/summary/tables/sompy",
+                "snv/summary/tables/sompy/sompy.regions.csv",
+                "snv/summary/tables/sompy/sompy.summary.csv",
+                "snv/test10",
+                "snv/test10/benchmarks",
+                "snv/test10/benchmarks/sompy",
+                "snv/test10/benchmarks/sompy/test10.truth.strelka.features.csv",
+                "snv/test10/benchmarks/sompy/test10.truth.strelka.metrics.json",
+                "snv/test10/benchmarks/sompy/test10.truth.strelka.stats.csv",
+                "snv/test10/preprocess",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test10/stats",
+                "snv/test10/stats/bcftools",
+                "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
+                "snv/test8",
+                "snv/test8/benchmarks",
+                "snv/test8/benchmarks/sompy",
+                "snv/test8/benchmarks/sompy/test8.truth.freebayes.features.csv",
+                "snv/test8/benchmarks/sompy/test8.truth.freebayes.metrics.json",
+                "snv/test8/benchmarks/sompy/test8.truth.freebayes.stats.csv",
+                "snv/test8/preprocess",
+                "snv/test8/preprocess/HCC1395T_vs_HCC1395N.freebayes.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "snv/test8/preprocess/HCC1395T_vs_HCC1395N.freebayes.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test8/stats",
+                "snv/test8/stats/bcftools",
+                "snv/test8/stats/bcftools/test8.freebayes.bcftools_stats.txt",
+                "snv/test9",
+                "snv/test9/benchmarks",
+                "snv/test9/benchmarks/sompy",
+                "snv/test9/benchmarks/sompy/test9.truth.mutect2.features.csv",
+                "snv/test9/benchmarks/sompy/test9.truth.mutect2.metrics.json",
+                "snv/test9/benchmarks/sompy/test9.truth.mutect2.stats.csv",
+                "snv/test9/preprocess",
+                "snv/test9/preprocess/HCC1395T_vs_HCC1395N.mutect2.filtered.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "snv/test9/preprocess/HCC1395T_vs_HCC1395N.mutect2.filtered.chr21.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test9/stats",
+                "snv/test9/stats/bcftools",
+                "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt",
+                "snv/truth",
+                "snv/truth/preprocess",
+                "snv/truth/preprocess/truth.majority.reformatted.vcf.gz",
+                "snv/truth/preprocess/truth.majority.reformatted.vcf.gz.tbi",
+                "snv/truth/stats",
+                "snv/truth/stats/bcftools",
+                "snv/truth/stats/bcftools/truth.bcftools_stats.txt"
+            ],
+            [
+                "bcftools-stats-subtypes.txt:md5,dea9af338baec5de338c3093f9fb6f55",
+                "bcftools_stats_indel-lengths.txt:md5,5ed1aea7184561b813a2ab6732ce0904",
+                "bcftools_stats_variant_depths.txt:md5,d73ebe5da52589c7aa6f7e0fd1166f04",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,bcc6e0e4236b96ff58fc6605de2feacd",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,f1140f9f9866e236c3b78a679b253c08",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,da222b97cff85c77549a0f19f3f186bf",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,cbe8392efc28b89df54c0f895399c294",
+                "multiqc_bcftools_stats.txt:md5,11c1ae6bb363bc31659c5f82bb17b611",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "multiqc_sompy_combined_data.txt:md5,12bf81aaef6b28796f8e3dec5c1bf5ba",
+                "multiqc_sompy_indel_data.txt:md5,60e13745c78d0bfe1eb99588c569e6ac",
+                "multiqc_sompy_snv_data.txt:md5,367f75aefee0b0ff271e543bf9494928",
+                "multiqc_variant_calling_summary.txt:md5,4ef69d737c9970256fb349374083ee4d",
+                "sompy_combined_plot.txt:md5,c11f58af0c019a5fa375ed684e834d41",
+                "sompy_indel_plot.txt:md5,0ea526ed408ee08021be0c0fd935477d",
+                "sompy_snv_plot.txt:md5,42596114cf6a2278da046148acc7f1ad",
+                "test10.strelka.bcftools_stats.txt:md5,2420ba4152014a1753685ee43c43232c",
+                "test8.freebayes.bcftools_stats.txt:md5,98e3627e2d15d7f31661bd56c021447e",
+                "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537",
+                "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2026-02-24T17:39:00.802845577"
+    }
+}

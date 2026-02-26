@@ -30,6 +30,9 @@
                 "BCFTOOLS_VIEW_CONTIGS": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.36.12"
                 },
@@ -44,9 +47,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -79,8 +79,8 @@
                 "structural",
                 "structural/SEQC2",
                 "structural/SEQC2/preprocess",
-                "structural/SEQC2/preprocess/SEQC2.vcf.gz",
-                "structural/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
+                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz",
+                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz.tbi",
                 "structural/SEQC2/stats",
                 "structural/SEQC2/stats/bcftools",
                 "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -209,8 +209,8 @@
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz",
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz.tbi",
                 "structural/test11/preprocess",
-                "structural/test11/preprocess/test11.vcf.gz",
-                "structural/test11/preprocess/test11.vcf.gz.tbi",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
                 "structural/test11/stats",
                 "structural/test11/stats/bcftools",
                 "structural/test11/stats/bcftools/test11.manta.bcftools_stats.txt",
@@ -229,8 +229,8 @@
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz",
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
                 "structural/test12/preprocess",
-                "structural/test12/preprocess/test12.vcf.gz",
-                "structural/test12/preprocess/test12.vcf.gz.tbi",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
                 "structural/test12/stats",
                 "structural/test12/stats/bcftools",
                 "structural/test12/stats/bcftools/test12.tiddit.bcftools_stats.txt",
@@ -238,15 +238,15 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,e0080c6ad6d7c906dd3ced860afb3b0f",
+                "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "multiqc_bcftools_stats.txt:md5,6a615f82eec14811470d4f0c336cf097",
+                "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
                 "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
-                "test11.manta.bcftools_stats.txt:md5,89f26d4fb48d825e5d249460873fbb6c",
+                "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
-                "test12.tiddit.bcftools_stats.txt:md5,392ee4348cb1dc7c68db8d25586b048f",
+                "test12.tiddit.bcftools_stats.txt:md5,d40e3c575e4f7ebb3883e9ebd16f49bb",
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
@@ -254,6 +254,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T12:42:13.888518486"
+        "timestamp": "2026-02-24T16:30:14.923359556"
     }
 }

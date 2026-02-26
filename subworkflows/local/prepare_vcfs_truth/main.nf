@@ -6,10 +6,10 @@
 include { VCF_VARIANT_DEDUPLICATION  } from '../../local/vcf_variant_deduplication'
 include { LIFTOVER_VCFS              } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM              } from '../../../modules/nf-core/bcftools/norm'
-include { PUBLISH_PROCESSED_VCF      } from '../../../modules/local/custom/publish_processed_vcf'
 include { RTGTOOLS_SVDECOMPOSE      } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'
 
 
 workflow PREPARE_VCFS_TRUTH {
@@ -95,10 +95,16 @@ workflow PREPARE_VCFS_TRUTH {
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
-    PUBLISH_PROCESSED_VCF(
-        vcf_ch
+    // filters out ./. or 0/0 or non-somatic genotypes
+    BCFTOOLS_VIEW_FILTERMISSING(
+        vcf_ch,
+        [],
+        [],
+        []
+
     )
-    versions = versions.mix(PUBLISH_PROCESSED_VCF.out.versions)
+    vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+
 
     emit:
     vcf_ch       // channel: [val(meta), vcf, tbi]

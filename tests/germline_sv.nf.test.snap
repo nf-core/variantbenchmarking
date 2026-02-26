@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'structural' --method 'truvari,svbenchmark,wittyer'": {
         "content": [
-            149,
+            140,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -30,9 +30,6 @@
                 "BCFTOOLS_REHEADER_TRUTH": {
                     "bcftools": 1.22
                 },
-                "BCFTOOLS_SORT2": {
-                    "bcftools": 1.22
-                },
                 "BCFTOOLS_SORT": {
                     "bcftools": 1.22
                 },
@@ -40,6 +37,9 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
@@ -56,9 +56,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SUBTRACT_VCF_QUERY": {
                     "python": "3.13.0"
@@ -78,13 +75,7 @@
                 "SVANALYZER_SVBENCHMARK": {
                     "svanalyzer": 0.36
                 },
-                "SVTK_STANDARDIZE": {
-                    "svtk": "0.0.20190615"
-                },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_1": {
                     "tabix": 1.21
                 },
                 "TABIX_TABIX_2": {
@@ -109,8 +100,8 @@
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
-                "structural/HG002/preprocess/HG002.vcf.gz",
-                "structural/HG002/preprocess/HG002.vcf.gz.tbi",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.split.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.split.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/HG002/stats",
                 "structural/HG002/stats/bcftools",
                 "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -130,18 +121,50 @@
                 "structural/multiqc/multiqc_data/multiqc_survivor.txt",
                 "structural/multiqc/multiqc_data/multiqc_truvari_bench.txt",
                 "structural/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Base.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Comp.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_base_GT.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_comp_GT.txt",
+                "structural/multiqc/multiqc_data/truvari-bench-pre-rec-plot.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-pct.pdf",
+                "structural/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
                 "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "structural/multiqc/multiqc_plots/png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-cnt.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-pct.png",
+                "structural/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
                 "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "structural/multiqc/multiqc_plots/svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-pct.svg",
+                "structural/multiqc/multiqc_plots/svg/truvari-bench-pre-rec-plot.svg",
                 "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
@@ -298,8 +321,8 @@
                 "structural/test1/benchmarks/wittyer/test1.HG002.manta.vcf.gz",
                 "structural/test1/benchmarks/wittyer/test1.HG002.manta.vcf.gz.tbi",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/test1.vcf.gz",
-                "structural/test1/preprocess/test1.vcf.gz.tbi",
+                "structural/test1/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test1/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
                 "structural/test1/stats/bcftools/test1.manta.bcftools_stats.txt",
@@ -328,8 +351,8 @@
                 "structural/test2/benchmarks/wittyer/test2.HG002.lumpy.vcf.gz",
                 "structural/test2/benchmarks/wittyer/test2.HG002.lumpy.vcf.gz.tbi",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/test2.vcf.gz",
-                "structural/test2/preprocess/test2.vcf.gz.tbi",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
                 "structural/test2/stats/bcftools/test2.lumpy.bcftools_stats.txt",
@@ -358,8 +381,8 @@
                 "structural/test3/benchmarks/wittyer/test3.HG002.delly.vcf.gz",
                 "structural/test3/benchmarks/wittyer/test3.HG002.delly.vcf.gz.tbi",
                 "structural/test3/preprocess",
-                "structural/test3/preprocess/test3.vcf.gz",
-                "structural/test3/preprocess/test3.vcf.gz.tbi",
+                "structural/test3/preprocess/HG002_delly_SV_hg19.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test3/preprocess/HG002_delly_SV_hg19.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
                 "structural/test3/stats/bcftools/test3.delly.bcftools_stats.txt",
@@ -367,29 +390,29 @@
                 "structural/test3/stats/survivor/test3.delly_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,2e41fdead08540e636ac6eb267c475b6",
-                "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "multiqc_bcftools_stats.txt:md5,6198b3f3ce651489eec1f3f2a30acd6a",
-                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_survivor.txt:md5,9d7cb093118b42cabfc8d9d9f7cc21bd",
-                "multiqc_variant_calling_summary.txt:md5,bc447c5d92b0e5ceb220b5d1b4272530",
-                "test1.manta.bcftools_stats.txt:md5,20f831b9d5c34a00d9b6992cb716abc8",
-                "test1.manta_mqc.stats:md5,011ad66fec4287d32cb728c40e240c0b",
-                "test2.lumpy.bcftools_stats.txt:md5,aff272dc77d9d52f66f5abe07ee82baf",
-                "test2.lumpy_mqc.stats:md5,f3a75d802c37cd363f1b68695463a5b3",
-                "test3.delly.bcftools_stats.txt:md5,a9fdfbb2dff9c96a04212f4a7512069b",
-                "test3.delly_mqc.stats:md5,f5fa584015eadb2ef33c831f3479c0d4"
+                "HG002.bcftools_stats.txt:md5,cf3cd44bf54ab2ad7890ed29b58114d2",
+                "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
+                "multiqc_bcftools_stats.txt:md5,bc792f417a5400cc2c32a9a71aad52e7",
+                "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
+                "multiqc_survivor.txt:md5,ddaae9000f4681e8a0d6181e461b7187",
+                "multiqc_variant_calling_summary.txt:md5,799a434221b3aa8ee89b493045be1148",
+                "test1.manta.bcftools_stats.txt:md5,4c87f16517fccd66ca40eeb017bf5e6d",
+                "test1.manta_mqc.stats:md5,7f13cc0151d07a40b5f0a37e0bf0b139",
+                "test2.lumpy.bcftools_stats.txt:md5,0ced173b4acac74264913e6609d6ffe5",
+                "test2.lumpy_mqc.stats:md5,d022b5f0a670f969be1702f9171f3e04",
+                "test3.delly.bcftools_stats.txt:md5,6a2332dc4b1b8fe2da345035c8e51b2f",
+                "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T11:52:48.246588369"
+        "timestamp": "2026-02-24T16:04:40.840472311"
     },
     "-stub": {
         "content": [
-            149,
+            140,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -418,9 +441,6 @@
                 "BCFTOOLS_REHEADER_TRUTH": {
                     "bcftools": 1.22
                 },
-                "BCFTOOLS_SORT2": {
-                    "bcftools": 1.22
-                },
                 "BCFTOOLS_SORT": {
                     "bcftools": 1.22
                 },
@@ -428,6 +448,9 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
@@ -444,9 +467,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SUBTRACT_VCF_QUERY": {
                     "python": "3.13.0"
@@ -466,13 +486,7 @@
                 "SVANALYZER_SVBENCHMARK": {
                     "svanalyzer": 0.36
                 },
-                "SVTK_STANDARDIZE": {
-                    "svtk": "0.0.20190615"
-                },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_1": {
                     "tabix": 1.21
                 },
                 "TABIX_TABIX_2": {
@@ -497,8 +511,8 @@
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
-                "structural/HG002/preprocess/HG002.vcf.gz",
-                "structural/HG002/preprocess/HG002.vcf.gz.tbi",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.split.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.split.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/HG002/stats",
                 "structural/HG002/stats/bcftools",
                 "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -629,8 +643,8 @@
                 "structural/test1/benchmarks/wittyer/test1.HG002.manta.vcf.gz",
                 "structural/test1/benchmarks/wittyer/test1.HG002.manta.vcf.gz.tbi",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/test1.vcf.gz",
-                "structural/test1/preprocess/test1.vcf.gz.tbi",
+                "structural/test1/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test1/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
                 "structural/test1/stats/bcftools/test1.manta.bcftools_stats.txt",
@@ -659,8 +673,8 @@
                 "structural/test2/benchmarks/wittyer/test2.HG002.lumpy.vcf.gz",
                 "structural/test2/benchmarks/wittyer/test2.HG002.lumpy.vcf.gz.tbi",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/test2.vcf.gz",
-                "structural/test2/preprocess/test2.vcf.gz.tbi",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
                 "structural/test2/stats/bcftools/test2.lumpy.bcftools_stats.txt",
@@ -689,8 +703,8 @@
                 "structural/test3/benchmarks/wittyer/test3.HG002.delly.vcf.gz",
                 "structural/test3/benchmarks/wittyer/test3.HG002.delly.vcf.gz.tbi",
                 "structural/test3/preprocess",
-                "structural/test3/preprocess/test3.vcf.gz",
-                "structural/test3/preprocess/test3.vcf.gz.tbi",
+                "structural/test3/preprocess/HG002_delly_SV_hg19.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/test3/preprocess/HG002_delly_SV_hg19.chr21.reheader.split.filter.filter.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
                 "structural/test3/stats/bcftools/test3.delly.bcftools_stats.txt",
@@ -712,6 +726,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T11:59:42.163806317"
+        "timestamp": "2026-02-24T16:07:32.361572406"
     }
 }

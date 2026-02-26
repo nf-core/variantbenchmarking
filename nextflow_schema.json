@@ -100,6 +100,13 @@
                     "help_text": "Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "ensemble_truth": {
+                    "type": "integer",
+                    "description": "Ensemble truth using input VCF files following the majority rule specified. This method should be used only if truth file is not available",
+                    "errorMessage": "Specify majority rule, select the minimum number of samples to ensemble",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": 1
+                },
                 "preprocess": {
                     "type": "string",
                     "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: split_multiallelic, normalizate, deduplicate, prepy, filter_contigs",

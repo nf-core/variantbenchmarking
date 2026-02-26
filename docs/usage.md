@@ -8,7 +8,7 @@
 
 Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf provided with params.truth_vcf.
 
-params.variant*type can be "small" or "structural" for params.analysis of "germline" or params.variant_type can be "snv", "indel" or "structural" for params.analysis of "somatic". Please be aware that \_only one type of varian_analysis is possible for each run*.
+params.variant*type can be "small", "structural", or "copynumber" for params.analysis of "germline" or params.variant_type can be "snv", "indel", "structural" or "copynumber" for params.analysis of "somatic". Please be aware that \_only one type of varian_analysis is possible for each run*.
 
 ## Samplesheet input
 
@@ -246,6 +246,21 @@ test2,test2.vcf,gatk
 test3,test3.vcf.gz,cnvkit
 ```
 
+## Emsemble approach (majority rule) analysis
+
+In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers.
+
+In order to turn the analysis on `--ensemble_truth n` where n is an integer bigger than 0.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
+```
+
+Please note that, using ensemble_truth will lead to ignore any --truth files given.
+
 ## Analysis Plots
 
 There are 3 types of plots generated through the pipeline
@@ -376,6 +391,15 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - Includes links to test data so needs no other parameters
 - `somatic_cnv`
   - A profile with a complete configuration for somatic analysis with copy number variant type of data
+  - Includes links to test data so needs no other parameters
+- `concordance`
+  - A profile with a complete configuration for concordance analysis with small germline variants of data
+  - Includes links to test data so needs no other parameters
+- `somatic_snv_ensemble`
+  - A profile with a complete configuration for somatic analysis with small variants ensemble_truth approach keeping 2 callers
+  - Includes links to test data so needs no other parameters
+- `somatic_sv_ensemble`
+  - A profile with a complete configuration for somatic analysis with structural variants ensemble_truth approach keeping 2 callers
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)

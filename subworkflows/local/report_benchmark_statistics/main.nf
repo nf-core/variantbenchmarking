@@ -39,7 +39,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
         // plot INDEL/SV distribution plots
         PLOT_SVLEN_DIST(
-            evaluations.groupTuple().mix(evaluations_csv.groupTuple())
+            evaluations.map { item -> tuple(item[0], item[1]) }.groupTuple()
+                .mix(evaluations_csv.map { item -> tuple(item[0], item[1]) }.groupTuple())
         )
         versions = versions.mix(PLOT_SVLEN_DIST.out.versions)
         ch_plots = ch_plots.mix(PLOT_SVLEN_DIST.out.plot)

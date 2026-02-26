@@ -30,6 +30,9 @@
                 "BCFTOOLS_VIEW_CONTIGS": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
                 "BEDTOOLS_INTERSECT_BENCH": {
                     "python": "3.12.11"
                 },
@@ -38,9 +41,6 @@
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -68,8 +68,8 @@
                 "copynumber",
                 "copynumber/SEQC2",
                 "copynumber/SEQC2/preprocess",
-                "copynumber/SEQC2/preprocess/SEQC2.vcf.gz",
-                "copynumber/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
+                "copynumber/SEQC2/preprocess/cnv_benchmark_calls.reheader.split.filtermissing.vcf.gz",
+                "copynumber/SEQC2/preprocess/cnv_benchmark_calls.reheader.split.filtermissing.vcf.gz.tbi",
                 "copynumber/SEQC2/stats",
                 "copynumber/SEQC2/stats/bcftools",
                 "copynumber/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -86,44 +86,12 @@
                 "copynumber/multiqc/multiqc_data/multiqc_sources.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_truvari_bench.txt",
                 "copynumber/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
-                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_Base.txt",
-                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_Comp.txt",
-                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_base_GT.txt",
-                "copynumber/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_comp_GT.txt",
-                "copynumber/multiqc/multiqc_data/truvari-bench-pre-rec-plot.txt",
                 "copynumber/multiqc/multiqc_plots",
                 "copynumber/multiqc/multiqc_plots/pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-cnt.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-pct.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-cnt.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Comp-pct.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-cnt.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_base_GT-pct.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-cnt.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-pct.pdf",
-                "copynumber/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
                 "copynumber/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "copynumber/multiqc/multiqc_plots/png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-cnt.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-pct.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-cnt.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Comp-pct.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-cnt.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_base_GT-pct.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-cnt.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-pct.png",
-                "copynumber/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
                 "copynumber/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "copynumber/multiqc/multiqc_plots/svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-cnt.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-pct.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-cnt.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Comp-pct.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-cnt.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_base_GT-pct.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-cnt.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-pct.svg",
-                "copynumber/multiqc/multiqc_plots/svg/truvari-bench-pre-rec-plot.svg",
                 "copynumber/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "copynumber/multiqc/multiqc_report.html",
                 "copynumber/summary",
@@ -263,8 +231,8 @@
                 "copynumber/test14/intersect/test14.SEQC2.cnvkit_stats.csv",
                 "copynumber/test14/intersect/test14.bed",
                 "copynumber/test14/preprocess",
-                "copynumber/test14/preprocess/test14.vcf.gz",
-                "copynumber/test14/preprocess/test14.vcf.gz.tbi",
+                "copynumber/test14/preprocess/HCC1395T_vs_HCC1395N.cnvcall.reheader.filtercontigs.split.vcf.filtermissing.vcf.gz",
+                "copynumber/test14/preprocess/HCC1395T_vs_HCC1395N.cnvcall.reheader.filtercontigs.split.vcf.filtermissing.vcf.gz.tbi",
                 "copynumber/test14/stats",
                 "copynumber/test14/stats/bcftools",
                 "copynumber/test14/stats/bcftools/test14.cnvkit.bcftools_stats.txt",
@@ -280,9 +248,9 @@
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,b7b9fa940d45626eedb29268576c1b2b",
-                "multiqc_bcftools_stats.txt:md5,e50d652f48e58b3a96f04837acf7185b",
-                "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
+                "SEQC2.bcftools_stats.txt:md5,0c625f1182b80bac7bd5125da799b870",
+                "multiqc_bcftools_stats.txt:md5,b073c468f1cd520bfb005d1b9d2b9e10",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_variant_calling_summary.txt:md5,c403fa3d80e0bc667f6220d646a54c83",
                 "test13.SEQC2.controlfreec_FN.bed:md5,bcbdf273e3d60c0aaa8afb4a8b0a5ff5",
                 "test13.SEQC2.controlfreec_FP.bed:md5,36be4b1c9f99af66e548eb1a7ce5548c",
@@ -302,7 +270,7 @@
                 "test14.SEQC2.cnvkit_converted.bed:md5,d34b17a68de65b754d7402a5f133f421",
                 "test14.SEQC2.cnvkit_stats.csv:md5,f2d97f069697b4069fc3e723028ecb8a",
                 "test14.bed:md5,e2618e061f32b9c8545faa9eb5a3e1a4",
-                "test14.cnvkit.bcftools_stats.txt:md5,1435bdb43d00938aab0e6ae087520ef4",
+                "test14.cnvkit.bcftools_stats.txt:md5,7390b4c6a58f7359fd5824cceb26b75e",
                 "test15.SEQC2.ascat_FN.bed:md5,3e2976bf335e9c3f83cfb6bee74cdcc5",
                 "test15.SEQC2.ascat_FP.bed:md5,b3a2d0c1755f13c7bfb9c1d57a93143d",
                 "test15.SEQC2.ascat_TP_base.bed:md5,301d3e309f159cc2bddc966f23d4aced",
@@ -315,6 +283,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2026-02-10T12:14:21.185299024"
+        "timestamp": "2026-02-24T16:15:46.744128782"
     }
 }
