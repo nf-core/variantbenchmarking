@@ -46,7 +46,6 @@ workflow PREPARE_VCFS_TEST {
             rename_chr,
             dictionary
         )
-        versions = versions.mix(LIFTOVER_VCFS.out.versions.first())
         vcf_ch = vcf_ch.mix(LIFTOVER_VCFS.out.vcf_ch)
     }
     vcf_ch = vcf_ch.mix(vcf.other)
@@ -67,7 +66,6 @@ workflow PREPARE_VCFS_TEST {
     versions = versions.mix(FIX_VCF_PREFIX.out.versions.first())
     vcf_ch = vcf_ch.mix(FIX_VCF_PREFIX.out.vcf,fix.other)
 
-    // Add "query" to test sample
     // rename sample name
     BCFTOOLS_REHEADER_QUERY(
 
@@ -111,50 +109,41 @@ workflow PREPARE_VCFS_TEST {
             vcf_ch
         )
         vcf_ch = VCF_VARIANT_FILTERING.out.vcf_ch
-        versions = versions.mix(VCF_VARIANT_FILTERING.out.versions.first())
     }
 
     if (params.preprocess.contains("deduplicate")){
-
         // Deduplicate variants at the same position test
         VCF_VARIANT_DEDUPLICATION(
             vcf_ch,
             fasta
         )
         vcf_ch = VCF_VARIANT_DEDUPLICATION.out.ch_vcf
-
     }
 
     if (params.preprocess.contains("normalize")){
-
         // Turn on left alignment and normalization
         BCFTOOLS_NORM(
             vcf_ch,
             fasta
         )
-
         BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi, by:0)
                             .set{vcf_ch}
     }
 
     if (params.analysis.contains("somatic")){
-
         // somatic specific preparations
         if (params.variant_type == "small"){
             SPLIT_SMALL_VARIANTS_TEST(
                 vcf_ch
             )
-            versions = versions.mix(SPLIT_SMALL_VARIANTS_TEST.out.versions.first())
             vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
         }
-
     }
 
     if (params.sv_standardization.contains("svdecompose")){
         RTGTOOLS_SVDECOMPOSE(
             vcf_ch
         )
-        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
@@ -164,7 +153,6 @@ workflow PREPARE_VCFS_TEST {
         [],
         [],
         []
-
     )
     vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
 

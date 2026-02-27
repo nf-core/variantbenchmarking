@@ -22,8 +22,6 @@ workflow LIFTOVER_VCFS {
 
     main:
 
-    versions = channel.empty()
-
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(
         ch_vcf,
@@ -31,21 +29,17 @@ workflow LIFTOVER_VCFS {
         fasta,
         chain
     )
-    versions = versions.mix(PICARD_LIFTOVERVCF.out.versions)
-    vcf_ch   = PICARD_LIFTOVERVCF.out.vcf_lifted
 
     // reformat header, convert PS TYPE integer to string after liftover
     REFORMAT_HEADER(
-        vcf_ch,
+        PICARD_LIFTOVERVCF.out.vcf_lifted,
         [],
         false
     )
-    versions = versions.mix(REFORMAT_HEADER.out.versions)
 
     TABIX_BGZIPTABIX(
         REFORMAT_HEADER.out.output
     )
-    versions = versions.mix(TABIX_BGZIPTABIX.out.versions)
 
     // rename chr after liftover
     BCFTOOLS_ANNOTATE(
@@ -61,7 +55,6 @@ workflow LIFTOVER_VCFS {
         ch_bed.map{file -> tuple([id: params.truth_id], file)},
         chain.map{_meta, file -> file}
     )
-    versions = versions.mix(UCSC_LIFTOVER.out.versions)
 
     // sort bed file
     GNU_SORT(
@@ -72,11 +65,9 @@ workflow LIFTOVER_VCFS {
     BEDTOOLS_MERGE(
         GNU_SORT.out.sorted
     )
-    versions = versions.mix(BEDTOOLS_MERGE.out.versions)
     bed_ch = BEDTOOLS_MERGE.out.bed
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]
     bed_ch      // channel: [val(meta), bed]
-    versions    // channel: [versions.yml]
 }

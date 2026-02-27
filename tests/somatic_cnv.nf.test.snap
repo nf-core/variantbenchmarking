@@ -37,7 +37,7 @@
                     "python": "3.12.11"
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -48,11 +48,17 @@
                 "SVTK_VCF2BED": {
                     "svtk": "0.0.20190615"
                 },
+                "TABIX_BGZIP_QUERY": {
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIP_TRUTH": {
+                    "tabix": 1.21
+                },
                 "TABIX_BGZIP_UNZIP": {
                     "tabix": 1.21
                 },
                 "TRUVARI_BENCH": {
-                    "truvari": "5.3.0)"
+                    "truvari": "5.4.0"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -105,87 +111,39 @@
                 "copynumber/summary/datavzrd/intersect",
                 "copynumber/summary/datavzrd/intersect/index.html",
                 "copynumber/summary/datavzrd/intersect/static",
-                "copynumber/summary/datavzrd/intersect/static/bootstrap-select.min.css",
-                "copynumber/summary/datavzrd/intersect/static/bootstrap-table-fixed-columns.min.css",
-                "copynumber/summary/datavzrd/intersect/static/bootstrap-table.min.css",
-                "copynumber/summary/datavzrd/intersect/static/bootstrap.min.css",
                 "copynumber/summary/datavzrd/intersect/static/bundle.js",
-                "copynumber/summary/datavzrd/intersect/static/datavzrd.css",
                 "copynumber/summary/datavzrd/intersect/test",
                 "copynumber/summary/datavzrd/intersect/test/config.js",
                 "copynumber/summary/datavzrd/intersect/test/data",
                 "copynumber/summary/datavzrd/intersect/test/data/data_1.js",
                 "copynumber/summary/datavzrd/intersect/test/functions.js",
-                "copynumber/summary/datavzrd/intersect/test/heatmap.js",
                 "copynumber/summary/datavzrd/intersect/test/index_1.html",
                 "copynumber/summary/datavzrd/intersect/test/plots",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_0.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_1.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_10.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_2.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_3.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_4.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_5.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_6.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_7.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_8.js",
-                "copynumber/summary/datavzrd/intersect/test/plots/plot_9.js",
+                "copynumber/summary/datavzrd/intersect/test/plots/plots.js",
                 "copynumber/summary/datavzrd/truvari",
                 "copynumber/summary/datavzrd/truvari/index.html",
                 "copynumber/summary/datavzrd/truvari/static",
-                "copynumber/summary/datavzrd/truvari/static/bootstrap-select.min.css",
-                "copynumber/summary/datavzrd/truvari/static/bootstrap-table-fixed-columns.min.css",
-                "copynumber/summary/datavzrd/truvari/static/bootstrap-table.min.css",
-                "copynumber/summary/datavzrd/truvari/static/bootstrap.min.css",
                 "copynumber/summary/datavzrd/truvari/static/bundle.js",
-                "copynumber/summary/datavzrd/truvari/static/datavzrd.css",
                 "copynumber/summary/datavzrd/truvari/test",
                 "copynumber/summary/datavzrd/truvari/test/config.js",
                 "copynumber/summary/datavzrd/truvari/test/data",
                 "copynumber/summary/datavzrd/truvari/test/data/data_1.js",
                 "copynumber/summary/datavzrd/truvari/test/functions.js",
-                "copynumber/summary/datavzrd/truvari/test/heatmap.js",
                 "copynumber/summary/datavzrd/truvari/test/index_1.html",
                 "copynumber/summary/datavzrd/truvari/test/plots",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_0.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_1.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_2.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_3.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_4.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_5.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_6.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_7.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_8.js",
-                "copynumber/summary/datavzrd/truvari/test/plots/plot_9.js",
-                "copynumber/summary/datavzrd/versions.yml",
+                "copynumber/summary/datavzrd/truvari/test/plots/plots.js",
                 "copynumber/summary/datavzrd/wittyer",
                 "copynumber/summary/datavzrd/wittyer/index.html",
                 "copynumber/summary/datavzrd/wittyer/static",
-                "copynumber/summary/datavzrd/wittyer/static/bootstrap-select.min.css",
-                "copynumber/summary/datavzrd/wittyer/static/bootstrap-table-fixed-columns.min.css",
-                "copynumber/summary/datavzrd/wittyer/static/bootstrap-table.min.css",
-                "copynumber/summary/datavzrd/wittyer/static/bootstrap.min.css",
                 "copynumber/summary/datavzrd/wittyer/static/bundle.js",
-                "copynumber/summary/datavzrd/wittyer/static/datavzrd.css",
                 "copynumber/summary/datavzrd/wittyer/test",
                 "copynumber/summary/datavzrd/wittyer/test/config.js",
                 "copynumber/summary/datavzrd/wittyer/test/data",
                 "copynumber/summary/datavzrd/wittyer/test/data/data_1.js",
                 "copynumber/summary/datavzrd/wittyer/test/functions.js",
-                "copynumber/summary/datavzrd/wittyer/test/heatmap.js",
                 "copynumber/summary/datavzrd/wittyer/test/index_1.html",
                 "copynumber/summary/datavzrd/wittyer/test/plots",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_0.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_1.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_10.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_2.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_3.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_4.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_5.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_6.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_7.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_8.js",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plot_9.js",
+                "copynumber/summary/datavzrd/wittyer/test/plots/plots.js",
                 "copynumber/summary/tables",
                 "copynumber/summary/tables/intersect",
                 "copynumber/summary/tables/intersect/intersect.summary.csv",
@@ -279,10 +237,10 @@
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
+        "timestamp": "2026-02-27T12:13:20.996617982",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T16:15:46.744128782"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

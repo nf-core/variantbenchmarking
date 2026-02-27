@@ -16,7 +16,6 @@ workflow RTGTOOLS_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
     tagged_variants = channel.empty()
 
     // apply rtgtools eval method
@@ -24,7 +23,6 @@ workflow RTGTOOLS_BENCHMARK {
         input_ch,
         sdf
     )
-    versions = versions.mix(RTGTOOLS_VCFEVAL.out.versions.first())
 
     // collect summary reports
     RTGTOOLS_VCFEVAL.out.summary
@@ -91,6 +89,5 @@ workflow RTGTOOLS_BENCHMARK {
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
-    versions        // channel: [versions.yml]
 
 }

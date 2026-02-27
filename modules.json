@@ -52,33 +52,33 @@
                     },
                     "bedops/convert2bed": {
                         "branch": "master",
-                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "git_sha": "90c34099e2a71055d9c562add4b4420bc81a972b",
                         "installed_by": ["modules"]
                     },
                     "bedtools/merge": {
                         "branch": "master",
-                        "git_sha": "a5377837fe9013bde89de8689829e83e84086536",
+                        "git_sha": "88d43dad73a675e66bff49ebb57fe657a5909018",
                         "installed_by": ["modules"]
                     },
                     "datavzrd": {
                         "branch": "master",
-                        "git_sha": "09f36ce2d721684f2883fdde4353c563ea15a48c",
+                        "git_sha": "f4bb53a7ba632e89634f696c1077dbd1df86b08c",
                         "installed_by": ["modules"]
                     },
                     "gatk4/concordance": {
                         "branch": "master",
-                        "git_sha": "98c35fb628b56273fc097453118679769715e288",
+                        "git_sha": "86308d628760125908c5c77540517effe0f8880f",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/gatk4/concordance/gatk4-concordance.diff"
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "5ee4d69ed992c3ce81cfbbdd0bef932fcb81c75a",
+                        "git_sha": "76b1f53edcf72798d8515c82f4728ad44b3dd902",
                         "installed_by": ["modules"]
                     },
                     "gnu/sort": {
                         "branch": "master",
-                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
+                        "git_sha": "5e748ff2b0f990949081c9e49792622eb3fe9ee9",
                         "installed_by": ["modules"]
                     },
                     "happy/happy": {
@@ -88,92 +88,92 @@
                     },
                     "happy/prepy": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
                         "installed_by": ["modules"]
                     },
                     "happy/sompy": {
                         "branch": "master",
-                        "git_sha": "e657cdd0198cc26f2e501325eb7f70fbd740b6ee",
+                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
+                        "git_sha": "2c73cc8fa92cf48de3da0b643fdf357a8a290b36",
                         "installed_by": ["modules"]
                     },
                     "picard/createsequencedictionary": {
                         "branch": "master",
-                        "git_sha": "759232fe6aed8761bcb3a5d23813f2fa59d985ed",
+                        "git_sha": "a631e12055f6c23ba2c942d3902b3ed1b9eed859",
                         "installed_by": ["modules"]
                     },
                     "picard/liftovervcf": {
                         "branch": "master",
-                        "git_sha": "0dee12b56ccecc416d6f7a1ccd85fd571eab3307",
+                        "git_sha": "a631e12055f6c23ba2c942d3902b3ed1b9eed859",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/bndeval": {
                         "branch": "master",
-                        "git_sha": "80203dae9ecef159d57d8d8919efb3699844dc2d",
+                        "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/format": {
                         "branch": "master",
-                        "git_sha": "80203dae9ecef159d57d8d8919efb3699844dc2d",
+                        "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/svdecompose": {
                         "branch": "master",
-                        "git_sha": "80203dae9ecef159d57d8d8919efb3699844dc2d",
+                        "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",
                         "installed_by": ["modules"]
                     },
                     "rtgtools/vcfeval": {
                         "branch": "master",
-                        "git_sha": "80203dae9ecef159d57d8d8919efb3699844dc2d",
+                        "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",
                         "installed_by": ["modules"]
                     },
                     "survivor/filter": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "f3266160bafb2dddf316998ce12990691599fd9d",
                         "installed_by": ["modules"]
                     },
                     "survivor/merge": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "b75cf1a894cc2d63a81dc3bd58126de7f023acf9",
                         "installed_by": ["modules"]
                     },
                     "survivor/stats": {
                         "branch": "master",
-                        "git_sha": "398375d72766cac92c4ffcf6927cac2d65310cfd",
+                        "git_sha": "f3266160bafb2dddf316998ce12990691599fd9d",
                         "installed_by": ["modules"]
                     },
                     "svanalyzer/svbenchmark": {
                         "branch": "master",
-                        "git_sha": "e657cdd0198cc26f2e501325eb7f70fbd740b6ee",
+                        "git_sha": "b1d91213977c47945f9248a014e147f94998cb3b",
                         "installed_by": ["modules"]
                     },
                     "svtk/standardize": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "cd1624ef248ecb6bfd5a326f27d0101c806bce86",
                         "installed_by": ["modules"]
                     },
                     "svtk/vcf2bed": {
                         "branch": "master",
-                        "git_sha": "68abc8db1794ab6be75c235c2725d19668632501",
+                        "git_sha": "cd1624ef248ecb6bfd5a326f27d0101c806bce86",
                         "installed_by": ["modules"]
                     },
                     "svync": {
                         "branch": "master",
-                        "git_sha": "0fc190096fa8dcc9878cef178479f22e03f174a1",
+                        "git_sha": "fdcc3976e728b5d6ffc3f15979905829531e6072",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgzip": {
                         "branch": "master",
-                        "git_sha": "f2cfcf9d3f6a2d123e6c44aefa788aa232204a7a",
+                        "git_sha": "91a902fb32d6717da38a9694eb4ad3fade53a8db",
                         "installed_by": ["modules"]
                     },
                     "tabix/bgziptabix": {
                         "branch": "master",
-                        "git_sha": "61846a0d757ff9c0682ba3e28ab0441afd95ad7e",
+                        "git_sha": "91a902fb32d6717da38a9694eb4ad3fade53a8db",
                         "installed_by": ["modules"]
                     },
                     "tabix/tabix": {
@@ -183,18 +183,18 @@
                     },
                     "truvari/bench": {
                         "branch": "master",
-                        "git_sha": "94c8a56a51f14bef3e62b35476a34deb7b84e589",
+                        "git_sha": "fb32a7ee01805151ef9355fdee4bf035c727de24",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/truvari/bench/truvari-bench.diff"
                     },
                     "ucsc/liftover": {
                         "branch": "master",
-                        "git_sha": "f67072004d8127beef877e7ba96ca5a05915d253",
+                        "git_sha": "b1c64e862fb5ed7f13b6f8f3ef8f04e700d41438",
                         "installed_by": ["modules"]
                     },
                     "wittyer": {
                         "branch": "master",
-                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
+                        "git_sha": "3d2cd05f05038ead04ec6d8cbcdc26e1608025db",
                         "installed_by": ["modules"]
                     }
                 }

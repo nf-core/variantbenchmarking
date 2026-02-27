@@ -27,7 +27,6 @@ workflow SV_GERMLINE_BENCHMARK {
             fasta,
             fai
         )
-        versions = versions.mix(TRUVARI_BENCHMARK.out.versions)
         summary_reports = summary_reports.mix(TRUVARI_BENCHMARK.out.report)
         tagged_variants = tagged_variants.mix(TRUVARI_BENCHMARK.out.tagged_variants)
         logs            = logs.mix(TRUVARI_BENCHMARK.out.logs)
@@ -41,7 +40,6 @@ workflow SV_GERMLINE_BENCHMARK {
             fasta,
             fai
         )
-        versions = versions.mix(SVANALYZER_BENCHMARK.out.versions)
         summary_reports = summary_reports.mix(SVANALYZER_BENCHMARK.out.report)
         tagged_variants = tagged_variants.mix(SVANALYZER_BENCHMARK.out.tagged_variants)
     }
@@ -50,7 +48,6 @@ workflow SV_GERMLINE_BENCHMARK {
         WITTYER_BENCHMARK(
             input_ch
         )
-        versions = versions.mix(WITTYER_BENCHMARK.out.versions)
         summary_reports = summary_reports.mix(WITTYER_BENCHMARK.out.report)
 
     }

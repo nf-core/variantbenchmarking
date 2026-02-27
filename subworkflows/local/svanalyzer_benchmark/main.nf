@@ -25,7 +25,6 @@ workflow SVANALYZER_BENCHMARK {
         fasta,
         fai
     )
-    versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
     // tag and collect summary file
     SVANALYZER_SVBENCHMARK.out.report

@@ -24,7 +24,6 @@ workflow HAPPY_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
     tagged_variants = channel.empty()
 
     input_ch
@@ -40,7 +39,6 @@ workflow HAPPY_BENCHMARK {
         .set { truth_ch }
 
     if (params.preprocess.contains("prepy")){
-
         // apply prepy if required
         HAPPY_PREPY(
             input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -49,8 +47,6 @@ workflow HAPPY_BENCHMARK {
             fasta,
             fai
         )
-        versions = versions.mix(HAPPY_PREPY.out.versions.first())
-
         test_ch = HAPPY_PREPY.out.preprocessed_vcf
     }
 
@@ -63,7 +59,6 @@ workflow HAPPY_BENCHMARK {
         stratification_tsv,
         stratification_bed
     )
-    versions = versions.mix(HAPPY_HAPPY.out.versions.first())
 
     // tag meta and collect summary reports
     HAPPY_HAPPY.out.summary_csv
@@ -149,6 +144,5 @@ workflow HAPPY_BENCHMARK {
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
-    versions        // channel: [versions.yml]
 
 }

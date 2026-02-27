@@ -28,7 +28,7 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -41,12 +41,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "SUBTRACT_VCF_QUERY": {
-                    "python": "3.13.0"
-                },
-                "SUBTRACT_VCF_TRUTH": {
-                    "python": "3.13.0"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -121,31 +115,15 @@
                 "structural/summary/datavzrd/svbenchmark",
                 "structural/summary/datavzrd/svbenchmark/index.html",
                 "structural/summary/datavzrd/svbenchmark/static",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
-                "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
                 "structural/summary/datavzrd/svbenchmark/test",
                 "structural/summary/datavzrd/svbenchmark/test/config.js",
                 "structural/summary/datavzrd/svbenchmark/test/data",
                 "structural/summary/datavzrd/svbenchmark/test/data/data_1.js",
                 "structural/summary/datavzrd/svbenchmark/test/functions.js",
-                "structural/summary/datavzrd/svbenchmark/test/heatmap.js",
                 "structural/summary/datavzrd/svbenchmark/test/index_1.html",
                 "structural/summary/datavzrd/svbenchmark/test/plots",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_0.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_1.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_2.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_3.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_4.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_5.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_6.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_7.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_8.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_9.js",
-                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/datavzrd/svbenchmark/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
                 "structural/summary/plots/svbenchmark/f1_by_tool_svbenchmark_mqc.png",
@@ -224,11 +202,11 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
+        "timestamp": "2026-02-27T11:34:29.828485302",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T15:47:46.571521696"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-stub": {
         "content": [
@@ -259,7 +237,7 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -272,12 +250,6 @@
                 },
                 "PLOT_UPSET": {
                     "python": "3.13.7"
-                },
-                "SUBTRACT_VCF_QUERY": {
-                    "python": "3.13.0"
-                },
-                "SUBTRACT_VCF_TRUTH": {
-                    "python": "3.13.0"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -344,7 +316,6 @@
                 "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
                 "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
-                "structural/summary/datavzrd/versions.yml",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
                 "structural/summary/plots/svbenchmark/metric_by_tool_svbenchmark_mqc.png",
@@ -418,10 +389,10 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-02-27T11:38:41.451821202",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T15:50:38.367998462"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

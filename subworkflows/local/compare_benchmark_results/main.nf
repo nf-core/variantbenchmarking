@@ -33,7 +33,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
             [],
             false
         )
-        versions = versions.mix(REFORMAT_HEADER.out.versions.first())
 
         TABIX_BGZIPTABIX(
             REFORMAT_HEADER.out.output
@@ -54,7 +53,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
         TABIX_BGZIP_UNZIP(
             evaluations.map { item -> tuple(item[0], item[1]) }
         )
-        versions = versions.mix(TABIX_BGZIP_UNZIP.out.versions.first())
 
         TABIX_BGZIP_UNZIP.out.output
             .groupTuple()
@@ -70,7 +68,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
             0,
             30
         )
-        versions = versions.mix(SURVIVOR_MERGE.out.versions.first())
         merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
     }

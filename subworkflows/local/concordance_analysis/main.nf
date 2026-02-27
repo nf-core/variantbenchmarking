@@ -22,7 +22,6 @@ workflow CONCORDANCE_ANALYSIS {
 
     main:
 
-    versions        = channel.empty()
     tagged_variants = channel.empty()
 
     ch_pairs = input_ch
@@ -65,7 +64,6 @@ workflow CONCORDANCE_ANALYSIS {
         fai_ch,
         dictionary
     )
-    versions = versions.mix(GATK4_CONCORDANCE.out.versions)
 
     // tag meta and collect summary reports
     GATK4_CONCORDANCE.out.summary
@@ -172,7 +170,6 @@ workflow CONCORDANCE_ANALYSIS {
     )
 
     emit:
-    versions        // channel: [val(meta), versions.yml]
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
 }

@@ -11,7 +11,6 @@ workflow REPORT_VCF_STATISTICS {
 
     main:
 
-    versions     = channel.empty()
     ch_stats     = channel.empty()
 
     if (params.variant_type == "structural"){
@@ -25,7 +24,6 @@ workflow REPORT_VCF_STATISTICS {
             -1
         )
         ch_stats = ch_stats.mix(SURVIVOR_STATS.out.stats.map{_meta, stats -> stats})
-        versions = versions.mix(SURVIVOR_STATS.out.versions.first())
     }
 
 
@@ -44,5 +42,4 @@ workflow REPORT_VCF_STATISTICS {
 
     emit:
     ch_stats  // channel: [stats]
-    versions  // channel: [versions.yml]
 }
