@@ -138,7 +138,7 @@ workflow VARIANTBENCHMARKING {
             exit 1
         }
         // if dictionary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
-        dictionary      = params.dictionary ? channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()                                           
+        dictionary      = params.dictionary ? channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()
                                             : channel.empty()
     }else{
         chain           = channel.empty()

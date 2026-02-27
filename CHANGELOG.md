@@ -30,10 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | tabix          | 1.19.1      | 1.21        |
 | bcftools/stats | 1.18        | 1.22        |
 | happy          | 0.3.14      | 0.3.15      |
-| bedops         | 2.4.41      | 2.4.42      | 
+| bedops         | 2.4.41      | 2.4.42      |
 | picard         | 3.2.0       | 3.4.0       |
 | ucsc           | 377         | 482         |
-| datavzrd       | 2.36.12     | 2.63.3      | 
+| datavzrd       | 2.36.12     | 2.63.3      |
 | truvari        | 5.3.0       | 5.4.0       |
 
 ## 1.4.0
