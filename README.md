@@ -60,7 +60,7 @@ This initial step ensures consistent formatting and alignment of variants in tes
 
 ### Ensemble (majority rule) approch to prepare truth variants:
 
-When a "Gold Standard" (a known, 100% accurate list of variants) is not available, you can create a Proxy Ground Truth by looking for agreement between different tools. This is known as a Majority Rule system.This method assumes that if multiple independent variant callers identify the same mutation, it is more likely to be a real biological variant rather than a technical error from a single pipeline. Only variants found by at least the minimum number of callers specified in your threshold are kept as the "truth" for the final benchmark.
+When a "Gold Standard" (a high-confidence, validated set of variants) is not available, you can create a Proxy Ground Truth by looking for agreement between different tools. This is Majority Rule approach  assumes that if multiple independent variant callers identify the same mutation, it is more likely to be a real biological variant rather than a technical error from a single pipeline. Only variants found by at least the minimum number of callers specified in your threshold are kept as the "truth" for the final benchmark.
 
 If the $--ensemble/_truth$ threshold is set higher than 0, the pipeline performs the following steps:
 
