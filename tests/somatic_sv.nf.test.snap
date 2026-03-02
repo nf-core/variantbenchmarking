@@ -34,7 +34,7 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -57,6 +57,13 @@
                 "SURVIVOR_STATS": {
                     "survivor": "1.0.7"
                 },
+                "TABIX_BGZIP": {
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
                 "TABIX_BGZIP_UNZIP": {
                     "tabix": 1.21
                 },
@@ -64,7 +71,7 @@
                     "tabix": 1.21
                 },
                 "TRUVARI_BENCH": {
-                    "truvari": "5.3.0)"
+                    "truvari": "5.4.0"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -157,31 +164,15 @@
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
                 "structural/summary/datavzrd/truvari/static",
-                "structural/summary/datavzrd/truvari/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap.min.css",
                 "structural/summary/datavzrd/truvari/static/bundle.js",
-                "structural/summary/datavzrd/truvari/static/datavzrd.css",
                 "structural/summary/datavzrd/truvari/test",
                 "structural/summary/datavzrd/truvari/test/config.js",
                 "structural/summary/datavzrd/truvari/test/data",
                 "structural/summary/datavzrd/truvari/test/data/data_1.js",
                 "structural/summary/datavzrd/truvari/test/functions.js",
-                "structural/summary/datavzrd/truvari/test/heatmap.js",
                 "structural/summary/datavzrd/truvari/test/index_1.html",
                 "structural/summary/datavzrd/truvari/test/plots",
-                "structural/summary/datavzrd/truvari/test/plots/plot_0.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_1.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_2.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_3.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_4.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_5.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_6.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_7.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_8.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_9.js",
-                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
                 "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
@@ -250,10 +241,10 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
+        "timestamp": "2026-02-27T12:40:11.847413253",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T16:30:14.923359556"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

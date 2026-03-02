@@ -5,7 +5,6 @@
 include { SOMPY_BENCHMARK     } from '../../../subworkflows/local/sompy_benchmark'
 include { RTGTOOLS_BENCHMARK  } from '../../../subworkflows/local/rtgtools_benchmark'
 
-
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
     input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index,  regionsbed, targets_bed ]
@@ -23,7 +22,6 @@ workflow SMALL_SOMATIC_BENCHMARK {
     tagged_variants_csv = channel.empty()
 
     if (params.method.contains('sompy')){
-        // apply sompy for small somatic variant benchmarking
         SOMPY_BENCHMARK(
             input_ch,
             fasta,
@@ -37,16 +35,13 @@ workflow SMALL_SOMATIC_BENCHMARK {
     }
 
     if (params.method.contains('rtgtools')){
-
         RTGTOOLS_BENCHMARK(
             input_ch,
             fai,
             sdf
         )
-        versions        = versions.mix(RTGTOOLS_BENCHMARK.out.versions)
         summary_reports = summary_reports.mix(RTGTOOLS_BENCHMARK.out.summary_reports)
         tagged_variants = tagged_variants.mix(RTGTOOLS_BENCHMARK.out.tagged_variants)
-
     }
 
     emit:

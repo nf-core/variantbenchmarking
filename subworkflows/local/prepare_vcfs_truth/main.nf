@@ -2,7 +2,6 @@
 // PREPARE_VCFS: SUBWORKFLOW TO PREPARE INPUT VCFS
 //
 
-
 include { VCF_VARIANT_DEDUPLICATION  } from '../../local/vcf_variant_deduplication'
 include { LIFTOVER_VCFS              } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM              } from '../../../modules/nf-core/bcftools/norm'
@@ -10,7 +9,6 @@ include { RTGTOOLS_SVDECOMPOSE      } from '../../../modules/nf-core/rtgtools/sv
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'
-
 
 workflow PREPARE_VCFS_TRUTH {
     take:
@@ -24,8 +22,6 @@ workflow PREPARE_VCFS_TRUTH {
 
     main:
 
-    versions = channel.empty()
-
     // if liftover option is set convert truth files
     if (params.liftover.contains("truth")){
 
@@ -37,12 +33,10 @@ workflow PREPARE_VCFS_TRUTH {
             rename_chr,
             dictionary
         )
-        versions = versions.mix(LIFTOVER_VCFS.out.versions)
         truth_ch = LIFTOVER_VCFS.out.vcf_ch
         high_conf_ch = LIFTOVER_VCFS.out.bed_ch.map{ _meta, bed -> [bed]}
     }
 
-    // Reheader sample name for truth file - using meta.caller
     // rename sample name
     BCFTOOLS_REHEADER_TRUTH(
         truth_ch.map{ meta, file ->
@@ -91,7 +85,6 @@ workflow PREPARE_VCFS_TRUTH {
         RTGTOOLS_SVDECOMPOSE(
             vcf_ch
         )
-        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
@@ -105,9 +98,7 @@ workflow PREPARE_VCFS_TRUTH {
     )
     vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
 
-
     emit:
     vcf_ch       // channel: [val(meta), vcf, tbi]
     high_conf_ch // channel: [val(meta), bed]
-    versions     // channel: [versions.yml]
 }

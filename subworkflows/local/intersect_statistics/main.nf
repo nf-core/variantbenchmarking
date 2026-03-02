@@ -27,7 +27,6 @@ workflow INTERSECT_STATISTICS {
     }
     .set { test_samples }
 
-
     test_beds_ch = test_samples.regions.map{meta, _vcf, bed -> [meta, bed]}
 
     // convert VCF files to BED format
@@ -41,7 +40,6 @@ workflow INTERSECT_STATISTICS {
             .map { meta, file -> tuple(meta + [converted: true], file) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
-        versions  = versions.mix(SVTK_VCF2BED.out.versions)
 
     }
 
@@ -51,7 +49,6 @@ workflow INTERSECT_STATISTICS {
         TABIX_BGZIP(
             test_samples.vcf.map { meta, vcf, _tbi->[ meta, vcf ]}
         )
-        versions  = versions.mix(TABIX_BGZIP.out.versions)
 
         BEDOPS_CONVERT2BED(
             TABIX_BGZIP.out.output
@@ -61,7 +58,6 @@ workflow INTERSECT_STATISTICS {
             .map { meta, file -> tuple(meta + [converted: true], file) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
-        versions  = versions.mix(BEDOPS_CONVERT2BED.out.versions)
     }
 
     test_beds_ch

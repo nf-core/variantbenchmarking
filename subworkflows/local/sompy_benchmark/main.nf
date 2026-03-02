@@ -5,7 +5,6 @@
 include { HAPPY_SOMPY          } from '../../../modules/nf-core/happy/sompy'
 include { SPLIT_SOMPY_FEATURES } from '../../../modules/local/custom/split_sompy_features'
 
-
 workflow SOMPY_BENCHMARK {
     take:
     input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index,  regionsbed, targets_bed ]
@@ -28,7 +27,6 @@ workflow SOMPY_BENCHMARK {
         ambiguous_beds,
         [[],[]]
     )
-    versions = versions.mix(HAPPY_SOMPY.out.versions.first())
 
     HAPPY_SOMPY.out.stats
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
@@ -56,7 +54,6 @@ workflow SOMPY_BENCHMARK {
                             .mix(tp_vars)
                             .mix(fp_vars)
                             .mix(fn_vars)
-
 
     emit:
     summary_reports     // channel: [val(meta), reports]

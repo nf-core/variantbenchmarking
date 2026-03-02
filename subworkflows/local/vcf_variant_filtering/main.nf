@@ -14,8 +14,6 @@ workflow VCF_VARIANT_FILTERING {
 
     main:
 
-    versions = channel.empty()
-
     if(params.exclude_expression || params.include_expression){
 
         // filter vcf files using bcftools expressions
@@ -43,7 +41,6 @@ workflow VCF_VARIANT_FILTERING {
                 params.min_allele_freq,
                 params.min_num_reads
             )
-            versions = versions.mix(SURVIVOR_FILTER.out.versions.first())
             vcf_ch = SURVIVOR_FILTER.out.vcf
         }
     }
@@ -55,5 +52,4 @@ workflow VCF_VARIANT_FILTERING {
 
     emit:
     vcf_ch    // [val(meta), vcf.gz, index]
-    versions  // channel: [versions.yml]
 }

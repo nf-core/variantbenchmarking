@@ -49,10 +49,10 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "HAPPY_SOMPY": {
-                    "hap.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -70,13 +70,17 @@
                     "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
                 },
                 "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
                 },
                 "SPLIT_SOMPY_FEATURES": {
                     "python": "3.13.0"
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -144,71 +148,27 @@
                 "indel/summary/datavzrd/rtgtools",
                 "indel/summary/datavzrd/rtgtools/index.html",
                 "indel/summary/datavzrd/rtgtools/static",
-                "indel/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
-                "indel/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
-                "indel/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
-                "indel/summary/datavzrd/rtgtools/static/bootstrap.min.css",
                 "indel/summary/datavzrd/rtgtools/static/bundle.js",
-                "indel/summary/datavzrd/rtgtools/static/datavzrd.css",
                 "indel/summary/datavzrd/rtgtools/test",
                 "indel/summary/datavzrd/rtgtools/test/config.js",
                 "indel/summary/datavzrd/rtgtools/test/data",
                 "indel/summary/datavzrd/rtgtools/test/data/data_1.js",
                 "indel/summary/datavzrd/rtgtools/test/functions.js",
-                "indel/summary/datavzrd/rtgtools/test/heatmap.js",
                 "indel/summary/datavzrd/rtgtools/test/index_1.html",
                 "indel/summary/datavzrd/rtgtools/test/plots",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_0.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_1.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_10.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_2.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_3.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_4.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_5.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_6.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_7.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_8.js",
-                "indel/summary/datavzrd/rtgtools/test/plots/plot_9.js",
+                "indel/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "indel/summary/datavzrd/sompy",
                 "indel/summary/datavzrd/sompy/index.html",
                 "indel/summary/datavzrd/sompy/static",
-                "indel/summary/datavzrd/sompy/static/bootstrap-select.min.css",
-                "indel/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
-                "indel/summary/datavzrd/sompy/static/bootstrap-table.min.css",
-                "indel/summary/datavzrd/sompy/static/bootstrap.min.css",
                 "indel/summary/datavzrd/sompy/static/bundle.js",
-                "indel/summary/datavzrd/sompy/static/datavzrd.css",
                 "indel/summary/datavzrd/sompy/test",
                 "indel/summary/datavzrd/sompy/test/config.js",
                 "indel/summary/datavzrd/sompy/test/data",
                 "indel/summary/datavzrd/sompy/test/data/data_1.js",
                 "indel/summary/datavzrd/sompy/test/functions.js",
-                "indel/summary/datavzrd/sompy/test/heatmap.js",
                 "indel/summary/datavzrd/sompy/test/index_1.html",
                 "indel/summary/datavzrd/sompy/test/plots",
-                "indel/summary/datavzrd/sompy/test/plots/plot_0.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_1.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_10.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_11.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_12.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_13.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_14.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_15.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_16.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_17.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_18.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_19.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_2.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_20.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_21.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_3.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_4.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_5.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_6.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_7.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_8.js",
-                "indel/summary/datavzrd/sompy/test/plots/plot_9.js",
-                "indel/summary/datavzrd/versions.yml",
+                "indel/summary/datavzrd/sompy/test/plots/plots.js",
                 "indel/summary/plots",
                 "indel/summary/plots/rtgtools",
                 "indel/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
@@ -371,10 +331,10 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781"
             ]
         ],
+        "timestamp": "2026-02-27T12:18:58.061319172",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T16:19:46.809952518"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

@@ -13,9 +13,7 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
 
     main:
 
-    versions   = channel.empty()
     out_vcf_ch = channel.empty()
-
     // split small into snv and indel if somatic
     BCFTOOLS_VIEW_SNV(
         input_ch,
@@ -43,6 +41,7 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
     TABIX_BGZIPTABIX_INDEL(
         BCFTOOLS_VIEW_INDEL.out.vcf
     )
+
     TABIX_BGZIPTABIX_INDEL.out.gz_index
         .map { meta, file, index -> tuple(meta + [vartype: "indel"], file, index) }
         .set{split_indel_vcf}
@@ -50,5 +49,4 @@ workflow SPLIT_SMALL_VARIANTS_TEST {
 
     emit:
     out_vcf_ch     // channel: [val(meta), vcf, index]
-    versions       // channel: [versions.yml]
 }

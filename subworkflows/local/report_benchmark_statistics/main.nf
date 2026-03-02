@@ -66,7 +66,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     DATAVZRD (
         CREATE_DATAVZRD_INPUT.out.config
     )
-    versions = versions.mix(DATAVZRD.out.versions.first())
 
     emit:
     versions        // channel: [versions.yml]

@@ -36,7 +36,6 @@ workflow SV_VCF_CONVERSIONS {
             VARIANT_EXTRACTOR.out.output
         )
         input_ch = BCFTOOLS_SORT1.out.vcf
-
     }
 
     if (params.sv_standardization.contains("svtk")){
@@ -44,7 +43,6 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = Channel.empty()
 
         supported_callers2 = ["delly", "melt", "manta", "wham", "dragen", "lumpy", "scrable", "smoove"]
-
         input_ch
             .branch{ meta, _vcf->
                 def caller = meta.caller
@@ -65,7 +63,6 @@ workflow SV_VCF_CONVERSIONS {
             input.tool.join(TABIX_TABIX_1.out.index),
             fai
         )
-        versions = versions.mix(SVTK_STANDARDIZE.out.versions)
 
         BCFTOOLS_SORT2(
             SVTK_STANDARDIZE.out.vcf
@@ -82,7 +79,6 @@ workflow SV_VCF_CONVERSIONS {
         RTGTOOLS_SVDECOMPOSE(
             input_ch.map{ meta, vcf -> tuple(meta, vcf, [])}
         )
-        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
         input_ch = RTGTOOLS_SVDECOMPOSE.out.vcf
     }
 
@@ -102,7 +98,6 @@ workflow SV_VCF_CONVERSIONS {
         )
 
     compressed_ch = ch_inputs.compressed.join(TABIX_TABIX_2.out.index)
-
     vcf_ch = TABIX_BGZIPTABIX.out.gz_index.mix(compressed_ch)
 
     // RUN SVYNC tool to reformat SV callers
@@ -124,7 +119,6 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set{input}
 
-
         input.tool
             .map { meta, vcf, tbi ->
                 [ meta, vcf, tbi, file("${projectDir}/assets/svync/${meta.caller}.yaml", checkIfExists:true) ]
@@ -134,7 +128,6 @@ workflow SV_VCF_CONVERSIONS {
         SVYNC(
             svync_ch
         )
-        versions = versions.mix(SVYNC.out.versions.first())
         out_vcf_ch.mix(
                 SVYNC.out.vcf,
                 input.other

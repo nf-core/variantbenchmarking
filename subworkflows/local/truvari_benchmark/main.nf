@@ -16,7 +16,6 @@ workflow TRUVARI_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
     tagged_variants = channel.empty()
     logs            = channel.empty()
 
@@ -27,7 +26,6 @@ workflow TRUVARI_BENCHMARK {
         fasta,
         fai
     )
-    versions = versions.mix(TRUVARI_BENCH.out.versions.first())
     logs    = logs.mix(TRUVARI_BENCH.out.log)
 
     TRUVARI_BENCH.out.summary
@@ -100,5 +98,4 @@ workflow TRUVARI_BENCHMARK {
     tagged_variants // channel: [val(meta), vcfs]
     report          // channel: [val(meta), reports]
     logs            // channel: [log.txt]
-    versions        // channel: [versions.yml]
 }

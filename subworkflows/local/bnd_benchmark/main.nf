@@ -15,7 +15,6 @@ workflow BND_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
     tagged_variants = channel.empty()
 
     RTGTOOLS_BNDEVAL(
@@ -23,7 +22,6 @@ workflow BND_BENCHMARK {
                     [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
                 }
     )
-    versions = versions.mix(RTGTOOLS_BNDEVAL.out.versions)
 
     RTGTOOLS_BNDEVAL.out.summary
             .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
@@ -91,5 +89,4 @@ workflow BND_BENCHMARK {
     emit:
     summary_reports  // channel: [val(meta), summary]
     tagged_variants  // channel: [val(meta), vcfs]
-    versions         // channel: [versions.yml]
 }

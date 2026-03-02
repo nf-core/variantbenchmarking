@@ -58,13 +58,10 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
-                },
-                "HAPPY_HAPPY": {
-                    "hap.py": "0.3.14"
+                    "datavzrd": "2.63.3"
                 },
                 "HAPPY_PREPY": {
-                    "pre.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -82,10 +79,14 @@
                     "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
                 },
                 "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -161,7 +162,6 @@
                 "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
                 "small/summary/datavzrd/rtgtools/static/bundle.js",
                 "small/summary/datavzrd/rtgtools/static/datavzrd.css",
-                "small/summary/datavzrd/versions.yml",
                 "small/summary/plots",
                 "small/summary/plots/happy",
                 "small/summary/plots/happy/happy.FN.svlen.png",
@@ -280,11 +280,11 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-02-27T11:49:52.227964314",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T15:59:30.728291022"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -345,13 +345,10 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
-                },
-                "HAPPY_HAPPY": {
-                    "hap.py": "0.3.14"
+                    "datavzrd": "2.63.3"
                 },
                 "HAPPY_PREPY": {
-                    "pre.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -369,10 +366,14 @@
                     "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
                 },
                 "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": 3.13
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -494,70 +495,27 @@
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
                 "small/summary/datavzrd/happy/static",
-                "small/summary/datavzrd/happy/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap.min.css",
                 "small/summary/datavzrd/happy/static/bundle.js",
-                "small/summary/datavzrd/happy/static/datavzrd.css",
                 "small/summary/datavzrd/happy/test",
                 "small/summary/datavzrd/happy/test/config.js",
                 "small/summary/datavzrd/happy/test/data",
                 "small/summary/datavzrd/happy/test/data/data_1.js",
                 "small/summary/datavzrd/happy/test/functions.js",
-                "small/summary/datavzrd/happy/test/heatmap.js",
                 "small/summary/datavzrd/happy/test/index_1.html",
                 "small/summary/datavzrd/happy/test/plots",
-                "small/summary/datavzrd/happy/test/plots/plot_0.js",
-                "small/summary/datavzrd/happy/test/plots/plot_1.js",
-                "small/summary/datavzrd/happy/test/plots/plot_10.js",
-                "small/summary/datavzrd/happy/test/plots/plot_11.js",
-                "small/summary/datavzrd/happy/test/plots/plot_12.js",
-                "small/summary/datavzrd/happy/test/plots/plot_13.js",
-                "small/summary/datavzrd/happy/test/plots/plot_14.js",
-                "small/summary/datavzrd/happy/test/plots/plot_15.js",
-                "small/summary/datavzrd/happy/test/plots/plot_16.js",
-                "small/summary/datavzrd/happy/test/plots/plot_17.js",
-                "small/summary/datavzrd/happy/test/plots/plot_18.js",
-                "small/summary/datavzrd/happy/test/plots/plot_19.js",
-                "small/summary/datavzrd/happy/test/plots/plot_2.js",
-                "small/summary/datavzrd/happy/test/plots/plot_20.js",
-                "small/summary/datavzrd/happy/test/plots/plot_3.js",
-                "small/summary/datavzrd/happy/test/plots/plot_4.js",
-                "small/summary/datavzrd/happy/test/plots/plot_5.js",
-                "small/summary/datavzrd/happy/test/plots/plot_6.js",
-                "small/summary/datavzrd/happy/test/plots/plot_7.js",
-                "small/summary/datavzrd/happy/test/plots/plot_8.js",
-                "small/summary/datavzrd/happy/test/plots/plot_9.js",
+                "small/summary/datavzrd/happy/test/plots/plots.js",
                 "small/summary/datavzrd/rtgtools",
                 "small/summary/datavzrd/rtgtools/index.html",
                 "small/summary/datavzrd/rtgtools/static",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
                 "small/summary/datavzrd/rtgtools/static/bundle.js",
-                "small/summary/datavzrd/rtgtools/static/datavzrd.css",
                 "small/summary/datavzrd/rtgtools/test",
                 "small/summary/datavzrd/rtgtools/test/config.js",
                 "small/summary/datavzrd/rtgtools/test/data",
                 "small/summary/datavzrd/rtgtools/test/data/data_1.js",
                 "small/summary/datavzrd/rtgtools/test/functions.js",
-                "small/summary/datavzrd/rtgtools/test/heatmap.js",
                 "small/summary/datavzrd/rtgtools/test/index_1.html",
                 "small/summary/datavzrd/rtgtools/test/plots",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_0.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_1.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_10.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_2.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_3.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_4.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_5.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_6.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_7.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_8.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_9.js",
-                "small/summary/datavzrd/versions.yml",
+                "small/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "small/summary/plots",
                 "small/summary/plots/happy",
                 "small/summary/plots/happy/INDEL_ALL_f1_by_tool_happy_mqc.png",
@@ -714,10 +672,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
+        "timestamp": "2026-02-27T11:45:33.824921772",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T15:55:54.419092093"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

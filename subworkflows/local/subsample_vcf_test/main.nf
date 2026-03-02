@@ -39,7 +39,6 @@ workflow SUBSAMPLE_VCF_TEST {
         [], // regions
         []  // targets
     )
-
     vcf_ch = BCFTOOLS_PLUGINSETGT.out.vcf.mix(ch_branched_vcf.ok)
 
     emit:

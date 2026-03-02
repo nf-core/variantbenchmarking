@@ -34,13 +34,16 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "FILTER_MAJORITY": {
                     "bcftools": 1.22
                 },
                 "HAPPY_SOMPY": {
-                    "hap.py": "0.3.14"
+                    "happy": "0.3.15"
+                },
+                "INJECT_MISSING_GT": {
+                    "gawk": "5.3.0"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -54,8 +57,19 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
+                "REFORMAT_TRUTH": {
+                    "gawk": "5.3.0"
+                },
                 "SPLIT_SOMPY_FEATURES": {
                     "python": "3.13.0"
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIPTABIX_GT": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "TABIX_BGZIPTABIX_SMALL": {
                     "bgzip": 1.21,
@@ -148,43 +162,15 @@
                 "snv/summary/datavzrd/sompy",
                 "snv/summary/datavzrd/sompy/index.html",
                 "snv/summary/datavzrd/sompy/static",
-                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
                 "snv/summary/datavzrd/sompy/static/bundle.js",
-                "snv/summary/datavzrd/sompy/static/datavzrd.css",
                 "snv/summary/datavzrd/sompy/test",
                 "snv/summary/datavzrd/sompy/test/config.js",
                 "snv/summary/datavzrd/sompy/test/data",
                 "snv/summary/datavzrd/sompy/test/data/data_1.js",
                 "snv/summary/datavzrd/sompy/test/functions.js",
-                "snv/summary/datavzrd/sompy/test/heatmap.js",
                 "snv/summary/datavzrd/sompy/test/index_1.html",
                 "snv/summary/datavzrd/sompy/test/plots",
-                "snv/summary/datavzrd/sompy/test/plots/plot_0.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_1.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_10.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_11.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_12.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_13.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_14.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_15.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_16.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_17.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_18.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_19.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_2.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_20.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_21.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_3.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_4.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_5.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_6.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_7.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_8.js",
-                "snv/summary/datavzrd/sompy/test/plots/plot_9.js",
-                "snv/summary/datavzrd/versions.yml",
+                "snv/summary/datavzrd/sompy/test/plots/plots.js",
                 "snv/summary/plots",
                 "snv/summary/plots/sompy",
                 "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
@@ -262,10 +248,10 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
+        "timestamp": "2026-02-27T12:34:44.224798798",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T17:39:00.802845577"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

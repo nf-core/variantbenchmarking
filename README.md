@@ -58,13 +58,15 @@ This initial step ensures consistent formatting and alignment of variants in tes
 - Deduplication of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 - Left aligning of variants([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 
-### Ensemble (majority rule) approcah to prepare truth variants:
+### Ensemble (majority rule) approch to prepare truth variants:
 
-In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers. If $--ensemble_thruth$ > 0:
+When a "Gold Standard" (a high-confidence, validated set of variants) is not available, you can create a Proxy Ground Truth by looking for agreement between different tools. This is Majority Rule approach assumes that if multiple independent variant callers identify the same mutation, it is more likely to be a real biological variant rather than a technical error from a single pipeline. Only variants found by at least the minimum number of callers specified in your threshold are kept as the "truth" for the final benchmark.
+
+If the $--ensemble/_truth$ threshold is set higher than 0, the pipeline performs the following steps:
 
 - Merge small (SNVs and INDELs) using ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
 - Merge Structual Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
-- Filtering the variants according to $--ensemble_thruth$.
+- Consensus filtering the variants according to $--ensemble/_truth$.
 
 ### Filtering options:
 

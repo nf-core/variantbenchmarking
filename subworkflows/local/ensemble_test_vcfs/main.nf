@@ -21,7 +21,6 @@ workflow ENSEMLE_TEST_VCFS {
     fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions    = channel.empty()
     merged_vcfs = channel.empty()
 
     test_vcfs.branch { meta, vcf, index ->
@@ -75,7 +74,6 @@ workflow ENSEMLE_TEST_VCFS {
         TABIX_BGZIPTABIX_SMALL(
             REFORMAT_TRUTH.out.output
         )
-        versions = versions.mix(TABIX_BGZIPTABIX_SMALL.out.versions)
 
         truth_vcf = TABIX_BGZIPTABIX_SMALL.out.gz_index
 
@@ -86,7 +84,6 @@ workflow ENSEMLE_TEST_VCFS {
         TABIX_BGZIP_UNZIP(
             ch_test_vcfs
         )
-        versions = versions.mix(TABIX_BGZIP_UNZIP.out.versions.first())
 
         TABIX_BGZIP_UNZIP.out.output
             .groupTuple()
@@ -104,7 +101,6 @@ workflow ENSEMLE_TEST_VCFS {
             0,
             params.min_sv_size
         )
-        versions = versions.mix(SURVIVOR_ENSEMBLE.out.versions.first())
 
         REFORMAT_TRUTH_SV(
             SURVIVOR_ENSEMBLE.out.vcf,
@@ -120,6 +116,5 @@ workflow ENSEMLE_TEST_VCFS {
     }
     emit:
     truth_vcf    // channel: [val(meta), vcf.gz, index]
-    versions     // channel: [versions.yml]
 
 }

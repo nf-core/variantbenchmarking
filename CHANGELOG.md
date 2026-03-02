@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Transforming local modules with bcftools and tabix to standard nf-core modules [#267](https://github.com/nf-core/variantbenchmarking/pull/267)
 - Replace local modules SORT_BED and REFORMAT_HEADER with nf-core ones. [#268](https://github.com/nf-core/variantbenchmarking/pull/268)
 - Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
+- Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
 
 ### `Fixed`
 
@@ -27,6 +28,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | bcftools       | 1.2         | 1.22        |
 | tabix          | 1.19.1      | 1.21        |
 | bcftools/stats | 1.18        | 1.22        |
+| happy          | 0.3.14      | 0.3.15      |
+| bedops         | 2.4.41      | 2.4.42      |
+| picard         | 3.2.0       | 3.4.0       |
+| ucsc           | 377         | 482         |
+| datavzrd       | 2.36.12     | 2.63.3      |
+| truvari        | 5.3.0       | 5.4.0       |
 
 ## 1.4.0
 

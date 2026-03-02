@@ -12,9 +12,6 @@ workflow WITTYER_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
-
-    // unzip vcf.gz files
     TABIX_BGZIP_QUERY(
         input_ch.map { meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed  ->
             [ meta, vcf ]
@@ -32,16 +29,12 @@ workflow WITTYER_BENCHMARK {
         }
         .set { bed }
 
-    //
-    // MODULE: WITTYER
-    //
     WITTYER(
         TABIX_BGZIP_QUERY.out.output
             .join(TABIX_BGZIP_TRUTH.out.output, failOnDuplicate:true, failOnMismatch:true)
             .join(bed, failOnDuplicate:true, failOnMismatch:true)
             .map{ meta, vcf, truth_vcf, bed -> [meta, vcf, truth_vcf, bed, []] }
     )
-    versions = versions.mix(WITTYER.out.versions.first())
 
     WITTYER.out.report
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], file) }
@@ -50,5 +43,4 @@ workflow WITTYER_BENCHMARK {
 
     emit:
     report       // channel: [val(meta), reports]
-    versions     // channel: [val(meta), versions.yml]
 }

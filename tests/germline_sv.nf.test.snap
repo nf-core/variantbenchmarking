@@ -43,7 +43,7 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -57,12 +57,6 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
-                "SUBTRACT_VCF_QUERY": {
-                    "python": "3.13.0"
-                },
-                "SUBTRACT_VCF_TRUTH": {
-                    "python": "3.13.0"
-                },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
                 },
@@ -75,6 +69,16 @@
                 "SVANALYZER_SVBENCHMARK": {
                     "svanalyzer": 0.36
                 },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIP_QUERY": {
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIP_TRUTH": {
+                    "tabix": 1.21
+                },
                 "TABIX_BGZIP_UNZIP": {
                     "tabix": 1.21
                 },
@@ -82,7 +86,7 @@
                     "tabix": 1.21
                 },
                 "TRUVARI_BENCH": {
-                    "truvari": "5.3.0)"
+                    "truvari": "5.4.0"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -183,86 +187,39 @@
                 "structural/summary/datavzrd/svbenchmark",
                 "structural/summary/datavzrd/svbenchmark/index.html",
                 "structural/summary/datavzrd/svbenchmark/static",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
-                "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
                 "structural/summary/datavzrd/svbenchmark/test",
                 "structural/summary/datavzrd/svbenchmark/test/config.js",
                 "structural/summary/datavzrd/svbenchmark/test/data",
                 "structural/summary/datavzrd/svbenchmark/test/data/data_1.js",
                 "structural/summary/datavzrd/svbenchmark/test/functions.js",
-                "structural/summary/datavzrd/svbenchmark/test/heatmap.js",
                 "structural/summary/datavzrd/svbenchmark/test/index_1.html",
                 "structural/summary/datavzrd/svbenchmark/test/plots",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_0.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_1.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_2.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_3.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_4.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_5.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_6.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_7.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_8.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_9.js",
+                "structural/summary/datavzrd/svbenchmark/test/plots/plots.js",
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
                 "structural/summary/datavzrd/truvari/static",
-                "structural/summary/datavzrd/truvari/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap.min.css",
                 "structural/summary/datavzrd/truvari/static/bundle.js",
-                "structural/summary/datavzrd/truvari/static/datavzrd.css",
                 "structural/summary/datavzrd/truvari/test",
                 "structural/summary/datavzrd/truvari/test/config.js",
                 "structural/summary/datavzrd/truvari/test/data",
                 "structural/summary/datavzrd/truvari/test/data/data_1.js",
                 "structural/summary/datavzrd/truvari/test/functions.js",
-                "structural/summary/datavzrd/truvari/test/heatmap.js",
                 "structural/summary/datavzrd/truvari/test/index_1.html",
                 "structural/summary/datavzrd/truvari/test/plots",
-                "structural/summary/datavzrd/truvari/test/plots/plot_0.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_1.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_2.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_3.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_4.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_5.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_6.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_7.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_8.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_9.js",
-                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/datavzrd/wittyer",
                 "structural/summary/datavzrd/wittyer/index.html",
                 "structural/summary/datavzrd/wittyer/static",
-                "structural/summary/datavzrd/wittyer/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/wittyer/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/wittyer/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/wittyer/static/bootstrap.min.css",
                 "structural/summary/datavzrd/wittyer/static/bundle.js",
-                "structural/summary/datavzrd/wittyer/static/datavzrd.css",
                 "structural/summary/datavzrd/wittyer/test",
                 "structural/summary/datavzrd/wittyer/test/config.js",
                 "structural/summary/datavzrd/wittyer/test/data",
                 "structural/summary/datavzrd/wittyer/test/data/data_1.js",
                 "structural/summary/datavzrd/wittyer/test/functions.js",
-                "structural/summary/datavzrd/wittyer/test/heatmap.js",
                 "structural/summary/datavzrd/wittyer/test/index_1.html",
                 "structural/summary/datavzrd/wittyer/test/plots",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_0.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_1.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_10.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_2.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_3.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_4.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_5.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_6.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_7.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_8.js",
-                "structural/summary/datavzrd/wittyer/test/plots/plot_9.js",
+                "structural/summary/datavzrd/wittyer/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
                 "structural/summary/plots/svbenchmark/f1_by_tool_svbenchmark_mqc.png",
@@ -404,11 +361,11 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
+        "timestamp": "2026-02-27T11:56:19.466420274",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T16:04:40.840472311"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-stub": {
         "content": [
@@ -454,7 +411,7 @@
                     "bcftools": 1.22
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -468,12 +425,6 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
-                "SUBTRACT_VCF_QUERY": {
-                    "python": "3.13.0"
-                },
-                "SUBTRACT_VCF_TRUTH": {
-                    "python": "3.13.0"
-                },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
                 },
@@ -486,6 +437,16 @@
                 "SVANALYZER_SVBENCHMARK": {
                     "svanalyzer": 0.36
                 },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIP_QUERY": {
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIP_TRUTH": {
+                    "tabix": 1.21
+                },
                 "TABIX_BGZIP_UNZIP": {
                     "tabix": 1.21
                 },
@@ -493,7 +454,7 @@
                     "tabix": 1.21
                 },
                 "TRUVARI_BENCH": {
-                    "truvari": "5.3.0)"
+                    "truvari": "5.4.0"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -571,7 +532,6 @@
                 "structural/summary/datavzrd/truvari/static/bootstrap.min.css",
                 "structural/summary/datavzrd/truvari/static/bundle.js",
                 "structural/summary/datavzrd/truvari/static/datavzrd.css",
-                "structural/summary/datavzrd/versions.yml",
                 "structural/summary/datavzrd/wittyer",
                 "structural/summary/datavzrd/wittyer/index.html",
                 "structural/summary/datavzrd/wittyer/network",
@@ -722,10 +682,10 @@
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-02-27T12:00:34.844914569",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2026-02-24T16:07:32.361572406"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }
