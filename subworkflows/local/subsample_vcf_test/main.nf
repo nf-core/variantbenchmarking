@@ -4,7 +4,6 @@
 
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE     } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_SORT         } from '../../../modules/nf-core/bcftools/sort'
-include { GAWK as ADD_GT_STRELKA} from '../../../modules/nf-core/gawk'
 
 workflow SUBSAMPLE_VCF_TEST {
     take:
@@ -24,21 +23,7 @@ workflow SUBSAMPLE_VCF_TEST {
         [],
         []
     )
-
-    // Add the tools known not to have GT field here (only strelka for now)
-    ch_branched_vcf = BCFTOOLS_VIEW_SUBSAMPLE.out.vcf
-        .branch { meta, vcf ->
-            needs_gt: meta.caller.toLowerCase().contains("strelka")
-            ok:       true
-        }
-
-    // Add GT field using 
-    ADD_GT_STRELKA(
-        ch_branched_vcf.needs_gt,
-        [],
-        false
-    )
-    vcf_ch = ADD_GT_STRELKA.out.output.mix(ch_branched_vcf.ok)
+    vcf_ch = BCFTOOLS_VIEW_SUBSAMPLE.out.vcf
 
     emit:
     vcf_ch      // channel: [val(meta), vcf]

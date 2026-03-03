@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improving the pipeline towards strict syntax health & adding topic channels - 1 [#272](https://github.com/nf-core/variantbenchmarking/pull/272)
 - Fixing the bed file bug in concordance analysis [#260](https://github.com/nf-core/variantbenchmarking/pull/275)
 - Missing --sample for meta.id is fixed in BCFTOOLS_REHEADER [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
+- GT field is necessary for rtgtools vcfeval, strelka reports no GT field for somatic analysis. Fixing the GT field setup for strelka (bcftools plugingtset doesnt work as GT is not available) [#279](https://github.com/nf-core/variantbenchmarking/pull/279)
 
 ### `Dependencies`
 

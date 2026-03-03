@@ -13,6 +13,8 @@ include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/n
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'
+include { GAWK as ADD_GT_STRELKA                      } from '../../../modules/nf-core/gawk'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_GT     } from '../../../modules/nf-core/tabix/bgziptabix'
 
 workflow PREPARE_VCFS_TEST {
     take:
@@ -154,7 +156,30 @@ workflow PREPARE_VCFS_TEST {
         [],
         []
     )
-    vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+
+     // branch out test samples with missing GT field (e.g. strelka) to add GT field using gawk
+    ch_branched_vcf = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+        .branch { meta, vcf, tbi ->
+            def is_rtg = params.method?.contains("rtgtools")
+            def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
+            def is_somatic = params.analysis == "somatic"
+
+            needs_gt: is_strelka_manta && is_somatic && is_rtg
+            ok:       true
+        }
+
+    // Add GT field using 
+    ADD_GT_STRELKA(
+        ch_branched_vcf.needs_gt.map{ meta, vcf, _tbi -> tuple(meta, vcf) },
+        [],
+        false
+    )
+
+    TABIX_BGZIPTABIX_GT(
+        ADD_GT_STRELKA.out.output
+    )
+
+    vcf_ch = TABIX_BGZIPTABIX_GT.out.gz_index.mix(ch_branched_vcf.ok)
 
     emit:
     vcf_ch   // channel: [val(meta), vcf.gz, tbi]
