@@ -24,7 +24,7 @@ workflow ENSEMLE_TEST_VCFS {
     merged_vcfs = channel.empty()
 
     test_vcfs.branch { meta, vcf, index ->
-        missing_gt: meta.caller == "strelka" || meta.caller == "manta" && params.analysis == "somatic"
+        missing_gt: (meta.caller == "strelka" && !meta.subsample) || meta.caller == "manta" && params.analysis == "somatic"
         other:   true
     }.set { branched_vcfs }
 

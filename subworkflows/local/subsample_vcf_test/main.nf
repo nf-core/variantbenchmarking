@@ -4,7 +4,7 @@
 
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_SUBSAMPLE     } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_SORT         } from '../../../modules/nf-core/bcftools/sort'
-include { BCFTOOLS_PLUGINSETGT  } from '../../../modules/nf-core/bcftools/pluginsetgt/main'
+include { GAWK as ADD_GT_STRELKA} from '../../../modules/nf-core/gawk'
 
 workflow SUBSAMPLE_VCF_TEST {
     take:
@@ -32,14 +32,13 @@ workflow SUBSAMPLE_VCF_TEST {
             ok:       true
         }
 
-    BCFTOOLS_PLUGINSETGT(
-        ch_branched_vcf.needs_gt.map{ meta, vcf -> tuple(meta, vcf, []) },
-        Channel.value('q'),
-        Channel.value('0p --include "1"'),
-        [], // regions
-        []  // targets
+    // Add GT field using 
+    ADD_GT_STRELKA(
+        ch_branched_vcf.needs_gt,
+        [],
+        false
     )
-    vcf_ch = BCFTOOLS_PLUGINSETGT.out.vcf.mix(ch_branched_vcf.ok)
+    vcf_ch = ADD_GT_STRELKA.out.output.mix(ch_branched_vcf.ok)
 
     emit:
     vcf_ch      // channel: [val(meta), vcf]
