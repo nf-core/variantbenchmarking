@@ -95,7 +95,7 @@ workflow ENSEMLE_TEST_VCFS {
         // drop meta information from vcf test samples
         ch_test_vcfs = vcf_ch.map { meta, vcf ->
             [ [id: 'truth'], vcf ]
-        }     
+        }
 
         // Dynamically calculate the minimum callers based on the number of files
         // Merge Benchmark SVs from different tools
