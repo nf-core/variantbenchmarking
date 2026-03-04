@@ -1,18 +1,33 @@
 {
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy' --ensemble_truth 2": {
         "content": [
-            50,
+            102,
             {
+                "ADD_GT_STRELKA": {
+                    "gawk": "5.3.0"
+                },
                 "BCFTOOLS_ENSEMBLE": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
                 },
-                "BCFTOOLS_PLUGINSETGT": {
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_3": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -42,9 +57,6 @@
                 "HAPPY_SOMPY": {
                     "happy": "0.3.15"
                 },
-                "INJECT_MISSING_GT": {
-                    "gawk": "5.3.0"
-                },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
@@ -57,8 +69,17 @@
                 "PLOT_UPSET": {
                     "python": "3.13.7"
                 },
+                "REFORMAT_HEADER": {
+                    "gawk": "5.3.0"
+                },
                 "REFORMAT_TRUTH": {
                     "gawk": "5.3.0"
+                },
+                "RTGTOOLS_FORMAT": {
+                    "rtgtools": 3.13
+                },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtgtools": 3.13
                 },
                 "SPLIT_SOMPY_FEATURES": {
                     "python": "3.13.0"
@@ -75,6 +96,9 @@
                     "bgzip": 1.21,
                     "tabix": 1.21
                 },
+                "VCF_TO_CSV": {
+                    "python": "3.13.0"
+                },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
                 }
@@ -82,6 +106,30 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "references",
+                "references/rtgtools",
+                "references/rtgtools/genome.sdf",
+                "references/rtgtools/genome.sdf/done",
+                "references/rtgtools/genome.sdf/format.log",
+                "references/rtgtools/genome.sdf/mainIndex",
+                "references/rtgtools/genome.sdf/nameIndex0",
+                "references/rtgtools/genome.sdf/namedata0",
+                "references/rtgtools/genome.sdf/namepointer0",
+                "references/rtgtools/genome.sdf/progress",
+                "references/rtgtools/genome.sdf/reference.txt",
+                "references/rtgtools/genome.sdf/seqdata0",
+                "references/rtgtools/genome.sdf/seqdata1",
+                "references/rtgtools/genome.sdf/seqdata2",
+                "references/rtgtools/genome.sdf/seqdata3",
+                "references/rtgtools/genome.sdf/seqpointer0",
+                "references/rtgtools/genome.sdf/seqpointer1",
+                "references/rtgtools/genome.sdf/seqpointer2",
+                "references/rtgtools/genome.sdf/seqpointer3",
+                "references/rtgtools/genome.sdf/sequenceIndex0",
+                "references/rtgtools/genome.sdf/suffixIndex0",
+                "references/rtgtools/genome.sdf/suffixdata0",
+                "references/rtgtools/genome.sdf/suffixpointer0",
+                "references/rtgtools/genome.sdf/summary.txt",
                 "snv",
                 "snv/multiqc",
                 "snv/multiqc/multiqc_data",
@@ -154,11 +202,28 @@
                 "snv/multiqc/multiqc_report.html",
                 "snv/summary",
                 "snv/summary/comparisons",
+                "snv/summary/comparisons/rtgtools",
+                "snv/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "snv/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "snv/summary/comparisons/sompy",
                 "snv/summary/comparisons/sompy/sompy.FN.csv",
                 "snv/summary/comparisons/sompy/sompy.FP.csv",
                 "snv/summary/comparisons/sompy/sompy.TP_comp.csv",
                 "snv/summary/datavzrd",
+                "snv/summary/datavzrd/rtgtools",
+                "snv/summary/datavzrd/rtgtools/index.html",
+                "snv/summary/datavzrd/rtgtools/static",
+                "snv/summary/datavzrd/rtgtools/static/bundle.js",
+                "snv/summary/datavzrd/rtgtools/test",
+                "snv/summary/datavzrd/rtgtools/test/config.js",
+                "snv/summary/datavzrd/rtgtools/test/data",
+                "snv/summary/datavzrd/rtgtools/test/data/data_1.js",
+                "snv/summary/datavzrd/rtgtools/test/functions.js",
+                "snv/summary/datavzrd/rtgtools/test/index_1.html",
+                "snv/summary/datavzrd/rtgtools/test/plots",
+                "snv/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "snv/summary/datavzrd/sompy",
                 "snv/summary/datavzrd/sompy/index.html",
                 "snv/summary/datavzrd/sompy/static",
@@ -172,29 +237,65 @@
                 "snv/summary/datavzrd/sompy/test/plots",
                 "snv/summary/datavzrd/sompy/test/plots/plots.js",
                 "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
+                "snv/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "snv/summary/plots/sompy",
                 "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
                 "snv/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
                 "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
                 "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "snv/summary/tables",
+                "snv/summary/tables/rtgtools",
+                "snv/summary/tables/rtgtools/rtgtools.summary.csv",
                 "snv/summary/tables/sompy",
                 "snv/summary/tables/sompy/sompy.regions.csv",
                 "snv/summary/tables/sompy/sompy.summary.csv",
                 "snv/test10",
                 "snv/test10/benchmarks",
+                "snv/test10/benchmarks/rtgtools",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.fn.vcf.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.fn.vcf.gz.tbi",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.fp.vcf.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.fp.vcf.gz.tbi",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.non_snp_roc.tsv.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.phasing.txt",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.snp_roc.tsv.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.summary.txt",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.tp-baseline.vcf.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.tp-baseline.vcf.gz.tbi",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.tp.vcf.gz",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.tp.vcf.gz.tbi",
+                "snv/test10/benchmarks/rtgtools/test10.truth.strelka.weighted_roc.tsv.gz",
                 "snv/test10/benchmarks/sompy",
                 "snv/test10/benchmarks/sompy/test10.truth.strelka.features.csv",
                 "snv/test10/benchmarks/sompy/test10.truth.strelka.metrics.json",
                 "snv/test10/benchmarks/sompy/test10.truth.strelka.stats.csv",
                 "snv/test10/preprocess",
-                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
-                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.setGT.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
                 "snv/test10/stats",
                 "snv/test10/stats/bcftools",
                 "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
                 "snv/test8",
                 "snv/test8/benchmarks",
+                "snv/test8/benchmarks/rtgtools",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.fn.vcf.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.fn.vcf.gz.tbi",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.fp.vcf.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.fp.vcf.gz.tbi",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.non_snp_roc.tsv.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.phasing.txt",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.snp_roc.tsv.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.summary.txt",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.tp-baseline.vcf.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.tp-baseline.vcf.gz.tbi",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.tp.vcf.gz",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.tp.vcf.gz.tbi",
+                "snv/test8/benchmarks/rtgtools/test8.truth.freebayes.weighted_roc.tsv.gz",
                 "snv/test8/benchmarks/sompy",
                 "snv/test8/benchmarks/sompy/test8.truth.freebayes.features.csv",
                 "snv/test8/benchmarks/sompy/test8.truth.freebayes.metrics.json",
@@ -207,6 +308,20 @@
                 "snv/test8/stats/bcftools/test8.freebayes.bcftools_stats.txt",
                 "snv/test9",
                 "snv/test9/benchmarks",
+                "snv/test9/benchmarks/rtgtools",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.fn.vcf.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.fn.vcf.gz.tbi",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.fp.vcf.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.fp.vcf.gz.tbi",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.non_snp_roc.tsv.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.phasing.txt",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.snp_roc.tsv.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.summary.txt",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.tp-baseline.vcf.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.tp-baseline.vcf.gz.tbi",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.tp.vcf.gz",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.tp.vcf.gz.tbi",
+                "snv/test9/benchmarks/rtgtools/test9.truth.mutect2.weighted_roc.tsv.gz",
                 "snv/test9/benchmarks/sompy",
                 "snv/test9/benchmarks/sompy/test9.truth.mutect2.features.csv",
                 "snv/test9/benchmarks/sompy/test9.truth.mutect2.metrics.json",
@@ -226,29 +341,51 @@
                 "snv/truth/stats/bcftools/truth.bcftools_stats.txt"
             ],
             [
-                "bcftools-stats-subtypes.txt:md5,dea9af338baec5de338c3093f9fb6f55",
-                "bcftools_stats_indel-lengths.txt:md5,5ed1aea7184561b813a2ab6732ce0904",
-                "bcftools_stats_variant_depths.txt:md5,d73ebe5da52589c7aa6f7e0fd1166f04",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,bcc6e0e4236b96ff58fc6605de2feacd",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,f1140f9f9866e236c3b78a679b253c08",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,da222b97cff85c77549a0f19f3f186bf",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,cbe8392efc28b89df54c0f895399c294",
-                "multiqc_bcftools_stats.txt:md5,11c1ae6bb363bc31659c5f82bb17b611",
+                "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
+                "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
+                "namepointer0:md5,319f9f665b338f0e218677e036637e94",
+                "reference.txt:md5,c9f7ef637449eb0f006d90080a130e30",
+                "seqdata0:md5,ea8728adf43db158305ba188de66e838",
+                "seqdata1:md5,d3470516d52b20e9477323d051846c3f",
+                "seqdata2:md5,1fd1a98f39b966aac0b696b122a1c6d5",
+                "seqdata3:md5,49ba3e2d1b4ada1d7ed2c29079833491",
+                "seqpointer0:md5,77ad13d617e120eadad10bdec41cc00f",
+                "seqpointer1:md5,fce3fdba9b237ec51f3c356086d0f8b9",
+                "seqpointer2:md5,3d99bc0313f17f491a0a2903d6585b14",
+                "seqpointer3:md5,2a69114e099aa0752e78f417cc8fe7bb",
+                "sequenceIndex0:md5,18c7d37abf02d389fda5d9945b16b614",
+                "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
+                "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
+                "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
+                "bcftools-stats-subtypes.txt:md5,92a16cf8fd8215e5b02580065fa33a5a",
+                "bcftools_stats_indel-lengths.txt:md5,608d700914e2c554bcfd0a44f103eead",
+                "bcftools_stats_variant_depths.txt:md5,685d9a6531d16ba7dfe57cfd05e5de94",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,79ab5ebcd7ca1c4a2e1cb36d024d1b6c",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,31dfeea21aebdd3695e20b3717ecdb98",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,0c7c0431eecdb3e0aae8757adc57e3fa",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,f57931761c1d03576777e44e571774a7",
+                "multiqc_bcftools_stats.txt:md5,7931a2daed91a73b5279cecb0189a9e3",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                "multiqc_sompy_combined_data.txt:md5,12bf81aaef6b28796f8e3dec5c1bf5ba",
-                "multiqc_sompy_indel_data.txt:md5,60e13745c78d0bfe1eb99588c569e6ac",
-                "multiqc_sompy_snv_data.txt:md5,367f75aefee0b0ff271e543bf9494928",
+                "multiqc_sompy_combined_data.txt:md5,b6fa3afe2584141164bd94c6f9323242",
+                "multiqc_sompy_indel_data.txt:md5,5ce8a0268da43615286ed30191d95247",
+                "multiqc_sompy_snv_data.txt:md5,d44a7558a770d48facc2c235229b07f8",
                 "multiqc_variant_calling_summary.txt:md5,4ef69d737c9970256fb349374083ee4d",
                 "sompy_combined_plot.txt:md5,c11f58af0c019a5fa375ed684e834d41",
                 "sompy_indel_plot.txt:md5,0ea526ed408ee08021be0c0fd935477d",
                 "sompy_snv_plot.txt:md5,42596114cf6a2278da046148acc7f1ad",
-                "test10.strelka.bcftools_stats.txt:md5,2420ba4152014a1753685ee43c43232c",
+                "test10.truth.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "test10.truth.strelka.summary.txt:md5,c62d17ec322d3f93c1f8f5742e5df31e",
+                "test10.strelka.bcftools_stats.txt:md5,0064a9f57d02f1e8154f5d81eaf2dfe9",
+                "test8.truth.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
+                "test8.truth.freebayes.summary.txt:md5,7b582207504eada20c655864069871f2",
                 "test8.freebayes.bcftools_stats.txt:md5,98e3627e2d15d7f31661bd56c021447e",
+                "test9.truth.mutect2.phasing.txt:md5,6d29664d5d20e216220ae051a677eec5",
+                "test9.truth.mutect2.summary.txt:md5,3a73eefc847515fa6358985916009c7f",
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537",
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
-        "timestamp": "2026-02-27T12:34:44.224798798",
+        "timestamp": "2026-03-04T11:53:32.817033457",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
