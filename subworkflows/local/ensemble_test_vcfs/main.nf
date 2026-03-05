@@ -21,11 +21,15 @@ workflow ENSEMLE_TEST_VCFS {
     fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
-    merged_vcfs = channel.empty()
 
+    // if the benchmarking method is rtgtools, missing GT field is already filled in VCF preperation step, so no need to inject missing GT field
     test_vcfs.branch { meta, vcf, index ->
-        missing_gt: meta.caller == "strelka" || meta.caller == "manta" && params.analysis == "somatic"
-        other:   true
+        def is_rtg = params.method?.contains("rtgtools")
+        def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
+        def is_somatic = params.analysis == "somatic"
+
+        missing_gt: is_strelka_manta && is_somatic && !is_rtg
+        other:       true
     }.set { branched_vcfs }
 
     // Run the injection process ONLY on  strelka
@@ -35,20 +39,20 @@ workflow ENSEMLE_TEST_VCFS {
         false
     )
 
-    TABIX_BGZIPTABIX_GT(
-        INJECT_MISSING_GT.out.output
-    )
-
-    ch_ready_for_merge = branched_vcfs.other.mix(
-        TABIX_BGZIPTABIX_GT.out.gz_index
-    )
-
-    // drop meta information from vcf test samples
-    ch_test_vcfs = ch_ready_for_merge.map { meta, vcf, index ->
-        [ [id: 'truth'], vcf, index ]
-    }
-
     if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
+
+        TABIX_BGZIPTABIX_GT(
+            INJECT_MISSING_GT.out.output
+        )
+
+        ch_ready_for_merge = branched_vcfs.other.mix(
+            TABIX_BGZIPTABIX_GT.out.gz_index
+        )
+
+        // drop meta information from vcf test samples
+        ch_test_vcfs = ch_ready_for_merge.map { meta, vcf, index ->
+            [ [id: 'truth'], vcf, index ]
+        }
 
         // merge small variants
         BCFTOOLS_ENSEMBLE(
@@ -82,18 +86,21 @@ workflow ENSEMLE_TEST_VCFS {
         // Merge SV variants
 
         TABIX_BGZIP_UNZIP(
-            ch_test_vcfs
+            branched_vcfs.other.map { meta, vcf, _index -> tuple(meta, vcf) }
         )
 
-        TABIX_BGZIP_UNZIP.out.output
-            .groupTuple()
+        TABIX_BGZIP_UNZIP.out.output.mix(INJECT_MISSING_GT.out.output)
             .set{vcf_ch}
 
-        // Dynamically calculate the minimum callers based on the number of files
+        // drop meta information from vcf test samples
+        ch_test_vcfs = vcf_ch.map { meta, vcf ->
+            [ [id: 'truth'], vcf ]
+        }
 
+        // Dynamically calculate the minimum callers based on the number of files
         // Merge Benchmark SVs from different tools
         SURVIVOR_ENSEMBLE(
-            vcf_ch,
+            ch_test_vcfs.groupTuple(),
             10000,
             1,
             params.ensemble_truth ,
