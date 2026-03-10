@@ -152,14 +152,14 @@ graph LR
     liftover -->|test,truth| sv_processing
     liftover -->|truth,test| var_norm
 
-    
+
     %% Section 3 -> 4
     var_norm -->|test| filter_contigs
     %% Section 4 -> 5: each filter to its corresponding stats
     bcftools_filter -->|test| bcftools_stats
     survivor_filter -->|test| survivor_stats
     var_norm -->|truth| bcftools_stats
-    var_norm -->|truth| survivor_stats     
+    var_norm -->|truth| survivor_stats
     %% Section 4 -> Ensembl Truth
     bcftools_filter -->|test| _ensembl_hub
     survivor_filter -->|test| _ensembl_hub
