@@ -1,8 +1,0 @@
-channels:
-  - conda-forge
-  - bioconda
-dependencies:
-  - bioconda::bcftools
-  - pip
-  - pip:
-      - pip==24.3.1
