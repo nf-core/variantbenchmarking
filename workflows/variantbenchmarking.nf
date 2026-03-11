@@ -306,7 +306,7 @@ workflow VARIANTBENCHMARKING {
                                             ]
                                             def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple( [ meta + [vartype: params.variant_type, benchmark_tool: "bndeval", tag: transformedTag]], file)
+                                            tuple( [ meta + [vartype: params.variant_type, id: "bndeval", tag: transformedTag]], file)
                                         }
         }
     }

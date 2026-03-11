@@ -43,7 +43,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
                                             ]
                                             def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, benchmark_tool: "vcfeval", tag: transformedTag], file , index)
+                                            tuple([vartype: params.variant_type, id: "vcfeval", tag: transformedTag], file , index)
                                         }
 
     }

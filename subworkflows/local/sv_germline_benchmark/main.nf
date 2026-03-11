@@ -46,7 +46,7 @@ workflow SV_GERMLINE_BENCHMARK {
                                             ]
                                             def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-base', 'tp-comp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, benchmark_tool: "truvari", tag: transformedTag], file)
+                                            tuple([vartype: params.variant_type, id: "truvari", tag: transformedTag], file)
                                         }
         logs            = logs.mix(TRUVARI_BENCH.out.log)
     }
