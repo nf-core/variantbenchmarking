@@ -78,6 +78,13 @@
                 "RTGTOOLS_FORMAT": {
                     "rtgtools": 3.13
                 },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
@@ -110,11 +117,11 @@
                 "small/summary/comparisons/happy/happy.FP.csv",
                 "small/summary/comparisons/happy/happy.TP_base.csv",
                 "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/null",
-                "small/summary/comparisons/null/null.FN.csv",
-                "small/summary/comparisons/null/null.FP.csv",
-                "small/summary/comparisons/null/null.TP_base.csv",
-                "small/summary/comparisons/null/null.TP_comp.csv",
+                "small/summary/comparisons/vcfeval",
+                "small/summary/comparisons/vcfeval/vcfeval.FN.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.FP.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.TP_base.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -161,15 +168,15 @@
                 "small/summary/plots/happy/metric_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/upset_happy.upset.mqc.png",
                 "small/summary/plots/happy/variants_by_tool_happy_mqc.png",
-                "small/summary/plots/null",
-                "small/summary/plots/null/null.FN.svlen.png",
-                "small/summary/plots/null/null.FP.svlen.png",
-                "small/summary/plots/null/null.TP_base.svlen.png",
-                "small/summary/plots/null/null.TP_comp.svlen.png",
-                "small/summary/plots/null/upset_null.upset.mqc.png",
                 "small/summary/plots/rtgtools",
                 "small/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
+                "small/summary/plots/vcfeval",
+                "small/summary/plots/vcfeval/upset_vcfeval.upset.mqc.png",
+                "small/summary/plots/vcfeval/vcfeval.FN.svlen.png",
+                "small/summary/plots/vcfeval/vcfeval.FP.svlen.png",
+                "small/summary/plots/vcfeval/vcfeval.TP_base.svlen.png",
+                "small/summary/plots/vcfeval/vcfeval.TP_comp.svlen.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
                 "small/summary/tables/happy/happy.regions.csv",
@@ -271,12 +278,11 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-13T10:29:48.060231599",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T13:41:26.663466835"
+        "timestamp": "2026-03-11T17:10:37.080864343"
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -356,6 +362,13 @@
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtgtools": 3.13
+                },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -468,11 +481,11 @@
                 "small/summary/comparisons/happy/happy.FP.csv",
                 "small/summary/comparisons/happy/happy.TP_base.csv",
                 "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/null",
-                "small/summary/comparisons/null/null.FN.csv",
-                "small/summary/comparisons/null/null.FP.csv",
-                "small/summary/comparisons/null/null.TP_base.csv",
-                "small/summary/comparisons/null/null.TP_comp.csv",
+                "small/summary/comparisons/vcfeval",
+                "small/summary/comparisons/vcfeval/vcfeval.FN.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.FP.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.TP_base.csv",
+                "small/summary/comparisons/vcfeval/vcfeval.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -518,17 +531,17 @@
                 "small/summary/plots/happy/happy.TP_comp.small.mqc.png",
                 "small/summary/plots/happy/upset_happy_tp_fn_mqc.png",
                 "small/summary/plots/happy/upset_happy_tp_fp_mqc.png",
-                "small/summary/plots/null",
-                "small/summary/plots/null/null.FN.small.mqc.png",
-                "small/summary/plots/null/null.FP.small.mqc.png",
-                "small/summary/plots/null/null.TP_base.small.mqc.png",
-                "small/summary/plots/null/null.TP_comp.small.mqc.png",
-                "small/summary/plots/null/upset_null_tp_fn_mqc.png",
-                "small/summary/plots/null/upset_null_tp_fp_mqc.png",
                 "small/summary/plots/rtgtools",
                 "small/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
                 "small/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
+                "small/summary/plots/vcfeval",
+                "small/summary/plots/vcfeval/upset_vcfeval_tp_fn_mqc.png",
+                "small/summary/plots/vcfeval/upset_vcfeval_tp_fp_mqc.png",
+                "small/summary/plots/vcfeval/vcfeval.FN.small.mqc.png",
+                "small/summary/plots/vcfeval/vcfeval.FP.small.mqc.png",
+                "small/summary/plots/vcfeval/vcfeval.TP_base.small.mqc.png",
+                "small/summary/plots/vcfeval/vcfeval.TP_comp.small.mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
                 "small/summary/tables/happy/happy.summary.csv",
@@ -655,11 +668,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-13T10:22:52.635764438",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T14:47:09.067218509"
+        "timestamp": "2026-03-11T17:07:30.021744656"
     }
 }
