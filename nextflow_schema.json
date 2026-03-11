@@ -44,7 +44,7 @@
                 "variant_type": {
                     "type": "string",
                     "description": "Variant types to benchmark",
-                    "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
+                    "errorMessage": "Select a variant type to make the analysis: small, snv, indel, structural or copynumber. Select small when your vcf contains both snvs and indels",
                     "enum": ["small", "snv", "indel", "structural", "copynumber"],
                     "fa_icon": "fas fa-folder-open"
                 },
