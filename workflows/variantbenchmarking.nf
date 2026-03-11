@@ -297,7 +297,7 @@ workflow VARIANTBENCHMARKING {
                                             RTGTOOLS_BNDEVAL.out.fp_vcf,
                                             RTGTOOLS_BNDEVAL.out.baseline_vcf,
                                             RTGTOOLS_BNDEVAL.out.tp_vcf)
-                                        .map { meta, file -> 
+                                        .map { meta, file ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',

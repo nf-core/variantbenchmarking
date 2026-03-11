@@ -37,7 +37,7 @@ workflow SV_GERMLINE_BENCHMARK {
                                             TRUVARI_BENCH.out.fp_vcf,
                                             TRUVARI_BENCH.out.tp_base_vcf,
                                             TRUVARI_BENCH.out.tp_comp_vcf)
-                                        .map { _meta, file -> 
+                                        .map { _meta, file ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',

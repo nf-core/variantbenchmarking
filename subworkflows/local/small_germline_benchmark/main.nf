@@ -26,7 +26,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
             input_ch,
             sdf
         )
-        
+
         summary_reports = summary_reports.mix(RTGTOOLS_VCFEVAL.out.summary
                                          .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
                                          .groupTuple())
@@ -34,7 +34,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
                                             RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
                                             RTGTOOLS_VCFEVAL.out.baseline_vcf.join(RTGTOOLS_VCFEVAL.out.baseline_tbi),
                                             RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
-                                        .map { _meta, file , index -> 
+                                        .map { _meta, file , index ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',

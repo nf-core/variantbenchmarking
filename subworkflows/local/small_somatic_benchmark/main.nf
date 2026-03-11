@@ -48,7 +48,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
                                             RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
                                             RTGTOOLS_VCFEVAL.out.baseline_vcf.join(RTGTOOLS_VCFEVAL.out.baseline_tbi),
                                             RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
-                                        .map { _meta, file, index -> 
+                                        .map { _meta, file, index ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',
