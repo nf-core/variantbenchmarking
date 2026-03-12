@@ -218,7 +218,7 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "truvari.datavzrd.yaml:md5,bd20e63de7d34ca77a96f4237e7773bd",
+                "truvari.datavzrd.yaml:md5,1c7cea17bcac5cceb2867b35ebe4b966",
                 "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
                 "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
@@ -231,7 +231,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-03-12T12:22:59.87132615",
+        "timestamp": "2026-03-12T15:31:43.836647784",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

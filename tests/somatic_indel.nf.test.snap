@@ -276,8 +276,8 @@
                 "references/rtgtools/genome.sdf/summary.txt"
             ],
             [
-                "rtgtools.datavzrd.yaml:md5,920aef09aaa608c71326397e89ddb1f6",
-                "sompy.datavzrd.yaml:md5,2d0761c3967e0cf2001f6215160ee445",
+                "rtgtools.datavzrd.yaml:md5,e437fe84795a6140c98244a73806c545",
+                "sompy.datavzrd.yaml:md5,c938b9ebd4da4edfbb7bb8ad6bd5e71e",
                 "SEQC2.bcftools_stats.txt:md5,47f7b5da20bbab097d28fc71b898b143",
                 "multiqc_bcftools_stats.txt:md5,cd952a789de12d189c98539e5d5d04a4",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
@@ -315,7 +315,7 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781"
             ]
         ],
-        "timestamp": "2026-03-12T12:13:06.350998878",
+        "timestamp": "2026-03-12T16:36:51.786791834",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

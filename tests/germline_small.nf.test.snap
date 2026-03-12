@@ -567,8 +567,8 @@
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
             ],
             [
-                "happy.datavzrd.yaml:md5,8005dbe7e77f3fd0870bd43db972a3d4",
-                "rtgtools.datavzrd.yaml:md5,c4de7e82b721e65faf21a7cab4ea7a01",
+                "happy.datavzrd.yaml:md5,efb476e5447a3e6824c8f7454c53f3cd",
+                "rtgtools.datavzrd.yaml:md5,3a29e5176c3a62f02f76a2e55b4c343f",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -620,7 +620,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-12T11:57:08.158947161",
+        "timestamp": "2026-03-12T15:37:28.303044615",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

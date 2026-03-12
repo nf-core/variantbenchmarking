@@ -319,8 +319,8 @@
                 "snv/truth/stats/bcftools/truth.bcftools_stats.txt"
             ],
             [
-                "rtgtools.datavzrd.yaml:md5,05a3cb669fe0b4f1fb82c82d75828442",
-                "sompy.datavzrd.yaml:md5,d795267b63ed9cc06cc531a6cce2e36c",
+                "rtgtools.datavzrd.yaml:md5,f544b6ff89558a80db5a2adc9fe282cf",
+                "sompy.datavzrd.yaml:md5,86aa0e68ed383032e85bf55af2dd8675",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -365,7 +365,7 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
-        "timestamp": "2026-03-12T12:20:38.734232988",
+        "timestamp": "2026-03-12T16:40:26.500017671",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

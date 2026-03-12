@@ -202,12 +202,12 @@
                 "test15.SEQC2.ascat_TP_comp.bed:md5,17d640ad1d626020d85568b8f5b5d466",
                 "test15.SEQC2.ascat_converted.bed:md5,f8046823ace05bd8f17118e5a252a11e",
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a",
-                "intersect.datavzrd.yaml:md5,4d66f62f968b21366edc7204dcc5979b",
-                "truvari.datavzrd.yaml:md5,caf82beb0cb6d18938c8b25dc478a7e4",
-                "wittyer.datavzrd.yaml:md5,d9e7a3410bb2e760da072652b35ab834"
+                "intersect.datavzrd.yaml:md5,fad1ba633a87448eee377667d3c6b5f5",
+                "truvari.datavzrd.yaml:md5,1cd3afa8c1facc05a238e5b099a36a88",
+                "wittyer.datavzrd.yaml:md5,5df8efa1d0401872bb327790a4d70699"
             ]
         ],
-        "timestamp": "2026-03-12T12:09:43.642240989",
+        "timestamp": "2026-03-12T15:18:41.155697484",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

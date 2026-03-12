@@ -314,9 +314,9 @@
                 "structural/test3/stats/survivor/test3.delly_mqc.stats"
             ],
             [
-                "svbenchmark.datavzrd.yaml:md5,d787e7ad77ce28ed5cf96555c8612aa4",
-                "truvari.datavzrd.yaml:md5,e1033304aa7c1c3ded284e36952edf61",
-                "wittyer.datavzrd.yaml:md5,99092d76a814311754f20521a0bc97ac",
+                "svbenchmark.datavzrd.yaml:md5,61a4eb837ea4c13a5fd1d260947c484c",
+                "truvari.datavzrd.yaml:md5,ec9b52e45034f9d15ca8a8c0b42f2de9",
+                "wittyer.datavzrd.yaml:md5,f8fc666e7d4e9c8dc0b676bc00fcb605",
                 "HG002.bcftools_stats.txt:md5,cf3cd44bf54ab2ad7890ed29b58114d2",
                 "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
                 "multiqc_bcftools_stats.txt:md5,bc792f417a5400cc2c32a9a71aad52e7",
@@ -331,7 +331,7 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
-        "timestamp": "2026-03-12T12:02:24.539112036",
+        "timestamp": "2026-03-12T15:14:07.931499735",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
