@@ -238,15 +238,9 @@
         ],
         "timestamp": "2026-03-13T15:17:30.632186308",
         "meta": {
-<<<<<<< HEAD
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
-=======
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
         "timestamp": "2026-03-11T14:27:52.306734911"
->>>>>>> d8827f9 (Remove truvari reheader)
     }
 }

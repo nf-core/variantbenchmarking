@@ -57,7 +57,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
                                             ]
                                             def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, benchmark_tool: "vcfeval", tag: transformedTag], file, index)
+                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], file, index)
                                         }
     }
 

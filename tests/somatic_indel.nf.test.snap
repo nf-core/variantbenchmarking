@@ -130,11 +130,11 @@
                 "indel/multiqc/multiqc_report.html",
                 "indel/summary",
                 "indel/summary/comparisons",
-                "indel/summary/comparisons/null",
-                "indel/summary/comparisons/null/null.FN.csv",
-                "indel/summary/comparisons/null/null.FP.csv",
-                "indel/summary/comparisons/null/null.TP_base.csv",
-                "indel/summary/comparisons/null/null.TP_comp.csv",
+                "indel/summary/comparisons/rtgtools",
+                "indel/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "indel/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "indel/summary/comparisons/sompy",
                 "indel/summary/comparisons/sompy/sompy.FN.csv",
                 "indel/summary/comparisons/sompy/sompy.FP.csv",
@@ -165,12 +165,11 @@
                 "indel/summary/datavzrd/sompy/test/plots",
                 "indel/summary/datavzrd/sompy/test/plots/plots.js",
                 "indel/summary/plots",
-                "indel/summary/plots/null",
-                "indel/summary/plots/null/upset_null_tp_fn_mqc.png",
-                "indel/summary/plots/null/upset_null_tp_fp_mqc.png",
                 "indel/summary/plots/rtgtools",
                 "indel/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
                 "indel/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
+                "indel/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
+                "indel/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
                 "indel/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "indel/summary/plots/sompy",
                 "indel/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
@@ -331,6 +330,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T15:54:12.930050018"
+        "timestamp": "2026-03-12T11:11:57.279526657"
     }
 }
