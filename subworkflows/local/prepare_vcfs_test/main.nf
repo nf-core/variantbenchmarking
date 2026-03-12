@@ -7,7 +7,6 @@ include { VCF_VARIANT_FILTERING        } from '../../local/vcf_variant_filtering
 include { SPLIT_SMALL_VARIANTS_TEST    } from '../../local/split_small_variants_test'
 include { LIFTOVER_VCFS                } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools/norm'
-include { FIX_VCF_PREFIX               } from '../../../modules/local/custom/fix_vcf_prefix'
 include { RTGTOOLS_SVDECOMPOSE         } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
@@ -15,6 +14,8 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/n
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'
 include { GAWK as ADD_GT_STRELKA                      } from '../../../modules/nf-core/gawk'
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_GT     } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_ANNOTATE as BCFTOOLS_RENAME_CHRS   } from '../../../modules/nf-core/bcftools/annotate'
+
 
 workflow PREPARE_VCFS_TEST {
     take:
@@ -61,12 +62,13 @@ workflow PREPARE_VCFS_TEST {
     vcf_ch = Channel.empty()
 
     // fix vcf chromosome prefix according to reference genome
-    FIX_VCF_PREFIX(
-        fix.prefix,
+    BCFTOOLS_RENAME_CHRS(
+        fix.prefix.map{ meta, input -> tuple(meta, input,  []) },
+        [],
+        [],
         rename_chr
     )
-    versions = versions.mix(FIX_VCF_PREFIX.out.versions.first())
-    vcf_ch = vcf_ch.mix(FIX_VCF_PREFIX.out.vcf,fix.other)
+    vcf_ch = vcf_ch.mix(BCFTOOLS_RENAME_CHRS.out.vcf,fix.other)
 
     // rename sample name
     BCFTOOLS_REHEADER_QUERY(

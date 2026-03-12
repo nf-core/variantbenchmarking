@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RTGtools update to 3.13 [#261](https://github.com/nf-core/variantbenchmarking/issues/261)
 - Transforming local modules with bcftools and tabix to standard nf-core modules [#267](https://github.com/nf-core/variantbenchmarking/pull/267)
 - Replace local modules SORT_BED and REFORMAT_HEADER with nf-core ones. [#268](https://github.com/nf-core/variantbenchmarking/pull/268)
+- Replace local module FIX_VCF_PREFIX with BCFTOOLS_ANNOTATE [#287](https://github.com/nf-core/variantbenchmarking/pull/287)
 - Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 - Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
 - Bedfile index checking and smoother vcf comparisions [#290](https://github.com/nf-core/variantbenchmarking/pull/290)
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - increasing font sizes, making labelling optional and some fixes around plots. Tests are editted to observe optional plot arguments. [#270](https://github.com/nf-core/variantbenchmarking/pull/270)
 - Improving the pipeline towards strict syntax health & adding topic channels - 1 [#272](https://github.com/nf-core/variantbenchmarking/pull/272)
+- Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
 - Fixing the bed file bug in concordance analysis [#260](https://github.com/nf-core/variantbenchmarking/pull/275)
 - Missing --sample for meta.id is fixed in BCFTOOLS_REHEADER [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 - GT field is necessary for rtgtools vcfeval, strelka reports no GT field for somatic analysis. Fixing the GT field setup for strelka (bcftools plugingtset doesnt work as GT is not available) [#279](https://github.com/nf-core/variantbenchmarking/pull/279)
