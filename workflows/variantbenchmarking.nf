@@ -30,7 +30,7 @@ include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benc
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
 include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
-include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
+include { ENSEMBLE_TEST_VCFS          } from '../subworkflows/local/ensemble_test_vcfs'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -196,12 +196,12 @@ workflow VARIANTBENCHMARKING {
 
     // Ensemble and prepare truth file using input VCFs if ensemble_truth approach is choosen
     if (params.ensemble_truth){
-        ENSEMLE_TEST_VCFS(
+        ENSEMBLE_TEST_VCFS(
             PREPARE_VCFS_TEST.out.vcf_ch,
             fasta,
             fai
         )
-        truth_ch    = ENSEMLE_TEST_VCFS.out.truth_vcf
+        truth_ch    = ENSEMBLE_TEST_VCFS.out.truth_vcf
     }else{
         // Prepare and normalize truth vcf provided
         PREPARE_VCFS_TRUTH(
@@ -338,7 +338,8 @@ workflow VARIANTBENCHMARKING {
         evals_ch,
         evals_csv_ch,
         fasta,
-        fai
+        fai,
+        dictionary
     )
     ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 

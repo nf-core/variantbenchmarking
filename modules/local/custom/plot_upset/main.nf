@@ -21,10 +21,10 @@ process PLOT_UPSET {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     plot_upset.py \\
-        --fp ${meta.id}.FP.csv \\
-        --fn ${meta.id}.FN.csv \\
-        --tp-base ${meta.id}.TP_base.csv \\
-        --tp-comp ${meta.id}.TP_comp.csv \\
+        --fp ${meta.id}.FP.tsv \\
+        --fn ${meta.id}.FN.tsv \\
+        --tp-base ${meta.id}.TP_base.tsv \\
+        --tp-comp ${meta.id}.TP_comp.tsv \\
         --output ${prefix} \\
         --title "Upset plot for ${meta.id}"
 

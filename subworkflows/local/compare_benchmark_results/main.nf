@@ -3,14 +3,15 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-include { GAWK as REFORMAT_HEADER          } from '../../../modules/nf-core/gawk'
-include { TABIX_BGZIP as TABIX_BGZIP_UNZIP } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIPTABIX                 } from '../../../modules/nf-core/tabix/bgziptabix'
-include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
-include { SURVIVOR_MERGE                   } from '../../../modules/nf-core/survivor/merge'
-include { VCF_TO_CSV                       } from '../../../modules/local/custom/vcf_to_csv'
-include { MERGE_SOMPY_FEATURES             } from '../../../modules/local/custom/merge_sompy_features'
-include { PLOT_UPSET                       } from '../../../modules/local/custom/plot_upset'
+include { GAWK as REFORMAT_HEADER                  } from '../../../modules/nf-core/gawk'
+include { TABIX_BGZIP as TABIX_BGZIP_UNZIP         } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIPTABIX                         } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_MERGE                           } from '../../../modules/nf-core/bcftools/merge'
+include { BCFTOOLS_INDEX                           } from '../../../modules/nf-core/bcftools/index'
+include { SURVIVOR_MERGE                           } from '../../../modules/nf-core/survivor/merge'
+include { GATK4_VARIANTSTOTABLE as VARIANTSTOTABLE } from '../../../modules/nf-core/gatk4/variantstotable'
+include { MERGE_SOMPY_FEATURES                     } from '../../../modules/local/custom/merge_sompy_features'
+include { PLOT_UPSET                               } from '../../../modules/local/custom/plot_upset'
 
 
 workflow COMPARE_BENCHMARK_RESULTS {
@@ -19,10 +20,12 @@ workflow COMPARE_BENCHMARK_RESULTS {
     evaluations_csv // channel: [val(meta), csv]
     fasta           // reference channel [val(meta), ref.fa]
     fai             // reference channel [val(meta), ref.fa.fai]
+    dictionary      // reference channel [val(meta), genome.dict]
 
     main:
     versions    = channel.empty()
     merged_vcfs = channel.empty()
+    merged_tbis = channel.empty()
     ch_plots    = channel.empty()
 
     if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
@@ -45,7 +48,10 @@ workflow COMPARE_BENCHMARK_RESULTS {
             fai,
             [[],[]]
         )
+        versions = versions.mix(BCFTOOLS_MERGE.out.versions_bcftools.first())
+
         merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.vcf)
+        merged_tbis = merged_tbis.mix(BCFTOOLS_MERGE.out.index)
     }
     else{
         // SV part
@@ -68,16 +74,30 @@ workflow COMPARE_BENCHMARK_RESULTS {
             0,
             30
         )
+
         merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
+        // index merged vcf file
+        BCFTOOLS_INDEX(
+        merged_vcfs
+        )
+        versions = versions.mix(BCFTOOLS_INDEX.out.versions_bcftools.first())
+
+        merged_tbis = merged_tbis.mix(BCFTOOLS_INDEX.out.tbi)
     }
 
-    // convert vcf files to csv
-    VCF_TO_CSV(
-        merged_vcfs
-    )
-    versions = versions.mix(VCF_TO_CSV.out.versions.first())
+    variantstotable_input_ch = merged_vcfs
+                                .join(merged_tbis)
+                                .map{ meta, vcf, tbi -> [meta, vcf, tbi, [], [], []] }
 
+    // convert vcf files to tsv
+    VARIANTSTOTABLE(
+    variantstotable_input_ch,
+    fasta,
+    fai,
+    dictionary
+    )
+    versions = versions.mix(VARIANTSTOTABLE.out.versions_gatk4.first())
 
     MERGE_SOMPY_FEATURES(
         evaluations_csv.groupTuple()
@@ -85,11 +105,11 @@ workflow COMPARE_BENCHMARK_RESULTS {
     versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
 
     if (!params.skip_plots.contains("upset")){
-        VCF_TO_CSV.out.output.mix(MERGE_SOMPY_FEATURES.out.output).map{
-            meta, csv ->
+        VARIANTSTOTABLE.out.table.mix(MERGE_SOMPY_FEATURES.out.output).map{
+            meta, tsv ->
                 def newMeta = meta.clone()
                 newMeta.remove('tag')
-            tuple(newMeta,csv)
+            tuple(newMeta,tsv)
         }.set{upset_input}
 
         PLOT_UPSET(
