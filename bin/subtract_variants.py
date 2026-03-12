@@ -46,11 +46,11 @@ def parse_bed_file(file_path):
                     if chrom not in regions:
                         regions[chrom] = []
                     regions[chrom].append((start, end))
-        
+
         min_start = min(starts)
         for chrom in regions:
             regions[chrom].sort(key=lambda x: x[0])
-        
+
         if min_start == 0:
             print("BED file appears to be 0-based. Converting to 1-based coordinates to comparing with VCF downstream.")
             for chrom in regions:
@@ -60,14 +60,14 @@ def parse_bed_file(file_path):
         else:
             print(f"ERROR: Unexpected minimum start in BED file: {min_start}. BED must be 0- or 1-based.", file=sys.stderr)
             sys.exit(1)
-    
+
     except FileNotFoundError:
         print(f"Error: BED file not found at {file_path}", file=sys.stderr)
         sys.exit(1)
     except Exception as e:
         print(f"An error occurred while parsing {file_path}: {e}", file=sys.stderr)
         sys.exit(1)
-    
+
     return regions
 
 def check_1_based(position, chrom, source="VCF/BED"):
@@ -84,7 +84,7 @@ def is_in_region(chrom, pos, bed_regions):
 
     if idx < len(chrom_regions):
         start, end = chrom_regions[idx]
-        if start <= pos < end: 
+        if start <= pos < end:
             return True
     if idx > 0:
         start, end = chrom_regions[idx - 1]
