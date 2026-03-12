@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
-            61,
+            60,
             {
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
@@ -33,8 +33,8 @@
                 "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -81,6 +81,8 @@
                 }
             },
             [
+                "create",
+                "create/truvari.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "structural",
@@ -160,19 +162,6 @@
                 "structural/summary/comparisons/truvari/truvari.FP.csv",
                 "structural/summary/comparisons/truvari/truvari.TP_base.csv",
                 "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
-                "structural/summary/datavzrd",
-                "structural/summary/datavzrd/truvari",
-                "structural/summary/datavzrd/truvari/index.html",
-                "structural/summary/datavzrd/truvari/static",
-                "structural/summary/datavzrd/truvari/static/bundle.js",
-                "structural/summary/datavzrd/truvari/test",
-                "structural/summary/datavzrd/truvari/test/config.js",
-                "structural/summary/datavzrd/truvari/test/data",
-                "structural/summary/datavzrd/truvari/test/data/data_1.js",
-                "structural/summary/datavzrd/truvari/test/functions.js",
-                "structural/summary/datavzrd/truvari/test/index_1.html",
-                "structural/summary/datavzrd/truvari/test/plots",
-                "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
                 "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
@@ -229,6 +218,7 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
+                "truvari.datavzrd.yaml:md5,bd20e63de7d34ca77a96f4237e7773bd",
                 "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
                 "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
@@ -241,7 +231,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-02-27T12:40:11.847413253",
+        "timestamp": "2026-03-12T12:22:59.87132615",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy' --ensemble_truth 2": {
         "content": [
-            102,
+            100,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -48,8 +48,8 @@
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.22
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "FILTER_MAJORITY": {
                     "bcftools": 1.22
@@ -104,6 +104,9 @@
                 }
             },
             [
+                "create",
+                "create/rtgtools.datavzrd.yaml",
+                "create/sompy.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -211,31 +214,6 @@
                 "snv/summary/comparisons/sompy/sompy.FN.csv",
                 "snv/summary/comparisons/sompy/sompy.FP.csv",
                 "snv/summary/comparisons/sompy/sompy.TP_comp.csv",
-                "snv/summary/datavzrd",
-                "snv/summary/datavzrd/rtgtools",
-                "snv/summary/datavzrd/rtgtools/index.html",
-                "snv/summary/datavzrd/rtgtools/static",
-                "snv/summary/datavzrd/rtgtools/static/bundle.js",
-                "snv/summary/datavzrd/rtgtools/test",
-                "snv/summary/datavzrd/rtgtools/test/config.js",
-                "snv/summary/datavzrd/rtgtools/test/data",
-                "snv/summary/datavzrd/rtgtools/test/data/data_1.js",
-                "snv/summary/datavzrd/rtgtools/test/functions.js",
-                "snv/summary/datavzrd/rtgtools/test/index_1.html",
-                "snv/summary/datavzrd/rtgtools/test/plots",
-                "snv/summary/datavzrd/rtgtools/test/plots/plots.js",
-                "snv/summary/datavzrd/sompy",
-                "snv/summary/datavzrd/sompy/index.html",
-                "snv/summary/datavzrd/sompy/static",
-                "snv/summary/datavzrd/sompy/static/bundle.js",
-                "snv/summary/datavzrd/sompy/test",
-                "snv/summary/datavzrd/sompy/test/config.js",
-                "snv/summary/datavzrd/sompy/test/data",
-                "snv/summary/datavzrd/sompy/test/data/data_1.js",
-                "snv/summary/datavzrd/sompy/test/functions.js",
-                "snv/summary/datavzrd/sompy/test/index_1.html",
-                "snv/summary/datavzrd/sompy/test/plots",
-                "snv/summary/datavzrd/sompy/test/plots/plots.js",
                 "snv/summary/plots",
                 "snv/summary/plots/rtgtools",
                 "snv/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
@@ -341,6 +319,8 @@
                 "snv/truth/stats/bcftools/truth.bcftools_stats.txt"
             ],
             [
+                "rtgtools.datavzrd.yaml:md5,05a3cb669fe0b4f1fb82c82d75828442",
+                "sompy.datavzrd.yaml:md5,d795267b63ed9cc06cc531a6cce2e36c",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -385,7 +365,7 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
-        "timestamp": "2026-03-04T11:53:32.817033457",
+        "timestamp": "2026-03-12T12:20:38.734232988",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

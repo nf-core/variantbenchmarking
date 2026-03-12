@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'": {
         "content": [
-            44,
+            41,
             {
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -36,8 +36,8 @@
                 "BEDTOOLS_INTERSECT_BENCH": {
                     "python": "3.12.11"
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
@@ -107,43 +107,6 @@
                 "copynumber/summary/comparisons/truvari/truvari.FP.csv",
                 "copynumber/summary/comparisons/truvari/truvari.TP_base.csv",
                 "copynumber/summary/comparisons/truvari/truvari.TP_comp.csv",
-                "copynumber/summary/datavzrd",
-                "copynumber/summary/datavzrd/intersect",
-                "copynumber/summary/datavzrd/intersect/index.html",
-                "copynumber/summary/datavzrd/intersect/static",
-                "copynumber/summary/datavzrd/intersect/static/bundle.js",
-                "copynumber/summary/datavzrd/intersect/test",
-                "copynumber/summary/datavzrd/intersect/test/config.js",
-                "copynumber/summary/datavzrd/intersect/test/data",
-                "copynumber/summary/datavzrd/intersect/test/data/data_1.js",
-                "copynumber/summary/datavzrd/intersect/test/functions.js",
-                "copynumber/summary/datavzrd/intersect/test/index_1.html",
-                "copynumber/summary/datavzrd/intersect/test/plots",
-                "copynumber/summary/datavzrd/intersect/test/plots/plots.js",
-                "copynumber/summary/datavzrd/truvari",
-                "copynumber/summary/datavzrd/truvari/index.html",
-                "copynumber/summary/datavzrd/truvari/static",
-                "copynumber/summary/datavzrd/truvari/static/bundle.js",
-                "copynumber/summary/datavzrd/truvari/test",
-                "copynumber/summary/datavzrd/truvari/test/config.js",
-                "copynumber/summary/datavzrd/truvari/test/data",
-                "copynumber/summary/datavzrd/truvari/test/data/data_1.js",
-                "copynumber/summary/datavzrd/truvari/test/functions.js",
-                "copynumber/summary/datavzrd/truvari/test/index_1.html",
-                "copynumber/summary/datavzrd/truvari/test/plots",
-                "copynumber/summary/datavzrd/truvari/test/plots/plots.js",
-                "copynumber/summary/datavzrd/wittyer",
-                "copynumber/summary/datavzrd/wittyer/index.html",
-                "copynumber/summary/datavzrd/wittyer/static",
-                "copynumber/summary/datavzrd/wittyer/static/bundle.js",
-                "copynumber/summary/datavzrd/wittyer/test",
-                "copynumber/summary/datavzrd/wittyer/test/config.js",
-                "copynumber/summary/datavzrd/wittyer/test/data",
-                "copynumber/summary/datavzrd/wittyer/test/data/data_1.js",
-                "copynumber/summary/datavzrd/wittyer/test/functions.js",
-                "copynumber/summary/datavzrd/wittyer/test/index_1.html",
-                "copynumber/summary/datavzrd/wittyer/test/plots",
-                "copynumber/summary/datavzrd/wittyer/test/plots/plots.js",
                 "copynumber/summary/tables",
                 "copynumber/summary/tables/intersect",
                 "copynumber/summary/tables/intersect/intersect.summary.csv",
@@ -202,6 +165,10 @@
                 "copynumber/test15/intersect/test15.SEQC2.ascat_TP_comp.bed",
                 "copynumber/test15/intersect/test15.SEQC2.ascat_converted.bed",
                 "copynumber/test15/intersect/test15.SEQC2.ascat_stats.csv",
+                "create",
+                "create/intersect.datavzrd.yaml",
+                "create/truvari.datavzrd.yaml",
+                "create/wittyer.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"
             ],
@@ -234,10 +201,13 @@
                 "test15.SEQC2.ascat_TP_base.bed:md5,301d3e309f159cc2bddc966f23d4aced",
                 "test15.SEQC2.ascat_TP_comp.bed:md5,17d640ad1d626020d85568b8f5b5d466",
                 "test15.SEQC2.ascat_converted.bed:md5,f8046823ace05bd8f17118e5a252a11e",
-                "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
+                "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a",
+                "intersect.datavzrd.yaml:md5,4d66f62f968b21366edc7204dcc5979b",
+                "truvari.datavzrd.yaml:md5,caf82beb0cb6d18938c8b25dc478a7e4",
+                "wittyer.datavzrd.yaml:md5,d9e7a3410bb2e760da072652b35ab834"
             ]
         ],
-        "timestamp": "2026-02-27T12:13:20.996617982",
+        "timestamp": "2026-03-12T12:09:43.642240989",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

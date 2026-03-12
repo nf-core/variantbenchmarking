@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'": {
         "content": [
-            101,
+            99,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -48,8 +48,8 @@
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.22
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "HAPPY_SOMPY": {
                     "happy": "0.3.15"
@@ -94,6 +94,9 @@
                 }
             },
             [
+                "create",
+                "create/rtgtools.datavzrd.yaml",
+                "create/sompy.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -208,31 +211,6 @@
                 "snv/summary/comparisons/sompy/sompy.FN.csv",
                 "snv/summary/comparisons/sompy/sompy.FP.csv",
                 "snv/summary/comparisons/sompy/sompy.TP_comp.csv",
-                "snv/summary/datavzrd",
-                "snv/summary/datavzrd/rtgtools",
-                "snv/summary/datavzrd/rtgtools/index.html",
-                "snv/summary/datavzrd/rtgtools/static",
-                "snv/summary/datavzrd/rtgtools/static/bundle.js",
-                "snv/summary/datavzrd/rtgtools/test",
-                "snv/summary/datavzrd/rtgtools/test/config.js",
-                "snv/summary/datavzrd/rtgtools/test/data",
-                "snv/summary/datavzrd/rtgtools/test/data/data_1.js",
-                "snv/summary/datavzrd/rtgtools/test/functions.js",
-                "snv/summary/datavzrd/rtgtools/test/index_1.html",
-                "snv/summary/datavzrd/rtgtools/test/plots",
-                "snv/summary/datavzrd/rtgtools/test/plots/plots.js",
-                "snv/summary/datavzrd/sompy",
-                "snv/summary/datavzrd/sompy/index.html",
-                "snv/summary/datavzrd/sompy/static",
-                "snv/summary/datavzrd/sompy/static/bundle.js",
-                "snv/summary/datavzrd/sompy/test",
-                "snv/summary/datavzrd/sompy/test/config.js",
-                "snv/summary/datavzrd/sompy/test/data",
-                "snv/summary/datavzrd/sompy/test/data/data_1.js",
-                "snv/summary/datavzrd/sompy/test/functions.js",
-                "snv/summary/datavzrd/sompy/test/index_1.html",
-                "snv/summary/datavzrd/sompy/test/plots",
-                "snv/summary/datavzrd/sompy/test/plots/plots.js",
                 "snv/summary/plots",
                 "snv/summary/plots/rtgtools",
                 "snv/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
@@ -332,6 +310,8 @@
                 "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
             ],
             [
+                "rtgtools.datavzrd.yaml:md5,c6fa7556c743155a9d8f96171107eb2f",
+                "sompy.datavzrd.yaml:md5,c3fe778effc5d926b788af36b7227b6a",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -358,25 +338,25 @@
                 "bcftools_stats_vqc_Count_Transversions.txt:md5,392e38613596b1aade889f4334a55608",
                 "multiqc_bcftools_stats.txt:md5,e8890d56756d5aa88b4d7345bd6b2142",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                "multiqc_sompy_combined_data.txt:md5,41fdcf2904b4a0debcfc7422e3f7ec71",
-                "multiqc_sompy_indel_data.txt:md5,003f324b11e554fbab958ae7483afed4",
-                "multiqc_sompy_snv_data.txt:md5,5b29846dd04d4695acc78209698336f2",
-                "multiqc_variant_calling_summary.txt:md5,88cfa882945f5027361446684edb831b",
-                "sompy_combined_plot.txt:md5,918077ad1dd8a6c53c1759ef4c9114ef",
+                "multiqc_sompy_combined_data.txt:md5,cece722dcd3167773629b51c14893dc3",
+                "multiqc_sompy_indel_data.txt:md5,3c0893e35edb7c5e13c530dd14918a90",
+                "multiqc_sompy_snv_data.txt:md5,aa167ee42b48bfb26e722621c0e2dbc6",
+                "multiqc_variant_calling_summary.txt:md5,0bf9a12183da95be49778c2c65f5078e",
+                "sompy_combined_plot.txt:md5,182d53f013558ea07d967eda2aa3bfae",
                 "sompy_indel_plot.txt:md5,072e830d52939faeae5795e6f1cbaed8",
-                "sompy_snv_plot.txt:md5,91a3003c7a0a0898cccdee5394a19d8d",
+                "sompy_snv_plot.txt:md5,c7076da1af66fc4e50538d669aa0f1c2",
                 "test10.SEQC2.strelka.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
-                "test10.SEQC2.strelka.summary.txt:md5,3c356b5cd2542d288c4a7d22d81d9f9f",
+                "test10.SEQC2.strelka.summary.txt:md5,1e5258e7deb239a9cf5f5d9cf4efc373",
                 "test10.strelka.bcftools_stats.txt:md5,0064a9f57d02f1e8154f5d81eaf2dfe9",
                 "test8.SEQC2.freebayes.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
-                "test8.SEQC2.freebayes.summary.txt:md5,538928aaa876747a4b5b80a043804153",
+                "test8.SEQC2.freebayes.summary.txt:md5,2918d0852abdbfd92f324cbfe3fc496b",
                 "test8.freebayes.bcftools_stats.txt:md5,98e3627e2d15d7f31661bd56c021447e",
                 "test9.SEQC2.mutect2.phasing.txt:md5,6d29664d5d20e216220ae051a677eec5",
-                "test9.SEQC2.mutect2.summary.txt:md5,0839c17833ad17028b7c2cd5c64c87d7",
+                "test9.SEQC2.mutect2.summary.txt:md5,8b0b6501a6290ce013d6e3fe316a7b69",
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537"
             ]
         ],
-        "timestamp": "2026-03-04T11:33:50.887098807",
+        "timestamp": "2026-03-12T14:31:15.778444902",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -384,7 +364,7 @@
     },
     "-stub": {
         "content": [
-            101,
+            99,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -431,8 +411,8 @@
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.22
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "HAPPY_SOMPY": {
                     "happy": "0.3.15"
@@ -477,6 +457,9 @@
                 }
             },
             [
+                "create",
+                "create/rtgtools.datavzrd.yaml",
+                "create/sompy.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -505,43 +488,6 @@
                 "snv/summary/comparisons/sompy/sompy.FN.summary.csv",
                 "snv/summary/comparisons/sompy/sompy.FP.summary.csv",
                 "snv/summary/comparisons/sompy/sompy.TP_comp.summary.csv",
-                "snv/summary/datavzrd",
-                "snv/summary/datavzrd/rtgtools",
-                "snv/summary/datavzrd/rtgtools/index.html",
-                "snv/summary/datavzrd/rtgtools/network",
-                "snv/summary/datavzrd/rtgtools/network/config.js",
-                "snv/summary/datavzrd/rtgtools/network/data",
-                "snv/summary/datavzrd/rtgtools/network/data/data_1.js",
-                "snv/summary/datavzrd/rtgtools/network/functions.js",
-                "snv/summary/datavzrd/rtgtools/network/heatmap.js",
-                "snv/summary/datavzrd/rtgtools/network/index_1.html",
-                "snv/summary/datavzrd/rtgtools/network/plots",
-                "snv/summary/datavzrd/rtgtools/network/plots/plot_0.js",
-                "snv/summary/datavzrd/rtgtools/static",
-                "snv/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
-                "snv/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
-                "snv/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
-                "snv/summary/datavzrd/rtgtools/static/bootstrap.min.css",
-                "snv/summary/datavzrd/rtgtools/static/bundle.js",
-                "snv/summary/datavzrd/rtgtools/static/datavzrd.css",
-                "snv/summary/datavzrd/sompy",
-                "snv/summary/datavzrd/sompy/index.html",
-                "snv/summary/datavzrd/sompy/network",
-                "snv/summary/datavzrd/sompy/network/config.js",
-                "snv/summary/datavzrd/sompy/network/data",
-                "snv/summary/datavzrd/sompy/network/data/data_1.js",
-                "snv/summary/datavzrd/sompy/network/functions.js",
-                "snv/summary/datavzrd/sompy/network/heatmap.js",
-                "snv/summary/datavzrd/sompy/network/index_1.html",
-                "snv/summary/datavzrd/sompy/network/plots",
-                "snv/summary/datavzrd/sompy/network/plots/plot_0.js",
-                "snv/summary/datavzrd/sompy/static",
-                "snv/summary/datavzrd/sompy/static/bootstrap-select.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table-fixed-columns.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap-table.min.css",
-                "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
-                "snv/summary/datavzrd/sompy/static/bundle.js",
-                "snv/summary/datavzrd/sompy/static/datavzrd.css",
                 "snv/summary/plots",
                 "snv/summary/plots/rtgtools",
                 "snv/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
@@ -638,6 +584,8 @@
                 "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
             ],
             [
+                "rtgtools.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "sompy.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test10.SEQC2.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -651,7 +599,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-04T11:42:30.978115087",
+        "timestamp": "2026-03-12T12:17:36.493146994",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

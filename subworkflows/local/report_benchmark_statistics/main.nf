@@ -4,9 +4,9 @@
 
 include { MERGE_REPORTS         } from '../../../modules/local/custom/merge_reports'
 include { PLOTS                 } from '../../../modules/local/custom/plots'
-include { CREATE_DATAVZRD_INPUT } from '../../../modules/local/custom/create_datavzrd_input'
 include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
 include { PLOT_SVLEN_DIST       } from '../../../modules/local/custom/plot_svlen_dist'
+include { CAT_CAT as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/cat/cat'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
@@ -53,18 +53,28 @@ workflow REPORT_BENCHMARK_STATISTICS {
     // add path to csv file to the datavzrd input
     summary
         .map { meta, summary_file ->
-                [ meta, summary_file, file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists:true) ]
-            }
-        .set {template}
+            def updated_meta = meta + [ csv: summary_file.toString() ]
+            def template_file = file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists: true)
+            [ updated_meta, template_file ]
+        }
+        .set { template_ch }
 
     CREATE_DATAVZRD_INPUT (
-        template
+        template_ch
     )
+
+    template_ch.map{
+            meta, config ->
+                def newMeta = meta.clone()
+                newMeta.remove('csv')
+            tuple(newMeta,config)
+        }.set{datavzrd_ch}
+
 
     // use datavzrd to render the report based on the create input
     // input consists of config file and the table itself
     DATAVZRD (
-        CREATE_DATAVZRD_INPUT.out.config
+        CREATE_DATAVZRD_INPUT.out.file_out.join(datavzrd_ch)
     )
 
     emit:

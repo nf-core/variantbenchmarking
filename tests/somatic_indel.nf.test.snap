@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'": {
         "content": [
-            101,
+            99,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -48,8 +48,8 @@
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.22
                 },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "HAPPY_SOMPY": {
                     "happy": "0.3.15"
@@ -94,6 +94,9 @@
                 }
             },
             [
+                "create",
+                "create/rtgtools.datavzrd.yaml",
+                "create/sompy.datavzrd.yaml",
                 "indel",
                 "indel/SEQC2",
                 "indel/SEQC2/preprocess",
@@ -148,31 +151,6 @@
                 "indel/summary/comparisons/sompy/sompy.FN.csv",
                 "indel/summary/comparisons/sompy/sompy.FP.csv",
                 "indel/summary/comparisons/sompy/sompy.TP_comp.csv",
-                "indel/summary/datavzrd",
-                "indel/summary/datavzrd/rtgtools",
-                "indel/summary/datavzrd/rtgtools/index.html",
-                "indel/summary/datavzrd/rtgtools/static",
-                "indel/summary/datavzrd/rtgtools/static/bundle.js",
-                "indel/summary/datavzrd/rtgtools/test",
-                "indel/summary/datavzrd/rtgtools/test/config.js",
-                "indel/summary/datavzrd/rtgtools/test/data",
-                "indel/summary/datavzrd/rtgtools/test/data/data_1.js",
-                "indel/summary/datavzrd/rtgtools/test/functions.js",
-                "indel/summary/datavzrd/rtgtools/test/index_1.html",
-                "indel/summary/datavzrd/rtgtools/test/plots",
-                "indel/summary/datavzrd/rtgtools/test/plots/plots.js",
-                "indel/summary/datavzrd/sompy",
-                "indel/summary/datavzrd/sompy/index.html",
-                "indel/summary/datavzrd/sompy/static",
-                "indel/summary/datavzrd/sompy/static/bundle.js",
-                "indel/summary/datavzrd/sompy/test",
-                "indel/summary/datavzrd/sompy/test/config.js",
-                "indel/summary/datavzrd/sompy/test/data",
-                "indel/summary/datavzrd/sompy/test/data/data_1.js",
-                "indel/summary/datavzrd/sompy/test/functions.js",
-                "indel/summary/datavzrd/sompy/test/index_1.html",
-                "indel/summary/datavzrd/sompy/test/plots",
-                "indel/summary/datavzrd/sompy/test/plots/plots.js",
                 "indel/summary/plots",
                 "indel/summary/plots/rtgtools",
                 "indel/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
@@ -298,6 +276,8 @@
                 "references/rtgtools/genome.sdf/summary.txt"
             ],
             [
+                "rtgtools.datavzrd.yaml:md5,920aef09aaa608c71326397e89ddb1f6",
+                "sompy.datavzrd.yaml:md5,2d0761c3967e0cf2001f6215160ee445",
                 "SEQC2.bcftools_stats.txt:md5,47f7b5da20bbab097d28fc71b898b143",
                 "multiqc_bcftools_stats.txt:md5,cd952a789de12d189c98539e5d5d04a4",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
@@ -335,7 +315,7 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781"
             ]
         ],
-        "timestamp": "2026-03-04T11:20:38.975739693",
+        "timestamp": "2026-03-12T12:13:06.350998878",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
