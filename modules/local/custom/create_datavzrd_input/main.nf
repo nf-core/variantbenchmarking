@@ -12,26 +12,16 @@ process CREATE_DATAVZRD_INPUT {
 
     output:
     tuple val(meta), path("*.yaml"), path(csv), emit: config
+    tuple val("${task.process}"), val('cat'), eval("cat --version | head -n 1 | sed 's/^.*(GNU coreutils) //; s/ Copyright.*\$//'"), emit: versions_cat, topic: versions
 
     script:
     """
     #!/bin/bash
-
     cat "$template" | sed "s|CSVPATH|$csv|g" > config.yaml
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cat: \$(echo \$(cat --version 2>&1) | sed 's/^.*(GNU coreutils) //; s/ Copyright.*\$//')
-    END_VERSIONS
     """
 
     stub:
     """
     touch config.yaml
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cat: \$(echo \$(cat --version 2>&1) | sed 's/^.*(GNU coreutils) //; s/ Copyright.*\$//')
-    END_VERSIONS
     """
 }

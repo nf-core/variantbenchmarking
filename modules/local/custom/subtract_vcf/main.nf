@@ -11,8 +11,8 @@ process SUBTRACT_VCF {
     tuple val(meta), path(vcf), path(index), path(regions), path(targets), path(exclude)
 
     output:
-    tuple val(meta), path("*remain.vcf.gz"), emit: vcf, optional:true
-    path "versions.yml"                    , emit: versions
+    tuple val(meta), path("*remain.vcf.gz"), emit: vcf, optional: true
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -29,23 +29,11 @@ process SUBTRACT_VCF {
         ${prefix}.remain.vcf.gz \\
         $bed \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-
     """
     touch ${prefix}.remain.vcf.gz
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 }

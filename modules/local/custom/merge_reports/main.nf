@@ -11,9 +11,9 @@ process MERGE_REPORTS {
     tuple val(meta), path(inputs)
 
     output:
-    tuple val(meta),path("*.summary.csv")    , emit: summary
-    tuple val(meta),path("*.regions.csv")    , emit: regions, optional: true
-    path "versions.yml"                      , emit: versions
+    tuple val(meta), path("*.summary.csv")    , emit: summary
+    tuple val(meta), path("*.regions.csv")    , emit: regions, optional: true
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,22 +27,12 @@ process MERGE_REPORTS {
         -v $meta.vartype \\
         -a $params.analysis \\
         -o ${prefix}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
+    
     stub:
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     touch ${prefix}.summary.csv
     touch ${prefix}.regions.csv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
-
 }

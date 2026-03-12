@@ -65,7 +65,7 @@ workflow PREPARE_VCFS_TEST {
         fix.prefix,
         rename_chr
     )
-    versions = versions.mix(FIX_VCF_PREFIX.out.versions.first())
+    // versions = versions.mix(FIX_VCF_PREFIX.out.versions.first())
     vcf_ch = vcf_ch.mix(FIX_VCF_PREFIX.out.vcf,fix.other)
 
     // rename sample name

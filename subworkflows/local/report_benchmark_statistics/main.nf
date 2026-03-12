@@ -24,7 +24,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     MERGE_REPORTS(
         reports
     )
-    versions = versions.mix(MERGE_REPORTS.out.versions.first())
+    // versions = versions.mix(MERGE_REPORTS.out.versions.first())
     merged_reports = merged_reports.mix(MERGE_REPORTS.out.summary)
 
     if (!params.skip_plots.contains("metrics")){
@@ -33,7 +33,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
             MERGE_REPORTS.out.summary
         )
         ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
-        versions = versions.mix(PLOTS.out.versions.first())
+    //    versions = versions.mix(PLOTS.out.versions.first())
     }
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
@@ -42,7 +42,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
             evaluations.map { item -> tuple(item[0], item[1]) }.groupTuple()
                 .mix(evaluations_csv.map { item -> tuple(item[0], item[1]) }.groupTuple())
         )
-        versions = versions.mix(PLOT_SVLEN_DIST.out.versions)
+    //    versions = versions.mix(PLOT_SVLEN_DIST.out.versions)
         ch_plots = ch_plots.mix(PLOT_SVLEN_DIST.out.plot)
     }
 

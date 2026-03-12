@@ -12,7 +12,7 @@ process MERGE_SOMPY_FEATURES {
 
     output:
     tuple val(meta), path("*.csv")   , emit: output
-    path "versions.yml"              , emit: versions
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,21 +23,11 @@ process MERGE_SOMPY_FEATURES {
 
     """
     merge_sompy_features.py $csvs --output ${prefix}.${meta.tag}.csv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
+    
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.${meta.tag}.summary.csv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
-
 }

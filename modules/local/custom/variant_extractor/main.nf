@@ -14,7 +14,8 @@ process VARIANT_EXTRACTOR {
 
     output:
     tuple val(meta), path("*.norm.vcf.gz")   , emit: output
-    path "versions.yml"                      , emit: versions
+    // <--- Upgraded to Nextflow Topics
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,21 +29,11 @@ process VARIANT_EXTRACTOR {
         $fasta
 
     bgzip ${prefix}.norm.vcf
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
+
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.norm.vcf.gz
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
-
 }

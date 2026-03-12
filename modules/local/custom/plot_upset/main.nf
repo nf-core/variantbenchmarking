@@ -11,8 +11,8 @@ process PLOT_UPSET {
     tuple val(meta), path(files)
 
     output:
-    path("*.png")         , emit: plot, optional:true
-    path "versions.yml"   , emit: versions
+    path("*.png")         , emit: plot, optional: true
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,21 +27,12 @@ process PLOT_UPSET {
         --tp-comp ${meta.id}.TP_comp.csv \\
         --output ${prefix} \\
         --title "Upset plot for ${meta.id}"
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
+
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.upset.mqc.png
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
+    touch ${prefix}_tp_fn_mqc.png
+    touch ${prefix}_tp_fp_mqc.png
     """
-
 }
