@@ -94,9 +94,6 @@
                 }
             },
             [
-                "create",
-                "create/rtgtools.datavzrd.yaml",
-                "create/sompy.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -310,8 +307,6 @@
                 "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
             ],
             [
-                "rtgtools.datavzrd.yaml:md5,f8397d88966d40668ba0caf13b8778ce",
-                "sompy.datavzrd.yaml:md5,5ca6b7f170a13061c1212541d186815c",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -356,7 +351,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537"
             ]
         ],
-        "timestamp": "2026-03-12T15:06:51.376854451",
+        "timestamp": "2026-03-12T17:24:05.449910844",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -457,9 +452,6 @@
                 }
             },
             [
-                "create",
-                "create/rtgtools.datavzrd.yaml",
-                "create/sompy.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -584,8 +576,6 @@
                 "snv/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt"
             ],
             [
-                "rtgtools.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test10.SEQC2.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -599,7 +589,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-12T12:17:36.493146994",
+        "timestamp": "2026-03-12T17:46:32.401341237",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

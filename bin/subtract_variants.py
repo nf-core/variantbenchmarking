@@ -43,8 +43,7 @@ def parse_bed_file(file_path):
                     chrom, start, end = parts[0], int(parts[1]), int(parts[2])
                     if chrom not in regions:
                         regions[chrom] = []
-                    # Standard BED is zero based. Add 1 to start to match VCF.
-                    regions[chrom].append((start + 1, end))
+                    regions[chrom].append((start, end))
 
         for chrom in regions:
             regions[chrom].sort(key=lambda x: x[0])
@@ -72,11 +71,11 @@ def is_in_region(chrom, pos, bed_regions):
 
     if idx < len(chrom_regions):
         start, end = chrom_regions[idx]
-        if start <= pos < end:
+        if pos >= start + 1 and pos <= end:
             return True
     if idx > 0:
         start, end = chrom_regions[idx - 1]
-        if start <= pos < end:
+        if pos >= start + 1 and pos <= end:
             return True
 
     return False

@@ -90,8 +90,6 @@
                 }
             },
             [
-                "create",
-                "create/truvari.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "structural",
@@ -227,7 +225,6 @@
                 "structural/truth/stats/survivor/truth_mqc.stats"
             ],
             [
-                "truvari.datavzrd.yaml:md5,b866fd7827189493b9cc9ff185ea7096",
                 "multiqc_bcftools_stats.txt:md5,6ceccab13a0d656642e8aea2a0d7e889",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,b5786d324c7ef28813099e0fe5855bd1",
@@ -240,7 +237,7 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
-        "timestamp": "2026-03-12T16:44:55.297711452",
+        "timestamp": "2026-03-12T17:33:21.531835202",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

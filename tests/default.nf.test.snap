@@ -65,8 +65,6 @@
                 }
             },
             [
-                "create",
-                "create/svbenchmark.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "structural",
@@ -177,7 +175,6 @@
                 "structural/test3/stats/survivor/test3.manta_mqc.stats"
             ],
             [
-                "svbenchmark.datavzrd.yaml:md5,9bac4c1fa9d2edda047ff57ca10e33fd",
                 "HG002.bcftools_stats.txt:md5,184d672828c019a6f0cf732bcd3eae40",
                 "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
                 "multiqc_bcftools_stats.txt:md5,3d782febc5ec3109b56ba4bce2d6fdb1",
@@ -192,7 +189,7 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-03-12T15:53:28.56160874",
+        "timestamp": "2026-03-12T17:01:33.576001167",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -264,8 +261,6 @@
                 }
             },
             [
-                "create",
-                "create/svbenchmark.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "structural",
@@ -352,7 +347,6 @@
                 "structural/test3/stats/survivor/test3.manta_mqc.stats"
             ],
             [
-                "svbenchmark.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -363,7 +357,7 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-12T11:54:13.712783342",
+        "timestamp": "2026-03-12T17:02:55.472123662",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

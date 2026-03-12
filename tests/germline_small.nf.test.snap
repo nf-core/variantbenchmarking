@@ -96,9 +96,6 @@
                 }
             },
             [
-                "create",
-                "create/happy.datavzrd.yaml",
-                "create/rtgtools.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -222,8 +219,6 @@
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
             ],
             [
-                "happy.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.datavzrd.yaml:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test6.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -248,7 +243,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-12T11:58:22.909005596",
+        "timestamp": "2026-03-12T17:07:17.066874707",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -351,9 +346,6 @@
                 }
             },
             [
-                "create",
-                "create/happy.datavzrd.yaml",
-                "create/rtgtools.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "references",
@@ -567,8 +559,6 @@
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
             ],
             [
-                "happy.datavzrd.yaml:md5,efb476e5447a3e6824c8f7454c53f3cd",
-                "rtgtools.datavzrd.yaml:md5,3a29e5176c3a62f02f76a2e55b4c343f",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -620,7 +610,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-12T15:37:28.303044615",
+        "timestamp": "2026-03-12T17:06:05.477161634",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

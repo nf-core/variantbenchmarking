@@ -165,10 +165,6 @@
                 "copynumber/test15/intersect/test15.SEQC2.ascat_TP_comp.bed",
                 "copynumber/test15/intersect/test15.SEQC2.ascat_converted.bed",
                 "copynumber/test15/intersect/test15.SEQC2.ascat_stats.csv",
-                "create",
-                "create/intersect.datavzrd.yaml",
-                "create/truvari.datavzrd.yaml",
-                "create/wittyer.datavzrd.yaml",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml"
             ],
@@ -201,13 +197,10 @@
                 "test15.SEQC2.ascat_TP_base.bed:md5,301d3e309f159cc2bddc966f23d4aced",
                 "test15.SEQC2.ascat_TP_comp.bed:md5,17d640ad1d626020d85568b8f5b5d466",
                 "test15.SEQC2.ascat_converted.bed:md5,f8046823ace05bd8f17118e5a252a11e",
-                "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a",
-                "intersect.datavzrd.yaml:md5,fad1ba633a87448eee377667d3c6b5f5",
-                "truvari.datavzrd.yaml:md5,1cd3afa8c1facc05a238e5b099a36a88",
-                "wittyer.datavzrd.yaml:md5,5df8efa1d0401872bb327790a4d70699"
+                "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
-        "timestamp": "2026-03-12T15:18:41.155697484",
+        "timestamp": "2026-03-12T17:18:31.118560245",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
