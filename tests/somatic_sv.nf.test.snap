@@ -61,12 +61,9 @@
                 "TABIX_TABIX_2": {
                     "tabix": 1.21
                 },
-<<<<<<< HEAD
                 "TRUVARI_BENCH": {
                     "truvari": "5.4.0"
                 },
-=======
->>>>>>> d8827f9 (Remove truvari reheader)
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
@@ -149,11 +146,11 @@
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
-                "structural/summary/comparisons/null",
-                "structural/summary/comparisons/null/null.FN.csv",
-                "structural/summary/comparisons/null/null.FP.csv",
-                "structural/summary/comparisons/null/null.TP_base.csv",
-                "structural/summary/comparisons/null/null.TP_comp.csv",
+                "structural/summary/comparisons/truvari",
+                "structural/summary/comparisons/truvari/truvari.FN.csv",
+                "structural/summary/comparisons/truvari/truvari.FP.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_base.csv",
+                "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "structural/summary/datavzrd",
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
@@ -168,16 +165,15 @@
                 "structural/summary/datavzrd/truvari/test/plots",
                 "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
-                "structural/summary/plots/null",
-                "structural/summary/plots/null/null.FN.structural.mqc.png",
-                "structural/summary/plots/null/null.FP.structural.mqc.png",
-                "structural/summary/plots/null/null.TP_base.structural.mqc.png",
-                "structural/summary/plots/null/null.TP_comp.structural.mqc.png",
-                "structural/summary/plots/null/upset_null_tp_fn_mqc.png",
-                "structural/summary/plots/null/upset_null_tp_fp_mqc.png",
                 "structural/summary/plots/truvari",
                 "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
                 "structural/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
+                "structural/summary/plots/truvari/truvari.FN.structural.mqc.png",
+                "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
+                "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
+                "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
+                "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
+                "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
                 "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/truvari",
@@ -236,11 +232,10 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-03-13T15:17:30.632186308",
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T14:27:52.306734911"
+        "timestamp": "2026-03-12T12:29:20.48153983"
     }
 }
