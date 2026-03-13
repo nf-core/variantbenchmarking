@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
-            108,
+            110,
             {
                 "BCFTOOLS_ANNOTATE": {
                     "bcftools": 1.22
@@ -65,6 +65,9 @@
                 },
                 "CREATE_DATAVZRD_INPUT": {
                     "pigz": 2.8
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.63.3"
                 },
                 "GNU_SORT": {
                     "coreutils": 9.5
@@ -215,6 +218,31 @@
                 "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
                 "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
                 "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
+                "small/summary/datavzrd",
+                "small/summary/datavzrd/happy",
+                "small/summary/datavzrd/happy/index.html",
+                "small/summary/datavzrd/happy/static",
+                "small/summary/datavzrd/happy/static/bundle.js",
+                "small/summary/datavzrd/happy/test",
+                "small/summary/datavzrd/happy/test/config.js",
+                "small/summary/datavzrd/happy/test/data",
+                "small/summary/datavzrd/happy/test/data/data_1.js",
+                "small/summary/datavzrd/happy/test/functions.js",
+                "small/summary/datavzrd/happy/test/index_1.html",
+                "small/summary/datavzrd/happy/test/plots",
+                "small/summary/datavzrd/happy/test/plots/plots.js",
+                "small/summary/datavzrd/rtgtools",
+                "small/summary/datavzrd/rtgtools/index.html",
+                "small/summary/datavzrd/rtgtools/static",
+                "small/summary/datavzrd/rtgtools/static/bundle.js",
+                "small/summary/datavzrd/rtgtools/test",
+                "small/summary/datavzrd/rtgtools/test/config.js",
+                "small/summary/datavzrd/rtgtools/test/data",
+                "small/summary/datavzrd/rtgtools/test/data/data_1.js",
+                "small/summary/datavzrd/rtgtools/test/functions.js",
+                "small/summary/datavzrd/rtgtools/test/index_1.html",
+                "small/summary/datavzrd/rtgtools/test/plots",
+                "small/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "small/summary/tables",
                 "small/summary/tables/happy",
                 "small/summary/tables/happy/happy.summary.csv",
@@ -342,7 +370,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-12T17:16:40.385252272",
+        "timestamp": "2026-03-13T11:03:52.816962778",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -63,18 +63,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
         template_ch
     )
 
-    template_ch.map{
-            meta, config ->
-                def newMeta = meta.clone()
-                newMeta.remove('csv')
-            tuple(newMeta,config)
-        }.set{datavzrd_ch}
-
-
-    // use datavzrd to render the report based on the create input
-    // input consists of config file and the table itself
     DATAVZRD (
-        CREATE_DATAVZRD_INPUT.out.file_out.join(datavzrd_ch)
+        CREATE_DATAVZRD_INPUT.out.file_out.join(template_ch)
     )
 
     emit:
