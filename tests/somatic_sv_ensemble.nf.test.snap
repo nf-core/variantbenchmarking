@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari' --ensemble_truth 2": {
         "content": [
-            62,
+            63,
             {
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
@@ -35,6 +35,9 @@
                 },
                 "CREATE_DATAVZRD_INPUT": {
                     "pigz": 2.8
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.63.3"
                 },
                 "INJECT_MISSING_GT": {
                     "gawk": "5.3.0"
@@ -160,6 +163,19 @@
                 "structural/summary/comparisons/truvari/truvari.FP.csv",
                 "structural/summary/comparisons/truvari/truvari.TP_base.csv",
                 "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
+                "structural/summary/datavzrd",
+                "structural/summary/datavzrd/truvari",
+                "structural/summary/datavzrd/truvari/index.html",
+                "structural/summary/datavzrd/truvari/static",
+                "structural/summary/datavzrd/truvari/static/bundle.js",
+                "structural/summary/datavzrd/truvari/test",
+                "structural/summary/datavzrd/truvari/test/config.js",
+                "structural/summary/datavzrd/truvari/test/data",
+                "structural/summary/datavzrd/truvari/test/data/data_1.js",
+                "structural/summary/datavzrd/truvari/test/functions.js",
+                "structural/summary/datavzrd/truvari/test/index_1.html",
+                "structural/summary/datavzrd/truvari/test/plots",
+                "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
                 "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
@@ -237,7 +253,7 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
-        "timestamp": "2026-03-12T17:33:21.531835202",
+        "timestamp": "2026-03-13T15:54:14.067883652",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
