@@ -63,6 +63,9 @@
                 "BEDTOOLS_MERGE": {
                     "bedtools": "2.31.1"
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -367,7 +370,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-02-27T12:08:05.574223607",
+        "timestamp": "2026-03-13T11:03:52.816962778",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

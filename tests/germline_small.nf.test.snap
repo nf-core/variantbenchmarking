@@ -57,6 +57,9 @@
                 "BCFTOOLS_VIEW_TRUTH": {
                     "bcftools": 1.22
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -280,7 +283,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-02-27T11:49:52.227964314",
+        "timestamp": "2026-03-13T10:29:48.060231599",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -343,6 +346,9 @@
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
                     "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -672,7 +678,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-02-27T11:45:33.824921772",
+        "timestamp": "2026-03-13T10:22:52.635764438",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

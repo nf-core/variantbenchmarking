@@ -55,6 +55,11 @@
                         "git_sha": "88d43dad73a675e66bff49ebb57fe657a5909018",
                         "installed_by": ["modules"]
                     },
+                    "cat/cat": {
+                        "branch": "master",
+                        "git_sha": "7ed72ef972290b93d0bdd7c60ff00a693250f77a",
+                        "installed_by": ["modules"]
+                    },
                     "datavzrd": {
                         "branch": "master",
                         "git_sha": "f4bb53a7ba632e89634f696c1077dbd1df86b08c",

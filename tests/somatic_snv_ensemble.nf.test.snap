@@ -48,6 +48,9 @@
                 "BCFTOOLS_VIEW_SUBSAMPLE": {
                     "bcftools": 1.22
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -385,7 +388,7 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
-        "timestamp": "2026-03-04T11:53:32.817033457",
+        "timestamp": "2026-03-13T13:37:25.504543849",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

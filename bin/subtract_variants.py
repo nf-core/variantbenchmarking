@@ -35,31 +35,18 @@ def parse_vcf(file_path):
 
 def parse_bed_file(file_path):
     regions = {}
-    starts = []
     try:
         with open_file(file_path) as bed_file:
             for line in bed_file:
                 parts = line.strip().split('\t')
                 if len(parts) >= 3:
                     chrom, start, end = parts[0], int(parts[1]), int(parts[2])
-                    starts.append(start)
                     if chrom not in regions:
                         regions[chrom] = []
                     regions[chrom].append((start, end))
 
-        min_start = min(starts)
         for chrom in regions:
             regions[chrom].sort(key=lambda x: x[0])
-
-        if min_start == 0:
-            print("BED file appears to be 0-based. Converting to 1-based coordinates to comparing with VCF downstream.")
-            for chrom in regions:
-                regions[chrom] = [(start + 1, end) for (start, end) in regions[chrom]]
-        elif min_start == 1:
-            print("BED file appears to be 1-based.")
-        else:
-            print(f"ERROR: Unexpected minimum start in BED file: {min_start}. BED must be 0- or 1-based.", file=sys.stderr)
-            sys.exit(1)
 
     except FileNotFoundError:
         print(f"Error: BED file not found at {file_path}", file=sys.stderr)
@@ -84,11 +71,11 @@ def is_in_region(chrom, pos, bed_regions):
 
     if idx < len(chrom_regions):
         start, end = chrom_regions[idx]
-        if start <= pos < end:
+        if pos >= start + 1 and pos <= end:
             return True
     if idx > 0:
         start, end = chrom_regions[idx - 1]
-        if start <= pos < end:
+        if pos >= start + 1 and pos <= end:
             return True
 
     return False

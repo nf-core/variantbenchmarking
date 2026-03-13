@@ -33,6 +33,9 @@
                 "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -241,7 +244,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-02-27T12:40:11.847413253",
+        "timestamp": "2026-03-13T15:17:30.632186308",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

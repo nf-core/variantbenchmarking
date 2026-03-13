@@ -42,6 +42,9 @@
                 "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -361,7 +364,7 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
-        "timestamp": "2026-02-27T11:56:19.466420274",
+        "timestamp": "2026-03-13T10:45:32.648998564",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -409,6 +412,9 @@
                 },
                 "BCFTOOLS_VIEW_FILTERMISSING": {
                     "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -682,7 +688,7 @@
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-02-27T12:00:34.844914569",
+        "timestamp": "2026-03-13T10:52:50.482457639",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

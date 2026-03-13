@@ -36,6 +36,9 @@
                 "BEDTOOLS_INTERSECT_BENCH": {
                     "python": "3.12.11"
                 },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
+                },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
@@ -237,7 +240,7 @@
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
-        "timestamp": "2026-02-27T12:13:20.996617982",
+        "timestamp": "2026-03-13T11:09:32.691790727",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
