@@ -1,0 +1,76 @@
+{
+    "Standard upset plot generation": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
+                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                    ]
+                ],
+                "1": [
+                    [
+                        "PLOT_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ],
+                "plot": [
+                    [
+                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
+                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "PLOT_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T09:51:43.453059"
+    },
+    "Standard upset plot - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "upset_test_stub_tp_fn_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "upset_test_stub_tp_fp_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "PLOT_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ],
+                "plot": [
+                    [
+                        "upset_test_stub_tp_fn_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "upset_test_stub_tp_fp_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "PLOT_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-11T15:40:38.956338"
+    }
+}

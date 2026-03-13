@@ -76,13 +76,13 @@ workflow COMPARE_BENCHMARK_RESULTS {
     VCF_TO_CSV(
         merged_vcfs
     )
-    // versions = versions.mix(VCF_TO_CSV.out.versions.first())
+    versions = versions.mix(VCF_TO_CSV.out.versions.first())
 
 
     MERGE_SOMPY_FEATURES(
         evaluations_csv.groupTuple()
     )
-    // versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
+    versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
 
     if (!params.skip_plots.contains("upset")){
         VCF_TO_CSV.out.output.mix(MERGE_SOMPY_FEATURES.out.output).map{
@@ -95,7 +95,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
         PLOT_UPSET(
             upset_input.groupTuple()
         )
-        // versions = versions.mix(PLOT_UPSET.out.versions)
         ch_plots = ch_plots.mix(PLOT_UPSET.out.plot)
     }
 

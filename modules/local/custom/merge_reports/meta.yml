@@ -1,0 +1,60 @@
+name: "merge_reports"
+description: "Merges multiple benchmarking CSV reports into unified summary and region files."
+keywords:
+  - merge
+  - benchmarking
+  - python
+  - pandas
+  - summary
+  - genomics
+  - variant_calling
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+  - pandas:
+      description: "pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool"
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample and tool information.
+          Must contain `benchmark_tool` and `vartype`.
+          e.g. `[ benchmark_tool:'my_tool', vartype:'snv' ]`
+    - inputs:
+        type: file
+        description: A list of input CSV files to be merged by the script.
+        pattern: "*.csv"
+
+output:
+  - summary:
+      - meta:
+          type: map
+          description: Groovy Map containing sample/tool information.
+      - summary_csv:
+          type: file
+          description: The successfully merged summary CSV file.
+          pattern: "*.summary.csv"
+  - regions:
+      - meta:
+          type: map
+          description: Groovy Map containing sample/tool information.
+      - regions_csv:
+          type: file
+          description: The optionally merged regions CSV file.
+          pattern: "*.regions.csv"
+
+topics:
+  - versions:
+      - versions_python:
+          type: string
+          description: "The python version string emitted via Nextflow topics."
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

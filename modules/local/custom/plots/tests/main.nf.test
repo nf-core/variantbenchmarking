@@ -1,0 +1,53 @@
+nextflow_process {
+
+    name "Test Process PLOTS"
+    script "../main.nf"
+    process "PLOTS"
+
+    tag "modules"
+    tag "modules_local"
+    tag "plots"
+
+    test("Standard R plots - happy benchmark") {
+
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ benchmark_tool:'svbenchmark' ],
+                    file(params.test_data_base + '/testdata/nf-test/plots/svbenchmark.summary.csv')
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("Standard R plots - stub") {
+        options "-stub"
+        when {
+            process {
+                """
+                input[0] = [
+                    [ benchmark_tool:'svbenchmark' ],
+                    file(params.test_data_base + '/testdata/nf-test/plots/svbenchmark.summary.csv')
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "Standard report merge": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,4814f1e7104482a32b89283eafd8892a"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    [
+                        "MERGE_REPORTS",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "regions": [
+                    
+                ],
+                "summary": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,4814f1e7104482a32b89283eafd8892a"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "MERGE_REPORTS",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T13:34:21.318358"
+    },
+    "Standard report merge - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.regions.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        "MERGE_REPORTS",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "regions": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.regions.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary": [
+                    [
+                        {
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "MERGE_REPORTS",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T13:32:27.599337"
+    }
+}

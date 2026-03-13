@@ -1,0 +1,80 @@
+{
+    "Standard R plots - happy benchmark": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "f1_by_tool_svbenchmark_mqc.png:md5,1b4ba711a29bfc6a9c0ebc4e16172e8d",
+                        "pr_recall_by_tool_svbenchmark_mqc.png:md5,bb86567da00e0a79a43d0eaef5206921",
+                        "variants_by_tool_svbenchmark_mqc.png:md5,b3e0a779155e93f0d18bd5e6e755fd3c"
+                    ]
+                ],
+                "1": [
+                    [
+                        "PLOTS",
+                        "r-base",
+                        "4.3.1"
+                    ]
+                ],
+                "plots": [
+                    [
+                        "f1_by_tool_svbenchmark_mqc.png:md5,1b4ba711a29bfc6a9c0ebc4e16172e8d",
+                        "pr_recall_by_tool_svbenchmark_mqc.png:md5,bb86567da00e0a79a43d0eaef5206921",
+                        "variants_by_tool_svbenchmark_mqc.png:md5,b3e0a779155e93f0d18bd5e6e755fd3c"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "PLOTS",
+                        "r-base",
+                        "4.3.1"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T10:23:26.27507"
+    },
+    "Standard R plots - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "f1_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "pr_recall_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "variants_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "PLOTS",
+                        "r-base",
+                        "4.3.1"
+                    ]
+                ],
+                "plots": [
+                    [
+                        "f1_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "pr_recall_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "variants_by_tool_svbenchmark_mqc_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "PLOTS",
+                        "r-base",
+                        "4.3.1"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T10:23:40.542362"
+    }
+}

@@ -1,0 +1,84 @@
+{
+    "Standard VCF subtraction": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,e932f58e90a045d30a5519dd47bf2cd6"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,e932f58e90a045d30a5519dd47bf2cd6"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T14:10:09.296563"
+    },
+    "Standard VCF subtraction - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "/Users/aaryanjaitly/Desktop/varinatbenchmarking/variantbenchmarking/.nf-test/tests/460598c978c65a1941dc01df05c77fe4/work/e9/ad3f2901f50e12d66fa4fa99695f35/test3.HG002.remain.vcf.gz"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "/Users/aaryanjaitly/Desktop/varinatbenchmarking/variantbenchmarking/.nf-test/tests/460598c978c65a1941dc01df05c77fe4/work/e9/ad3f2901f50e12d66fa4fa99695f35/test3.HG002.remain.vcf.gz"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-03-13T14:12:00.756292"
+    }
+}

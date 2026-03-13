@@ -13,7 +13,7 @@ process FIX_VCF_PREFIX {
 
     output:
     tuple val(meta), path("*.vcf.gz"), emit: vcf
-    tuple val("${task.process}"), val('bcftools'), eval("bcftools --version |& sed '1!d; s/^.*bcftools //'"), emit: versions_bcftools, topic: versions
+    path "versions.yml"              , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,6 +28,11 @@ process FIX_VCF_PREFIX {
         ${prefix}.vcf.gz \\
         --rename-chr $rename_chr \\
         --target-version $params.genome
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
+    END_VERSIONS
     """
 
     stub:
@@ -35,5 +40,10 @@ process FIX_VCF_PREFIX {
 
     """
     echo '' | gzip > ${prefix}.vcf.gz
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bcftools: \$( bcftools --version |& sed '1!d; s/^.*bcftools //' )
+    END_VERSIONS
     """
 }
