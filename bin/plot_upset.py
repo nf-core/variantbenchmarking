@@ -28,7 +28,7 @@ def parse_file(file_path, category_name):
         return {}
 
     try:
-        df = pd.read_csv(file_path, sep=',')
+        df = pd.read_csv(file_path, sep='\t')
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
         return {}

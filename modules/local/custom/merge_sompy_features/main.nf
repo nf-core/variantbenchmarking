@@ -11,7 +11,7 @@ process MERGE_SOMPY_FEATURES {
     tuple val(meta), path(csvs)
 
     output:
-    tuple val(meta), path("*.csv")   , emit: output
+    tuple val(meta), path("*.tsv")   , emit: output
     path "versions.yml"              , emit: versions
 
     when:
@@ -22,7 +22,7 @@ process MERGE_SOMPY_FEATURES {
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    merge_sompy_features.py $csvs --output ${prefix}.${meta.tag}.csv
+    merge_sompy_features.py $csvs --output ${prefix}.${meta.tag}.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

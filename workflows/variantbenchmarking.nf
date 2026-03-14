@@ -30,7 +30,7 @@ include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benc
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
 include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
-include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
+include { ENSEMLE_TEST_VCFS          } from '../subworkflows/local/ensemble_test_vcfs'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -338,7 +338,8 @@ workflow VARIANTBENCHMARKING {
         evals_ch,
         evals_csv_ch,
         fasta,
-        fai
+        fai,
+        dictionary
     )
     ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 

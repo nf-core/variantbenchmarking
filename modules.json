@@ -15,6 +15,11 @@
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
                         "installed_by": ["modules"]
                     },
+                    "bcftools/index": {
+                        "branch": "master",
+                        "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/merge": {
                         "branch": "master",
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
@@ -70,6 +75,11 @@
                         "git_sha": "86308d628760125908c5c77540517effe0f8880f",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/gatk4/concordance/gatk4-concordance.diff"
+                    },
+                    "gatk4/variantstotable": {
+                        "branch": "master",
+                        "git_sha": "52b7843bd92ccf833cc12e71cd84aeccf2583852",
+                        "installed_by": ["modules"]
                     },
                     "gawk": {
                         "branch": "master",

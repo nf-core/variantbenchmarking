@@ -75,8 +75,8 @@ def get_sample_names(files):
                 sample_names.append(gt_column.replace('.GT', ''))
     return sample_names
 
-def write_merged_csv(merged_data, output_file, sample_names):
-    """Write merged dictionary to CSV."""
+def write_merged_file(merged_data, output_file, sample_names, delimiter):
+    """Write merged dictionary to file according to delimiter."""
     sorted_keys = sorted(merged_data.keys(), key=lambda x: (x[0], int(x[1])))
 
     fixed_fields = ["CHROM", "POS", "REF", "ALT", "FILTER"]
@@ -84,7 +84,7 @@ def write_merged_csv(merged_data, output_file, sample_names):
     fieldnames = fixed_fields + dynamic_fields
 
     with open(output_file, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames, restval='./.')
+        writer = csv.DictWriter(f, fieldnames=fieldnames, restval='./.', delimiter = delimiter)
         writer.writeheader()
         for key in sorted_keys:
             writer.writerow({field: merged_data[key].get(field, "./.") for field in fieldnames})
@@ -94,7 +94,7 @@ def main():
         description="Merge CSVs by CHROM, POS, and handle dynamic GT columns."
     )
     parser.add_argument("files", nargs='+', help="Input CSV files (e.g. *_TP.csv)")
-    parser.add_argument("--output", required=True, help="Output merged CSV file")
+    parser.add_argument("--output", required=True, help="Output merged TSV file")
     args = parser.parse_args()
 
     all_dicts = []
@@ -106,7 +106,7 @@ def main():
         all_dicts.append(sample_dict)
 
     merged = merge_dicts_by_key(all_dicts, all_sample_names)
-    write_merged_csv(merged, args.output, all_sample_names)
+    write_merged_file(merged, args.output, all_sample_names, delimiter = "\t")
     print(f"Merged CSV written to {args.output}")
 
 if __name__ == "__main__":
