@@ -7,6 +7,8 @@ include { GAWK as REFORMAT_HEADER                  } from '../../../modules/nf-c
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP         } from '../../../modules/nf-core/tabix/bgzip'
 include { TABIX_BGZIPTABIX                         } from '../../../modules/nf-core/tabix/bgziptabix'
 include { BCFTOOLS_MERGE                           } from '../../../modules/nf-core/bcftools/merge'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_COMPARE   } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_SORT as BCFTOOLS_SORT_COMPARE   } from '../../../modules/nf-core/bcftools/sort'
 include { BCFTOOLS_INDEX                           } from '../../../modules/nf-core/bcftools/index'
 include { SURVIVOR_MERGE                           } from '../../../modules/nf-core/survivor/merge'
 include { GATK4_VARIANTSTOTABLE as VARIANTSTOTABLE } from '../../../modules/nf-core/gatk4/variantstotable'
@@ -23,10 +25,10 @@ workflow COMPARE_BENCHMARK_RESULTS {
     dictionary      // reference channel [val(meta), genome.dict]
 
     main:
-    versions    = channel.empty()
-    merged_vcfs = channel.empty()
-    merged_tbis = channel.empty()
-    ch_plots    = channel.empty()
+    versions                    = channel.empty()
+    merged_vcfs                 = channel.empty()
+    merged_tbis                 = channel.empty()
+    ch_plots                    = channel.empty()
 
     if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
 
@@ -77,13 +79,17 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
         merged_vcfs = merged_vcfs.mix(SURVIVOR_MERGE.out.vcf)
 
-        // index merged vcf file
-        BCFTOOLS_INDEX(
-        merged_vcfs
+        // fix header
+        BCFTOOLS_REHEADER_COMPARE(
+           merged_vcfs.map { meta, vcf -> [ meta, vcf, [], [] ] },
+           fai
         )
-        versions = versions.mix(BCFTOOLS_INDEX.out.versions_bcftools.first())
 
-        merged_tbis = merged_tbis.mix(BCFTOOLS_INDEX.out.tbi)
+        BCFTOOLS_SORT_COMPARE(
+            BCFTOOLS_REHEADER_COMPARE.out.vcf
+        )
+
+        merged_tbis = merged_tbis.mix(BCFTOOLS_SORT_COMPARE.out.tbi)
     }
 
     variantstotable_input_ch = merged_vcfs
