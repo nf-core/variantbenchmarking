@@ -1,0 +1,68 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_VARIANT_DEDUPLICATION"
+    script "../main.nf"
+    workflow "VCF_VARIANT_DEDUPLICATION"
+
+    tag "subworkflows"
+    tag "subworkflows_vcf_variant_deduplication"
+    tag "subworkflows/vcf_variant_deduplication"
+    tag "bcftools"
+    tag "bcftools/norm"
+    tag "bcftools/sort"
+
+    test("sarscov2 vcf") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assert path(workflow.out.ch_vcf[0][1]).exists()
+            assert path(workflow.out.ch_vcf[0][2]).exists()
+            
+            assertAll(
+                { assert snapshot(
+                    workflow.out.ch_vcf[0][0],
+                    file(workflow.out.ch_vcf[0][1]).name,
+                    file(workflow.out.ch_vcf[0][2]).name
+                ).match() }
+            )
+        }
+    }
+
+    test("sarscov2 vcf stub") {
+        options "-stub"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

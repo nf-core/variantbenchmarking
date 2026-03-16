@@ -1,0 +1,62 @@
+{
+    "liftover vcfs and bed": {
+        "content": [
+            {
+                "id": "test"
+            },
+            "test.genome.lifted.reformatted.renamechr.vcf.gz",
+            {
+                "id": "test_truth"
+            },
+            "genome.lifted.sort.merged.bed"
+        ],
+        "timestamp": "2026-03-16T11:29:37.323953093",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "liftover vcfs and bed stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test2_haplotc.lifted.reformatted.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_truth"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "bed_ch": [
+                    [
+                        {
+                            "id": "test_truth"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test2_haplotc.lifted.reformatted.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T11:29:52.054152981",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
