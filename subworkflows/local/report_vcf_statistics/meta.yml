@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "REPORT_VCF_STATISTICS"
+description: Subworkflow to report VCF statistics using Survivor and Bcftools
+keywords:
+  - stats
+  - vcf
+  - structural variants
+  - survivor
+  - bcftools
+components:
+  - survivor/stats
+  - bcftools/stats
+input:
+  - input_ch:
+      description: Channel containing target VCF files and their indices
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+output:
+  - ch_stats:
+      description: Channel containing the generated statistics files
+      structure:
+        - stats:
+          type: file
+          description: Statistics output file
+          pattern: "*"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

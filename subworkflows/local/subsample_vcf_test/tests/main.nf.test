@@ -1,0 +1,58 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SUBSAMPLE_VCF_TEST"
+    script "../main.nf"
+    workflow "SUBSAMPLE_VCF_TEST"
+
+    tag "subworkflows"
+    tag "subworkflows_subsample_vcf_test"
+    tag "subworkflows/subsample_vcf_test"
+    tag "bcftools"
+    tag "bcftools/sort"
+    tag "bcftools/view"
+
+    test("sort and subsample vcf") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', subsample:'tumour' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assert path(workflow.out.vcf_ch[0][1]).exists()
+            
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch[0][0],
+                    file(workflow.out.vcf_ch[0][1]).name
+                ).match() }
+            )
+        }
+    }
+
+    test("sort and subsample vcf stub") {
+        options "-stub"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', subsample:'tumour' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

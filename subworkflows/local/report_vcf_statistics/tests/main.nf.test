@@ -1,0 +1,95 @@
+nextflow_workflow {
+
+    name "Test Subworkflow REPORT_VCF_STATISTICS"
+    script "../main.nf"
+    workflow "REPORT_VCF_STATISTICS"
+
+    tag "subworkflows"
+    tag "subworkflows_report_vcf_statistics"
+    tag "subworkflows/report_vcf_statistics"
+    tag "survivor"
+    tag "survivor/stats"
+    tag "bcftools"
+    tag "bcftools/stats"
+
+    test("report small variant statistics") {
+
+        when {
+            params {
+                variant_type = "small"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assert path(workflow.out.ch_stats[0]).exists()
+
+            assertAll(
+                { assert snapshot(
+                    file(workflow.out.ch_stats[0]).name
+                ).match() }
+            )
+        }
+    }
+
+    test("report structural variant statistics") {
+
+        when {
+            params {
+                variant_type = "structural"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assert path(workflow.out.ch_stats[0]).exists()
+            assert path(workflow.out.ch_stats[1]).exists()
+
+            assertAll(
+                { assert snapshot(
+                    workflow.out.ch_stats.collect { file(it).name }.sort()
+                ).match() }
+            )
+        }
+    }
+
+    test("report vcf statistics stub") {
+        options "-stub"
+        when {
+            params {
+                variant_type = "structural"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}
