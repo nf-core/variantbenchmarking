@@ -32,7 +32,7 @@ process MERGE_SOMPY_FEATURES {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.${meta.tag}.summary.csv
+    touch ${prefix}.${meta.tag}.summary.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

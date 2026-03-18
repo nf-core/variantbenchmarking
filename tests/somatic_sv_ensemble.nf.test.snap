@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari' --ensemble_truth 2": {
         "content": [
-            63,
+            66,
             {
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
@@ -18,7 +18,13 @@
                 "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_REHEADER_COMPARE": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SORT_COMPARE": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT_SV": {
@@ -47,9 +53,6 @@
                 },
                 "PLOT_SVLEN_DIST": {
                     "python": "3.14.0"
-                },
-                "PLOT_UPSET": {
-                    "python": "3.13.7"
                 },
                 "REFORMAT_TRUTH_SV": {
                     "gawk": "5.3.0"
@@ -81,9 +84,6 @@
                 },
                 "TRUVARI_BENCH": {
                     "truvari": "5.4.0"
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
@@ -154,12 +154,6 @@
                 "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
-                "structural/summary/comparisons",
-                "structural/summary/comparisons/truvari",
-                "structural/summary/comparisons/truvari/truvari.FN.csv",
-                "structural/summary/comparisons/truvari/truvari.FP.csv",
-                "structural/summary/comparisons/truvari/truvari.TP_base.csv",
-                "structural/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "structural/summary/datavzrd",
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
@@ -181,8 +175,6 @@
                 "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
                 "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/truvari",
@@ -250,7 +242,7 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
-        "timestamp": "2026-03-04T12:19:43.987701275",
+        "timestamp": "2026-03-15T10:07:48.48522284",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

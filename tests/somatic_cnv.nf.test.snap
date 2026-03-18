@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'": {
         "content": [
-            44,
+            48,
             {
                 "BCFTOOLS_REHEADER_1": {
                     "bcftools": 1.22
@@ -15,10 +15,16 @@
                 "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_REHEADER_COMPARE": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SORT_COMPARE": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_SPLIT_MULTI": {
@@ -60,9 +66,6 @@
                 "TRUVARI_BENCH": {
                     "truvari": "5.4.0"
                 },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
-                },
                 "WITTYER": {
                     "wittyer": "0.5.2.0"
                 },
@@ -101,12 +104,6 @@
                 "copynumber/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "copynumber/multiqc/multiqc_report.html",
                 "copynumber/summary",
-                "copynumber/summary/comparisons",
-                "copynumber/summary/comparisons/truvari",
-                "copynumber/summary/comparisons/truvari/truvari.FN.csv",
-                "copynumber/summary/comparisons/truvari/truvari.FP.csv",
-                "copynumber/summary/comparisons/truvari/truvari.TP_base.csv",
-                "copynumber/summary/comparisons/truvari/truvari.TP_comp.csv",
                 "copynumber/summary/datavzrd",
                 "copynumber/summary/datavzrd/intersect",
                 "copynumber/summary/datavzrd/intersect/index.html",
@@ -237,7 +234,7 @@
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
-        "timestamp": "2026-02-27T12:13:20.996617982",
+        "timestamp": "2026-03-14T15:44:52.953383768",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

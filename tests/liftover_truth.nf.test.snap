@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
-            110,
+            102,
             {
                 "BCFTOOLS_ANNOTATE": {
                     "bcftools": 1.22
@@ -93,9 +93,6 @@
                 },
                 "UCSC_LIFTOVER": {
                     "ucsc": 482
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
@@ -204,17 +201,6 @@
                 "small/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
-                "small/summary/comparisons",
-                "small/summary/comparisons/happy",
-                "small/summary/comparisons/happy/happy.FN.csv",
-                "small/summary/comparisons/happy/happy.FP.csv",
-                "small/summary/comparisons/happy/happy.TP_base.csv",
-                "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/rtgtools",
-                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -367,7 +353,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-02-27T12:08:05.574223607",
+        "timestamp": "2026-03-15T10:27:07.895499559",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -3,17 +3,17 @@
 // COMPARE_BENCHMARK_RESULTS: SUBWORKFLOW to merge TP/FP/FN results from different tools.
 //
 
-include { GAWK as REFORMAT_HEADER                  } from '../../../modules/nf-core/gawk'
-include { TABIX_BGZIP as TABIX_BGZIP_UNZIP         } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIPTABIX                         } from '../../../modules/nf-core/tabix/bgziptabix'
-include { BCFTOOLS_MERGE                           } from '../../../modules/nf-core/bcftools/merge'
+include { GAWK as REFORMAT_HEADER                          } from '../../../modules/nf-core/gawk'
+include { TABIX_BGZIP as TABIX_BGZIP_UNZIP                 } from '../../../modules/nf-core/tabix/bgzip'
+include { TABIX_BGZIPTABIX                                 } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_MERGE                                   } from '../../../modules/nf-core/bcftools/merge'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_COMPARE   } from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_SORT as BCFTOOLS_SORT_COMPARE   } from '../../../modules/nf-core/bcftools/sort'
-include { BCFTOOLS_INDEX                           } from '../../../modules/nf-core/bcftools/index'
-include { SURVIVOR_MERGE                           } from '../../../modules/nf-core/survivor/merge'
-include { GATK4_VARIANTSTOTABLE as VARIANTSTOTABLE } from '../../../modules/nf-core/gatk4/variantstotable'
-include { MERGE_SOMPY_FEATURES                     } from '../../../modules/local/custom/merge_sompy_features'
-include { PLOT_UPSET                               } from '../../../modules/local/custom/plot_upset'
+include { BCFTOOLS_SORT as BCFTOOLS_SORT_COMPARE           } from '../../../modules/nf-core/bcftools/sort'
+include { BCFTOOLS_INDEX                                   } from '../../../modules/nf-core/bcftools/index'
+include { SURVIVOR_MERGE                                   } from '../../../modules/nf-core/survivor/merge'
+include { GATK4_VARIANTSTOTABLE as VARIANTSTOTABLE         } from '../../../modules/nf-core/gatk4/variantstotable'
+include { MERGE_SOMPY_FEATURES                             } from '../../../modules/local/custom/merge_sompy_features'
+include { PLOT_UPSET                                       } from '../../../modules/local/custom/plot_upset'
 
 
 workflow COMPARE_BENCHMARK_RESULTS {
@@ -50,7 +50,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
             fai,
             [[],[]]
         )
-        versions = versions.mix(BCFTOOLS_MERGE.out.versions_bcftools.first())
 
         merged_vcfs = merged_vcfs.mix(BCFTOOLS_MERGE.out.vcf)
         merged_tbis = merged_tbis.mix(BCFTOOLS_MERGE.out.index)

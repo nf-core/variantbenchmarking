@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            116,
+            106,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -72,9 +72,6 @@
                 "PLOT_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
-                    "python": "3.13.7"
-                },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
                 },
@@ -87,9 +84,6 @@
                 "TABIX_BGZIPTABIX": {
                     "bgzip": 1.21,
                     "tabix": 1.21
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
@@ -114,17 +108,6 @@
                 "small/multiqc/multiqc_plots",
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
-                "small/summary/comparisons",
-                "small/summary/comparisons/happy",
-                "small/summary/comparisons/happy/happy.FN.csv",
-                "small/summary/comparisons/happy/happy.FP.csv",
-                "small/summary/comparisons/happy/happy.TP_base.csv",
-                "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/rtgtools",
-                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -169,7 +152,6 @@
                 "small/summary/plots/happy/happy.TP_base.svlen.png",
                 "small/summary/plots/happy/happy.TP_comp.svlen.png",
                 "small/summary/plots/happy/metric_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/upset_happy.upset.mqc.png",
                 "small/summary/plots/happy/variants_by_tool_happy_mqc.png",
                 "small/summary/plots/rtgtools",
                 "small/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
@@ -177,7 +159,6 @@
                 "small/summary/plots/rtgtools/rtgtools.FP.svlen.png",
                 "small/summary/plots/rtgtools/rtgtools.TP_base.svlen.png",
                 "small/summary/plots/rtgtools/rtgtools.TP_comp.svlen.png",
-                "small/summary/plots/rtgtools/upset_rtgtools.upset.mqc.png",
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
@@ -280,7 +261,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-02-27T11:49:52.227964314",
+        "timestamp": "2026-03-15T10:18:43.182353215",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -288,7 +269,7 @@
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
-            116,
+            106,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -359,9 +340,6 @@
                 "PLOT_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
-                    "python": "3.13.7"
-                },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
                 },
@@ -374,9 +352,6 @@
                 "TABIX_BGZIPTABIX": {
                     "bgzip": 1.21,
                     "tabix": 1.21
-                },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
@@ -480,17 +455,6 @@
                 "small/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
-                "small/summary/comparisons",
-                "small/summary/comparisons/happy",
-                "small/summary/comparisons/happy/happy.FN.csv",
-                "small/summary/comparisons/happy/happy.FP.csv",
-                "small/summary/comparisons/happy/happy.TP_base.csv",
-                "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/rtgtools",
-                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -534,8 +498,6 @@
                 "small/summary/plots/happy/happy.FP.small.mqc.png",
                 "small/summary/plots/happy/happy.TP_base.small.mqc.png",
                 "small/summary/plots/happy/happy.TP_comp.small.mqc.png",
-                "small/summary/plots/happy/upset_happy_tp_fn_mqc.png",
-                "small/summary/plots/happy/upset_happy_tp_fp_mqc.png",
                 "small/summary/plots/rtgtools",
                 "small/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
                 "small/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
@@ -543,8 +505,6 @@
                 "small/summary/plots/rtgtools/rtgtools.FP.small.mqc.png",
                 "small/summary/plots/rtgtools/rtgtools.TP_base.small.mqc.png",
                 "small/summary/plots/rtgtools/rtgtools.TP_comp.small.mqc.png",
-                "small/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
-                "small/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
@@ -672,7 +632,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-02-27T11:45:33.824921772",
+        "timestamp": "2026-03-15T10:17:05.518302564",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
