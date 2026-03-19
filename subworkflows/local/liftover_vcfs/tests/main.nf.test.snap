@@ -8,9 +8,12 @@
             {
                 "id": "test_truth"
             },
-            "genome.lifted.sort.merged.bed"
+            "genome.lifted.sort.merged.bed",
+            {
+                
+            }
         ],
-        "timestamp": "2026-03-16T11:29:37.323953093",
+        "timestamp": "2026-03-19T11:22:54.643958658",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -1,0 +1,58 @@
+{
+    "benchmark with wittyer stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.truth.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "report": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.truth.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T11:08:59.69046319",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "benchmark with wittyer": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "wittyer"
+                    },
+                    [
+                        "test.truth.simulated.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-19T11:08:47.118918315",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

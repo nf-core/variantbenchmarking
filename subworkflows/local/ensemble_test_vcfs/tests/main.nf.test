@@ -1,0 +1,141 @@
+nextflow_workflow {
+
+    name "Test Subworkflow ENSEMLE_TEST_VCFS"
+    script "../main.nf"
+    workflow "ENSEMLE_TEST_VCFS"
+
+    tag "subworkflows"
+    tag "subworkflows_ensemle_test_vcfs"
+    tag "subworkflows/ensemle_test_vcfs"
+    tag "bcftools"
+    tag "bcftools/merge"
+    tag "bcftools/view"
+    tag "bcftools/sort"
+    tag "survivor"
+    tag "survivor/merge"
+    tag "gawk"
+    tag "tabix"
+    tag "tabix/bgzip"
+    tag "tabix/bgziptabix"
+
+    test("ensemble small variants") {
+
+        when {
+            params {
+                variant_type = "small"
+                analysis = "somatic"
+                method = "standard"
+                ensemble_truth = 1
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test1', caller:'mutect2' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2', caller:'freebayes' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test2.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test2.vcf.gz.tbi', checkIfExists: true)
+                    ]
+                )
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("ensemble structural variants") {
+
+        when {
+            params {
+                variant_type = "structural"
+                analysis = "somatic"
+                method = "standard"
+                ensemble_truth = 1
+                min_sv_size = 30
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test1', caller:'manta' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test2', caller:'tiddit' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true)
+                    ]
+                )
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("ensemble variants stub") {
+        options "-stub"
+        when {
+            params {
+                variant_type = "small"
+                analysis = "somatic"
+                method = "standard"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test1', caller:'mutect2' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ]
+                )
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

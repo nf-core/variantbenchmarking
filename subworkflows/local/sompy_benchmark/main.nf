@@ -20,7 +20,7 @@ workflow SOMPY_BENCHMARK {
 
     // apply sompy for small somatic variant benchmarking
     HAPPY_SOMPY(
-        input_ch.map{meta, test, test_index, truth, truth_index, regions, target -> [meta, test, truth, regions, target]},
+        input_ch.map{meta, test, test_index_, truth, truth_index_, regions, target -> [meta, test, truth, regions, target]},
         fasta,
         fai,
         falsepositive_bed,

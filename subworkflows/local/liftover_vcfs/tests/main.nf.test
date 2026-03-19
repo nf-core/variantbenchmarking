@@ -65,7 +65,8 @@ nextflow_workflow {
                     workflow.out.vcf_ch[0][0],
                     file(workflow.out.vcf_ch[0][1]).name,
                     workflow.out.bed_ch[0][0],
-                    file(workflow.out.bed_ch[0][1]).name
+                    file(workflow.out.bed_ch[0][1]).name,
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
         }

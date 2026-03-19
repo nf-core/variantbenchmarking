@@ -1,0 +1,56 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SPLIT_SMALL_VARIANTS_TEST"
+    script "../main.nf"
+    workflow "SPLIT_SMALL_VARIANTS_TEST"
+
+    tag "subworkflows"
+    tag "subworkflows_split_small_variants_test"
+    tag "subworkflows/split_small_variants_test"
+    tag "bcftools"
+    tag "bcftools/view"
+    tag "tabix"
+    tag "tabix/bgziptabix"
+
+    test("split small variants") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }         
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("split small variants stub") {
+        options "-stub"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

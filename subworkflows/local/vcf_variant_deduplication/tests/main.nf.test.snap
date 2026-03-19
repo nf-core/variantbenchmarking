@@ -1,0 +1,60 @@
+{
+    "deduplicate and sort vcf": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,edee07189e03f23f635c93eeb56b22a9",
+                        "test.dedup.sort.vcf.gz.tbi:md5,a43b5925f55543d7fd81392eac244d06"
+                    ]
+                ],
+                "ch_vcf": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,edee07189e03f23f635c93eeb56b22a9",
+                        "test.dedup.sort.vcf.gz.tbi:md5,a43b5925f55543d7fd81392eac244d06"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:15:20.282574078",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "deduplicate and sort vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.dedup.sort.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ch_vcf": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.dedup.sort.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:14:19.578763751",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -11,14 +11,15 @@ nextflow_workflow {
     tag "bcftools/norm"
     tag "bcftools/sort"
 
-    test("sarscov2 vcf") {
+    test("deduplicate and sort vcf") {
 
         when {
             workflow {
                 """
                 input[0] = Channel.of([
                     [ id:'test' ], // meta map
-                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true),
+                    []
                 ])
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
@@ -29,27 +30,21 @@ nextflow_workflow {
         }
         then {
             assert workflow.success
-            assert path(workflow.out.ch_vcf[0][1]).exists()
-            assert path(workflow.out.ch_vcf[0][2]).exists()
-            
             assertAll(
-                { assert snapshot(
-                    workflow.out.ch_vcf[0][0],
-                    file(workflow.out.ch_vcf[0][1]).name,
-                    file(workflow.out.ch_vcf[0][2]).name
-                ).match() }
+                { assert snapshot(workflow.out).match() }
             )
         }
     }
 
-    test("sarscov2 vcf stub") {
+    test("deduplicate and sort vcf stub") {
         options "-stub"
         when {
             workflow {
                 """
                 input[0] = Channel.of([
                     [ id:'test' ], // meta map
-                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true),
+                    [] // Empty list added to prevent mapping errors
                 ])
                 input[1] = Channel.of([
                     [ id:'test_ref' ],

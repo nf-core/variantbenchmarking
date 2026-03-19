@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_VARIANT_FILTERING"
+description: Filter variants using Survivor and Bcftools
+keywords:
+  - filter
+  - structural variants
+  - survivor
+  - bcftools
+  - vcf
+components:
+  - bcftools/filter
+  - survivor/filter
+  - tabix/bgzip
+  - tabix/bgziptabix
+input:
+  - vcf_ch:
+      description: Channel containing target VCF files and their indices
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+output:
+  - vcf_ch:
+      description: Channel containing the filtered compressed and indexed VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: Filtered VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+        - index:
+          type: file
+          description: Index file
+          pattern: "*.{tbi,csi}"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

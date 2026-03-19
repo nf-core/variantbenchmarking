@@ -1,0 +1,93 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SOMPY_BENCHMARK"
+    script "../main.nf"
+    workflow "SOMPY_BENCHMARK"
+
+    tag "subworkflows"
+    tag "subworkflows_sompy_benchmark"
+    tag "subworkflows/sompy_benchmark"
+    tag "happy"
+    tag "happy/sompy"
+
+    test("benchmark with sompy") {
+
+        when {
+            params {
+                variant_type = "somatic"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:"gatk" ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz.tbi', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz.tbi', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                        []  // targets bed
+                ])
+                input[1] = [
+                        [ id:'test2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                        ]
+                input[2] = [
+                        [ id:'test3' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                        ]
+                input[3] = [[],[]]
+                input[4] = [[],[]]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            
+            assertAll(
+                { assert snapshot(
+                    workflow.out.summary_reports,
+                    workflow.out.tagged_variants_csv.collect { it[1] ? file(it[1]).name : null }.sort(),
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("benchmark with sompy stub") {
+        options "-stub"
+        when {
+            params {
+                variant_type = "somatic"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:"gatk" ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                    []  // targets bed
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                input[3] = [[],[]]
+                input[4] = [[],[]]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

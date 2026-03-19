@@ -1,0 +1,89 @@
+{
+    "filter variants with survivor": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "simulated_sv.filter.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "simulated_sv.filter.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "simulated_sv.filter.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
+                        "simulated_sv.filter.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:21:31.580649859",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "filter variants with bcftools": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filter.vcf.gz:md5,8350fd4ab1cd2aaa0f67d73b707e2838",
+                        "test.filter.vcf.gz.tbi:md5,457af1bf6f4083cdd6bafa15d3d65130"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filter.vcf.gz:md5,8350fd4ab1cd2aaa0f67d73b707e2838",
+                        "test.filter.vcf.gz.tbi:md5,457af1bf6f4083cdd6bafa15d3d65130"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:21:18.818616607",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "filter variants stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:21:43.204641525",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

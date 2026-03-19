@@ -41,7 +41,8 @@ nextflow_workflow {
                     workflow.out.dictionary[0][0],
                     file(workflow.out.dictionary[0][1]).name,
                     workflow.out.sdf[0][0],
-                    file(workflow.out.sdf[0][1]).name
+                    file(workflow.out.sdf[0][1]).name,
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
         }
