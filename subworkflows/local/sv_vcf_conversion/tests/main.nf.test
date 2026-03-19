@@ -1,0 +1,175 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SV_VCF_CONVERSIONS"
+    script "../main.nf"
+    workflow "SV_VCF_CONVERSIONS"
+
+    tag "subworkflows"
+    tag "subworkflows_sv_vcf_conversions"
+    tag "subworkflows/sv_vcf_conversions"
+    tag "svtk"
+    tag "svtk/standardize"
+    tag "rtgtools"
+    tag "rtgtools/svdecompose"
+    tag "svync"
+    tag "bcftools"
+    tag "bcftools/sort"
+    tag "tabix"
+    tag "tabix/bgziptabix"
+    tag "tabix/tabix"
+
+    test("convert sv vcf with variant_extractor") {
+
+        when {
+            params {
+                sv_standardization = "variant_extractor"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = [
+                    [ id:'test2' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ]
+                input[2] = [
+                    [ id:'test4' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svtk") {
+
+        when {
+            params {
+                sv_standardization = "svtk"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = [
+                    [ id:'test2' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ]
+                input[2] = [
+                    [ id:'test4' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svdecompose") {
+
+        when {
+            params {
+                sv_standardization = "svdecompose"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = [
+                    [ id:'test2' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ]
+                input[2] = [
+                    [ id:'test4' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svync") {
+
+        when {
+            params {
+                sv_standardization = "svync"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = [
+                    [ id:'test2' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ]
+                input[2] = [
+                    [ id:'test4' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf stub") {
+        options "-stub"
+        when {
+            params {
+                sv_standardization = "svdecompose"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ], // meta map
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = [
+                    [ id:'test2' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ]
+                input[2] = [
+                    [ id:'test4' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ]
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

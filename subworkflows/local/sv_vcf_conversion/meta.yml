@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "SV_VCF_CONVERSIONS"
+description: Apply tool specific conversions to structural variant VCF files
+keywords:
+  - structural variants
+  - vcf
+  - conversion
+  - standardization
+components:
+  - svtk/standardize
+  - rtgtools/svdecompose
+  - bcftools/sort
+  - tabix/bgziptabix
+  - tabix/tabix
+input:
+  - input_ch:
+      description: Channel containing target VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+  - fasta:
+      description: Channel containing the target reference FASTA file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+  - fai:
+      description: Channel containing the FASTA index file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fai:
+          type: file
+          description: FASTA index file
+          pattern: "*.fai"
+output:
+  - vcf_ch:
+      description: Channel containing the standardized VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: Processed VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+  - versions:
+      description: Channel containing software versions
+      structure:
+        - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

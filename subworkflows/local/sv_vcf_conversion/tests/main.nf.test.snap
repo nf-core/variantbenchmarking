@@ -1,0 +1,185 @@
+{
+    "convert sv vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T13:43:38.01749938",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with variant_extractor": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.variantextract.norm.sort.vcf.gz:md5,912d87f7bee9b0912bc9f1595307c726",
+                        "test_test2_paired_mutect2_calls.variantextract.norm.sort.vcf.gz.tbi:md5,360010b1968843edeaf6c5b078c97b5b"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,82120dab82c2586bbf683af7a32eed73"
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.variantextract.norm.sort.vcf.gz:md5,912d87f7bee9b0912bc9f1595307c726",
+                        "test_test2_paired_mutect2_calls.variantextract.norm.sort.vcf.gz.tbi:md5,360010b1968843edeaf6c5b078c97b5b"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,82120dab82c2586bbf683af7a32eed73"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T13:42:45.079401527",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svtk": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz",
+                        "test_test2_paired_mutect2_calls.vcf.gz.tbi:md5,23e57e4a7a85548f54859070bdf627a9"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz",
+                        "test_test2_paired_mutect2_calls.vcf.gz.tbi:md5,23e57e4a7a85548f54859070bdf627a9"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T13:42:56.526135377",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svync": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T13:43:23.779780894",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svdecompose": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz:md5,22510bb6256c3afc7826e5dc18a6091b",
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz.tbi:md5,ceb4b194735d5102958e61c7a36902d3"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "mutect2"
+                        },
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz:md5,22510bb6256c3afc7826e5dc18a6091b",
+                        "test_test2_paired_mutect2_calls.bnd.vcf.gz.tbi:md5,ceb4b194735d5102958e61c7a36902d3"
+                    ]
+                ],
+                "versions": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T13:43:13.036035772",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
