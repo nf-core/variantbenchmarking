@@ -67,7 +67,7 @@
                     "coreutils": 9.5
                 },
                 "MERGE_REPORTS": {
-                    "python": "3.13.0"
+                    "python": "3.14.3"
                 },
                 "PICARD_CREATESEQUENCEDICTIONARY": {
                     "picard": "3.4.0"
@@ -92,7 +92,7 @@
                     "ucsc": 482
                 },
                 "VCF_TO_CSV": {
-                    "python": "3.13.0"
+                    "python": "3.12.13"
                 },
                 "Workflow": {
                     "nf-core/variantbenchmarking": "v1.5.0dev"
@@ -207,11 +207,11 @@
                 "small/summary/comparisons/happy/happy.FP.csv",
                 "small/summary/comparisons/happy/happy.TP_base.csv",
                 "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/vcfeval",
-                "small/summary/comparisons/vcfeval/vcfeval.FN.csv",
-                "small/summary/comparisons/vcfeval/vcfeval.FP.csv",
-                "small/summary/comparisons/vcfeval/vcfeval.TP_base.csv",
-                "small/summary/comparisons/vcfeval/vcfeval.TP_comp.csv",
+                "small/summary/comparisons/rtgtools",
+                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
@@ -366,8 +366,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-11T18:20:40.169478302"
+        "timestamp": "2026-03-20T17:08:27.725805584"
     }
 }
