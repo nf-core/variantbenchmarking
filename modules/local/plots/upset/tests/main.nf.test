@@ -16,11 +16,11 @@ nextflow_process {
                 """
                 input[0] = [
                     [ id:'svbenchmark' ],
-                    [ 
-                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FP.csv'), 
-                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FN.csv'), 
-                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_base.csv'), 
-                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_comp.csv') 
+                    [
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FP.csv'),
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FN.csv'),
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_base.csv'),
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_comp.csv')
                     ]
                 ]
                 """

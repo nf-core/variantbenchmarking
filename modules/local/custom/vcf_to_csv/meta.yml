@@ -30,17 +30,17 @@ input:
 
 output:
   output:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - csv:
-          type: file
-          description: Converted CSV file.
-          pattern: "*.csv"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - csv:
+        type: file
+        description: Converted CSV file.
+        pattern: "*.csv"
   versions_python:
-      - versions:
-          type: tuple
-          description: Tuple containing process name, software name, and version string.
+    - versions:
+        type: tuple
+        description: Tuple containing process name, software name, and version string.
 
 topics:
   versions:

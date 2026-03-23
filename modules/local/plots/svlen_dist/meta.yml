@@ -42,18 +42,18 @@ input:
 
 output:
   plot:
-      - plot_png:
-          type: file
-          description: Variant length distribution plot in PNG format.
-          pattern: "*.png"
+    - plot_png:
+        type: file
+        description: Variant length distribution plot in PNG format.
+        pattern: "*.png"
 
   versions_python:
-      - versions.yml:
-          type: file
-          description: File containing software versions
-          pattern: "versions.yml"
-          ontologies:
-            - edam: "http://edamontology.org/format_3750" # YAML
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750" # YAML
 topics:
   versions:
     - versions.yml:

@@ -3,8 +3,8 @@
 # Copyright 2025 - GHGA
 # Author: Kuebra Narci - @kubranarci
 '''
-Merges CSV files based on CHROM and POS, handling dynamic GT columns. 
-Each GT column is renamed to include the sample name 
+Merges CSV files based on CHROM and POS, handling dynamic GT columns.
+Each GT column is renamed to include the sample name
 (e.g., Sample1_GT). Missing GT values are filled with './.'.
 Expected usage:
     $ python merge_sompy_features.py  $csvs --output ${prefix}.${meta.tag}.csv

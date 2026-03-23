@@ -39,61 +39,61 @@ input:
 
 output:
   summary:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - csv:
-          type: file
-          description: Summary statistics of the intersection.
-          pattern: "*stats.csv"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - csv:
+        type: file
+        description: Summary statistics of the intersection.
+        pattern: "*stats.csv"
   tp_base:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - bed:
-          type: file
-          description: True positive base intervals.
-          pattern: "*TP_base.bed"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: True positive base intervals.
+        pattern: "*TP_base.bed"
   tp_comp:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - bed:
-          type: file
-          description: True positive comparison intervals.
-          pattern: "*TP_comp.bed"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: True positive comparison intervals.
+        pattern: "*TP_comp.bed"
   fp:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - bed:
-          type: file
-          description: False positive intervals.
-          pattern: "*FP.bed"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: False positive intervals.
+        pattern: "*FP.bed"
   fn:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - bed:
-          type: file
-          description: False negative intervals.
-          pattern: "*FN.bed"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: False negative intervals.
+        pattern: "*FN.bed"
   out_bed:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - bed:
-          type: file
-          description: Converted BED file.
-          pattern: "*converted.bed"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: Converted BED file.
+        pattern: "*converted.bed"
   versions_python:
-      - versions:
-          type: tuple
-          description: Tuple containing process name software name and python version string.
+    - versions:
+        type: tuple
+        description: Tuple containing process name software name and python version string.
   versions_bedtools:
-      - versions:
-          type: tuple
-          description: Tuple containing process name software name and bedtools version string.
+    - versions:
+        type: tuple
+        description: Tuple containing process name software name and bedtools version string.
 
 topics:
   versions:

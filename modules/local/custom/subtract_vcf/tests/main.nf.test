@@ -34,7 +34,7 @@ nextflow_process {
     }
 
     test("Standard VCF subtraction - stub") {
-        
+
         options "-stub"
 
         when {
