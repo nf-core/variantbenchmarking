@@ -1,4 +1,4 @@
-process PLOT_SVLEN_DIST {
+process PLOTS_SVLEN_DIST {
     tag "$meta.id"
     label 'process_single'
 
@@ -11,8 +11,8 @@ process PLOT_SVLEN_DIST {
     tuple val(meta), path(input)
 
     output:
-    path("*.png")         , emit: plot
-    path "versions.yml"   , emit: versions
+    path("*.png")               , emit: plot
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,20 +27,11 @@ process PLOT_SVLEN_DIST {
         --title "INDEL Length Distributions of ${meta.tag} Variants" \\
         $args
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.svlen.png
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
-
 }

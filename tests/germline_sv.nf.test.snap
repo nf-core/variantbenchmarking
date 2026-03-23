@@ -51,14 +51,20 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "python": "3.13.0"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "python": "3.13.0"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -104,6 +110,25 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "plots",
+                "plots/Base_f1_by_tool_wittyer_mqc.png",
+                "plots/Base_pr_recall_by_tool_wittyer_mqc.png",
+                "plots/Base_variants_by_tool_wittyer_mqc.png",
+                "plots/Event_f1_by_tool_wittyer_mqc.png",
+                "plots/Event_pr_recall_by_tool_wittyer_mqc.png",
+                "plots/Event_variants_by_tool_wittyer_mqc.png",
+                "plots/f1_by_tool_svbenchmark_mqc.png",
+                "plots/f1_by_tool_truvari_mqc.png",
+                "plots/pr_recall_by_tool_svbenchmark_mqc.png",
+                "plots/pr_recall_by_tool_truvari_mqc.png",
+                "plots/svbenchmark.structural.mqc.png",
+                "plots/svbenchmark_tp_fn_mqc.png",
+                "plots/svbenchmark_tp_fp_mqc.png",
+                "plots/truvari.structural.mqc.png",
+                "plots/truvari_tp_fn_mqc.png",
+                "plots/truvari_tp_fp_mqc.png",
+                "plots/variants_by_tool_svbenchmark_mqc.png",
+                "plots/variants_by_tool_truvari_mqc.png",
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
@@ -223,34 +248,6 @@
                 "structural/summary/datavzrd/wittyer/test/index_1.html",
                 "structural/summary/datavzrd/wittyer/test/plots",
                 "structural/summary/datavzrd/wittyer/test/plots/plots.js",
-                "structural/summary/plots",
-                "structural/summary/plots/svbenchmark",
-                "structural/summary/plots/svbenchmark/f1_by_tool_svbenchmark_mqc.png",
-                "structural/summary/plots/svbenchmark/pr_recall_by_tool_svbenchmark_mqc.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.FN.structural.mqc.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.FP.structural.mqc.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.TP_base.structural.mqc.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.TP_comp.structural.mqc.png",
-                "structural/summary/plots/svbenchmark/upset_svbenchmark_tp_fn_mqc.png",
-                "structural/summary/plots/svbenchmark/upset_svbenchmark_tp_fp_mqc.png",
-                "structural/summary/plots/svbenchmark/variants_by_tool_svbenchmark_mqc.png",
-                "structural/summary/plots/truvari",
-                "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
-                "structural/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
-                "structural/summary/plots/truvari/truvari.FN.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
-                "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
-                "structural/summary/plots/wittyer",
-                "structural/summary/plots/wittyer/Base_f1_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/Base_pr_recall_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/Base_variants_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/Event_f1_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/Event_pr_recall_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/Event_variants_by_tool_wittyer_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
                 "structural/summary/tables/svbenchmark/svbenchmark.summary.csv",
@@ -350,6 +347,24 @@
                 "structural/test3/stats/survivor/test3.delly_mqc.stats"
             ],
             [
+                "Base_f1_by_tool_wittyer_mqc.png:md5,b9505687d7366585d19d3b5a5db9c72b",
+                "Base_pr_recall_by_tool_wittyer_mqc.png:md5,7d8ebbebc11d67fdc8a611b094246c3d",
+                "Base_variants_by_tool_wittyer_mqc.png:md5,c116fbab0af1a4cfac2e8d4a544c4516",
+                "Event_f1_by_tool_wittyer_mqc.png:md5,6f62065f9eed607a4cef76caca15ec06",
+                "Event_pr_recall_by_tool_wittyer_mqc.png:md5,fa41b0170df5d96f5de064993c66e575",
+                "Event_variants_by_tool_wittyer_mqc.png:md5,f5452e1e659d70a7f570792beef345c9",
+                "f1_by_tool_svbenchmark_mqc.png:md5,529b705f6d9b9f55c9a9fcd1042a476b",
+                "f1_by_tool_truvari_mqc.png:md5,61cae63d0644c593a161d98246f38776",
+                "pr_recall_by_tool_svbenchmark_mqc.png:md5,b072b6805eb53e6c01b61cd228909d4c",
+                "pr_recall_by_tool_truvari_mqc.png:md5,4d5680a78ce99b36bd5dc070a144d228",
+                "svbenchmark.structural.mqc.png:md5,ab76f641c65b21b0cbea945325039cdc",
+                "svbenchmark_tp_fn_mqc.png:md5,11ed35403200554f3f7cb10452b44c03",
+                "svbenchmark_tp_fp_mqc.png:md5,f6c772086b10eb6e01bdc405a1533725",
+                "truvari.structural.mqc.png:md5,a2915121fd683d931ac9997a034a6c26",
+                "truvari_tp_fn_mqc.png:md5,c33ad241cf5da5f84fc52309bf2f303c",
+                "truvari_tp_fp_mqc.png:md5,c3c4a3a62fab468c014a7827ead996ba",
+                "variants_by_tool_svbenchmark_mqc.png:md5,8495035b8d899e300cf067e697e7bc11",
+                "variants_by_tool_truvari_mqc.png:md5,7431e481fed224fe486bda2b594718d0",
                 "HG002.bcftools_stats.txt:md5,cf3cd44bf54ab2ad7890ed29b58114d2",
                 "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
                 "multiqc_bcftools_stats.txt:md5,bc792f417a5400cc2c32a9a71aad52e7",
@@ -364,7 +379,7 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
-        "timestamp": "2026-03-13T10:45:32.648998564",
+        "timestamp": "2026-03-20T17:03:27.014100724",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -422,14 +437,20 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "python": "3.13.0"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "python": "3.13.0"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -475,6 +496,17 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "plots",
+                "plots/metric_by_tool_svbenchmark.png",
+                "plots/metric_by_tool_truvari.png",
+                "plots/metric_by_tool_wittyer.png",
+                "plots/svbenchmark.svlen.png",
+                "plots/svbenchmark.upset.mqc.png",
+                "plots/truvari.svlen.png",
+                "plots/truvari.upset.mqc.png",
+                "plots/variants_by_tool_svbenchmark.png",
+                "plots/variants_by_tool_truvari.png",
+                "plots/variants_by_tool_wittyer.png",
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
@@ -556,26 +588,6 @@
                 "structural/summary/datavzrd/wittyer/static/bootstrap.min.css",
                 "structural/summary/datavzrd/wittyer/static/bundle.js",
                 "structural/summary/datavzrd/wittyer/static/datavzrd.css",
-                "structural/summary/plots",
-                "structural/summary/plots/svbenchmark",
-                "structural/summary/plots/svbenchmark/metric_by_tool_svbenchmark_mqc.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.FN.svlen.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.FP.svlen.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.TP_base.svlen.png",
-                "structural/summary/plots/svbenchmark/svbenchmark.TP_comp.svlen.png",
-                "structural/summary/plots/svbenchmark/upset_svbenchmark.upset.mqc.png",
-                "structural/summary/plots/svbenchmark/variants_by_tool_svbenchmark_mqc.png",
-                "structural/summary/plots/truvari",
-                "structural/summary/plots/truvari/metric_by_tool_truvari_mqc.png",
-                "structural/summary/plots/truvari/truvari.FN.svlen.png",
-                "structural/summary/plots/truvari/truvari.FP.svlen.png",
-                "structural/summary/plots/truvari/truvari.TP_base.svlen.png",
-                "structural/summary/plots/truvari/truvari.TP_comp.svlen.png",
-                "structural/summary/plots/truvari/upset_truvari.upset.mqc.png",
-                "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
-                "structural/summary/plots/wittyer",
-                "structural/summary/plots/wittyer/metric_by_tool_wittyer_mqc.png",
-                "structural/summary/plots/wittyer/variants_by_tool_wittyer_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
                 "structural/summary/tables/svbenchmark/svbenchmark.regions.csv",
@@ -678,6 +690,16 @@
                 "structural/test3/stats/survivor/test3.delly_mqc.stats"
             ],
             [
+                "metric_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "metric_by_tool_truvari.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "metric_by_tool_wittyer.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "svbenchmark.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "svbenchmark.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "truvari.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "truvari.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "variants_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "variants_by_tool_truvari.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "variants_by_tool_wittyer.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.manta.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -688,7 +710,7 @@
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-13T10:52:50.482457639",
+        "timestamp": "2026-03-20T17:21:48.969369525",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

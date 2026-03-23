@@ -1,0 +1,71 @@
+name: "subtract_vcf"
+description: "Subtracts variants found in one VCF from another, with optional BED-based region filtering."
+keywords:
+  - vcf
+  - subtract
+  - filter
+  - bed
+  - genomics
+  - variant_calling
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          e.g. `[ id:'test' ]`
+    - vcf:
+        type: file
+        description: The primary VCF file to be filtered.
+        pattern: "*.{vcf,vcf.gz}"
+    - index:
+        type: file
+        description: Index for the primary VCF (optional).
+        pattern: "*.tbi"
+    - regions:
+        type: file
+        description: Optional BED file to restrict output to specific genomic regions.
+        pattern: "*.bed"
+    - targets:
+        type: file
+        description: Optional targets file (not currently used by script but required in input tuple).
+    - exclude:
+        type: file
+        description: VCF file containing variants that should be removed from the primary VCF.
+        pattern: "*.{vcf,vcf.gz}"
+
+output:
+  vcf:
+      - meta:
+          type: map
+          description: Groovy Map containing sample information.
+      - vcf:
+          type: file
+          description: The filtered VCF file containing remaining variants.
+          pattern: "*remain.vcf.gz"
+
+  versions_python:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+          ontologies:
+            - edam: "http://edamontology.org/format_3750" # YAML
+topics:
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750"
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

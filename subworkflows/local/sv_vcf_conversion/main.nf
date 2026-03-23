@@ -4,7 +4,7 @@
 
 include { SVYNC                   } from '../../../modules/nf-core/svync'
 include { TABIX_BGZIPTABIX        } from '../../../modules/nf-core/tabix/bgziptabix'
-include { VARIANT_EXTRACTOR       } from '../../../modules/local/custom/variant_extractor'
+include { VARIANTEXTRACTOR        } from '../../../modules/nf-core/variantextractor'
 include { SVTK_STANDARDIZE        } from '../../../modules/nf-core/svtk/standardize'
 include { RTGTOOLS_SVDECOMPOSE    } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_SORT as BCFTOOLS_SORT1 } from '../../../modules/nf-core/bcftools/sort'
@@ -16,24 +16,19 @@ include { TABIX_TABIX as TABIX_TABIX_2    } from '../../../modules/nf-core/tabix
 workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf]
-    fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = channel.empty()
 
-    if (params.sv_standardization.contains("variant_extractor")){
+    if (params.sv_standardization.contains("variantextractor")){
         // uses VariantExtractor to homogenize variants
-        VARIANT_EXTRACTOR(
-            input_ch,
-            fasta,
-            fai
+        VARIANTEXTRACTOR(
+            input_ch
         )
-        versions = versions.mix(VARIANT_EXTRACTOR.out.versions)
 
         // sort vcf
         BCFTOOLS_SORT1(
-            VARIANT_EXTRACTOR.out.output
+            VARIANTEXTRACTOR.out.vcf
         )
         input_ch = BCFTOOLS_SORT1.out.vcf
     }
@@ -142,5 +137,4 @@ workflow SV_VCF_CONVERSIONS {
 
     emit:
     vcf_ch   // channel: [val(meta), vcf]
-    versions // channel: [versions.yml]
 }

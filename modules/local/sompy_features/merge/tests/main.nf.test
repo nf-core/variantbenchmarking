@@ -1,0 +1,57 @@
+nextflow_process {
+
+    name "Test Process SOMPY_FEATURES_MERGE"
+    script "../main.nf"
+    process "SOMPY_FEATURES_MERGE"
+
+    tag "modules"
+    tag "modules_local"
+    tag "sompy_features_merge"
+
+    test("Standard sompy features merge") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test', tag:"TP_comp" ],
+                    [
+                        file(params.test_data_base + '/testdata/nf-test/merge/test8.TP_comp.csv', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard sompy features merge stub") {
+        options "-stub"
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test', tag:"TP_comp" ],
+                    [
+                        file(params.test_data_base + '/testdata/nf-test/merge/test8.TP_comp.csv', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
+                    ]
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,60 @@
+nextflow_process {
+
+    name "Test Process VCF_TO_CSV"
+    script "../main.nf"
+    process "VCF_TO_CSV"
+
+    tag "modules"
+    tag "modules_local"
+    tag "vcf_to_csv"
+
+    test("Standard VCF to CSV conversion") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test', tag:"TP" ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.output,
+                    process.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("Standard VCF to CSV conversion stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test', tag:"TP" ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.output,
+                    process.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,54 @@
+name: "vcf_to_csv"
+description: "Convert VCF files to CSV format for downstream analysis."
+keywords:
+  - vcf
+  - csv
+  - conversion
+  - python
+  - pandas
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+  - pandas:
+      description: "Data manipulation and analysis library for Python"
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `id` which matches the prefixes of the input files.
+          e.g. `[ id:'test' ]`
+    - input:
+        type: file
+        description: Target VCF file to be converted.
+        pattern: "*.{vcf,vcf.gz,bcf}"
+
+output:
+  output:
+      - meta:
+          type: map
+          description: Groovy Map containing sample information.
+      - csv:
+          type: file
+          description: Converted CSV file.
+          pattern: "*.csv"
+  versions_python:
+      - versions:
+          type: tuple
+          description: Tuple containing process name, software name, and version string.
+
+topics:
+  versions:
+    - versions:
+        type: tuple
+        description: Tuple containing process name, software name, and version string.
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

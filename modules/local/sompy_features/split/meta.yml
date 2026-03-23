@@ -1,0 +1,73 @@
+name: "sompy_features_split"
+description: "Splits Sompy benchmark VCF results into True Positive (TP), False Positive (FP), and False Negative (FN) CSV files."
+keywords:
+  - sompy
+  - benchmark
+  - variants
+  - true positive
+  - false positive
+  - false negative
+  - python
+  - pandas
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+  - pandas:
+      description: "Data manipulation and analysis library for Python"
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `id` which matches the prefixes of the input files.
+          e.g. `[ id:'test' ]`
+    - input:
+        type: file
+        description: Target Sompy benchmark VCF file to be split.
+        pattern: "*.{vcf,vcf.gz,bcf}"
+
+output:
+  TP:
+      - meta:
+          type: map
+          description: Groovy Map containing sample information.
+      - csv:
+          type: file
+          description: True Positive variants in CSV format.
+          pattern: "*TP_comp.csv"
+  FP:
+      - meta:
+          type: map
+          description: Groovy Map containing sample information.
+      - csv:
+          type: file
+          description: False Positive variants in CSV format.
+          pattern: "*FP.csv"
+  FN:
+      - meta:
+          type: map
+          description: Groovy Map containing sample information.
+      - csv:
+          type: file
+          description: False Negative variants in CSV format.
+          pattern: "*FN.csv"
+  versions_python:
+      - versions:
+          type: tuple
+          description: Tuple containing process name, software name, and version string.
+
+topics:
+  versions:
+    - versions:
+        type: tuple
+        description: Tuple containing process name, software name, and version string.
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

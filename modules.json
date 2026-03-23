@@ -192,6 +192,11 @@
                         "git_sha": "b1c64e862fb5ed7f13b6f8f3ef8f04e700d41438",
                         "installed_by": ["modules"]
                     },
+                    "variantextractor": {
+                        "branch": "master",
+                        "git_sha": "b61b31006844eba0086187863095d79f8fb58220",
+                        "installed_by": ["modules"]
+                    },
                     "wittyer": {
                         "branch": "master",
                         "git_sha": "3d2cd05f05038ead04ec6d8cbcdc26e1608025db",

@@ -16,7 +16,6 @@ workflow SMALL_SOMATIC_BENCHMARK {
 
     main:
 
-    versions            = channel.empty()
     summary_reports     = channel.empty()
     tagged_variants     = channel.empty()
     tagged_variants_csv = channel.empty()
@@ -29,7 +28,6 @@ workflow SMALL_SOMATIC_BENCHMARK {
             falsepositive_bed,
             ambiguous_beds
         )
-        versions            = versions.mix(SOMPY_BENCHMARK.out.versions)
         summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
         tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
     }
@@ -48,5 +46,4 @@ workflow SMALL_SOMATIC_BENCHMARK {
     summary_reports     // channel: [val(meta), reports]
     tagged_variants     // channel: [val(meta), vcfs]
     tagged_variants_csv // channel: [val(meta), csvs]
-    versions            // channel: [versions.yml]
 }

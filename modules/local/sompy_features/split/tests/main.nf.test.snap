@@ -1,0 +1,148 @@
+{
+    "Standard sompy features split": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.TP_comp.csv:md5,896bf1c7e74a66331410cfb4a9410c6d"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.FP.csv:md5,72c479c94f01734566b6b948cca4d68b"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.FN.csv:md5,39bcde8b7202f9f940d2fad0110b2f8f"
+                    ]
+                ],
+                "3": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "FN": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.FN.csv:md5,39bcde8b7202f9f940d2fad0110b2f8f"
+                    ]
+                ],
+                "FP": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.FP.csv:md5,72c479c94f01734566b6b948cca4d68b"
+                    ]
+                ],
+                "TP": [
+                    [
+                        {
+                            "id": "test_sompy"
+                        },
+                        "test_sompy.TP_comp.csv:md5,896bf1c7e74a66331410cfb4a9410c6d"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:03:40.023487994",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard sompy features split stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "FN": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "FP": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "TP": [
+                    [
+                        {
+                            "id": "test_stub"
+                        },
+                        "test_stub.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:03:55.44368206",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -1,4 +1,4 @@
-name: plots
+name: plots_metrics
 channels:
   - conda-forge
 dependencies:

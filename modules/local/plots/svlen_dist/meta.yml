@@ -1,0 +1,69 @@
+name: "plots_svlen_dist"
+description: "Parses VCF or CSV files to extract variant lengths and generates a distribution plot (PNG)."
+keywords:
+  - plot
+  - vcf
+  - csv
+  - svlen
+  - structural variants
+  - indel
+  - python
+  - pandas
+  - matplotlib
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+  - pandas:
+      description: "Data manipulation and analysis library for Python"
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+  - matplotlib:
+      description: "Library for creating static, animated, and interactive visualizations in Python"
+      homepage: "https://matplotlib.org/"
+      licence: ["PSF-2.0"]
+  - numpy:
+      description: "The fundamental package for scientific computing with Python"
+      homepage: "https://numpy.org/"
+      licence: ["BSD-3-Clause"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `id` and `tag`.
+          e.g. `[ id:'test', tag:'manta' ]`
+    - input:
+        type: file
+        description: Input VCF or CSV file containing variant length information.
+        pattern: "*.{vcf,vcf.gz,csv}"
+
+output:
+  plot:
+      - plot_png:
+          type: file
+          description: Variant length distribution plot in PNG format.
+          pattern: "*.png"
+
+  versions_python:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+          ontologies:
+            - edam: "http://edamontology.org/format_3750" # YAML
+topics:
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750"
+
+authors:
+  - "Victor Perez"
+maintainers:
+  - "Victor Perez"

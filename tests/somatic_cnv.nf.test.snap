@@ -34,6 +34,7 @@
                     "bcftools": 1.22
                 },
                 "BEDTOOLS_INTERSECT_BENCH": {
+                    "bedtools": "2.31.1",
                     "python": "3.12.11"
                 },
                 "CREATE_DATAVZRD_INPUT": {
@@ -240,7 +241,7 @@
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
-        "timestamp": "2026-03-13T11:09:32.691790727",
+        "timestamp": "2026-03-20T17:53:21.653410695",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

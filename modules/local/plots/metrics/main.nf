@@ -1,4 +1,4 @@
-process PLOTS {
+process PLOTS_METRICS {
     tag "$meta.benchmark_tool"
     label 'process_single'
 
@@ -12,7 +12,7 @@ process PLOTS {
 
     output:
     path("*.png")          , emit: plots
-    path "versions.yml"    , emit: versions
+    tuple val("${task.process}"), val('r_base'), eval("R --version 2>&1 | head -n 1 | sed 's/^R version //; s/ .*//'"), topic: versions, emit: versions_rbase
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,21 +23,12 @@ process PLOTS {
 
     """
     plots.R $summary $meta.benchmark_tool $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-    END_VERSIONS
     """
+
     stub:
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     touch metric_by_tool_${prefix}.png
     touch variants_by_tool_${prefix}.png
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-    END_VERSIONS
     """
 }

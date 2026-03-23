@@ -63,13 +63,10 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "MERGE_SOMPY_FEATURES": {
-                    "python": "3.13.0"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_HEADER": {
@@ -84,7 +81,10 @@
                 "RTGTOOLS_VCFEVAL": {
                     "rtgtools": 3.13
                 },
-                "SPLIT_SOMPY_FEATURES": {
+                "SOMPY_FEATURES_MERGE": {
+                    "python": "3.13.0"
+                },
+                "SOMPY_FEATURES_SPLIT": {
                     "python": "3.13.0"
                 },
                 "TABIX_BGZIPTABIX": {
@@ -109,6 +109,16 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "plots",
+                "plots/f1_by_tool_rtgtools_mqc.png",
+                "plots/f1_by_tool_sompy_mqc.png",
+                "plots/pr_recall_by_tool_rtgtools_mqc.png",
+                "plots/pr_recall_by_tool_sompy_mqc.png",
+                "plots/rtgtools_tp_fn_mqc.png",
+                "plots/rtgtools_tp_fp_mqc.png",
+                "plots/sompy_tp_fp_mqc.png",
+                "plots/variants_by_tool_rtgtools_mqc.png",
+                "plots/variants_by_tool_sompy_mqc.png",
                 "references",
                 "references/rtgtools",
                 "references/rtgtools/genome.sdf",
@@ -239,18 +249,6 @@
                 "snv/summary/datavzrd/sompy/test/index_1.html",
                 "snv/summary/datavzrd/sompy/test/plots",
                 "snv/summary/datavzrd/sompy/test/plots/plots.js",
-                "snv/summary/plots",
-                "snv/summary/plots/rtgtools",
-                "snv/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
-                "snv/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
-                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
-                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
-                "snv/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
-                "snv/summary/plots/sompy",
-                "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
-                "snv/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
-                "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
-                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
                 "snv/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -344,6 +342,15 @@
                 "snv/truth/stats/bcftools/truth.bcftools_stats.txt"
             ],
             [
+                "f1_by_tool_rtgtools_mqc.png:md5,bf4273f4748842d27ae1742f9e1e84f7",
+                "f1_by_tool_sompy_mqc.png:md5,e4fb05ce4f604b369b2521b2ff9340cf",
+                "pr_recall_by_tool_rtgtools_mqc.png:md5,e3df6b32e30a6aad742a31c6c38590ac",
+                "pr_recall_by_tool_sompy_mqc.png:md5,0ff4ec82c6ce48a55d11ca895df7dc20",
+                "rtgtools_tp_fn_mqc.png:md5,53496bb2e7e1c82b9ae03db3d5cf2cf0",
+                "rtgtools_tp_fp_mqc.png:md5,0b35c63046328c114af3b983cbf0503f",
+                "sompy_tp_fp_mqc.png:md5,47d4acace59eeffb488055e2a09d20fa",
+                "variants_by_tool_rtgtools_mqc.png:md5,9c83a864c3f26b54359630e1cbb17741",
+                "variants_by_tool_sompy_mqc.png:md5,5c8acfb8347d7fa47db7f1b824d516f2",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -388,7 +395,7 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
-        "timestamp": "2026-03-13T13:37:25.504543849",
+        "timestamp": "2026-03-20T19:18:40.433884585",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

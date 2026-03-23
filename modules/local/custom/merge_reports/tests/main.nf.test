@@ -1,0 +1,68 @@
+nextflow_process {
+
+    name "Test Process MERGE_REPORTS"
+    script "../main.nf"
+    process "MERGE_REPORTS"
+
+    tag "modules"
+    tag "modules_local"
+    tag "merge_reports"
+
+    test("Standard report merge") {
+
+        when {
+            params {
+                analysis = 'germline'
+            }
+            process {
+                """
+                input[0] = [
+                    [ benchmark_tool: 'svbenchmark', vartype: 'structural' ],
+                    [ 
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test1.HG002.delly.report'),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test2.HG002.lumpy.report'),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test3.HG002.manta.report')
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard report merge - stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                analysis = 'somatic'
+            }
+            process {
+                """
+                input[0] = [
+                    [ benchmark_tool: 'svbenchmark', vartype: 'structural'  ],
+                    [ 
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test1.HG002.delly.report'),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test2.HG002.lumpy.report'),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test3.HG002.manta.report')
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

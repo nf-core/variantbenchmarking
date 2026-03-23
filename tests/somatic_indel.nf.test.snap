@@ -60,13 +60,10 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "MERGE_SOMPY_FEATURES": {
-                    "python": "3.13.0"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_HEADER": {
@@ -78,7 +75,10 @@
                 "RTGTOOLS_VCFEVAL": {
                     "rtgtools": 3.13
                 },
-                "SPLIT_SOMPY_FEATURES": {
+                "SOMPY_FEATURES_MERGE": {
+                    "python": "3.13.0"
+                },
+                "SOMPY_FEATURES_SPLIT": {
                     "python": "3.13.0"
                 },
                 "TABIX_BGZIPTABIX": {
@@ -176,19 +176,6 @@
                 "indel/summary/datavzrd/sompy/test/index_1.html",
                 "indel/summary/datavzrd/sompy/test/plots",
                 "indel/summary/datavzrd/sompy/test/plots/plots.js",
-                "indel/summary/plots",
-                "indel/summary/plots/rtgtools",
-                "indel/summary/plots/rtgtools/f1_by_tool_rtgtools_mqc.png",
-                "indel/summary/plots/rtgtools/pr_recall_by_tool_rtgtools_mqc.png",
-                "indel/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
-                "indel/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
-                "indel/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
-                "indel/summary/plots/sompy",
-                "indel/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
-                "indel/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
-                "indel/summary/plots/sompy/upset_sompy_tp_fn_mqc.png",
-                "indel/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
-                "indel/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "indel/summary/tables",
                 "indel/summary/tables/rtgtools",
                 "indel/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -275,6 +262,17 @@
                 "indel/test9/stats/bcftools/test9.mutect2.bcftools_stats.txt",
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "plots",
+                "plots/f1_by_tool_rtgtools_mqc.png",
+                "plots/f1_by_tool_sompy_mqc.png",
+                "plots/pr_recall_by_tool_rtgtools_mqc.png",
+                "plots/pr_recall_by_tool_sompy_mqc.png",
+                "plots/rtgtools_tp_fn_mqc.png",
+                "plots/rtgtools_tp_fp_mqc.png",
+                "plots/sompy_tp_fn_mqc.png",
+                "plots/sompy_tp_fp_mqc.png",
+                "plots/variants_by_tool_rtgtools_mqc.png",
+                "plots/variants_by_tool_sompy_mqc.png",
                 "references",
                 "references/rtgtools",
                 "references/rtgtools/genome.sdf",
@@ -320,6 +318,16 @@
                 "test9.SEQC2.mutect2.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
                 "test9.SEQC2.mutect2.summary.txt:md5,0c3107b6083a60f4ee57fe97e9297a9c",
                 "test9.mutect2.bcftools_stats.txt:md5,88dc79172f15baa6f24e197f14cf09cb",
+                "f1_by_tool_rtgtools_mqc.png:md5,bebead65c4066b579565e33c55789b6b",
+                "f1_by_tool_sompy_mqc.png:md5,88841450acfb58bc7218de00edad8b08",
+                "pr_recall_by_tool_rtgtools_mqc.png:md5,703aab6d886f3a250bedcf1dcff25e85",
+                "pr_recall_by_tool_sompy_mqc.png:md5,863115ec5f957bdcd2a7051745469ce4",
+                "rtgtools_tp_fn_mqc.png:md5,baaad810217801a2fc29950b50678fe6",
+                "rtgtools_tp_fp_mqc.png:md5,28b0d628b2646dc3dbb4d14f74a06da0",
+                "sompy_tp_fn_mqc.png:md5,898517270216e660acdd2c1447de2d04",
+                "sompy_tp_fp_mqc.png:md5,f45469723493afecbf3fa2b03ade1fa9",
+                "variants_by_tool_rtgtools_mqc.png:md5,e627b20dc71bdeed1343a10f2e461762",
+                "variants_by_tool_sompy_mqc.png:md5,51ba68ecf1272205f1d5bb1a4fa1840c",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
                 "namedata0:md5,758c4a60948aed6c6a4c78323aa73ab3",
                 "namepointer0:md5,319f9f665b338f0e218677e036637e94",
@@ -338,7 +346,7 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781"
             ]
         ],
-        "timestamp": "2026-03-13T11:19:36.512213043",
+        "timestamp": "2026-03-20T18:27:40.209939269",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

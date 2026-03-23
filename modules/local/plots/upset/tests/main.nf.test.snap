@@ -1,0 +1,70 @@
+{
+    "Standard upset plot generation": {
+        "content": [
+            {
+                "0": [
+                    [
+                        "svbenchmark_tp_fn_mqc.png:md5,aaba827bb0af85fb72e52fba7e5152be",
+                        "svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                    ]
+                ],
+                "1": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ],
+                "plot": [
+                    [
+                        "svbenchmark_tp_fn_mqc.png:md5,aaba827bb0af85fb72e52fba7e5152be",
+                        "svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T11:09:28.066715577",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard upset plot - stub": {
+        "content": [
+            {
+                "0": [
+                    "test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ],
+                "plot": [
+                    "test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions_python": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T11:09:45.969844327",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

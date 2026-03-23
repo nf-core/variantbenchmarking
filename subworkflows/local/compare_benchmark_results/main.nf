@@ -9,8 +9,8 @@ include { TABIX_BGZIPTABIX                 } from '../../../modules/nf-core/tabi
 include { BCFTOOLS_MERGE                   } from '../../../modules/nf-core/bcftools/merge'
 include { SURVIVOR_MERGE                   } from '../../../modules/nf-core/survivor/merge'
 include { VCF_TO_CSV                       } from '../../../modules/local/custom/vcf_to_csv'
-include { MERGE_SOMPY_FEATURES             } from '../../../modules/local/custom/merge_sompy_features'
-include { PLOT_UPSET                       } from '../../../modules/local/custom/plot_upset'
+include { SOMPY_FEATURES_MERGE             } from '../../../modules/local/sompy_features/merge'
+include { PLOTS_UPSET                      } from '../../../modules/local/plots/upset'
 
 
 workflow COMPARE_BENCHMARK_RESULTS {
@@ -21,7 +21,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
     fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions    = channel.empty()
     merged_vcfs = channel.empty()
     ch_plots    = channel.empty()
 
@@ -76,32 +75,27 @@ workflow COMPARE_BENCHMARK_RESULTS {
     VCF_TO_CSV(
         merged_vcfs
     )
-    versions = versions.mix(VCF_TO_CSV.out.versions.first())
 
-
-    MERGE_SOMPY_FEATURES(
+    SOMPY_FEATURES_MERGE(
         evaluations_csv.groupTuple()
     )
-    versions = versions.mix(MERGE_SOMPY_FEATURES.out.versions.first())
 
     if (!params.skip_plots.contains("upset")){
-        VCF_TO_CSV.out.output.mix(MERGE_SOMPY_FEATURES.out.output).map{
+        VCF_TO_CSV.out.output.mix(SOMPY_FEATURES_MERGE.out.output).map{
             meta, csv ->
                 def newMeta = meta.clone()
                 newMeta.remove('tag')
             tuple(newMeta,csv)
         }.set{upset_input}
 
-        PLOT_UPSET(
+        PLOTS_UPSET(
             upset_input.groupTuple()
         )
-        versions = versions.mix(PLOT_UPSET.out.versions)
-        ch_plots = ch_plots.mix(PLOT_UPSET.out.plot)
+        ch_plots = ch_plots.mix(PLOTS_UPSET.out.plot)
     }
 
     emit:
     merged_vcfs  // channel: [val(meta), vcf]
     ch_plots     // channel: [.png]
-    versions     // channel: [versions.yml]
 
 }

@@ -14,7 +14,6 @@ workflow SV_GERMLINE_BENCHMARK {
 
     main:
 
-    versions        = channel.empty()
     summary_reports = channel.empty()
     tagged_variants = channel.empty()
     logs            = channel.empty()
@@ -56,5 +55,4 @@ workflow SV_GERMLINE_BENCHMARK {
     tagged_variants // channel: [val(meta), vcfs]
     summary_reports // channel: [val(meta), reports]
     logs            // channel: [log.txt]
-    versions        // channel: [val(meta), versions.yml]
 }

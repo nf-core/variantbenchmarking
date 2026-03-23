@@ -1,0 +1,57 @@
+nextflow_process {
+
+    name "Test Process PLOTS_UPSET"
+    script "../main.nf"
+    process "PLOTS_UPSET"
+
+    tag "modules"
+    tag "modules_local"
+    tag "plots_upset"
+    tag "upset"
+
+    test("Standard upset plot generation") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'svbenchmark' ],
+                    [ 
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FP.csv'), 
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.FN.csv'), 
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_base.csv'), 
+                        file(params.test_data_base + '/testdata/nf-test/plot_upset/svbenchmark.TP_comp.csv') 
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard upset plot - stub") {
+        options "-stub"
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'test_stub' ],
+                    []
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

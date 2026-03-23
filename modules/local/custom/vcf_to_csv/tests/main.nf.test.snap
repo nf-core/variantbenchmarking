@@ -1,0 +1,56 @@
+{
+    "Standard VCF to CSV conversion stub": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP"
+                    },
+                    "test.TP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            {
+                "versions_python": [
+                    [
+                        "VCF_TO_CSV",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T13:21:57.358981669",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard VCF to CSV conversion": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP"
+                    },
+                    "test.TP.csv:md5,d42770e5c27c85227377a5487c222737"
+                ]
+            ],
+            {
+                "versions_python": [
+                    [
+                        "VCF_TO_CSV",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T13:21:17.05534755",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
