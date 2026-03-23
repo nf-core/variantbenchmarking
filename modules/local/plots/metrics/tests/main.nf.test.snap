@@ -4,8 +4,8 @@
             {
                 "0": [
                     [
-                        "metric_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                        "variants_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -17,8 +17,8 @@
                 ],
                 "plots": [
                     [
-                        "metric_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                        "variants_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions_rbase": [
@@ -30,7 +30,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-20T11:22:09.616401502",
+        "timestamp": "2026-03-23T14:53:44.641446779",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

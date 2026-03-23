@@ -83,10 +83,6 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
-                "plots",
-                "plots/f1_by_tool_truvari_mqc.png",
-                "plots/pr_recall_by_tool_truvari_mqc.png",
-                "plots/variants_by_tool_truvari_mqc.png",
                 "structural",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
@@ -170,12 +166,15 @@
                 "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
+                "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
+                "structural/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
                 "structural/summary/plots/truvari/truvari.FN.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
                 "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
                 "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
+                "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/truvari",
                 "structural/summary/tables/truvari/truvari.summary.csv",
@@ -230,9 +229,6 @@
                 "structural/truth/stats/survivor/truth_mqc.stats"
             ],
             [
-                "f1_by_tool_truvari_mqc.png:md5,c23bcf5c8d9e5e39c9aae5a37b3502e8",
-                "pr_recall_by_tool_truvari_mqc.png:md5,6092935c204d0592fec41584384fea6c",
-                "variants_by_tool_truvari_mqc.png:md5,d50dc98d3870eb7e25fe5e2ea341d7d5",
                 "multiqc_bcftools_stats.txt:md5,6ceccab13a0d656642e8aea2a0d7e889",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,b5786d324c7ef28813099e0fe5855bd1",
@@ -245,7 +241,7 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
-        "timestamp": "2026-03-23T10:35:24.154575441",
+        "timestamp": "2026-03-23T15:18:36.290341661",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

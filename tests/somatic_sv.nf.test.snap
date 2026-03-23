@@ -74,10 +74,6 @@
             [
                 "pipeline_info",
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
-                "plots",
-                "plots/f1_by_tool_truvari_mqc.png",
-                "plots/pr_recall_by_tool_truvari_mqc.png",
-                "plots/variants_by_tool_truvari_mqc.png",
                 "structural",
                 "structural/SEQC2",
                 "structural/SEQC2/preprocess",
@@ -170,12 +166,15 @@
                 "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
+                "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
+                "structural/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
                 "structural/summary/plots/truvari/truvari.FN.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
                 "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
                 "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
                 "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
+                "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/truvari",
                 "structural/summary/tables/truvari/truvari.summary.csv",
@@ -221,9 +220,6 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "f1_by_tool_truvari_mqc.png:md5,af765c57f495fab665e3fa7aa3c7a5b1",
-                "pr_recall_by_tool_truvari_mqc.png:md5,0dbe4d6ea0fe5dcf8059a08b36446d8c",
-                "variants_by_tool_truvari_mqc.png:md5,cc7aeb641046c0e4ef2f110cc2dbdd5e",
                 "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
                 "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
@@ -236,7 +232,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-03-23T10:31:41.544521032",
+        "timestamp": "2026-03-23T14:24:03.847836231",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
