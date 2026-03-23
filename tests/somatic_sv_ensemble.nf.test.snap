@@ -1,21 +1,9 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari' --ensemble_truth 2": {
         "content": [
-            63,
+            55,
             {
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -255,10 +243,10 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
-        "timestamp": "2026-03-20T19:28:24.080065037",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-03-11T18:46:43.119293473"
     }
 }

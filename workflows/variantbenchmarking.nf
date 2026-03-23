@@ -8,6 +8,7 @@
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { RTGTOOLS_BNDEVAL            } from '../modules/nf-core/rtgtools/bndeval'
 include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -28,7 +29,6 @@ include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somati
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
-include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
 include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
 
@@ -279,13 +279,30 @@ workflow VARIANTBENCHMARKING {
 
         if (params.method.contains("bndeval")){
             // running bndeval might require svdecompose
-            BND_BENCHMARK(
-                bench,
-                fai
+            RTGTOOLS_BNDEVAL(
+                bench.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+                }
             )
 
-            ch_reports       = ch_reports.mix(BND_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(BND_BENCHMARK.out.tagged_variants)
+            ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
+                                                    .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+                                                    .groupTuple())
+            evals_ch         = evals_ch.mix(RTGTOOLS_BNDEVAL.out.fn_vcf,
+                                            RTGTOOLS_BNDEVAL.out.fp_vcf,
+                                            RTGTOOLS_BNDEVAL.out.baseline_vcf,
+                                            RTGTOOLS_BNDEVAL.out.tp_vcf)
+                                        .map { meta, file ->
+                                            def mapping = [
+                                                'fn': 'FN',
+                                                'fp': 'FP',
+                                                'tp-baseline': 'TP_base',
+                                                'tp': 'TP_comp'
+                                            ]
+                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
+                                            def transformedTag = mapping[tag] ?: tag
+                                            tuple( [ meta + [vartype: params.variant_type, id: "rtgtools", tag: transformedTag]], file)
+                                        }
         }
     }
 
