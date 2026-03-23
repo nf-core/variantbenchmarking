@@ -4,8 +4,8 @@
             {
                 "0": [
                     [
-                        "svbenchmark_tp_fn_mqc.png:md5,aaba827bb0af85fb72e52fba7e5152be",
-                        "svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
+                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
                     ]
                 ],
                 "1": [
@@ -17,8 +17,8 @@
                 ],
                 "plot": [
                     [
-                        "svbenchmark_tp_fn_mqc.png:md5,aaba827bb0af85fb72e52fba7e5152be",
-                        "svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
+                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
+                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
                     ]
                 ],
                 "versions_python": [
@@ -30,7 +30,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-20T11:09:28.066715577",
+        "timestamp": "2026-03-23T10:55:30.411952338",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -40,7 +40,7 @@
         "content": [
             {
                 "0": [
-                    "test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "1": [
                     [
@@ -50,7 +50,7 @@
                     ]
                 ],
                 "plot": [
-                    "test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "versions_python": [
                     [
@@ -61,7 +61,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-20T11:09:45.969844327",
+        "timestamp": "2026-03-23T10:55:39.592107234",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

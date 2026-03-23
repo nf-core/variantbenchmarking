@@ -92,10 +92,6 @@
                 "plots/f1_by_tool_sompy_mqc.png",
                 "plots/pr_recall_by_tool_rtgtools_mqc.png",
                 "plots/pr_recall_by_tool_sompy_mqc.png",
-                "plots/rtgtools_tp_fn_mqc.png",
-                "plots/rtgtools_tp_fp_mqc.png",
-                "plots/sompy_tp_fn_mqc.png",
-                "plots/sompy_tp_fp_mqc.png",
                 "plots/variants_by_tool_rtgtools_mqc.png",
                 "plots/variants_by_tool_sompy_mqc.png",
                 "references",
@@ -235,6 +231,13 @@
                 "snv/summary/datavzrd/sompy/test/index_1.html",
                 "snv/summary/datavzrd/sompy/test/plots",
                 "snv/summary/datavzrd/sompy/test/plots/plots.js",
+                "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/upset_sompy_tp_fn_mqc.png",
+                "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
                 "snv/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -325,10 +328,6 @@
                 "f1_by_tool_sompy_mqc.png:md5,36baf8f0d7ba73bbdcd87a18135a3ef2",
                 "pr_recall_by_tool_rtgtools_mqc.png:md5,8b5a2a8361a43c1d730c06f94e10d06b",
                 "pr_recall_by_tool_sompy_mqc.png:md5,854927d7fdc792889eb593c68ded36ec",
-                "rtgtools_tp_fn_mqc.png:md5,c469ff82d5f0ad45ab5337a8a78ca15d",
-                "rtgtools_tp_fp_mqc.png:md5,4926e41d7a4e27a291082520571ec84b",
-                "sompy_tp_fn_mqc.png:md5,f017bfe564a1bd92718639a6511048ae",
-                "sompy_tp_fp_mqc.png:md5,ecad9887310956cbc20f12ef8eaf766c",
                 "variants_by_tool_rtgtools_mqc.png:md5,3039cf8f74ff4d576041e74ede5b8722",
                 "variants_by_tool_sompy_mqc.png:md5,bd6520d592bbe8826a3725dd62ef3f45",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
@@ -375,11 +374,11 @@
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537"
             ]
         ],
+        "timestamp": "2026-03-23T11:11:20.274240222",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T11:11:55.625044627"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-stub": {
         "content": [
@@ -472,8 +471,6 @@
                 "plots",
                 "plots/metric_by_tool_rtgtools.png",
                 "plots/metric_by_tool_sompy.png",
-                "plots/rtgtools.upset.mqc.png",
-                "plots/sompy.upset.mqc.png",
                 "plots/variants_by_tool_rtgtools.png",
                 "plots/variants_by_tool_sompy.png",
                 "references",
@@ -539,6 +536,11 @@
                 "snv/summary/datavzrd/sompy/static/bootstrap.min.css",
                 "snv/summary/datavzrd/sompy/static/bundle.js",
                 "snv/summary/datavzrd/sompy/static/datavzrd.css",
+                "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/upset_rtgtools.upset.mqc.png",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/upset_sompy.upset.mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
                 "snv/summary/tables/rtgtools/rtgtools.regions.csv",
@@ -628,8 +630,6 @@
             [
                 "metric_by_tool_rtgtools.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "metric_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "rtgtools.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sompy.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "variants_by_tool_rtgtools.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "variants_by_tool_sompy.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -645,10 +645,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-03-23T11:13:17.225104769",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T11:15:31.120104974"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

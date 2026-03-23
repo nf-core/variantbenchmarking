@@ -44,7 +44,7 @@ nextflow_process {
             process {
                 """
                 input[0] = [
-                    [ id:'test_stub', tag:'stub_tag' ],
+                    [ id:'test_stub', tag:'manta' ],
                     file(params.test_data_base + '/testdata/hg38/test/somatic/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz', checkIfExists: true)
                 ]
                 """

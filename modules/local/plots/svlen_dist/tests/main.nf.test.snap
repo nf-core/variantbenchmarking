@@ -3,7 +3,7 @@
         "content": [
             {
                 "0": [
-                    "test_stub.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "test_stub.manta.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "1": [
                     [
@@ -13,7 +13,7 @@
                     ]
                 ],
                 "plot": [
-                    "test_stub.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "test_stub.manta.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "versions_python": [
                     [
@@ -24,7 +24,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-20T11:11:48.876896739",
+        "timestamp": "2026-03-23T10:54:00.857899074",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -34,7 +34,7 @@
         "content": [
             {
                 "0": [
-                    "test_sample.sv.mqc.png:md5,95117bf01f4e43ada3941cc28fc3f199"
+                    "test_sample.manta.sv.mqc.png:md5,95117bf01f4e43ada3941cc28fc3f199"
                 ],
                 "1": [
                     [
@@ -44,7 +44,7 @@
                     ]
                 ],
                 "plot": [
-                    "test_sample.sv.mqc.png:md5,95117bf01f4e43ada3941cc28fc3f199"
+                    "test_sample.manta.sv.mqc.png:md5,95117bf01f4e43ada3941cc28fc3f199"
                 ],
                 "versions_python": [
                     [
@@ -55,7 +55,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-20T11:11:26.771576492",
+        "timestamp": "2026-03-23T10:53:44.910570352",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

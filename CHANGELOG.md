@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 - Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
 - Bedfile index checking and smoother vcf comparisions [#290](https://github.com/nf-core/variantbenchmarking/pull/290)
-- Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
+- Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/), thanks @aaryanjaitly for initiation of some processes.
   - local module VARIANT_EXTRACTOR replaced with nf-core VARIANTEXTRACTOR
 
 ### `Fixed`
