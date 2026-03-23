@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'somatic' --variant_type 'indel' --method 'rtgtools'": {
         "content": [
-            101,
+            89,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -13,18 +13,6 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -338,10 +326,10 @@
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781"
             ]
         ],
-        "timestamp": "2026-03-13T11:19:36.512213043",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-03-12T11:11:57.279526657"
     }
 }

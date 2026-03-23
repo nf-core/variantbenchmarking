@@ -68,8 +68,7 @@
                     "gatk4/concordance": {
                         "branch": "master",
                         "git_sha": "86308d628760125908c5c77540517effe0f8880f",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/gatk4/concordance/gatk4-concordance.diff"
+                        "installed_by": ["modules"]
                     },
                     "gawk": {
                         "branch": "master",
@@ -184,8 +183,7 @@
                     "truvari/bench": {
                         "branch": "master",
                         "git_sha": "fb32a7ee01805151ef9355fdee4bf035c727de24",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/truvari/bench/truvari-bench.diff"
+                        "installed_by": ["modules"]
                     },
                     "ucsc/liftover": {
                         "branch": "master",
@@ -208,7 +206,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "271e7fc14eb1320364416d996fb077421f3faed2",
+                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {

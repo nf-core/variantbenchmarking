@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'structural' --method 'truvari,svbenchmark,wittyer'": {
         "content": [
-            140,
+            128,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -10,18 +10,6 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -364,15 +352,15 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
-        "timestamp": "2026-03-13T10:45:32.648998564",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-03-11T17:15:58.872783476"
     },
     "-stub": {
         "content": [
-            140,
+            128,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -381,18 +369,6 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -688,10 +664,10 @@
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-13T10:52:50.482457639",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-03-11T17:18:56.489509119"
     }
 }
