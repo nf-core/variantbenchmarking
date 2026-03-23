@@ -34,7 +34,7 @@ nextflow_process {
                     process.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
-        }   
+        }
     }
 
     test("Standard upset plot - stub") {
