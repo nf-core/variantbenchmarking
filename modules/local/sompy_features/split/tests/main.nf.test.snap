@@ -1,62 +1,34 @@
 {
     "Standard sompy features split": {
         "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.TP_comp.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.FP.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.FN.csv"
+                ]
+            ],
             {
-                "0": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.TP_comp.csv:md5,fc9c5a6ec4b6f72b72b27bda93ff2c08"
-                    ]
-                ],
-                "1": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.FP.csv:md5,67fbf259a55374e113030eb50abe0fc0"
-                    ]
-                ],
-                "2": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.FN.csv:md5,4004c0ce49f93b4608820d69aedabf51"
-                    ]
-                ],
-                "3": [
-                    [
-                        "SOMPY_FEATURES_SPLIT",
-                        "python",
-                        "3.13.0"
-                    ]
-                ],
-                "FN": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.FN.csv:md5,4004c0ce49f93b4608820d69aedabf51"
-                    ]
-                ],
-                "FP": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.FP.csv:md5,67fbf259a55374e113030eb50abe0fc0"
-                    ]
-                ],
-                "TP": [
-                    [
-                        {
-                            "id": "test_sompy"
-                        },
-                        "test_sompy.truth.null.TP_comp.csv:md5,fc9c5a6ec4b6f72b72b27bda93ff2c08"
-                    ]
-                ],
                 "versions_python": [
                     [
                         "SOMPY_FEATURES_SPLIT",
@@ -66,7 +38,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-23T10:51:31.454320517",
+        "timestamp": "2026-03-23T11:33:30.900024596",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -78,25 +50,28 @@
                 "0": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "2": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "3": [
@@ -109,25 +84,28 @@
                 "FN": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "FP": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "TP": [
                     [
                         {
-                            "id": "test_stub"
+                            "id": "test",
+                            "caller": "strelka"
                         },
-                        "test_stub.truth.null.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.strelka.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions_python": [
@@ -139,7 +117,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-23T10:51:42.34208242",
+        "timestamp": "2026-03-23T11:33:43.058954236",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

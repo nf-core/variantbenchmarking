@@ -1,26 +1,13 @@
 {
     "Standard upset plot generation": {
         "content": [
+            [
+                [
+                    "upset_svbenchmark_tp_fn_mqc.png",
+                    "upset_svbenchmark_tp_fp_mqc.png"
+                ]
+            ],
             {
-                "0": [
-                    [
-                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
-                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
-                    ]
-                ],
-                "1": [
-                    [
-                        "PLOTS_UPSET",
-                        "python",
-                        "3.13.7"
-                    ]
-                ],
-                "plot": [
-                    [
-                        "upset_svbenchmark_tp_fn_mqc.png:md5,53ee73eb768f51ab38f145765ff48a48",
-                        "upset_svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7"
-                    ]
-                ],
                 "versions_python": [
                     [
                         "PLOTS_UPSET",
@@ -30,7 +17,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-23T10:55:30.411952338",
+        "timestamp": "2026-03-23T11:39:24.150165699",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
