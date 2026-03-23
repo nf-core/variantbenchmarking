@@ -79,9 +79,6 @@
                 "plots",
                 "plots/f1_by_tool_svbenchmark_mqc.png",
                 "plots/pr_recall_by_tool_svbenchmark_mqc.png",
-                "plots/svbenchmark.structural.mqc.png",
-                "plots/svbenchmark_tp_fn_mqc.png",
-                "plots/svbenchmark_tp_fp_mqc.png",
                 "plots/variants_by_tool_svbenchmark_mqc.png",
                 "structural",
                 "structural/HG002",
@@ -140,6 +137,14 @@
                 "structural/summary/datavzrd/svbenchmark/test/index_1.html",
                 "structural/summary/datavzrd/svbenchmark/test/plots",
                 "structural/summary/datavzrd/svbenchmark/test/plots/plots.js",
+                "structural/summary/plots",
+                "structural/summary/plots/svbenchmark",
+                "structural/summary/plots/svbenchmark/svbenchmark.FN.structural.mqc.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.FP.structural.mqc.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.TP_base.structural.mqc.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.TP_comp.structural.mqc.png",
+                "structural/summary/plots/svbenchmark/upset_svbenchmark_tp_fn_mqc.png",
+                "structural/summary/plots/svbenchmark/upset_svbenchmark_tp_fp_mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
                 "structural/summary/tables/svbenchmark/svbenchmark.summary.csv",
@@ -195,9 +200,6 @@
             [
                 "f1_by_tool_svbenchmark_mqc.png:md5,1b4ba711a29bfc6a9c0ebc4e16172e8d",
                 "pr_recall_by_tool_svbenchmark_mqc.png:md5,bb86567da00e0a79a43d0eaef5206921",
-                "svbenchmark.structural.mqc.png:md5,1220c330de58b6d5e1cfcc8273fc3cd2",
-                "svbenchmark_tp_fn_mqc.png:md5,aaba827bb0af85fb72e52fba7e5152be",
-                "svbenchmark_tp_fp_mqc.png:md5,572632b555cd1adeb1e1fdb3a9e078e7",
                 "variants_by_tool_svbenchmark_mqc.png:md5,b3e0a779155e93f0d18bd5e6e755fd3c",
                 "HG002.bcftools_stats.txt:md5,184d672828c019a6f0cf732bcd3eae40",
                 "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
@@ -213,7 +215,7 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-03-20T15:05:13.240255687",
+        "timestamp": "2026-03-23T09:57:40.075791303",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -298,8 +300,6 @@
                 "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
                 "plots",
                 "plots/metric_by_tool_svbenchmark.png",
-                "plots/svbenchmark.svlen.png",
-                "plots/svbenchmark.upset.mqc.png",
                 "plots/variants_by_tool_svbenchmark.png",
                 "structural",
                 "structural/HG002",
@@ -341,6 +341,13 @@
                 "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
                 "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
+                "structural/summary/plots",
+                "structural/summary/plots/svbenchmark",
+                "structural/summary/plots/svbenchmark/svbenchmark.FN.svlen.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.FP.svlen.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.TP_base.svlen.png",
+                "structural/summary/plots/svbenchmark/svbenchmark.TP_comp.svlen.png",
+                "structural/summary/plots/svbenchmark/upset_svbenchmark.upset.mqc.png",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
                 "structural/summary/tables/svbenchmark/svbenchmark.regions.csv",
@@ -396,8 +403,6 @@
             ],
             [
                 "metric_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "svbenchmark.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "variants_by_tool_svbenchmark.png:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -409,7 +414,7 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-20T15:09:28.139376686",
+        "timestamp": "2026-03-23T09:59:08.728594182",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

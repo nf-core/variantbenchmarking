@@ -102,9 +102,6 @@
                 "plots/f1_by_tool_sompy_mqc.png",
                 "plots/pr_recall_by_tool_rtgtools_mqc.png",
                 "plots/pr_recall_by_tool_sompy_mqc.png",
-                "plots/rtgtools_tp_fn_mqc.png",
-                "plots/rtgtools_tp_fp_mqc.png",
-                "plots/sompy_tp_fp_mqc.png",
                 "plots/variants_by_tool_rtgtools_mqc.png",
                 "plots/variants_by_tool_sompy_mqc.png",
                 "references",
@@ -237,6 +234,12 @@
                 "snv/summary/datavzrd/sompy/test/index_1.html",
                 "snv/summary/datavzrd/sompy/test/plots",
                 "snv/summary/datavzrd/sompy/test/plots/plots.js",
+                "snv/summary/plots",
+                "snv/summary/plots/rtgtools",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fn_mqc.png",
+                "snv/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
+                "snv/summary/plots/sompy",
+                "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
                 "snv/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -334,9 +337,6 @@
                 "f1_by_tool_sompy_mqc.png:md5,e4fb05ce4f604b369b2521b2ff9340cf",
                 "pr_recall_by_tool_rtgtools_mqc.png:md5,e3df6b32e30a6aad742a31c6c38590ac",
                 "pr_recall_by_tool_sompy_mqc.png:md5,0ff4ec82c6ce48a55d11ca895df7dc20",
-                "rtgtools_tp_fn_mqc.png:md5,53496bb2e7e1c82b9ae03db3d5cf2cf0",
-                "rtgtools_tp_fp_mqc.png:md5,0b35c63046328c114af3b983cbf0503f",
-                "sompy_tp_fp_mqc.png:md5,47d4acace59eeffb488055e2a09d20fa",
                 "variants_by_tool_rtgtools_mqc.png:md5,9c83a864c3f26b54359630e1cbb17741",
                 "variants_by_tool_sompy_mqc.png:md5,5c8acfb8347d7fa47db7f1b824d516f2",
                 "nameIndex0:md5,720ad6dfad3d1ee07a3a2bc3ed953395",
@@ -383,10 +383,10 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
+        "timestamp": "2026-03-23T10:28:43.875135333",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T12:31:14.919426237"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }
