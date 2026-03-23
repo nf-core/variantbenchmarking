@@ -15,8 +15,8 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_COMP } from '../../../module
 workflow CONCORDANCE_ANALYSIS {
     take:
     input_ch   // channel: [val(meta), vcf.gz, index]
-    bed_ch     // channel: [path(bed)] 
-    fasta_ch   // reference channel [val(meta), ref.fa]  
+    bed_ch     // channel: [path(bed)]
+    fasta_ch   // reference channel [val(meta), ref.fa]
     fai_ch     // reference channel [val(meta), ref.fa.fai]
     dictionary // reference channel [val(meta), ref.dict]
 
