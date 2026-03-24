@@ -1,20 +1,8 @@
 {
     "Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'": {
         "content": [
-            44,
+            40,
             {
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
-                    "bcftools": 1.22
-                },
                 "BCFTOOLS_REHEADER_QUERY": {
                     "bcftools": 1.22
                 },
@@ -34,6 +22,7 @@
                     "bcftools": 1.22
                 },
                 "BEDTOOLS_INTERSECT_BENCH": {
+                    "bedtools": "2.31.1",
                     "python": "3.12.11"
                 },
                 "CREATE_DATAVZRD_INPUT": {
@@ -240,10 +229,10 @@
                 "test15.SEQC2.ascat_stats.csv:md5,55108a9ed1b1c3aa0687e73b3f89115a"
             ]
         ],
-        "timestamp": "2026-03-13T11:09:32.691790727",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-03-11T18:23:04.675445653"
     }
 }

@@ -1,0 +1,67 @@
+name: "plots_metrics"
+description: "Generates comparative visualization plots (F1, Precision-Recall, and Variant Metrics) from benchmarking summary CSVs using R."
+keywords:
+  - plot
+  - r
+  - ggplot2
+  - benchmarking
+  - statistics
+tools:
+  - r-base:
+      description: "The R Project for Statistical Computing"
+      homepage: "https://www.r-project.org/"
+      licence: ["GPL-2.0-or-later"]
+  - r-ggplot2:
+      description: "An implementation of the Grammar of Graphics in R"
+      homepage: "https://ggplot2.tidyverse.org/"
+      licence: ["MIT"]
+  - r-reshape2:
+      description: "Flexibly reshape data: a reboot of the reshape package"
+      homepage: "https://github.com/hadley/reshape"
+      licence: ["MIT"]
+  - r-scales:
+      description: "Scale Functions for Visualization"
+      homepage: "https://scales.r-lib.org/"
+      licence: ["MIT"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `benchmark_tool` (e.g., 'happy', 'wittyer', 'rtgtools').
+    - summary:
+        type: file
+        description: Summary CSV file containing benchmarking metrics.
+        pattern: "*.csv"
+
+output:
+  plots:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - png:
+        type: file
+        description: A collection of PNG plots visualizing benchmarking results.
+        pattern: "*.png"
+
+  versions_rbase:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750" # YAML
+topics:
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750"
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

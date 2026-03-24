@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools' --liftover 'truth'": {
         "content": [
-            110,
+            102,
             {
                 "BCFTOOLS_ANNOTATE": {
                     "bcftools": 1.22
@@ -31,12 +31,6 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -370,10 +364,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-13T11:03:52.816962778",
         "meta": {
-            "nf-test": "0.9.4",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.4"
-        }
+        },
+        "timestamp": "2026-03-22T20:08:47.756874659"
     }
 }

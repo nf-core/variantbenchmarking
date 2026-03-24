@@ -1,21 +1,9 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
-            61,
+            53,
             {
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_4": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
@@ -42,13 +30,13 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "SURVIVOR_FILTER": {
@@ -244,7 +232,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-03-13T15:17:30.632186308",
+        "timestamp": "2026-03-23T14:24:03.847836231",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

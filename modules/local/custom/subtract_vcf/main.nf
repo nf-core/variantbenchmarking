@@ -1,6 +1,6 @@
 process SUBTRACT_VCF {
     tag "$meta.id"
-    label 'process_medium'
+    label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -12,7 +12,7 @@ process SUBTRACT_VCF {
 
     output:
     tuple val(meta), path("*remain.vcf.gz"), emit: vcf, optional:true
-    path "versions.yml"                    , emit: versions
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -29,23 +29,12 @@ process SUBTRACT_VCF {
         ${prefix}.remain.vcf.gz \\
         $bed \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
 
     stub:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    touch ${prefix}.remain.vcf.gz
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
+    echo "" | gzip > ${prefix}.remain.vcf.gz
     """
 }

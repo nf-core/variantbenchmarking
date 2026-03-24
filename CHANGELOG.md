@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 - Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
 - Bedfile index checking and smoother vcf comparisions [#290](https://github.com/nf-core/variantbenchmarking/pull/290)
+- Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/), thanks @aaryanjaitly for initiation of some processes.
+- Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
 
 ### `Fixed`
 
@@ -25,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing --sample for meta.id is fixed in BCFTOOLS_REHEADER [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
 - GT field is necessary for rtgtools vcfeval, strelka reports no GT field for somatic analysis. Fixing the GT field setup for strelka (bcftools plugingtset doesnt work as GT is not available) [#279](https://github.com/nf-core/variantbenchmarking/pull/279)
 - Using nf-metro to create better metromap [#281](https://github.com/nf-core/variantbenchmarking/pull/281)
+- Remove unneccesery reheadering of the vcf outputs of rtgtools and truvari [#286](https://github.com/nf-core/variantbenchmarking/pull/286)
 
 ### `Dependencies`
 

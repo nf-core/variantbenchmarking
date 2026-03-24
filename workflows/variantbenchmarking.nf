@@ -8,6 +8,7 @@
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { RTGTOOLS_BNDEVAL            } from '../modules/nf-core/rtgtools/bndeval'
 include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -28,7 +29,6 @@ include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somati
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
-include { BND_BENCHMARK               } from '../subworkflows/local/bnd_benchmark'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
 include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
 
@@ -177,10 +177,8 @@ workflow VARIANTBENCHMARKING {
         // Standardize SV VCFs, tool specific modifications
         SV_VCF_CONVERSIONS(
             vcf_ch,
-            fasta,
             fai
         )
-        ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
         vcf_ch      = SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])}
     }
     // Prepare and normalize input vcfs
@@ -192,7 +190,6 @@ workflow VARIANTBENCHMARKING {
         rename_chr,
         dictionary
     )
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     // Ensemble and prepare truth file using input VCFs if ensemble_truth approach is choosen
     if (params.ensemble_truth){
@@ -238,7 +235,6 @@ workflow VARIANTBENCHMARKING {
             intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-        ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
         ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
     evals_ch     = channel.empty()
@@ -277,20 +273,36 @@ workflow VARIANTBENCHMARKING {
             fasta,
             fai
         )
-        ch_versions      = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
         ch_multiqc_files = ch_multiqc_files.mix(SV_GERMLINE_BENCHMARK.out.logs.map{ meta, log -> log })
 
         if (params.method.contains("bndeval")){
             // running bndeval might require svdecompose
-            BND_BENCHMARK(
-                bench,
-                fai
+            RTGTOOLS_BNDEVAL(
+                bench.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
+                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+                }
             )
 
-            ch_reports       = ch_reports.mix(BND_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(BND_BENCHMARK.out.tagged_variants)
+            ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
+                                                    .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+                                                    .groupTuple())
+            evals_ch         = evals_ch.mix(RTGTOOLS_BNDEVAL.out.fn_vcf,
+                                            RTGTOOLS_BNDEVAL.out.fp_vcf,
+                                            RTGTOOLS_BNDEVAL.out.baseline_vcf,
+                                            RTGTOOLS_BNDEVAL.out.tp_vcf)
+                                        .map { meta, file ->
+                                            def mapping = [
+                                                'fn': 'FN',
+                                                'fp': 'FP',
+                                                'tp-baseline': 'TP_base',
+                                                'tp': 'TP_comp'
+                                            ]
+                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
+                                            def transformedTag = mapping[tag] ?: tag
+                                            tuple( [ meta + [vartype: params.variant_type, id: "rtgtools", tag: transformedTag]], file)
+                                        }
         }
     }
 
@@ -325,7 +337,6 @@ workflow VARIANTBENCHMARKING {
                 falsepositive_bed,
                 ambiguous_beds
             )
-            ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
             evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
             evals_csv_ch     = evals_csv_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants_csv)
@@ -340,7 +351,6 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai
     )
-    ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 
     // Summarize and plot benchmark statistics
     REPORT_BENCHMARK_STATISTICS(
@@ -348,7 +358,6 @@ workflow VARIANTBENCHMARKING {
         evals_ch,
         evals_csv_ch
     )
-    ch_versions      = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
 
     //
     // Collate and save software versions

@@ -3,9 +3,9 @@
 //
 
 include { MERGE_REPORTS         } from '../../../modules/local/custom/merge_reports'
-include { PLOTS                 } from '../../../modules/local/custom/plots'
+include { PLOTS_METRICS         } from '../../../modules/local/plots/metrics'
 include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
-include { PLOT_SVLEN_DIST       } from '../../../modules/local/custom/plot_svlen_dist'
+include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
 include { CAT_CAT as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/cat/cat'
 
 workflow REPORT_BENCHMARK_STATISTICS {
@@ -16,7 +16,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
-    versions = channel.empty()
     ch_plots = channel.empty()
     merged_reports = channel.empty()
 
@@ -24,26 +23,23 @@ workflow REPORT_BENCHMARK_STATISTICS {
     MERGE_REPORTS(
         reports
     )
-    versions = versions.mix(MERGE_REPORTS.out.versions.first())
     merged_reports = merged_reports.mix(MERGE_REPORTS.out.summary)
 
     if (!params.skip_plots.contains("metrics")){
         // plot summary statistics
-        PLOTS(
+        PLOTS_METRICS(
             MERGE_REPORTS.out.summary
         )
-        ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
-        versions = versions.mix(PLOTS.out.versions.first())
+        ch_plots = ch_plots.mix(PLOTS_METRICS.out.plots.flatten())
     }
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
         // plot INDEL/SV distribution plots
-        PLOT_SVLEN_DIST(
+        PLOTS_SVLEN_DIST(
             evaluations.map { item -> tuple(item[0], item[1]) }.groupTuple()
                 .mix(evaluations_csv.map { item -> tuple(item[0], item[1]) }.groupTuple())
         )
-        versions = versions.mix(PLOT_SVLEN_DIST.out.versions)
-        ch_plots = ch_plots.mix(PLOT_SVLEN_DIST.out.plot)
+        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
     }
 
     MERGE_REPORTS.out.summary
@@ -68,7 +64,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
 
     emit:
-    versions        // channel: [versions.yml]
     ch_plots        // channel: [plots.png]
     merged_reports  // channel: [ summary.csv]
 }

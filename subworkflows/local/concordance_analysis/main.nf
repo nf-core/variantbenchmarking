@@ -14,11 +14,11 @@ include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_COMP } from '../../../module
 
 workflow CONCORDANCE_ANALYSIS {
     take:
-    input_ch
-    bed_ch
-    fasta_ch
-    fai_ch
-    dictionary
+    input_ch   // channel: [val(meta), vcf.gz, index]
+    bed_ch     // channel: [path(bed)]
+    fasta_ch   // reference channel [val(meta), ref.fa]
+    fai_ch     // reference channel [val(meta), ref.fa.fai]
+    dictionary // reference channel [val(meta), ref.dict]
 
     main:
 
@@ -94,7 +94,7 @@ workflow CONCORDANCE_ANALYSIS {
         .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "concordance"], file, index) }
         .set { vcf_fn }
 
-    // Split TP base variants from TPFN variants
+    // Split TP base variants from TP-FN variants
     BCFTOOLS_VIEW_TP_BASE(
         GATK4_CONCORDANCE.out.tpfn.map{ meta, vcf -> tuple(meta, vcf, []) },
         [],

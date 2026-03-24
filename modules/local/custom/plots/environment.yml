@@ -1,7 +1,0 @@
-name: plots
-channels:
-  - conda-forge
-dependencies:
-  - r-base=4.1.*
-  - r-ggplot2=3.3.*
-  - r-reshape2=1.4.*
