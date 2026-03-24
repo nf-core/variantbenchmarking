@@ -22,6 +22,7 @@
                     "bcftools": 1.22
                 },
                 "BEDTOOLS_INTERSECT_BENCH": {
+                    "bedtools": "2.31.1",
                     "python": "3.12.11"
                 },
                 "CREATE_DATAVZRD_INPUT": {

@@ -63,13 +63,13 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_HEADER": {
@@ -277,11 +277,11 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-03-23T12:14:48.244280198",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T11:15:53.659436719"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
@@ -347,13 +347,13 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_HEADER": {
@@ -666,10 +666,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
+        "timestamp": "2026-03-23T12:11:18.515963793",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T10:25:08.881360324"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

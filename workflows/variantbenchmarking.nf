@@ -177,10 +177,8 @@ workflow VARIANTBENCHMARKING {
         // Standardize SV VCFs, tool specific modifications
         SV_VCF_CONVERSIONS(
             vcf_ch,
-            fasta,
             fai
         )
-        ch_versions = ch_versions.mix(SV_VCF_CONVERSIONS.out.versions)
         vcf_ch      = SV_VCF_CONVERSIONS.out.vcf_ch.map{it -> tuple(it[0], it[1])}
     }
     // Prepare and normalize input vcfs
@@ -192,7 +190,6 @@ workflow VARIANTBENCHMARKING {
         rename_chr,
         dictionary
     )
-    ch_versions = ch_versions.mix(PREPARE_VCFS_TEST.out.versions)
 
     // Ensemble and prepare truth file using input VCFs if ensemble_truth approach is choosen
     if (params.ensemble_truth){
@@ -238,7 +235,6 @@ workflow VARIANTBENCHMARKING {
             intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-        ch_versions      = ch_versions.mix(INTERSECT_STATISTICS.out.versions)
         ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
     evals_ch     = channel.empty()
@@ -277,7 +273,6 @@ workflow VARIANTBENCHMARKING {
             fasta,
             fai
         )
-        ch_versions      = ch_versions.mix(SV_GERMLINE_BENCHMARK.out.versions)
         ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
         ch_multiqc_files = ch_multiqc_files.mix(SV_GERMLINE_BENCHMARK.out.logs.map{ meta, log -> log })
@@ -342,7 +337,6 @@ workflow VARIANTBENCHMARKING {
                 falsepositive_bed,
                 ambiguous_beds
             )
-            ch_versions      = ch_versions.mix(SMALL_SOMATIC_BENCHMARK.out.versions)
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
             evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
             evals_csv_ch     = evals_csv_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants_csv)
@@ -357,7 +351,6 @@ workflow VARIANTBENCHMARKING {
         fasta,
         fai
     )
-    ch_versions  = ch_versions.mix(COMPARE_BENCHMARK_RESULTS.out.versions)
 
     // Summarize and plot benchmark statistics
     REPORT_BENCHMARK_STATISTICS(
@@ -365,7 +358,6 @@ workflow VARIANTBENCHMARKING {
         evals_ch,
         evals_csv_ch
     )
-    ch_versions      = ch_versions.mix(REPORT_BENCHMARK_STATISTICS.out.versions)
 
     //
     // Collate and save software versions

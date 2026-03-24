@@ -26,7 +26,6 @@ workflow REPORT_VCF_STATISTICS {
         ch_stats = ch_stats.mix(SURVIVOR_STATS.out.stats.map{_meta, stats -> stats})
     }
 
-
     // use bcftools stats for all files
     BCFTOOLS_STATS(
         input_ch,

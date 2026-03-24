@@ -14,8 +14,6 @@ workflow INTERSECT_STATISTICS {
 
     main:
 
-    versions        = channel.empty()
-
     test.branch { input ->
         def meta         = input[0]
         def vcf_file     = input[1]
@@ -69,7 +67,6 @@ workflow INTERSECT_STATISTICS {
     BEDTOOLS_INTERSECT_BENCH(
         intersect_ch
     )
-    versions      = versions.mix(BEDTOOLS_INTERSECT_BENCH.out.versions)
 
     // collect summary reports
     BEDTOOLS_INTERSECT_BENCH.out.summary
@@ -78,6 +75,5 @@ workflow INTERSECT_STATISTICS {
         .set{ summary_reports }
 
     emit:
-    versions         // channel: [versions.yml]
     summary_reports  // channel: [meta, summary_report.csv]
 }

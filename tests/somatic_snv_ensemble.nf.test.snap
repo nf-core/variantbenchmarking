@@ -51,13 +51,10 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "MERGE_SOMPY_FEATURES": {
-                    "python": "3.13.0"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
-                },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_HEADER": {
@@ -72,7 +69,10 @@
                 "RTGTOOLS_VCFEVAL": {
                     "rtgtools": 3.13
                 },
-                "SPLIT_SOMPY_FEATURES": {
+                "SOMPY_FEATURES_MERGE": {
+                    "python": "3.13.0"
+                },
+                "SOMPY_FEATURES_SPLIT": {
                     "python": "3.13.0"
                 },
                 "TABIX_BGZIPTABIX": {
@@ -376,10 +376,10 @@
                 "truth.bcftools_stats.txt:md5,3bd6461cc52798f85d95cdd9ecb6dfa2"
             ]
         ],
+        "timestamp": "2026-03-23T15:01:43.050606619",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-12T12:31:14.919426237"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

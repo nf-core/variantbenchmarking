@@ -5,7 +5,7 @@
 include { VCF_VARIANT_DEDUPLICATION  } from '../../local/vcf_variant_deduplication'
 include { LIFTOVER_VCFS              } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM              } from '../../../modules/nf-core/bcftools/norm'
-include { RTGTOOLS_SVDECOMPOSE      } from '../../../modules/nf-core/rtgtools/svdecompose'
+include { RTGTOOLS_SVDECOMPOSE       } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TRUTH} from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'

@@ -33,13 +33,13 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
                 "REFORMAT_TRUTH_SV": {
@@ -241,10 +241,10 @@
                 "truth_mqc.stats:md5,8fc181e15516e21c860075306937484e"
             ]
         ],
+        "timestamp": "2026-03-23T15:18:36.290341661",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-11T18:46:43.119293473"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

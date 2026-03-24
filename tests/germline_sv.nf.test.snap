@@ -39,14 +39,20 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "python": "3.13.0"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "python": "3.13.0"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -352,11 +358,11 @@
                 "test3.delly_mqc.stats:md5,5afa28bb298f049d0e3127fccb97ceb0"
             ]
         ],
+        "timestamp": "2026-03-23T13:42:12.249983064",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-11T17:15:58.872783476"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-stub": {
         "content": [
@@ -398,14 +404,20 @@
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
+                },
+                "SUBTRACT_VCF_QUERY": {
+                    "python": "3.13.0"
+                },
+                "SUBTRACT_VCF_TRUTH": {
+                    "python": "3.13.0"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -664,10 +676,10 @@
                 "test3.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-03-23T13:45:00.918355101",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-03-11T17:18:56.489509119"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }
