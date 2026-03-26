@@ -233,7 +233,8 @@
                         "tag": "FN"
                     },
                     "test.SEQC2.haplotypecaller.fn.vcf.gz",
-                    "71fa0e0cda0c8e96b8615a418af84a49"
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 [
                     {
@@ -242,7 +243,8 @@
                         "tag": "FP"
                     },
                     "test.SEQC2.haplotypecaller.fp.vcf.gz",
-                    "0183e4a06c046c6c7809672e78c48f89"
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 [
                     {
@@ -251,7 +253,8 @@
                         "tag": "TP_base"
                     },
                     "test.SEQC2.haplotypecaller.tp-baseline.vcf.gz",
-                    "71fa0e0cda0c8e96b8615a418af84a49"
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 [
                     {
@@ -260,7 +263,8 @@
                         "tag": "TP_comp"
                     },
                     "test.SEQC2.haplotypecaller.tp.vcf.gz",
-                    "0183e4a06c046c6c7809672e78c48f89"
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
                 ]
             ],
             [
@@ -273,9 +277,12 @@
                         "test.SEQC2.haplotypecaller.summary.txt"
                     ]
                 ]
-            ]
+            ],
+            {
+                
+            }
         ],
-        "timestamp": "2026-03-26T12:20:53.244618091",
+        "timestamp": "2026-03-26T12:53:10.190931316",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -21,6 +21,7 @@ nextflow_workflow {
                 method = "happy"
                 preprocess = []
                 analysis = 'germline'
+                truth_id = "HG002"
             }
             workflow {
                 """
@@ -94,6 +95,7 @@ nextflow_workflow {
                 variant_type = "small"
                 method = "rtgtools"
                 analysis = 'germline'
+                truth_id = "HG002"
             }
             workflow {
                 """
@@ -154,6 +156,8 @@ nextflow_workflow {
                 method = "happy"
                 preprocess = []
                 analysis = 'germline'
+                truth_id = "HG002"
+
             }
             workflow {
                 """

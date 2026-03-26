@@ -127,13 +127,15 @@ nextflow_workflow {
                         [
                             meta,
                             path(vcfFile.toString()).getFileName().toString(),
-                            path(vcfFile.toString()).md5
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
                         ]
                     }.sort { it[0].tag },
                     workflow.out.summary_reports.collect { meta, files ->
                         def fileNames = files instanceof Collection ? files.collect { path(it.toString()).getFileName().toString() } : [path(files.toString()).getFileName().toString()]
                         [meta, fileNames.sort()]
-                    }
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
         }
