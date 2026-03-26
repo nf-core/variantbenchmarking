@@ -25,12 +25,20 @@ nextflow_workflow {
         }
         then {
             assert workflow.success
-            assert path(workflow.out.vcf_ch[0][1]).exists()
             
             assertAll(
                 { assert snapshot(
-                    workflow.out.vcf_ch[0][0],
-                    file(workflow.out.vcf_ch[0][1]).name
+                    workflow.out.vcf_ch.collect { item ->
+                        def meta = item[0]
+                        def vcf = item[1]
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id }
                 ).match() }
             )
         }

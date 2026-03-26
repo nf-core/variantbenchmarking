@@ -1,0 +1,58 @@
+name: "report_benchmark_statistics"
+description: "Subworkflow to merge benchmark reports, generate metrics plots, SV length distributions, and Datavzrd interactive HTML reports."
+keywords:
+  - benchmark
+  - report
+  - statistics
+  - datavzrd
+  - plots
+components:
+  - local/custom/merge_reports
+  - local/plots/metrics
+  - nf-core/datavzrd
+  - local/plots/svlen_dist
+  - nf-core/cat/cat
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - reports:
+        type: file
+        description: List of summary report files (e.g., CSVs or JSONs) from benchmarking tools.
+        pattern: "*.{csv,json,txt}"
+  - - meta:
+        type: map
+        description: Groovy Map containing sample and caller information.
+    - vcf:
+        type: file
+        description: Evaluated VCF file (True Positives, False Positives, etc.).
+        pattern: "*.vcf.gz"
+    - index:
+        type: file
+        description: Index of the evaluated VCF file.
+        pattern: "*.tbi"
+  - - meta:
+        type: map
+        description: Groovy Map containing sample and caller information.
+    - csv:
+        type: file
+        description: Evaluated CSV file for SV length distributions.
+        pattern: "*.csv"
+output:
+  ch_plots:
+      - plots:
+          type: file
+          description: Generated metrics and distribution plots.
+          pattern: "*.png"
+  merged_reports:
+      - meta:
+          type: map
+          description: Groovy Map containing benchmark tool information.
+      - summary:
+          type: file
+          description: Merged summary statistics report.
+          pattern: "*.csv"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

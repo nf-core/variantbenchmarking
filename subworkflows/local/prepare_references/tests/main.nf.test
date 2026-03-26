@@ -19,7 +19,7 @@ nextflow_workflow {
                 method     = "concordance,rtgtools"
                 dictionary = false
                 sdf        = false
-                liftover   = false
+                liftover   = true
             }
             workflow {
                 """

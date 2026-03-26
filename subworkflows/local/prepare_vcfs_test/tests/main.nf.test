@@ -1,0 +1,166 @@
+nextflow_workflow {
+
+    name "Test Subworkflow PREPARE_VCFS_TEST"
+    script "../main.nf"
+    workflow "PREPARE_VCFS_TEST"
+
+    tag "subworkflows"
+    tag "subworkflows_prepare_vcfs_test"
+    tag "subworkflows/prepare_vcfs_test"
+    tag "bcftools"
+    tag "bcftools/norm"
+    tag "bcftools/view"
+    tag "bcftools/reheader"
+    tag "bcftools/annotate"
+    tag "rtgtools/svdecompose"
+    tag "gawk"
+    tag "tabix/bgziptabix"
+
+    test("prepare small variants - full preprocess") {
+        
+        when {
+            params {
+                variant_type = "small"
+                preprocess = "filter_contigs,split_multiallelic,normalize,deduplicate"
+                analysis = "germline"
+                liftover = ""
+                sv_standardization = ""
+                genome = "GRCh38" 
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test_preproc', caller:'haplotypecaller', liftover:false, fix_prefix:false ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ])
+                input[3] = Channel.empty() 
+                input[4] = Channel.empty() 
+                input[5] = Channel.empty() 
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
+            )
+        }
+    }
+
+    test("prepare somatic variants - strelka gt injection") {
+
+        when {
+            params {
+                variant_type = "small"
+                analysis = "somatic"
+                method = "rtgtools"
+                preprocess = ""
+                liftover = ""
+                sv_standardization = ""
+                genome = "GRCh38" 
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test_strelka', caller:'strelka', liftover:false, fix_prefix:false ],
+                    file(params.test_data_base + '/testdata/hg38/test/somatic/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ])
+                input[3] = Channel.empty() 
+                input[4] = Channel.empty() 
+                input[5] = Channel.empty() 
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
+            )
+        }
+    }
+
+    test("prepare structural variants - svdecompose") {
+        
+        when {
+            params {
+                variant_type = "structural"
+                analysis = "germline"
+                preprocess = ""
+                liftover = ""
+                sv_standardization = "svdecompose"
+                genome = "GRCh38"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test_sv', caller:'manta', liftover:false, fix_prefix:false ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ])
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ])
+                input[3] = Channel.empty() 
+                input[4] = Channel.empty() 
+                input[5] = Channel.empty() 
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
+            )
+        }
+    }
+}

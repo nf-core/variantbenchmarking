@@ -1,28 +1,22 @@
 {
     "ensemble small variants": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "truth"
-                        },
-                        "truth.majority.reformatted.vcf.gz:md5,4f27341dd5b76cc1cd564063ffb642e1",
-                        "truth.majority.reformatted.vcf.gz.tbi:md5,bea32ed8de5a1a5b15fc3c6941a232c5"
-                    ]
-                ],
-                "truth_vcf": [
-                    [
-                        {
-                            "id": "truth"
-                        },
-                        "truth.majority.reformatted.vcf.gz:md5,4f27341dd5b76cc1cd564063ffb642e1",
-                        "truth.majority.reformatted.vcf.gz.tbi:md5,bea32ed8de5a1a5b15fc3c6941a232c5"
-                    ]
+            [
+                [
+                    {
+                        "id": "truth"
+                    },
+                    "truth.majority.reformatted.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "f6efe967553977ad82fdd9bb584390d4",
+                    "truth.majority.reformatted.vcf.gz.tbi"
                 ]
+            ],
+            {
+                
             }
         ],
-        "timestamp": "2026-03-19T12:35:35.861446392",
+        "timestamp": "2026-03-25T10:09:43.423481154",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -30,28 +24,22 @@
     },
     "ensemble structural variants": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "truth"
-                        },
-                        "truth.ensemble.reformatted.sort.vcf.gz:md5,512f9ea435321aae5e959eaecb1f8b8f",
-                        "truth.ensemble.reformatted.sort.vcf.gz.tbi:md5,cde04dc4cbdb297a1c700028b085df24"
-                    ]
-                ],
-                "truth_vcf": [
-                    [
-                        {
-                            "id": "truth"
-                        },
-                        "truth.ensemble.reformatted.sort.vcf.gz:md5,512f9ea435321aae5e959eaecb1f8b8f",
-                        "truth.ensemble.reformatted.sort.vcf.gz.tbi:md5,cde04dc4cbdb297a1c700028b085df24"
-                    ]
+            [
+                [
+                    {
+                        "id": "truth"
+                    },
+                    "truth.ensemble.reformatted.sort.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=160, phased=false, phasedAutodetect=false]",
+                    "bb3f948b5d820bd10ca7858affc2d2ea",
+                    "truth.ensemble.reformatted.sort.vcf.gz.tbi"
                 ]
+            ],
+            {
+                
             }
         ],
-        "timestamp": "2026-03-19T12:32:53.200244116",
+        "timestamp": "2026-03-25T10:10:12.471645954",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

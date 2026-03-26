@@ -1,28 +1,22 @@
 {
     "filter variants with survivor": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "simulated_sv.filter.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "simulated_sv.filter.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ]
-                ],
-                "vcf_ch": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "simulated_sv.filter.vcf.gz:md5,39cd8e316cd9b9282b8289d69d81260b",
-                        "simulated_sv.filter.vcf.gz.tbi:md5,8a1453dff16c43c61861c310d2ee2f10"
-                    ]
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "simulated_sv.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    "d694afb9e7ca8d8b25462bf6896448e5",
+                    "simulated_sv.filter.vcf.gz.tbi"
                 ]
+            ],
+            {
+                
             }
         ],
-        "timestamp": "2026-03-19T12:21:31.580649859",
+        "timestamp": "2026-03-24T14:49:00.269505861",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -30,28 +24,22 @@
     },
     "filter variants with bcftools": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.filter.vcf.gz:md5,8350fd4ab1cd2aaa0f67d73b707e2838",
-                        "test.filter.vcf.gz.tbi:md5,457af1bf6f4083cdd6bafa15d3d65130"
-                    ]
-                ],
-                "vcf_ch": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.filter.vcf.gz:md5,8350fd4ab1cd2aaa0f67d73b707e2838",
-                        "test.filter.vcf.gz.tbi:md5,457af1bf6f4083cdd6bafa15d3d65130"
-                    ]
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.filter.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=3, phased=false, phasedAutodetect=false]",
+                    "a40391b9ab9f7acc35234e1c4512365d",
+                    "test.filter.vcf.gz.tbi"
                 ]
+            ],
+            {
+                
             }
         ],
-        "timestamp": "2026-03-19T12:21:18.818616607",
+        "timestamp": "2026-03-24T14:48:26.074837254",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

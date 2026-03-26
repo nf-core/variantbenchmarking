@@ -5,7 +5,7 @@
                 "0": [
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "benchmark_tool": "sompy"
                         },
                         [
@@ -16,7 +16,7 @@
                 "1": [
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "FN",
                             "id": "sompy"
                         },
@@ -24,7 +24,7 @@
                     ],
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "FP",
                             "id": "sompy"
                         },
@@ -32,20 +32,17 @@
                     ],
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
                         "test.truth.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
-                "2": [
-                    "versions.yml:md5,a9b556db672541721f262d20f760d566"
-                ],
                 "summary_reports": [
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "benchmark_tool": "sompy"
                         },
                         [
@@ -56,7 +53,7 @@
                 "tagged_variants_csv": [
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "FN",
                             "id": "sompy"
                         },
@@ -64,7 +61,7 @@
                     ],
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "FP",
                             "id": "sompy"
                         },
@@ -72,19 +69,16 @@
                     ],
                     [
                         {
-                            "vartype": "somatic",
+                            "vartype": "snv",
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
                         "test.truth.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
-                ],
-                "versions": [
-                    "versions.yml:md5,a9b556db672541721f262d20f760d566"
                 ]
             }
         ],
-        "timestamp": "2026-03-19T11:02:55.551289327",
+        "timestamp": "2026-03-24T12:35:40.761553489",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -92,29 +86,84 @@
     },
     "benchmark with sompy": {
         "content": [
-            [
-                [
-                    {
-                        "vartype": "somatic",
-                        "benchmark_tool": "sompy"
-                    },
-                    [
-                        "test.truth.gatk.stats.csv:md5,00a7ae2a00498b4b1c30b0761fd62c16"
-                    ]
-                ]
-            ],
-            [
-                "test.truth.gatk.FN.csv",
-                "test.truth.gatk.FP.csv",
-                "test.truth.gatk.TP_comp.csv"
-            ],
             {
-                "versions": [
-                    "versions.yml:md5,a9b556db672541721f262d20f760d566"
+                "0": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.truth.mutect2.stats.csv:md5,1fe13effc651bb0619ccfd5b159d1da9"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.FN.csv:md5,3523eb16e7395fc07bfd73f48ac19f0f"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.FP.csv:md5,3c43802149ae8c82eee6b2d362d4e32d"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.TP_comp.csv:md5,cbb623ba10e1c7b02eef71ce5f8228c1"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.truth.mutect2.stats.csv:md5,1fe13effc651bb0619ccfd5b159d1da9"
+                        ]
+                    ]
+                ],
+                "tagged_variants_csv": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.FN.csv:md5,3523eb16e7395fc07bfd73f48ac19f0f"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.FP.csv:md5,3c43802149ae8c82eee6b2d362d4e32d"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.truth.mutect2.TP_comp.csv:md5,cbb623ba10e1c7b02eef71ce5f8228c1"
+                    ]
                 ]
             }
         ],
-        "timestamp": "2026-03-19T11:02:43.152295641",
+        "timestamp": "2026-03-26T11:50:41.359723457",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -44,18 +44,31 @@ nextflow_workflow {
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
-                ])
+                ]).collect()
                 input[2] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
-                ])
+                ]).collect()
                 """
             }
         }
         then {
             assert workflow.success
             assertAll(
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(
+                    workflow.out.truth_vcf.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        def tbiFile = tbi instanceof Collection ? (tbi.isEmpty() ? null : tbi[0]) : (tbi == [] ? null : tbi)
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5,
+                            tbiFile ? path(tbiFile.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
             )
         }
     }
@@ -87,18 +100,31 @@ nextflow_workflow {
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
-                ])
+                ]).collect()
                 input[2] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta.fai', checkIfExists: true)
-                ])
+                ]).collect()
                 """
             }
         }
         then {
             assert workflow.success
             assertAll(
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(
+                    workflow.out.truth_vcf.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        def tbiFile = tbi instanceof Collection ? (tbi.isEmpty() ? null : tbi[0]) : (tbi == [] ? null : tbi)
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5,
+                            tbiFile ? path(tbiFile.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
             )
         }
     }
@@ -123,11 +149,11 @@ nextflow_workflow {
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
-                ])
+                ]).collect()
                 input[2] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
-                ])
+                ]).collect()
                 """
             }
         }

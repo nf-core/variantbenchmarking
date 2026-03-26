@@ -1,0 +1,174 @@
+{
+    "homo_sapiens - illumina - concordance analysis": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "concordance"
+                    },
+                    "mutect2-haplotypecaller.tpfn.fn.reheader.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "be13619b0ce581450ca30e5489836d4"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "concordance"
+                    },
+                    "mutect2-haplotypecaller.tpfp.fp.reheader.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=40, phased=false, phasedAutodetect=false]",
+                    "4be5ae03c4bb47920c3a3dc9b199f6cb"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "concordance"
+                    },
+                    "mutect2-haplotypecaller.tpfn.tp_base.reheader.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "concordance"
+                    },
+                    "mutect2-haplotypecaller.tpfp.tp_comp.reheader.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "concordance"
+                    },
+                    "mutect2-haplotypecaller.summary.tsv"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T10:04:14.572855055",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "homo_sapiens - illumina - concordance analysis - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "concordance"
+                        },
+                        [
+                            "mutect2-haplotypecaller.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfn.fn.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfn.fn.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfp.fp.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfp.fp.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfn.tp_base.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfn.tp_base.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfp.tp_comp.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfp.tp_comp.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "concordance"
+                        },
+                        [
+                            "mutect2-haplotypecaller.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfn.fn.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfn.fn.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfp.fp.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfp.fp.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfn.tp_base.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfn.tp_base.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "concordance"
+                        },
+                        "mutect2-haplotypecaller.tpfp.tp_comp.reheader.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "mutect2-haplotypecaller.tpfp.tp_comp.reheader.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T10:05:17.608104801",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

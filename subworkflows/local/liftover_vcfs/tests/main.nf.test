@@ -39,33 +39,49 @@ nextflow_workflow {
                 input[2] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
-                ])
+                ]).collect()
                 input[3] = Channel.of([
                     [ id:'test_chain' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
-                ])
+                ]).collect()
                 input[4] = Channel.of([
                     [ id:'test_rename' ],
                     file(projectDir + '/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true)
-                ])
+                ]).collect()
                 input[5] = Channel.of([
                     [ id:'test_dict' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
-                ])
+                ]).collect()
                 """
             }
         }
         then {
-            assert workflow.success        
-            assert path(workflow.out.vcf_ch[0][1]).exists()
-            assert path(workflow.out.bed_ch[0][1]).exists()
-            assert path(workflow.out.bed_ch[0][1]).readLines().size() > 0              
+            assert workflow.success
             assertAll(
                 { assert snapshot(
-                    workflow.out.vcf_ch[0][0],
-                    file(workflow.out.vcf_ch[0][1]).name,
-                    workflow.out.bed_ch[0][0],
-                    file(workflow.out.bed_ch[0][1]).name,
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.bed_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def bed = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        
+                        [
+                            meta,
+                            path(bed.toString()).getFileName().toString(),
+                            path(bed.toString()).readLines().size()
+                        ]
+                    },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
@@ -90,19 +106,19 @@ nextflow_workflow {
                 input[2] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
-                ])
+                ]).collect()
                 input[3] = Channel.of([
                     [ id:'test_chain' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
-                ])
+                ]).collect()
                 input[4] = Channel.of([
                     [ id:'test_rename' ],
                     file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
-                ])
+                ]).collect()
                 input[5] = Channel.of([
                     [ id:'test_dict' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
-                ])
+                ]).collect()
                 """
             }
         }

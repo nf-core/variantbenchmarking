@@ -1,28 +1,22 @@
 {
     "deduplicate and sort vcf": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.dedup.sort.vcf.gz:md5,edee07189e03f23f635c93eeb56b22a9",
-                        "test.dedup.sort.vcf.gz.tbi:md5,a43b5925f55543d7fd81392eac244d06"
-                    ]
-                ],
-                "ch_vcf": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        "test.dedup.sort.vcf.gz:md5,edee07189e03f23f635c93eeb56b22a9",
-                        "test.dedup.sort.vcf.gz.tbi:md5,a43b5925f55543d7fd81392eac244d06"
-                    ]
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.dedup.sort.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "7b0d354031003db48cfcb216d52dfec6",
+                    "test.dedup.sort.vcf.gz.tbi"
                 ]
-            }
+            ],
+            [
+                
+            ]
         ],
-        "timestamp": "2026-03-19T12:15:20.282574078",
+        "timestamp": "2026-03-24T15:10:59.218622807",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

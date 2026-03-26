@@ -1,9 +1,12 @@
 {
     "report small variant statistics": {
         "content": [
-            "test.bcftools_stats.txt"
+            "test.bcftools_stats.txt",
+            {
+                
+            }
         ],
-        "timestamp": "2026-03-16T16:13:14.666078786",
+        "timestamp": "2026-03-24T12:26:22.236495737",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -14,9 +17,12 @@
             [
                 "test.bcftools_stats.txt",
                 "test_mqc.stats"
-            ]
+            ],
+            {
+                
+            }
         ],
-        "timestamp": "2026-03-16T16:13:28.301481168",
+        "timestamp": "2026-03-24T12:26:34.194593062",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

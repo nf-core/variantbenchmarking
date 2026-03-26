@@ -1,0 +1,237 @@
+{
+    "homo_sapiens - illumina - happy benchmark": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "cac3148b2ac41bbdcc45a11877cf1b89"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "test.truth.gatk.summary.csv"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T10:29:10.864169336",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "homo_sapiens - illumina - happy benchmark stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test.truth.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test.truth.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T10:30:23.074162279",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "homo_sapiens - illumina - happy benchmark with prepy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "cac3148b2ac41bbdcc45a11877cf1b89"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "happy"
+                    },
+                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "test.truth.gatk.summary.csv"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T10:29:57.756700463",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

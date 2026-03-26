@@ -1,19 +1,33 @@
 {
     "liftover vcfs and bed": {
         "content": [
-            {
-                "id": "test"
-            },
-            "test.genome.lifted.reformatted.renamechr.vcf.gz",
-            {
-                "id": "test_truth"
-            },
-            "genome.lifted.sort.merged.bed",
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.genome.lifted.reformatted.renamechr.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e",
+                    [
+                        
+                    ]
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_truth"
+                    },
+                    "genome.lifted.sort.merged.bed",
+                    1
+                ]
+            ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-19T11:22:54.643958658",
+        "timestamp": "2026-03-24T15:52:02.975108706",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
