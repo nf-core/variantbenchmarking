@@ -33,7 +33,7 @@ nextflow_workflow {
         }
         then {
             assert workflow.success
-            
+
             assertAll(
                 { assert snapshot(
                     workflow.out.report,

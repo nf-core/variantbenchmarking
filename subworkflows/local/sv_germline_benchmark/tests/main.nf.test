@@ -51,7 +51,7 @@ nextflow_workflow {
                         [
                             meta,
                             path(vcfFile.toString()).getFileName().toString(),
-                            path(vcfFile.toString()).md5 
+                            path(vcfFile.toString()).md5
                         ]
                     }.sort { it[0].tag },
                     workflow.out.summary_reports.collect { meta, files ->

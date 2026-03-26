@@ -62,22 +62,22 @@ input:
         pattern: "*.dict"
 output:
   vcf_ch:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - vcf:
-          type: file
-          description: Processed and prepared truth VCF file.
-          pattern: "*.vcf.gz"
-      - tbi:
-          type: file
-          description: Index of the processed truth VCF file.
-          pattern: "*.tbi"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - vcf:
+        type: file
+        description: Processed and prepared truth VCF file.
+        pattern: "*.vcf.gz"
+    - tbi:
+        type: file
+        description: Index of the processed truth VCF file.
+        pattern: "*.tbi"
   high_conf_ch:
-      - bed:
-          type: file
-          description: High confidence BED regions.
-          pattern: "*.bed"
+    - bed:
+        type: file
+        description: High confidence BED regions.
+        pattern: "*.bed"
 authors:
   - "@kubranarci"
 maintainers:

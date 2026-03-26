@@ -29,7 +29,7 @@ nextflow_workflow {
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz.tbi', checkIfExists: true),
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
-                    [] 
+                    []
                 ])
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
@@ -39,9 +39,9 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ]).collect()
-                input[3] = Channel.empty() 
-                input[4] = Channel.value([[],[]]) 
-                input[5] = Channel.value([[],[]]) 
+                input[3] = Channel.empty()
+                input[4] = Channel.value([[],[]])
+                input[5] = Channel.value([[],[]])
                 """
             }
         }
@@ -109,10 +109,10 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ]).collect()
-                
+
                 input[3] = RTGTOOLS_FORMAT.out.sdf.collect()
-                input[4] = Channel.value([[],[]]) 
-                input[5] = Channel.value([[],[]]) 
+                input[4] = Channel.value([[],[]])
+                input[5] = Channel.value([[],[]])
                 """
             }
         }
@@ -154,7 +154,7 @@ nextflow_workflow {
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz.tbi', checkIfExists: true),
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
-                    [] 
+                    []
                 ])
                 input[1] = Channel.of([
                     [ id:'test_ref' ],
@@ -164,7 +164,7 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ]).collect()
-                
+
                 input[3] = Channel.empty()
                 input[4] = Channel.value([[],[]])
                 input[5] = Channel.value([[],[]])

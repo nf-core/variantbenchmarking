@@ -35,7 +35,7 @@ then {
                     workflow.out.ch_vcf.collect { meta, vcf, tbi ->
                         def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
                         def tbiFile = tbi instanceof Collection ? (tbi.isEmpty() ? null : tbi[0]) : (tbi == [] ? null : tbi)
-                        
+
                         [
                             meta,
                             path(vcfFile.toString()).getFileName().toString(),
@@ -44,7 +44,7 @@ then {
                             tbiFile ? path(tbiFile.toString()).getFileName().toString() : []
                         ]
                     },
-                    workflow.out.versions ?: [] 
+                    workflow.out.versions ?: []
                 ).match() }
             )
         }

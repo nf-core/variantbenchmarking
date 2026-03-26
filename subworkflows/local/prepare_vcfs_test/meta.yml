@@ -63,17 +63,17 @@ input:
         pattern: "*.dict"
 output:
   vcf_ch:
-      - meta:
-          type: map
-          description: Groovy Map containing sample information.
-      - vcf:
-          type: file
-          description: Processed and prepared VCF file.
-          pattern: "*.vcf.gz"
-      - tbi:
-          type: file
-          description: Index of the processed VCF file.
-          pattern: "*.tbi"
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - vcf:
+        type: file
+        description: Processed and prepared VCF file.
+        pattern: "*.vcf.gz"
+    - tbi:
+        type: file
+        description: Index of the processed VCF file.
+        pattern: "*.tbi"
 authors:
   - "@kubranarci"
 maintainers:

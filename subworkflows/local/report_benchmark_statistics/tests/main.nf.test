@@ -13,7 +13,7 @@ nextflow_workflow {
     tag "merge_reports"
 
     test("report benchmark statistics - structural variants") {
-        
+
         when {
             params {
                 variant_type = "structural"
@@ -73,7 +73,7 @@ nextflow_workflow {
 
     test("report benchmark statistics - stub") {
         options "-stub"
-        
+
         when {
             params {
                 variant_type = "structural"

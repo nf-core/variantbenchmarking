@@ -75,7 +75,7 @@ nextflow_workflow {
                     workflow.out.bed_ch.collect { tuple ->
                         def meta = tuple[0]
                         def bed = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
-                        
+
                         [
                             meta,
                             path(bed.toString()).getFileName().toString(),

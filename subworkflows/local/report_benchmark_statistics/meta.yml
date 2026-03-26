@@ -40,18 +40,18 @@ input:
         pattern: "*.csv"
 output:
   ch_plots:
-      - plots:
-          type: file
-          description: Generated metrics and distribution plots.
-          pattern: "*.png"
+    - plots:
+        type: file
+        description: Generated metrics and distribution plots.
+        pattern: "*.png"
   merged_reports:
-      - meta:
-          type: map
-          description: Groovy Map containing benchmark tool information.
-      - summary:
-          type: file
-          description: Merged summary statistics report.
-          pattern: "*.csv"
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - summary:
+        type: file
+        description: Merged summary statistics report.
+        pattern: "*.csv"
 authors:
   - "@kubranarci"
 maintainers:

@@ -17,7 +17,7 @@ nextflow_workflow {
     tag "tabix/bgziptabix"
 
     test("prepare small variants - full preprocess") {
-        
+
         when {
             params {
                 variant_type = "small"
@@ -25,7 +25,7 @@ nextflow_workflow {
                 analysis = "germline"
                 liftover = ""
                 sv_standardization = ""
-                genome = "GRCh38" 
+                genome = "GRCh38"
             }
             workflow {
                 """
@@ -41,9 +41,9 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
-                input[3] = Channel.empty() 
-                input[4] = Channel.empty() 
-                input[5] = Channel.empty() 
+                input[3] = Channel.empty()
+                input[4] = Channel.empty()
+                input[5] = Channel.empty()
                 """
             }
         }
@@ -75,7 +75,7 @@ nextflow_workflow {
                 preprocess = ""
                 liftover = ""
                 sv_standardization = ""
-                genome = "GRCh38" 
+                genome = "GRCh38"
             }
             workflow {
                 """
@@ -91,9 +91,9 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
-                input[3] = Channel.empty() 
-                input[4] = Channel.empty() 
-                input[5] = Channel.empty() 
+                input[3] = Channel.empty()
+                input[4] = Channel.empty()
+                input[5] = Channel.empty()
                 """
             }
         }
@@ -116,7 +116,7 @@ nextflow_workflow {
     }
 
     test("prepare structural variants - svdecompose") {
-        
+
         when {
             params {
                 variant_type = "structural"
@@ -140,9 +140,9 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
-                input[3] = Channel.empty() 
-                input[4] = Channel.empty() 
-                input[5] = Channel.empty() 
+                input[3] = Channel.empty()
+                input[4] = Channel.empty()
+                input[5] = Channel.empty()
                 """
             }
         }

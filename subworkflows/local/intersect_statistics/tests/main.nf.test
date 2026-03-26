@@ -89,7 +89,7 @@ nextflow_workflow {
 
         when {
             params {
-                variant_type = "structural" 
+                variant_type = "structural"
                 genome = "GRCh38"
                 truth_id = "truth"
             }

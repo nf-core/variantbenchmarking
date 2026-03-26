@@ -14,11 +14,11 @@ nextflow_workflow {
     tag "rtgtools/svdecompose"
 
     test("prepare truth variants - sv truth dataset") {
-        
+
         when {
             params {
                 variant_type = "structural"
-                preprocess = "" 
+                preprocess = ""
                 analysis = "germline"
                 liftover = ""
                 sv_standardization = "svdecompose"
@@ -75,7 +75,7 @@ nextflow_workflow {
         when {
             params {
                 variant_type = "small"
-                preprocess = "split_multiallelic,normalize,deduplicate" 
+                preprocess = "split_multiallelic,normalize,deduplicate"
                 analysis = "germline"
                 liftover = "truth"
                 sv_standardization = "svdecompose"
@@ -98,10 +98,10 @@ nextflow_workflow {
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
-                
-                input[4] = Channel.value([ [id:'chain'], file("https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain", checkIfExists: true) ]) 
-                input[5] = Channel.value([ [id:'rename_chr'], file('${projectDir}/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true) ]) 
-                input[6] = Channel.value([ [id:'dict'], file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.dict', checkIfExists: true) ]) 
+
+                input[4] = Channel.value([ [id:'chain'], file("https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain", checkIfExists: true) ])
+                input[5] = Channel.value([ [id:'rename_chr'], file('${projectDir}/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true) ])
+                input[6] = Channel.value([ [id:'dict'], file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.dict', checkIfExists: true) ])
                 """
             }
         }
