@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bedfile index checking and smoother vcf comparisions [#290](https://github.com/nf-core/variantbenchmarking/pull/290)
 - Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/), thanks @aaryanjaitly for initiation of some processes.
 - Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
+- Adding nf-test and meta.yml to local subworklfows, removing overlapping workflow tests [#257](https://github.com/nf-core/variantbenchmarking/pull/296)
 
 ### `Fixed`
 

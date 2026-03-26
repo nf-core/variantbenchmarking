@@ -8,7 +8,7 @@
                         "tag": "FN",
                         "id": "happy"
                     },
-                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -18,7 +18,7 @@
                         "tag": "FP",
                         "id": "happy"
                     },
-                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
                     "cac3148b2ac41bbdcc45a11877cf1b89"
                 ],
@@ -28,7 +28,7 @@
                         "tag": "TP_base",
                         "id": "happy"
                     },
-                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -38,7 +38,7 @@
                         "tag": "TP_comp",
                         "id": "happy"
                     },
-                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ]
@@ -49,14 +49,14 @@
                         "vartype": "small",
                         "benchmark_tool": "happy"
                     },
-                    "test.truth.gatk.summary.csv"
+                    "test.HG002.gatk.summary.csv"
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-25T10:29:10.864169336",
+        "timestamp": "2026-03-26T12:24:13.445905759",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -72,7 +72,7 @@
                             "benchmark_tool": "happy"
                         },
                         [
-                            "test.truth.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.HG002.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ],
@@ -83,8 +83,8 @@
                             "tag": "FN",
                             "id": "happy"
                         },
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -92,8 +92,8 @@
                             "tag": "FP",
                             "id": "happy"
                         },
-                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -101,8 +101,8 @@
                             "tag": "TP_base",
                             "id": "happy"
                         },
-                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -110,8 +110,8 @@
                             "tag": "TP_comp",
                             "id": "happy"
                         },
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "summary_reports": [
@@ -121,7 +121,7 @@
                             "benchmark_tool": "happy"
                         },
                         [
-                            "test.truth.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.HG002.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ],
@@ -132,8 +132,8 @@
                             "tag": "FN",
                             "id": "happy"
                         },
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -141,8 +141,8 @@
                             "tag": "FP",
                             "id": "happy"
                         },
-                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -150,8 +150,8 @@
                             "tag": "TP_base",
                             "id": "happy"
                         },
-                        "test.truth.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -159,13 +159,13 @@
                             "tag": "TP_comp",
                             "id": "happy"
                         },
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "test.truth.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-25T10:30:23.074162279",
+        "timestamp": "2026-03-26T12:25:12.547972075",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -180,7 +180,7 @@
                         "tag": "FN",
                         "id": "happy"
                     },
-                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -190,7 +190,7 @@
                         "tag": "FP",
                         "id": "happy"
                     },
-                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
                     "cac3148b2ac41bbdcc45a11877cf1b89"
                 ],
@@ -200,7 +200,7 @@
                         "tag": "TP_base",
                         "id": "happy"
                     },
-                    "test.truth.gatk.query.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -210,7 +210,7 @@
                         "tag": "TP_comp",
                         "id": "happy"
                     },
-                    "test.truth.gatk.truth.reheader.filter.vcf.gz",
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ]
@@ -221,14 +221,14 @@
                         "vartype": "small",
                         "benchmark_tool": "happy"
                     },
-                    "test.truth.gatk.summary.csv"
+                    "test.HG002.gatk.summary.csv"
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-25T10:29:57.756700463",
+        "timestamp": "2026-03-26T12:24:50.967845325",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

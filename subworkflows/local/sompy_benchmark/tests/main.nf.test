@@ -15,6 +15,7 @@ nextflow_workflow {
         when {
             params {
                 variant_type = "snv"
+                truth_id = "SEQC2"
             }
             workflow {
                 """
@@ -53,6 +54,7 @@ nextflow_workflow {
         when {
             params {
                 variant_type = "snv"
+                truth_id = "SEQC2"
             }
             workflow {
                 """

@@ -19,6 +19,7 @@ nextflow_workflow {
                 variant_type = "small"
                 method = "sompy"
                 analysis = "somatic"
+                truth_id = "SEQC2"
             }
             workflow {
                 """
@@ -89,6 +90,7 @@ nextflow_workflow {
                 variant_type = "small"
                 method = "rtgtools"
                 analysis = "somatic"
+                truth_id = "SEQC2"
             }
             workflow {
                 """
@@ -144,6 +146,8 @@ nextflow_workflow {
             params {
                 variant_type = "small"
                 method = "sompy"
+                truth_id = "SEQC2"
+
             }
             workflow {
                 """

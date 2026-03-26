@@ -9,7 +9,7 @@
                             "benchmark_tool": "sompy"
                         },
                         [
-                            "test.truth.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.SEQC2.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ],
@@ -20,7 +20,7 @@
                             "tag": "FN",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -28,7 +28,7 @@
                             "tag": "FP",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -36,7 +36,7 @@
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "summary_reports": [
@@ -46,7 +46,7 @@
                             "benchmark_tool": "sompy"
                         },
                         [
-                            "test.truth.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.SEQC2.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ],
@@ -57,7 +57,7 @@
                             "tag": "FN",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -65,7 +65,7 @@
                             "tag": "FP",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
                         {
@@ -73,12 +73,12 @@
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
-                        "test.truth.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.SEQC2.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-24T12:35:40.761553489",
+        "timestamp": "2026-03-26T12:18:43.271785359",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -94,7 +94,7 @@
                             "benchmark_tool": "sompy"
                         },
                         [
-                            "test.truth.mutect2.stats.csv:md5,1fe13effc651bb0619ccfd5b159d1da9"
+                            "test.SEQC2.mutect2.stats.csv:md5,c189376f122fe20047ae2fbc3c70a9a5"
                         ]
                     ]
                 ],
@@ -105,7 +105,7 @@
                             "tag": "FN",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.FN.csv:md5,3523eb16e7395fc07bfd73f48ac19f0f"
+                        "test.SEQC2.mutect2.FN.csv:md5,7189b5d0029a314090bab08a28f02375"
                     ],
                     [
                         {
@@ -113,7 +113,7 @@
                             "tag": "FP",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.FP.csv:md5,3c43802149ae8c82eee6b2d362d4e32d"
+                        "test.SEQC2.mutect2.FP.csv:md5,96fac43ad50bb403854d11fbd719dcb7"
                     ],
                     [
                         {
@@ -121,7 +121,7 @@
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.TP_comp.csv:md5,cbb623ba10e1c7b02eef71ce5f8228c1"
+                        "test.SEQC2.mutect2.TP_comp.csv:md5,8b8021ff9bbd53fff8923f854ce14092"
                     ]
                 ],
                 "summary_reports": [
@@ -131,7 +131,7 @@
                             "benchmark_tool": "sompy"
                         },
                         [
-                            "test.truth.mutect2.stats.csv:md5,1fe13effc651bb0619ccfd5b159d1da9"
+                            "test.SEQC2.mutect2.stats.csv:md5,c189376f122fe20047ae2fbc3c70a9a5"
                         ]
                     ]
                 ],
@@ -142,7 +142,7 @@
                             "tag": "FN",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.FN.csv:md5,3523eb16e7395fc07bfd73f48ac19f0f"
+                        "test.SEQC2.mutect2.FN.csv:md5,7189b5d0029a314090bab08a28f02375"
                     ],
                     [
                         {
@@ -150,7 +150,7 @@
                             "tag": "FP",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.FP.csv:md5,3c43802149ae8c82eee6b2d362d4e32d"
+                        "test.SEQC2.mutect2.FP.csv:md5,96fac43ad50bb403854d11fbd719dcb7"
                     ],
                     [
                         {
@@ -158,12 +158,12 @@
                             "tag": "TP_comp",
                             "id": "sompy"
                         },
-                        "test.truth.mutect2.TP_comp.csv:md5,cbb623ba10e1c7b02eef71ce5f8228c1"
+                        "test.SEQC2.mutect2.TP_comp.csv:md5,8b8021ff9bbd53fff8923f854ce14092"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-26T11:50:41.359723457",
+        "timestamp": "2026-03-26T12:18:29.615027034",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

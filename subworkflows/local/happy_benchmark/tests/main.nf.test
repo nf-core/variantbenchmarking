@@ -21,6 +21,7 @@ nextflow_workflow {
             params {
                 variant_type = "small"
                 preprocess = []
+                truth_id = "HG002"
             }
             workflow {
                 """
@@ -76,6 +77,7 @@ nextflow_workflow {
             params {
                 variant_type = "small"
                 preprocess = "prepy"
+                truth_id = "HG002"
             }
             workflow {
                 """
@@ -131,6 +133,7 @@ nextflow_workflow {
             params {
                 variant_type = "small"
                 preprocess = []
+                truth_id = "HG002"
             }
             workflow {
                 """
