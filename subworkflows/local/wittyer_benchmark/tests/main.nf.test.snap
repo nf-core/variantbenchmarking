@@ -9,7 +9,7 @@
                             "benchmark_tool": "wittyer"
                         },
                         [
-                            "test.truth.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.HG002.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ],
@@ -20,13 +20,13 @@
                             "benchmark_tool": "wittyer"
                         },
                         [
-                            "test.truth.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                            "test.HG002.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
                         ]
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-19T11:08:59.69046319",
+        "timestamp": "2026-03-26T13:24:16.48706897",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -41,7 +41,7 @@
                         "benchmark_tool": "wittyer"
                     },
                     [
-                        "test.truth.simulated.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
+                        "test.HG002.simulated.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
                     ]
                 ]
             ],
@@ -49,7 +49,7 @@
                 
             }
         ],
-        "timestamp": "2026-03-19T11:08:47.118918315",
+        "timestamp": "2026-03-26T13:24:03.182992667",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
