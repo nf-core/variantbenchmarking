@@ -25,7 +25,7 @@ nextflow_workflow {
         }
         then {
             assert workflow.success
-            
+
             assertAll(
                 { assert snapshot(
                     workflow.out.vcf_ch.collect { item ->

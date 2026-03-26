@@ -24,7 +24,7 @@ nextflow_workflow {
                 ])
                 """
             }
-        }         
+        }
         then {
             assert workflow.success
             assertAll(
