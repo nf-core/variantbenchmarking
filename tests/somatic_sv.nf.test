@@ -1,13 +1,13 @@
 nextflow_pipeline {
 
-    name "Test pipeline for somatic copy number variants, tested benchmarking methods are truvari and intersect"
+    name "Test pipeline for structural somatic variants, tested benchmarking methods are truvari and svbenchmark"
     script "../main.nf"
     tag "pipeline"
     tag "somatic"
     tag "structural"
-    config "../conf/tests/somatic_cnv.config"
+    config "../conf/tests/somatic_sv.config"
 
-    test("Params: --analysis 'somatic' --variant_type 'copynumber' --method 'truvari,intersect'") {
+    test("Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'") {
 
         when {
             params {
