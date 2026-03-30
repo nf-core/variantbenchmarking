@@ -16,7 +16,7 @@ include { TABIX_BGZIP as TABIX_BGZIP_UNZIP    } from '../../../modules/nf-core/t
 
 workflow ENSEMLE_TEST_VCFS {
     take:
-    test_vcfs        // channel: [val(meta), vcf.gz, index]
+    test_vcfs       // channel: [val(meta), vcf.gz, index]
     fasta           // reference channel [val(meta), ref.fa]
     fai             // reference channel [val(meta), ref.fa.fai]
 

@@ -1,0 +1,115 @@
+nextflow_workflow {
+
+    name "Test Subworkflow PREPARE_VCFS_TRUTH"
+    script "../main.nf"
+    workflow "PREPARE_VCFS_TRUTH"
+
+    tag "subworkflows"
+    tag "subworkflows_prepare_vcfs_truth"
+    tag "subworkflows/prepare_vcfs_truth"
+    tag "bcftools"
+    tag "bcftools/norm"
+    tag "bcftools/view"
+    tag "bcftools/reheader"
+    tag "rtgtools/svdecompose"
+
+    test("prepare truth variants - sv truth dataset") {
+
+        when {
+            params {
+                variant_type = "structural"
+                preprocess = ""
+                analysis = "germline"
+                liftover = ""
+                sv_standardization = "svdecompose"
+                genome = "GRCh38"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'truth_sv', caller:'manta' ],
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.of(
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.bed', checkIfExists: true)
+                )
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ])
+                input[3] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ])
+                input[4] = Channel.empty() // chain
+                input[5] = Channel.empty() // rename_chr
+                input[6] = Channel.empty() // dict
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.high_conf_ch.collect { bed ->
+                        def bedFile = bed instanceof Collection ? bed[0] : bed
+                        path(bedFile.toString()).getFileName().toString()
+                    }.sort()
+                ).match() }
+            )
+        }
+    }
+
+    test("prepare truth variants -stub") {
+        options "-stub"
+
+        when {
+            params {
+                variant_type = "small"
+                preprocess = "split_multiallelic,normalize,deduplicate"
+                analysis = "germline"
+                liftover = "truth"
+                sv_standardization = "svdecompose"
+                genome = "GRCh38"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'truth_stub', caller:'manta' ],
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.of(
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.bed', checkIfExists: true)
+                )
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ])
+                input[3] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ])
+
+                input[4] = Channel.value([ [id:'chain'], file("https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain", checkIfExists: true) ])
+                input[5] = Channel.value([ [id:'rename_chr'], file('${projectDir}/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true) ])
+                input[6] = Channel.value([ [id:'dict'], file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.dict', checkIfExists: true) ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

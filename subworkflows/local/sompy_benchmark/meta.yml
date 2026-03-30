@@ -1,0 +1,114 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "SOMPY_BENCHMARK"
+description: Subworkflow for somatic variant benchmarking using Sompy
+keywords:
+  - benchmark
+  - sompy
+  - somatic
+  - vcf
+components:
+  - happy/sompy
+  - local/split_sompy_features
+input:
+  - input_ch:
+      description: Channel containing target and truth VCF files with regions
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - test_vcf:
+          type: file
+          description: Query VCF file
+          pattern: "*.{vcf,vcf.gz}"
+        - test_index:
+          type: file
+          description: Query VCF index file
+          pattern: "*.{tbi,csi}"
+        - truth_vcf:
+          type: file
+          description: Truth VCF file
+          pattern: "*.{vcf,vcf.gz}"
+        - truth_index:
+          type: file
+          description: Truth VCF index file
+          pattern: "*.{tbi,csi}"
+        - regionsbed:
+          type: file
+          description: BED file containing regions to evaluate
+          pattern: "*.bed"
+        - targets_bed:
+          type: file
+          description: BED file containing target regions
+          pattern: "*.bed"
+  - fasta:
+      description: Channel containing the target reference FASTA file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+  - fai:
+      description: Channel containing the FASTA index file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fai:
+          type: file
+          description: FASTA index file
+          pattern: "*.fai"
+  - falsepositive_bed:
+      description: Channel containing the false positive BED file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bed:
+          type: file
+          description: BED file
+          pattern: "*.bed"
+  - ambiguous_beds:
+      description: Channel containing ambiguous regions BED files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bed:
+          type: file
+          description: BED file
+          pattern: "*.bed"
+output:
+  - summary_reports:
+      description: Channel containing the grouped benchmarking summary reports
+      structure:
+        - meta:
+          type: map
+          description: Metadata map containing variant type and tool name
+        - reports:
+          type: list
+          description: List of summary files
+          pattern: "*"
+  - tagged_variants_csv:
+      description: Channel containing the split True Positive, False Positive, and False Negative CSV files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map containing tags for variant classes
+        - csvs:
+          type: file
+          description: CSV file with tagged variants
+          pattern: "*.csv"
+  - versions:
+      description: Channel containing software versions
+      structure:
+        - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

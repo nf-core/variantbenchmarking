@@ -1,0 +1,83 @@
+{
+    "split small variants stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "vartype": "indel"
+                        },
+                        "test.indel.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.indel.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "test",
+                            "vartype": "snv"
+                        },
+                        "test.snv.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.snv.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "out_vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "vartype": "indel"
+                        },
+                        "test.indel.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.indel.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "test",
+                            "vartype": "snv"
+                        },
+                        "test.snv.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.snv.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T11:34:12.546822973",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "split small variants": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "vartype": "indel"
+                    },
+                    "test.indel.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=1, phased=false, phasedAutodetect=false]",
+                    "3d5961058d664a6b61e0370414eb713f",
+                    "test.indel.vcf.gz.tbi"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "vartype": "snv"
+                    },
+                    "test.snv.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=8, phased=false, phasedAutodetect=false]",
+                    "6facdfab3e44b81cdce2ce982a7a73bf",
+                    "test.snv.vcf.gz.tbi"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T15:48:10.595435213",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

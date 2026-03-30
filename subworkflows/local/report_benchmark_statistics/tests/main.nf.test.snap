@@ -1,0 +1,77 @@
+{
+    "report benchmark statistics - stub": {
+        "content": [
+            {
+                "0": [
+                    "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool2.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_report",
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ch_plots": [
+                    "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "test.tool2.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "merged_reports": [
+                    [
+                        {
+                            "id": "test_report",
+                            "benchmark_tool": "svbenchmark",
+                            "vartype": "structural"
+                        },
+                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T09:41:53.268420415",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "report benchmark statistics - structural variants": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_report",
+                        "benchmark_tool": "svbenchmark",
+                        "vartype": "structural"
+                    },
+                    "svbenchmark.summary.csv"
+                ]
+            ],
+            [
+                "f1_by_tool_svbenchmark_mqc.png",
+                "pr_recall_by_tool_svbenchmark_mqc.png",
+                "test.tool1.structural.mqc.png",
+                "test.tool1.structural.mqc.png",
+                "test.tool2.structural.mqc.png",
+                "variants_by_tool_svbenchmark_mqc.png"
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-26T09:41:32.589910959",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

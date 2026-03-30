@@ -1,0 +1,84 @@
+name: "prepare_vcfs_truth"
+description: "Subworkflow to prepare, normalize, and standardize truth VCFs before benchmarking."
+keywords:
+  - vcf
+  - preprocess
+  - truth
+  - liftover
+  - svdecompose
+components:
+  - local/vcf_variant_deduplication
+  - local/liftover_vcfs
+  - bcftools/norm
+  - rtgtools/svdecompose
+  - bcftools/reheader
+  - bcftools/view
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing truth sample information.
+    - vcf:
+        type: file
+        description: Truth VCF file to be prepared.
+        pattern: "*.{vcf.gz,vcf}"
+  - - bed:
+        type: file
+        description: High confidence BED regions associated with the truth set.
+        pattern: "*.bed"
+  - - meta:
+        type: map
+        description: Groovy Map containing reference information.
+    - fasta:
+        type: file
+        description: Reference genome FASTA file.
+        pattern: "*.{fa,fasta}"
+  - - meta:
+        type: map
+        description: Groovy Map containing reference information.
+    - fai:
+        type: file
+        description: Reference genome FASTA index file.
+        pattern: "*.fai"
+  - - meta:
+        type: map
+        description: Groovy Map containing chain information.
+    - chain:
+        type: file
+        description: Chain file for liftover (optional).
+        pattern: "*.chain"
+  - - meta:
+        type: map
+        description: Groovy Map containing rename information.
+    - rename_chr:
+        type: file
+        description: Text file for renaming chromosomes (optional).
+        pattern: "*.txt"
+  - - meta:
+        type: map
+        description: Groovy Map containing dictionary information.
+    - dictionary:
+        type: file
+        description: Reference genome dictionary file (optional).
+        pattern: "*.dict"
+output:
+  vcf_ch:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - vcf:
+        type: file
+        description: Processed and prepared truth VCF file.
+        pattern: "*.vcf.gz"
+    - tbi:
+        type: file
+        description: Index of the processed truth VCF file.
+        pattern: "*.tbi"
+  high_conf_ch:
+    - bed:
+        type: file
+        description: High confidence BED regions.
+        pattern: "*.bed"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

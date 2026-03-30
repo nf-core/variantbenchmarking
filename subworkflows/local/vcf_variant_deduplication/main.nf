@@ -27,6 +27,6 @@ workflow VCF_VARIANT_DEDUPLICATION {
         .set{ch_vcf}
 
     emit:
-    ch_vcf      // channel: [ val(meta), vcf,index ]
+    ch_vcf      // channel: [ val(meta), vcf, index ]
 
 }

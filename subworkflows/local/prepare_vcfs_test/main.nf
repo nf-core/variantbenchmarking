@@ -28,8 +28,6 @@ workflow PREPARE_VCFS_TEST {
 
     main:
 
-    versions = channel.empty()
-
     // branch out test samples with metadata liftover is true
     test_ch.branch{input ->
         def meta = input[0]
@@ -39,7 +37,6 @@ workflow PREPARE_VCFS_TEST {
     vcf_ch = channel.empty()
 
     if (params.liftover.contains("test")){
-
         // apply liftover test vcfs
         LIFTOVER_VCFS(
             vcf.liftover,
@@ -90,7 +87,6 @@ workflow PREPARE_VCFS_TEST {
             [],
             []
         )
-
         BCFTOOLS_VIEW_CONTIGS.out.vcf.join(BCFTOOLS_VIEW_CONTIGS.out.tbi, by:0)
                             .set{vcf_ch}
     }
@@ -107,7 +103,6 @@ workflow PREPARE_VCFS_TEST {
     }
 
     if (params.include_expression != null || params.exclude_expression != null || params.min_sv_size > 0 || params.max_sv_size != -1 || params.min_allele_freq != -1 || params.min_num_reads != -1 ){
-
         // Filters variants and SVs with given parameters
         VCF_VARIANT_FILTERING(
             vcf_ch
@@ -180,10 +175,8 @@ workflow PREPARE_VCFS_TEST {
     TABIX_BGZIPTABIX_GT(
         ADD_GT_STRELKA.out.output
     )
-
     vcf_ch = TABIX_BGZIPTABIX_GT.out.gz_index.mix(ch_branched_vcf.ok)
 
     emit:
     vcf_ch   // channel: [val(meta), vcf.gz, tbi]
-    versions // channel: [versions.yml]
 }
