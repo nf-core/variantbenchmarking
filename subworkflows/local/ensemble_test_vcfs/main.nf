@@ -13,6 +13,7 @@ include { GAWK as REFORMAT_TRUTH_SV           } from '../../../modules/nf-core/g
 include { GAWK as INJECT_MISSING_GT           } from '../../../modules/nf-core/gawk'
 include { BCFTOOLS_SORT as BCFTOOLS_SORT_SV   } from '../../../modules/nf-core/bcftools/sort'
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP    } from '../../../modules/nf-core/tabix/bgzip'
+include { BCFTOOLS_ANNOTATE as BCFTOOLS_UNIFY_HEADER } from '../../../modules/nf-core/bcftools/annotate'
 
 workflow ENSEMLE_TEST_VCFS {
     take:
@@ -22,8 +23,14 @@ workflow ENSEMLE_TEST_VCFS {
 
     main:
 
+    // unify header for callers
+    BCFTOOLS_UNIFY_HEADER(
+        test_vcfs.map{meta, vcf, index -> [meta, vcf, index, [], []]},
+        [],[],[]
+    )
+
     // if the benchmarking method is rtgtools, missing GT field is already filled in VCF preperation step, so no need to inject missing GT field
-    test_vcfs.branch { meta, vcf, index ->
+    BCFTOOLS_UNIFY_HEADER.out.vcf.join(BCFTOOLS_UNIFY_HEADER.out.tbi).branch { meta, vcf, index ->
         def is_rtg = params.method?.contains("rtgtools")
         def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
         def is_somatic = params.analysis == "somatic"

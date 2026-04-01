@@ -53,8 +53,9 @@ workflow CONCORDANCE_ANALYSIS {
         }
 
     ch_bed_input = bed_ch
-        .map { file -> tuple(["id": "intervals"], file) }
-        .ifEmpty([[:], []])
+        .map { file -> [ [id: "intervals"], file ] }
+        .collect()
+        .ifEmpty( [ [id: "intervals"], [] ] )
 
     // GATK4 concordance does not support structural variants now - GATK4 SVCONCORDANCE is in beta
     GATK4_CONCORDANCE(
