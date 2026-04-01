@@ -288,21 +288,13 @@ workflow VARIANTBENCHMARKING {
             ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
                                                     .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
                                                     .groupTuple())
-            evals_ch         = evals_ch.mix(RTGTOOLS_BNDEVAL.out.fn_vcf,
-                                            RTGTOOLS_BNDEVAL.out.fp_vcf,
-                                            RTGTOOLS_BNDEVAL.out.baseline_vcf,
-                                            RTGTOOLS_BNDEVAL.out.tp_vcf)
-                                        .map { meta, file ->
-                                            def mapping = [
-                                                'fn': 'FN',
-                                                'fp': 'FP',
-                                                'tp-baseline': 'TP_base',
-                                                'tp': 'TP_comp'
-                                            ]
-                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
-                                            def transformedTag = mapping[tag] ?: tag
-                                            tuple( [ meta + [vartype: params.variant_type, id: "rtgtools", tag: transformedTag]], file)
-                                        }
+
+            evals_ch = evals_ch.mix(
+                RTGTOOLS_BNDEVAL.out.fn_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file) },
+                RTGTOOLS_BNDEVAL.out.fp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file) },
+                RTGTOOLS_BNDEVAL.out.baseline_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file) },
+                RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file) }
+            )
         }
     }
 

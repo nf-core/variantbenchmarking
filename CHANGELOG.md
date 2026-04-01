@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GT field is necessary for rtgtools vcfeval, strelka reports no GT field for somatic analysis. Fixing the GT field setup for strelka (bcftools plugingtset doesnt work as GT is not available) [#279](https://github.com/nf-core/variantbenchmarking/pull/279)
 - Using nf-metro to create better metromap [#281](https://github.com/nf-core/variantbenchmarking/pull/281)
 - Remove unneccesery reheadering of the vcf outputs of rtgtools and truvari [#286](https://github.com/nf-core/variantbenchmarking/pull/286)
+- Fixing bugs: bnd vcfeval output files producing tags with [] and reformatting header before merging in ensemble analysis [#297](https://github.com/nf-core/variantbenchmarking/pull/297)
 
 ### `Dependencies`
 
