@@ -290,36 +290,47 @@ As the truth set contains very few variants, the number of matcheds quite small 
 
 ### Analysis
 
-- We are again using nf-core/sarek variant calls from cnvkit, ascat and controlfreec.
+- We are again using nf-core/sarek variant calls from cnvkit, ascat, controlfreec and manta.
 - We are filtering out extra contigs and splitting multi-allelic sites.
 - We use truvari, wittyer and _intersect_ methods. _intersect_ (using bedtools) is not a benchmarking method but rather to intersect BED regions given for test and truth files. truvari and wittyer will be only applied if input test is in VCF format reming that CNV results are tend to report in BED similar formats.
-- The truth file used here is reported previously through (zenodo)[https://zenodo.org/records/14619054]
+- The truth file used here is SEQC2 SV truth file. 
 
 ### Results
 
+_RTG Tools_
+
+| Tool | File | Caller | Threshold | TP_base | TP_comp | FP | FN | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| test11 | test11.SEQC2.manta.summary.txt | manta | None | 28 | 28 | 156 | 334 | 0.1522 | 0.0773 | 0.1026 |
+| test14 | test14.SEQC2.cnvkit.summary.txt | cnvkit | None | 151 | 151 | 916 | 211 | 0.1415 | 0.4171 | 0.2113 |
+
 _Truvari_
 
-| Tool   | File                             | TP_base | TP_comp | FP  | FN   | Precision           | Recall            | F1                   |
-| ------ | -------------------------------- | ------- | ------- | --- | ---- | ------------------- | ----------------- | -------------------- |
-| test14 | test14.SEQC2.cnvkit.summary.json | 26      | 26      | 84  | 1058 | 0.23636363636363603 | 0.023985239852398 | 0.043551088777219006 |
+| Tool | File | Caller | TP_base | TP_comp | FP | FN | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|---|---|---|
+| test11 | test11.SEQC2.manta.summary.json | manta | 5 | 5 | 695 | 1114 | 0.007142857142857143 | 0.004468275245755138 | 0.005497526113249038 |
+| test14 | test14.SEQC2.cnvkit.summary.json | cnvkit | 8 | 8 | 96 | 1111 | 0.07692307692307693 | 0.0071492403932082215 | 0.013082583810302535 |
 
 _Witty.er_
 
-| Tool   | File                     | StatsType | TP_base | TP_comp | FP        | FN  | Precision | Recall | F1  |
-| ------ | ------------------------ | --------- | ------- | ------- | --------- | --- | --------- | ------ | --- |
-| test14 | test14.SEQC2.cnvkit.json | Event     | 0       | 0       | 169       | 0   | 0.0       |        |     |
-| test14 | test14.SEQC2.cnvkit.json | Base      | 0       | 0       | 893824341 | 0   | 0.0       |        |     |
+| Tool | File | Caller | StatsType | TP_base | TP_comp | FP | FN | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| test14 | test14.SEQC2.cnvkit.json | cnvkit | Event | 0 | 0 | 104 | 1032 | 0.0 | 0.0 | |
+| test14 | test14.SEQC2.cnvkit.json | cnvkit | Base | 0 | 0 | 525553404 | 115803512 | 0.0 | 0.0 | |
+| test11 | test11.SEQC2.manta.json | manta | Event | 0 | 0 | 304 | 1032 | 0.0 | 0.0 | |
+| test11 | test11.SEQC2.manta.json | manta | Base | 0 | 0 | 64244018 | 149089348 | 0.0 | 0.0 | |
 
 _Intersect_
 
-| Tool   | File                                    | TP_base | TP_comp | FN  | FP  | Precision          | Recall             | F1                 |
-| ------ | --------------------------------------- | ------- | ------- | --- | --- | ------------------ | ------------------ | ------------------ |
-| test13 | test13.SEQC2.controlfreec_stats.csv     | 123     | 108     | 537 | 331 | 0.2460136674259681 | 0.1863636363636363 | 0.2120740439186762 |
-| test14 | test14.SEQC2.cnvkit_stats.csv           | 144     | 128     | 516 | 246 | 0.3422459893048128 | 0.2181818181818181 | 0.2664816099930603 |
-| test14 | test14.SEQC2.cnvkit.converted_stats.csv | 116     | 107     | 544 | 192 | 0.3578595317725752 | 0.1757575757575757 | 0.2357365342247208 |
-| test15 | test15.SEQC2.ascat_stats.csv            | 92      | 81      | 568 | 77  | 0.5126582278481012 | 0.1393939393939394 | 0.21918936408024   |
+| Tool | Caller | Analysis | File | TP_base | TP_comp | FN | FP | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| test13 | controlfreec_stats | Bedtools_Intersect | test13.SEQC2.controlfreec_stats.csv | 95 | 95 | 1407 | 344 | 0.2164009111617312 | 0.0632490013315579 | 0.0978876867594023 |
+| test14 | cnvkit_stats | Bedtools_Intersect | test14.SEQC2.cnvkit_stats.csv | 123 | 123 | 1379 | 259 | 0.3219895287958115 | 0.0818908122503328 | 0.1305732484076433 |
+| test15 | ascat_stats | Bedtools_Intersect | test15.SEQC2.ascat_stats.csv | 64 | 64 | 1438 | 119 | 0.3497267759562841 | 0.0426098535286285 | 0.0759643916913946 |
+| test11_converted | manta | Bedtools_Intersect | test11.SEQC2.manta.converted_stats.csv | 1 | 1 | 1501 | 1063 | 0.0009398496240601 | 0.0006657789613848 | 0.0007794232268121 |
+| test14_converted | cnvkit | Bedtools_Intersect | test14.SEQC2.cnvkit.converted_stats.csv | 90 | 90 | 1412 | 207 | 0.303030303030303 | 0.0599201065246338 | 0.1000555864369094 |
 
-Only CNVkit was reporting the variants in VCF format that is why truvari and wittyer was running only that test sample. Wittyer was not proprely running as variants are not sequence resolved.
+Only CNVkit was reporting the variants in VCF format that is why truvari, wittyer and rgtools was running only that test sample. Wittyer was not proprely running as variants are not sequence resolved.
 We also have two type of results for CNVkit for intersection analysis. \*\_converted one show the result from the VCF input being converted to BED for ntersection analysis while the other result is using input BED file directly.
 
 ## Case 12 : Concordance analysis

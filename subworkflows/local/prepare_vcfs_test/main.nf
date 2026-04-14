@@ -146,16 +146,19 @@ workflow PREPARE_VCFS_TEST {
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
-    // filters out ./. or 0/0 or non-somatic genotypes
-    BCFTOOLS_VIEW_FILTERMISSING(
-        vcf_ch,
-        [],
-        [],
-        []
-    )
+    if (!(params.enable_missing_genotypes?.contains("test"))) {
+        // filters out ./. or 0/0 or non-somatic genotypes
+        BCFTOOLS_VIEW_FILTERMISSING(
+            vcf_ch,
+            [],
+            [],
+            []
+        )
+        vcf_ch=BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+    }
 
      // branch out test samples with missing GT field (e.g. strelka) to add GT field using gawk
-    ch_branched_vcf = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+    vcf_ch
         .branch { meta, vcf, tbi ->
             def is_rtg = params.method?.contains("rtgtools")
             def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
@@ -163,7 +166,7 @@ workflow PREPARE_VCFS_TEST {
 
             needs_gt: is_strelka_manta && is_somatic && is_rtg
             ok:       true
-        }
+        }.set{ch_branched_vcf}
 
     // Add GT field using
     ADD_GT_STRELKA(

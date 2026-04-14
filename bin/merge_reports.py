@@ -12,19 +12,18 @@ import json
 
 
 def parse_args(args=None):
-	Description = "Merges svbenchmark or truvari bench reports from multiple samples"
-	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/wittyer/happy/sompy -v snv/indel -a germline/somatic "
+	Description = "Merges benchmark reports from multiple samples for multiple tools"
+	Epilog = "Example usage: python merge_reports.py file1 file2 file3 -o merged_table.csv -b truvari/svbenchmark/wittyer/happy/sompy/rtgtools/concordance/intersect -v snv/indel/structural/copynumber -a germline/somatic "
 
 	parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
 	parser.add_argument("inputs", nargs="+", help="List of files to merge")
 	parser.add_argument("--output", "-o", required=True, help="Output file")
-	parser.add_argument("--bench", "-b", required=True, help="svbenchmark/truvari/happy/sompy")
-	parser.add_argument("--vartype", "-v", required=True, help="Variant type: snv,indel,sv,small")
+	parser.add_argument("--bench", "-b", required=True, help="truvari/svbenchmark/wittyer/happy/sompy/rtgtools/concordance/intersect")
+	parser.add_argument("--vartype", "-v", required=True, help="Variant type: snv,indel,structural,small,copynumber")
 	parser.add_argument("--analysis", "-a", required=True, help="Analysis type: germline,somatic")
 
 	return parser.parse_args(args)
 
-## SVanalyzer results
 def get_svbenchmark_results(file_paths):
 	merged_df = pd.DataFrame()
 
@@ -65,8 +64,6 @@ def get_svbenchmark_results(file_paths):
 		merged_df = pd.concat([merged_df, df], ignore_index=True)
 
 	return merged_df
-
-## Truvari results
 
 def get_truvari_results(file_paths):
 	merged_df = pd.DataFrame()
@@ -135,34 +132,65 @@ def get_wittyer_results(file_paths):
 	return merged_df
 
 def get_rtgtools_results(file_paths):
-	merged_df = pd.DataFrame()
+    merged_df = pd.DataFrame()
 
-	for file in file_paths:
-		filename = os.path.basename(file)
-		caller = filename.split('.')[2]
+    for file in file_paths:
+        filename = os.path.basename(file)
+        caller = filename.split('.')[2]
 
-		with open(file, 'r') as f:
-			lines = f.readlines()
+        with open(file, 'r') as f:
+            lines = f.readlines()
 
-		header = lines[0].strip().split()
-		data = []
-		for line in lines[2:]:
-			data.append(line.strip().split())
+        if any("0 total baseline variants, no summary statistics available" in line for line in lines) or len(lines) < 3:
+            df_redesigned = pd.DataFrame([{
+                'Tool': filename.split(".")[0],
+                'File': filename,
+                'Caller': caller,
+                'Threshold': 'None',
+                'TP_base': 0,
+                'TP_comp': 0,
+                'FP': 0,
+                'FN': 0,
+                'Precision': 0.0,
+                'Recall': 0.0,
+                'F1': 0.0
+            }])
+        else:
+            header = lines[0].strip().split()
+            data = []
+            for line in lines[2:]:
+                data.append(line.strip().split())
 
-		df = pd.DataFrame(data, columns=header)
-		df['Tool'] = filename.split(".")[0]
-		df['File'] = filename
-		df['Caller'] = caller
-		df_redesigned = df[['Tool', 'File', 'Caller', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
-		df_redesigned.columns = ['Tool','File', 'Caller', 'Threshold','TP_base','TP_comp','FP','FN','Precision','Recall','F1']
-		int_columns = ['TP_base', 'FN', 'TP_comp', 'FP']
-		float_columns = ['Recall','Precision','F1']
-		df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
-		df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
+            df = pd.DataFrame(data, columns=header)
+            df['Tool'] = filename.split(".")[0]
+            df['File'] = filename
+            df['Caller'] = caller
+            
+            try:
+                df_redesigned = df[['Tool', 'File', 'Caller', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
+                df_redesigned.columns = ['Tool','File', 'Caller', 'Threshold','TP_base','TP_comp','FP','FN','Precision','Recall','F1']
+                int_columns = ['TP_base', 'FN', 'TP_comp', 'FP']
+                float_columns = ['Recall','Precision','F1']
+                df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
+                df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0).astype(float)
+            except KeyError:
+                df_redesigned = pd.DataFrame([{
+                    'Tool': filename.split(".")[0],
+                    'File': filename,
+                    'Caller': caller,
+                    'Threshold': 'None',
+                    'TP_base': 0,
+                    'TP_comp': 0,
+                    'FP': 0,
+                    'FN': 0,
+                    'Precision': 0.0,
+                    'Recall': 0.0,
+                    'F1': 0.0
+                }])
 
-		merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
+        merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
 
-	return merged_df
+    return merged_df
 
 def get_happy_results(file_paths):
 	merged_df = pd.DataFrame()

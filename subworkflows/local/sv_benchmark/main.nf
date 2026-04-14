@@ -1,12 +1,12 @@
 //
-// SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
+// SV_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
 //
 
 include { TRUVARI_BENCH          } from '../../../modules/nf-core/truvari/bench'
 include { SVANALYZER_BENCHMARK   } from '../../../subworkflows/local/svanalyzer_benchmark'
 include { WITTYER_BENCHMARK      } from '../../../subworkflows/local/wittyer_benchmark'
 
-workflow SV_GERMLINE_BENCHMARK {
+workflow SV_BENCHMARK {
     take:
     input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targets_bed ]
     fasta     // reference channel [val(meta), ref.fa]
@@ -20,10 +20,9 @@ workflow SV_GERMLINE_BENCHMARK {
 
     // SV benchmarking
     if (params.method.contains('truvari')){
-        // use truvari benchmarking
         TRUVARI_BENCH(
-            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+            input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed, _targets_bed  ->
+                [ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed ]
             },
             fasta,
             fai
@@ -50,9 +49,7 @@ workflow SV_GERMLINE_BENCHMARK {
         logs            = logs.mix(TRUVARI_BENCH.out.log)
     }
 
-    if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
-        // WARN: svbenchmark cannot be run with copynumber analysis
-        // apply svanalyzer to benchmark SVs
+    if (params.method.contains('svanalyzer') ){
         SVANALYZER_BENCHMARK(
             input_ch,
             fasta,

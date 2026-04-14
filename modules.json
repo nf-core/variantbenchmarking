@@ -115,6 +115,11 @@
                         "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",
                         "installed_by": ["modules"]
                     },
+                    "rtgtools/cnveval": {
+                        "branch": "master",
+                        "git_sha": "5799bad7850e0163b1d52290ee05203eabf6f4c7",
+                        "installed_by": ["modules"]
+                    },
                     "rtgtools/format": {
                         "branch": "master",
                         "git_sha": "0f04646a9282049b16b3eb35b042e94dfb3340a0",

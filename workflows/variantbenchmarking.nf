@@ -23,7 +23,8 @@ include { PREPARE_VCFS_TRUTH          } from '../subworkflows/local/prepare_vcfs
 include { PREPARE_VCFS_TEST           } from '../subworkflows/local/prepare_vcfs_test'
 include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conversion'
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
-include { SV_GERMLINE_BENCHMARK       } from '../subworkflows/local/sv_germline_benchmark'
+include { CNV_BENCHMARK               } from '../subworkflows/local/cnv_benchmark'
+include { SV_BENCHMARK                } from '../subworkflows/local/sv_benchmark'
 include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
 include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
@@ -70,7 +71,7 @@ workflow VARIANTBENCHMARKING {
 
 
 
-    if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer|bndeval).*/) {
+    if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer).*/) {
         // Note: concordance analysis does not require truth files
         if (params.ensemble_truth){
             log.warn "params.truth_id will be treaded as 'truth'"
@@ -173,7 +174,7 @@ workflow VARIANTBENCHMARKING {
     vcf_ch  = out_vcf_ch.mix(SUBSAMPLE_VCF_TEST.out.vcf_ch,
                                 sample.singlesample.map{meta, vcf, _bed -> [meta, vcf]})
 
-    if (params.variant_type == "structural" ){
+    if (params.variant_type == "structural" || params.variant_type == "copynumber" ){
         // Standardize SV VCFs, tool specific modifications
         SV_VCF_CONVERSIONS(
             vcf_ch,
@@ -265,19 +266,17 @@ workflow VARIANTBENCHMARKING {
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
 
-    if (params.variant_type == "structural" || params.variant_type == "copynumber"){
-        // Perform SV benchmarking - for now it also works for somatic cases!
-        // this part will be changed!
-        SV_GERMLINE_BENCHMARK(
+    if (params.variant_type == "structural"){
+        SV_BENCHMARK(
             bench,
             fasta,
             fai
         )
-        ch_reports       = ch_reports.mix(SV_GERMLINE_BENCHMARK.out.summary_reports)
-        evals_ch         = evals_ch.mix(SV_GERMLINE_BENCHMARK.out.tagged_variants)
-        ch_multiqc_files = ch_multiqc_files.mix(SV_GERMLINE_BENCHMARK.out.logs.map{ meta, log -> log })
+        ch_reports       = ch_reports.mix(SV_BENCHMARK.out.summary_reports)
+        evals_ch         = evals_ch.mix(SV_BENCHMARK.out.tagged_variants)
+        ch_multiqc_files = ch_multiqc_files.mix(SV_BENCHMARK.out.logs.map{ meta, log -> log })
 
-        if (params.method.contains("bndeval")){
+        if (params.method.contains("rtgtools")){
             // running bndeval might require svdecompose
             RTGTOOLS_BNDEVAL(
                 bench.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -296,6 +295,16 @@ workflow VARIANTBENCHMARKING {
                 RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file) }
             )
         }
+    }
+    if ( params.variant_type == "copynumber"){
+        CNV_BENCHMARK(
+            bench,
+            fasta,
+            fai
+        )
+        ch_reports       = ch_reports.mix(CNV_BENCHMARK.out.summary_reports)
+        evals_ch         = evals_ch.mix(CNV_BENCHMARK.out.tagged_variants)
+        ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ meta, log -> log })
     }
 
     if (params.analysis.contains("germline")){

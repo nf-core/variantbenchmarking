@@ -1,12 +1,12 @@
 nextflow_workflow {
 
-    name "Test Subworkflow SV_GERMLINE_BENCHMARK"
+    name "Test Subworkflow SV_BENCHMARK"
     script "../main.nf"
-    workflow "SV_GERMLINE_BENCHMARK"
+    workflow "SV_BENCHMARK"
 
     tag "subworkflows"
-    tag "subworkflows_sv_germline_benchmark"
-    tag "subworkflows/sv_germline_benchmark"
+    tag "subworkflows_sv_benchmark"
+    tag "subworkflows/sv_benchmark"
     tag "truvari"
     tag "truvari/bench"
     tag "svanalyzer"
