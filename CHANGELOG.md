@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/), thanks @aaryanjaitly for initiation of some processes.
 - Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
 - Adding nf-test and meta.yml to local subworklfows, removing overlapping workflow tests [#257](https://github.com/nf-core/variantbenchmarking/pull/296)
+- Adding rtgtools cnveval as a new benchmarking method for copynumber variants [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
 
 ### `Fixed`
 
@@ -30,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Using nf-metro to create better metromap [#281](https://github.com/nf-core/variantbenchmarking/pull/281)
 - Remove unneccesery reheadering of the vcf outputs of rtgtools and truvari [#286](https://github.com/nf-core/variantbenchmarking/pull/286)
 - Fixing bugs: bnd vcfeval output files producing tags with [] and reformatting header before merging in ensemble analysis [#297](https://github.com/nf-core/variantbenchmarking/pull/297)
+- sv_germline_benchmarking subworkflow renamed to sv_benchmarking as we use the same subworkflow for both germline and somatic analysis [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
+
 
 ### `Dependencies`
 
