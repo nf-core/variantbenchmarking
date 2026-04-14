@@ -165,7 +165,7 @@ def get_rtgtools_results(file_paths):
             df['Tool'] = filename.split(".")[0]
             df['File'] = filename
             df['Caller'] = caller
-            
+
             try:
                 df_redesigned = df[['Tool', 'File', 'Caller', 'Threshold','True-pos-baseline','True-pos-call','False-pos','False-neg','Precision','Sensitivity','F-measure']]
                 df_redesigned.columns = ['Tool','File', 'Caller', 'Threshold','TP_base','TP_comp','FP','FN','Precision','Recall','F1']

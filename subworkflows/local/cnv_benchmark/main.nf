@@ -4,7 +4,7 @@
 
 include { TRUVARI_BENCH         } from '../../../modules/nf-core/truvari/bench'
 include { WITTYER_BENCHMARK     } from '../../../subworkflows/local/wittyer_benchmark'
-include { RTGTOOLS_CNVEVAL      } from '../../../modules/nf-core/rtgtools/cnveval/main' 
+include { RTGTOOLS_CNVEVAL      } from '../../../modules/nf-core/rtgtools/cnveval/main'
 
 workflow CNV_BENCHMARK {
     take:
