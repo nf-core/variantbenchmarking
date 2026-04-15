@@ -16,9 +16,10 @@
 %%metro line: truth | Truth Preprocessing | #4CAF50
 %%metro line: test | Test Preprocessing | #ff9800
 %%metro line: sv_cnv | SV/CNV Benchmarking | #E53935
+%%metro line: cnv | CNV Benchmarking | #c7124bc8
 %%metro line: snv_indel | SNV/INDEL Benchmarking | #AB47BC
-%%metro line: concordance | Concordance | #FFB300
-%%metro line: intersection | Intersection | #18bdad
+%%metro line: concordance | Concordance | #5e2626
+%%metro line: intersection | Intersection | #3e0434
 %%metro line: output | Output Processing | #03A9F4
 
 graph LR
@@ -84,6 +85,7 @@ graph LR
         rtg_vcfeval[RTGtools vcfeval]
         svanalyzer[SVanalyzer]
         rtg_bndeval[RTGtools bndeval]
+        rtg_cnveval[RTGtools cnveval]
         happy[hap.py]
         wittyer[wittyer]
         sompy[som.py]
@@ -93,6 +95,7 @@ graph LR
         bench_hub -->|snv_indel| rtg_vcfeval
         bench_hub -->|sv_cnv| svanalyzer
         bench_hub -->|sv_cnv| rtg_bndeval
+        bench_hub -->|cnv| rtg_cnveval
         bench_hub -->|snv_indel| happy
         bench_hub -->|sv_cnv| wittyer
         bench_hub -->|snv_indel| sompy
@@ -172,6 +175,7 @@ graph LR
     svanalyzer -->|sv_cnv| results_hub
     rtg_bndeval -->|sv_cnv| results_hub
     wittyer -->|sv_cnv| results_hub
+    rtg_cnveval -->|cnv| results_hub
     rtg_vcfeval -->|snv_indel| results_hub
     happy -->|snv_indel| results_hub
     sompy -->|snv_indel| results_hub

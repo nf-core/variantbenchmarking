@@ -1,0 +1,179 @@
+nextflow_workflow {
+
+    name "Test Subworkflow CNV_BENCHMARK"
+    script "../main.nf"
+    workflow "CNV_BENCHMARK"
+
+    tag "subworkflows"
+    tag "subworkflows_cnv_benchmark"
+    tag "subworkflows/cnv_benchmark"
+    tag "truvari/bench"
+    tag "rtgtools/cnveval"
+    tag "wittyer"
+
+    test("structural variants - truvari") {
+
+        when {
+            params {
+                variant_type = "structural"
+                method       = "truvari"
+                truth_id     = "truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                    [] // targets bed
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.tagged_variants.collect { meta, vcf ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).md5
+                        ]
+                    }.sort { it[0].tag },
+                    workflow.out.summary_reports.collect { meta, files ->
+                        def fileNames = files instanceof Collection ? files.collect { path(it.toString()).getFileName().toString() } : [path(files.toString()).getFileName().toString()]
+                        [meta, fileNames.sort()]
+                    },
+                    workflow.out.logs.collect { path(it.toString()).getFileName().toString() }.sort()
+                ).match() }
+            )
+        }
+    }
+
+    test("structural variants - rtgtools") {
+
+        when {
+            params {
+                variant_type = "structural"
+                method       = "rtgtools"
+                truth_id     = "truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                    []
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("structural variants - wittyer") {
+
+        when {
+            params {
+                variant_type = "structural"
+                method       = "wittyer"
+                truth_id     = "truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                    []
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+
+    test("structural variants - stub") {
+        options "-stub"
+        when {
+            params {
+                variant_type = "structural"
+                method       = "truvari"
+                truth_id     = "truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv2.vcf.gz.tbi', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
+                    []
+                ])
+                input[1] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[2] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

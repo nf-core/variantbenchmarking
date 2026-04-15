@@ -84,14 +84,16 @@ workflow PREPARE_VCFS_TRUTH {
         vcf_ch = RTGTOOLS_SVDECOMPOSE.out.vcf.join(RTGTOOLS_SVDECOMPOSE.out.index)
     }
 
-    // filters out ./. or 0/0 or non-somatic genotypes
-    BCFTOOLS_VIEW_FILTERMISSING(
-        vcf_ch,
-        [],
-        [],
-        []
-    )
-    vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+    if (!(params.enable_missing_genotypes?.contains("truth"))) {
+        // filters out ./. or 0/0 or non-somatic genotypes
+        BCFTOOLS_VIEW_FILTERMISSING(
+            vcf_ch,
+            [],
+            [],
+            []
+        )
+        vcf_ch = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+    }
 
     emit:
     vcf_ch       // channel: [val(meta), vcf, tbi]

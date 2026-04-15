@@ -1,12 +1,12 @@
 //
-// SV_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SV GERMLINE VARIANTS
+// CNV_BENCHMARK: SUBWORKFLOW FOR COPY NUMBER VARIATIONS
 //
 
-include { TRUVARI_BENCH          } from '../../../modules/nf-core/truvari/bench'
-include { SVANALYZER_BENCHMARK   } from '../../../subworkflows/local/svanalyzer_benchmark'
-include { WITTYER_BENCHMARK      } from '../../../subworkflows/local/wittyer_benchmark'
+include { TRUVARI_BENCH         } from '../../../modules/nf-core/truvari/bench'
+include { WITTYER_BENCHMARK     } from '../../../subworkflows/local/wittyer_benchmark'
+include { RTGTOOLS_CNVEVAL      } from '../../../modules/nf-core/rtgtools/cnveval/main'
 
-workflow SV_GERMLINE_BENCHMARK {
+workflow CNV_BENCHMARK {
     take:
     input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targets_bed ]
     fasta     // reference channel [val(meta), ref.fa]
@@ -18,12 +18,10 @@ workflow SV_GERMLINE_BENCHMARK {
     tagged_variants = channel.empty()
     logs            = channel.empty()
 
-    // SV benchmarking
     if (params.method.contains('truvari')){
-        // use truvari benchmarking
         TRUVARI_BENCH(
-            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
+            input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed, _targets_bed  ->
+                [ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed ]
             },
             fasta,
             fai
@@ -50,16 +48,16 @@ workflow SV_GERMLINE_BENCHMARK {
         logs            = logs.mix(TRUVARI_BENCH.out.log)
     }
 
-    if (params.method.contains('svanalyzer') && params.variant_type != "copynumber"){
-        // WARN: svbenchmark cannot be run with copynumber analysis
-        // apply svanalyzer to benchmark SVs
-        SVANALYZER_BENCHMARK(
-            input_ch,
-            fasta,
-            fai
+    if (params.method.contains('rtgtools')){
+        RTGTOOLS_CNVEVAL(
+            input_ch.map{ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed, _targets_bed  ->
+                [ meta, vcf, tbi, truth_vcf, truth_tbi, regionsbed ]
+            }
         )
-        summary_reports = summary_reports.mix(SVANALYZER_BENCHMARK.out.report)
-        tagged_variants = tagged_variants.mix(SVANALYZER_BENCHMARK.out.tagged_variants)
+        summary_reports = summary_reports.mix(RTGTOOLS_CNVEVAL.out.summary
+                            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+                            .groupTuple()
+                            .map { meta, files -> tuple(meta, files.flatten()) })
     }
 
     if (params.method.contains('wittyer')){

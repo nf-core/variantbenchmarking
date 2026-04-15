@@ -8,7 +8,49 @@
 
 Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf provided with params.truth_vcf.
 
-params.variant*type can be "small", "structural", or "copynumber" for params.analysis of "germline" or params.variant_type can be "snv", "indel", "structural" or "copynumber" for params.analysis of "somatic". Please be aware that \_only one type of varian_analysis is possible for each run*.
+## Variant Types and Analysis
+
+When setting up your run you must specify exactly one variant type using the variant type parameter. Based on the pipeline schema you must use one of the following exact terms:
+
+- `small`: Use this when your file contains both snvs and indels together.
+- `snv`: Use this for isolated single nucleotide variants.
+- `indel`: Use this for isolated insertions and deletions.
+- `structural`: Use this for large structural events.
+- `copynumber`: Use this for copy number variations.
+
+You must also pair your chosen variant type with the correct analysis type which must be defined as either `germline` or `somatic`.
+
+## Reference Genomes
+
+You must provide a reference genome for the pipeline to correctly align and benchmark your variants. The pipeline supports automated fetching through iGenomes or manual input of your own reference files.
+
+- `--genome`: Use this to specify an iGenomes reference like GRCh37 or GRCh38 to automatically fetch the required fasta and index files.
+- `--fasta`: Provide the path to your own reference genome fasta file if you are not using iGenomes.
+- `--fai`: Provide the index file for your reference fasta.
+- `--dictionary`: Provide the sequence dictionary file which is especially important if you are using the liftover subworkflow.
+- `--sdf`: Provide the formatted SDF directory required specifically when running rtgtools. The pipeline will generate it automatically if it is missing.
+
+## Truth Data
+
+To perform variant benchmarking you must provide a highly validated truth set to compare your test samples against. The pipeline uses these files to calculate performance metrics such as true positives, false positives, false negatives, precision and recall.
+
+You can specify your truth data using the following parameters:
+
+- `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
+- `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
+- `--regions_bed`: A BED file defining the high confidence regions of the genome such as the Genome in a Bottle confident regions. The benchmarking tools will restrict their evaluation to only the variants that fall within these defined coordinates. This ensures that complex or unmappable regions do not artificially skew your performance metrics.
+- `--targets_bed`: The path to the BED file containing your assay target regions. When you provide this file the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
+
+## Stratification Files
+
+When using tools like hap.py or som.py you can perform stratified evaluations to follow GA4GH best practices. Stratification allows you to measure your variant caller performance across very specific genomic contexts such as GC rich regions or low complexity sequences.
+
+To enable this detailed evaluation you must provide a stratification TSV file along with its corresponding BED files. You can supply these to the pipeline using two specific parameters.
+
+- `--stratification_tsv`: The path to the TSV file that lists your stratification BED files.
+- `--stratification_bed`: The path to the directory containing those BED files.
+
+This TSV file simply maps the names of your chosen genomic regions to their respective BED files. Providing this input allows the benchmarking tools to break down your precision and recall metrics by region type giving you much deeper insights into exactly where your caller succeeds or struggles.
 
 ## Samplesheet input
 
@@ -65,8 +107,8 @@ Please note that you should still provide chain and reame_chr files, and lifting
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
 
-- `sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `homogenize,svync,svdecompose,svtk`.
-  - `homogenize`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor). Homogenizes the structural variants in a common format.
+- `sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `variantextractor,svync,svdecompose,svtk`.
+  - `variantextractor`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor). Homogenizes the structural variants in a common format.
   - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync). Reformats VCF headers properly.
   - `svdecompose`: makes use of [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf). Decomposes SVs into BND. Combine it only if you plan to run rtgtools bndeval!
   - `svtk`: use [svtk standardize - from GATK](https://github.com/broadinstitute/gatk-sv/tree/main/src/svtk) to standardize structural variants. The standardization process may change by tool and may produce BND calls. Should be aplied very carefully. Applicable only to delly, manta, lumpy, dragen, scrable, smoove, melt and wham.
@@ -213,11 +255,12 @@ Example cmd:
 - _Copy number variations_: Germline or somatic samples for copy number variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above. You can also filter SVTYPE=CNV using bcftools expressions (`include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type copynumber --method "truvari,wittyer"`
-`--analysis somatic --variant_type copynumber --method "truvari,wittyer"`
+`--analysis germline --variant_type copynumber --method "truvari,wittyer,rtgtools"`
+`--analysis somatic --variant_type copynumber --method "truvari,wittyer,rtgtools"`
 
 - ([truvari bench --pctseq 0](https://github.com/acenglish/truvari/wiki/bench))
 - ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+- ([rtg cnveval](https://realtimegenomics.com/products/rtg-tools))
 
 ## Intersection analysis
 

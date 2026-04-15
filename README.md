@@ -108,6 +108,7 @@ Available methods for germline and somatic _CNVs (copy number variations)_ are:
 
 - Truvari ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
 - Wittyer ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+- RTG tools ([rtg cnveval](https://realtimegenomics.com/products/rtg-tools))
 - Intersection ([bedtools intersect](https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html))
 
 > [!NOTE]
