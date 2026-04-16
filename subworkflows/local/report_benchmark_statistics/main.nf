@@ -64,6 +64,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
 
     emit:
-    ch_plots        // channel: [plots.png]
-    merged_reports  // channel: [ summary.csv]
+    ch_plots        // channel: [ meta, plots.png ]
+    merged_reports  // channel: [ meta, summary.csv]
 }

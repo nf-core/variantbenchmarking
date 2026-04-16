@@ -40,6 +40,9 @@ input:
         pattern: "*.csv"
 output:
   ch_plots:
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
     - plots:
         type: file
         description: Generated metrics and distribution plots.

@@ -19,19 +19,19 @@ input:
         - test_vcf:
           type: file
           description: Query VCF file
-          pattern: "*.{vcf,vcf.gz}"
+          pattern: "*.vcf.gz"
         - test_index:
           type: file
           description: Query VCF index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
         - truth_vcf:
           type: file
           description: Truth VCF file
-          pattern: "*.{vcf,vcf.gz}"
+          pattern: "*.vcf.gz"
         - truth_index:
           type: file
           description: Truth VCF index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
         - regionsbed:
           type: file
           description: BED file containing regions to evaluate
@@ -90,7 +90,7 @@ output:
         - reports:
           type: list
           description: List of summary files
-          pattern: "*"
+          pattern: "*.json"
   - tagged_variants_csv:
       description: Channel containing the split True Positive, False Positive, and False Negative CSV files
       structure:

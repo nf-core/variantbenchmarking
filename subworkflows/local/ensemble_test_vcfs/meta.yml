@@ -25,11 +25,11 @@ input:
         - vcf:
           type: file
           description: VCF file
-          pattern: "*.{vcf,vcf.gz,bcf}"
+          pattern: "*.vcf.gz"
         - index:
           type: file
           description: VCF index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
   - fasta:
       description: Channel containing the target reference FASTA file
       structure:
@@ -60,11 +60,11 @@ output:
         - vcf:
           type: file
           description: Truth VCF file
-          pattern: "*.{vcf,vcf.gz,bcf}"
+          pattern: "*.vcf.gz"
         - index:
           type: file
           description: Index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
 authors:
   - "@kubranarci"
 maintainers:

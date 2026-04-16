@@ -37,11 +37,11 @@ output:
         - vcf:
           type: file
           description: Filtered VCF file
-          pattern: "*.{vcf,vcf.gz,bcf}"
+          pattern: "*.vcf.gz"
         - index:
           type: file
           description: Index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
 authors:
   - "@kubranarci"
 maintainers:
