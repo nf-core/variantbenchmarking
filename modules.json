@@ -197,7 +197,7 @@
                     },
                     "variantextractor": {
                         "branch": "master",
-                        "git_sha": "b61b31006844eba0086187863095d79f8fb58220",
+                        "git_sha": "05ec81fd69f81d13058677c015d58adfa72bd926",
                         "installed_by": ["modules"]
                     },
                     "wittyer": {

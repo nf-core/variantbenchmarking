@@ -30,7 +30,7 @@ workflow VCF_VARIANT_FILTERING {
         vcf_ch = TABIX_BGZIP.out.output
     }
 
-    if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
+    if(params.min_sv_size > 0 || params.max_sv_size != -1 || params.min_allele_freq != -1 || params.min_num_reads != -1){
 
         // filters out smaller SVs than min_sv_size, only applicable to SV files
         if (params.variant_type == "structural"){

@@ -1,6 +1,6 @@
 
 //
-// ENSEMLE_TEST_VCFS: SUBWORKFLOW to ENSEMBLE TEST VCFS and PREPARE TRUTH VCF.
+// ENSEMBLE_TEST_VCFS: SUBWORKFLOW to ENSEMBLE TEST VCFS and PREPARE TRUTH VCF.
 //
 
 include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_SMALL } from '../../../modules/nf-core/tabix/bgziptabix'
@@ -15,7 +15,7 @@ include { BCFTOOLS_SORT as BCFTOOLS_SORT_SV   } from '../../../modules/nf-core/b
 include { TABIX_BGZIP as TABIX_BGZIP_UNZIP    } from '../../../modules/nf-core/tabix/bgzip'
 include { BCFTOOLS_ANNOTATE as BCFTOOLS_UNIFY_HEADER } from '../../../modules/nf-core/bcftools/annotate'
 
-workflow ENSEMLE_TEST_VCFS {
+workflow ENSEMBLE_TEST_VCFS {
     take:
     test_vcfs       // channel: [val(meta), vcf.gz, index]
     fasta           // reference channel [val(meta), ref.fa]
@@ -46,7 +46,7 @@ workflow ENSEMLE_TEST_VCFS {
         false
     )
 
-    if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
+    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
         TABIX_BGZIPTABIX_GT(
             INJECT_MISSING_GT.out.output

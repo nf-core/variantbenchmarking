@@ -19,7 +19,6 @@ process MERGE_REPORTS {
     task.ext.when == null || task.ext.when
 
     script:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.benchmark_tool}"
     """
     merge_reports.py $inputs \\

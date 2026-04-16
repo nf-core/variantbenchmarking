@@ -1,12 +1,12 @@
 nextflow_workflow {
 
-    name "Test Subworkflow ENSEMLE_TEST_VCFS"
+    name "Test Subworkflow ENSEMBLE_TEST_VCFS"
     script "../main.nf"
-    workflow "ENSEMLE_TEST_VCFS"
+    workflow "ENSEMBLE_TEST_VCFS"
 
     tag "subworkflows"
-    tag "subworkflows_ensemle_test_vcfs"
-    tag "subworkflows/ensemle_test_vcfs"
+    tag "subworkflows_ensemble_test_vcfs"
+    tag "subworkflows/ensemble_test_vcfs"
     tag "bcftools"
     tag "bcftools/merge"
     tag "bcftools/view"
