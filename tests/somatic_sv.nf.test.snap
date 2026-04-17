@@ -68,7 +68,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.5.0dev"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
