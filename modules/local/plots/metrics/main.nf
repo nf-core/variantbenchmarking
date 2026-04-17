@@ -11,7 +11,7 @@ process PLOTS_METRICS {
     tuple val(meta), path(summary)
 
     output:
-    path("*.png")          , emit: plots
+    path("*.png")  , emit: plots
     tuple val("${task.process}"), val('r_base'), eval("R --version 2>&1 | head -n 1 | sed 's/^R version //; s/ .*//'"), topic: versions, emit: versions_rbase
 
     when:

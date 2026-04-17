@@ -24,7 +24,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     merged_vcfs = channel.empty()
     ch_plots    = channel.empty()
 
-    if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
+    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
         // Small Variants
         REFORMAT_HEADER(

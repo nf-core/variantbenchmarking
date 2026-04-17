@@ -31,7 +31,7 @@ include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_bench
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
 include { CONCORDANCE_ANALYSIS        } from '../subworkflows/local/concordance_analysis'
-include { ENSEMLE_TEST_VCFS           } from '../subworkflows/local/ensemble_test_vcfs'
+include { ENSEMBLE_TEST_VCFS          } from '../subworkflows/local/ensemble_test_vcfs'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -74,23 +74,24 @@ workflow VARIANTBENCHMARKING {
     if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer).*/) {
         // Note: concordance analysis does not require truth files
         if (params.ensemble_truth){
-            log.warn "params.truth_id will be treaded as 'truth'"
+            log.warn "params.truth_id will be treated as 'truth'"
             }
         else
         {
             if (!params.truth_vcf || !params.truth_id){
-            log.error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
-            exit 1
+            error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
             }
         }
     }
     if (params.method ==~ /.*(?:intersect).*/) {
         if (!params.regions_bed || !params.truth_vcf){
-            log.error "Please specify params.regions_bed to perform intersect analysis"
-            exit 1
+            error "Please specify params.regions_bed to perform intersect analysis"
         }
     }
 
+    if (params.preprocess?.contains("filter_contigs") && !params.genome) {
+        error "Please specify --genome when using filter_contigs preprocessing"
+    }
 
     // Optional files for Happy or Sompy
     falsepositive_bed   = params.falsepositive_bed  ? channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
@@ -112,8 +113,7 @@ workflow VARIANTBENCHMARKING {
     if (params.rename_chr){
         rename_chr = channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
         if (!params.genome){
-            log.error "Please specify params.genome to fix chromosome prefix"
-            exit 1
+            error "Please specify params.genome to fix chromosome prefix"
         }
 
     }else{
@@ -135,8 +135,7 @@ workflow VARIANTBENCHMARKING {
         if (params.chain){
             chain           = channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
         }else{
-            log.error "Please specify params.chain to process liftover of the files"
-            exit 1
+            error "Please specify params.chain to process liftover of the files"
         }
         // if dictionary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
         dictionary      = params.dictionary ? channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()
@@ -194,12 +193,12 @@ workflow VARIANTBENCHMARKING {
 
     // Ensemble and prepare truth file using input VCFs if ensemble_truth approach is choosen
     if (params.ensemble_truth){
-        ENSEMLE_TEST_VCFS(
+        ENSEMBLE_TEST_VCFS(
             PREPARE_VCFS_TEST.out.vcf_ch,
             fasta,
             fai
         )
-        truth_ch    = ENSEMLE_TEST_VCFS.out.truth_vcf
+        truth_ch    = ENSEMBLE_TEST_VCFS.out.truth_vcf
     }else{
         // Prepare and normalize truth vcf provided
         PREPARE_VCFS_TRUTH(
@@ -254,8 +253,7 @@ workflow VARIANTBENCHMARKING {
         evals_ch         = evals_ch.mix(CONCORDANCE_ANALYSIS.out.tagged_variants)
 
     }else if (params.method.contains("concordance")){
-        log.error "Concordance analysis can only be performed small (snv and indels) variants for now"
-        exit 1
+        error "Concordance analysis can only be performed small (snv and indels) variants for now"
     }
 
     // Prepare benchmark channel
@@ -307,9 +305,9 @@ workflow VARIANTBENCHMARKING {
         ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ meta, log -> log })
     }
 
-    if (params.analysis.contains("germline")){
+    if (params.analysis?.contains("germline")){
 
-        if (params.variant_type == "small" | params.variant_type == "snv" | params.variant_type == "indel"){
+        if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
             // Benchmarking specific to small germline samples
             SMALL_GERMLINE_BENCHMARK(
                 bench,
@@ -326,9 +324,9 @@ workflow VARIANTBENCHMARKING {
     }
 
     // SOMATIC BENCHMARKING
-    if (params.analysis.contains("somatic")){
+    if (params.analysis?.contains("somatic")){
 
-        if (params.variant_type == "snv" | params.variant_type == "indel"){
+        if (params.variant_type == "snv" || params.variant_type == "indel"){
             // SOMATIC VARIANT BENCHMARKING
             SMALL_SOMATIC_BENCHMARK(
                 bench,

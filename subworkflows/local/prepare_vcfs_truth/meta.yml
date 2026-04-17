@@ -45,7 +45,7 @@ input:
     - chain:
         type: file
         description: Chain file for liftover (optional).
-        pattern: "*.chain"
+        pattern: "*.chain.gz"
   - - meta:
         type: map
         description: Groovy Map containing rename information.
@@ -74,6 +74,9 @@ output:
         description: Index of the processed truth VCF file.
         pattern: "*.tbi"
   high_conf_ch:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
     - bed:
         type: file
         description: High confidence BED regions.

@@ -20,11 +20,11 @@ input:
         - vcf:
           type: file
           description: VCF file
-          pattern: "*.{vcf,vcf.gz,bcf}"
+          pattern: "*.vcf.gz"
         - index:
           type: file
           description: VCF index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
 output:
   - ch_stats:
       description: Channel containing the generated statistics files
@@ -32,7 +32,7 @@ output:
         - stats:
           type: file
           description: Statistics output file
-          pattern: "*"
+          pattern: "*.{txt,stats}"
 authors:
   - "@kubranarci"
 maintainers:

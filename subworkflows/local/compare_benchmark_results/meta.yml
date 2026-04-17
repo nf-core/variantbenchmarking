@@ -23,11 +23,11 @@ input:
     - evaluations:
         type: file
         description: VCF file containing evaluated variants.
-        pattern: "*.{vcf.gz}"
+        pattern: "*.vcf.gz"
     - index:
         type: file
         description: Index for the VCF file.
-        pattern: "*.{tbi,csi}"
+        pattern: "*.tbi"
   - - meta2:
         type: map
         description: Groovy Map containing sample information.

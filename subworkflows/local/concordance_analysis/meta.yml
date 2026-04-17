@@ -17,11 +17,11 @@ input:
     - vcf:
         type: file
         description: VCF files to be compared.
-        pattern: "*.{vcf.gz}"
+        pattern: "*.vcf.gz"
     - tbi:
         type: file
         description: Index for the VCF files.
-        pattern: "*.{tbi,csi}"
+        pattern: "*.tbi"
   - - bed:
         type: file
         description: Optional BED file containing evaluation regions.

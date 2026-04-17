@@ -41,11 +41,11 @@ output:
         - vcf:
           type: file
           description: Deduplicated and sorted VCF file
-          pattern: "*.{vcf,vcf.gz,bcf,bcf.gz}"
+          pattern: "*.vcf.gz"
         - index:
           type: file
           description: Index file
-          pattern: "*.{tbi,csi}"
+          pattern: "*.tbi"
 authors:
   - "@kubranarci"
 maintainers:
