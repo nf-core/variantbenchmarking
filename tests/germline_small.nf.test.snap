@@ -57,6 +57,9 @@
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
+                "HAPPY_HAPPY": {
+                    "happy": "0.3.15"
+                },
                 "HAPPY_PREPY": {
                     "happy": "0.3.15"
                 },
@@ -277,7 +280,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-23T12:14:48.244280198",
+        "timestamp": "2026-04-21T13:50:40.133165298",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -340,6 +343,9 @@
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
+                },
+                "HAPPY_HAPPY": {
+                    "happy": "0.3.15"
                 },
                 "HAPPY_PREPY": {
                     "happy": "0.3.15"
@@ -666,7 +672,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-03-23T12:11:18.515963793",
+        "timestamp": "2026-04-21T13:48:10.940863646",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

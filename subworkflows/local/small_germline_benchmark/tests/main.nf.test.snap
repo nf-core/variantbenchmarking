@@ -138,8 +138,8 @@
                         "tag": "TP_base"
                     },
                     "test.HG002.haplotypecaller.tp-baseline.vcf.gz",
-                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
-                    "d41d8cd98f00b204e9800998ecf8427e"
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "d4ca878c8b2e7cb646b4d9a3f99f91c7"
                 ],
                 [
                     {
@@ -148,8 +148,8 @@
                         "tag": "TP_comp"
                     },
                     "test.HG002.haplotypecaller.tp.vcf.gz",
-                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
-                    "d41d8cd98f00b204e9800998ecf8427e"
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "a61625f97d21d3f4b9d5d0fc86d7094e"
                 ]
             ],
             [
@@ -164,7 +164,7 @@
                 ]
             ]
         ],
-        "timestamp": "2026-03-26T12:39:29.143982951",
+        "timestamp": "2026-04-21T13:13:18.262485114",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -190,8 +190,8 @@
                         "id": "happy"
                     },
                     "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz",
-                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "cac3148b2ac41bbdcc45a11877cf1b89"
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 [
                     {
@@ -200,8 +200,8 @@
                         "id": "happy"
                     },
                     "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz",
-                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
-                    "d41d8cd98f00b204e9800998ecf8427e"
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "eed5015d812d4e5440aa38fc850506ed"
                 ],
                 [
                     {
@@ -210,8 +210,8 @@
                         "id": "happy"
                     },
                     "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz",
-                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
-                    "d41d8cd98f00b204e9800998ecf8427e"
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "d190cd8e3cceeacc7fd8ce843801dfb9"
                 ]
             ],
             [
@@ -229,7 +229,7 @@
                 
             }
         ],
-        "timestamp": "2026-03-26T12:39:05.081522786",
+        "timestamp": "2026-04-21T13:03:51.26019459",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

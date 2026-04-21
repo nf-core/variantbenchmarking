@@ -31,7 +31,7 @@ nextflow_workflow {
                 """
                 input[0] = Channel.of([
                     [ id:'test' ], // meta map
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gvcf/test.genome.vcf', checkIfExists: true)
+                    file(params.test_data_base + '/testdata/hg37/truth/germline/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.vcf.gz', checkIfExists: true)
                 ])
                 input[1] = Channel.of(
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
@@ -46,7 +46,7 @@ nextflow_workflow {
                 ]).collect()
                 input[4] = Channel.of([
                     [ id:'test_rename' ],
-                    file(projectDir + '/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true)
+                    file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
                 ]).collect()
                 input[5] = Channel.of([
                     [ id:'test_dict' ],

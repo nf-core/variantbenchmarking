@@ -8,13 +8,13 @@ include { SPLIT_SMALL_VARIANTS_TEST    } from '../../local/split_small_variants_
 include { LIFTOVER_VCFS                } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools/norm'
 include { RTGTOOLS_SVDECOMPOSE         } from '../../../modules/nf-core/rtgtools/svdecompose'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS      } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI       } from '../../../modules/nf-core/bcftools/norm'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY} from '../../../modules/nf-core/bcftools/reheader'
-include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING} from '../../../modules/nf-core/bcftools/view'
-include { GAWK as ADD_GT_STRELKA                      } from '../../../modules/nf-core/gawk'
-include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_GT     } from '../../../modules/nf-core/tabix/bgziptabix'
-include { BCFTOOLS_ANNOTATE as BCFTOOLS_RENAME_CHRS   } from '../../../modules/nf-core/bcftools/annotate'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_CONTIGS       } from '../../../modules/nf-core/bcftools/view'
+include { BCFTOOLS_NORM as BCFTOOLS_SPLIT_MULTI        } from '../../../modules/nf-core/bcftools/norm'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_QUERY } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING } from '../../../modules/nf-core/bcftools/view'
+include { GAWK as ADD_GT_STRELKA                       } from '../../../modules/nf-core/gawk'
+include { TABIX_BGZIPTABIX as TABIX_BGZIPTABIX_GT      } from '../../../modules/nf-core/tabix/bgziptabix'
+include { BCFTOOLS_ANNOTATE as BCFTOOLS_RENAME_CHRS    } from '../../../modules/nf-core/bcftools/annotate'
 
 
 workflow PREPARE_VCFS_TEST {
@@ -32,7 +32,8 @@ workflow PREPARE_VCFS_TEST {
     test_ch.branch{input ->
         def meta = input[0]
         liftover: meta.liftover
-        other: true}.set{vcf}
+        other: true}
+        .set{vcf}
 
     vcf_ch = channel.empty()
 
@@ -54,9 +55,10 @@ workflow PREPARE_VCFS_TEST {
     vcf_ch.branch{ input ->
         def meta = input[0]
         prefix: meta.fix_prefix
-        other: true}.set{fix}
+        other: true}
+        .set{fix}
 
-    vcf_ch = Channel.empty()
+    vcf_ch = channel.empty()
 
     // fix vcf chromosome prefix according to reference genome
     BCFTOOLS_RENAME_CHRS(

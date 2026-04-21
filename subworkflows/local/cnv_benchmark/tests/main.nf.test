@@ -11,11 +11,11 @@ nextflow_workflow {
     tag "rtgtools/cnveval"
     tag "wittyer"
 
-    test("structural variants - truvari") {
+    test("Copy number variants - truvari") {
 
         when {
             params {
-                variant_type = "structural"
+                variant_type = "copynumber"
                 method       = "truvari"
                 truth_id     = "truth"
             }
@@ -63,11 +63,11 @@ nextflow_workflow {
         }
     }
 
-    test("structural variants - rtgtools") {
+    test("Copy number variants - rtgtools") {
 
         when {
             params {
-                variant_type = "structural"
+                variant_type = "copynumber"
                 method       = "rtgtools"
                 truth_id     = "truth"
             }
@@ -101,11 +101,11 @@ nextflow_workflow {
         }
     }
 
-    test("structural variants - wittyer") {
+    test("Copy number variants - wittyer") {
 
         when {
             params {
-                variant_type = "structural"
+                variant_type = "copynumber"
                 method       = "wittyer"
                 truth_id     = "truth"
             }
@@ -139,11 +139,11 @@ nextflow_workflow {
         }
     }
 
-    test("structural variants - stub") {
+    test("Copy number variants - stub") {
         options "-stub"
         when {
             params {
-                variant_type = "structural"
+                variant_type = "copynumber"
                 method       = "truvari"
                 truth_id     = "truth"
             }

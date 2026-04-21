@@ -1,5 +1,5 @@
 {
-    "structural variants - wittyer": {
+    "Copy number variants - wittyer": {
         "content": [
             {
                 "0": [
@@ -8,7 +8,7 @@
                 "1": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "benchmark_tool": "wittyer"
                         },
                         [
@@ -25,7 +25,7 @@
                 "summary_reports": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "benchmark_tool": "wittyer"
                         },
                         [
@@ -38,19 +38,64 @@
                 ]
             }
         ],
-        "timestamp": "2026-04-14T12:52:19.587583389",
+        "timestamp": "2026-04-21T12:51:40.557431515",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
     },
-    "structural variants - stub": {
+    "Copy number variants - rtgtools": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "rtgtools"
+                        },
+                        [
+                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
+                        ]
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "logs": [
+                    
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "rtgtools"
+                        },
+                        [
+                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-04-21T12:51:14.928842182",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Copy number variants - stub": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "FN"
                         },
@@ -58,7 +103,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "FP"
                         },
@@ -66,7 +111,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "TP_base"
                         },
@@ -74,7 +119,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "TP_comp"
                         },
@@ -84,7 +129,7 @@
                 "1": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "benchmark_tool": "truvari"
                         },
                         [
@@ -113,7 +158,7 @@
                 "summary_reports": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "benchmark_tool": "truvari"
                         },
                         [
@@ -124,7 +169,7 @@
                 "tagged_variants": [
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "FN"
                         },
@@ -132,7 +177,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "FP"
                         },
@@ -140,7 +185,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "TP_base"
                         },
@@ -148,7 +193,7 @@
                     ],
                     [
                         {
-                            "vartype": "structural",
+                            "vartype": "copynumber",
                             "id": "truvari",
                             "tag": "TP_comp"
                         },
@@ -157,63 +202,18 @@
                 ]
             }
         ],
-        "timestamp": "2026-04-14T12:41:36.308201073",
+        "timestamp": "2026-04-21T12:52:10.011516628",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
         }
     },
-    "structural variants - rtgtools": {
-        "content": [
-            {
-                "0": [
-                    
-                ],
-                "1": [
-                    [
-                        {
-                            "vartype": "structural",
-                            "benchmark_tool": "rtgtools"
-                        },
-                        [
-                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
-                        ]
-                    ]
-                ],
-                "2": [
-                    
-                ],
-                "logs": [
-                    
-                ],
-                "summary_reports": [
-                    [
-                        {
-                            "vartype": "structural",
-                            "benchmark_tool": "rtgtools"
-                        },
-                        [
-                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
-                        ]
-                    ]
-                ],
-                "tagged_variants": [
-                    
-                ]
-            }
-        ],
-        "timestamp": "2026-04-14T12:51:58.930167697",
-        "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
-        }
-    },
-    "structural variants - truvari": {
+    "Copy number variants - truvari": {
         "content": [
             [
                 [
                     {
-                        "vartype": "structural",
+                        "vartype": "copynumber",
                         "id": "truvari",
                         "tag": "FN"
                     },
@@ -222,7 +222,7 @@
                 ],
                 [
                     {
-                        "vartype": "structural",
+                        "vartype": "copynumber",
                         "id": "truvari",
                         "tag": "FP"
                     },
@@ -231,7 +231,7 @@
                 ],
                 [
                     {
-                        "vartype": "structural",
+                        "vartype": "copynumber",
                         "id": "truvari",
                         "tag": "TP_base"
                     },
@@ -240,7 +240,7 @@
                 ],
                 [
                     {
-                        "vartype": "structural",
+                        "vartype": "copynumber",
                         "id": "truvari",
                         "tag": "TP_comp"
                     },
@@ -251,7 +251,7 @@
             [
                 [
                     {
-                        "vartype": "structural",
+                        "vartype": "copynumber",
                         "benchmark_tool": "truvari"
                     },
                     [
@@ -263,7 +263,7 @@
                 "test.truth.manta.log.txt]"
             ]
         ],
-        "timestamp": "2026-04-14T12:40:40.331149552",
+        "timestamp": "2026-04-21T12:50:51.478048074",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ucsc           | 377         | 482         |
 | datavzrd       | 2.36.12     | 2.63.3      |
 | truvari        | 5.3.0       | 5.4.0       |
+| gawk           |    -        | 5.3.0       |
+| coreutils      |    -        | 9.5         |
 
 ## 1.4.0
 
