@@ -75,7 +75,7 @@ workflow VARIANTBENCHMARKING {
         // Note: concordance analysis does not require truth files
         if (params.ensemble_truth){
             log.warn "--truth_id will be treated as 'truth', meaning, ensembled truth file will be named as 'truth'"
-            } else 
+            } else
             {
                 if (!params.truth_vcf || !params.truth_id){
                 error "Please specify --truth_id and --truth_vcf to perform benchmarking analysis"
