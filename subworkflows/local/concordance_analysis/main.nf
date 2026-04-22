@@ -31,7 +31,7 @@ ch_pairs = input_ch
     .toList()
     .flatMap { items ->
         [items, items].combinations()
-            .findAll { left, right -> left[0] < right[0] }     
+            .findAll { left, right -> left[0] < right[0] }
             .collect { left, right ->
                 def combinedMeta = [id: "${left[0]}-${right[0]}"]
                 [
@@ -45,7 +45,7 @@ ch_pairs = input_ch
     ch_bed_input = bed_ch
         .map { file -> [ [id: "intervals"], file ] }
         .collect()
-        .ifEmpty( [[id: "intervals"], []] )
+        .ifEmpty( [[id:"intervals"],[]] )
 
     // GATK4 concordance does not support structural variants now - GATK4 SVCONCORDANCE is in beta
     GATK4_CONCORDANCE(
