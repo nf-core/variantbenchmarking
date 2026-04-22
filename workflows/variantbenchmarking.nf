@@ -84,7 +84,7 @@ workflow VARIANTBENCHMARKING {
     }
     if (params.method ==~ /.*(?:intersect).*/) {
         if (!params.regions_bed || !params.truth_vcf){
-            error "Please specify --regions_bed to perform intersect analysis"
+            error "[nf-core/variantbenchmarking] ERROR: Please specify --regions_bed to perform intersect analysis"
         }
     }
 
