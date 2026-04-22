@@ -78,7 +78,7 @@ workflow VARIANTBENCHMARKING {
             } else
             {
                 if (!params.truth_vcf || !params.truth_id){
-                error "Please specify --truth_id and --truth_vcf to perform benchmarking analysis"
+                error "[nf-core/variantbenchmarking] ERROR:Please specify --truth_id and --truth_vcf to perform benchmarking analysis"
             }
         }
     }
@@ -89,7 +89,7 @@ workflow VARIANTBENCHMARKING {
     }
 
     if (params.preprocess?.contains("filter_contigs") && !params.genome) {
-        error "Please specify --genome when using filter_contigs for --preprocessing"
+        error "[nf-core/variantbenchmarking] ERROR:Please specify --genome when using filter_contigs for --preprocessing"
     }
 
     // Optional files for Happy or Sompy
@@ -112,7 +112,7 @@ workflow VARIANTBENCHMARKING {
     if (params.rename_chr){
         rename_chr = channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
         if (!params.genome){
-            error "Please specify --genome to fix chromosome prefix"
+            error "[nf-core/variantbenchmarking] ERROR:Please specify --genome to fix chromosome prefix"
         }
 
     }else{
@@ -134,7 +134,7 @@ workflow VARIANTBENCHMARKING {
         if (params.chain){
             chain           = channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
         }else{
-            error "Please specify --chain to process liftover of the files"
+            error "[nf-core/variantbenchmarking] ERROR:Please specify --chain to process liftover of the files"
         }
         // if dictionary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
         dictionary      = params.dictionary ? channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()
@@ -252,7 +252,7 @@ workflow VARIANTBENCHMARKING {
         evals_ch         = evals_ch.mix(CONCORDANCE_ANALYSIS.out.tagged_variants)
 
     }else if (params.method.contains("concordance")){
-        error "Concordance analysis can only be performed small (snv and indels) variants"
+        error "[nf-core/variantbenchmarking] ERROR:Concordance analysis can only be performed small (snv and indels) variants"
     }
 
     // Prepare benchmark channel
