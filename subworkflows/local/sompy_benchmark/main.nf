@@ -3,8 +3,7 @@
 //
 
 include { HAPPY_SOMPY          } from '../../../modules/nf-core/happy/sompy'
-include { SPLIT_SOMPY_FEATURES } from '../../../modules/local/custom/split_sompy_features'
-
+include { SOMPY_FEATURES_SPLIT } from '../../../modules/local/sompy_features/split'
 
 workflow SOMPY_BENCHMARK {
     take:
@@ -16,39 +15,36 @@ workflow SOMPY_BENCHMARK {
 
     main:
 
-    versions            = Channel.empty()
-    tagged_variants_csv = Channel.empty()
+    tagged_variants_csv = channel.empty()
 
     // apply sompy for small somatic variant benchmarking
     HAPPY_SOMPY(
-        input_ch.map{meta, test, test_index, truth, truth_index, regions, target -> [meta, test, truth, regions, target]},
+        input_ch.map{meta, test, _test_index, truth, _truth_index, regions, target -> [meta, test, truth, regions, target]},
         fasta,
         fai,
         falsepositive_bed,
         ambiguous_beds,
         [[],[]]
     )
-    versions = versions.mix(HAPPY_SOMPY.out.versions.first())
 
     HAPPY_SOMPY.out.stats
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
         .groupTuple()
         .set{ summary_reports }
 
-    SPLIT_SOMPY_FEATURES(
+    SOMPY_FEATURES_SPLIT(
         HAPPY_SOMPY.out.features
     )
-    versions = versions.mix(SPLIT_SOMPY_FEATURES.out.versions)
 
-    SPLIT_SOMPY_FEATURES.out.TP
+    SOMPY_FEATURES_SPLIT.out.TP
         .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "sompy"], file) }
         .set{tp_vars}
 
-    SPLIT_SOMPY_FEATURES.out.FP
+    SOMPY_FEATURES_SPLIT.out.FP
         .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "sompy"], file) }
         .set{fp_vars}
 
-    SPLIT_SOMPY_FEATURES.out.FN
+    SOMPY_FEATURES_SPLIT.out.FN
         .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "sompy"], file) }
         .set{fn_vars}
 
@@ -57,9 +53,7 @@ workflow SOMPY_BENCHMARK {
                             .mix(fp_vars)
                             .mix(fn_vars)
 
-
     emit:
     summary_reports     // channel: [val(meta), reports]
     tagged_variants_csv // channel: [val(meta), csvs]
-    versions            // channel: [versions.yml]
 }

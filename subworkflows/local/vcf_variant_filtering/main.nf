@@ -14,15 +14,12 @@ workflow VCF_VARIANT_FILTERING {
 
     main:
 
-    versions = Channel.empty()
-
     if(params.exclude_expression || params.include_expression){
 
         // filter vcf files using bcftools expressions
         BCFTOOLS_FILTER(
             vcf_ch
         )
-        versions = versions.mix(BCFTOOLS_FILTER.out.versions.first())
         vcf_ch = BCFTOOLS_FILTER.out.vcf
     }
     else{
@@ -30,11 +27,10 @@ workflow VCF_VARIANT_FILTERING {
         TABIX_BGZIP(
             vcf_ch.map{ meta, vcf, index -> tuple(meta, vcf)}
         )
-        versions = versions.mix(TABIX_BGZIP.out.versions.first())
         vcf_ch = TABIX_BGZIP.out.output
     }
 
-    if(params.min_sv_size > 0 | params.max_sv_size != -1 | params.min_allele_freq != -1 | params.min_num_reads != -1){
+    if(params.min_sv_size > 0 || params.max_sv_size != -1 || params.min_allele_freq != -1 || params.min_num_reads != -1){
 
         // filters out smaller SVs than min_sv_size, only applicable to SV files
         if (params.variant_type == "structural"){
@@ -45,7 +41,6 @@ workflow VCF_VARIANT_FILTERING {
                 params.min_allele_freq,
                 params.min_num_reads
             )
-            versions = versions.mix(SURVIVOR_FILTER.out.versions.first())
             vcf_ch = SURVIVOR_FILTER.out.vcf
         }
     }
@@ -53,10 +48,8 @@ workflow VCF_VARIANT_FILTERING {
     TABIX_BGZIPTABIX(
         vcf_ch
     )
-    versions = versions.mix(TABIX_BGZIPTABIX.out.versions.first())
-    vcf_ch = TABIX_BGZIPTABIX.out.gz_tbi
+    vcf_ch = TABIX_BGZIPTABIX.out.gz_index
 
     emit:
     vcf_ch    // [val(meta), vcf.gz, index]
-    versions  // channel: [versions.yml]
 }

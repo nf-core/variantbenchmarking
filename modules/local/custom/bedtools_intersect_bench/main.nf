@@ -17,7 +17,8 @@ process BEDTOOLS_INTERSECT_BENCH {
     tuple val(meta),path("*FP.bed")       , emit: fp
     tuple val(meta),path("*FN.bed")       , emit: fn
     tuple val(meta),path("*converted.bed"), emit: out_bed, optional: true
-    path "versions.yml"                   , emit: versions
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
+    tuple val("${task.process}"), val('bedtools'), eval("bedtools --version | sed 's/bedtools v//g'"), emit: versions_bedtools, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -36,25 +37,15 @@ process BEDTOOLS_INTERSECT_BENCH {
         $format \\
         $params.genome \\
         $args
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
     """
     stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${meta.id}_stats.txt
-    touch ${meta.id}_TP_comp.bed
-    touch ${meta.id}_TP_base.bed
-    touch ${meta.id}_FP.bed
-    touch ${meta.id}_FN.bed
-    touch ${meta.id}_converted.bed
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-    END_VERSIONS
+    touch ${prefix}_stats.csv
+    touch ${prefix}_TP_comp.bed
+    touch ${prefix}_TP_base.bed
+    touch ${prefix}_FP.bed
+    touch ${prefix}_FN.bed
+    touch ${prefix}_converted.bed
     """
-
 }

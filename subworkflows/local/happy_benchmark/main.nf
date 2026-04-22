@@ -4,8 +4,8 @@
 
 include { HAPPY_HAPPY      } from '../../../modules/nf-core/happy/happy/main'
 include { HAPPY_PREPY      } from '../../../modules/nf-core/happy/prepy/main'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TRUTH        } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_QUERY        } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_TRUTH_TP } from '../../../modules/nf-core/bcftools/filter'
@@ -24,8 +24,7 @@ workflow HAPPY_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    tagged_variants = channel.empty()
 
     input_ch
         .map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -40,7 +39,6 @@ workflow HAPPY_BENCHMARK {
         .set { truth_ch }
 
     if (params.preprocess.contains("prepy")){
-
         // apply prepy if required
         HAPPY_PREPY(
             input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
@@ -49,8 +47,6 @@ workflow HAPPY_BENCHMARK {
             fasta,
             fai
         )
-        versions = versions.mix(HAPPY_PREPY.out.versions.first())
-
         test_ch = HAPPY_PREPY.out.preprocessed_vcf
     }
 
@@ -63,7 +59,6 @@ workflow HAPPY_BENCHMARK {
         stratification_tsv,
         stratification_bed
     )
-    versions = versions.mix(HAPPY_HAPPY.out.versions.first())
 
     // tag meta and collect summary reports
     HAPPY_HAPPY.out.summary_csv
@@ -78,7 +73,6 @@ workflow HAPPY_BENCHMARK {
         [],
         []
         )
-    versions = versions.mix(BCFTOOLS_VIEW_TRUTH.out.versions.first())
 
     // reheader benchmarking results properly and tag meta
     BCFTOOLS_REHEADER_1(
@@ -87,7 +81,6 @@ workflow HAPPY_BENCHMARK {
         },
         fai
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_1.out.versions)
 
     // Subsample QUERY column from happy results
     BCFTOOLS_VIEW_QUERY(
@@ -96,7 +89,6 @@ workflow HAPPY_BENCHMARK {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_QUERY.out.versions)
 
     // reheader benchmarking results properly and tag meta
     BCFTOOLS_REHEADER_2(
@@ -105,12 +97,10 @@ workflow HAPPY_BENCHMARK {
         },
         fai
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_2.out.versions)
 
     BCFTOOLS_FILTER_TRUTH_TP(
         BCFTOOLS_REHEADER_1.out.vcf.join(BCFTOOLS_REHEADER_1.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_TRUTH_TP.out.versions)
 
     BCFTOOLS_FILTER_TRUTH_TP.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
@@ -120,7 +110,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_TRUTH_FN(
         BCFTOOLS_REHEADER_1.out.vcf.join(BCFTOOLS_REHEADER_1.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_TRUTH_FN.out.versions)
 
     BCFTOOLS_FILTER_TRUTH_FN.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
@@ -130,7 +119,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_QUERY_TP(
         BCFTOOLS_REHEADER_2.out.vcf.join(BCFTOOLS_REHEADER_2.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_QUERY_TP.out.versions)
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
@@ -140,7 +128,6 @@ workflow HAPPY_BENCHMARK {
     BCFTOOLS_FILTER_QUERY_FP(
         BCFTOOLS_REHEADER_2.out.vcf.join(BCFTOOLS_REHEADER_2.out.index)
     )
-    versions = versions.mix(BCFTOOLS_FILTER_QUERY_FP.out.versions)
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)
@@ -157,6 +144,5 @@ workflow HAPPY_BENCHMARK {
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
-    versions        // channel: [versions.yml]
 
 }

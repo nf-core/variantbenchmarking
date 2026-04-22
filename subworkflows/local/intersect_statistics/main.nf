@@ -14,18 +14,20 @@ workflow INTERSECT_STATISTICS {
 
     main:
 
-    versions        = Channel.empty()
+    test.branch { input ->
+        def meta         = input[0]
+        def vcf_file     = input[1]
+        def regions_file = input[2]
 
-    test.branch{
-            def vcf_file = it[1]
-            def regions_file = it[2]
-            regions : regions_file.extension != "tbi"
-            vcf : vcf_file
-            other: false}
-            .set{test_samples}
+        regions: regions_file.extension != "tbi"
+        vcf: vcf_file
+        other: false
+    }
+    .set { test_samples }
 
-
-    test_beds_ch = test_samples.regions.map{meta, vcf, bed -> [meta, bed]}
+    test_samples.regions
+        .map{meta, _vcf, bed -> [meta, bed]}
+        .set{test_beds_ch}
 
     // convert VCF files to BED format
     if (params.variant_type == "structural" || params.variant_type == "copynumber"){
@@ -38,7 +40,6 @@ workflow INTERSECT_STATISTICS {
             .map { meta, file -> tuple(meta + [converted: true], file) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
-        versions  = versions.mix(SVTK_VCF2BED.out.versions)
 
     }
 
@@ -48,7 +49,6 @@ workflow INTERSECT_STATISTICS {
         TABIX_BGZIP(
             test_samples.vcf.map { meta, vcf, _tbi->[ meta, vcf ]}
         )
-        versions  = versions.mix(TABIX_BGZIP.out.versions)
 
         BEDOPS_CONVERT2BED(
             TABIX_BGZIP.out.output
@@ -58,7 +58,6 @@ workflow INTERSECT_STATISTICS {
             .map { meta, file -> tuple(meta + [converted: true], file) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
-        versions  = versions.mix(BEDOPS_CONVERT2BED.out.versions)
     }
 
     test_beds_ch
@@ -70,7 +69,6 @@ workflow INTERSECT_STATISTICS {
     BEDTOOLS_INTERSECT_BENCH(
         intersect_ch
     )
-    versions      = versions.mix(BEDTOOLS_INTERSECT_BENCH.out.versions)
 
     // collect summary reports
     BEDTOOLS_INTERSECT_BENCH.out.summary
@@ -79,6 +77,5 @@ workflow INTERSECT_STATISTICS {
         .set{ summary_reports }
 
     emit:
-    versions         // channel: [versions.yml]
     summary_reports  // channel: [meta, summary_report.csv]
 }

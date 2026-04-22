@@ -1,0 +1,128 @@
+nextflow_workflow {
+
+    name "Test Subworkflow COMPARE_BENCHMARK_RESULTS"
+    script "../main.nf"
+    workflow "COMPARE_BENCHMARK_RESULTS"
+
+    tag "subworkflows"
+    tag "subworkflows_compare_benchmark_results"
+    tag "subworkflows/compare_benchmark_results"
+    tag "gawk"
+    tag "tabix/bgzip"
+    tag "tabix/bgziptabix"
+    tag "bcftools/merge"
+    tag "survivor/merge"
+    tag "vcf_to_csv"
+    tag "sompy_features_merge"
+    tag "plots_upset"
+
+    test("Compare small variants benchmark results") {
+
+        when {
+            params {
+                variant_type = "small"
+                skip_plots   = []
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [ id:'test', tag:'FP' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test', tag:'FN' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test', tag:'TP_base' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test', tag:'TP_comp' ],
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                    ]
+                )
+
+                input[1] = Channel.empty()
+
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[3] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.merged_vcfs.collect { meta, vcf ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.ch_plots.collect { meta, png ->
+                        def pngFile = png instanceof Collection ? png[0] : png
+                        def p = path(pngFile.toString())
+                        [
+                            meta,
+                            p.getFileName().toString(),
+                            p.exists(),
+                            p.size() > 0
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
+            )
+        }
+    }
+
+    test("Compare benchmark results stub") {
+        options "-stub"
+        when {
+            params {
+                variant_type = "small"
+                skip_plots   = []
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [ [ id:'test', tag:'FP' ], file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true), file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true) ],
+                    [ [ id:'test', tag:'FN' ], file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true), file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true) ],
+                    [ [ id:'test', tag:'TP_base' ], file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true), file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true) ],
+                    [ [ id:'test', tag:'TP_comp' ], file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true), file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true) ]
+                )
+
+                input[1] = Channel.empty()
+
+                input[2] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[3] = Channel.value([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta.fai', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

@@ -3,40 +3,34 @@
 //
 
 include { SVYNC                   } from '../../../modules/nf-core/svync'
-include { BGZIP_TABIX             } from '../../../modules/local/bgzip/tabix'
-include { TABIX_TABIX             } from '../../../modules/nf-core/tabix/tabix'
-include { VARIANT_EXTRACTOR       } from '../../../modules/local/custom/variant_extractor'
-include { SVTK_STANDARDIZE        } from '../../../modules/nf-core/svtk/standardize/main.nf'
+include { TABIX_BGZIPTABIX        } from '../../../modules/nf-core/tabix/bgziptabix'
+include { VARIANTEXTRACTOR        } from '../../../modules/nf-core/variantextractor'
+include { SVTK_STANDARDIZE        } from '../../../modules/nf-core/svtk/standardize'
 include { RTGTOOLS_SVDECOMPOSE    } from '../../../modules/nf-core/rtgtools/svdecompose'
 include { BCFTOOLS_SORT as BCFTOOLS_SORT1 } from '../../../modules/nf-core/bcftools/sort'
 include { BCFTOOLS_SORT as BCFTOOLS_SORT2 } from '../../../modules/nf-core/bcftools/sort'
+include { TABIX_TABIX as TABIX_TABIX_1    } from '../../../modules/nf-core/tabix/tabix'
+include { TABIX_TABIX as TABIX_TABIX_2    } from '../../../modules/nf-core/tabix/tabix'
 
 
 workflow SV_VCF_CONVERSIONS {
     take:
     input_ch    // channel: [val(meta), vcf]
-    fasta       // reference channel [val(meta), ref.fa]
     fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
-    versions   = Channel.empty()
 
-    if (params.sv_standardization.contains("variant_extractor")){
+    if (params.sv_standardization.contains("variantextractor")){
         // uses VariantExtractor to homogenize variants
-        VARIANT_EXTRACTOR(
-            input_ch,
-            fasta,
-            fai
+        VARIANTEXTRACTOR(
+            input_ch
         )
-        versions = versions.mix(VARIANT_EXTRACTOR.out.versions)
 
         // sort vcf
         BCFTOOLS_SORT1(
-            VARIANT_EXTRACTOR.out.output
+            VARIANTEXTRACTOR.out.vcf
         )
-        versions = versions.mix(BCFTOOLS_SORT1.out.versions)
         input_ch = BCFTOOLS_SORT1.out.vcf
-
     }
 
     if (params.sv_standardization.contains("svtk")){
@@ -44,7 +38,6 @@ workflow SV_VCF_CONVERSIONS {
         out_vcf_ch = Channel.empty()
 
         supported_callers2 = ["delly", "melt", "manta", "wham", "dragen", "lumpy", "scrable", "smoove"]
-
         input_ch
             .branch{ meta, _vcf->
                 def caller = meta.caller
@@ -57,21 +50,18 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set{input}
 
-        TABIX_TABIX(
+        TABIX_TABIX_1(
             input.tool
         )
-        versions = versions.mix(TABIX_TABIX.out.versions)
 
         SVTK_STANDARDIZE(
-            input.tool.join(TABIX_TABIX.out.tbi),
+            input.tool.join(TABIX_TABIX_1.out.index),
             fai
         )
-        versions = versions.mix(SVTK_STANDARDIZE.out.versions)
 
         BCFTOOLS_SORT2(
             SVTK_STANDARDIZE.out.vcf
         )
-        versions = versions.mix(BCFTOOLS_SORT2.out.versions)
 
         out_vcf_ch.mix(
                 BCFTOOLS_SORT2.out.vcf,
@@ -84,16 +74,26 @@ workflow SV_VCF_CONVERSIONS {
         RTGTOOLS_SVDECOMPOSE(
             input_ch.map{ meta, vcf -> tuple(meta, vcf, [])}
         )
-        versions = versions.mix(RTGTOOLS_SVDECOMPOSE.out.versions)
         input_ch = RTGTOOLS_SVDECOMPOSE.out.vcf
     }
 
-    // zip and index input test files
-    BGZIP_TABIX(
-        input_ch
-    )
-    versions = versions.mix(BGZIP_TABIX.out.versions.first())
-    vcf_ch = BGZIP_TABIX.out.gz_tbi
+    input_ch
+        .branch { input ->
+            compressed:   input[1].getName().endsWith('.gz')
+            uncompressed: true
+        }
+        .set { ch_inputs }
+
+    TABIX_BGZIPTABIX (
+        ch_inputs.uncompressed
+        )
+
+    TABIX_TABIX_2 (
+        ch_inputs.compressed
+        )
+
+    compressed_ch = ch_inputs.compressed.join(TABIX_TABIX_2.out.index)
+    vcf_ch = TABIX_BGZIPTABIX.out.gz_index.mix(compressed_ch)
 
     // RUN SVYNC tool to reformat SV callers
     if(params.sv_standardization.contains("svync")){
@@ -114,7 +114,6 @@ workflow SV_VCF_CONVERSIONS {
             }
             .set{input}
 
-
         input.tool
             .map { meta, vcf, tbi ->
                 [ meta, vcf, tbi, file("${projectDir}/assets/svync/${meta.caller}.yaml", checkIfExists:true) ]
@@ -124,14 +123,13 @@ workflow SV_VCF_CONVERSIONS {
         SVYNC(
             svync_ch
         )
-        versions = versions.mix(SVYNC.out.versions.first())
         out_vcf_ch.mix(
                 SVYNC.out.vcf,
                 input.other
             )
-            .map{
-                def meta = it[0]
-                def vcf = it[1]
+            .map{ input ->
+                def meta = input[0]
+                def vcf = input[1]
                 [ meta, vcf ]
             }
             .set { vcf_ch }
@@ -139,5 +137,4 @@ workflow SV_VCF_CONVERSIONS {
 
     emit:
     vcf_ch   // channel: [val(meta), vcf]
-    versions // channel: [versions.yml]
 }

@@ -14,8 +14,7 @@ workflow SVANALYZER_BENCHMARK {
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    tagged_variants = channel.empty()
 
     // apply svanalyzer to benchmark SVs
     SVANALYZER_SVBENCHMARK(
@@ -25,7 +24,6 @@ workflow SVANALYZER_BENCHMARK {
         fasta,
         fai
     )
-    versions = versions.mix(SVANALYZER_SVBENCHMARK.out.versions)
 
     // tag and collect summary file
     SVANALYZER_SVBENCHMARK.out.report
@@ -47,14 +45,12 @@ workflow SVANALYZER_BENCHMARK {
         input_ch.map{ meta, vcf, tbi, _truth_vcf, _truth_tbi, regionsbed, targets_bed  ->
             [ meta, vcf, tbi, regionsbed, targets_bed ]}.join(SVANALYZER_SVBENCHMARK.out.fps)
         )
-    versions = versions.mix(SUBTRACT_VCF_QUERY.out.versions)
 
     // subtract Fns from Truth to find TPs in TRUTH
     SUBTRACT_VCF_TRUTH(
         input_ch.map{ meta, _vcf, _tbi, truth_vcf, truth_tbi, regionsbed, targets_bed  ->
             [ meta, truth_vcf, truth_tbi, regionsbed, targets_bed ]}.join(SVANALYZER_SVBENCHMARK.out.fns)
         )
-    versions = versions.mix(SUBTRACT_VCF_TRUTH.out.versions)
 
     // reheader tp_comp vcf files for tagged results
     SUBTRACT_VCF_QUERY.out.vcf
@@ -76,5 +72,4 @@ workflow SVANALYZER_BENCHMARK {
     emit:
     tagged_variants // channel: [val(meta), vcfs]
     report          // channel: [val(meta), reports]
-    versions        // channel: [val(meta), versions.yml]
 }

@@ -23,7 +23,6 @@ references/rtgtools/genome.sdf/progress
 references/rtgtools/genome.sdf/format.log
 references/rtgtools/genome.sdf/mainIndex
 references/rtgtools/genome.sdf/done
-**/summary/datavzrd/versions.yml
 **/summary/datavzrd/**/index.html
 **/summary/datavzrd/**/static/*
 **/summary/datavzrd/**/static/*.{js}

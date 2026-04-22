@@ -44,14 +44,14 @@
                 "variant_type": {
                     "type": "string",
                     "description": "Variant types to benchmark",
-                    "errorMessage": "Select a variant type to make the analysis: small,snv,indel,structural or copynumber. Select small when your vcf contains both snvs and indels",
+                    "errorMessage": "Select a variant type to make the analysis: small, snv, indel, structural or copynumber. Select small when your vcf contains both snvs and indels",
                     "enum": ["small", "snv", "indel", "structural", "copynumber"],
                     "fa_icon": "fas fa-folder-open"
                 },
                 "method": {
                     "type": "string",
                     "description": "The benchmarking methods to use. For germline small variants (SNV and INDEL) use happy and/or rtgtools, for somatic small variants (SNV and INDEL) use sompy and/or rtgtools, for structural variants use wittyer, truvari and/or svanalyzer, for copy number variations use wittyer and/or truvari. Use intersect to intersect BED files. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect, bndeval, concordance",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect, concordance",
                     "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect|bndeval|concordance)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
@@ -100,6 +100,13 @@
                     "help_text": "Truth or golden set VCF file, to be used for comparisons",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "ensemble_truth": {
+                    "type": "integer",
+                    "description": "Ensemble truth using input VCF files following the majority rule specified. This method should be used only if truth file is not available",
+                    "errorMessage": "Specify majority rule, select the minimum number of samples to ensemble",
+                    "fa_icon": "fas fa-folder-open",
+                    "minimum": 1
+                },
                 "preprocess": {
                     "type": "string",
                     "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: split_multiallelic, normalizate, deduplicate, prepy, filter_contigs",
@@ -109,9 +116,9 @@
                 },
                 "sv_standardization": {
                     "type": "string",
-                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: homogenize, svync, svdecompose, svtk",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: homogenize, svync, svdecompose, svtk",
-                    "pattern": "^((homogenize|svync|svdecompose|svtk)?,?)*(?<!,)$",
+                    "description": "The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: variantextractor, svync, svdecompose, svtk",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: variantextractor, svync, svdecompose, svtk",
+                    "pattern": "^((variantextractor|svync|svdecompose|svtk)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "skip_plots": {
@@ -160,6 +167,13 @@
                     "description": "Use bcftools expressions https://samtools.github.io/bcftools/bcftools.html#expressions to include variants",
                     "fa_icon": "fas fa-folder-open",
                     "minLength": 1
+                },
+                "enable_missing_genotypes": {
+                    "type": "string",
+                    "description": "The pipeline filter outs missing genotypes with ./. or 0/0 by default, enable using missing genotypes for test, truth. Should be a comma-separated list of one or more of the following options: test, truth",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: test,truth",
+                    "pattern": "^((test|truth)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
                     "type": "string",

@@ -2,12 +2,13 @@
 // LIFTOVER_VCFS: SUBWORKFLOW TO LIFTOVER VCFS HG37 TO HG38 OR HG38 TO HG37
 //
 
-include { PICARD_LIFTOVERVCF   } from '../../../modules/nf-core/picard/liftovervcf'
-include { REFORMAT_HEADER      } from '../../../modules/local/custom/reformat_header'
-include { BCFTOOLS_RENAME_CHR  } from '../../../modules/local/bcftools/rename_chr'
-include { UCSC_LIFTOVER        } from '../../../modules/nf-core/ucsc/liftover'
-include { SORT_BED             } from '../../../modules/local/custom/sort_bed'
-include { BEDTOOLS_MERGE       } from '../../../modules/nf-core/bedtools/merge'
+include { PICARD_LIFTOVERVCF           } from '../../../modules/nf-core/picard/liftovervcf'
+include { GAWK as REFORMAT_HEADER      } from '../../../modules/nf-core/gawk'
+include { BCFTOOLS_ANNOTATE            } from '../../../modules/nf-core/bcftools/annotate'
+include { UCSC_LIFTOVER                } from '../../../modules/nf-core/ucsc/liftover'
+include { GNU_SORT                     } from '../../../modules/nf-core/gnu/sort'
+include { BEDTOOLS_MERGE               } from '../../../modules/nf-core/bedtools/merge'
+include { TABIX_BGZIPTABIX             } from '../../../modules/nf-core/tabix/bgziptabix'
 
 
 workflow LIFTOVER_VCFS {
@@ -21,8 +22,6 @@ workflow LIFTOVER_VCFS {
 
     main:
 
-    versions = Channel.empty()
-
     // Use picard liftovervcf tool to convert vcfs
     PICARD_LIFTOVERVCF(
         ch_vcf,
@@ -30,45 +29,45 @@ workflow LIFTOVER_VCFS {
         fasta,
         chain
     )
-    versions = versions.mix(PICARD_LIFTOVERVCF.out.versions)
-    vcf_ch   = PICARD_LIFTOVERVCF.out.vcf_lifted
 
     // reformat header, convert PS TYPE integer to string after liftover
     REFORMAT_HEADER(
-        vcf_ch.map{meta, vcf -> tuple(meta, vcf, [])}
+        PICARD_LIFTOVERVCF.out.vcf_lifted,
+        [],
+        false
     )
-    versions = versions.mix(REFORMAT_HEADER.out.versions)
+
+    TABIX_BGZIPTABIX(
+        REFORMAT_HEADER.out.output
+    )
 
     // rename chr after liftover
-    BCFTOOLS_RENAME_CHR(
-        REFORMAT_HEADER.out.gz_tbi,
-        rename_chr
+    BCFTOOLS_ANNOTATE(
+        TABIX_BGZIPTABIX.out.gz_index.map{meta, vcf, tbi -> tuple(meta, vcf, tbi, [], [])},
+        [],
+        [],
+        rename_chr.map{_meta, file -> file}
     )
-    vcf_ch = BCFTOOLS_RENAME_CHR.out.vcf
-    versions = versions.mix(BCFTOOLS_RENAME_CHR.out.versions)
+    vcf_ch = BCFTOOLS_ANNOTATE.out.vcf
 
     // liftover high confidence bed file if given
     UCSC_LIFTOVER(
         ch_bed.map{file -> tuple([id: params.truth_id], file)},
         chain.map{_meta, file -> file}
     )
-    versions = versions.mix(UCSC_LIFTOVER.out.versions)
 
     // sort bed file
-    SORT_BED(
+    GNU_SORT(
         UCSC_LIFTOVER.out.lifted
     )
-    versions = versions.mix(SORT_BED.out.versions)
 
     // merge the intersected regions
     BEDTOOLS_MERGE(
-        SORT_BED.out.bed
+        GNU_SORT.out.sorted
     )
-    versions = versions.mix(BEDTOOLS_MERGE.out.versions)
     bed_ch = BEDTOOLS_MERGE.out.bed
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]
     bed_ch      // channel: [val(meta), bed]
-    versions    // channel: [versions.yml]
 }

@@ -3,6 +3,55 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.5.0dev
+
+### `Added`
+
+- RTGtools update to 3.13 [#261](https://github.com/nf-core/variantbenchmarking/issues/261)
+- Transforming local modules with bcftools and tabix to standard nf-core modules [#267](https://github.com/nf-core/variantbenchmarking/pull/267)
+- Replace local modules SORT_BED and REFORMAT_HEADER with nf-core ones. [#268](https://github.com/nf-core/variantbenchmarking/pull/268)
+- Replace local module FIX_VCF_PREFIX with BCFTOOLS_ANNOTATE [#287](https://github.com/nf-core/variantbenchmarking/pull/287)
+- Replacing create_datavzrd_input with cat_cat [#292](https://github.com/nf-core/variantbenchmarking/pull/292)
+- Introducing a new subworkflow to generate truth vcf with an ensemble approach. Test VCFs are being merged and according to ensembl_truth rule (the minimum number of callers to agree) a new truth set is created. This apporach is especially important and needed for somatic benchmarks where truth is often missing. [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
+- Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
+- Bedfile index checking and smoother vcf comparisions [#290](https://github.com/nf-core/variantbenchmarking/pull/290)
+- Adding nf-tests to local modules [#278](https://github.com/nf-core/variantbenchmarking/pull/295/), thanks @aaryanjaitly for initiation of some processes.
+- Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
+- Adding nf-test and meta.yml to local subworklfows, removing overlapping workflow tests [#257](https://github.com/nf-core/variantbenchmarking/pull/296)
+- Adding rtgtools cnveval as a new benchmarking method for copynumber variants [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
+
+### `Fixed`
+
+- increasing font sizes, making labelling optional and some fixes around plots. Tests are editted to observe optional plot arguments. [#270](https://github.com/nf-core/variantbenchmarking/pull/270)
+- Improving the pipeline towards strict syntax health & adding topic channels - 1 [#272](https://github.com/nf-core/variantbenchmarking/pull/272)
+- Syntax health, Channel to channel, versions to topic channels. Version update for happy, bedops, picard, ucsc, datavzrd, truvari tools [#277](https://github.com/nf-core/variantbenchmarking/pull/277)
+- Fixing the bed file bug in concordance analysis [#260](https://github.com/nf-core/variantbenchmarking/pull/275)
+- Missing --sample for meta.id is fixed in BCFTOOLS_REHEADER [#276](https://github.com/nf-core/variantbenchmarking/pull/276)
+- GT field is necessary for rtgtools vcfeval, strelka reports no GT field for somatic analysis. Fixing the GT field setup for strelka (bcftools plugingtset doesnt work as GT is not available) [#279](https://github.com/nf-core/variantbenchmarking/pull/279)
+- Using nf-metro to create better metromap [#281](https://github.com/nf-core/variantbenchmarking/pull/281)
+- Remove unneccesery reheadering of the vcf outputs of rtgtools and truvari [#286](https://github.com/nf-core/variantbenchmarking/pull/286)
+- Fixing bugs: bnd vcfeval output files producing tags with [] and reformatting header before merging in ensemble analysis [#297](https://github.com/nf-core/variantbenchmarking/pull/297)
+- sv_germline_benchmarking subworkflow renamed to sv_benchmarking as we use the same subworkflow for both germline and somatic analysis [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
+- Preparing for the release 1.5.0 and fixing linting errors [#299](https://github.com/nf-core/variantbenchmarking/pull/299).
+- Applying review comments before 1.5.0 release [#231](https://github.com/nf-core/variantbenchmarking/pull/301)
+
+### `Dependencies`
+
+| Dependency     | Old version | New version |
+| -------------- | ----------- | ----------- |
+| rtgtools       | 3.12.1      | 3.13        |
+| bcftools       | 1.2         | 1.22        |
+| tabix          | 1.19.1      | 1.21        |
+| bcftools/stats | 1.18        | 1.22        |
+| happy          | 0.3.14      | 0.3.15      |
+| bedops         | 2.4.41      | 2.4.42      |
+| picard         | 3.2.0       | 3.4.0       |
+| ucsc           | 377         | 482         |
+| datavzrd       | 2.36.12     | 2.63.3      |
+| truvari        | 5.3.0       | 5.4.0       |
+| gawk           | -           | 5.3.0       |
+| coreutils      | -           | 9.5         |
+
 ## 1.4.0
 
 ### `Added`

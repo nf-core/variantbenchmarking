@@ -1,0 +1,51 @@
+{
+    "sort and subsample vcf": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "subsample": "tumour"
+                    },
+                    "test_test2_paired_mutect2_calls.sort.subsample.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=40, phased=false, phasedAutodetect=false]",
+                    "2a5b1742daaadbcb74b870e54b5b4245"
+                ]
+            ]
+        ],
+        "timestamp": "2026-03-26T10:48:27.078523102",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "sort and subsample vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "subsample": "tumour"
+                        },
+                        "test_test2_paired_mutect2_calls.sort.subsample.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "subsample": "tumour"
+                        },
+                        "test_test2_paired_mutect2_calls.sort.subsample.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T17:06:47.052130575",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

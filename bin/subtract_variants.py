@@ -54,14 +54,20 @@ def parse_bed_file(file_path):
     except Exception as e:
         print(f"An error occurred while parsing {file_path}: {e}", file=sys.stderr)
         sys.exit(1)
+
     return regions
+
+def check_1_based(position, chrom, source="VCF/BED"):
+    if position < 1:
+        print(f"ERROR: {source} has position < 1 at {chrom}:{position}. Must be 1-based.", file=sys.stderr)
+        sys.exit(1)
 
 def is_in_region(chrom, pos, bed_regions):
     if chrom not in bed_regions:
         return False
 
     chrom_regions = bed_regions[chrom]
-    idx = bisect.bisect_left(chrom_regions, (pos - 1, float('inf')))
+    idx = bisect.bisect_left(chrom_regions, (pos, float('inf')))
 
     if idx < len(chrom_regions):
         start, end = chrom_regions[idx]

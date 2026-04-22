@@ -1,0 +1,61 @@
+nextflow_process {
+
+    name "Test Process PLOTS_SVLEN_DIST"
+    script "../main.nf"
+    process "PLOTS_SVLEN_DIST"
+
+    tag "modules"
+    tag "modules_local"
+    tag "plots_svlen_dist"
+    tag "svlen_dist"
+
+    test("Standard SV length plot - VCF") {
+
+        when {
+            params {
+                variant_type = 'sv'
+            }
+            process {
+                """
+                input[0] = [
+                    [ id:'test_sample', tag:'manta' ],
+                    file(params.test_data_base + '/testdata/hg38/test/somatic/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard SV length plot - stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                variant_type = 'sv'
+            }
+            process {
+                """
+                input[0] = [
+                    [ id:'test_stub', tag:'manta' ],
+                    file(params.test_data_base + '/testdata/hg38/test/somatic/HCC1395T_vs_HCC1395N.manta.somatic_sv.vcf.gz', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

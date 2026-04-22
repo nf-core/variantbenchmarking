@@ -7,12 +7,14 @@
 suppressWarnings(library(ggplot2))
 suppressWarnings(library(reshape2))
 suppressWarnings(library(scales))
+
 seaborn_cb_palette <- c(
     "#0173b2", "#d55e00", "#029e73", "#de8f05", "#cc78bc",
     "#ca9161", "#fbafe4", "#949494", "#ece133", "#56b4e9"
 )
+
 # Function to generate plots
-generate_plots <- function(table, benchmark, type, filter, stats) {
+generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
     if (type != "None" && filter != "None") {
         table <- table[table$Type == type & table$Filter == filter, ]
         name1 <- paste(type, "_", filter, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
@@ -45,14 +47,16 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
     tp_data$variable <- factor(tp_data$variable, levels = c("TP_comp", "FP", "FN"))
     metric_data$variable <- factor(metric_data$variable, levels = c("F1"))
 
-    axis_text_size <- 12
-    axis_title_size <- 14
-    point_size <- 3
+    # Sizes
+    axis_text_size <- 16
+    axis_title_size <- 16
+    point_size <- 4
     line_size <- 1.2
-    title_size <- 16
-    facet_text_size <- 14
-    legend_text_size <- 12
-    legend_title_size <- 14
+    title_size <- 18
+    facet_text_size <- 16
+    legend_text_size <- 14
+    legend_title_size <- 16
+    label_text_size <- 5
 
     # Visualize TP_comp, FP, and FN in separate plots
     tp_plot <- ggplot(tp_data, aes(x = Tool, y = value, color = Tool, group = interaction(variable, Tool))) +
@@ -64,14 +68,18 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
         theme(
             legend.position = "none",
             panel.background = element_rect(fill = "white"),
-            axis.text.x = element_text(angle = 30, hjust = 0.5, size = axis_text_size),
+            axis.text.x = element_text(angle = 30, hjust = 0.5, size = axis_text_size, face = "bold"),
             axis.text.y = element_text(size = axis_text_size),
-            axis.title.x = element_text(size = axis_title_size),
-            axis.title.y = element_text(size = axis_title_size),
+            axis.title.x = element_text(size = axis_title_size, face = "bold"),
+            axis.title.y = element_text(size = axis_title_size, face = "bold"),
             plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
             strip.text = element_text(size = facet_text_size, face = "bold")) +
-        scale_y_continuous(labels = scales::label_number(), limits = c(0, NA)) +
+        scale_y_continuous(labels = scales::label_number(), limits = c(0, NA), expand = expansion(mult = c(0.05, 0.15))) +
         scale_color_manual(values = seaborn_cb_palette)
+
+    if (show_labels) {
+        tp_plot <- tp_plot + geom_text(aes(label = value), vjust = -1.0, size = label_text_size, color = "black")
+    }
 
     # Visualize f1
     f1_plot <- ggplot(metric_data, aes(x = Tool, y = value, color = Tool)) +
@@ -81,14 +89,18 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
         theme(
             legend.position = "none",
             panel.background = element_rect(fill = "white"),
-            axis.text.x = element_text(angle = 30, hjust = 0.5, size = axis_text_size),
+            axis.text.x = element_text(angle = 30, hjust = 0.5, size = axis_text_size, face = "bold"),
             axis.text.y = element_text(size = axis_text_size),
-            axis.title.x = element_text(size = axis_title_size),
-            axis.title.y = element_text(size = axis_title_size),
+            axis.title.x = element_text(size = axis_title_size, face = "bold"),
+            axis.title.y = element_text(size = axis_title_size, face = "bold"),
             plot.title = element_text(size = title_size, face = "bold", hjust = 0.5)
             ) +
             scale_y_continuous(labels = scales::label_number(accuracy = 0.01), limits = c(0, 1)) +
             scale_color_manual(values = seaborn_cb_palette)
+
+    if (show_labels) {
+        f1_plot <- f1_plot + geom_text(aes(label = round(value, 3)), vjust = -1.0, size = label_text_size, color = "black")
+    }
 
     # Visualize Precision vs Recall
     pr_plot <- ggplot(table) +
@@ -100,8 +112,8 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
             panel.background = element_rect(fill = "white"),
             axis.text.x = element_text(size = axis_text_size),
             axis.text.y = element_text(size = axis_text_size),
-            axis.title.x = element_text(size = axis_title_size),
-            axis.title.y = element_text(size = axis_title_size),
+            axis.title.x = element_text(size = axis_title_size, face = "bold"),
+            axis.title.y = element_text(size = axis_title_size, face = "bold"),
             plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
             legend.text = element_text(size = legend_text_size),
             legend.title = element_text(size = legend_title_size)) +
@@ -138,6 +150,10 @@ generate_plots <- function(table, benchmark, type, filter, stats) {
 # Main script
 args <- commandArgs(trailingOnly = TRUE)
 
+show_point_labels <- "--labels" %in% args
+
+args <- args[args != "--labels"]
+
 if (length(args) < 2) {
     stop("Please input the .summary file and benchmark", call. = FALSE)
 }
@@ -146,19 +162,19 @@ table <- read.csv(args[1])
 benchmark <- args[2]
 
 if (benchmark == "happy") {
-    generate_plots(table, benchmark, "SNP", "PASS", "None")
-    generate_plots(table, benchmark, "SNP", "ALL", "None")
-    generate_plots(table, benchmark, "INDEL", "PASS", "None")
-    generate_plots(table, benchmark, "INDEL", "ALL", "None")
+    generate_plots(table, benchmark, "SNP", "PASS", "None", show_point_labels)
+    generate_plots(table, benchmark, "SNP", "ALL", "None", show_point_labels)
+    generate_plots(table, benchmark, "INDEL", "PASS", "None", show_point_labels)
+    generate_plots(table, benchmark, "INDEL", "ALL", "None", show_point_labels)
 }else if (benchmark == "wittyer") {
-    generate_plots(table, benchmark, "None", "None", "Base")
-    generate_plots(table, benchmark, "None", "None", "Event")
+    generate_plots(table, benchmark, "None", "None", "Base", show_point_labels)
+    generate_plots(table, benchmark, "None", "None", "Event", show_point_labels)
 }else if (benchmark == "concordance") {
-    generate_plots(table, benchmark, "SNP", "None", "None")
-    generate_plots(table, benchmark, "INDEL", "None", "None")
+    generate_plots(table, benchmark, "SNP", "None", "None", show_point_labels)
+    generate_plots(table, benchmark, "INDEL", "None", "None", show_point_labels)
 }else {
     if (benchmark == "rtgtools") {
         table <- table[table$Threshold == "None", ]
     }
-    generate_plots(table, benchmark, "None", "None", "None")
+    generate_plots(table, benchmark, "None", "None", "None", show_point_labels)
 }

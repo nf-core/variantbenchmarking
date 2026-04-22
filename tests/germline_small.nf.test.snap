@@ -1,91 +1,98 @@
 {
     "-stub": {
         "content": [
-            100,
+            108,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "HAPPY_HAPPY": {
-                    "hap.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "HAPPY_PREPY": {
-                    "pre.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
-                },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
-                    "rtg-tools": "3.12.1"
+                    "rtgtools": 3.13
                 },
                 "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": "3.12.1"
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.4.0"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
@@ -97,8 +104,8 @@
                 "small",
                 "small/HG002",
                 "small/HG002/preprocess",
-                "small/HG002/preprocess/HG002.vcf.gz",
-                "small/HG002/preprocess/HG002.vcf.gz.tbi",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -155,7 +162,6 @@
                 "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
                 "small/summary/datavzrd/rtgtools/static/bundle.js",
                 "small/summary/datavzrd/rtgtools/static/datavzrd.css",
-                "small/summary/datavzrd/versions.yml",
                 "small/summary/plots",
                 "small/summary/plots/happy",
                 "small/summary/plots/happy/happy.FN.svlen.png",
@@ -209,8 +215,8 @@
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test6/preprocess",
-                "small/test6/preprocess/test6.vcf.gz",
-                "small/test6/preprocess/test6.vcf.gz.tbi",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test6/stats",
                 "small/test6/stats/bcftools",
                 "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
@@ -243,8 +249,8 @@
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test7/preprocess",
-                "small/test7/preprocess/test7.vcf.gz",
-                "small/test7/preprocess/test7.vcf.gz.tbi",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test7/stats",
                 "small/test7/stats/bcftools",
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
@@ -274,99 +280,106 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-04-21T13:50:40.133165298",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-17T14:03:34.245200034"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
-            100,
+            108,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_MERGE": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "HAPPY_HAPPY": {
-                    "hap.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "HAPPY_PREPY": {
-                    "pre.py": "0.3.14"
+                    "happy": "0.3.15"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
-                },
                 "REFORMAT_HEADER": {
-                    "tabix": 1.12
+                    "gawk": "5.3.0"
                 },
                 "RTGTOOLS_FORMAT": {
-                    "rtg-tools": "3.12.1"
+                    "rtgtools": 3.13
                 },
                 "RTGTOOLS_VCFEVAL": {
-                    "rtg-tools": "3.12.1"
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.4.0"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
@@ -399,8 +412,8 @@
                 "small",
                 "small/HG002",
                 "small/HG002/preprocess",
-                "small/HG002/preprocess/HG002.vcf.gz",
-                "small/HG002/preprocess/HG002.vcf.gz.tbi",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/HG002/stats",
                 "small/HG002/stats/bcftools",
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -482,70 +495,27 @@
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
                 "small/summary/datavzrd/happy/static",
-                "small/summary/datavzrd/happy/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap.min.css",
                 "small/summary/datavzrd/happy/static/bundle.js",
-                "small/summary/datavzrd/happy/static/datavzrd.css",
                 "small/summary/datavzrd/happy/test",
                 "small/summary/datavzrd/happy/test/config.js",
                 "small/summary/datavzrd/happy/test/data",
                 "small/summary/datavzrd/happy/test/data/data_1.js",
                 "small/summary/datavzrd/happy/test/functions.js",
-                "small/summary/datavzrd/happy/test/heatmap.js",
                 "small/summary/datavzrd/happy/test/index_1.html",
                 "small/summary/datavzrd/happy/test/plots",
-                "small/summary/datavzrd/happy/test/plots/plot_0.js",
-                "small/summary/datavzrd/happy/test/plots/plot_1.js",
-                "small/summary/datavzrd/happy/test/plots/plot_10.js",
-                "small/summary/datavzrd/happy/test/plots/plot_11.js",
-                "small/summary/datavzrd/happy/test/plots/plot_12.js",
-                "small/summary/datavzrd/happy/test/plots/plot_13.js",
-                "small/summary/datavzrd/happy/test/plots/plot_14.js",
-                "small/summary/datavzrd/happy/test/plots/plot_15.js",
-                "small/summary/datavzrd/happy/test/plots/plot_16.js",
-                "small/summary/datavzrd/happy/test/plots/plot_17.js",
-                "small/summary/datavzrd/happy/test/plots/plot_18.js",
-                "small/summary/datavzrd/happy/test/plots/plot_19.js",
-                "small/summary/datavzrd/happy/test/plots/plot_2.js",
-                "small/summary/datavzrd/happy/test/plots/plot_20.js",
-                "small/summary/datavzrd/happy/test/plots/plot_3.js",
-                "small/summary/datavzrd/happy/test/plots/plot_4.js",
-                "small/summary/datavzrd/happy/test/plots/plot_5.js",
-                "small/summary/datavzrd/happy/test/plots/plot_6.js",
-                "small/summary/datavzrd/happy/test/plots/plot_7.js",
-                "small/summary/datavzrd/happy/test/plots/plot_8.js",
-                "small/summary/datavzrd/happy/test/plots/plot_9.js",
+                "small/summary/datavzrd/happy/test/plots/plots.js",
                 "small/summary/datavzrd/rtgtools",
                 "small/summary/datavzrd/rtgtools/index.html",
                 "small/summary/datavzrd/rtgtools/static",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
                 "small/summary/datavzrd/rtgtools/static/bundle.js",
-                "small/summary/datavzrd/rtgtools/static/datavzrd.css",
                 "small/summary/datavzrd/rtgtools/test",
                 "small/summary/datavzrd/rtgtools/test/config.js",
                 "small/summary/datavzrd/rtgtools/test/data",
                 "small/summary/datavzrd/rtgtools/test/data/data_1.js",
                 "small/summary/datavzrd/rtgtools/test/functions.js",
-                "small/summary/datavzrd/rtgtools/test/heatmap.js",
                 "small/summary/datavzrd/rtgtools/test/index_1.html",
                 "small/summary/datavzrd/rtgtools/test/plots",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_0.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_1.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_10.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_2.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_3.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_4.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_5.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_6.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_7.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_8.js",
-                "small/summary/datavzrd/rtgtools/test/plots/plot_9.js",
-                "small/summary/datavzrd/versions.yml",
+                "small/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "small/summary/plots",
                 "small/summary/plots/happy",
                 "small/summary/plots/happy/INDEL_ALL_f1_by_tool_happy_mqc.png",
@@ -610,8 +580,8 @@
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
                 "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
                 "small/test6/preprocess",
-                "small/test6/preprocess/test6.vcf.gz",
-                "small/test6/preprocess/test6.vcf.gz.tbi",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test6/stats",
                 "small/test6/stats/bcftools",
                 "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
@@ -644,8 +614,8 @@
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
                 "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
                 "small/test7/preprocess",
-                "small/test7/preprocess/test7.vcf.gz",
-                "small/test7/preprocess/test7.vcf.gz.tbi",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "small/test7/stats",
                 "small/test7/stats/bcftools",
                 "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
@@ -667,19 +637,19 @@
                 "suffixIndex0:md5,b7bb2ba061ab54c0bf07c0a941d0277a",
                 "suffixdata0:md5,f2876dd730673cd49c4de191001f634e",
                 "suffixpointer0:md5,468281ffb10d7dd934289af762a03781",
-                "HG002.bcftools_stats.txt:md5,c485794beee06218d5edd3508bb42ac4",
-                "bcftools-stats-subtypes.txt:md5,965f411af59054fab11733b7ff86a8e6",
+                "HG002.bcftools_stats.txt:md5,8751de64885b806474883f0f1eecb1c9",
+                "bcftools-stats-subtypes.txt:md5,0c3c9f37764bb1e3f0cd6be949ae74d5",
                 "bcftools_stats_indel-lengths.txt:md5,8c7a2983b3fe7772f8c9d8f72757047e",
-                "bcftools_stats_variant_depths.txt:md5,638d6fe45cec24e52b6eb1471a4344cf",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,6a3bb786304a8f771e6b644bb4098842",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,64e96ac1b20f1c1800c46b008619c8c7",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,202a84803a2d68ff8b099dcd480d97e8",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,09076bfe13a14524442df3b3d504b50c",
+                "bcftools_stats_variant_depths.txt:md5,c9509c46d5d114e6c4b8d510ac10414b",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,61a3e5696679369856bea204c9c4003d",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,36101777a58c30d86bfb3d8bc86b71a3",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,21b0181b6ba7ee2463a8e5509756281d",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,952d77917830b4fc92b9af888b804aed",
                 "happy_indel_plot.txt:md5,c172a9a6c47719a3de8eef92f01d3063",
                 "happy_snp_plot.txt:md5,ffb95929d2cc0acb352103680ae75291",
-                "multiqc_bcftools_stats.txt:md5,5657aab7df35255ebf1e623bc1161d7b",
+                "multiqc_bcftools_stats.txt:md5,d6908affe4a63624cdef969bf08f431c",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
-                "multiqc_variant_calling_summary.txt:md5,7415f8d3087bdc14d3f89cafa9c68724",
+                "multiqc_variant_calling_summary.txt:md5,ee3a241e3a6f134d5488a848a8cfed93",
                 "test6.HG002.strelka.extended.csv:md5,1d7e794eec466dcc9b26259ad5d977c0",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,60563576cb01b0f8c29e6c4249d26a29",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,7018e47ddb59f4bb2493ea91e651d875",
@@ -687,9 +657,9 @@
                 "test6.HG002.strelka.roc.Locations.SNP.csv.gz:md5,75705db4b90e4b2afa3dddef25455745",
                 "test6.HG002.strelka.roc.all.csv.gz:md5,5da6caeda785ce36c8605f3a9fd48460",
                 "test6.HG002.strelka.summary.csv:md5,b422654175083bcdf17ba7c377925450",
-                "test6.HG002.strelka.phasing.txt:md5,4f1eab72008fa21bfb55e788448550ca",
-                "test6.HG002.strelka.summary.txt:md5,948291d830b11e1bbda94f3c45fd07d8",
-                "test6.strelka.bcftools_stats.txt:md5,bcc46a7b008c4e814547cb5c6d7dca6d",
+                "test6.HG002.strelka.phasing.txt:md5,2cb3c919b1aacee7193543a21f538f8d",
+                "test6.HG002.strelka.summary.txt:md5,0ec44b030ffb77a2883894e2976bfa42",
+                "test6.strelka.bcftools_stats.txt:md5,05d4cd5191bc0ec87506816b171a7ae2",
                 "test7.HG002.bcftools.extended.csv:md5,5b48d6c9dfd67813dfab3bf1cdab85a7",
                 "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,c1e554f0df835826d1e5df2799b0ad85",
                 "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,f2630ffc050976945585e7be4e22f09b",
@@ -698,14 +668,14 @@
                 "test7.HG002.bcftools.roc.all.csv.gz:md5,a8fdd8833473f7b1b18301bb7da0a35b",
                 "test7.HG002.bcftools.summary.csv:md5,773e1bbed3b7dd893d64271fc43aa43e",
                 "test7.HG002.bcftools.phasing.txt:md5,38920536b8c3e241e873c07ba61762e6",
-                "test7.HG002.bcftools.summary.txt:md5,af9e66cb4256f5c6ccd86b53a3c07263",
-                "test7.bcftools.bcftools_stats.txt:md5,70f24cedd2233623f63f886e37977b93"
+                "test7.HG002.bcftools.summary.txt:md5,24907ee063ded5bbc39cd0d2ab102684",
+                "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
+        "timestamp": "2026-04-21T13:48:10.940863646",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-11-17T16:07:34.253647737"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

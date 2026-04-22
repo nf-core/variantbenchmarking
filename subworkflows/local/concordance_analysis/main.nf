@@ -7,64 +7,54 @@ include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TP_BASE } from '../../../modules/nf-cor
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FN      } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FP      } from '../../../modules/nf-core/bcftools/view'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TP_COMP } from '../../../modules/nf-core/bcftools/view'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_BASE } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FN      } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FP      } from '../../../modules/local/bcftools/reheader'
-include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_COMP } from '../../../modules/local/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_BASE } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FN      } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FP      } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_COMP } from '../../../modules/nf-core/bcftools/reheader'
 
 workflow CONCORDANCE_ANALYSIS {
     take:
-    input_ch
-    bed_ch
-    fasta_ch
-    fai_ch
-    dictionary
+    input_ch   // channel: [val(meta), vcf.gz, index]
+    bed_ch     // channel: [path(bed)]
+    fasta_ch   // reference channel [val(meta), ref.fa]
+    fai_ch     // reference channel [val(meta), ref.fa.fai]
+    dictionary // reference channel [val(meta), ref.dict]
 
     main:
 
-    versions        = Channel.empty()
-    tagged_variants = Channel.empty()
+    tagged_variants = channel.empty()
 
-    ch_pairs = input_ch
-        .map { meta, vcf1, tbi1 ->
-            // Simplify to just keep the id and files
-            [meta.id, vcf1, tbi1]
-        }
-        .toList()
-        .flatMap { items ->
-            def result = []
-
-            // Generate pairwise combinations
-            for (int i = 0; i < items.size(); i++) {
-                for (int j = i + 1; j < items.size(); j++) {
-                    def left = items[i]   // [id1, vcf1, tbi1]
-                    def right = items[j]  // [id2, vcf2, tbi2]
-
-                    // Create new metadata with combined IDs
-                    def combinedMeta = [id: "${left[0]}-${right[0]}"]
-
-                    result << [
-                        combinedMeta,     // [id: "test7-test6"]
-                        left[1], left[2], // vcf1, tbi1 from first sample
-                        right[1], right[2] // vcf2, tbi2 from second sample
-                    ]
-                }
+ch_pairs = input_ch
+    .map { meta, vcf1, tbi1 ->
+        [meta.id, vcf1, tbi1]
+    }
+    .toList()
+    .flatMap { items ->
+        [items, items].combinations()
+            .findAll { left, right -> left[0] < right[0] }
+            .collect { left, right ->
+                def combinedMeta = [id: "${left[0]}-${right[0]}"]
+                [
+                    combinedMeta,       // [id: "test6-test7"]
+                    left[1], left[2],   // vcf1, tbi1
+                    right[1], right[2]  // vcf2, tbi2
+                ]
             }
-            return result
-        }
+    }
 
-    if (!params.regions_bed){
-        bed_ch = Channel.of([[id: "bed"],[]]).collect()
-        }
+    ch_bed_input = bed_ch
+        .map { file -> [ [id: "intervals"], file ] }
+        .collect()
+        .ifEmpty( [[id:"intervals"],[]] )
+
     // GATK4 concordance does not support structural variants now - GATK4 SVCONCORDANCE is in beta
     GATK4_CONCORDANCE(
         ch_pairs,
-        bed_ch,
+        ch_bed_input,
         fasta_ch,
         fai_ch,
         dictionary
     )
-    versions = versions.mix(GATK4_CONCORDANCE.out.versions)
 
     // tag meta and collect summary reports
     GATK4_CONCORDANCE.out.summary
@@ -79,7 +69,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FN.out.versions.first())
 
     // Reheader FN variants
     BCFTOOLS_REHEADER_FN(
@@ -89,7 +78,6 @@ workflow CONCORDANCE_ANALYSIS {
         },
         fai_ch
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_FN.out.versions.first())
 
     // Tag FN variants
     BCFTOOLS_REHEADER_FN.out.vcf
@@ -97,14 +85,13 @@ workflow CONCORDANCE_ANALYSIS {
         .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "concordance"], file, index) }
         .set { vcf_fn }
 
-    // Split TP base variants from TPFN variants
+    // Split TP base variants from TP-FN variants
     BCFTOOLS_VIEW_TP_BASE(
         GATK4_CONCORDANCE.out.tpfn.map{ meta, vcf -> tuple(meta, vcf, []) },
         [],
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_TP_BASE.out.versions.first())
 
     // Reheader TP variants
     BCFTOOLS_REHEADER_TP_BASE(
@@ -114,7 +101,6 @@ workflow CONCORDANCE_ANALYSIS {
         },
         fai_ch
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_TP_BASE.out.versions.first())
 
     // Tag TP variants
     BCFTOOLS_REHEADER_TP_BASE.out.vcf
@@ -129,17 +115,14 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_TP_COMP.out.versions.first())
 
     // Reheader TP comp variants
     BCFTOOLS_REHEADER_TP_COMP(
-
         BCFTOOLS_VIEW_TP_COMP.out.vcf.map{ meta, file ->
             [ meta, file, [], [] ]
         },
         fai_ch
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_TP_COMP.out.versions.first())
 
     // Tag TP comp variants
     BCFTOOLS_REHEADER_TP_COMP.out.vcf
@@ -154,7 +137,6 @@ workflow CONCORDANCE_ANALYSIS {
         [],
         []
     )
-    versions = versions.mix(BCFTOOLS_VIEW_FP.out.versions.first())
 
     // Reheader FP variants
     BCFTOOLS_REHEADER_FP(
@@ -163,7 +145,6 @@ workflow CONCORDANCE_ANALYSIS {
         },
         fai_ch
     )
-    versions = versions.mix(BCFTOOLS_REHEADER_FP.out.versions.first())
 
     // Tag FP variants
     BCFTOOLS_REHEADER_FP.out.vcf
@@ -179,7 +160,6 @@ workflow CONCORDANCE_ANALYSIS {
     )
 
     emit:
-    versions        // channel: [val(meta), versions.yml]
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
 }

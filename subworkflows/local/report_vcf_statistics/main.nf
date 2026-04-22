@@ -11,8 +11,7 @@ workflow REPORT_VCF_STATISTICS {
 
     main:
 
-    versions     = Channel.empty()
-    ch_stats     = Channel.empty()
+    ch_stats     = channel.empty()
 
     if (params.variant_type == "structural"){
         // use survivor stats to get SV statistics by TYPE
@@ -25,9 +24,7 @@ workflow REPORT_VCF_STATISTICS {
             -1
         )
         ch_stats = ch_stats.mix(SURVIVOR_STATS.out.stats.map{_meta, stats -> stats})
-        versions = versions.mix(SURVIVOR_STATS.out.versions.first())
     }
-
 
     // use bcftools stats for all files
     BCFTOOLS_STATS(
@@ -39,11 +36,9 @@ workflow REPORT_VCF_STATISTICS {
         [[],[]]
     )
     ch_stats = ch_stats.mix(BCFTOOLS_STATS.out.stats.map{_meta, stats -> stats})
-    versions = versions.mix(BCFTOOLS_STATS.out.versions.first())
 
     // TODO: Add here a tool, to visualize SV statistics in a histogram.
 
     emit:
     ch_stats  // channel: [stats]
-    versions  // channel: [versions.yml]
 }

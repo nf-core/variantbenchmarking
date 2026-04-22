@@ -1,55 +1,46 @@
 {
     "Params: --analysis 'somatic' --variant_type 'structural' --method 'truvari,svbenchmark'": {
         "content": [
-            61,
+            53,
             {
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_3": {
-                    "bcftools": 1.2
-                },
-                "BCFTOOLS_REHEADER_4": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
-                "BGZIP_TABIX": {
-                    "tabix": 1.12
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
                 },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
+                "SURVIVOR_FILTER": {
+                    "survivor": "1.0.7"
                 },
                 "SURVIVOR_MERGE": {
                     "survivor": "1.0.7"
@@ -58,19 +49,26 @@
                     "survivor": "1.0.7"
                 },
                 "TABIX_BGZIP": {
-                    "tabix": "1.19.1"
+                    "tabix": 1.21
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
                 },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": "1.19.1"
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_2": {
+                    "tabix": 1.21
                 },
                 "TRUVARI_BENCH": {
-                    "truvari": "5.3.0)"
+                    "truvari": "5.4.0"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.4.0"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
@@ -79,8 +77,8 @@
                 "structural",
                 "structural/SEQC2",
                 "structural/SEQC2/preprocess",
-                "structural/SEQC2/preprocess/SEQC2.vcf.gz",
-                "structural/SEQC2/preprocess/SEQC2.vcf.gz.tbi",
+                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz",
+                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz.tbi",
                 "structural/SEQC2/stats",
                 "structural/SEQC2/stats/bcftools",
                 "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -157,31 +155,15 @@
                 "structural/summary/datavzrd/truvari",
                 "structural/summary/datavzrd/truvari/index.html",
                 "structural/summary/datavzrd/truvari/static",
-                "structural/summary/datavzrd/truvari/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/truvari/static/bootstrap.min.css",
                 "structural/summary/datavzrd/truvari/static/bundle.js",
-                "structural/summary/datavzrd/truvari/static/datavzrd.css",
                 "structural/summary/datavzrd/truvari/test",
                 "structural/summary/datavzrd/truvari/test/config.js",
                 "structural/summary/datavzrd/truvari/test/data",
                 "structural/summary/datavzrd/truvari/test/data/data_1.js",
                 "structural/summary/datavzrd/truvari/test/functions.js",
-                "structural/summary/datavzrd/truvari/test/heatmap.js",
                 "structural/summary/datavzrd/truvari/test/index_1.html",
                 "structural/summary/datavzrd/truvari/test/plots",
-                "structural/summary/datavzrd/truvari/test/plots/plot_0.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_1.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_2.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_3.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_4.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_5.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_6.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_7.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_8.js",
-                "structural/summary/datavzrd/truvari/test/plots/plot_9.js",
-                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
                 "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
@@ -209,8 +191,8 @@
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz",
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz.tbi",
                 "structural/test11/preprocess",
-                "structural/test11/preprocess/test11.vcf.gz",
-                "structural/test11/preprocess/test11.vcf.gz.tbi",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
                 "structural/test11/stats",
                 "structural/test11/stats/bcftools",
                 "structural/test11/stats/bcftools/test11.manta.bcftools_stats.txt",
@@ -229,8 +211,8 @@
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz",
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
                 "structural/test12/preprocess",
-                "structural/test12/preprocess/test12.vcf.gz",
-                "structural/test12/preprocess/test12.vcf.gz.tbi",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
                 "structural/test12/stats",
                 "structural/test12/stats/bcftools",
                 "structural/test12/stats/bcftools/test12.tiddit.bcftools_stats.txt",
@@ -238,22 +220,22 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,98d52a15cf5e4ef38225dde69f256121",
+                "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "multiqc_bcftools_stats.txt:md5,d15679c9ce48a885c28263f78302ae28",
+                "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
                 "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
                 "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
-                "test11.manta.bcftools_stats.txt:md5,3b1da2e2c9c96f4aae2f3bc0490e1346",
+                "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
-                "test12.tiddit.bcftools_stats.txt:md5,d24a1fee7a43e7bc6c09c595371eda59",
+                "test12.tiddit.bcftools_stats.txt:md5,d40e3c575e4f7ebb3883e9ebd16f49bb",
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
+        "timestamp": "2026-03-23T14:24:03.847836231",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.0"
-        },
-        "timestamp": "2025-11-18T10:33:58.958494895"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

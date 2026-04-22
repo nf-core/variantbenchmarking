@@ -13,15 +13,12 @@ workflow PREPARE_REFERENCES {
 
     main:
 
-    versions = Channel.empty()
-
     //prepare dict file for liftover of vcf files
     if (!params.dictionary && (params.method.contains("concordance") || params.liftover ) ){
         PICARD_CREATESEQUENCEDICTIONARY(
             fasta_ch
         )
         dictionary = PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict
-        versions = versions.mix(PICARD_CREATESEQUENCEDICTIONARY.out.versions)
     }
 
     if (!params.sdf && params.method.contains("rtgtools")){
@@ -30,13 +27,11 @@ workflow PREPARE_REFERENCES {
         RTGTOOLS_FORMAT(
             fasta_ch.map { meta, file -> [ meta, file, [], [] ] }
         )
-        versions = versions.mix(RTGTOOLS_FORMAT.out.versions)
         sdf = RTGTOOLS_FORMAT.out.sdf
     }
 
     emit:
     dictionary   // reference channel [val(meta), genome.dict]
     sdf          // reference channel [val(meta), genome.sdf]
-    versions     // channel: [val(meta), versions.yml]
 
 }

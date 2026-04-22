@@ -4,46 +4,46 @@
             73,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
-                "BGZIP_TABIX": {
-                    "tabix": 1.12
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SUBTRACT_VCF_QUERY": {
                     "python": "3.13.0"
@@ -61,13 +61,16 @@
                     "svanalyzer": 0.36
                 },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": "1.19.1"
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_2": {
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.4.0"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
@@ -76,8 +79,8 @@
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
-                "structural/HG002/preprocess/HG002.vcf.gz",
-                "structural/HG002/preprocess/HG002.vcf.gz.tbi",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/HG002/stats",
                 "structural/HG002/stats/bcftools",
                 "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -121,31 +124,15 @@
                 "structural/summary/datavzrd/svbenchmark",
                 "structural/summary/datavzrd/svbenchmark/index.html",
                 "structural/summary/datavzrd/svbenchmark/static",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-select.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table-fixed-columns.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap-table.min.css",
-                "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
-                "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
                 "structural/summary/datavzrd/svbenchmark/test",
                 "structural/summary/datavzrd/svbenchmark/test/config.js",
                 "structural/summary/datavzrd/svbenchmark/test/data",
                 "structural/summary/datavzrd/svbenchmark/test/data/data_1.js",
                 "structural/summary/datavzrd/svbenchmark/test/functions.js",
-                "structural/summary/datavzrd/svbenchmark/test/heatmap.js",
                 "structural/summary/datavzrd/svbenchmark/test/index_1.html",
                 "structural/summary/datavzrd/svbenchmark/test/plots",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_0.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_1.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_2.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_3.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_4.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_5.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_6.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_7.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_8.js",
-                "structural/summary/datavzrd/svbenchmark/test/plots/plot_9.js",
-                "structural/summary/datavzrd/versions.yml",
+                "structural/summary/datavzrd/svbenchmark/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
                 "structural/summary/plots/svbenchmark/f1_by_tool_svbenchmark_mqc.png",
@@ -169,8 +156,8 @@
                 "structural/test1/benchmarks/svanalyzer/test1.HG002.delly.log",
                 "structural/test1/benchmarks/svanalyzer/test1.HG002.delly.report",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/test1.vcf.gz",
-                "structural/test1/preprocess/test1.vcf.gz.tbi",
+                "structural/test1/preprocess/HG002_delly_SV_hg19.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test1/preprocess/HG002_delly_SV_hg19.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
                 "structural/test1/stats/bcftools/test1.delly.bcftools_stats.txt",
@@ -185,8 +172,8 @@
                 "structural/test2/benchmarks/svanalyzer/test2.HG002.lumpy.log",
                 "structural/test2/benchmarks/svanalyzer/test2.HG002.lumpy.report",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/test2.vcf.gz",
-                "structural/test2/preprocess/test2.vcf.gz.tbi",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
                 "structural/test2/stats/bcftools/test2.lumpy.bcftools_stats.txt",
@@ -201,8 +188,8 @@
                 "structural/test3/benchmarks/svanalyzer/test3.HG002.manta.log",
                 "structural/test3/benchmarks/svanalyzer/test3.HG002.manta.report",
                 "structural/test3/preprocess",
-                "structural/test3/preprocess/test3.vcf.gz",
-                "structural/test3/preprocess/test3.vcf.gz.tbi",
+                "structural/test3/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test3/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
                 "structural/test3/stats/bcftools/test3.manta.bcftools_stats.txt",
@@ -210,71 +197,71 @@
                 "structural/test3/stats/survivor/test3.manta_mqc.stats"
             ],
             [
-                "HG002.bcftools_stats.txt:md5,12b09b32a2793b52830091a5895e00d0",
-                "HG002_mqc.stats:md5,ba6a6398a99b95579872576cacde4c8c",
-                "multiqc_bcftools_stats.txt:md5,fced87ee1b40160c0fad29f1adc1bd1e",
+                "HG002.bcftools_stats.txt:md5,184d672828c019a6f0cf732bcd3eae40",
+                "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
+                "multiqc_bcftools_stats.txt:md5,3d782febc5ec3109b56ba4bce2d6fdb1",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
-                "multiqc_variant_calling_summary.txt:md5,de653cd3599f286c3f065b2c0f923532",
-                "test1.delly.bcftools_stats.txt:md5,209604ebf522660875a29723798e03ae",
-                "test1.delly_mqc.stats:md5,6e79c2fe59f011aedc63a6286ef85001",
-                "test2.lumpy.bcftools_stats.txt:md5,793655055cdb78556ae6b8e126ff743f",
+                "multiqc_variant_calling_summary.txt:md5,8fdcd482b04882572cee4f68ad9baf99",
+                "test1.delly.bcftools_stats.txt:md5,9847ff08b49e4a10d865d61ef2cbe375",
+                "test1.delly_mqc.stats:md5,b0d58a47ed7f1231055be3a64d585268",
+                "test2.lumpy.bcftools_stats.txt:md5,6eddba0a79343f53f87f62bf9079988c",
                 "test2.lumpy_mqc.stats:md5,6a22796091a559398e14325a4349f19e",
-                "test3.manta.bcftools_stats.txt:md5,a3f6a0e9aa7dbade8528836d3a2c8c85",
+                "test3.manta.bcftools_stats.txt:md5,52861616ba9d7fe400c2bc7e02536445",
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
+        "timestamp": "2026-03-23T15:29:33.402083996",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-11-17T15:57:40.119156284"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     },
     "-stub": {
         "content": [
             73,
             {
                 "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": 1.18
+                    "bcftools": 1.22
                 },
                 "BCFTOOLS_VIEW_CONTIGS": {
-                    "bcftools": 1.2
+                    "bcftools": 1.22
                 },
-                "BGZIP_TABIX": {
-                    "tabix": 1.12
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "pigz": 2.8
                 },
                 "DATAVZRD": {
-                    "datavzrd": "2.36.12"
+                    "datavzrd": "2.63.3"
                 },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
-                "PLOTS": {
-                    "r-base": "4.3.1"
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
                 },
-                "PLOT_SVLEN_DIST": {
+                "PLOTS_SVLEN_DIST": {
                     "python": "3.14.0"
                 },
-                "PLOT_UPSET": {
+                "PLOTS_UPSET": {
                     "python": "3.13.7"
-                },
-                "PUBLISH_PROCESSED_VCF": {
-                    "cp": 8.3
                 },
                 "SUBTRACT_VCF_QUERY": {
                     "python": "3.13.0"
@@ -292,13 +279,16 @@
                     "svanalyzer": 0.36
                 },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": "1.19.1"
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_2": {
+                    "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.4.0"
+                    "nf-core/variantbenchmarking": "v1.5.0"
                 }
             },
             [
@@ -307,8 +297,8 @@
                 "structural",
                 "structural/HG002",
                 "structural/HG002/preprocess",
-                "structural/HG002/preprocess/HG002.vcf.gz",
-                "structural/HG002/preprocess/HG002.vcf.gz.tbi",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "structural/HG002/preprocess/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
                 "structural/HG002/stats",
                 "structural/HG002/stats/bcftools",
                 "structural/HG002/stats/bcftools/HG002.bcftools_stats.txt",
@@ -344,7 +334,6 @@
                 "structural/summary/datavzrd/svbenchmark/static/bootstrap.min.css",
                 "structural/summary/datavzrd/svbenchmark/static/bundle.js",
                 "structural/summary/datavzrd/svbenchmark/static/datavzrd.css",
-                "structural/summary/datavzrd/versions.yml",
                 "structural/summary/plots",
                 "structural/summary/plots/svbenchmark",
                 "structural/summary/plots/svbenchmark/metric_by_tool_svbenchmark_mqc.png",
@@ -367,8 +356,8 @@
                 "structural/test1/benchmarks/svanalyzer/test1.HG002.delly.log",
                 "structural/test1/benchmarks/svanalyzer/test1.HG002.delly.report",
                 "structural/test1/preprocess",
-                "structural/test1/preprocess/test1.vcf.gz",
-                "structural/test1/preprocess/test1.vcf.gz.tbi",
+                "structural/test1/preprocess/HG002_delly_SV_hg19.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test1/preprocess/HG002_delly_SV_hg19.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test1/stats",
                 "structural/test1/stats/bcftools",
                 "structural/test1/stats/bcftools/test1.delly.bcftools_stats.txt",
@@ -383,8 +372,8 @@
                 "structural/test2/benchmarks/svanalyzer/test2.HG002.lumpy.log",
                 "structural/test2/benchmarks/svanalyzer/test2.HG002.lumpy.report",
                 "structural/test2/preprocess",
-                "structural/test2/preprocess/test2.vcf.gz",
-                "structural/test2/preprocess/test2.vcf.gz.tbi",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test2/preprocess/HG002_lumpy_SV_hg19.sorted.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test2/stats",
                 "structural/test2/stats/bcftools",
                 "structural/test2/stats/bcftools/test2.lumpy.bcftools_stats.txt",
@@ -399,8 +388,8 @@
                 "structural/test3/benchmarks/svanalyzer/test3.HG002.manta.log",
                 "structural/test3/benchmarks/svanalyzer/test3.HG002.manta.report",
                 "structural/test3/preprocess",
-                "structural/test3/preprocess/test3.vcf.gz",
-                "structural/test3/preprocess/test3.vcf.gz.tbi",
+                "structural/test3/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                "structural/test3/preprocess/HG002_manta_SV_hg19_genotype.chr21.reheader.filtercontigs.dedup.sort.norm.vcf.filtermissing.vcf.gz.tbi",
                 "structural/test3/stats",
                 "structural/test3/stats/bcftools",
                 "structural/test3/stats/bcftools/test3.manta.bcftools_stats.txt",
@@ -418,10 +407,10 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
+        "timestamp": "2026-03-23T15:32:02.409234374",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-11-17T16:00:18.736648776"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }

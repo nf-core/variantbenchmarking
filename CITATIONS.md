@@ -18,6 +18,8 @@
 
 ## [nf-co2footprint](https://github.com/nextflow-io/nf-co2footprint)
 
+## [nf-metro](https://github.com/pinin4fjords/nf-metro)
+
 ## Pipeline tools
 
 - [Bcftools](http://samtools.github.io/bcftools/bcftools.html)

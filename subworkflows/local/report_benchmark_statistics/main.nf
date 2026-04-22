@@ -3,10 +3,10 @@
 //
 
 include { MERGE_REPORTS         } from '../../../modules/local/custom/merge_reports'
-include { PLOTS                 } from '../../../modules/local/custom/plots'
-include { CREATE_DATAVZRD_INPUT } from '../../../modules/local/custom/create_datavzrd_input'
+include { PLOTS_METRICS         } from '../../../modules/local/plots/metrics'
 include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
-include { PLOT_SVLEN_DIST       } from '../../../modules/local/custom/plot_svlen_dist'
+include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
+include { CAT_CAT as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/cat/cat'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
@@ -16,33 +16,30 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
-    versions = Channel.empty()
-    ch_plots = Channel.empty()
-    merged_reports = Channel.empty()
+    ch_plots = channel.empty()
+    merged_reports = channel.empty()
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
         reports
     )
-    versions = versions.mix(MERGE_REPORTS.out.versions.first())
     merged_reports = merged_reports.mix(MERGE_REPORTS.out.summary)
 
     if (!params.skip_plots.contains("metrics")){
         // plot summary statistics
-        PLOTS(
+        PLOTS_METRICS(
             MERGE_REPORTS.out.summary
         )
-        ch_plots = ch_plots.mix(PLOTS.out.plots.flatten())
-        versions = versions.mix(PLOTS.out.versions.first())
+        ch_plots = ch_plots.mix(PLOTS_METRICS.out.plots.flatten())
     }
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
         // plot INDEL/SV distribution plots
-        PLOT_SVLEN_DIST(
-            evaluations.groupTuple().mix(evaluations_csv.groupTuple())
+        PLOTS_SVLEN_DIST(
+            evaluations.map { item -> tuple(item[0], item[1]) }.groupTuple()
+                .mix(evaluations_csv.map { item -> tuple(item[0], item[1]) }.groupTuple())
         )
-        versions = versions.mix(PLOT_SVLEN_DIST.out.versions)
-        ch_plots = ch_plots.mix(PLOT_SVLEN_DIST.out.plot)
+        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
     }
 
     MERGE_REPORTS.out.summary
@@ -52,23 +49,21 @@ workflow REPORT_BENCHMARK_STATISTICS {
     // add path to csv file to the datavzrd input
     summary
         .map { meta, summary_file ->
-                [ meta, summary_file, file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists:true) ]
-            }
-        .set {template}
+            def updated_meta = meta + [ csv: summary_file.toString() ]
+            def template_file = file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists: true)
+            [ updated_meta, template_file ]
+        }
+        .set { template_ch }
 
     CREATE_DATAVZRD_INPUT (
-        template
+        template_ch
     )
 
-    // use datavzrd to render the report based on the create input
-    // input consists of config file and the table itself
     DATAVZRD (
-        CREATE_DATAVZRD_INPUT.out.config
+        CREATE_DATAVZRD_INPUT.out.file_out.join(template_ch)
     )
-    versions = versions.mix(DATAVZRD.out.versions.first())
 
     emit:
-    versions        // channel: [versions.yml]
-    ch_plots        // channel: [plots.png]
-    merged_reports  // channel: [ summary.csv]
+    ch_plots        // channel: [ meta, plots.png ]
+    merged_reports  // channel: [ meta, summary.csv]
 }
