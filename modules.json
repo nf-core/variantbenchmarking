@@ -82,7 +82,7 @@
                     },
                     "happy/happy": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
                         "installed_by": ["modules"]
                     },
                     "happy/prepy": {

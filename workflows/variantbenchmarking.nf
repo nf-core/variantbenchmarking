@@ -74,23 +74,22 @@ workflow VARIANTBENCHMARKING {
     if (params.method ==~ /.*(?:truvari|svanalyzer|happy|sompy|rtgtools|wittyer).*/) {
         // Note: concordance analysis does not require truth files
         if (params.ensemble_truth){
-            log.warn "params.truth_id will be treated as 'truth'"
-            }
-        else
-        {
-            if (!params.truth_vcf || !params.truth_id){
-            error "Please specify params.truth_id and params.truth_vcf to perform benchmarking analysis"
+            log.warn "[nf-core/variantbenchmarking] WARN: --truth_id will be treated as 'truth', meaning, ensembled truth file will be named as 'truth'"
+            } else
+            {
+                if (!params.truth_vcf || !params.truth_id){
+                error "[nf-core/variantbenchmarking] ERROR:Please specify --truth_id and --truth_vcf to perform benchmarking analysis"
             }
         }
     }
     if (params.method ==~ /.*(?:intersect).*/) {
         if (!params.regions_bed || !params.truth_vcf){
-            error "Please specify params.regions_bed to perform intersect analysis"
+            error "[nf-core/variantbenchmarking] ERROR: Please specify --regions_bed to perform intersect analysis"
         }
     }
 
     if (params.preprocess?.contains("filter_contigs") && !params.genome) {
-        error "Please specify --genome when using filter_contigs preprocessing"
+        error "[nf-core/variantbenchmarking] ERROR:Please specify --genome when using filter_contigs for --preprocessing"
     }
 
     // Optional files for Happy or Sompy
@@ -113,7 +112,7 @@ workflow VARIANTBENCHMARKING {
     if (params.rename_chr){
         rename_chr = channel.fromPath(params.rename_chr, checkIfExists: true).map{ txt -> tuple([id: txt.getSimpleName()], txt) }.collect()
         if (!params.genome){
-            error "Please specify params.genome to fix chromosome prefix"
+            error "[nf-core/variantbenchmarking] ERROR:Please specify --genome to fix chromosome prefix"
         }
 
     }else{
@@ -135,7 +134,7 @@ workflow VARIANTBENCHMARKING {
         if (params.chain){
             chain           = channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
         }else{
-            error "Please specify params.chain to process liftover of the files"
+            error "[nf-core/variantbenchmarking] ERROR:Please specify --chain to process liftover of the files"
         }
         // if dictionary file is missing PICARD_CREATESEQUENCEDICTIONARY will create one
         dictionary      = params.dictionary ? channel.fromPath(params.dictionary, checkIfExists: true).map{ dict -> tuple([id: dict.getSimpleName()], dict) }.collect()
@@ -199,7 +198,7 @@ workflow VARIANTBENCHMARKING {
             fai
         )
         truth_ch    = ENSEMBLE_TEST_VCFS.out.truth_vcf
-    }else{
+    } else {
         // Prepare and normalize truth vcf provided
         PREPARE_VCFS_TRUTH(
             truth_ch,
@@ -253,7 +252,7 @@ workflow VARIANTBENCHMARKING {
         evals_ch         = evals_ch.mix(CONCORDANCE_ANALYSIS.out.tagged_variants)
 
     }else if (params.method.contains("concordance")){
-        error "Concordance analysis can only be performed small (snv and indels) variants for now"
+        error "[nf-core/variantbenchmarking] ERROR:Concordance analysis can only be performed small (snv and indels) variants"
     }
 
     // Prepare benchmark channel
@@ -272,7 +271,7 @@ workflow VARIANTBENCHMARKING {
         )
         ch_reports       = ch_reports.mix(SV_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_BENCHMARK.out.tagged_variants)
-        ch_multiqc_files = ch_multiqc_files.mix(SV_BENCHMARK.out.logs.map{ meta, log -> log })
+        ch_multiqc_files = ch_multiqc_files.mix(SV_BENCHMARK.out.logs.map{ _meta, log -> log })
 
         if (params.method.contains("rtgtools")){
             // running bndeval might require svdecompose
@@ -302,7 +301,7 @@ workflow VARIANTBENCHMARKING {
         )
         ch_reports       = ch_reports.mix(CNV_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(CNV_BENCHMARK.out.tagged_variants)
-        ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ meta, log -> log })
+        ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ _meta, log -> log })
     }
 
     if (params.analysis?.contains("germline")){

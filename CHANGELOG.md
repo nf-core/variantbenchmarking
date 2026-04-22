@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixing bugs: bnd vcfeval output files producing tags with [] and reformatting header before merging in ensemble analysis [#297](https://github.com/nf-core/variantbenchmarking/pull/297)
 - sv_germline_benchmarking subworkflow renamed to sv_benchmarking as we use the same subworkflow for both germline and somatic analysis [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
 - Preparing for the release 1.5.0 and fixing linting errors [#299](https://github.com/nf-core/variantbenchmarking/pull/299).
+- Applying review comments before 1.5.0 release [#231](https://github.com/nf-core/variantbenchmarking/pull/301)
 
 ### `Dependencies`
 
@@ -48,6 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ucsc           | 377         | 482         |
 | datavzrd       | 2.36.12     | 2.63.3      |
 | truvari        | 5.3.0       | 5.4.0       |
+| gawk           | -           | 5.3.0       |
+| coreutils      | -           | 9.5         |
 
 ## 1.4.0
 

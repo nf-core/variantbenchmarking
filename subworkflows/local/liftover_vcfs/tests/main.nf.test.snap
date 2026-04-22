@@ -6,7 +6,7 @@
                     {
                         "id": "test"
                     },
-                    "test.genome.lifted.reformatted.renamechr.vcf.gz",
+                    "HG002_GRCh37_1_22_v4.2.1_highconf.chr21.lifted.reformatted.renamechr.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e",
                     [
@@ -27,7 +27,7 @@
                 
             }
         ],
-        "timestamp": "2026-03-24T15:52:02.975108706",
+        "timestamp": "2026-04-21T13:30:35.616466392",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

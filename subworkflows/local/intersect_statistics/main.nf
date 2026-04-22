@@ -25,7 +25,9 @@ workflow INTERSECT_STATISTICS {
     }
     .set { test_samples }
 
-    test_beds_ch = test_samples.regions.map{meta, _vcf, bed -> [meta, bed]}
+    test_samples.regions
+        .map{meta, _vcf, bed -> [meta, bed]}
+        .set{test_beds_ch}
 
     // convert VCF files to BED format
     if (params.variant_type == "structural" || params.variant_type == "copynumber"){

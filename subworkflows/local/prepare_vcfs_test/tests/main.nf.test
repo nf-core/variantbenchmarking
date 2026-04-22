@@ -69,7 +69,7 @@ nextflow_workflow {
 
         when {
             params {
-                variant_type = "small"
+                variant_type = "snv"
                 analysis = "somatic"
                 method = "rtgtools"
                 preprocess = ""

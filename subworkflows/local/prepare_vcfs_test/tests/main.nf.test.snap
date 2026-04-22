@@ -29,28 +29,15 @@
                         "id": "test_strelka",
                         "caller": "strelka",
                         "liftover": false,
-                        "fix_prefix": false,
-                        "vartype": "indel"
+                        "fix_prefix": false
                     },
-                    "HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.reheader.indel.filtermissing.vcf.withGT.vcf.gz",
-                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
-                    "d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                [
-                    {
-                        "id": "test_strelka",
-                        "caller": "strelka",
-                        "liftover": false,
-                        "fix_prefix": false,
-                        "vartype": "snv"
-                    },
-                    "HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.reheader.snv.filtermissing.vcf.withGT.vcf.gz",
+                    "HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.reheader.filtermissing.vcf.withGT.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=844, phased=false, phasedAutodetect=false]",
                     "38e946067063bf8f50ccb73b6936f695"
                 ]
             ]
         ],
-        "timestamp": "2026-03-26T11:16:00.460630628",
+        "timestamp": "2026-04-21T13:20:33.247931319",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
