@@ -1,0 +1,183 @@
+%%metro title: nf-core/variantbenchmarking (auto layout)
+%%metro style: dark
+%%metro line_order: span
+%%metro legend: bl
+%%metro compact_offsets: true
+%%metro file: ref_genome_file | FASTA
+%%metro file: truth_vcf_file | VCF
+%%metro file: regions_bed_file | BED
+%%metro file: targets_bed_file | BED
+%%metro file: samplesheet_file | TSV
+%%metro file: snv_stats_out | TSV
+%%metro file: sv_stats_out | TSV
+%%metro file: merged_csvs_out | CSV
+%%metro file: html_report_out | HTML
+%%metro file: multiqc_out | HTML
+%%metro line: truth | Truth Preprocessing | #4CAF50
+%%metro line: test | Test Preprocessing | #ff9800
+%%metro line: sv_cnv | SV/CNV Benchmarking | #E53935
+%%metro line: cnv | CNV Benchmarking | #c7124bc8
+%%metro line: snv_indel | SNV/INDEL Benchmarking | #AB47BC
+%%metro line: concordance | Concordance | #5e2626
+%%metro line: intersection | Intersection | #3e0434
+%%metro line: output | Output Processing | #03A9F4
+
+graph LR
+    subgraph inputs [Inputs]
+        ref_genome_file[ ]
+        ref_genome[Reference Genome]
+        truth_vcf_file[ ]
+        truth_vcf[Truth VCF]
+        regions_bed_file[ ]
+        regions_bed[Regions BED]
+        targets_bed_file[ ]
+        targets_bed[Targets BED]
+        samplesheet_file[ ]
+        samplesheet[Samplesheet]
+        _inputs_hub[hidden]
+
+        ref_genome_file -->|truth| ref_genome
+        truth_vcf_file -->|truth| truth_vcf
+        regions_bed_file -->|truth| regions_bed
+        targets_bed_file -->|truth| targets_bed
+        samplesheet_file -->|test| samplesheet
+        ref_genome -->|truth| _inputs_hub
+        truth_vcf -->|truth| _inputs_hub
+        regions_bed -->|truth| _inputs_hub
+        targets_bed -->|truth| _inputs_hub
+        samplesheet -->|test| _inputs_hub
+    end
+
+    subgraph preprocess [Preprocessing (Optional)]
+        subsample[Subsample\n Multi-sample VCF]
+        liftover[Liftover\n(Picard, UCSC)]
+        subsample -->|test| liftover
+    end
+
+    subgraph normalization [Variant Normalization (Optional)]
+        sv_processing[SV Standardization\nhomogenize|svync|svdecompose|svtk]
+        var_norm[SNV Normalization\nsplit_multiallelic|deduplicate|prepy]
+        sv_processing -->|test,truth| var_norm
+    end
+
+    subgraph filtering [Variant Filtering (Optional)]
+        filter_contigs[Filter\nContigs]
+        bcftools_filter[bcftools\nfilter]
+        survivor_filter[SURVIVOR\nfilter]
+        filter_contigs -->|test| bcftools_filter
+        filter_contigs -->|test| survivor_filter
+    end
+
+    subgraph ensembl_truth [Ensembl Truth (Optionally Generate Proxy Truth)]
+        _ensembl_hub[hidden]
+        survivor_merge[SURVIVOR\nmerge]
+        bcftools_merge[bcftools\nmerge]
+        consensus_filter[Consensus\nFilter]
+        _ensembl_hub -->|test| survivor_merge
+        _ensembl_hub -->|test| bcftools_merge
+        survivor_merge -->|test| consensus_filter
+        bcftools_merge -->|test| consensus_filter
+    end
+
+    subgraph benchmarking [Benchmarking]
+        bench_hub[ ]
+        truvari[Truvari]
+        rtg_vcfeval[RTGtools vcfeval]
+        svanalyzer[SVanalyzer]
+        rtg_bndeval[RTGtools bndeval]
+        rtg_cnveval[RTGtools cnveval]
+        happy[hap.py]
+        wittyer[wittyer]
+        sompy[som.py]
+        intersection_tool[Intersection]
+        gatk4_conc[GATK4 Concordance]
+        bench_hub -->|sv_cnv| truvari
+        bench_hub -->|snv_indel| rtg_vcfeval
+        bench_hub -->|sv_cnv| svanalyzer
+        bench_hub -->|sv_cnv| rtg_bndeval
+        bench_hub -->|cnv| rtg_cnveval
+        bench_hub -->|snv_indel| happy
+        bench_hub -->|sv_cnv| wittyer
+        bench_hub -->|snv_indel| sompy
+        bench_hub -->|intersection| intersection_tool
+        bench_hub -->|concordance| gatk4_conc
+    end
+
+    subgraph output_processing [Output Processing]
+        results_hub[ ]
+        merge_res[Merge\nTP/FP/FN]
+        vcf2csv[VCF to\nCSV]
+        sum_stats[Summary\nStats]
+        plots[Plots]
+        datavzrd_tool[datavzrd]
+        merged_csvs[Merged\nCSVs]
+        merged_csvs_out[ ]
+        bench_summaries[Benchmarking\nSummaries]
+        html_report[HTML\nReport]
+        html_report_out[ ]
+        multiqc[MultiQC\nReport]
+        multiqc_out[ ]
+
+        results_hub -->|output| merge_res
+        merge_res -->|output| vcf2csv
+        results_hub -->|output| sum_stats
+        sum_stats -->|output| plots
+        sum_stats -->|output| datavzrd_tool
+        vcf2csv -->|output| plots
+        vcf2csv -->|output| merged_csvs
+        merged_csvs -->|output| merged_csvs_out
+        results_hub -->|output| bench_summaries
+        datavzrd_tool -->|output| html_report
+        html_report -->|output| html_report_out
+        sum_stats -->|output| multiqc
+        bench_summaries -->|output| multiqc
+        plots -->|output| multiqc
+        multiqc -->|output| multiqc_out
+    end
+
+    subgraph stats [Variant Statistics]
+        bcftools_stats[bcftools\nstats]
+        survivor_stats[SURVIVOR\nstats]
+        snv_stats[SNV stats]
+        sv_stats[SV stats]
+        snv_stats_out[ ]
+        sv_stats_out[ ]
+        bcftools_stats -->|output| snv_stats
+        survivor_stats -->|output| sv_stats
+        snv_stats -->|output| snv_stats_out
+        sv_stats -->|output| sv_stats_out
+    end
+
+    %% Section 1 -> 2: test through Subsample, truth to Liftover
+    _inputs_hub -->|test| subsample
+    _inputs_hub -->|truth,test| liftover
+    %% Section 2 -> 3: test to SV Processing, truth to Var Norm
+    liftover -->|test,truth| sv_processing
+    liftover -->|truth,test| var_norm
+
+
+    %% Section 3 -> 4
+    var_norm -->|test| filter_contigs
+    %% Section 4 -> 5: each filter to its corresponding stats
+    bcftools_filter -->|test| bcftools_stats
+    survivor_filter -->|test| survivor_stats
+    var_norm -->|truth| bcftools_stats
+    var_norm -->|truth| survivor_stats
+    %% Section 4 -> Ensembl Truth
+    bcftools_filter -->|test| _ensembl_hub
+    survivor_filter -->|test| _ensembl_hub
+    %% Multiple sections -> Benchmarking
+    filter_contigs -->|test| bench_hub
+    var_norm -->|truth,test| bench_hub
+    consensus_filter -->|truth| bench_hub
+    %% Benchmarking -> Output Processing
+    truvari -->|sv_cnv| results_hub
+    svanalyzer -->|sv_cnv| results_hub
+    rtg_bndeval -->|sv_cnv| results_hub
+    wittyer -->|sv_cnv| results_hub
+    rtg_cnveval -->|cnv| results_hub
+    rtg_vcfeval -->|snv_indel| results_hub
+    happy -->|snv_indel| results_hub
+    sompy -->|snv_indel| results_hub
+    intersection_tool -->|intersection| results_hub
+    gatk4_conc -->|concordance| results_hub

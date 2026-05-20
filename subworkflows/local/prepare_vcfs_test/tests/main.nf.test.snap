@@ -1,0 +1,68 @@
+{
+    "prepare structural variants - svdecompose": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_sv",
+                        "caller": "manta",
+                        "liftover": false,
+                        "fix_prefix": false
+                    },
+                    "simulated_sv.reheader.bnd.filtermissing.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=364, phased=false, phasedAutodetect=false]",
+                    "7a5371e54a73f38141af063ab397807d"
+                ]
+            ]
+        ],
+        "timestamp": "2026-03-26T11:16:21.355952881",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "prepare somatic variants - strelka gt injection": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_strelka",
+                        "caller": "strelka",
+                        "liftover": false,
+                        "fix_prefix": false
+                    },
+                    "HCC1395T_vs_HCC1395N.strelka.somatic_snvs.chr21.reheader.filtermissing.vcf.withGT.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=844, phased=false, phasedAutodetect=false]",
+                    "38e946067063bf8f50ccb73b6936f695"
+                ]
+            ]
+        ],
+        "timestamp": "2026-04-21T13:20:33.247931319",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "prepare small variants - full preprocess": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_preproc",
+                        "caller": "haplotypecaller",
+                        "liftover": false,
+                        "fix_prefix": false
+                    },
+                    "test2_haplotc.reheader.filtercontigs.split.dedup.sort.norm.vcf.filtermissing.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=740, phased=false, phasedAutodetect=false]",
+                    "b8fdf1e0f0d4a595a46671fc96a146ac"
+                ]
+            ]
+        ],
+        "timestamp": "2026-03-26T11:15:38.616042858",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

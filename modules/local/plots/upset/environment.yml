@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - pip
+  - pip:
+      - UpSetPlot==0.9.0
+      - matplot==0.1.9
+      - pandas==2.3.2

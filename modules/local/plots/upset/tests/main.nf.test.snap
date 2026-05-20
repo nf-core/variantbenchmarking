@@ -1,0 +1,57 @@
+{
+    "Standard upset plot generation": {
+        "content": [
+            [
+                [
+                    "upset_svbenchmark_tp_fn_mqc.png",
+                    "upset_svbenchmark_tp_fp_mqc.png"
+                ]
+            ],
+            {
+                "versions_python": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-23T11:39:24.150165699",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard upset plot - stub": {
+        "content": [
+            {
+                "0": [
+                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ],
+                "plot": [
+                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions_python": [
+                    [
+                        "PLOTS_UPSET",
+                        "python",
+                        "3.13.7"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-23T10:55:39.592107234",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

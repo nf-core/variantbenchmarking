@@ -1,0 +1,85 @@
+name: "survivor_merge"
+description: Compare or merge VCF files to generate a consensus or multi sample VCF
+  files.
+keywords:
+  - survivor
+  - merge
+  - vcf
+  - structural variants
+tools:
+  - "survivor":
+      description: "Toolset for SV simulation, comparison and filtering"
+      homepage: "https://github.com/fritzsedlazeck/SURVIVOR/wiki"
+      documentation: "https://github.com/fritzsedlazeck/SURVIVOR/wiki"
+      tool_dev_url: "https://github.com/fritzsedlazeck/SURVIVOR"
+      doi: "10.1038/NCOMMS14061"
+      licence: ["MIT"]
+      identifier: ""
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+    - vcfs:
+        type: list
+        description: |
+          The VCF files to be merged
+          Gzipped VCF files are not supported: https://github.com/fritzsedlazeck/SURVIVOR/issues/158
+        pattern: "*.vcf"
+  - max_distance_breakpoints:
+      type: integer
+      description: Max distance between breakpoints (0-1 percent of length, 1- number
+        of bp)
+  - min_supporting_callers:
+      type: integer
+      description: Minimum number of supporting caller
+  - account_for_type:
+      type: integer
+      description: Take the type into account (1==yes, else no)
+  - account_for_sv_strands:
+      type: integer
+      description: Take the strands of SVs into account (1==yes, else no)
+  - estimate_distanced_by_sv_size:
+      type: integer
+      description: Estimate distance based on the size of SV (1==yes, else no)
+  - min_sv_size:
+      type: integer
+      description: Minimum size of SVs to be taken into account
+output:
+  vcf:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+      - "*.vcf":
+          type: file
+          description: The merged VCF file
+          pattern: "*.vcf"
+          ontologies: []
+  versions_survivor:
+    - - ${task.process}:
+          type: string
+          description: The process the versions were collected from
+      - survivor:
+          type: string
+          description: The name of the tool
+      - "SURVIVOR 2>&1 | grep 'Version' | sed 's/Version: //'":
+          type: eval
+          description: The expression to obtain the version of the tool
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The process the versions were collected from
+      - survivor:
+          type: string
+          description: The name of the tool
+      - "SURVIVOR 2>&1 | grep 'Version' | sed 's/Version: //'":
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@nvnieuwk"
+maintainers:
+  - "@nvnieuwk"

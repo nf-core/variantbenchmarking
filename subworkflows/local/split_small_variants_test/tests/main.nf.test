@@ -1,0 +1,71 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SPLIT_SMALL_VARIANTS_TEST"
+    script "../main.nf"
+    workflow "SPLIT_SMALL_VARIANTS_TEST"
+
+    tag "subworkflows"
+    tag "subworkflows_split_small_variants_test"
+    tag "subworkflows/split_small_variants_test"
+    tag "bcftools"
+    tag "bcftools/view"
+    tag "tabix"
+    tag "tabix/bgziptabix"
+
+    test("split small variants") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.out_vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("split small variants stub") {
+        options "-stub"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

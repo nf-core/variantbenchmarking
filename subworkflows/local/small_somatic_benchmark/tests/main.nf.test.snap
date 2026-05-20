@@ -1,0 +1,291 @@
+{
+    "somatic small variants - stub": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    
+                ],
+                "summary_reports": [
+                    
+                ],
+                "tagged_variants": [
+                    
+                ],
+                "tagged_variants_csv": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T14:14:07.140699445",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants sompy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.FN.csv",
+                    "cd4cb0a3b9cd45a3acb5653307b563e0"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.FP.csv",
+                    "5d2cb4d6e60afbcee5a136878877bd64"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.TP_comp.csv",
+                    "46aa600762be1f1f68fafcb78b07bceb"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "sompy"
+                    },
+                    [
+                        "test_sompy.SEQC2.mutect2.stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-26T12:20:28.660215384",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test_stub.SEQC2.mutect2.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "2": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test_stub.SEQC2.mutect2.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    
+                ],
+                "tagged_variants_csv": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test_stub.SEQC2.mutect2.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T12:21:09.060388555",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants - sompy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "sompy"
+                    },
+                    "test_sompy.truth.mutect2.FN.csv",
+                    "902cbde3105a78b16fe64f7e07214146"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "sompy"
+                    },
+                    "test_sompy.truth.mutect2.FP.csv",
+                    "6b9c88de2244662a173b52fefd540170"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "sompy"
+                    },
+                    "test_sompy.truth.mutect2.TP_comp.csv",
+                    "9929dec7c4877f6807fa8578eeaccfdf"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "sompy"
+                    },
+                    [
+                        "test_sompy.truth.mutect2.stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T13:37:36.513439659",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants rtgtools": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FN"
+                    },
+                    "test.SEQC2.haplotypecaller.fn.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FP"
+                    },
+                    "test.SEQC2.haplotypecaller.fp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_base"
+                    },
+                    "test.SEQC2.haplotypecaller.tp-baseline.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_comp"
+                    },
+                    "test.SEQC2.haplotypecaller.tp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "rtgtools"
+                    },
+                    [
+                        "test.SEQC2.haplotypecaller.summary.txt"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-26T12:53:10.190931316",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

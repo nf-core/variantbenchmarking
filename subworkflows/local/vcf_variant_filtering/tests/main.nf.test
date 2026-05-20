@@ -1,0 +1,129 @@
+nextflow_workflow {
+
+    name "Test Subworkflow VCF_VARIANT_FILTERING"
+    script "../main.nf"
+    workflow "VCF_VARIANT_FILTERING"
+
+    tag "subworkflows"
+    tag "subworkflows_vcf_variant_filtering"
+    tag "subworkflows/vcf_variant_filtering"
+    tag "bcftools"
+    tag "bcftools/filter"
+    tag "survivor"
+    tag "survivor/filter"
+    tag "tabix"
+    tag "tabix/bgzip"
+    tag "tabix/bgziptabix"
+
+    test("filter variants with bcftools") {
+
+        when {
+            params {
+                include_expression = 'QUAL>20'
+                exclude_expression = false
+                min_sv_size = 0
+                max_sv_size = -1
+                min_allele_freq = -1
+                min_num_reads = -1
+                variant_type = 'small'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        [
+                            meta,
+                            path(vcf).getFileName().toString(),
+                            path(vcf).vcf.summary,
+                            path(vcf).vcf.variantsMD5,
+                            path(tbi).getFileName().toString()
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("filter variants with survivor") {
+
+        when {
+            params {
+                include_expression = false
+                exclude_expression = false
+                min_sv_size = 50
+                max_sv_size = -1
+                min_allele_freq = -1
+                min_num_reads = -1
+                variant_type = 'structural'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { meta, vcf, tbi ->
+                        [
+                            meta,
+                            path(vcf).getFileName().toString(),
+                            path(vcf).vcf.summary,
+                            path(vcf).vcf.variantsMD5,
+                            path(tbi).getFileName().toString()
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("filter variants stub") {
+        options "-stub"
+        when {
+            params {
+                include_expression = 'QUAL>20'
+                exclude_expression = false
+                min_sv_size = 0
+                max_sv_size = -1
+                min_allele_freq = -1
+                min_num_reads = -1
+                variant_type = 'small'
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ],
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,216 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SV_VCF_CONVERSIONS"
+    script "../main.nf"
+    workflow "SV_VCF_CONVERSIONS"
+
+    tag "subworkflows"
+    tag "subworkflows_sv_vcf_conversions"
+    tag "subworkflows/sv_vcf_conversions"
+    tag "variantextractor"
+    tag "svtk"
+    tag "svtk/standardize"
+    tag "rtgtools"
+    tag "rtgtools/svdecompose"
+    tag "svync"
+    tag "bcftools"
+    tag "bcftools/sort"
+    tag "tabix"
+    tag "tabix/bgziptabix"
+    tag "tabix/tabix"
+
+    test("convert sv vcf with variant_extractor") {
+
+        when {
+            params {
+                sv_standardization = "variantextractor"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'mutect2' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = Channel.of([
+                    [ id:'test4' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svtk") {
+
+        when {
+            params {
+                sv_standardization = "svtk"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = Channel.of([
+                    [ id:'test4' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svdecompose") {
+
+        when {
+            params {
+                sv_standardization = "svdecompose"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = Channel.of([
+                    [ id:'test4' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf with svync") {
+
+        when {
+            params {
+                sv_standardization = "svync"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = Channel.of([
+                    [ id:'test4' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("convert sv vcf stub") {
+        options "-stub"
+        when {
+            params {
+                sv_standardization = "svdecompose"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', caller:'manta' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                ])
+                input[1] = Channel.of([
+                    [ id:'test4' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

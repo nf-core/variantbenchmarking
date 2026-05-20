@@ -1,0 +1,120 @@
+nextflow_workflow {
+
+    name "Test Subworkflow REPORT_BENCHMARK_STATISTICS"
+    script "../main.nf"
+    workflow "REPORT_BENCHMARK_STATISTICS"
+
+    tag "subworkflows"
+    tag "subworkflows_report_benchmark_statistics"
+    tag "subworkflows/report_benchmark_statistics"
+    tag "datavzrd"
+    tag "cat"
+    tag "cat/cat"
+    tag "merge_reports"
+
+    test("report benchmark statistics - structural variants") {
+
+        when {
+            params {
+                variant_type = "structural"
+                skip_plots = ""
+                analysis = "germline"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test_report', benchmark_tool:'svbenchmark', vartype:'structural' ],
+                    [
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test1.HG002.delly.report', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test2.HG002.lumpy.report', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test3.HG002.manta.report', checkIfExists: true)
+                    ]
+                ])
+
+                input[1] = Channel.of([
+                    [ id:'test', tag:'tool1' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true)
+                ])
+
+                input[2] = Channel.of(
+                    [
+                        [ id:'test', tag:'tool1' ],
+                        file(params.test_data_base + '/testdata/nf-test/merge/test8.TP_comp.csv', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test', tag:'tool2' ],
+                        file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.merged_reports.collect { meta, csv ->
+                        def csvFile = csv instanceof Collection ? csv[0] : csv
+                        [
+                            meta,
+                            path(csvFile.toString()).getFileName().toString()
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.ch_plots.collect { plot ->
+                        def plotFile = plot instanceof Collection ? plot[0] : plot
+                        path(plotFile.toString()).getFileName().toString()
+                    }.sort(),
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("report benchmark statistics - stub") {
+        options "-stub"
+
+        when {
+            params {
+                variant_type = "structural"
+                skip_plots = ""
+                analysis = "germline"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test_report', benchmark_tool:'svbenchmark', vartype:'structural' ],
+                    [
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test1.HG002.delly.report', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test2.HG002.lumpy.report', checkIfExists: true),
+                        file(params.test_data_base + '/testdata/nf-test/merge_reports/test3.HG002.manta.report', checkIfExists: true)
+                    ]
+                ])
+
+                input[1] = Channel.of([
+                    [ id:'test', tag:'tool1' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz', checkIfExists: true),
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/vcf/chr21/simulated_sv.vcf.gz.tbi', checkIfExists: true)
+                ])
+
+                input[2] = Channel.of(
+                    [
+                        [ id:'test', tag:'tool1' ],
+                        file(params.test_data_base + '/testdata/nf-test/merge/test8.TP_comp.csv', checkIfExists: true)
+                    ],
+                    [
+                        [ id:'test', tag:'tool2' ],
+                        file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
+                    ]
+                )
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}
