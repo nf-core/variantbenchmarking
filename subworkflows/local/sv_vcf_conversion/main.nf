@@ -35,7 +35,7 @@ workflow SV_VCF_CONVERSIONS {
 
     if (params.sv_standardization.contains("svtk")){
 
-        out_vcf_ch = Channel.empty()
+        out_vcf_ch = channel.empty()
 
         supported_callers2 = ["delly", "melt", "manta", "wham", "dragen", "lumpy", "scrable", "smoove"]
         input_ch
@@ -78,8 +78,8 @@ workflow SV_VCF_CONVERSIONS {
     }
 
     input_ch
-        .branch { input ->
-            compressed:   input[1].getName().endsWith('.gz')
+        .branch { files ->
+            compressed:   files[1].getName().endsWith('.gz')
             uncompressed: true
         }
         .set { ch_inputs }
@@ -127,9 +127,9 @@ workflow SV_VCF_CONVERSIONS {
                 SVYNC.out.vcf,
                 input.other
             )
-            .map{ input ->
-                def meta = input[0]
-                def vcf = input[1]
+            .map{ file ->
+                def meta = file[0]
+                def vcf = file[1]
                 [ meta, vcf ]
             }
             .set { vcf_ch }

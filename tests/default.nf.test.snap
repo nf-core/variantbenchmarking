@@ -88,6 +88,11 @@
                 "structural/HG002/stats/survivor/HG002_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
+                "structural/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
                 "structural/multiqc/multiqc_data/llms-full.txt",
                 "structural/multiqc/multiqc_data/multiqc.log",
                 "structural/multiqc/multiqc_data/multiqc.parquet",
@@ -101,14 +106,32 @@
                 "structural/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
                 "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "structural/multiqc/multiqc_plots/png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
                 "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "structural/multiqc/multiqc_plots/svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
                 "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
@@ -199,8 +222,13 @@
             [
                 "HG002.bcftools_stats.txt:md5,184d672828c019a6f0cf732bcd3eae40",
                 "HG002_mqc.stats:md5,1640b71d7317b5f7be31a8712e876e10",
+                "bcftools_stats_indel-lengths.txt:md5,642235d2bfca7a9cfb7bed765455196d",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,e00010736baafe749c8edf8014fe6376",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,39aa806aa38207206d46aa691b86af08",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,39aa806aa38207206d46aa691b86af08",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,39aa806aa38207206d46aa691b86af08",
                 "multiqc_bcftools_stats.txt:md5,3d782febc5ec3109b56ba4bce2d6fdb1",
-                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_survivor.txt:md5,959dc53884368cf2f85d18be5c627b99",
                 "multiqc_variant_calling_summary.txt:md5,8fdcd482b04882572cee4f68ad9baf99",
                 "test1.delly.bcftools_stats.txt:md5,9847ff08b49e4a10d865d61ef2cbe375",
@@ -211,10 +239,10 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-04-22T12:18:17.150470471",
+        "timestamp": "2026-05-20T13:11:27.985179706",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "-stub": {
@@ -306,7 +334,9 @@
                 "structural/HG002/stats/survivor/HG002_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
+                "structural/multiqc/multiqc_data/.stub",
                 "structural/multiqc/multiqc_plots",
+                "structural/multiqc/multiqc_plots/.stub",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
@@ -399,6 +429,8 @@
             [
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test1.delly_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test2.lumpy.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -407,10 +439,10 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-04-22T12:20:04.299430777",
+        "timestamp": "2026-05-20T13:12:32.273840803",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

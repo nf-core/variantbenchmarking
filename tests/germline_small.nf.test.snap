@@ -111,7 +111,9 @@
                 "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
                 "small/multiqc",
                 "small/multiqc/multiqc_data",
+                "small/multiqc/multiqc_data/.stub",
                 "small/multiqc/multiqc_plots",
+                "small/multiqc/multiqc_plots/.stub",
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
                 "small/summary/comparisons",
@@ -258,6 +260,8 @@
             [
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test6.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
@@ -280,10 +284,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-04-22T12:26:29.644786845",
+        "timestamp": "2026-05-20T13:18:29.304813192",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {

@@ -30,7 +30,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         PLOTS_METRICS(
             MERGE_REPORTS.out.summary
         )
-        ch_plots = ch_plots.mix(PLOTS_METRICS.out.plots.flatten())
+        ch_plots = ch_plots.mix(PLOTS_METRICS.out.plots)
     }
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
@@ -64,6 +64,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
 
     emit:
-    ch_plots        // channel: [ meta, plots.png ]
+    ch_plots        // channel: [ plots.png ]
     merged_reports  // channel: [ meta, summary.csv]
 }

@@ -474,7 +474,9 @@
                 "snv/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
                 "snv/multiqc",
                 "snv/multiqc/multiqc_data",
+                "snv/multiqc/multiqc_data/.stub",
                 "snv/multiqc/multiqc_plots",
+                "snv/multiqc/multiqc_plots/.stub",
                 "snv/multiqc/multiqc_report.html",
                 "snv/summary",
                 "snv/summary/comparisons",
@@ -622,6 +624,8 @@
             [
                 "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "SEQC2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test10.SEQC2.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test10.SEQC2.strelka.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test10.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -633,10 +637,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-04-22T12:32:38.567210453",
+        "timestamp": "2026-05-20T13:25:37.679632604",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }
