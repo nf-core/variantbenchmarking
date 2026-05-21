@@ -12,12 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 ### `Dependencies`
-| Dependency     | Old version | New version |
-| -------------- | ----------- | ----------- |
-| pigz           | 2.8         | depreciated |
-| nf-core        | 3.5.1       | 4.0.2       |
-| prettier       | 3.6.2       | 3.8.3       |
 
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| pigz       | 2.8         | depreciated |
+| nf-core    | 3.5.1       | 4.0.2       |
+| prettier   | 3.6.2       | 3.8.3       |
 
 ## 1.5.0
 
