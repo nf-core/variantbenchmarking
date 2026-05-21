@@ -161,7 +161,7 @@ workflow PREPARE_VCFS_TEST {
 
      // branch out test samples with missing GT field (e.g. strelka) to add GT field using gawk
     vcf_ch
-        .branch { meta, vcf, tbi ->
+        .branch { meta, _vcf, _tbi ->
             def is_rtg = params.method?.contains("rtgtools")
             def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
             def is_somatic = params.analysis == "somatic"
@@ -172,7 +172,7 @@ workflow PREPARE_VCFS_TEST {
 
     // Add GT field using
     ADD_GT_STRELKA(
-        ch_branched_vcf.needs_gt.map{ meta, vcf, _tbi -> tuple(meta, vcf) },
+        ch_branched_vcf.needs_gt.map{ meta, file, _tbi -> tuple(meta, file) },
         [],
         false
     )

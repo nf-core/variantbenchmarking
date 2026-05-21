@@ -8,8 +8,7 @@ nextflow_workflow {
     tag "subworkflows_report_benchmark_statistics"
     tag "subworkflows/report_benchmark_statistics"
     tag "datavzrd"
-    tag "cat"
-    tag "cat/cat"
+    tag "gawk"
     tag "merge_reports"
 
     test("report benchmark statistics - structural variants") {

@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- Template update for nf-core/tools v4.0.2 + a few fixes around [#305](https://github.com/nf-core/variantbenchmarking/issues/305)
+
 ### `Fixed`
 
 ### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| pigz       | 2.8         | depreciated |
+| nf-core    | 3.5.1       | 4.0.2       |
+| prettier   | 3.6.2       | 3.8.3       |
 
 ## 1.5.0
 

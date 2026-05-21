@@ -33,7 +33,7 @@ workflow WITTYER_BENCHMARK {
         TABIX_BGZIP_QUERY.out.output
             .join(TABIX_BGZIP_TRUTH.out.output, failOnDuplicate:true, failOnMismatch:true)
             .join(bed, failOnDuplicate:true, failOnMismatch:true)
-            .map{ meta, vcf, truth_vcf, bed -> [meta, vcf, truth_vcf, bed, []] }
+            .map{ meta, vcf, truth_vcf, bed_file -> [meta, vcf, truth_vcf, bed_file, []] }
     )
 
     WITTYER.out.report

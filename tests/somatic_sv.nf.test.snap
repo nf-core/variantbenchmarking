@@ -22,7 +22,7 @@
                     "bcftools": 1.22
                 },
                 "CREATE_DATAVZRD_INPUT": {
-                    "pigz": 2.8
+                    "gawk": "5.3.0"
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -86,6 +86,11 @@
                 "structural/SEQC2/stats/survivor/SEQC2_mqc.stats",
                 "structural/multiqc",
                 "structural/multiqc/multiqc_data",
+                "structural/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                "structural/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
                 "structural/multiqc/multiqc_data/llms-full.txt",
                 "structural/multiqc/multiqc_data/multiqc.log",
                 "structural/multiqc/multiqc_data/multiqc.parquet",
@@ -105,6 +110,12 @@
                 "structural/multiqc/multiqc_data/truvari-bench-pre-rec-plot.txt",
                 "structural/multiqc/multiqc_plots",
                 "structural/multiqc/multiqc_plots/pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                "structural/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/survivor-pct.pdf",
                 "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_Base-cnt.pdf",
@@ -118,6 +129,12 @@
                 "structural/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
                 "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
                 "structural/multiqc/multiqc_plots/png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                "structural/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
                 "structural/multiqc/multiqc_plots/png/survivor-cnt.png",
                 "structural/multiqc/multiqc_plots/png/survivor-pct.png",
                 "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_Base-cnt.png",
@@ -131,6 +148,12 @@
                 "structural/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
                 "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
                 "structural/multiqc/multiqc_plots/svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                "structural/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/survivor-pct.svg",
                 "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_Base-cnt.svg",
@@ -222,8 +245,13 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
+                "bcftools_stats_indel-lengths.txt:md5,17ba6b0ab26cf8f1032fad4b6d4fd913",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,2baad19f17a829584ba2a14a3cd46802",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
                 "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
-                "multiqc_citations.txt:md5,38f633e1381fe6da4bcbec213cd00061",
+                "multiqc_citations.txt:md5,e7e57ff8b7ef2a5e4452481812e26169",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
                 "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
                 "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
@@ -232,10 +260,10 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-04-22T12:35:34.355188874",
+        "timestamp": "2026-05-21T13:13:27.598845797",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -40,15 +40,19 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_vari
 workflow NFCORE_VARIANTBENCHMARKING {
 
     take:
-    ch_samplesheet
+    samplesheet
 
     main:
 
     //
     // WORKFLOW: Run pipeline
     //
-    VARIANTBENCHMARKING(
-        ch_samplesheet
+    VARIANTBENCHMARKING (
+        samplesheet,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
+        params.outdir,
     )
     emit:
     multiqc_report = VARIANTBENCHMARKING.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -93,7 +97,6 @@ workflow {
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
-        params.hook_url,
         NFCORE_VARIANTBENCHMARKING.out.multiqc_report
     )
 }
