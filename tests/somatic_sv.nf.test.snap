@@ -22,7 +22,7 @@
                     "bcftools": 1.22
                 },
                 "CREATE_DATAVZRD_INPUT": {
-                    "pigz": 2.8
+                    "gawk": "5.3.0"
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -260,7 +260,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-05-20T13:29:11.961442327",
+        "timestamp": "2026-05-21T13:13:27.598845797",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

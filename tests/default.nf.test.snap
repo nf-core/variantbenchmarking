@@ -28,7 +28,7 @@
                     "bcftools": 1.22
                 },
                 "CREATE_DATAVZRD_INPUT": {
-                    "pigz": 2.8
+                    "gawk": "5.3.0"
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -239,7 +239,7 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-05-20T13:11:27.985179706",
+        "timestamp": "2026-05-21T13:02:07.308551843",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -274,7 +274,7 @@
                     "bcftools": 1.22
                 },
                 "CREATE_DATAVZRD_INPUT": {
-                    "pigz": 2.8
+                    "gawk": "5.3.0"
                 },
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
@@ -439,7 +439,7 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-05-20T13:12:32.273840803",
+        "timestamp": "2026-05-21T13:03:05.643745178",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

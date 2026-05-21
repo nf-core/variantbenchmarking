@@ -78,7 +78,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     DATAVZRD (
         clean_datavzrd_input_ch.join(summary)
     )
-    ch_plots.view()
 
     emit:
     ch_plots        // channel: [ plots.png ]

@@ -7,7 +7,7 @@ nextflow_pipeline {
     tag "snv"
     config "../conf/tests/somatic_snv.config"
 
-    test("Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy'") {
+    test("Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy,rtgtools'") {
 
         when {
             params {
