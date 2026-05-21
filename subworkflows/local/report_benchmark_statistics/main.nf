@@ -35,16 +35,16 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
         // plot INDEL/SV distribution plots
-        evaluations.map { item -> 
-            tuple(item[0], item[1]) 
+        evaluations.map { item ->
+            tuple(item[0], item[1])
         }.groupTuple()
         .mix(
-            evaluations_csv.map { item -> 
-                tuple(item[0], item[1]) 
+            evaluations_csv.map { item ->
+                tuple(item[0], item[1])
             }.groupTuple()
         )
         .set { svlen_input }
-        
+
         PLOTS_SVLEN_DIST(svlen_input)
         ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
     }
@@ -67,7 +67,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         [],
         false
     )
-  
+
     CREATE_DATAVZRD_INPUT.out.output
         .map { meta, yaml_file ->
             def clean_meta = meta.findAll { it.key != 'csv' }
