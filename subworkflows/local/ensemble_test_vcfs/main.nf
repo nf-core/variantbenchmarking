@@ -100,7 +100,7 @@ workflow ENSEMBLE_TEST_VCFS {
             .set{vcf_ch}
 
         // drop meta information from vcf test samples
-        ch_test_vcfs = vcf_ch.map { meta, vcf ->
+        ch_test_vcfs = vcf_ch.map { _meta, vcf ->
             [ [id: 'truth'], vcf ]
         }
 
