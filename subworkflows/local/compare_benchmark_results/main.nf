@@ -23,7 +23,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     main:
     merged_vcfs = channel.empty()
     ch_plots    = channel.empty()
-    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.benchmark_tool == "sompy" }
+    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.id == "sompy" }
 
 
     if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
