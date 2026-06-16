@@ -663,7 +663,7 @@
                 "multiqc_bcftools_stats.txt:md5,d6908affe4a63624cdef969bf08f431c",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,ee3a241e3a6f134d5488a848a8cfed93",
-                "HG002.report.html:md5,9942780cd667da020915a898796404ff",
+                "HG002.report.html:md5,e178d99e59b048121c1a9d1040660633",
                 "test6.HG002.strelka.extended.csv:md5,1d7e794eec466dcc9b26259ad5d977c0",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,60563576cb01b0f8c29e6c4249d26a29",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,7018e47ddb59f4bb2493ea91e651d875",
@@ -686,7 +686,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-06-15T15:25:53.122070169",
+        "timestamp": "2026-06-16T18:19:11.216525305",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
