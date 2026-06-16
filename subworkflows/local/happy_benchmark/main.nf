@@ -65,6 +65,11 @@ workflow HAPPY_BENCHMARK {
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
         .groupTuple()
         .set{ summary_reports }
+    
+    HAPPY_HAPPY.out.roc_all_csv
+        .map { meta, file -> tuple(meta + [vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
+        .view { meta,_file -> println("ROC ALL CSV: " + meta) }
+        .set{ roc_all_csv }
 
     // Subsample TRUTH column from happy results
     BCFTOOLS_VIEW_TRUTH(
@@ -144,5 +149,6 @@ workflow HAPPY_BENCHMARK {
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
+    roc_all_csv     // channel: [val(meta), roc_all_csv]
 
 }

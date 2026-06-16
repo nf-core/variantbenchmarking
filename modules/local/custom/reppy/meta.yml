@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "reppy"
+description: >
+  Generates an interactive HTML benchmarking report from GA4GH hap.py ROC/metrics
+  CSV files using the rep.py reporting tool. The report includes precision/recall
+  tables and ROC curves for SNPs and INDELs.
+keywords:
+  - report
+  - html
+  - roc-curve
+  - benchmarking
+  - variants
+  - happy
+  - ga4gh
+
+tools:
+  - "reppy":
+      description: >
+        A Python script (rep.py) from the GA4GH benchmarking-tools suite that
+        renders Jinja2 HTML reports from hap.py ROC/metrics CSV output.
+      homepage: "https://github.com/ga4gh/benchmarking-tools/tree/master"
+      documentation: "https://github.com/ga4gh/benchmarking-tools/tree/master/reporting/basic"
+      tool_dev_url: "https://github.com/ga4gh/benchmarking-tools/tree/master"
+      licence: ["Apache-2.0"]
+
+input:
+  - - roc_csv:
+        type: file
+        description: >
+          One or more GA4GH metrics/ROC CSV files produced by hap.py (e.g.
+          *.roc.all.csv.gz). All files required by the reppy_input argument
+          must be staged in the working directory via this channel.
+        pattern: "*.{csv,csv.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_3752" # CSV
+  - - reppy_input:
+        type: string
+        description: >
+          Labeled input argument string passed directly to rep.py.
+          Follows the pattern `method_comparison:file.csv` for one or more
+          space-separated entries, e.g.
+          `"gatk_giab:sample.roc.all.csv.gz other_tool:other.roc.csv.gz"`.
+
+output:
+  html:
+    - - html:
+          type: file
+          description: Interactive HTML report containing SNP/INDEL precision-recall tables and ROC curves.
+          pattern: "*.report.html"
+          ontologies:
+            - edam: "http://edamontology.org/format_2331" # HTML
+  versions_reppy:
+    - - "${task.process}":
+          type: string
+          description: The name of the process
+      - "reppy":
+          type: string
+          description: The name of the tool
+      - "0.1.0 ":
+          type: string
+          description: The version of the tool used in the process.
+
+topics:
+  versions:
+    - versions_reppy:
+        type: string
+        description: Version information emitted as a Nextflow topic channel tuple (process, tool, version).
+
+authors:
+  - "@georgiakes"
+maintainers:
+  - "@georgiakes"

@@ -326,6 +326,7 @@ workflow VARIANTBENCHMARKING {
             )
             ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
             evals_ch         = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
+            evals_csv_ch     = evals_csv_ch.mix(SMALL_GERMLINE_BENCHMARK.out.roc_all_csv)
         }
     }
 
