@@ -31,7 +31,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
         )
         summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
         tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
-                                    .map { meta, file -> tuple(meta + [vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
+                                    .map { meta, file -> tuple(meta + [vartype: params.variant_type] + [id: "sompy"], file) }
     }
 
     if (params.method.contains('rtgtools')){

@@ -20,8 +20,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     ch_plots = channel.empty()
     merged_reports = channel.empty()
-    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.benchmark_tool == "sompy" }
-    evaluations_csv_happy = evaluations_csv.filter { meta, file -> meta.benchmark_tool == "happy" }
+    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.id == "sompy" }
+    evaluations_csv_happy = evaluations_csv.filter { meta, file -> meta.id == "happy" }
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
