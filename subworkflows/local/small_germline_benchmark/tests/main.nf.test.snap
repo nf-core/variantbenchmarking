@@ -51,6 +51,26 @@
                         "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
+                "2": [
+                    [
+                        {
+                            "id": "happy",
+                            "caller": "haplotypecaller",
+                            "vartype": "small"
+                        },
+                        "test_happy.HG002.haplotypecaller.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "roc_all_csv": [
+                    [
+                        {
+                            "id": "happy",
+                            "caller": "haplotypecaller",
+                            "vartype": "small"
+                        },
+                        "test_happy.HG002.haplotypecaller.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
                 "summary_reports": [
                     [
                         {
@@ -102,10 +122,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-26T12:39:48.831529609",
+        "timestamp": "2026-06-16T22:10:50.250745107",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "germline small variants rtgtools": {
@@ -162,12 +182,15 @@
                         "test.HG002.haplotypecaller.summary.txt"
                     ]
                 ]
-            ]
+            ],
+            {
+                
+            }
         ],
-        "timestamp": "2026-04-21T13:13:18.262485114",
+        "timestamp": "2026-06-17T00:09:05.383408085",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "germline small variants happy": {
@@ -225,14 +248,24 @@
                     ]
                 ]
             ],
+            [
+                [
+                    {
+                        "id": "happy",
+                        "caller": "haplotypecaller",
+                        "vartype": "small"
+                    },
+                    "test_happy.HG002.haplotypecaller.roc.all.csv.gz"
+                ]
+            ],
             {
                 
             }
         ],
-        "timestamp": "2026-04-21T13:03:51.26019459",
+        "timestamp": "2026-06-16T22:09:52.603778298",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }

@@ -19,6 +19,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
     summary_reports = channel.empty()
     tagged_variants = channel.empty()
+    roc_all_csv = channel.empty()
 
     if (params.method.contains('rtgtools')){
 
@@ -59,7 +60,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
         )
         summary_reports = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
         tagged_variants = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
-        roc_all_csv = HAPPY_BENCHMARK.out.roc_all_csv
+        roc_all_csv     = roc_all_csv.mix(HAPPY_BENCHMARK.out.roc_all_csv)
     }
     emit:
     summary_reports // channel: [val(meta), reports]

@@ -52,14 +52,24 @@
                     "test.HG002.gatk.summary.csv"
                 ]
             ],
+            [
+                [
+                    {
+                        "id": "happy",
+                        "caller": "gatk",
+                        "vartype": "small"
+                    },
+                    "test.HG002.gatk.roc.all.csv.gz"
+                ]
+            ],
             {
                 
             }
         ],
-        "timestamp": "2026-04-21T12:57:48.296072249",
+        "timestamp": "2026-06-17T00:13:48.919926256",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "homo_sapiens - illumina - happy benchmark stub": {
@@ -114,6 +124,26 @@
                         "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
+                "2": [
+                    [
+                        {
+                            "id": "happy",
+                            "caller": "gatk",
+                            "vartype": "small"
+                        },
+                        "test.HG002.gatk.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "roc_all_csv": [
+                    [
+                        {
+                            "id": "happy",
+                            "caller": "gatk",
+                            "vartype": "small"
+                        },
+                        "test.HG002.gatk.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
                 "summary_reports": [
                     [
                         {
@@ -165,10 +195,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-26T12:25:12.547972075",
+        "timestamp": "2026-06-17T00:16:01.90303565",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "homo_sapiens - illumina - happy benchmark with prepy": {
@@ -224,14 +254,24 @@
                     "test.HG002.gatk.summary.csv"
                 ]
             ],
+            [
+                [
+                    {
+                        "id": "happy",
+                        "caller": "gatk",
+                        "vartype": "small"
+                    },
+                    "test.HG002.gatk.roc.all.csv.gz"
+                ]
+            ],
             {
                 
             }
         ],
-        "timestamp": "2026-04-21T12:58:33.254667582",
+        "timestamp": "2026-06-17T00:14:59.530738837",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }

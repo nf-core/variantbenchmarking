@@ -20,7 +20,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     ch_plots = channel.empty()
     merged_reports = channel.empty()
-    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.id == "sompy" }
+    evaluations_csv = evaluations_csv.filter { meta, file -> meta.id != "happy" }
     evaluations_csv_happy = evaluations_csv.filter { meta, file -> meta.id == "happy" }
 
     // merge summary statistics from the same benchmarking tool
@@ -43,7 +43,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
             tuple(item[0], item[1])
         }.groupTuple()
         .mix(
-            evaluations_csv_sompy.map { item ->
+            evaluations_csv.map { item ->
                 tuple(item[0], item[1])
             }.groupTuple()
         )
