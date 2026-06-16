@@ -65,7 +65,7 @@ workflow HAPPY_BENCHMARK {
         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
         .groupTuple()
         .set{ summary_reports }
-    
+
     HAPPY_HAPPY.out.roc_all_csv
         .map { meta, file -> tuple(meta + [vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
         .view { meta,_file -> println("ROC ALL CSV: " + meta) }

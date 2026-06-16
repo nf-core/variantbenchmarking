@@ -20,7 +20,7 @@ process REPPY {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix 
+    def prefix = task.ext.prefix
 
     """
     rep.py \\
@@ -36,7 +36,7 @@ process REPPY {
 
     """
     echo $args
-    
+
     touch ${prefix}.report.html
     """
 }

@@ -82,7 +82,7 @@ if (PLOT === undefined) {
         svg.selectAll(".legend_" + d.method.replace(/[^A-Z0-9_]/gi, "_"))
             .style("font-weight", "bold");
         svg.selectAll(".cmlegend_" + d.comparisonmethod.replace(/[^A-Z0-9_]/gi, "_"))
-            .style("font-weight", "bold");        
+            .style("font-weight", "bold");
         plot_g.selectAll(id.replace(/\.dot/g, ".roc_ALL"))
             .style("stroke-width", "2px")
             .style("opacity", 0.5);
@@ -91,11 +91,11 @@ if (PLOT === undefined) {
             .style("opacity", 1.0);
         plot_g.selectAll(id.replace(/\.dot/g, ".pf"))
             .style("stroke", "black")
-            .style("opacity", 0.8);        
+            .style("opacity", 0.8);
     }
 
     /** highlight single dataset */
-    function unhighlightSingle(svg, plot_g, d) {      
+    function unhighlightSingle(svg, plot_g, d) {
         var id = ".dot_" + makeDataID(d, ["type", "subtype", "subset", "method", "comparisonmethod"]);
         plot_g.selectAll(id)
             .style("stroke", function (d) {
@@ -103,12 +103,12 @@ if (PLOT === undefined) {
                     return d.FILL;
                 } else {
                     return "black";
-                }                
+                }
             });
         svg.selectAll(".legend_" + d.method.replace(/[^A-Z0-9_]/gi, "_"))
             .style("font-weight", "normal");
         svg.selectAll(".cmlegend_" + d.comparisonmethod.replace(/[^A-Z0-9_]/gi, "_"))
-            .style("font-weight", "normal");        
+            .style("font-weight", "normal");
         plot_g.selectAll(id.replace(/\.dot/g, ".roc_ALL"))
             .style("stroke-width", "2px")
             .style("opacity", 0.0);
@@ -135,7 +135,7 @@ if (PLOT === undefined) {
             d["FILL"] = color(d.method);
             d["SHAPE"] = d3.svg.symbol().type(shape(d.comparisonmethod))();
         });
-        
+
         var margin = {top: 20, right: 300, bottom: 30, left: 100},
             width = 1000 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
@@ -279,15 +279,15 @@ if (PLOT === undefined) {
             data.forEach(function(d) {
                 var key = makeDataID(d, ["type", "subtype", "subset", "method", "comparisonmethod"]);
                 if(!pfl.hasOwnProperty(key)) {
-                    pfl[key] = { 
+                    pfl[key] = {
                         type: d.type,
                         subtype: d.subtype,
                         subset: d.subset,
                         method: d.method,
                         comparisonmethod: d.comparisonmethod,
-                        x1: null, 
-                        x2: null, 
-                        y1: null, 
+                        x1: null,
+                        x2: null,
+                        y1: null,
                         y2: null };
                 }
                 if(d.filter == "ALL") {
@@ -303,7 +303,7 @@ if (PLOT === undefined) {
                 .data(d3.values(pfl))
                 .enter().append("line")
                 .attr("class", function(d) {
-                    return "pf" + 
+                    return "pf" +
                            " pf_ " + d.method.replace(/[^A-Z0-9_]/gi, "_") +
                            " pf_" + makeDataID(d, ["type", "subtype", "subset", "method", "comparisonmethod"]);
                 })
@@ -326,7 +326,7 @@ if (PLOT === undefined) {
                 .data(data.filter(function(d) { return d.filter == "PASS" || d.filter == "ALL"; }))
                 .enter().append("path")
                 .attr("class", function(d) {
-                    return "roc" + 
+                    return "roc" +
                            " roc_ " + d.method.replace(/[^A-Z0-9_]/gi, "_") +
                            " roc_" + makeDataID(d, ["type", "subtype", "subset", "method", "comparisonmethod"]) +
                         " roc_" + d.filter + "_" + makeDataID(d, ["type", "subtype", "subset", "method", "comparisonmethod"]) +

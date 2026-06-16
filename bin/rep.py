@@ -55,7 +55,7 @@ SCRIPTDIR   = os.path.abspath(os.path.dirname(__file__))
 ASSETDIR    = os.path.join(SCRIPTDIR, "ga4gh_report_assets")
 TEMPLATEDIR = os.path.join(ASSETDIR, "html")
 LIBDIR      = ASSETDIR  # report/metrics.py lives at ga4gh_report_assets/report/metrics.py
- 
+
 sys.path.insert(0, LIBDIR)
 
 import report.metrics
