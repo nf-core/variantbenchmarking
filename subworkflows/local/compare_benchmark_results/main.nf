@@ -23,6 +23,8 @@ workflow COMPARE_BENCHMARK_RESULTS {
     main:
     merged_vcfs = channel.empty()
     ch_plots    = channel.empty()
+    evaluations_csv_sompy = evaluations_csv.filter { meta, file -> meta.id == "sompy" }
+
 
     if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
@@ -77,7 +79,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
     )
 
     SOMPY_FEATURES_MERGE(
-        evaluations_csv.groupTuple()
+        evaluations_csv_sompy.groupTuple()
     )
 
     if (!params.skip_plots.contains("upset")){

@@ -8,6 +8,8 @@ include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
 include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
 include { GAWK as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/gawk'
 
+include { REPPY                 } from '../../../modules/local/custom/reppy'
+
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
     reports         // channel: [meta, report1, report2, ...]
@@ -18,6 +20,8 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     ch_plots = channel.empty()
     merged_reports = channel.empty()
+    evaluations_csv = evaluations_csv.filter { meta, file -> meta.id != "happy" }
+    evaluations_csv_happy = evaluations_csv.filter { meta, file -> meta.id == "happy" }
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
@@ -47,6 +51,26 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
         PLOTS_SVLEN_DIST(svlen_input)
         ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
+    }
+
+    if (params.variant_type == "small" && params.method.contains("happy")){
+        // generate HTML report with benchmark statistics using reppy
+        // prepare input for reppy
+        // you with need a for loop for getting the meta information with the corresponding csv file for each sample and then pass the list of meta and csv file to reppy
+        // like a map operator that will take and create a tuple of strings and then concat them into a string.
+        evaluations_csv_happy
+            .map { meta, file -> "${meta.id}-${meta.caller}:${file}" }
+            .collect()
+            .map{it -> it.join(" ")}
+            .set { reppy_input }
+        evaluations_csv_happy
+            .map { _meta, file ->  file }
+            .collect()
+            .set { reppy_input_files}
+        REPPY(
+            reppy_input_files,
+            reppy_input
+        )
     }
 
     MERGE_REPORTS.out.summary

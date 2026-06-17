@@ -284,10 +284,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-05-21T13:28:29.467299363",
+        "timestamp": "2026-06-17T02:01:51.042183251",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.3"
         }
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
@@ -676,10 +676,10 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-05-21T13:06:12.568495589",
+        "timestamp": "2026-06-17T01:48:13.898723211",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.3"
         }
     }
 }

@@ -66,6 +66,9 @@ nextflow_workflow {
                         def fileNames = files instanceof Collection ? files.collect { path(it.toString()).getFileName().toString() } : [path(files.toString()).getFileName().toString()]
                         [meta, fileNames.sort()]
                     },
+                    workflow.out.roc_all_csv.collect { meta, file ->
+                        [meta, path(file.toString()).getFileName().toString()]
+                    },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
@@ -141,7 +144,8 @@ nextflow_workflow {
                     workflow.out.summary_reports.collect { meta, files ->
                         def fileNames = files instanceof Collection ? files.collect { path(it.toString()).getFileName().toString() } : [path(files.toString()).getFileName().toString()]
                         [meta, fileNames.sort()]
-                    }
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
         }

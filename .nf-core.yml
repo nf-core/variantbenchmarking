@@ -3,6 +3,10 @@ lint:
     - .gitignore
     - docs/images/nf-core-variantbenchmarking_logo_dark.png
     - docs/images/nf-core-variantbenchmarking_logo_light.png
+  template_strings:
+    - assets/html/metrics_table.jinja2.html
+    - assets/html/report.jinja2.html
+    - assets/html/roc_plot.jinja2.html
 nf_core_version: 4.0.2
 repository_type: pipeline
 template:
