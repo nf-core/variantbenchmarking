@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            109,
+            108,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -77,9 +77,6 @@
                 },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
-                },
-                "REPPY": {
-                    "reppy": "0.1.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtgtools": 3.13
@@ -186,7 +183,6 @@
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
-                "small/summary/tables/happy/HG002.report.html",
                 "small/summary/tables/happy/happy.regions.csv",
                 "small/summary/tables/happy/happy.summary.csv",
                 "small/summary/tables/rtgtools",
@@ -266,7 +262,6 @@
                 "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "HG002.report.html:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test6.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
@@ -289,7 +284,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-06-15T15:53:49.771188327",
+        "timestamp": "2026-06-17T02:01:51.042183251",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -297,7 +292,7 @@
     },
     "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
         "content": [
-            109,
+            108,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -373,9 +368,6 @@
                 },
                 "REFORMAT_HEADER": {
                     "gawk": "5.3.0"
-                },
-                "REPPY": {
-                    "reppy": "0.1.0"
                 },
                 "RTGTOOLS_FORMAT": {
                     "rtgtools": 3.13
@@ -560,7 +552,6 @@
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
                 "small/summary/tables/happy",
-                "small/summary/tables/happy/HG002.report.html",
                 "small/summary/tables/happy/happy.summary.csv",
                 "small/summary/tables/rtgtools",
                 "small/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -663,7 +654,6 @@
                 "multiqc_bcftools_stats.txt:md5,d6908affe4a63624cdef969bf08f431c",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,ee3a241e3a6f134d5488a848a8cfed93",
-                "HG002.report.html:md5,e178d99e59b048121c1a9d1040660633",
                 "test6.HG002.strelka.extended.csv:md5,1d7e794eec466dcc9b26259ad5d977c0",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,60563576cb01b0f8c29e6c4249d26a29",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,7018e47ddb59f4bb2493ea91e651d875",
@@ -686,7 +676,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-06-16T18:19:11.216525305",
+        "timestamp": "2026-06-17T01:48:13.898723211",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
