@@ -78,7 +78,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to false positive BED. Only applicable to happy and sompy tool.",
+                    "description": "Path to false positive / confident call regions BED. Only applicable for happy and sompy.",
                     "help_text": "Falsepositive BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
