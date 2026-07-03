@@ -30,7 +30,7 @@
                     },
                     "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "eed5015d812d4e5440aa38fc850506ed"
+                    "326d4cc1a862c617c9651943ba1693b1"
                 ],
                 [
                     {
@@ -40,7 +40,7 @@
                     },
                     "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "d190cd8e3cceeacc7fd8ce843801dfb9"
+                    "6c948c0eed198d88d81d051d06c2126d"
                 ]
             ],
             [
@@ -56,10 +56,10 @@
                 
             }
         ],
-        "timestamp": "2026-04-21T12:57:48.296072249",
+        "timestamp": "2026-07-03T15:47:43.201394202",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "homo_sapiens - illumina - happy benchmark stub": {
@@ -202,7 +202,7 @@
                     },
                     "test.HG002.gatk.query.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "eed5015d812d4e5440aa38fc850506ed"
+                    "326d4cc1a862c617c9651943ba1693b1"
                 ],
                 [
                     {
@@ -212,7 +212,7 @@
                     },
                     "test.HG002.gatk.truth.reheader.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "d190cd8e3cceeacc7fd8ce843801dfb9"
+                    "6c948c0eed198d88d81d051d06c2126d"
                 ]
             ],
             [
@@ -228,10 +228,10 @@
                 
             }
         ],
-        "timestamp": "2026-04-21T12:58:33.254667582",
+        "timestamp": "2026-07-03T15:48:09.063670057",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }
