@@ -38,7 +38,7 @@ You can specify your truth data using the following parameters:
 
 - `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
 - `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
-- `--falsepositive_bed`: A BED file defining the high-confidence regions of the genome (e.g., Genome in a Bottle confident beds). Called variants NOT in `truth_vcf` but WITHIN `falsepositive_bed` will be counted as FP.
+- `--high_confidence_bed`: A BED file defining the high-confidence regions of the genome (e.g., Genome in a Bottle confident beds). It is only used in small variant analysis ( `sompy`, `happy` and `vcfeval` ).
 - `--regions_bed`: A BED file for restricting analysis in specific regions of interest. The benchmarking tools will restrict their evaluation to only the variants that fall within these defined coordinates.
 - `--targets_bed`: Use that param only if you want to pass the regions of interest through the [-T argument](https://github.com/Illumina/hap.py/blob/master/doc/happy.md#restricting-to-subsets-of-the-genome) for `sompy` and `happy`. This is primarily used for dense regions of interest, such as exome data. The same file will be passed to `vcfeval` using its `--bed-regions` argument.
 

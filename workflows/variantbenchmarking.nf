@@ -65,16 +65,17 @@ workflow VARIANTBENCHMARKING {
                     .map{ fai -> tuple([id: fai.getSimpleName()], fai) }.collect()
 
     //// check Truth Files ////
-    truth_ch        = params.truth_vcf ? channel.fromPath(params.truth_vcf, checkIfExists: true)
-                                            .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
+    truth_ch                = params.truth_vcf ? channel.fromPath(params.truth_vcf, checkIfExists: true)
+                                        .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
                                         : channel.empty()
-    falsepositive_bed_ch  = params.falsepositive_bed ? channel.fromPath(params.falsepositive_bed, checkIfExists: true)
-                                            .map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
+    high_confidence_bed_ch  = params.high_confidence_bed  ? channel.fromPath(params.high_confidence_bed, checkIfExists: true).map{ bed -> tuple([id: "high_confidence"], bed) }.collect()
+                                        : channel.of([[id: "high_confidence"],[]]).collect()
+    regions_bed_ch          = params.regions_bed ? channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                         : channel.empty()
-    regions_bed_ch = params.regions_bed ? channel.fromPath(params.regions_bed, checkIfExists: true).collect()
+    targets_bed_ch          = params.targets_bed ? channel.fromPath(params.targets_bed, checkIfExists: true).collect()
                                         : channel.empty()
-    targets_bed_ch = params.targets_bed ? channel.fromPath(params.targets_bed, checkIfExists: true).collect()
-                                        : channel.empty()
+    ambiguous_beds          = params.ambiguous_beds ? channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
+                                        : channel.of([[id: "ambiguous"],[]]).collect()
 
 
 
@@ -99,11 +100,6 @@ workflow VARIANTBENCHMARKING {
         error "[nf-core/variantbenchmarking] ERROR:Please specify --genome when using filter_contigs for --preprocessing"
     }
 
-    // Optional files for Happy or Sompy
-    falsepositive_bed   = params.falsepositive_bed  ? channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
-                                                    : channel.of([[id: "falsepositive"],[]]).collect()
-    ambiguous_beds      = params.ambiguous_beds     ? channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
-                                                    : channel.of([[id: "ambiguous"],[]]).collect()
     if (params.stratification_bed && params.stratification_tsv){
         stratification_bed  = channel.fromPath(params.stratification_bed, checkIfExists: true, type: 'dir').map{ bed -> tuple([id: "stratification"], bed) }.collect()
         stratification_tsv  = channel.fromPath(params.stratification_tsv, checkIfExists: true).map{ tsv -> tuple([id: "stratification"], tsv) }.collect()
@@ -209,15 +205,15 @@ workflow VARIANTBENCHMARKING {
         // Prepare and normalize truth vcf provided
         PREPARE_VCFS_TRUTH(
             truth_ch,
-            falsepositive_bed_ch,
+            high_confidence_bed_ch,
             fasta,
             fai,
             chain,
             rename_chr,
             dictionary
         )
-        falsepositive_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
-        truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
+        high_confidence_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        truth_ch               = PREPARE_VCFS_TRUTH.out.vcf_ch
     }
 
     // VCF REPORTS AND STATS
@@ -322,7 +318,7 @@ workflow VARIANTBENCHMARKING {
                 fasta,
                 fai,
                 sdf,
-                falsepositive_bed,
+                high_confidence_bed_ch,
                 stratification_bed,
                 stratification_tsv
             )
@@ -341,7 +337,7 @@ workflow VARIANTBENCHMARKING {
                 fasta,
                 fai,
                 sdf,
-                falsepositive_bed,
+                high_confidence_bed_ch,
                 ambiguous_beds
             )
             ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)

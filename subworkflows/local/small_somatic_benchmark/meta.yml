@@ -61,9 +61,9 @@ input:
   - - meta:
         type: map
         description: Groovy Map containing bed information.
-    - falsepositive_bed:
+    - high_confidence_bed:
         type: file
-        description: Optional BED file of false positive regions.
+        description: Optional BED file of high confidence regions.
         pattern: "*.bed"
   - - meta:
         type: map

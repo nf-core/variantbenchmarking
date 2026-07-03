@@ -8,12 +8,12 @@ include { RTGTOOLS_VCFEVAL    } from '../../../modules/nf-core/rtgtools/vcfeval'
 
 workflow SMALL_SOMATIC_BENCHMARK {
     take:
-    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index,  regionsbed, targets_bed ]
-    fasta              // reference channel [val(meta), ref.fa]
-    fai                // reference channel [val(meta), ref.fa.fai]
-    sdf                // reference channel [val(meta), sdf]
-    falsepositive_bed  // reference channel [val(meta), bed]
-    ambiguous_beds     // reference channel [val(meta), bed]
+    input_ch             // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index,  regionsbed, targets_bed ]
+    fasta                // reference channel [val(meta), ref.fa]
+    fai                  // reference channel [val(meta), ref.fa.fai]
+    sdf                  // reference channel [val(meta), sdf]
+    high_confidence_bed  // reference channel [val(meta), bed]
+    ambiguous_beds       // reference channel [val(meta), bed]
 
     main:
 
@@ -26,7 +26,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
             input_ch,
             fasta,
             fai,
-            falsepositive_bed,
+            high_confidence_bed,
             ambiguous_beds
         )
         summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
@@ -36,7 +36,7 @@ workflow SMALL_SOMATIC_BENCHMARK {
     if (params.method.contains('rtgtools')){
 
         vcfeval_input_ch = input_ch
-            .join(falsepositive_bed.map)
+            .join(high_confidence_bed.map)
             .map{ meta, test_vcf, test_index, truth_vcf, truth_index, regions_bed, targets_bed, fp_bed ->
                 def restriction_bed = targets_bed ? targets_bed : regions_bed
                 tuple(meta, test_vcf, test_index, truth_vcf, truth_index, fp_bed, restriction_bed)

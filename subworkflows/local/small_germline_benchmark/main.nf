@@ -7,13 +7,13 @@ include { HAPPY_BENCHMARK     } from '../../../subworkflows/local/happy_benchmar
 
 workflow SMALL_GERMLINE_BENCHMARK {
     take:
-    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
-    fasta              // reference channel [val(meta), ref.fa]
-    fai                // reference channel [val(meta), ref.fa.fai]
-    sdf                // reference channel [val(meta), sdf]
-    falsepositive_bed  // reference channel [val(meta), bed]
-    stratification_bed // reference channel [val(meta), bed files]
-    stratification_tsv // reference channel [val(meta), tsv]
+    input_ch             // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
+    fasta                // reference channel [val(meta), ref.fa]
+    fai                  // reference channel [val(meta), ref.fa.fai]
+    sdf                  // reference channel [val(meta), sdf]
+    high_confidence_bed  // reference channel [val(meta), bed]
+    stratification_bed   // reference channel [val(meta), bed files]
+    stratification_tsv   // reference channel [val(meta), tsv]
 
     main:
 
@@ -23,7 +23,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
     if (params.method.contains('rtgtools')){
 
         vcfeval_input_ch = input_ch
-            .join(falsepositive_bed.map)
+            .join(high_confidence_bed.map)
             .map{ meta, test_vcf, test_index, truth_vcf, truth_index, regions_bed, targets_bed, fp_bed ->
                 def restriction_bed = targets_bed ?: regions_bed
                 tuple(meta, test_vcf, test_index, truth_vcf, truth_index, fp_bed, restriction_bed)
@@ -60,7 +60,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
             input_ch,
             fasta,
             fai,
-            falsepositive_bed,
+            high_confidence_bed,
             stratification_bed,
             stratification_tsv
         )

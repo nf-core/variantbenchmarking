@@ -73,13 +73,13 @@
                     "help_text": "Target BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "falsepositive_bed": {
+                "high_confidence_bed": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to false positive / confident call regions BED. Only applicable for happy and sompy.",
-                    "help_text": "Falsepositive BED files",
+                    "description": "Path to false positive / confident call regions BED. Only applicable for happy and sompy and vcfeval.",
+                    "help_text": "High confidence_bed BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ambiguous_beds": {
