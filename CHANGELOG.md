@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- Renamed `falsepositive_bed` to `high_confidence_bed`. [#311](https://github.com/nf-core/variantbenchmarking/pull/311)
+- Used `high_confidence_bed` as input to `vcfeval`. [#311](https://github.com/nf-core/variantbenchmarking/pull/311)
+- Fixed documentation for BED files. [#311](https://github.com/nf-core/variantbenchmarking/pull/311)
+- Included updated happy module that pass the `regions bed` to `-R` argument. [#12161](https://github.com/nf-core/modules/pull/12161)
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
@@ -18,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | pigz       | 2.8         | depreciated |
 | nf-core    | 3.5.1       | 4.0.2       |
 | prettier   | 3.6.2       | 3.8.3       |
+
+### `Parameters`
+
+**IMPORTANT** : For small variant analysis, the `regions_bed` argument was used to pass the high confidence regions. From this release, the high confidence regions will be passed from the `high_confidence_bed` parameter, previously documented as `falsepositive_bed`.
 
 ## 1.5.0
 
