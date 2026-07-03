@@ -68,7 +68,9 @@ workflow VARIANTBENCHMARKING {
     truth_ch        = params.truth_vcf ? channel.fromPath(params.truth_vcf, checkIfExists: true)
                                             .map{ vcf -> tuple([id: params.truth_id, vartype:params.variant_type], vcf) }.collect()
                                         : channel.empty()
-
+    falsepositive_bed_ch  = params.falsepositive_bed ? channel.fromPath(params.falsepositive_bed, checkIfExists: true)
+                                            .map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
+                                        : channel.empty()
     regions_bed_ch = params.regions_bed ? channel.fromPath(params.regions_bed, checkIfExists: true).collect()
                                         : channel.empty()
     targets_bed_ch = params.targets_bed ? channel.fromPath(params.targets_bed, checkIfExists: true).collect()
@@ -207,14 +209,14 @@ workflow VARIANTBENCHMARKING {
         // Prepare and normalize truth vcf provided
         PREPARE_VCFS_TRUTH(
             truth_ch,
-            regions_bed_ch,
+            falsepositive_bed_ch,
             fasta,
             fai,
             chain,
             rename_chr,
             dictionary
         )
-        regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        falsepositive_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
         truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
     }
 

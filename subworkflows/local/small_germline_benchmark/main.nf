@@ -22,8 +22,15 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
     if (params.method.contains('rtgtools')){
 
+        vcfeval_input_ch = input_ch
+            .join(falsepositive_bed.map)
+            .map{ meta, test_vcf, test_index, truth_vcf, truth_index, regions_bed, targets_bed, fp_bed ->
+                def restriction_bed = targets_bed ?: regions_bed
+                tuple(meta, test_vcf, test_index, truth_vcf, truth_index, fp_bed, restriction_bed)
+            }
+
         RTGTOOLS_VCFEVAL(
-            input_ch,
+            vcfeval_input_ch,
             sdf
         )
 
