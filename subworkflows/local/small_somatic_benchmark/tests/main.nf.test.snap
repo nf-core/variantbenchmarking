@@ -226,16 +226,63 @@
     "somatic small variants rtgtools": {
         "content": [
             [
-                
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FN"
+                    },
+                    "test.SEQC2.haplotypecaller.fn.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FP"
+                    },
+                    "test.SEQC2.haplotypecaller.fp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_base"
+                    },
+                    "test.SEQC2.haplotypecaller.tp-baseline.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "d4ca878c8b2e7cb646b4d9a3f99f91c7"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_comp"
+                    },
+                    "test.SEQC2.haplotypecaller.tp.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "a61625f97d21d3f4b9d5d0fc86d7094e"
+                ]
             ],
             [
-                
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "rtgtools"
+                    },
+                    [
+                        "test.SEQC2.haplotypecaller.summary.txt"
+                    ]
+                ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-07-03T15:52:53.009876811",
+        "timestamp": "2026-07-06T13:23:52.918312733",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
