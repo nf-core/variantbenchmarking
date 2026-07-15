@@ -218,21 +218,25 @@ Benchmarking method can be spesified using `--method` parameter. If not spesifie
 - _Germline small variants_: Germline samples for small variant type of variants, SNVs and INDELs together. If you think your file includes structural variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type small --method "happy,rtgtools"`
+`--analysis germline --variant_type small --method "happy,rtgtools,aardvark"`
 
 - ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
 
-- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy, rtgtools and aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type snv --method "sompy,rtgtools"`
-`--analysis germline --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type snv --method "sompy,rtgtools"`
+`--analysis somatic --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type small --method "aardvark,rtgtools"`
+
 
 - ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 - ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 - _Structural variants_: Germline or somatic samples for structural variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above.
 
@@ -426,6 +430,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `somatic_sv`
   - A profile with a complete configuration for somatic analysis with structural variant type of data
   - Includes links to test data so needs no other parameters
+- `somatic_small`
+  - A profile with a complete configuration for somatic analysis with small variant type of data
+  - Includes links to test data so needs no other parameters  
 - `somatic_snv`
   - A profile with a complete configuration for somatic analysis with snv variant type of data
   - Includes links to test data so needs no other parameters

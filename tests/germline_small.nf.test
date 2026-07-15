@@ -7,7 +7,7 @@ nextflow_pipeline {
     tag "small"
     config "../conf/tests/germline_small.config"
 
-    test("Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'") {
+    test("Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools,aardvark'") {
 
         when {
             params {

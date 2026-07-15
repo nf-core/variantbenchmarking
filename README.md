@@ -123,6 +123,7 @@ Available methods for *small variants: SNVs and INDEL*s:
 - Germline variant benchmarking using ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - Somatic variant benchmarking using ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
 - Somatic variant benchmarking using ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+- Somatic or germline variant benchmarking using ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 > [!NOTE]
 > Please note that using happ.py and som.py with rtgtools as comparison engine is also possible. Check conf/tests/test_ga4gh.config as an example.
@@ -143,7 +144,7 @@ Intersecting test and truth BED regions produces benchmark metrics. Intersection
 
 It is essential to compare benchmarking results in order to infer uniquely or commonly seen TPs, FPs and FNs.
 
-- Merging TP, FP and FN results for happy, rtgtools and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
+- Merging TP, FP and FN results for happy, rtgtools, aardvark and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
 - Merging TP, FP and FN results for Truvari and SVanalyzer ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
 - Conversion of VCF files to CSV to infer common and unique variants per caller (python script)
 

@@ -134,10 +134,14 @@ workflow PREPARE_VCFS_TEST {
     if (params.analysis.contains("somatic")){
         // somatic specific preparations
         if (params.variant_type == "small"){
-            SPLIT_SMALL_VARIANTS_TEST(
-                vcf_ch
-            )
-            vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
+            // splitting small type of variants only required if the method is sompy
+            // This part needs to be retired, as other methods can work for both mixed type of variants!
+            if (params.variant_type == "sompy"){
+                SPLIT_SMALL_VARIANTS_TEST(
+                    vcf_ch
+                )
+                vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
+            }
         }
     }
 
@@ -150,22 +154,27 @@ workflow PREPARE_VCFS_TEST {
 
     if (!(params.enable_missing_genotypes?.contains("test"))) {
         // filters out ./. or 0/0 or non-somatic genotypes
+        vcf_ch.branch{ meta, _vcf, _tbi -> 
+            genotype_missing: meta.missing_gt
+            genotype_exist: true
+            }.set{filtergt}
+
         BCFTOOLS_VIEW_FILTERMISSING(
-            vcf_ch,
+            filtergt.genotype_exist,
             [],
             [],
             []
         )
         vcf_ch=BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+        vcf_ch = vcf_ch.mix(filtergt.genotype_missing)
     }
 
      // branch out test samples with missing GT field (e.g. strelka) to add GT field using gawk
     vcf_ch
         .branch { meta, _vcf, _tbi ->
-            def is_rtg = params.method?.contains("rtgtools")
-            def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
+            def is_rtg = params.method?.contains("rtgtools") || params.method?.contains("aardvark")
+            def is_strelka_manta = ['strelka', 'strelka2', 'manta'].contains(meta.caller.toLowerCase())
             def is_somatic = params.analysis == "somatic"
-
             needs_gt: is_strelka_manta && is_somatic && is_rtg
             ok:       true
         }.set{ch_branched_vcf}
