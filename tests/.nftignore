@@ -27,10 +27,10 @@ references/rtgtools/genome.sdf/done
 **/summary/datavzrd/**/static/*
 **/summary/datavzrd/**/static/*.{js}
 **/summary/datavzrd/**/static/*.{css}
-**/summary/datavzrd/**/test/*.{js}
-**/summary/datavzrd/**/test/index_1.html
-**/summary/datavzrd/**/test/data/data_1.js
-**/summary/datavzrd/**/test/plots/*.js
+**/summary/datavzrd/**/**/*.{js}
+**/summary/datavzrd/**/**/index_1.html
+**/summary/datavzrd/**/**/data/data_1.js
+**/summary/datavzrd/**/**/plots/*.js
 **/summary/datavzrd/**/network/plots/*.js
 **/summary/datavzrd/**/network/*.{js}
 **/summary/datavzrd/**/network/index_1.html

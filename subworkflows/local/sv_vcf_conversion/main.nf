@@ -135,7 +135,7 @@ workflow SV_VCF_CONVERSIONS {
             .set { vcf_ch }
     }
 
-    
+
 
     emit:
     vcf_ch   // channel: [val(meta), vcf]

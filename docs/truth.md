@@ -97,7 +97,6 @@ Below, please find some set truths can be used for analysis:
                     truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-stvar_DraftBenchmark_V0.3-20250220/GRCh38_HG008-T-V0.3_somatic-stvar_ALL.draftbenchmark.vcf.gz"
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-stvar_DraftBenchmark_V0.3-20250220/GRCh38_HG008-T-V0.3_somatic-stvar.draftbenchmark.bed"
 
-
     - params.vartype == 'snv'
 
                     truth_id          = "SEQC2"
@@ -114,8 +113,7 @@ Below, please find some set truths can be used for analysis:
 
                     truth_id          = "HG008"
                     truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-smvar_DraftBenchmark_V0.3-20260425/HG008-T_somatic_smvar_benchmark_v0.3_tumorvariants.vcf.gz"
-                    regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-smvar_DraftBenchmark_V0.3-20260425/HG008-T_somatic_smvar_benchmark_v0.3_all.bed"    
-
+                    regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-smvar_DraftBenchmark_V0.3-20260425/HG008-T_somatic_smvar_benchmark_v0.3_all.bed"
 
   - params.genome == 'GRCh37'
     - params.vartype == 'structural'

@@ -180,7 +180,7 @@
                 "description": "True if GT filed is missing for the vcf file, to activate add params.missing_genotypes='test' ",
                 "meta": ["missing_gt"],
                 "default": false
-            },
+            }
         },
         "anyOf": [
             {

@@ -233,7 +233,6 @@ Example cmd:
 `--analysis somatic --variant_type indel --method "sompy,rtgtools"`
 `--analysis somatic --variant_type small --method "aardvark,rtgtools"`
 
-
 - ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 - ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
 - ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
@@ -432,7 +431,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - Includes links to test data so needs no other parameters
 - `somatic_small`
   - A profile with a complete configuration for somatic analysis with small variant type of data
-  - Includes links to test data so needs no other parameters  
+  - Includes links to test data so needs no other parameters
 - `somatic_snv`
   - A profile with a complete configuration for somatic analysis with snv variant type of data
   - Includes links to test data so needs no other parameters

@@ -154,7 +154,7 @@ workflow PREPARE_VCFS_TEST {
 
     if (!(params.enable_missing_genotypes?.contains("test"))) {
         // filters out ./. or 0/0 or non-somatic genotypes
-        vcf_ch.branch{ meta, _vcf, _tbi -> 
+        vcf_ch.branch{ meta, _vcf, _tbi ->
             genotype_missing: meta.missing_gt
             genotype_exist: true
             }.set{filtergt}

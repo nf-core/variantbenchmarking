@@ -44,7 +44,7 @@ workflow AARDVARK_BENCHMARK {
         },
         fai
     )
-    
+
     BCFTOOLS_FILTER_TRUTH_TP(
         BCFTOOLS_REHEADER.out.vcf.join(BCFTOOLS_REHEADER.out.index)
     )
@@ -66,7 +66,7 @@ workflow AARDVARK_BENCHMARK {
     // Filter TP/FP from labelled_query
     TABIX_TABIX(
         AARDVARK_COMPARE.out.labelled_query
-    )    
+    )
 
     BCFTOOLS_FILTER_QUERY_TP(
         AARDVARK_COMPARE.out.labelled_query.join(TABIX_TABIX.out.index)

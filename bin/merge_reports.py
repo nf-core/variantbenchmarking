@@ -335,18 +335,18 @@ def get_aardvark_results(file_paths):
         df['File'] = filename
         df['Caller'] = caller
 
-        df_redesigned = df[['Tool', 'File', 'Caller', 'comparison', 'region_label', 'filter', 'variant_type', 
-                            'truth_total', 'query_tp', 'query_fp', 'truth_fn', 
+        df_redesigned = df[['Tool', 'File', 'Caller', 'comparison', 'region_label', 'filter', 'variant_type',
+                            'truth_total', 'query_tp', 'query_fp', 'truth_fn',
                             'metric_precision', 'metric_recall', 'metric_f1',
                             'truth_fn_gt', 'query_fp_gt']].copy()
-        
+
         df_redesigned.columns = ['Tool', 'File', 'Caller', 'Comparison', 'Region', 'Filter', 'Type',
                                  'TP_base', 'TP_comp', 'FP', 'FN',
                                  'Precision', 'Recall', 'F1', 'FN_gt', 'FP_gt']
 
         int_columns = ['TP_base', 'TP_comp', 'FP', 'FN', 'FN_gt', 'FP_gt']
         float_columns = ['Precision', 'Recall', 'F1']
-        
+
         df_redesigned[int_columns] = df_redesigned[int_columns].fillna(0).astype(int)
         df_redesigned[float_columns] = df_redesigned[float_columns].fillna(0.0).astype(float)
 

@@ -95,5 +95,5 @@ workflow SMALL_BENCHMARK {
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
     tagged_variants_csv // channel: [val(meta), csvs]
- 
+
 }

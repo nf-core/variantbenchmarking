@@ -26,9 +26,9 @@ term_mapping <- c(
     "PASS"       = "PASS Filter Only"
 )
 
-# Function to generate plots 
+# Function to generate plots
 generate_plots <- function(table, benchmark, file_prefix, title_suffix, show_labels) {
-    
+
     # Construct filenames based on the cleaned prefix
     if (file_prefix != "" && file_prefix != "overall") {
         name1 <- paste(file_prefix, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
@@ -39,7 +39,7 @@ generate_plots <- function(table, benchmark, file_prefix, title_suffix, show_lab
         name2 <- paste("variants_by_tool_", benchmark, "_mqc.png", sep = "")
         name3 <- paste("pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
     }
-    
+
     # Construct clean titles
     title_tp <- ifelse(title_suffix == "Overall", "Variant Comparison Metrics", paste("Variant Comparison Metrics -", title_suffix))
     title_f1 <- ifelse(title_suffix == "Overall", "F1 Score", paste("F1 Score -", title_suffix))
@@ -181,23 +181,23 @@ split_cols <- intersect(colnames(table), possible_groupings)
 
 # Automatically split and plot
 if (length(split_cols) > 0) {
-    
+
     groups <- interaction(table[, split_cols, drop = FALSE], drop = TRUE, sep = "_")
     split_data <- split(table, groups)
-    
+
     for (raw_prefix in names(split_data)) {
         sub_table <- split_data[[raw_prefix]]
-        
+
         # Split the string to filter out filler words
         parts <- unlist(strsplit(raw_prefix, "_"))
-        
+
         # Remove case insensitive matches for all and none
         valid_parts <- parts[!tolower(parts) %in% c("all", "none")]
-        
+
         if (length(valid_parts) > 0) {
             # File prefix remains raw and filesystem-safe
             clean_prefix <- paste(valid_parts, collapse = "_")
-            
+
             # Create a pretty title by checking the dictionary mapping
             pretty_parts <- sapply(valid_parts, function(x) {
                 if (x %in% names(term_mapping)) {
@@ -206,17 +206,17 @@ if (length(split_cols) > 0) {
                     return(x) # Fallback to original text if not in dictionary
                 }
             })
-            
+
             # Join the pretty parts with a pipe or dash for clean readability
             title_suffix <- paste(pretty_parts, collapse = " | ")
         } else {
             clean_prefix <- "overall"
             title_suffix <- "Overall"
         }
-        
+
         # Remove illegal filename characters just in case
         clean_prefix <- gsub("[^A-Za-z0-9_]", "_", clean_prefix)
-        
+
         generate_plots(sub_table, benchmark, clean_prefix, title_suffix, show_point_labels)
     }
 } else {

@@ -327,7 +327,7 @@ workflow VARIANTBENCHMARKING {
         evals_ch         = evals_ch.mix(SMALL_BENCHMARK.out.tagged_variants)
         evals_csv_ch     = evals_csv_ch.mix(SMALL_BENCHMARK.out.tagged_variants_csv)
     }
-    
+
 
     // Compare tagged variants
     COMPARE_BENCHMARK_RESULTS(

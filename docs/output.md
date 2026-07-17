@@ -136,7 +136,6 @@ bcftools stats applied into all variant types while survivor stats is only avail
   - `*truth.vcf.gz`: Labelled Calls from Truth
   - `*query.vcf.gz`: Labelled Calls from Query
   - `*.summary.tsv`: Output summary of performance stats
-   
 
 </details>
 
@@ -209,11 +208,11 @@ Benchmark results are created separately for each test vcf and for each method u
         - `BASEPAIR*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for BASEPAIR results
         - `GT*metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in aardvark for GT results
         - `GT*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for GT results
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps. 
+        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
         - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
         - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
         - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
-        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.  
+        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
     - `indel/`
       - `sompy/`
         - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of indels in sompy
