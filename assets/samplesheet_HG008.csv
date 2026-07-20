@@ -1,5 +1,0 @@
-id,test_vcf,caller,subsample,missing_genotypes
-test12,/omics/groups/OE0608/internal/kubran/variantbenchmarking-2/subsampled_chr21/test/HG008_edv_AF_recalibration.result.PASS_chr21.vcf.gz,haplotypecaller,,
-test13,/omics/groups/OE0608/internal/kubran/variantbenchmarking-2/subsampled_chr21/test/0201_HG008_HiFi_DeepSomatic_v1.6.0_model354_somaticOnly_chr21.vcf.gz,deepsomatic,,
-test14,/omics/groups/OE0608/internal/kubran/variantbenchmarking-2/subsampled_chr21/test/dragen_4.2.4_HG008-mosaic_tumor.hard-filtered_chr21.vcf.gz,dragen,"HG008-T-mosaic",
-test15,/omics/groups/OE0608/internal/kubran/variantbenchmarking-2/subsampled_chr21/test/HG008-T--HG008-N.snv.strelka2_chr21.vcf.gz,strelka2,'HG008-T',true
