@@ -20,6 +20,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
   - [RTG-tools](#rtgtools)
   - [Happy](#happy)
   - [Sompy](#sompy)
+  - [Aardvark](#aardvark)
   - [Intersect](#intersect)
 - [Summary statistics](#summary)
   - [Comparison of benchmarking results](#comparisons)
@@ -130,6 +131,11 @@ bcftools stats applied into all variant types while survivor stats is only avail
   - `*.features.csv`: Calls from comparison
   - `*.metrics.json`: JSON file containing all computed metrics and tables
   - `*.stats.csv`: Output summary of performance stats
+- `aardvark/`
+  - `*.cli_settings.json`: JSON file for used parameters
+  - `*truth.vcf.gz`: Labelled Calls from Truth
+  - `*query.vcf.gz`: Labelled Calls from Query
+  - `*.summary.tsv`: Output summary of performance stats
 
 </details>
 
@@ -197,6 +203,16 @@ Benchmark results are created separately for each test vcf and for each method u
         - `metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in rtgtools
         - `variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in rtgtools
         - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
+      - `aardvark/`
+        - `BASEPAIR*metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in aardvark for BASEPAIR results
+        - `BASEPAIR*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for BASEPAIR results
+        - `GT*metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in aardvark for GT results
+        - `GT*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for GT results
+        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
+        - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
+        - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
+        - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
+        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
     - `indel/`
       - `sompy/`
         - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of indels in sompy

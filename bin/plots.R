@@ -13,28 +13,38 @@ seaborn_cb_palette <- c(
     "#ca9161", "#fbafe4", "#949494", "#ece133", "#56b4e9"
 )
 
+# Dictionary to translate raw pipeline tags into presentation-ready titles
+term_mapping <- c(
+    "GT"         = "Genotype Matching",
+    "BASEPAIR"   = "Sequence Matching",
+    "Snv"        = "SNVs",
+    "SNP"        = "SNVs",
+    "INDEL"      = "Indels",
+    "Insertion"  = "Insertions",
+    "Deletion"   = "Deletions",
+    "JointIndel" = "Joint Indels",
+    "PASS"       = "PASS Filter Only"
+)
+
 # Function to generate plots
-generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
-    if (type != "None" && filter != "None") {
-        table <- table[table$Type == type & table$Filter == filter, ]
-        name1 <- paste(type, "_", filter, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
-        name2 <- paste(type, "_", filter, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
-        name3 <- paste(type, "_", filter, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
-    } else if (stats != "None") {
-        table <- table[table$StatsType == stats, ]
-        name1 <- paste(stats, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
-        name2 <- paste(stats, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
-        name3 <- paste(stats, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
-    } else if (type != "None") {
-        table <- table[table$Type == type, ]
-        name1 <- paste(type, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
-        name2 <- paste(type, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
-        name3 <- paste(type, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
+generate_plots <- function(table, benchmark, file_prefix, title_suffix, show_labels) {
+
+    # Construct filenames based on the cleaned prefix
+    if (file_prefix != "" && file_prefix != "overall") {
+        name1 <- paste(file_prefix, "_f1_by_tool_", benchmark, "_mqc.png", sep = "")
+        name2 <- paste(file_prefix, "_variants_by_tool_", benchmark, "_mqc.png", sep = "")
+        name3 <- paste(file_prefix, "_pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
     } else {
         name1 <- paste("f1_by_tool_", benchmark, "_mqc.png", sep = "")
         name2 <- paste("variants_by_tool_", benchmark, "_mqc.png", sep = "")
         name3 <- paste("pr_recall_by_tool_", benchmark, "_mqc.png", sep = "")
     }
+
+    # Construct clean titles
+    title_tp <- ifelse(title_suffix == "Overall", "Variant Comparison Metrics", paste("Variant Comparison Metrics -", title_suffix))
+    title_f1 <- ifelse(title_suffix == "Overall", "F1 Score", paste("F1 Score -", title_suffix))
+    title_pr <- ifelse(title_suffix == "Overall", "Precision vs Recall", paste("Precision vs Recall -", title_suffix))
+
     input_data_melted <- melt(table, id.vars = "Tool")
 
     tp_data <- input_data_melted[input_data_melted$variable %in% c( "TP_comp", "FP", "FN"), ]
@@ -42,7 +52,6 @@ generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
     metric_data$value <- as.numeric(as.character(metric_data$value))
     tp_data$value <- as.numeric(as.character(tp_data$value))
 
-    print(tp_data)
     # Specify the order of levels for the variable aesthetic
     tp_data$variable <- factor(tp_data$variable, levels = c("TP_comp", "FP", "FN"))
     metric_data$variable <- factor(metric_data$variable, levels = c("F1"))
@@ -62,7 +71,7 @@ generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
     tp_plot <- ggplot(tp_data, aes(x = Tool, y = value, color = Tool, group = interaction(variable, Tool))) +
         geom_line(size = line_size) +
         geom_point(size = point_size) +
-        labs(x = "Tool", y = "Value", color = "Tool", title = "Variant Comparison Metrics") +
+        labs(x = "Tool", y = "Value", color = "Tool", title = title_tp) +
         facet_wrap(~variable, scales = "free_y") +
         theme_minimal() +
         theme(
@@ -84,7 +93,7 @@ generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
     # Visualize f1
     f1_plot <- ggplot(metric_data, aes(x = Tool, y = value, color = Tool)) +
         geom_point(size = point_size) +
-        labs(x = "Tool", y = "F1 Score", title = "F1 Score") +
+        labs(x = "Tool", y = "F1 Score", title = title_f1) +
         theme_minimal() +
         theme(
             legend.position = "none",
@@ -105,7 +114,7 @@ generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
     # Visualize Precision vs Recall
     pr_plot <- ggplot(table) +
         geom_point(aes(x = Recall, y = Precision, color = Tool), size = point_size) +
-        labs(x = "Recall", y = "Precision", title = "Precision vs Recall") +
+        labs(x = "Recall", y = "Precision", title = title_pr) +
         theme_minimal() +
         theme(
             legend.position = "right",
@@ -149,9 +158,7 @@ generate_plots <- function(table, benchmark, type, filter, stats, show_labels) {
 
 # Main script
 args <- commandArgs(trailingOnly = TRUE)
-
 show_point_labels <- "--labels" %in% args
-
 args <- args[args != "--labels"]
 
 if (length(args) < 2) {
@@ -161,20 +168,57 @@ if (length(args) < 2) {
 table <- read.csv(args[1])
 benchmark <- args[2]
 
-if (benchmark == "happy") {
-    generate_plots(table, benchmark, "SNP", "PASS", "None", show_point_labels)
-    generate_plots(table, benchmark, "SNP", "ALL", "None", show_point_labels)
-    generate_plots(table, benchmark, "INDEL", "PASS", "None", show_point_labels)
-    generate_plots(table, benchmark, "INDEL", "ALL", "None", show_point_labels)
-}else if (benchmark == "wittyer") {
-    generate_plots(table, benchmark, "None", "None", "Base", show_point_labels)
-    generate_plots(table, benchmark, "None", "None", "Event", show_point_labels)
-}else if (benchmark == "concordance") {
-    generate_plots(table, benchmark, "SNP", "None", "None", show_point_labels)
-    generate_plots(table, benchmark, "INDEL", "None", "None", show_point_labels)
-}else {
-    if (benchmark == "rtgtools") {
-        table <- table[table$Threshold == "None", ]
+# Apply any tool specific pre filtering
+if (benchmark == "rtgtools" && "Threshold" %in% colnames(table)) {
+    table <- table[table$Threshold == "None", ]
+}
+
+# Define the columns we want to split our plots by
+possible_groupings <- c("Type", "Filter", "StatsType", "Comparison", "Region")
+
+# Find which of those columns actually exist in the current tool's table
+split_cols <- intersect(colnames(table), possible_groupings)
+
+# Automatically split and plot
+if (length(split_cols) > 0) {
+
+    groups <- interaction(table[, split_cols, drop = FALSE], drop = TRUE, sep = "_")
+    split_data <- split(table, groups)
+
+    for (raw_prefix in names(split_data)) {
+        sub_table <- split_data[[raw_prefix]]
+
+        # Split the string to filter out filler words
+        parts <- unlist(strsplit(raw_prefix, "_"))
+
+        # Remove case insensitive matches for all and none
+        valid_parts <- parts[!tolower(parts) %in% c("all", "none")]
+
+        if (length(valid_parts) > 0) {
+            # File prefix remains raw and filesystem-safe
+            clean_prefix <- paste(valid_parts, collapse = "_")
+
+            # Create a pretty title by checking the dictionary mapping
+            pretty_parts <- sapply(valid_parts, function(x) {
+                if (x %in% names(term_mapping)) {
+                    return(term_mapping[[x]])
+                } else {
+                    return(x) # Fallback to original text if not in dictionary
+                }
+            })
+
+            # Join the pretty parts with a pipe or dash for clean readability
+            title_suffix <- paste(pretty_parts, collapse = " | ")
+        } else {
+            clean_prefix <- "overall"
+            title_suffix <- "Overall"
+        }
+
+        # Remove illegal filename characters just in case
+        clean_prefix <- gsub("[^A-Za-z0-9_]", "_", clean_prefix)
+
+        generate_plots(sub_table, benchmark, clean_prefix, title_suffix, show_point_labels)
     }
-    generate_plots(table, benchmark, "None", "None", "None", show_point_labels)
+} else {
+    generate_plots(table, benchmark, "overall", "Overall", show_point_labels)
 }

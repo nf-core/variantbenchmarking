@@ -133,7 +133,44 @@ _RTGtools_
 | test6 | test6.HG002.strelka.summary.txt  | None      | 52277   | 52301   | 708  | 451 | 0.9866    | 0.9914 | 0.989  |
 | test7 | test7.HG002.bcftools.summary.txt | None      | 51916   | 51943   | 1270 | 812 | 0.9761    | 0.9846 | 0.9803 |
 
-While hap.py reports the metrics SNP and INDELs seperated, RTGtools provides all merged. As you can see, even for small variant benchmarking there are differences with the results.
+_Aardvark_
+
+| Tool  | File                             | Caller   | Comparison | Region | Filter | Type       | TP_base | TP_comp | FP   | FN   | Precision | Recall | F1     | FN_gt | FP_gt |
+| ----- | -------------------------------- | -------- | ---------- | ------ | ------ | ---------- | ------- | ------- | ---- | ---- | --------- | ------ | ------ | ----- | ----- |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | ALL        | 53153   | 52739   | 662  | 449  | 0.9876    | 0.9916 | 0.9896 | 43    | 15    |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | Snv        | 45084   | 44796   | 592  | 356  | 0.9870    | 0.9921 | 0.9895 | 30    | 2     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | Insertion  | 4011    | 3934    | 25   | 50   | 0.9937    | 0.9875 | 0.9906 | 5     | 6     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | Deletion   | 4058    | 4003    | 45   | 43   | 0.9889    | 0.9894 | 0.9891 | 8     | 7     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | Indel      | 0       | 6       | 0    | 0    | 1.0000    | 0.0000 | 0.0000 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | GT         | ALL    | ALL    | JointIndel | 8069    | 7943    | 70   | 93   | 0.9913    | 0.9885 | 0.9899 | 13    | 13    |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | ALL        | 188294  | 186596  | 1618 | 1698 | 0.9914    | 0.9910 | 0.9912 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | Snv        | 127176  | 126367  | 1243 | 900  | 0.9903    | 0.9929 | 0.9916 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | Insertion  | 28894   | 28136   | 260  | 705  | 0.9908    | 0.9756 | 0.9832 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | Deletion   | 32476   | 32042   | 406  | 336  | 0.9875    | 0.9897 | 0.9886 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | Indel      | 0       | 62      | 0    | 0    | 1.0000    | 0.0000 | 0.0000 | 0     | 0     |
+| test6 | test6.HG002.strelka.summary.tsv  | strelka  | BASEPAIR   | ALL    | ALL    | JointIndel | 61370   | 60240   | 666  | 1041 | 0.9891    | 0.9830 | 0.9860 | 0     | 0     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | GT         | ALL    | ALL    | ALL        | 53153   | 52625   | 952  | 812  | 0.9822    | 0.9847 | 0.9835 | 288   | 17    |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | GT         | ALL    | ALL    | Snv        | 45084   | 44809   | 908  | 352  | 0.9801    | 0.9922 | 0.9861 | 31    | 6     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | GT         | ALL    | ALL    | Insertion  | 4011    | 3886    | 17   | 221  | 0.9956    | 0.9449 | 0.9696 | 129   | 4     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | GT         | ALL    | ALL    | Deletion   | 4058    | 3930    | 27   | 239  | 0.9932    | 0.9411 | 0.9664 | 128   | 7     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | GT         | ALL    | ALL    | JointIndel | 8069    | 7816    | 44   | 460  | 0.9944    | 0.9430 | 0.9680 | 257   | 11    |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | BASEPAIR   | ALL    | ALL    | ALL        | 188314  | 183388  | 2100 | 4926 | 0.9887    | 0.9738 | 0.9812 | 0     | 0     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | BASEPAIR   | ALL    | ALL    | Snv        | 127176  | 126558  | 1804 | 848  | 0.9859    | 0.9933 | 0.9896 | 0     | 0     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | BASEPAIR   | ALL    | ALL    | Insertion  | 28894   | 26509   | 155  | 2342 | 0.9942    | 0.9189 | 0.9551 | 0     | 0     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | BASEPAIR   | ALL    | ALL    | Deletion   | 32476   | 30477   | 243  | 1942 | 0.9921    | 0.9402 | 0.9654 | 0     | 0     |
+| test7 | test7.HG002.bcftools.summary.tsv | bcftools | BASEPAIR   | ALL    | ALL    | JointIndel | 61370   | 56986   | 398  | 4284 | 0.9931    | 0.9302 | 0.9606 | 0     | 0     |
+
+While hap.py reports the metrics for SNPs and INDELs separately, RTGtools merges all variant types into a single aggregate score. Aardvark takes the most granular approach, breaking down performance not only by highly specific variant types (SNV, Insertion, Deletion, JointIndel) but also by the matching criteria (Genotype GT vs. BASEPAIR).
+
+As you can see, even for small variant benchmarking, the exact results vary depending on the tool. For example, looking at the unfiltered test6 (Strelka) overall error counts:
+
+- Aardvark (GT, ALL): 449 FNs / 662 FPs
+
+- Hap.py (SNP + INDEL, ALL): 450 FNs / 710 FPs
+
+- RTGtools (No threshold): 451 FNs / 708 FPs
+
+These slight but distinct differences—especially in the False Positive (FP) counts—emerge from how each tool's internal engine handles variant normalization, complex indel alignment, and allele string matching. This highlights exactly why standardizing the benchmarking tool within a pipeline is just as critical as standardizing the variant caller itself.
 
 ## Case 5 : Lifting over truth vcf for Germline Small Variant benchmarking
 

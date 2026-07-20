@@ -1,8 +1,11 @@
 {
-    "-stub": {
+    "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools,aardvark'": {
         "content": [
-            108,
+            155,
             {
+                "AARDVARK_COMPARE": {
+                    "aardvark": "0.10.5"
+                },
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
                 },
@@ -22,6 +25,9 @@
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_NORM": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_1": {
@@ -88,295 +94,7 @@
                     "bgzip": 1.21,
                     "tabix": 1.21
                 },
-                "VCF_TO_CSV": {
-                    "python": "3.13.0"
-                },
-                "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
-                }
-            },
-            [
-                "pipeline_info",
-                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
-                "references",
-                "references/rtgtools",
-                "references/rtgtools/genome.sdf",
-                "small",
-                "small/HG002",
-                "small/HG002/preprocess",
-                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
-                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
-                "small/HG002/stats",
-                "small/HG002/stats/bcftools",
-                "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
-                "small/multiqc",
-                "small/multiqc/multiqc_data",
-                "small/multiqc/multiqc_data/.stub",
-                "small/multiqc/multiqc_plots",
-                "small/multiqc/multiqc_plots/.stub",
-                "small/multiqc/multiqc_report.html",
-                "small/summary",
-                "small/summary/comparisons",
-                "small/summary/comparisons/happy",
-                "small/summary/comparisons/happy/happy.FN.csv",
-                "small/summary/comparisons/happy/happy.FP.csv",
-                "small/summary/comparisons/happy/happy.TP_base.csv",
-                "small/summary/comparisons/happy/happy.TP_comp.csv",
-                "small/summary/comparisons/rtgtools",
-                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
-                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
-                "small/summary/datavzrd",
-                "small/summary/datavzrd/happy",
-                "small/summary/datavzrd/happy/index.html",
-                "small/summary/datavzrd/happy/network",
-                "small/summary/datavzrd/happy/network/config.js",
-                "small/summary/datavzrd/happy/network/data",
-                "small/summary/datavzrd/happy/network/data/data_1.js",
-                "small/summary/datavzrd/happy/network/functions.js",
-                "small/summary/datavzrd/happy/network/heatmap.js",
-                "small/summary/datavzrd/happy/network/index_1.html",
-                "small/summary/datavzrd/happy/network/plots",
-                "small/summary/datavzrd/happy/network/plots/plot_0.js",
-                "small/summary/datavzrd/happy/static",
-                "small/summary/datavzrd/happy/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/happy/static/bootstrap.min.css",
-                "small/summary/datavzrd/happy/static/bundle.js",
-                "small/summary/datavzrd/happy/static/datavzrd.css",
-                "small/summary/datavzrd/rtgtools",
-                "small/summary/datavzrd/rtgtools/index.html",
-                "small/summary/datavzrd/rtgtools/network",
-                "small/summary/datavzrd/rtgtools/network/config.js",
-                "small/summary/datavzrd/rtgtools/network/data",
-                "small/summary/datavzrd/rtgtools/network/data/data_1.js",
-                "small/summary/datavzrd/rtgtools/network/functions.js",
-                "small/summary/datavzrd/rtgtools/network/heatmap.js",
-                "small/summary/datavzrd/rtgtools/network/index_1.html",
-                "small/summary/datavzrd/rtgtools/network/plots",
-                "small/summary/datavzrd/rtgtools/network/plots/plot_0.js",
-                "small/summary/datavzrd/rtgtools/static",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
-                "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
-                "small/summary/datavzrd/rtgtools/static/bundle.js",
-                "small/summary/datavzrd/rtgtools/static/datavzrd.css",
-                "small/summary/plots",
-                "small/summary/plots/happy",
-                "small/summary/plots/happy/happy.FN.svlen.png",
-                "small/summary/plots/happy/happy.FP.svlen.png",
-                "small/summary/plots/happy/happy.TP_base.svlen.png",
-                "small/summary/plots/happy/happy.TP_comp.svlen.png",
-                "small/summary/plots/happy/metric_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/upset_happy.upset.mqc.png",
-                "small/summary/plots/happy/variants_by_tool_happy_mqc.png",
-                "small/summary/plots/rtgtools",
-                "small/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
-                "small/summary/plots/rtgtools/rtgtools.FN.svlen.png",
-                "small/summary/plots/rtgtools/rtgtools.FP.svlen.png",
-                "small/summary/plots/rtgtools/rtgtools.TP_base.svlen.png",
-                "small/summary/plots/rtgtools/rtgtools.TP_comp.svlen.png",
-                "small/summary/plots/rtgtools/upset_rtgtools.upset.mqc.png",
-                "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
-                "small/summary/tables",
-                "small/summary/tables/happy",
-                "small/summary/tables/happy/happy.regions.csv",
-                "small/summary/tables/happy/happy.summary.csv",
-                "small/summary/tables/rtgtools",
-                "small/summary/tables/rtgtools/rtgtools.regions.csv",
-                "small/summary/tables/rtgtools/rtgtools.summary.csv",
-                "small/test6",
-                "small/test6/benchmarks",
-                "small/test6/benchmarks/happy",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.extended.csv",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.metrics.json.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.INDEL.csv.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.SNP.PASS.csv.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.SNP.csv.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.all.csv.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.runinfo.json",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.summary.csv",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.vcf.gz",
-                "small/test6/benchmarks/happy/test6.HG002.strelka.vcf.gz.tbi",
-                "small/test6/benchmarks/rtgtools",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fn.vcf.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fn.vcf.gz.tbi",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fp.vcf.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fp.vcf.gz.tbi",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.non_snp_roc.tsv.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.phasing.txt",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.snp_roc.tsv.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.summary.txt",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp-baseline.vcf.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp-baseline.vcf.gz.tbi",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
-                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
-                "small/test6/preprocess",
-                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
-                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
-                "small/test6/stats",
-                "small/test6/stats/bcftools",
-                "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
-                "small/test7",
-                "small/test7/benchmarks",
-                "small/test7/benchmarks/happy",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.extended.csv",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.metrics.json.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.INDEL.csv.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.SNP.csv.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.all.csv.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.runinfo.json",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.summary.csv",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.vcf.gz",
-                "small/test7/benchmarks/happy/test7.HG002.bcftools.vcf.gz.tbi",
-                "small/test7/benchmarks/rtgtools",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fn.vcf.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fn.vcf.gz.tbi",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fp.vcf.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fp.vcf.gz.tbi",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.non_snp_roc.tsv.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.phasing.txt",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.snp_roc.tsv.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.summary.txt",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp-baseline.vcf.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp-baseline.vcf.gz.tbi",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
-                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
-                "small/test7/preprocess",
-                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
-                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
-                "small/test7/stats",
-                "small/test7/stats/bcftools",
-                "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
-            ],
-            [
-                "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
-                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test6.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test6.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test6.HG002.strelka.roc.Locations.SNP.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test6.HG002.strelka.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test6.HG002.strelka.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test6.HG002.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test6.HG002.strelka.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test6.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test7.HG002.bcftools.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test7.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test7.HG002.bcftools.roc.Locations.SNP.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test7.HG002.bcftools.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "test7.HG002.bcftools.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test7.HG002.bcftools.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test7.HG002.bcftools.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
-            ]
-        ],
-        "timestamp": "2026-05-21T13:28:29.467299363",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
-        }
-    },
-    "Params: --analysis 'germline' --variant_type 'small' --method 'happy,rtgtools'": {
-        "content": [
-            108,
-            {
-                "BCFTOOLS_DEDUP": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_FILTER_QUERY_FP": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_FILTER_QUERY_TP": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_FILTER_TRUTH_FN": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_FILTER_TRUTH_TP": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_MERGE": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_NORM": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_1": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_2": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_QUERY": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_REHEADER_TRUTH": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_STATS": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_VIEW_FILTERMISSING": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_VIEW_QUERY": {
-                    "bcftools": 1.22
-                },
-                "BCFTOOLS_VIEW_TRUTH": {
-                    "bcftools": 1.22
-                },
-                "CREATE_DATAVZRD_INPUT": {
-                    "gawk": "5.3.0"
-                },
-                "DATAVZRD": {
-                    "datavzrd": "2.63.3"
-                },
-                "HAPPY_HAPPY": {
-                    "happy": "0.3.15"
-                },
-                "HAPPY_PREPY": {
-                    "happy": "0.3.15"
-                },
-                "MERGE_REPORTS": {
-                    "python": "3.13.0"
-                },
-                "PLOTS_METRICS": {
-                    "r_base": "4.3.1"
-                },
-                "PLOTS_SVLEN_DIST": {
-                    "python": "3.14.0"
-                },
-                "PLOTS_UPSET": {
-                    "python": "3.13.7"
-                },
-                "REFORMAT_HEADER": {
-                    "gawk": "5.3.0"
-                },
-                "RTGTOOLS_FORMAT": {
-                    "rtgtools": 3.13
-                },
-                "RTGTOOLS_VCFEVAL": {
-                    "rtgtools": 3.13
-                },
-                "TABIX_BGZIPTABIX": {
-                    "bgzip": 1.21,
+                "TABIX_TABIX": {
                     "tabix": 1.21
                 },
                 "VCF_TO_CSV": {
@@ -485,6 +203,11 @@
                 "small/multiqc/multiqc_report.html",
                 "small/summary",
                 "small/summary/comparisons",
+                "small/summary/comparisons/aardvark",
+                "small/summary/comparisons/aardvark/aardvark.FN.csv",
+                "small/summary/comparisons/aardvark/aardvark.FP.csv",
+                "small/summary/comparisons/aardvark/aardvark.TP_base.csv",
+                "small/summary/comparisons/aardvark/aardvark.TP_comp.csv",
                 "small/summary/comparisons/happy",
                 "small/summary/comparisons/happy/happy.FN.csv",
                 "small/summary/comparisons/happy/happy.FP.csv",
@@ -496,6 +219,18 @@
                 "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
                 "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
                 "small/summary/datavzrd",
+                "small/summary/datavzrd/aardvark",
+                "small/summary/datavzrd/aardvark/aardvark_summary",
+                "small/summary/datavzrd/aardvark/aardvark_summary/config.js",
+                "small/summary/datavzrd/aardvark/aardvark_summary/data",
+                "small/summary/datavzrd/aardvark/aardvark_summary/data/data_1.js",
+                "small/summary/datavzrd/aardvark/aardvark_summary/functions.js",
+                "small/summary/datavzrd/aardvark/aardvark_summary/index_1.html",
+                "small/summary/datavzrd/aardvark/aardvark_summary/plots",
+                "small/summary/datavzrd/aardvark/aardvark_summary/plots/plots.js",
+                "small/summary/datavzrd/aardvark/index.html",
+                "small/summary/datavzrd/aardvark/static",
+                "small/summary/datavzrd/aardvark/static/bundle.js",
                 "small/summary/datavzrd/happy",
                 "small/summary/datavzrd/happy/index.html",
                 "small/summary/datavzrd/happy/static",
@@ -521,19 +256,62 @@
                 "small/summary/datavzrd/rtgtools/test/plots",
                 "small/summary/datavzrd/rtgtools/test/plots/plots.js",
                 "small/summary/plots",
+                "small/summary/plots/aardvark",
+                "small/summary/plots/aardvark/BASEPAIR_Deletion_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Deletion_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Deletion_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Indel_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Indel_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Indel_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Insertion_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Insertion_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Insertion_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_JointIndel_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_JointIndel_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_JointIndel_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Snv_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Snv_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_Snv_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/BASEPAIR_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Deletion_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Deletion_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Deletion_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Indel_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Indel_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Indel_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Insertion_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Insertion_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Insertion_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_JointIndel_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_JointIndel_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_JointIndel_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Snv_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Snv_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_Snv_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_f1_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_pr_recall_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/GT_variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/aardvark.FN.small.mqc.png",
+                "small/summary/plots/aardvark/aardvark.FP.small.mqc.png",
+                "small/summary/plots/aardvark/aardvark.TP_base.small.mqc.png",
+                "small/summary/plots/aardvark/aardvark.TP_comp.small.mqc.png",
+                "small/summary/plots/aardvark/upset_aardvark_tp_fn_mqc.png",
+                "small/summary/plots/aardvark/upset_aardvark_tp_fp_mqc.png",
                 "small/summary/plots/happy",
-                "small/summary/plots/happy/INDEL_ALL_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_ALL_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/INDEL_ALL_variants_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/INDEL_PASS_f1_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/INDEL_PASS_pr_recall_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/INDEL_PASS_variants_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_f1_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_pr_recall_by_tool_happy_mqc.png",
-                "small/summary/plots/happy/SNP_ALL_variants_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/INDEL_f1_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/INDEL_pr_recall_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/INDEL_variants_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/SNP_PASS_f1_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/SNP_PASS_pr_recall_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/SNP_PASS_variants_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/SNP_f1_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/SNP_pr_recall_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/SNP_variants_by_tool_happy_mqc.png",
                 "small/summary/plots/happy/happy.FN.small.mqc.png",
                 "small/summary/plots/happy/happy.FP.small.mqc.png",
                 "small/summary/plots/happy/happy.TP_base.small.mqc.png",
@@ -551,12 +329,21 @@
                 "small/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
                 "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "small/summary/tables",
+                "small/summary/tables/aardvark",
+                "small/summary/tables/aardvark/aardvark.summary.csv",
                 "small/summary/tables/happy",
                 "small/summary/tables/happy/happy.summary.csv",
                 "small/summary/tables/rtgtools",
                 "small/summary/tables/rtgtools/rtgtools.summary.csv",
                 "small/test6",
                 "small/test6/benchmarks",
+                "small/test6/benchmarks/aardvark",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.cli_settings.json",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.query.vcf.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.region_sequences.tsv.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.region_summary.tsv.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.summary.tsv",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.truth.vcf.gz",
                 "small/test6/benchmarks/happy",
                 "small/test6/benchmarks/happy/test6.HG002.strelka.extended.csv",
                 "small/test6/benchmarks/happy/test6.HG002.strelka.metrics.json.gz",
@@ -591,6 +378,13 @@
                 "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
                 "small/test7",
                 "small/test7/benchmarks",
+                "small/test7/benchmarks/aardvark",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.cli_settings.json",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.query.vcf.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.region_sequences.tsv.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.region_summary.tsv.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.summary.tsv",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.truth.vcf.gz",
                 "small/test7/benchmarks/happy",
                 "small/test7/benchmarks/happy/test7.HG002.bcftools.extended.csv",
                 "small/test7/benchmarks/happy/test7.HG002.bcftools.metrics.json.gz",
@@ -654,6 +448,7 @@
                 "multiqc_bcftools_stats.txt:md5,d6908affe4a63624cdef969bf08f431c",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "multiqc_variant_calling_summary.txt:md5,ee3a241e3a6f134d5488a848a8cfed93",
+                "test6.HG002.strelka.summary.tsv:md5,84d963cd778a434b515474c302029e92",
                 "test6.HG002.strelka.extended.csv:md5,1d7e794eec466dcc9b26259ad5d977c0",
                 "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,60563576cb01b0f8c29e6c4249d26a29",
                 "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,7018e47ddb59f4bb2493ea91e651d875",
@@ -664,6 +459,7 @@
                 "test6.HG002.strelka.phasing.txt:md5,2cb3c919b1aacee7193543a21f538f8d",
                 "test6.HG002.strelka.summary.txt:md5,0ec44b030ffb77a2883894e2976bfa42",
                 "test6.strelka.bcftools_stats.txt:md5,05d4cd5191bc0ec87506816b171a7ae2",
+                "test7.HG002.bcftools.summary.tsv:md5,0ff1484034f3a324ef299052909259d7",
                 "test7.HG002.bcftools.extended.csv:md5,5b48d6c9dfd67813dfab3bf1cdab85a7",
                 "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,c1e554f0df835826d1e5df2799b0ad85",
                 "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,f2630ffc050976945585e7be4e22f09b",
@@ -676,10 +472,360 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-05-21T13:06:12.568495589",
+        "timestamp": "2026-07-17T14:13:02.905251663",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "-stub": {
+        "content": [
+            155,
+            {
+                "AARDVARK_COMPARE": {
+                    "aardvark": "0.10.5"
+                },
+                "BCFTOOLS_DEDUP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_FILTER_QUERY_FP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_FILTER_QUERY_TP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_FILTER_TRUTH_FN": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_FILTER_TRUTH_TP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_1": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_2": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_TRUTH": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_TRUTH": {
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "gawk": "5.3.0"
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.63.3"
+                },
+                "HAPPY_HAPPY": {
+                    "happy": "0.3.15"
+                },
+                "HAPPY_PREPY": {
+                    "happy": "0.3.15"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PLOTS_METRICS": {
+                    "r_base": "4.3.1"
+                },
+                "PLOTS_SVLEN_DIST": {
+                    "python": "3.14.0"
+                },
+                "PLOTS_UPSET": {
+                    "python": "3.13.7"
+                },
+                "REFORMAT_HEADER": {
+                    "gawk": "5.3.0"
+                },
+                "RTGTOOLS_FORMAT": {
+                    "rtgtools": 3.13
+                },
+                "RTGTOOLS_VCFEVAL": {
+                    "rtgtools": 3.13
+                },
+                "TABIX_BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX": {
+                    "tabix": 1.21
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.13.0"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "references",
+                "references/rtgtools",
+                "references/rtgtools/genome.sdf",
+                "small",
+                "small/HG002",
+                "small/HG002/preprocess",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/HG002/preprocess/HG002_GRCh38_1_22_v4.2_benchmark_chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
+                "small/HG002/stats",
+                "small/HG002/stats/bcftools",
+                "small/HG002/stats/bcftools/HG002.bcftools_stats.txt",
+                "small/multiqc",
+                "small/multiqc/multiqc_data",
+                "small/multiqc/multiqc_data/.stub",
+                "small/multiqc/multiqc_plots",
+                "small/multiqc/multiqc_plots/.stub",
+                "small/multiqc/multiqc_report.html",
+                "small/summary",
+                "small/summary/comparisons",
+                "small/summary/comparisons/aardvark",
+                "small/summary/comparisons/aardvark/aardvark.FN.csv",
+                "small/summary/comparisons/aardvark/aardvark.FP.csv",
+                "small/summary/comparisons/aardvark/aardvark.TP_base.csv",
+                "small/summary/comparisons/aardvark/aardvark.TP_comp.csv",
+                "small/summary/comparisons/happy",
+                "small/summary/comparisons/happy/happy.FN.csv",
+                "small/summary/comparisons/happy/happy.FP.csv",
+                "small/summary/comparisons/happy/happy.TP_base.csv",
+                "small/summary/comparisons/happy/happy.TP_comp.csv",
+                "small/summary/comparisons/rtgtools",
+                "small/summary/comparisons/rtgtools/rtgtools.FN.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.FP.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_base.csv",
+                "small/summary/comparisons/rtgtools/rtgtools.TP_comp.csv",
+                "small/summary/datavzrd",
+                "small/summary/datavzrd/aardvark",
+                "small/summary/datavzrd/aardvark/index.html",
+                "small/summary/datavzrd/aardvark/network",
+                "small/summary/datavzrd/aardvark/network/config.js",
+                "small/summary/datavzrd/aardvark/network/data",
+                "small/summary/datavzrd/aardvark/network/data/data_1.js",
+                "small/summary/datavzrd/aardvark/network/functions.js",
+                "small/summary/datavzrd/aardvark/network/heatmap.js",
+                "small/summary/datavzrd/aardvark/network/index_1.html",
+                "small/summary/datavzrd/aardvark/network/plots",
+                "small/summary/datavzrd/aardvark/network/plots/plot_0.js",
+                "small/summary/datavzrd/aardvark/static",
+                "small/summary/datavzrd/aardvark/static/bootstrap-select.min.css",
+                "small/summary/datavzrd/aardvark/static/bootstrap-table-fixed-columns.min.css",
+                "small/summary/datavzrd/aardvark/static/bootstrap-table.min.css",
+                "small/summary/datavzrd/aardvark/static/bootstrap.min.css",
+                "small/summary/datavzrd/aardvark/static/bundle.js",
+                "small/summary/datavzrd/aardvark/static/datavzrd.css",
+                "small/summary/datavzrd/happy",
+                "small/summary/datavzrd/happy/index.html",
+                "small/summary/datavzrd/happy/network",
+                "small/summary/datavzrd/happy/network/config.js",
+                "small/summary/datavzrd/happy/network/data",
+                "small/summary/datavzrd/happy/network/data/data_1.js",
+                "small/summary/datavzrd/happy/network/functions.js",
+                "small/summary/datavzrd/happy/network/heatmap.js",
+                "small/summary/datavzrd/happy/network/index_1.html",
+                "small/summary/datavzrd/happy/network/plots",
+                "small/summary/datavzrd/happy/network/plots/plot_0.js",
+                "small/summary/datavzrd/happy/static",
+                "small/summary/datavzrd/happy/static/bootstrap-select.min.css",
+                "small/summary/datavzrd/happy/static/bootstrap-table-fixed-columns.min.css",
+                "small/summary/datavzrd/happy/static/bootstrap-table.min.css",
+                "small/summary/datavzrd/happy/static/bootstrap.min.css",
+                "small/summary/datavzrd/happy/static/bundle.js",
+                "small/summary/datavzrd/happy/static/datavzrd.css",
+                "small/summary/datavzrd/rtgtools",
+                "small/summary/datavzrd/rtgtools/index.html",
+                "small/summary/datavzrd/rtgtools/network",
+                "small/summary/datavzrd/rtgtools/network/config.js",
+                "small/summary/datavzrd/rtgtools/network/data",
+                "small/summary/datavzrd/rtgtools/network/data/data_1.js",
+                "small/summary/datavzrd/rtgtools/network/functions.js",
+                "small/summary/datavzrd/rtgtools/network/heatmap.js",
+                "small/summary/datavzrd/rtgtools/network/index_1.html",
+                "small/summary/datavzrd/rtgtools/network/plots",
+                "small/summary/datavzrd/rtgtools/network/plots/plot_0.js",
+                "small/summary/datavzrd/rtgtools/static",
+                "small/summary/datavzrd/rtgtools/static/bootstrap-select.min.css",
+                "small/summary/datavzrd/rtgtools/static/bootstrap-table-fixed-columns.min.css",
+                "small/summary/datavzrd/rtgtools/static/bootstrap-table.min.css",
+                "small/summary/datavzrd/rtgtools/static/bootstrap.min.css",
+                "small/summary/datavzrd/rtgtools/static/bundle.js",
+                "small/summary/datavzrd/rtgtools/static/datavzrd.css",
+                "small/summary/plots",
+                "small/summary/plots/aardvark",
+                "small/summary/plots/aardvark/aardvark.FN.svlen.png",
+                "small/summary/plots/aardvark/aardvark.FP.svlen.png",
+                "small/summary/plots/aardvark/aardvark.TP_base.svlen.png",
+                "small/summary/plots/aardvark/aardvark.TP_comp.svlen.png",
+                "small/summary/plots/aardvark/metric_by_tool_aardvark_mqc.png",
+                "small/summary/plots/aardvark/upset_aardvark.upset.mqc.png",
+                "small/summary/plots/aardvark/variants_by_tool_aardvark_mqc.png",
+                "small/summary/plots/happy",
+                "small/summary/plots/happy/happy.FN.svlen.png",
+                "small/summary/plots/happy/happy.FP.svlen.png",
+                "small/summary/plots/happy/happy.TP_base.svlen.png",
+                "small/summary/plots/happy/happy.TP_comp.svlen.png",
+                "small/summary/plots/happy/metric_by_tool_happy_mqc.png",
+                "small/summary/plots/happy/upset_happy.upset.mqc.png",
+                "small/summary/plots/happy/variants_by_tool_happy_mqc.png",
+                "small/summary/plots/rtgtools",
+                "small/summary/plots/rtgtools/metric_by_tool_rtgtools_mqc.png",
+                "small/summary/plots/rtgtools/rtgtools.FN.svlen.png",
+                "small/summary/plots/rtgtools/rtgtools.FP.svlen.png",
+                "small/summary/plots/rtgtools/rtgtools.TP_base.svlen.png",
+                "small/summary/plots/rtgtools/rtgtools.TP_comp.svlen.png",
+                "small/summary/plots/rtgtools/upset_rtgtools.upset.mqc.png",
+                "small/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
+                "small/summary/tables",
+                "small/summary/tables/aardvark",
+                "small/summary/tables/aardvark/aardvark.regions.csv",
+                "small/summary/tables/aardvark/aardvark.summary.csv",
+                "small/summary/tables/happy",
+                "small/summary/tables/happy/happy.regions.csv",
+                "small/summary/tables/happy/happy.summary.csv",
+                "small/summary/tables/rtgtools",
+                "small/summary/tables/rtgtools/rtgtools.regions.csv",
+                "small/summary/tables/rtgtools/rtgtools.summary.csv",
+                "small/test6",
+                "small/test6/benchmarks",
+                "small/test6/benchmarks/aardvark",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.cli_settings.json",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.query.vcf.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.region_sequences.tsv.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.region_summary.tsv.gz",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.summary.tsv",
+                "small/test6/benchmarks/aardvark/test6.HG002.strelka.truth.vcf.gz",
+                "small/test6/benchmarks/happy",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.extended.csv",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.metrics.json.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.INDEL.csv.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.SNP.PASS.csv.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.Locations.SNP.csv.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.roc.all.csv.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.runinfo.json",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.summary.csv",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.vcf.gz",
+                "small/test6/benchmarks/happy/test6.HG002.strelka.vcf.gz.tbi",
+                "small/test6/benchmarks/rtgtools",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fn.vcf.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fn.vcf.gz.tbi",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fp.vcf.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.fp.vcf.gz.tbi",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.non_snp_roc.tsv.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.phasing.txt",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.snp_roc.tsv.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.summary.txt",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp-baseline.vcf.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp-baseline.vcf.gz.tbi",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.tp.vcf.gz.tbi",
+                "small/test6/benchmarks/rtgtools/test6.HG002.strelka.weighted_roc.tsv.gz",
+                "small/test6/preprocess",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test6/preprocess/HG002.strelka.variants.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
+                "small/test6/stats",
+                "small/test6/stats/bcftools",
+                "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
+                "small/test7",
+                "small/test7/benchmarks",
+                "small/test7/benchmarks/aardvark",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.cli_settings.json",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.query.vcf.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.region_sequences.tsv.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.region_summary.tsv.gz",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.summary.tsv",
+                "small/test7/benchmarks/aardvark/test7.HG002.bcftools.truth.vcf.gz",
+                "small/test7/benchmarks/happy",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.extended.csv",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.metrics.json.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.INDEL.csv.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.Locations.SNP.csv.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.roc.all.csv.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.runinfo.json",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.summary.csv",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.vcf.gz",
+                "small/test7/benchmarks/happy/test7.HG002.bcftools.vcf.gz.tbi",
+                "small/test7/benchmarks/rtgtools",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fn.vcf.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fn.vcf.gz.tbi",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fp.vcf.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.fp.vcf.gz.tbi",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.non_snp_roc.tsv.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.phasing.txt",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.snp_roc.tsv.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.summary.txt",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp-baseline.vcf.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp-baseline.vcf.gz.tbi",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.tp.vcf.gz.tbi",
+                "small/test7/benchmarks/rtgtools/test7.HG002.bcftools.weighted_roc.tsv.gz",
+                "small/test7/preprocess",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz",
+                "small/test7/preprocess/HG002.bcftools.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi",
+                "small/test7/stats",
+                "small/test7/stats/bcftools",
+                "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
+            ],
+            [
+                "genome.sdf:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "HG002.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.HG002.strelka.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.HG002.strelka.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.HG002.strelka.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test6.HG002.strelka.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test6.HG002.strelka.roc.Locations.SNP.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test6.HG002.strelka.roc.Locations.SNP.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test6.HG002.strelka.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test6.HG002.strelka.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.HG002.strelka.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.HG002.strelka.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test6.strelka.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.HG002.bcftools.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.HG002.bcftools.extended.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.HG002.bcftools.roc.Locations.INDEL.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test7.HG002.bcftools.roc.Locations.INDEL.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test7.HG002.bcftools.roc.Locations.SNP.PASS.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test7.HG002.bcftools.roc.Locations.SNP.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test7.HG002.bcftools.roc.all.csv.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                "test7.HG002.bcftools.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.HG002.bcftools.phasing.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.HG002.bcftools.summary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+            ]
+        ],
+        "timestamp": "2026-07-17T14:14:48.613695199",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     }
 }

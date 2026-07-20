@@ -103,6 +103,19 @@ test3,test3.vcf.gz,cnvkit,true
 
 Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
 
+## Dealing with missing genotypes ./. ./0 or 0/0
+
+When working with multisample input files or somatic inputs, there is a high probability of having missing genotypes after subsampling. These genotypes must be filtered out before benchmarking. The pipeline incorporates an automatic filtration step to remove these missing genotypes for both truth files and test files. You can disable this automatic filtration and allow missing genotypes by using the parameter `enable_missing_genotypes`='truth|test'.
+
+If you set the parameter to 'test', you can specify which individual test cases should allow `missing_genotypes` by updating your samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,missing_genotypes
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
 ## Standardization and normalization parameters
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
@@ -218,21 +231,24 @@ Benchmarking method can be spesified using `--method` parameter. If not spesifie
 - _Germline small variants_: Germline samples for small variant type of variants, SNVs and INDELs together. If you think your file includes structural variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type small --method "happy,rtgtools"`
+`--analysis germline --variant_type small --method "happy,rtgtools,aardvark"`
 
 - ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
 
-- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy and rtgtools while aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type snv --method "sompy,rtgtools"`
-`--analysis germline --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type snv --method "sompy,rtgtools"`
+`--analysis somatic --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type small --method "aardvark,rtgtools"`
 
 - ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 - ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 - _Structural variants_: Germline or somatic samples for structural variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above.
 
@@ -425,6 +441,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - Includes links to test data so needs no other parameters
 - `somatic_sv`
   - A profile with a complete configuration for somatic analysis with structural variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_small`
+  - A profile with a complete configuration for somatic analysis with small variant type of data
   - Includes links to test data so needs no other parameters
 - `somatic_snv`
   - A profile with a complete configuration for somatic analysis with snv variant type of data

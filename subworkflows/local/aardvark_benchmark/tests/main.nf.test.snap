@@ -1,0 +1,174 @@
+{
+    "homo_sapiens - illumina - aardvark benchmark": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "aardvark"
+                    },
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "aardvark"
+                    },
+                    "test.HG002.gatk.query.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "aardvark"
+                    },
+                    "test.HG002.gatk.query.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=737, phased=false, phasedAutodetect=false]",
+                    "f0673c99f58b46ff264ff39bc3bdada2"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "aardvark"
+                    },
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=737, phased=false, phasedAutodetect=false]",
+                    "f0673c99f58b46ff264ff39bc3bdada2"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "aardvark"
+                    },
+                    "test.HG002.gatk.summary.tsv"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-07-15T10:58:30.357693637",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "homo_sapiens - illumina - aardvark benchmark - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "aardvark"
+                        },
+                        [
+                            "test.HG002.gatk.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.query.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.query.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "aardvark"
+                        },
+                        [
+                            "test.HG002.gatk.summary.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.query.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.query.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "aardvark"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-15T11:00:43.877483911",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

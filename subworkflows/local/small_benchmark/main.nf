@@ -1,11 +1,13 @@
 //
-// SMALL_GERMLINE_BENCHMARK: SUBWORKFLOW FOR SMALL GERMLINE VARIANTS
+// SMALL_BENCHMARK: SUBWORKFLOW FOR SMALL GERMLINE VARIANTS
 //
 
 include { RTGTOOLS_VCFEVAL    } from '../../../modules/nf-core/rtgtools/vcfeval'
 include { HAPPY_BENCHMARK     } from '../../../subworkflows/local/happy_benchmark'
+include { SOMPY_BENCHMARK     } from '../../../subworkflows/local/sompy_benchmark'
+include { AARDVARK_BENCHMARK  } from '../../../subworkflows/local/aardvark_benchmark'
 
-workflow SMALL_GERMLINE_BENCHMARK {
+workflow SMALL_BENCHMARK {
     take:
     input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
     fasta              // reference channel [val(meta), ref.fa]
@@ -14,6 +16,7 @@ workflow SMALL_GERMLINE_BENCHMARK {
     falsepositive_bed  // reference channel [val(meta), bed]
     stratification_bed // reference channel [val(meta), bed files]
     stratification_tsv // reference channel [val(meta), tsv]
+    ambiguous_beds     // reference channel [val(meta), bed]
 
     main:
 
@@ -48,7 +51,20 @@ workflow SMALL_GERMLINE_BENCHMARK {
 
     }
 
-    if (params.method.contains('happy')){
+    if (params.method.contains('aardvark')){
+        AARDVARK_BENCHMARK(
+            input_ch,
+            fasta,
+            fai,
+            stratification_bed,
+            stratification_tsv
+        )
+        summary_reports = summary_reports.mix(AARDVARK_BENCHMARK.out.summary_reports)
+        tagged_variants = tagged_variants.mix(AARDVARK_BENCHMARK.out.tagged_variants)
+
+    }
+
+    if (params.method.contains('happy') && params.analysis == "germline"){
         HAPPY_BENCHMARK(
             input_ch,
             fasta,
@@ -60,7 +76,24 @@ workflow SMALL_GERMLINE_BENCHMARK {
         summary_reports = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
         tagged_variants = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
     }
+
+    tagged_variants_csv = channel.empty()
+
+    if (params.method.contains('sompy') && params.analysis == "somatic"){
+        SOMPY_BENCHMARK(
+            input_ch,
+            fasta,
+            fai,
+            falsepositive_bed,
+            ambiguous_beds
+        )
+        summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
+        tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
+    }
+
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
+    tagged_variants_csv // channel: [val(meta), csvs]
+
 }

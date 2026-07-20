@@ -93,6 +93,10 @@ Below, please find some set truths can be used for analysis:
                     truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/CMRG_v1.00/GRCh38/StructuralVariant/HG002_GRCh38_CMRG_SV_v1.00.vcf.gz"
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/CMRG_v1.00/GRCh38/StructuralVariant/HG002_GRCh38_CMRG_SV_v1.00.bed"
 
+                    truth_id          = "HG008"
+                    truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-stvar_DraftBenchmark_V0.3-20250220/GRCh38_HG008-T-V0.3_somatic-stvar_ALL.draftbenchmark.vcf.gz"
+                    regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-stvar_DraftBenchmark_V0.3-20250220/GRCh38_HG008-T-V0.3_somatic-stvar.draftbenchmark.bed"
+
     - params.vartype == 'snv'
 
                     truth_id          = "SEQC2"
@@ -104,6 +108,12 @@ Below, please find some set truths can be used for analysis:
                     truth_id          = "SEQC2"
                     truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/seqc/Somatic_Mutation_WG/release/latest/high-confidence_sINDEL_in_HC_regions_v1.2.1.vcf.gz"
                     regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/seqc/Somatic_Mutation_WG/release/latest/High-Confidence_Regions_v1.2.bed"
+
+    - params.vartype == 'small'
+
+                    truth_id          = "HG008"
+                    truth_vcf         = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-smvar_DraftBenchmark_V0.3-20260425/HG008-T_somatic_smvar_benchmark_v0.3_tumorvariants.vcf.gz"
+                    regions_bed       = "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/NIST_HG008-T_somatic-smvar_DraftBenchmark_V0.3-20260425/HG008-T_somatic_smvar_benchmark_v0.3_all.bed"
 
   - params.genome == 'GRCh37'
     - params.vartype == 'structural'

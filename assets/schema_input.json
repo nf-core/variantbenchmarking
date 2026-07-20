@@ -174,6 +174,12 @@
                 "description": "Fixing prefix is sometimes necessary for input files, activate it if your input is not adhering to GRCh38 with chr and GRCh37 without chr standards ",
                 "meta": ["fix_prefix"],
                 "default": false
+            },
+            "missing_genotypes": {
+                "type": "boolean",
+                "description": "True if GT filed is missing for the vcf file, to activate add params.enable_missing_genotypes='test' ",
+                "meta": ["missing_gt"],
+                "default": false
             }
         },
         "anyOf": [

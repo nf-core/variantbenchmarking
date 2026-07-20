@@ -25,8 +25,7 @@ include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conve
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
 include { CNV_BENCHMARK               } from '../subworkflows/local/cnv_benchmark'
 include { SV_BENCHMARK                } from '../subworkflows/local/sv_benchmark'
-include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
-include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
+include { SMALL_BENCHMARK             } from '../subworkflows/local/small_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
@@ -270,6 +269,7 @@ workflow VARIANTBENCHMARKING {
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
 
+
     if (params.variant_type == "structural"){
         SV_BENCHMARK(
             bench,
@@ -311,45 +311,25 @@ workflow VARIANTBENCHMARKING {
         ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ _meta, log -> log })
     }
 
-    if (params.analysis?.contains("germline")){
-
-        if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
-            // Benchmarking specific to small germline samples
-            SMALL_GERMLINE_BENCHMARK(
-                bench,
-                fasta,
-                fai,
-                sdf,
-                falsepositive_bed,
-                stratification_bed,
-                stratification_tsv
-            )
-            ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
-        }
+    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
+        // Benchmarking small variants
+        SMALL_BENCHMARK(
+            bench,
+            fasta,
+            fai,
+            sdf,
+            falsepositive_bed,
+            stratification_bed,
+            stratification_tsv,
+            ambiguous_beds
+        )
+        ch_reports       = ch_reports.mix(SMALL_BENCHMARK.out.summary_reports)
+        evals_ch         = evals_ch.mix(SMALL_BENCHMARK.out.tagged_variants)
+        evals_csv_ch     = evals_csv_ch.mix(SMALL_BENCHMARK.out.tagged_variants_csv)
     }
 
-    // SOMATIC BENCHMARKING
-    if (params.analysis?.contains("somatic")){
 
-        if (params.variant_type == "snv" || params.variant_type == "indel"){
-            // SOMATIC VARIANT BENCHMARKING
-            SMALL_SOMATIC_BENCHMARK(
-                bench,
-                fasta,
-                fai,
-                sdf,
-                falsepositive_bed,
-                ambiguous_beds
-            )
-            ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
-            evals_csv_ch     = evals_csv_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants_csv)
-        }
-
-    }
-
-    // Compare tool spesfic benchmarks
+    // Compare tagged variants
     COMPARE_BENCHMARK_RESULTS(
         evals_ch,
         evals_csv_ch,

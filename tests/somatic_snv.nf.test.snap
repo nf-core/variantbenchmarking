@@ -263,10 +263,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-05-21T13:56:19.595825455",
+        "timestamp": "2026-07-17T14:32:10.707127151",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy,rtgtools'": {
@@ -502,11 +502,11 @@
                 "snv/summary/plots/rtgtools/upset_rtgtools_tp_fp_mqc.png",
                 "snv/summary/plots/rtgtools/variants_by_tool_rtgtools_mqc.png",
                 "snv/summary/plots/sompy",
-                "snv/summary/plots/sompy/f1_by_tool_sompy_mqc.png",
-                "snv/summary/plots/sompy/pr_recall_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/SNVs_f1_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/SNVs_pr_recall_by_tool_sompy_mqc.png",
+                "snv/summary/plots/sompy/SNVs_variants_by_tool_sompy_mqc.png",
                 "snv/summary/plots/sompy/upset_sompy_tp_fn_mqc.png",
                 "snv/summary/plots/sompy/upset_sompy_tp_fp_mqc.png",
-                "snv/summary/plots/sompy/variants_by_tool_sompy_mqc.png",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
                 "snv/summary/tables/rtgtools/rtgtools.summary.csv",
@@ -637,10 +637,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537"
             ]
         ],
-        "timestamp": "2026-05-21T13:55:17.095891839",
+        "timestamp": "2026-07-17T14:18:39.061241364",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     }
 }
