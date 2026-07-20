@@ -153,7 +153,7 @@ workflow PREPARE_VCFS_TEST {
     }
 
     if (!(params.enable_missing_genotypes?.contains("test"))) {
-        
+
         // filters out ./. or 0/0 or non-somatic genotypes
         genotype_missing = vcf_ch.filter{ meta, _vcf, _tbi -> meta.missing_gt }
         genotype_exist = vcf_ch.filter{ meta, _vcf, _tbi -> !meta.missing_gt }
@@ -164,7 +164,7 @@ workflow PREPARE_VCFS_TEST {
             [],
             []
         )
-        
+
         // Recombine the streams
         processed_vcf = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
         vcf_ch = processed_vcf.mix(genotype_missing)
