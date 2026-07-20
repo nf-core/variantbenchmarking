@@ -226,7 +226,7 @@ Example cmd:
 
 Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
 
-- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy, rtgtools and aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy and rtgtools while aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
 `--analysis somatic --variant_type snv --method "sompy,rtgtools"`
