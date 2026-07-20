@@ -153,20 +153,21 @@ workflow PREPARE_VCFS_TEST {
     }
 
     if (!(params.enable_missing_genotypes?.contains("test"))) {
+        
         // filters out ./. or 0/0 or non-somatic genotypes
-        vcf_ch.branch{ meta, _vcf, _tbi ->
-            genotype_missing: meta.missing_gt
-            genotype_exist: true
-            }.set{filtergt}
+        genotype_missing = vcf_ch.filter{ meta, _vcf, _tbi -> meta.missing_gt }
+        genotype_exist = vcf_ch.filter{ meta, _vcf, _tbi -> !meta.missing_gt }
 
         BCFTOOLS_VIEW_FILTERMISSING(
-            filtergt.genotype_exist,
+            genotype_exist,
             [],
             [],
             []
         )
-        vcf_ch=BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
-        vcf_ch = vcf_ch.mix(filtergt.genotype_missing)
+        
+        // Recombine the streams
+        processed_vcf = BCFTOOLS_VIEW_FILTERMISSING.out.vcf.join(BCFTOOLS_VIEW_FILTERMISSING.out.tbi)
+        vcf_ch = processed_vcf.mix(genotype_missing)
     }
 
      // branch out test samples with missing GT field (e.g. strelka) to add GT field using gawk

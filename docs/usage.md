@@ -103,6 +103,19 @@ test3,test3.vcf.gz,cnvkit,true
 
 Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
 
+## Dealing with missing genotypes ./. ./0 or 0/0
+
+When working with multisample input files or somatic inputs, there is a high probability of having missing genotypes after subsampling. These genotypes must be filtered out before benchmarking. The pipeline incorporates an automatic filtration step to remove these missing genotypes for both truth files and test files. You can disable this automatic filtration and allow missing genotypes by using the parameter `enable_missing_genotypes`='truth|test'.
+
+If you set the parameter to 'test', you can specify which individual test cases should allow `missing_genotypes` by updating your samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,missing_genotypes
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
 ## Standardization and normalization parameters
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
