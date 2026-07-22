@@ -8,7 +8,6 @@ keywords:
   - validation
 components:
   - happy/happy
-  - happy/prepy
   - bcftools/reheader
   - bcftools/view
   - bcftools/filter

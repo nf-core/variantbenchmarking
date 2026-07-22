@@ -130,7 +130,6 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
   - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `normalize`: Left aligns variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `deduplicate`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-  - `prepy`: Uses prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
   - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
 
 Filtration of the variants are controlled through the following parameters:

@@ -9,7 +9,6 @@ nextflow_workflow {
     tag "subworkflows/happy_benchmark"
     tag "happy"
     tag "happy/happy"
-    tag "happy/prepy"
     tag "bcftools"
     tag "bcftools/view"
     tag "bcftools/reheader"
@@ -70,63 +69,6 @@ nextflow_workflow {
             )
         }
     }
-
-    test("homo_sapiens - illumina - happy benchmark with prepy") {
-
-        when {
-            params {
-                variant_type = "small"
-                preprocess = "prepy"
-                truth_id = "HG002"
-            }
-            workflow {
-                """
-                input[0] = Channel.of([
-                    [ id:'test', caller: "gatk" ],
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz.tbi', checkIfExists: true),
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.ann.vcf.gz', checkIfExists: true),
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.ann.vcf.gz.tbi', checkIfExists: true),
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed', checkIfExists: true),
-                    []
-                ])
-                input[1] = Channel.of([
-                    [ id:'test_ref' ],
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
-                ]).collect()
-                input[2] = Channel.of([
-                    [ id:'test_ref' ],
-                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
-                ]).collect()
-                input[3] = Channel.value([[],[]])
-                input[4] = Channel.value([[],[]])
-                input[5] = Channel.value([[],[]])
-                """
-            }
-        }
-        then {
-            assert workflow.success
-            assertAll(
-                { assert snapshot(
-                    workflow.out.tagged_variants.collect { meta, vcf, index ->
-                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
-                        [
-                            meta,
-                            path(vcfFile.toString()).getFileName().toString(),
-                            path(vcfFile.toString()).vcf.summary,
-                            path(vcfFile.toString()).vcf.variantsMD5
-                        ]
-                    }.sort { it[0].tag },
-                    workflow.out.summary_reports.collect { meta, file ->
-                        def f = file instanceof Collection ? file[0] : file
-                        [meta, path(f.toString()).getFileName().toString()]
-                    },
-                    workflow.out.findAll { key, val -> key.startsWith("versions") }
-                ).match() }
-            )
-        }
-    }
-
     test("homo_sapiens - illumina - happy benchmark stub") {
         options "-stub"
         when {
