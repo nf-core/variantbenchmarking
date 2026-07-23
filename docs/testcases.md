@@ -107,7 +107,7 @@ Now we can also take test5 into account. test5 originally includes small variant
 ### Analysis
 
 - Now we are using two HG002 variant calls from a germline analysis for small variant benchmarking. Chromosome 21 is extracted both from the test and truth cases.
-- We normalize, deduplicate and prepy to preprocess the variants
+- We normalize and deduplicate to preprocess the variants
 - Both RTGtools vcfeval and hap.py methods are used for benchmarking.
 
 ### Results
@@ -248,7 +248,7 @@ Don't forget that the only difference between the cases in 4,5 and 6 are the met
 ### Analysis
 
 - Benchmarking somatic variants is possible using this pipeline. In order to demonstare SNV type of benchmarking, 3 example somatic variant calls will be benchmarked against SEQC2 truth SNV calls.
-- Preprocessing includes normalization enabling left alignment of the variants, deduplication and prepy (only for som.py).
+- Preprocessing includes normalization, enabling left alignment of the variants and deduplication.
 - Using som.py (a version of hap.py tuned specially for somatic benchmarking) and rtgtools vcfeval with "--squash-ploidy" parameter on.
 
 ### Results

@@ -90,11 +90,6 @@
                         "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
                         "installed_by": ["modules"]
                     },
-                    "happy/prepy": {
-                        "branch": "master",
-                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
-                        "installed_by": ["modules"]
-                    },
                     "happy/sompy": {
                         "branch": "master",
                         "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",

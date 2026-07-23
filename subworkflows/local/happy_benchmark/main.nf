@@ -3,7 +3,6 @@
 //
 
 include { HAPPY_HAPPY      } from '../../../modules/nf-core/happy/happy/main'
-include { HAPPY_PREPY      } from '../../../modules/nf-core/happy/prepy/main'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TRUTH        } from '../../../modules/nf-core/bcftools/view'
@@ -37,18 +36,6 @@ workflow HAPPY_BENCHMARK {
             [ meta, truth_vcf, _regionsbed, _targets_bed ]
         }
         .set { truth_ch }
-
-    if (params.preprocess.contains("prepy")){
-        // apply prepy if required
-        HAPPY_PREPY(
-            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                [ meta, vcf, _regionsbed ]
-            },
-            fasta,
-            fai
-        )
-        test_ch = HAPPY_PREPY.out.preprocessed_vcf
-    }
 
     // apply happy method for benchmarking
     HAPPY_HAPPY(

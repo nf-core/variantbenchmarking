@@ -47,7 +47,6 @@ This initial step ensures consistent formatting and alignment of variants in tes
 - Splitting multi-allelic variants([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 - Deduplication of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 - Left aligning of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-- Use prepy in order to normalize. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
 - Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
 
 ### Standardization and normalization of truth (baseline) variants:
