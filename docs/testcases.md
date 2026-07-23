@@ -248,7 +248,7 @@ Don't forget that the only difference between the cases in 4,5 and 6 are the met
 ### Analysis
 
 - Benchmarking somatic variants is possible using this pipeline. In order to demonstare SNV type of benchmarking, 3 example somatic variant calls will be benchmarked against SEQC2 truth SNV calls.
-- Preprocessing includes normalization enabling left alignment of the variants, and deduplication.
+- Preprocessing includes normalization, enabling left alignment of the variants and deduplication.
 - Using som.py (a version of hap.py tuned specially for somatic benchmarking) and rtgtools vcfeval with "--squash-ploidy" parameter on.
 
 ### Results
