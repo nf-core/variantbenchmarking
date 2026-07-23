@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - Depreciated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
-- Fixing metromap to light to dark background. Adding docs/images/metro_map.md to assist future developers to reproduce. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
+- Fixing metromap to light to dark background.  Adding docs/images/metro_map.md to assist future developers to reproduce the metromap. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
 
 ### `Dependencies`
 
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | pigz       | 2.8         | depreciated |
 | nf-core    | 3.5.1       | 4.0.2       |
 | prettier   | 3.6.2       | 3.8.3       |
-| prepy      | 0.3.15      | removed     |
+| prepy      | 0.3.15      | depreciated |
 
 ## 1.5.0
 
