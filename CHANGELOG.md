@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | pigz       | 2.8         | depreciated |
 | nf-core    | 3.5.1       | 4.0.2       |
 | prettier   | 3.6.2       | 3.8.3       |
-| prepy      | 0.3.15      | depreciated |
+| prepy      | 0.3.15      | removed     |
 
 ## 1.5.0
 
