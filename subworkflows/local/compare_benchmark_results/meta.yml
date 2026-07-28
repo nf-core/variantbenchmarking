@@ -1,0 +1,74 @@
+name: "compare_benchmark_results"
+description: "Merges variant benchmarking results from different tools and generates UpSet plots."
+keywords:
+  - benchmark
+  - merge
+  - vcf
+  - csv
+  - upset plot
+components:
+  - gawk
+  - tabix/bgzip
+  - tabix/bgziptabix
+  - bcftools/merge
+  - survivor/merge
+  - local/custom/vcf_to_csv
+  - local/sompy_features/merge
+  - local/plots/upset
+
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - evaluations:
+        type: file
+        description: VCF file containing evaluated variants.
+        pattern: "*.vcf.gz"
+    - index:
+        type: file
+        description: Index for the VCF file.
+        pattern: "*.tbi"
+  - - meta2:
+        type: map
+        description: Groovy Map containing sample information.
+    - evaluations_csv:
+        type: file
+        description: CSV file containing evaluated variant features.
+        pattern: "*.csv"
+  - - meta3:
+        type: map
+        description: Groovy Map containing reference information.
+    - fasta:
+        type: file
+        description: Reference genome FASTA file.
+        pattern: "*.{fa,fasta}"
+  - - meta4:
+        type: map
+        description: Groovy Map containing reference information.
+    - fai:
+        type: file
+        description: Reference genome FASTA index file.
+        pattern: "*.fai"
+
+output:
+  merged_vcfs:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - vcf:
+        type: file
+        description: Merged VCF file containing variants from all tools.
+        pattern: "*.vcf"
+  ch_plots:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - png:
+        type: file
+        description: UpSet plots visualizing the intersection of variants.
+        pattern: "*.png"
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

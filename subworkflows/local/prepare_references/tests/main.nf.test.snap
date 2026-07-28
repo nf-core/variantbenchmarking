@@ -1,0 +1,65 @@
+{
+    "sarscov2 fasta": {
+        "content": [
+            {
+                "id": "test"
+            },
+            "test.dict",
+            {
+                "id": "test"
+            },
+            "test.sdf",
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T12:09:14.626705395",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "sarscov2 fasta -stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dict:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.sdf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "dictionary": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dict:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "sdf": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.sdf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-16T10:16:35.970257451",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

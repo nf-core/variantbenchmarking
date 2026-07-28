@@ -6,58 +6,333 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf provided with params.truth_vcf.
+
+## Variant Types and Analysis
+
+When setting up your run you must specify exactly one variant type using the variant type parameter. Based on the pipeline schema you must use one of the following exact terms:
+
+- `small`: Use this when your file contains both snvs and indels together.
+- `snv`: Use this for isolated single nucleotide variants.
+- `indel`: Use this for isolated insertions and deletions.
+- `structural`: Use this for large structural events.
+- `copynumber`: Use this for copy number variations.
+
+You must also pair your chosen variant type with the correct analysis type which must be defined as either `germline` or `somatic`.
+
+## Reference Genomes
+
+You must provide a reference genome for the pipeline to correctly align and benchmark your variants. The pipeline supports automated fetching through iGenomes or manual input of your own reference files.
+
+- `--genome`: Use this to specify an iGenomes reference like GRCh37 or GRCh38 to automatically fetch the required fasta and index files.
+- `--fasta`: Provide the path to your own reference genome fasta file if you are not using iGenomes.
+- `--fai`: Provide the index file for your reference fasta.
+- `--dictionary`: Provide the sequence dictionary file which is especially important if you are using the liftover subworkflow.
+- `--sdf`: Provide the formatted SDF directory required specifically when running rtgtools. The pipeline will generate it automatically if it is missing.
+
+## Truth Data
+
+To perform variant benchmarking you must provide a highly validated truth set to compare your test samples against. The pipeline uses these files to calculate performance metrics such as true positives, false positives, false negatives, precision and recall.
+
+You can specify your truth data using the following parameters:
+
+- `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
+- `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
+- `--regions_bed`: A BED file defining the high confidence regions of the genome such as the Genome in a Bottle confident regions. The benchmarking tools will restrict their evaluation to only the variants that fall within these defined coordinates. This ensures that complex or unmappable regions do not artificially skew your performance metrics.
+- `--targets_bed`: The path to the BED file containing your assay target regions. When you provide this file the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
+
+## Stratification Files
+
+When using tools like hap.py or som.py you can perform stratified evaluations to follow GA4GH best practices. Stratification allows you to measure your variant caller performance across very specific genomic contexts such as GC rich regions or low complexity sequences.
+
+To enable this detailed evaluation you must provide a stratification TSV file along with its corresponding BED files. You can supply these to the pipeline using two specific parameters.
+
+- `--stratification_tsv`: The path to the TSV file that lists your stratification BED files.
+- `--stratification_bed`: The path to the directory containing those BED files.
+
+This TSV file simply maps the names of your chosen genomic regions to their respective BED files. Providing this input allows the benchmarking tools to break down your precision and recall metrics by region type giving you much deeper insights into exactly where your caller succeeds or struggles.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the test vcf you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-### Multiple runs of the same sample
-
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
-
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
-```
-
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
 
 ```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column     | Description                                                                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`       | Custom id name per test vcf. This entry will be identical.                                                                                      |
+| `test_vcf` | The VCF file to use as benchmarking test input. The same file can be used in more than one row. File can be either vcf or vcf.gz.               |
+| `caller`   | Variant caller method used to generate test VCF file. There can be more than one test vcf for the same caller. For unknown caller use 'unknown' |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+## Lifting over truth sets
+
+This workflow comes with a liftover option for truth sets. In order to activate liftover use `--liftover "truth"`.
+
+- `--chain`: This workflow uses picard tools for lifting over and a chain file has to be provided specific to the input truth vcf. Some examples can be found [here](https://genome.ucsc.edu/goldenPath/help/chain.html)
+- `--rename_chr`: Renaming chromosomes is required after liftover process. Some examples can be found under `assets/rename_contigs` directory.
+- `--dictionary`: .dict file is required to run liftover process. If dictionary file is not provided, picard createsequencedictionary will create and use the file.
+
+## Lifting over test sets
+
+Lifting over test samples is also possible through this pipeline, if you want to liftover at least one of the samples first use `--liftover "test"` and add liftover option to samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,liftover
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
+- `liftover`: to which test files to apply liftover. Boolean. Default: false
+- `--liftover`: Select _test_ or _truth_, to apply liftover.
+
+Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
+
+## Dealing with missing genotypes ./. ./0 or 0/0
+
+When working with multisample input files or somatic inputs, there is a high probability of having missing genotypes after subsampling. These genotypes must be filtered out before benchmarking. The pipeline incorporates an automatic filtration step to remove these missing genotypes for both truth files and test files. You can disable this automatic filtration and allow missing genotypes by using the parameter `enable_missing_genotypes`='truth|test'.
+
+If you set the parameter to 'test', you can specify which individual test cases should allow `missing_genotypes` by updating your samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,missing_genotypes
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
+## Standardization and normalization parameters
+
+Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
+
+- `sv_standardization`: The standardization methods to perform on the input files. Should be a comma-separated list of one or more of the following options: `variantextractor,svync,svdecompose,svtk`.
+  - `variantextractor`: makes use of [variant-extractor](https://github.com/EUCANCan/variant-extractor). Homogenizes the structural variants in a common format.
+  - `svync`: makes use of [svync](https://github.com/nvnieuwk/svync). Reformats VCF headers properly.
+  - `svdecompose`: makes use of [rtgtools svdecompose](https://cn.animalgenome.org/bioinfo/resources/manuals/RTGOperationsManual.pdf). Decomposes SVs into BND. Combine it only if you plan to run rtgtools bndeval!
+  - `svtk`: use [svtk standardize - from GATK](https://github.com/broadinstitute/gatk-sv/tree/main/src/svtk) to standardize structural variants. The standardization process may change by tool and may produce BND calls. Should be aplied very carefully. Applicable only to delly, manta, lumpy, dragen, scrable, smoove, melt and wham.
+
+- `preprocesses`: The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: `split_multiallelic,normalize,deduplicate,prepy,filter_contigs`
+  - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `normalize`: Left aligns variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `deduplicate`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
+  - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
+
+Filtration of the variants are controlled through the following parameters:
+
+- `exclude_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants)
+- `include_expression`: Use ([bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants)
+- `min_sv_size`: Minimum SV size of variants to benchmark. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `max_sv_size`: Maximum SV size of variants to benchmark. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `min_allele_freq`: Minimum Alele Frequency of variants to benchmark for SVs. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- `min_num_reads`: Minimum number of read supporting variants to benchmark for SVs. Uses ([SURVIVOR filter](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+
+_tip_: One can use _exclude_expression_ or _include_expression_ to limit indel or SV variant size as well.
+
+## Using multi-sample vcf inputs
+
+If the input test vcf contains more than one sample, then user has to define which sample name to use. `subsample` will added to the samplesheet as an additional column as follows:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,subsample
+test1,test1.vcf.gz,delly,"TUMOR"
+test2,test2.vcf,gatk,"NA128120"
+test3,test3.vcf.gz,cnvkit,
+```
+
+- `subsample`: Sample name in the multi-sample VCF file to be used for benchmark analysis.
+
+Note that, this option can be inevitable for somatic analysis since most of the callers reports both normal and tumor genotypes in the same vcf file.
+
+## Optional benchmarking parameters
+
+Benchmarking parameters may vary between the tools and for callers. In order to use the same parameters for all callers be sure to write the same value for all. If noting provided, deafault values will be used.
+
+_SVbenchmark_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,normshift,normdist,normsizediff,maxdist
+test1,test1.vcf.gz,delly,0.7,0.7,0.7,100000
+test2,test2.vcf,gatk,0.6,0.5,0.7,110000
+```
+
+- `normshift`: Has to be between 0-1. Disallow matches if alignments between alternate alleles have normalized shift greater than normshift (default 0.2)
+- `normdist`: Has to be between 0-1. Disallow matches if alternate alleles have normalized edit distance greater than normdist (default 0.2)
+- `normsizediff`: Has to be between 0-1. Disallow matches if alternate alleles have normalized size difference greater than normsizediff (default 0.2)
+- `maxdist`: Disallow matches if positions of two variants are more than maxdist bases from each other (default 100,000)
+
+_Truvari_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,pctsize,pctseq,pctovl,refdist,chunksize,dup_to_ins,typeignore
+test1,test1.vcf.gz,delly,0.7,0.7,0.7,1000,50000,true,true
+test2,test2.vcf,gatk,0.6,0.5,0.7,1100,40000,false,true
+```
+
+- `pctsize`: Has to be between 0-1. Ratio of min(base_size, comp_size)/max(base_size, comp_size)
+- `pctseq`: Has to be between 0-1. Edit distance ratio between the REF/ALT haplotype sequences of base and comparison call. Turn it off (0) for no sequence comparison.
+- `pctovl`: Has to be between 0-1. Ratio of two calls' (overlapping bases)/(longest span)
+- `refdist`: Maximum distance comparison calls must be within from base call's start/end
+- `chunksize`: Create chunks of all calls overlapping within ±chunksize basepairs
+- `dup_to_ins`: Converts DUP to INS type (boolean)
+- `typeignore`: Ignore SVTYPE matching (boolean)
+
+We are using below parameters default for this pipeline, please change it through config if else.
+
+- `sizemin` 0 (no size minimum)
+- `sizefilt` 0 (no size filtration)
+- `sizemax` -1 (no size maximum)
+
+_Wittyer_
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,bpDistance,percentThreshold,absoluteThreshold,maxMatches,evaluationmode
+test1,test1.vcf.gz,delly,200,0.5,17000,100,sc
+test2,test2.vcf,gatk,100,0.5,11000,-1,cts
+```
+
+- `bpDistance`: Upper bound of boundary distance when comparing truth and query. By default it is 500bp for all types except for Insertions, which are 100bp.Please note that if you set this value in the command line, it overrides all the defaults, so Insertions and other types will have the same bpd.
+- `percentThreshold`: This is used for percentage thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use for large tandem repeats. For all other SVs, in order to match between query and truth, the distance between boundaries should be within a number thats proportional to total SV (default 0.25)
+- `absoluteThreshold`: This is used for absolute thresholding. For CopyNumberTandemRepeats, this determines how large of a RepeatUnitCount (RUC) threshold to use. For all other SVs, this is the upper bound of boundary distance when comparing truth and query. (default 10000)
+- `maxMatches`: axMatches is a wittyer parameter. This is used for matching behaviour. Negative value means to match any number (for large SVs it is not recommended).
+- `evaluationmode`: It is by default requires genotype matching. simpleCounting:sc, CrossTypeAndSimpleCounting:cts, genotypematch:d
+
+## Filtering parameters
+
+- `--exclude_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to exclude variants. Default:null
+- `--include_expression`: Use [bcftools expressions](https://samtools.github.io/bcftools/bcftools.html#expressions) to include variants. Default:null
+
+_Parameters applicable only to Structural Variants_
+
+- `--min_sv_size`: Minimum SV size of variants to benchmark, 0 to disable , Default:30
+- `--max_sv_size`: Maximum SV size of variants to benchmark, -1 to disable , Default:-1
+- `--min_allele_freq`: Minimum Alele Frequency of variants to benchmark, Use -1 to disable , Default:-1
+- `--min_num_reads`: Minimum number of read supporting variants to benchmark, Use, -1 to disable , Default:-1
+
+## Benchmark analysis
+
+Benchmarking method can be spesified using `--method` parameter. If not spesified, all the available method per variant type will be applied. Below, find the available methods:
+
+- _Germline small variants_: Germline samples for small variant type of variants, SNVs and INDELs together. If you think your file includes structural variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+
+Example cmd:
+`--analysis germline --variant_type small --method "happy,rtgtools,aardvark"`
+
+- ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
+- ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
+
+Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
+
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy and rtgtools while aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+
+Example cmd:
+`--analysis somatic --variant_type snv --method "sompy,rtgtools"`
+`--analysis somatic --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type small --method "aardvark,rtgtools"`
+
+- ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+- ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
+
+- _Structural variants_: Germline or somatic samples for structural variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above.
+
+Example cmd:
+`--analysis germline --variant_type structural --method "truvari,svanalyzer,wittyer"`
+`--analysis somatic --variant_type structural --method "truvari,svanalyzer,wittyer"`
+
+- ([truvari bench](https://github.com/acenglish/truvari/wiki/bench))
+- ([svanalyzer benchmark](https://github.com/nhansen/SVanalyzer/blob/master/docs/svbenchmark.rst))
+- ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+
+Please note that truvari is the only tool which can work with UNRESOLVED (without sequence) structural variants. Moreover, svbenchmark and wittyer analysis will require explicte SVTYPE and SVLEN annotations. Moreover, wittyer does not support BND type of variants. It is recommended to either exclude (filter) them out or convert them to other types before analysis.
+
+- A special analysis for Break-Ends (SVTYPE=BND) is also possible. Please combine it with (_svdecompose_) to convert structural variants (both from truth and test cases) to Break-Ends if your inputs are not already in that type.
+  - ([rtg bndeval](https://realtimegenomics.com/products/rtg-tools))
+
+Example cmd:
+`--analysis germline --variant_type structural --method "bndeval" --sv_standardization svdecompose`
+
+- _Copy number variations_: Germline or somatic samples for copy number variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above. You can also filter SVTYPE=CNV using bcftools expressions (`include_expression`)
+
+Example cmd:
+`--analysis germline --variant_type copynumber --method "truvari,wittyer,rtgtools"`
+`--analysis somatic --variant_type copynumber --method "truvari,wittyer,rtgtools"`
+
+- ([truvari bench --pctseq 0](https://github.com/acenglish/truvari/wiki/bench))
+- ([witty.er](https://github.com/Illumina/witty.er/tree/master))
+- ([rtg cnveval](https://realtimegenomics.com/products/rtg-tools))
+
+## Intersection analysis
+
+CNV benchmarking might get tricky especially since CNV callers tend to output the results in various formats including vcf, bed, cns, tab or txt. The common benchmarking method for those is to intersection of the truth and test regions.
+
+In order to perform intersection analysis, just add _--method "intersect"_ and make sure to provide _--params.regions_bed_ as input. If user provides test_regions through the samplesheet, the analysis will be the intersection of regions_bed and test_regions. The other option is to use input vcf instead of test_regions. Then, VCF file will be converted to BED to perform the analysis.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,test_regions
+test1,test1.vcf.gz,dragen,
+test2,,cnvkit,cnvkit.cns
+```
+
+- `test_regions`: Test regions to be used for intersection analysis. Default: .bed format.
+
+## Concordance analysis
+
+Concordance analysis enables comparison of test VCFs with each other without the need of truth VCF. GATK4 Concordance can only be applied to small (including snv and indel for somatic samples) variants.
+
+In order to perform concordance analysis, just add `--method "concordance"` . There is no need to provide truth VCF or id for concordance analysis. However, be carefull as concordance can be coupled to benchmarking analysis which requires truth VCF.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
+```
+
+## Emsemble approach (majority rule) analysis
+
+In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers.
+
+In order to turn the analysis on `--ensemble_truth n` where n is an integer bigger than 0.
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller
+test1,test1.vcf.gz,delly
+test2,test2.vcf,gatk
+test3,test3.vcf.gz,cnvkit
+```
+
+Please note that, using ensemble_truth will lead to ignore any --truth files given.
+
+## Analysis Plots
+
+There are 3 types of plots generated through the pipeline
+
+1. Metrics plots: TP/FN/FP numbers, recal vs precison, and F1 score (can be skipped by --skip_plots "metrics")
+2. Upset plots: TP_comp vs FP and TP_bse vs FN upset plots (can be skipped by --skip_plots "upset")
+3. SV lenght distribitions plots: INDEL lenght distribition histograms per TP_comp, TP_Base, FP, and FN variants (can be skipped by --skip_plots "svlength")
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/variantbenchmarking --input ./samplesheet.csv --outdir ./results -profile docker --genome GRCh37 --sample HG002 --analysis germline --variant_type small
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -90,6 +365,8 @@ with:
 input: './samplesheet.csv'
 outdir: './results/'
 genome: 'GRCh37'
+sample: 'HG002'
+analysis: 'germline'
 <...>
 ```
 
@@ -139,6 +416,51 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 
 - `test`
   - A profile with a complete configuration for automated testing
+  - Includes links to test data so needs no other parameters
+- `test_full`
+  - A profile with a complete configuration for full size of sample testing
+  - Includes links to test data so needs no other parameters
+- `test_happy`
+  - A profile with a complete configuration for running happy tool with stratification files
+  - Includes links to test data so needs no other parameters
+- `test_ga4gh`
+  - A profile with a complete configuration for running happy with rtgtools as comparison engine, this showcases GA4GH best practices.
+  - Includes links to test data so needs no other parameters
+- `liftover_test`
+  - A profile with a complete configuration for using liftover of HG002 hg38 test set to hg37
+  - Includes links to test data so needs no other parameters
+- `liftover_truth`
+  - A profile with a complete configuration for using liftover of HG002 hg37 truth set to hg38
+  - Includes links to test data so needs no other parameters
+- `germline_small`
+  - A profile with a complete configuration for germline analysis with small variant type of data
+  - Includes links to test data so needs no other parameters
+- `germline_sv`
+  - A profile with a complete configuration for germline analysis with structural variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_sv`
+  - A profile with a complete configuration for somatic analysis with structural variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_small`
+  - A profile with a complete configuration for somatic analysis with small variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_snv`
+  - A profile with a complete configuration for somatic analysis with snv variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_indel`
+  - A profile with a complete configuration for somatic analysis with indel variant type of data
+  - Includes links to test data so needs no other parameters
+- `somatic_cnv`
+  - A profile with a complete configuration for somatic analysis with copy number variant type of data
+  - Includes links to test data so needs no other parameters
+- `concordance`
+  - A profile with a complete configuration for concordance analysis with small germline variants of data
+  - Includes links to test data so needs no other parameters
+- `somatic_snv_ensemble`
+  - A profile with a complete configuration for somatic analysis with small variants ensemble_truth approach keeping 2 callers
+  - Includes links to test data so needs no other parameters
+- `somatic_sv_ensemble`
+  - A profile with a complete configuration for somatic analysis with structural variants ensemble_truth approach keeping 2 callers
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)

@@ -1,0 +1,54 @@
+{
+    "deduplicate and sort vcf": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.dedup.sort.vcf.gz",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "7b0d354031003db48cfcb216d52dfec6",
+                    "test.dedup.sort.vcf.gz.tbi"
+                ]
+            ],
+            [
+                
+            ]
+        ],
+        "timestamp": "2026-03-24T15:10:59.218622807",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "deduplicate and sort vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.dedup.sort.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "ch_vcf": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.dedup.sort.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.dedup.sort.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T12:14:19.578763751",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

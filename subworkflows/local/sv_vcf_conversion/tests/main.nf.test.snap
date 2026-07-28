@@ -1,0 +1,131 @@
+{
+    "convert sv vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "simulated_sv.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "simulated_sv.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-24T15:42:01.274705513",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with variant_extractor": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "mutect2"
+                    },
+                    "test_test2_paired_mutect2_calls.variantextract.extracted.sort.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=40, phased=false, phasedAutodetect=false]",
+                    "f38d3ef295c500a413df6b746b36a356",
+                    "test_test2_paired_mutect2_calls.variantextract.extracted.sort.vcf.gz.tbi"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T15:17:16.375225624",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svtk": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "simulated_sv.svtk.sort.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    "13fa9c5c4602821e2b4c37cce28b6978",
+                    "simulated_sv.svtk.sort.vcf.gz.tbi"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T15:41:07.358091187",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svync": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "simulated_sv.svync.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    "f2c97cf7b583e2d4705ac9cd0c3f8d4",
+                    [
+                        
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T15:41:43.888871138",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "convert sv vcf with svdecompose": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "simulated_sv.bnd.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=364, phased=false, phasedAutodetect=false]",
+                    "7a5371e54a73f38141af063ab397807d",
+                    "simulated_sv.bnd.vcf.gz.tbi"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-24T15:41:28.284230877",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+name: "prepare_vcfs_test"
+description: "Subworkflow to prepare, filter, normalize, and standardize input VCFs before benchmarking."
+keywords:
+  - vcf
+  - preprocess
+  - liftover
+  - normalize
+  - filter
+components:
+  - local/vcf_variant_deduplication
+  - local/vcf_variant_filtering
+  - local/split_small_variants_test
+  - local/liftover_vcfs
+  - bcftools/norm
+  - rtgtools/svdecompose
+  - bcftools/view
+  - bcftools/reheader
+  - gawk
+  - tabix/bgziptabix
+  - bcftools/annotate
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing sample information (e.g., liftover, fix_prefix, caller).
+    - vcf:
+        type: file
+        description: Input VCF file to be prepared.
+        pattern: "*.{vcf.gz,vcf}"
+  - - meta:
+        type: map
+        description: Groovy Map containing reference information.
+    - fasta:
+        type: file
+        description: Reference genome FASTA file.
+        pattern: "*.{fa,fasta}"
+  - - meta:
+        type: map
+        description: Groovy Map containing reference information.
+    - fai:
+        type: file
+        description: Reference genome FASTA index file.
+        pattern: "*.fai"
+  - - meta:
+        type: map
+        description: Groovy Map containing chain information.
+    - chain:
+        type: file
+        description: Chain file for liftover (optional).
+        pattern: "*.chain.gz"
+  - - meta:
+        type: map
+        description: Groovy Map containing rename information.
+    - rename_chr:
+        type: file
+        description: Text file for renaming chromosomes (optional).
+        pattern: "*.txt"
+  - - meta:
+        type: map
+        description: Groovy Map containing dictionary information.
+    - dictionary:
+        type: file
+        description: Reference genome dictionary file (optional).
+        pattern: "*.dict"
+output:
+  vcf_ch:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - vcf:
+        type: file
+        description: Processed and prepared VCF file.
+        pattern: "*.vcf.gz"
+    - tbi:
+        type: file
+        description: Index of the processed VCF file.
+        pattern: "*.tbi"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

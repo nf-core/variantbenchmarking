@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "PREPARE_REFERENCES"
+description: Subworkflow to prepare references and dictionaries from a FASTA file
+keywords:
+  - reference
+  - fasta
+  - dictionary
+  - sdf
+  - rtgtools
+  - picard
+components:
+  - picard/createsequencedictionary
+  - rtgtools/format
+input:
+  - fasta_ch:
+      description: Channel with reference FASTA files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+  - dictionary:
+      description: Channel with sequence dictionary files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - dict:
+          type: file
+          description: Sequence dictionary file
+          pattern: "*.dict"
+  - sdf:
+      description: Channel with RTG Tools SDF directories
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - sdf:
+          type: directory
+          description: RTG Tools SDF directory
+          pattern: "*.sdf"
+output:
+  - dictionary:
+      description: Channel with sequence dictionary files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - dict:
+          type: file
+          description: Sequence dictionary file
+          pattern: "*.dict"
+  - sdf:
+      description: Channel with RTG Tools SDF directories
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - sdf:
+          type: directory
+          description: RTG Tools SDF directory
+          pattern: "*.sdf"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

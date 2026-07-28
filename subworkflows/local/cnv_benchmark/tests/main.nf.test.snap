@@ -1,0 +1,272 @@
+{
+    "Copy number variants - wittyer": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.truth.manta.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
+                        ]
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "logs": [
+                    
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.truth.manta.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-04-21T12:51:40.557431515",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Copy number variants - rtgtools": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "rtgtools"
+                        },
+                        [
+                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
+                        ]
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "logs": [
+                    
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "rtgtools"
+                        },
+                        [
+                            "test.truth.manta.summary.txt:md5,f4c8df93c8bdab603036bbc27b4a28c3"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-04-21T12:51:14.928842182",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Copy number variants - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "FN"
+                        },
+                        "test.truth.manta.fn.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "FP"
+                        },
+                        "test.truth.manta.fp.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "TP_base"
+                        },
+                        "test.truth.manta.tp-base.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "TP_comp"
+                        },
+                        "test.truth.manta.tp-comp.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "truvari"
+                        },
+                        [
+                            "test.truth.manta.summary.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "test.truth.manta.log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "logs": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "test.truth.manta.log.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "truvari"
+                        },
+                        [
+                            "test.truth.manta.summary.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "FN"
+                        },
+                        "test.truth.manta.fn.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "FP"
+                        },
+                        "test.truth.manta.fp.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "TP_base"
+                        },
+                        "test.truth.manta.tp-base.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "id": "truvari",
+                            "tag": "TP_comp"
+                        },
+                        "test.truth.manta.tp-comp.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-04-21T12:52:10.011516628",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Copy number variants - truvari": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "copynumber",
+                        "id": "truvari",
+                        "tag": "FN"
+                    },
+                    "test.truth.manta.fn.vcf.gz",
+                    "af1769949dcababf79da1f8a3533bcce"
+                ],
+                [
+                    {
+                        "vartype": "copynumber",
+                        "id": "truvari",
+                        "tag": "FP"
+                    },
+                    "test.truth.manta.fp.vcf.gz",
+                    "ac9a082a96bfe93cbbb0d7187125975d"
+                ],
+                [
+                    {
+                        "vartype": "copynumber",
+                        "id": "truvari",
+                        "tag": "TP_base"
+                    },
+                    "test.truth.manta.tp-base.vcf.gz",
+                    "0c89a707a02a8fef7454bd487c87f27b"
+                ],
+                [
+                    {
+                        "vartype": "copynumber",
+                        "id": "truvari",
+                        "tag": "TP_comp"
+                    },
+                    "test.truth.manta.tp-comp.vcf.gz",
+                    "8a146d160ae326e4a8c898c191640c08"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "copynumber",
+                        "benchmark_tool": "truvari"
+                    },
+                    [
+                        "test.truth.manta.summary.json"
+                    ]
+                ]
+            ],
+            [
+                "test.truth.manta.log.txt]"
+            ]
+        ],
+        "timestamp": "2026-04-21T12:50:51.478048074",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
