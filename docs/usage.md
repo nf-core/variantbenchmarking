@@ -38,8 +38,8 @@ You can specify your truth data using the following parameters:
 
 - `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
 - `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
-- `--regions_bed`: A BED file defining the high confidence regions of the genome such as the Genome in a Bottle confident regions. The benchmarking tools will restrict their evaluation to only the variants that fall within these defined coordinates. This ensures that complex or unmappable regions do not artificially skew your performance metrics.
-- `--targets_bed`: The path to the BED file containing your assay target regions. When you provide this file the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
+- `--regions_bed`: A BED file defining the regions of interest for all the tools. Mainly used for defining a high-confidence regions of the genome (e.g., Genome in a Bottle confident beds). By default, for small variant analysis, this file will be used with the `-f` argument for happy and sompy and with `--evaluation-bed` argument for vcfeval.
+- `--targets_bed`: The path to the BED file containing your assay target regions. It is applicable only to small variants analysis (happy,sompy and vcfeval). When you provide this file, the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
 
 ## Stratification Files
 

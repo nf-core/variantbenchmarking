@@ -60,7 +60,7 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to regions BED or VCF files. Works similar to Bcftools -R.",
+                    "description": "Path to regions BED or VCF files. Mainly used to specify high confidence regions.",
                     "help_text": "Regions BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
@@ -69,17 +69,15 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to targets BED. Works similar to Bcftools -T. It will be only used with happy, sompy or rtgtools.",
+                    "description": "Path to targets BED. Works similar to Bcftools -T/-R. It will be only used with happy, sompy or rtgtools.",
                     "help_text": "Target BED files",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "falsepositive_bed": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to false positive BED. Only applicable to happy and sompy tool.",
-                    "help_text": "Falsepositive BED files",
+                "dense_regions": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If set to true it will use the -T argument in the happy and sompy.",
+                    "help_text": "Declare if targets_bed is a dense regions BED file. If set to true it will use the -T argument in the happy and sompy.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ambiguous_beds": {

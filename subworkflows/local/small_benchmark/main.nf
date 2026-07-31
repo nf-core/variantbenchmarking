@@ -13,7 +13,6 @@ workflow SMALL_BENCHMARK {
     fasta              // reference channel [val(meta), ref.fa]
     fai                // reference channel [val(meta), ref.fa.fai]
     sdf                // reference channel [val(meta), sdf]
-    falsepositive_bed  // reference channel [val(meta), bed]
     stratification_bed // reference channel [val(meta), bed files]
     stratification_tsv // reference channel [val(meta), tsv]
     ambiguous_beds     // reference channel [val(meta), bed]
@@ -64,31 +63,53 @@ workflow SMALL_BENCHMARK {
 
     }
 
-    if (params.method.contains('happy') && params.analysis == "germline"){
-        HAPPY_BENCHMARK(
-            input_ch,
-            fasta,
-            fai,
-            falsepositive_bed,
-            stratification_bed,
-            stratification_tsv
-        )
-        summary_reports = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
-        tagged_variants = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
-    }
-
     tagged_variants_csv = channel.empty()
 
-    if (params.method.contains('sompy') && params.analysis == "somatic"){
-        SOMPY_BENCHMARK(
-            input_ch,
-            fasta,
-            fai,
-            falsepositive_bed,
-            ambiguous_beds
-        )
-        summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
-        tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
+    if (params.method.contains('happy') || params.method.contains('sompy')){
+
+        input_ch
+        .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, regions_bed, _targets_bed  ->
+                    [ [ id: "falsepositive" ] , regions_bed ]}
+        .set{ falsepositive_bed }
+
+        if (!params.dense_regions){
+                input_ch
+                .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed  ->
+                            [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, targets_bed, [] ]}
+                .set{ input_ch }
+
+        } else if (params.dense_regions){
+                input_ch
+                .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed ,targets_bed  ->
+                            [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
+                .set{ input_ch }
+        }
+
+        if (params.method.contains('happy') && params.analysis == "germline"){
+
+            HAPPY_BENCHMARK(
+                input_ch,
+                fasta,
+                fai,
+                falsepositive_bed,
+                stratification_bed,
+                stratification_tsv
+            )
+            summary_reports = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
+            tagged_variants = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
+        }
+
+        if (params.method.contains('sompy') && params.analysis == "somatic"){
+            SOMPY_BENCHMARK(
+                input_ch,
+                fasta,
+                fai,
+                falsepositive_bed,
+                ambiguous_beds
+            )
+            summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
+            tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
+        }
     }
 
     emit:
