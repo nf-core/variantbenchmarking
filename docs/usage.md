@@ -38,8 +38,30 @@ You can specify your truth data using the following parameters:
 
 - `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
 - `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
-- `--regions_bed`: A BED file defining the regions of interest for all the tools. Mainly used for defining a high-confidence regions of the genome (e.g., Genome in a Bottle confident beds). By default, for small variant analysis, this file will be used with the `-f` argument for happy and sompy and with `--evaluation-bed` argument for vcfeval.
-- `--targets_bed`: The path to the BED file containing your assay target regions. It is applicable only to small variants analysis (happy,sompy and vcfeval). When you provide this file, the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
+- `--regions_bed`: A BED file defining the regions of interest for all the tools. For SV and CNV benchmarking (truvari, svanalyzer, wittyer, rtgtools bndeval/cnveval), there is no option to choose whether it will be parsed as a restriction or a high confidence region evaluation file. For small variant benchmarking, though, (happy, sompy, rtgtools vcfeval), its role instead depends on `--high_conf` parameter: when true, it is passed as high confidence regions (`-f` for happy/sompy, `--evaluation-regions` for rtgtools vcfeval); when false, it is passed as a restriction region instead (`-R` for happy/sompy, `--bed-regions` for rtgtools vcfeval).
+- `--targets_bed`: Use only for small variant analysis to specify the BED file containing your assay target regions . Uses `-T` for happy/sompy and `--bed-regions` for rtgtools vcfeval. It has no effect on structural or copy-number variant benchmarking.
+
+### A note on BED files
+
+`--regions_bed` and `--targets_bed` map onto different tool arguments depending on variant type and `--high_conf`:
+
+| Variant type                        | Tool                          | `--regions_bed` maps to                          | `--targets_bed` maps to                                                                         |
+| ----------------------------------- | ----------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| structural                          | truvari                       | `--includebed`                                   | unused                                                                                          |
+| structural                          | svanalyzer                    | `-includebed`                                    | unused                                                                                          |
+| structural                          | wittyer                       | `-b`                                             | unused                                                                                          |
+| structural                          | rtgtools bndeval              | `--bed-regions`                                  | unused                                                                                          |
+| copynumber                          | truvari                       | `--includebed`                                   | unused                                                                                          |
+| copynumber                          | rtgtools cnveval              | `--evaluation-regions`                           | unused                                                                                          |
+| copynumber                          | wittyer                       | `-b`                                             | unused                                                                                          |
+| small, `--high_conf true` (default) | happy/sompy, rtgtools vcfeval | `-f` / `--evaluation-regions` (confident region) | `-T` for happy/sompy; unused for rtgtools vcfeval                                               |
+| small, `--high_conf false`          | happy/sompy, rtgtools vcfeval | `-R` / `--bed-regions` (restriction region)      | `-T` for happy/sompy; fallback `--bed-regions` for rtgtools vcfeval if `--regions_bed` is unset |
+
+For SV and CNV benchmarking, `--regions_bed` is always a plain restriction (or, for rtgtools cnveval, evaluation) region — `--high_conf` has no effect there, and `--targets_bed` is not used at all.
+
+**Recommended combination:** `--high_conf true` with both `--regions_bed` and `--targets_bed` set — i.e. `-f`/`--evaluation-regions` together with `-T`. This is the recommended pattern for benchmarking targeted data (exome/panel) against a genome-wide truth set: `--regions_bed` should be the truth's high-confidence region (e.g. a GIAB confident bed), used to exclude false positives called outside it, while `--targets_bed` should be your assay's capture/target intervals, used to restrict the comparison to what your assay can actually call. The two serve distinct purposes, so combining them is intentional.
+
+**Combination to avoid:** `--high_conf false` with both files set, i.e. `-R` and `-T` together. Both flags are restriction filters — they differ mainly in implementation (tuned for sparse vs. dense BEDs), not intent — so supplying both simply intersects two restriction files, which is rarely what you want. Provide only one of `--regions_bed` or `--targets_bed` in this mode unless you deliberately need that intersection.
 
 ## Stratification Files
 

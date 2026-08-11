@@ -19,13 +19,25 @@ workflow SMALL_BENCHMARK {
 
     main:
 
-    summary_reports = channel.empty()
-    tagged_variants = channel.empty()
+    summary_reports   = channel.empty()
+    tagged_variants   = channel.empty()
+    falsepositive_bed = channel.empty()
 
     if (params.method.contains('rtgtools')){
 
+        if (!params.high_conf){
+
+            input_ch
+            .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], regions_bed ?: targets_bed ]}
+            .set{ input_vcfeval_ch }
+        } else {
+
+            input_vcfeval_ch = input_ch
+        }
+
         RTGTOOLS_VCFEVAL(
-            input_ch,
+            input_vcfeval_ch,
             sdf
         )
 
@@ -67,22 +79,17 @@ workflow SMALL_BENCHMARK {
 
     if (params.method.contains('happy') || params.method.contains('sompy')){
 
-        input_ch
-        .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, regions_bed, _targets_bed  ->
-                    [ [ id: "falsepositive" ] , regions_bed ]}
-        .set{ falsepositive_bed }
+        if (params.high_conf){
 
-        if (!params.dense_regions){
-                input_ch
-                .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed  ->
-                            [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, targets_bed, [] ]}
-                .set{ input_ch }
+            input_ch
+            .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, regions_bed, _targets_bed ->
+                    [ [ id: "falsepositive" ], regions_bed ]}
+            .set{ falsepositive_bed }
 
-        } else if (params.dense_regions){
-                input_ch
-                .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed ,targets_bed  ->
-                            [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
-                .set{ input_ch }
+            input_ch
+            .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
+            .set{ input_ch }
         }
 
         if (params.method.contains('happy') && params.analysis == "germline"){
