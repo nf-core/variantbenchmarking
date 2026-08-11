@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Depreciated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
 - Fixing metromap to light to dark background. Adding docs/images/metro_map.md to assist future developers to reproduce the metromap. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
 - Update happy module to use both -R and -f arguments.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
+- Fixing regions_bed vs high_conf_bed confusion.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 
 ### `Dependencies`
 
