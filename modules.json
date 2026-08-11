@@ -87,7 +87,7 @@
                     },
                     "happy/happy": {
                         "branch": "master",
-                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
+                        "git_sha": "59697ca2f109700926f11a1718efcb3ce5b99ed4",
                         "installed_by": ["modules"]
                     },
                     "happy/sompy": {

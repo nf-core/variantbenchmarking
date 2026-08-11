@@ -97,8 +97,6 @@ workflow VARIANTBENCHMARKING {
     }
 
     // Optional files for Happy or Sompy
-    falsepositive_bed   = params.falsepositive_bed  ? channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
-                                                    : channel.of([[id: "falsepositive"],[]]).collect()
     ambiguous_beds      = params.ambiguous_beds     ? channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
                                                     : channel.of([[id: "ambiguous"],[]]).collect()
     if (params.stratification_bed && params.stratification_tsv){
@@ -318,7 +316,6 @@ workflow VARIANTBENCHMARKING {
             fasta,
             fai,
             sdf,
-            falsepositive_bed,
             stratification_bed,
             stratification_tsv,
             ambiguous_beds

@@ -108,10 +108,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-07-15T11:07:34.832312135",
+        "timestamp": "2026-08-11T12:41:27.010420744",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "germline small variants rtgtools": {
@@ -186,7 +186,7 @@
                         "id": "sompy"
                     },
                     "test_sompy.SEQC2.mutect2.FN.csv",
-                    "cd4cb0a3b9cd45a3acb5653307b563e0"
+                    "e74bc83936cfd28d299b022a05867cd5"
                 ],
                 [
                     {
@@ -222,10 +222,10 @@
                 
             }
         ],
-        "timestamp": "2026-07-15T11:06:53.929477053",
+        "timestamp": "2026-08-11T12:39:56.205617013",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "germline small variants happy": {
@@ -287,10 +287,10 @@
                 
             }
         ],
-        "timestamp": "2026-07-15T11:05:50.741148487",
+        "timestamp": "2026-08-11T12:35:46.981468947",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "germline small variants aardvark": {

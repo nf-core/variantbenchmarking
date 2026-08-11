@@ -60,8 +60,8 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to regions BED or VCF files. Works similar to Bcftools -R.",
-                    "help_text": "Regions BED files",
+                    "description": "Path for regions of interest BED or VCF file.",
+                    "help_text": "How this file is used depends on --high_conf: when true, it is passed as the false-positive filtering region (-f) for happy/sompy and as the evaluation region (-e) for rtgtools; when false, it is passed as a restriction region (-R for happy/sompy, --bed-regions for rtgtools).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "targets_bed": {
@@ -69,17 +69,15 @@
                     "format": "file-path",
                     "exists": true,
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to targets BED. Works similar to Bcftools -T. It will be only used with happy, sompy or rtgtools.",
-                    "help_text": "Target BED files",
+                    "description": "Path to targets BED. Works similar to Bcftools -T.",
+                    "help_text": "Passed as -T to happy and sompy. When --high_conf is false and --regions_bed is not set, it is also used as a fallback restriction region (--bed-regions) for rtgtools.",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "falsepositive_bed": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to false positive BED. Only applicable to happy and sompy tool.",
-                    "help_text": "Falsepositive BED files",
+                "high_conf": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If set to true, treat regions_bed as a high confidence region rather than a restriction region.",
+                    "help_text": "Declare if regions_bed is a high confidence BED file. If set to true, it is passed to the -f argument for happy and sompy, and the -e argument for rtgtools. If set to false, it is passed as a restriction BED file instead (-R for happy/sompy, --bed-regions for rtgtools), falling back to targets_bed for rtgtools when regions_bed is not set.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ambiguous_beds": {
