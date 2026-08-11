@@ -66,7 +66,7 @@ workflow SMALL_BENCHMARK {
 
             input_ch
             .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ->
-                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed ?: targets_bed, [] ]}
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed ?: targets_bed ]}
             .set{ input_aardvark_ch }
 
         AARDVARK_BENCHMARK(

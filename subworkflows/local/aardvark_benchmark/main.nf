@@ -24,7 +24,7 @@ workflow AARDVARK_BENCHMARK {
     tagged_variants = channel.empty()
 
     AARDVARK_COMPARE(
-        input_ch.map{meta, test_vcf, test_index, truth_vcf, truth_index,  regionsbed, _targets_bed -> tuple(meta,test_vcf, test_index, truth_vcf, truth_index,  regionsbed ) },
+        input_ch,
         fasta,
         stratification_bed,
         stratification_tsv
