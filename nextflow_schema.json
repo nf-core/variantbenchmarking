@@ -75,7 +75,7 @@
                 },
                 "high_conf": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "If set to true, treat regions_bed as a high confidence region rather than a restriction region.",
                     "help_text": "Declare if regions_bed is a high confidence BED file. If set to true, it is passed to the -f argument for happy and sompy, and the -e argument for rtgtools. If set to false, it is passed as a restriction BED file instead (-R for happy/sompy, --bed-regions for rtgtools), falling back to targets_bed for rtgtools when regions_bed is not set.",
                     "fa_icon": "fas fa-file-csv"
