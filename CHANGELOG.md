@@ -10,11 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Template update for nf-core/tools v4.0.2 + a few fixes around [#305](https://github.com/nf-core/variantbenchmarking/issues/305)
 - Aardvark Benchmarking Subworkflow: Introduced the AARDVARK_BENCHMARK subworkflow for sequence-resolved small variant (SNV/Indel) benchmarking [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - Replaced SMALL_GERMLINE_BENCHMARK and SMALL_SOMATIC_BENCHMARK subworkflows with SMALL_BENCHMARK to include Aardvark alongside Hap.py, Som.py, and RTGtools vcfeval for both germline and somatic tracks [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
+- Added `high_conf` parameter [#319](https://github.com/nf-core/variantbenchmarking/pull/319).
 
 ### `Fixed`
 
 - Depreciated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
 - Fixing metromap to light to dark background. Adding docs/images/metro_map.md to assist future developers to reproduce the metromap. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
+- Update happy module to use both -R and -f arguments.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 
 ### `Dependencies`
 
