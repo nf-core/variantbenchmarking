@@ -70,15 +70,15 @@ workflow LIFTOVER_VCFS {
     BEDTOOLS_MERGE(
         GNU_SORT.out.sorted
     )
-    
+
     BEDTOOLS_MERGE.out.bed
         .filter{ meta, _bed -> meta.id == "targets" }
         .set{targets_ch}
-        
+
     BEDTOOLS_MERGE.out.bed
         .filter{ meta, _bed -> meta.id == "regions" }
         .set{bed_ch}
-    
+
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]

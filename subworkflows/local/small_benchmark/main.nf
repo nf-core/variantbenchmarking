@@ -101,7 +101,7 @@ workflow SMALL_BENCHMARK {
             .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, _regions_bed, _targets_bed ->
                     [ [ id: "falsepositive" ], [] ]}
             .set{ falsepositive_bed }
-            
+
         }
 
         if (params.method.contains('happy') && params.analysis == "germline"){
