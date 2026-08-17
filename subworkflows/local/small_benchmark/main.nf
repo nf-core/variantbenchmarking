@@ -21,7 +21,6 @@ workflow SMALL_BENCHMARK {
 
     summary_reports   = channel.empty()
     tagged_variants   = channel.empty()
-    falsepositive_bed = channel.empty()
 
     if (params.method.contains('rtgtools')){
 
@@ -96,6 +95,13 @@ workflow SMALL_BENCHMARK {
             .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed ->
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
             .set{ input_ch }
+        }else {
+
+            input_ch
+            .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, _regions_bed, _targets_bed ->
+                    [ [ id: "falsepositive" ], [] ]}
+            .set{ falsepositive_bed }
+            
         }
 
         if (params.method.contains('happy') && params.analysis == "germline"){

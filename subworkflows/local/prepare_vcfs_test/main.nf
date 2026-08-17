@@ -71,10 +71,7 @@ workflow PREPARE_VCFS_TEST {
 
     // rename sample name
     BCFTOOLS_REHEADER_QUERY(
-
-        vcf_ch.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        vcf_ch.map{ meta, input -> tuple(meta, input, [], []) },
         fai
     )
 
@@ -93,7 +90,6 @@ workflow PREPARE_VCFS_TEST {
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("split_multiallelic")){
-
         // Split -any- multi-allelic variants
         BCFTOOLS_SPLIT_MULTI(
             vcf_ch,
