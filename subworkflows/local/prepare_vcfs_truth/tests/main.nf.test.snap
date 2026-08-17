@@ -13,10 +13,10 @@
                 ]
             ],
             [
-                "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.bed"
+                
             ]
         ],
-        "timestamp": "2026-03-26T10:21:58.751282828",
+        "timestamp": "2026-08-17T15:23:01.526415545",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -40,10 +40,16 @@
                         "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
-                "high_conf_ch": [
+                "2": [
+                    
+                ],
+                "regions_bed_ch": [
                     [
                         "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
+                ],
+                "targets_bed_ch": [
+                    
                 ],
                 "vcf_ch": [
                     [
@@ -57,7 +63,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-26T09:07:01.349307601",
+        "timestamp": "2026-08-17T15:23:25.171799688",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

@@ -33,17 +33,18 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.bed', checkIfExists: true)
                 )
-                input[2] = Channel.value([
+                input[2] =Channel.empty() // targets_bed
+                input[3] = Channel.value([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
                 ])
-                input[3] = Channel.value([
+                input[4] = Channel.value([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
-                input[4] = Channel.empty() // chain
-                input[5] = Channel.empty() // rename_chr
-                input[6] = Channel.empty() // dict
+                input[5] = Channel.empty() // chain
+                input[6] = Channel.empty() // rename_chr
+                input[7] = Channel.empty() // dict
                 """
             }
         }
@@ -90,18 +91,19 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     file('https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking/testdata/hg38/truth/germline/HG002_GRCh38_CMRG_smallvar_v1.00_chr21.bed', checkIfExists: true)
                 )
-                input[2] = Channel.value([
+                input[2] =Channel.empty() // targets_bed
+                input[3] = Channel.value([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
                 ])
-                input[3] = Channel.value([
+                input[4] = Channel.value([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
                 ])
 
-                input[4] = Channel.value([ [id:'chain'], file("https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain", checkIfExists: true) ])
-                input[5] = Channel.value([ [id:'rename_chr'], file('${projectDir}/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true) ])
-                input[6] = Channel.value([ [id:'dict'], file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.dict', checkIfExists: true) ])
+                input[5] = Channel.value([ [id:'chain'], file("https://raw.githubusercontent.com/broadinstitute/gatk/master/scripts/funcotator/data_sources/gnomAD/b37ToHg38.over.chain", checkIfExists: true) ])
+                input[6] = Channel.value([ [id:'rename_chr'], file('${projectDir}/assets/rename_contigs/grch38_grch37.txt', checkIfExists: true) ])
+                input[7] = Channel.value([ [id:'dict'], file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.dict', checkIfExists: true) ])
                 """
             }
         }

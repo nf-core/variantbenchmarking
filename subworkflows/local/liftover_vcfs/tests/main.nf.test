@@ -36,19 +36,22 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
                 )
-                input[2] = Channel.of([
+                input[2] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[3] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
                 ]).collect()
-                input[3] = Channel.of([
+                input[4] = Channel.of([
                     [ id:'test_chain' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
                 ]).collect()
-                input[4] = Channel.of([
+                input[5] = Channel.of([
                     [ id:'test_rename' ],
                     file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
                 ]).collect()
-                input[5] = Channel.of([
+                input[6] = Channel.of([
                     [ id:'test_dict' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
                 ]).collect()
@@ -103,19 +106,22 @@ nextflow_workflow {
                 input[1] = Channel.of(
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
                 )
-                input[2] = Channel.of([
+                input[2] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[3] = Channel.of([
                     [ id:'test_ref' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
                 ]).collect()
-                input[3] = Channel.of([
+                input[4] = Channel.of([
                     [ id:'test_chain' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
                 ]).collect()
-                input[4] = Channel.of([
+                input[5] = Channel.of([
                     [ id:'test_rename' ],
                     file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
                 ]).collect()
-                input[5] = Channel.of([
+                input[6] = Channel.of([
                     [ id:'test_dict' ],
                     file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
                 ]).collect()

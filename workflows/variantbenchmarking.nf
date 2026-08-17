@@ -205,13 +205,15 @@ workflow VARIANTBENCHMARKING {
         PREPARE_VCFS_TRUTH(
             truth_ch,
             regions_bed_ch,
+            targets_bed_ch,
             fasta,
             fai,
             chain,
             rename_chr,
             dictionary
         )
-        regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        regions_bed_ch = PREPARE_VCFS_TRUTH.out.regions_bed_ch
+        targets_bed_ch = PREPARE_VCFS_TRUTH.out.targets_bed_ch
         truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
     }
 
@@ -238,7 +240,7 @@ workflow VARIANTBENCHMARKING {
             intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-        ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
+        ch_reports = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
     evals_ch     = channel.empty()
     evals_csv_ch = channel.empty()
@@ -286,7 +288,7 @@ workflow VARIANTBENCHMARKING {
                 }
             )
 
-            ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
+            ch_reports  = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
                                                     .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
                                                     .groupTuple())
 

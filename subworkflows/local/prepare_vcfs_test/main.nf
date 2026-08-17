@@ -42,6 +42,7 @@ workflow PREPARE_VCFS_TEST {
         LIFTOVER_VCFS(
             vcf.liftover,
             channel.empty(),
+            channel.empty(),
             fasta,
             chain,
             rename_chr,

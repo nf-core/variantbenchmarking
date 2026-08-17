@@ -15,6 +15,7 @@ workflow LIFTOVER_VCFS {
     take:
     ch_vcf          // channel: [val(meta), vcf]
     ch_bed          // channel: [bed]
+    ch_targets_bed  // channel: [bed]
     fasta           // reference channel [val(meta), ref.fa]
     chain           // chain channel [val(meta), chain.gz]
     rename_chr      // reference channel [val(meta), chrlist.txt]
@@ -50,9 +51,13 @@ workflow LIFTOVER_VCFS {
     )
     vcf_ch = BCFTOOLS_ANNOTATE.out.vcf
 
-    // liftover high confidence bed file if given
+    // liftover bed files if given
+    ch_targets_bed.map{file -> tuple([id: "targets"], file)}
+        .mix(ch_bed.map{file -> tuple([id: "regions"], file)})
+        .set{bed_ch}
+
     UCSC_LIFTOVER(
-        ch_bed.map{file -> tuple([id: params.truth_id], file)},
+        bed_ch,
         chain.map{_meta, file -> file}
     )
 
@@ -65,9 +70,18 @@ workflow LIFTOVER_VCFS {
     BEDTOOLS_MERGE(
         GNU_SORT.out.sorted
     )
-    bed_ch = BEDTOOLS_MERGE.out.bed
+    
+    BEDTOOLS_MERGE.out.bed
+        .filter{ meta, _bed -> meta.id == "targets" }
+        .set{targets_ch}
+        
+    BEDTOOLS_MERGE.out.bed
+        .filter{ meta, _bed -> meta.id == "regions" }
+        .set{bed_ch}
+    
 
     emit:
     vcf_ch      // channel: [val(meta), vcf.gz]
     bed_ch      // channel: [val(meta), bed]
+    targets_ch  // channel: [val(meta), bed]
 }
