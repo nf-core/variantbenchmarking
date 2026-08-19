@@ -28,23 +28,23 @@ workflow SV_BENCHMARK {
             fai
         )
         summary_reports = summary_reports.mix(TRUVARI_BENCH.out.summary
-                            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "truvari"], file) }
+                            .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "truvari"], report) }
                             .groupTuple()
                             .map { meta, files -> tuple(meta, files.flatten()) })
         tagged_variants = tagged_variants.mix(TRUVARI_BENCH.out.fn_vcf,
                                             TRUVARI_BENCH.out.fp_vcf,
                                             TRUVARI_BENCH.out.tp_base_vcf,
                                             TRUVARI_BENCH.out.tp_comp_vcf)
-                                        .map { _meta, file ->
+                                        .map { _meta, report ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',
                                                 'tp-base': 'TP_base',
                                                 'tp-comp': 'TP_comp'
                                             ]
-                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-base', 'tp-comp'] }
+                                            def tag = report.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-base', 'tp-comp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, id: "truvari", tag: transformedTag], file)
+                                            tuple([vartype: params.variant_type, id: "truvari", tag: transformedTag], report)
                                         }
         logs            = logs.mix(TRUVARI_BENCH.out.log)
     }

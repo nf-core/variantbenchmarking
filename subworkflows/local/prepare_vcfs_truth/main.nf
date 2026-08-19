@@ -42,8 +42,8 @@ workflow PREPARE_VCFS_TRUTH {
 
     // rename sample name
     BCFTOOLS_REHEADER_TRUTH(
-        truth_ch.map{ meta, file ->
-            [ meta, file, [], [] ]
+        truth_ch.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
         },
         fai
     )

@@ -50,7 +50,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     }
 
     MERGE_REPORTS.out.summary
-        .map { meta, file -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], file) }
+        .map { meta, report -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], report) }
         .set { summary }
 
     // add path to csv file to the datavzrd input

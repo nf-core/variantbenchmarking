@@ -31,7 +31,7 @@ workflow AARDVARK_BENCHMARK {
     )
 
     AARDVARK_COMPARE.out.summary
-            .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "aardvark"], file) }
+            .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "aardvark"], summary) }
             .groupTuple()
             .map { meta, files -> tuple(meta, files.flatten()) }
             .set { summary_reports }
@@ -51,7 +51,7 @@ workflow AARDVARK_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_TP.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "aardvark"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "aardvark"], vcf, index) }
         .set { vcf_tp_comp }
 
     BCFTOOLS_FILTER_TRUTH_FN(
@@ -60,7 +60,7 @@ workflow AARDVARK_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_FN.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "aardvark"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "aardvark"], vcf, index) }
         .set { vcf_fn }
 
     // Filter TP/FP from labelled_query
@@ -74,7 +74,7 @@ workflow AARDVARK_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "aardvark"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "aardvark"], vcf, index) }
         .set { vcf_tp_base }
 
     BCFTOOLS_FILTER_QUERY_FP(
@@ -83,7 +83,7 @@ workflow AARDVARK_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "aardvark"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "aardvark"], vcf, index) }
         .set { vcf_fp }
 
     tagged_variants = tagged_variants.mix(

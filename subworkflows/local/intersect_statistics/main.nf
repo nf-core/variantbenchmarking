@@ -37,7 +37,7 @@ workflow INTERSECT_STATISTICS {
 
         // collect summary reports
         SVTK_VCF2BED.out.bed
-            .map { meta, file -> tuple(meta + [converted: true], file) }
+            .map { meta, bed -> tuple(meta + [converted: true], bed) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
 
@@ -55,7 +55,7 @@ workflow INTERSECT_STATISTICS {
         )
         // collect summary reports
         BEDOPS_CONVERT2BED.out.bed
-            .map { meta, file -> tuple(meta + [converted: true], file) }
+            .map { meta, bed -> tuple(meta + [converted: true], bed) }
             .set{ converted_beds }
         test_beds_ch = test_beds_ch.mix(converted_beds)
     }
@@ -72,7 +72,7 @@ workflow INTERSECT_STATISTICS {
 
     // collect summary reports
     BEDTOOLS_INTERSECT_BENCH.out.summary
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "intersect"], file) }
+        .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "intersect"], summary) }
         .groupTuple()
         .set{ summary_reports }
 

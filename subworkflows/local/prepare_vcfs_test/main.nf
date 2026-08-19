@@ -179,7 +179,7 @@ workflow PREPARE_VCFS_TEST {
 
     // Add GT field using
     ADD_GT_STRELKA(
-        ch_branched_vcf.needs_gt.map{ meta, file, _tbi -> tuple(meta, file) },
+        ch_branched_vcf.needs_gt.map{ meta, vcf, _tbi -> tuple(meta, vcf) },
         [],
         false
     )

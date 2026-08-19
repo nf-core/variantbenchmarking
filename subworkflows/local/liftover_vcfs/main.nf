@@ -47,18 +47,18 @@ workflow LIFTOVER_VCFS {
         TABIX_BGZIPTABIX.out.gz_index.map{meta, vcf, tbi -> tuple(meta, vcf, tbi, [], [])},
         [],
         [],
-        rename_chr.map{_meta, file -> file}
+        rename_chr.map{_meta, vcf -> vcf}
     )
     vcf_ch = BCFTOOLS_ANNOTATE.out.vcf
 
     // liftover bed files if given
-    ch_targets_bed.map{file -> tuple([id: "targets"], file)}
-        .mix(ch_bed.map{file -> tuple([id: "regions"], file)})
+    ch_targets_bed.map{bed -> tuple([id: "targets"], bed)}
+        .mix(ch_bed.map{bed -> tuple([id: "regions"], bed)})
         .set{bed_ch}
 
     UCSC_LIFTOVER(
         bed_ch,
-        chain.map{_meta, file -> file}
+        chain.map{_meta, bed -> bed}
     )
 
     // sort bed file

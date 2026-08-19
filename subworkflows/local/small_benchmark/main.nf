@@ -41,22 +41,22 @@ workflow SMALL_BENCHMARK {
         )
 
         summary_reports = summary_reports.mix(RTGTOOLS_VCFEVAL.out.summary
-                                         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+                                         .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], report) }
                                          .groupTuple())
         tagged_variants = tagged_variants.mix(RTGTOOLS_VCFEVAL.out.fn_vcf.join(RTGTOOLS_VCFEVAL.out.fn_tbi),
                                             RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
                                             RTGTOOLS_VCFEVAL.out.baseline_vcf.join(RTGTOOLS_VCFEVAL.out.baseline_tbi),
                                             RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
-                                        .map { _meta, file , index ->
+                                        .map { _meta, report , index ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',
                                                 'tp-baseline': 'TP_base',
                                                 'tp': 'TP_comp'
                                             ]
-                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
+                                            def tag = report.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], file , index)
+                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], report , index)
                                         }
 
     }
