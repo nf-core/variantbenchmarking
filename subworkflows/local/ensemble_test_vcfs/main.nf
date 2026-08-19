@@ -30,7 +30,7 @@ workflow ENSEMBLE_TEST_VCFS {
     )
 
     // if the benchmarking method is rtgtools, missing GT field is already filled in VCF preperation step, so no need to inject missing GT field
-    BCFTOOLS_UNIFY_HEADER.out.vcf.join(BCFTOOLS_UNIFY_HEADER.out.tbi).branch { meta, vcf, index ->
+    BCFTOOLS_UNIFY_HEADER.out.vcf.join(BCFTOOLS_UNIFY_HEADER.out.tbi).branch { meta, _vcf, _index ->
         def is_rtg = params.method?.contains("rtgtools")
         def is_strelka_manta = ['strelka', 'manta'].contains(meta.caller.toLowerCase())
         def is_somatic = params.analysis == "somatic"
@@ -41,7 +41,7 @@ workflow ENSEMBLE_TEST_VCFS {
 
     // Run the injection process ONLY on  strelka
     INJECT_MISSING_GT(
-        branched_vcfs.missing_gt.map { meta, vcf, index -> tuple(meta, vcf) },
+        branched_vcfs.missing_gt.map { meta, vcf, _index -> tuple(meta, vcf) },
         [],
         false
     )
@@ -57,7 +57,7 @@ workflow ENSEMBLE_TEST_VCFS {
         )
 
         // drop meta information from vcf test samples
-        ch_test_vcfs = ch_ready_for_merge.map { meta, vcf, index ->
+        ch_test_vcfs = ch_ready_for_merge.map { _meta, vcf, index ->
             [ [id: 'truth'], vcf, index ]
         }
 

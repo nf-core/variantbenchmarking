@@ -21,7 +21,6 @@ workflow SMALL_BENCHMARK {
 
     summary_reports   = channel.empty()
     tagged_variants   = channel.empty()
-    falsepositive_bed = channel.empty()
 
     if (params.method.contains('rtgtools')){
 
@@ -42,22 +41,22 @@ workflow SMALL_BENCHMARK {
         )
 
         summary_reports = summary_reports.mix(RTGTOOLS_VCFEVAL.out.summary
-                                         .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+                                         .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], report) }
                                          .groupTuple())
         tagged_variants = tagged_variants.mix(RTGTOOLS_VCFEVAL.out.fn_vcf.join(RTGTOOLS_VCFEVAL.out.fn_tbi),
                                             RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
                                             RTGTOOLS_VCFEVAL.out.baseline_vcf.join(RTGTOOLS_VCFEVAL.out.baseline_tbi),
                                             RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
-                                        .map { _meta, file , index ->
+                                        .map { _meta, report , index ->
                                             def mapping = [
                                                 'fn': 'FN',
                                                 'fp': 'FP',
                                                 'tp-baseline': 'TP_base',
                                                 'tp': 'TP_comp'
                                             ]
-                                            def tag = file.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
+                                            def tag = report.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
                                             def transformedTag = mapping[tag] ?: tag
-                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], file , index)
+                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], report , index)
                                         }
 
     }
@@ -96,6 +95,13 @@ workflow SMALL_BENCHMARK {
             .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed ->
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
             .set{ input_ch }
+        }else {
+
+            input_ch
+            .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, _regions_bed, _targets_bed ->
+                    [ [ id: "falsepositive" ], [] ]}
+            .set{ falsepositive_bed }
+
         }
 
         if (params.method.contains('happy') && params.analysis == "germline"){

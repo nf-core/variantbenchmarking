@@ -13,7 +13,8 @@ include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_FILTERMISSING } from '../../../modules/
 workflow PREPARE_VCFS_TRUTH {
     take:
     truth_ch        // channel: [val(meta), vcf]
-    high_conf_ch    // channel: [bed]
+    regions_bed_ch  // channel: [bed]
+    targets_bed_ch  // channel: [bed]
     fasta           // reference channel [val(meta), ref.fa]
     fai             // reference channel [val(meta), ref.fa.fai]
     chain           // reference channel [val(meta), chain.gz]
@@ -26,20 +27,23 @@ workflow PREPARE_VCFS_TRUTH {
     if (params.liftover.contains("truth")){
         LIFTOVER_VCFS(
             truth_ch,
-            high_conf_ch,
+            regions_bed_ch,
+            targets_bed_ch,
             fasta,
             chain,
             rename_chr,
             dictionary
         )
         truth_ch = LIFTOVER_VCFS.out.vcf_ch
-        high_conf_ch = LIFTOVER_VCFS.out.bed_ch.map{ _meta, bed -> [bed]}
+        regions_bed_ch = LIFTOVER_VCFS.out.bed_ch.map{ _meta, bed -> [bed]}
+        targets_bed_ch = LIFTOVER_VCFS.out.targets_ch.map{ _meta, bed -> [bed]}
+
     }
 
     // rename sample name
     BCFTOOLS_REHEADER_TRUTH(
-        truth_ch.map{ meta, file ->
-            [ meta, file, [], [] ]
+        truth_ch.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
         },
         fai
     )
@@ -96,6 +100,7 @@ workflow PREPARE_VCFS_TRUTH {
     }
 
     emit:
-    vcf_ch       // channel: [val(meta), vcf, tbi]
-    high_conf_ch // channel: [val(meta), bed]
+    vcf_ch         // channel: [val(meta), vcf, tbi]
+    regions_bed_ch // channel: [val(meta), bed]
+    targets_bed_ch // channel: [val(meta), bed]
 }

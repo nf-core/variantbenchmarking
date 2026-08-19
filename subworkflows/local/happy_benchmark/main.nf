@@ -49,7 +49,7 @@ workflow HAPPY_BENCHMARK {
 
     // tag meta and collect summary reports
     HAPPY_HAPPY.out.summary_csv
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
+        .map { _meta, csv -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], csv) }
         .groupTuple()
         .set{ summary_reports }
 
@@ -91,7 +91,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_TP.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "happy"], vcf, index) }
         .set { vcf_tp_comp }
 
     BCFTOOLS_FILTER_TRUTH_FN(
@@ -100,7 +100,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_FN.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "happy"], vcf, index) }
         .set { vcf_fn }
 
     BCFTOOLS_FILTER_QUERY_TP(
@@ -109,7 +109,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "happy"], vcf, index) }
         .set { vcf_tp_base }
 
     BCFTOOLS_FILTER_QUERY_FP(
@@ -118,7 +118,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "happy"], vcf, index) }
         .set { vcf_fp }
 
     tagged_variants = tagged_variants.mix(

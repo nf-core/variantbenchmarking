@@ -21,9 +21,13 @@ input:
         type: file
         description: Truth VCF file to be prepared.
         pattern: "*.{vcf.gz,vcf}"
-  - - bed:
+  - - regions_bed_ch:
         type: file
-        description: High confidence BED regions associated with the truth set.
+        description: BED regions associated with the truth set.
+        pattern: "*.bed"
+  - - targets_bed_ch:
+        type: file
+        description: Targets BED regions associated with the truth set.
         pattern: "*.bed"
   - - meta:
         type: map
@@ -73,13 +77,21 @@ output:
         type: file
         description: Index of the processed truth VCF file.
         pattern: "*.tbi"
-  high_conf_ch:
+  regions_bed_ch:
     - meta:
         type: map
         description: Groovy Map containing sample information.
     - bed:
         type: file
-        description: High confidence BED regions.
+        description: BED regions.
+        pattern: "*.bed"
+  targets_bed_ch:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: Targets BED regions.
         pattern: "*.bed"
 authors:
   - "@kubranarci"

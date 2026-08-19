@@ -25,7 +25,7 @@ workflow VCF_VARIANT_FILTERING {
     else{
         // unzip vcf file, required for survivor filter
         TABIX_BGZIP(
-            vcf_ch.map{ meta, vcf, index -> tuple(meta, vcf)}
+            vcf_ch.map{ meta, vcf, _index -> tuple(meta, vcf)}
         )
         vcf_ch = TABIX_BGZIP.out.output
     }

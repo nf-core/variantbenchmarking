@@ -17,7 +17,7 @@
             [
                 [
                     {
-                        "id": "test_truth"
+                        "id": "regions"
                     },
                     "genome.lifted.sort.merged.bed",
                     1
@@ -27,7 +27,7 @@
                 
             }
         ],
-        "timestamp": "2026-04-21T13:30:35.616466392",
+        "timestamp": "2026-08-17T15:21:22.12092656",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
@@ -47,7 +47,15 @@
                 "1": [
                     [
                         {
-                            "id": "test_truth"
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "targets"
                         },
                         "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -55,7 +63,15 @@
                 "bed_ch": [
                     [
                         {
-                            "id": "test_truth"
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "targets_ch": [
+                    [
+                        {
+                            "id": "targets"
                         },
                         "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -70,7 +86,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-16T11:29:52.054152981",
+        "timestamp": "2026-08-17T15:21:37.191524864",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"

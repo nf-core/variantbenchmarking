@@ -42,6 +42,7 @@ workflow PREPARE_VCFS_TEST {
         LIFTOVER_VCFS(
             vcf.liftover,
             channel.empty(),
+            channel.empty(),
             fasta,
             chain,
             rename_chr,
@@ -71,10 +72,7 @@ workflow PREPARE_VCFS_TEST {
 
     // rename sample name
     BCFTOOLS_REHEADER_QUERY(
-
-        vcf_ch.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        vcf_ch.map{ meta, input -> tuple(meta, input, [], []) },
         fai
     )
 
@@ -93,7 +91,6 @@ workflow PREPARE_VCFS_TEST {
                             .set{vcf_ch}
     }
     if (params.preprocess.contains("split_multiallelic")){
-
         // Split -any- multi-allelic variants
         BCFTOOLS_SPLIT_MULTI(
             vcf_ch,
@@ -182,7 +179,7 @@ workflow PREPARE_VCFS_TEST {
 
     // Add GT field using
     ADD_GT_STRELKA(
-        ch_branched_vcf.needs_gt.map{ meta, file, _tbi -> tuple(meta, file) },
+        ch_branched_vcf.needs_gt.map{ meta, vcf_file, _tbi -> tuple(meta, vcf_file) },
         [],
         false
     )

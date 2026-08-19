@@ -205,13 +205,15 @@ workflow VARIANTBENCHMARKING {
         PREPARE_VCFS_TRUTH(
             truth_ch,
             regions_bed_ch,
+            targets_bed_ch,
             fasta,
             fai,
             chain,
             rename_chr,
             dictionary
         )
-        regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        regions_bed_ch = PREPARE_VCFS_TRUTH.out.regions_bed_ch
+        targets_bed_ch = PREPARE_VCFS_TRUTH.out.targets_bed_ch
         truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
     }
 
@@ -238,7 +240,7 @@ workflow VARIANTBENCHMARKING {
             intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-        ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
+        ch_reports = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
     evals_ch     = channel.empty()
     evals_csv_ch = channel.empty()
@@ -286,15 +288,15 @@ workflow VARIANTBENCHMARKING {
                 }
             )
 
-            ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
-                                                    .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
+            ch_reports  = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
+                                                    .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], summary) }
                                                     .groupTuple())
 
             evals_ch = evals_ch.mix(
-                RTGTOOLS_BNDEVAL.out.fn_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.fp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.baseline_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file) }
+                RTGTOOLS_BNDEVAL.out.fn_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], vcf) },
+                RTGTOOLS_BNDEVAL.out.fp_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], vcf) },
+                RTGTOOLS_BNDEVAL.out.baseline_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], vcf) },
+                RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], vcf) }
             )
         }
     }

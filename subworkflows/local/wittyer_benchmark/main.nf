@@ -37,7 +37,7 @@ workflow WITTYER_BENCHMARK {
     )
 
     WITTYER.out.report
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], file) }
+        .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], report) }
         .groupTuple()
         .set{ report }
 
