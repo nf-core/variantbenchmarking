@@ -1,0 +1,164 @@
+{
+    "homo_sapiens - illumina - svanalyzer benchmark": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "tag": "FN",
+                        "id": "svbenchmark"
+                    },
+                    "test.truth.manta.falsenegatives.vcf.gz",
+                    "05500032acf85ffd3aa5a827a8eb004f"
+                ],
+                [
+                    {
+                        "vartype": "structural",
+                        "tag": "FP",
+                        "id": "svbenchmark"
+                    },
+                    "test.truth.manta.falsepositives.vcf.gz",
+                    "86372922a3df1e06085ca1ce1c167b85"
+                ],
+                [
+                    {
+                        "vartype": "structural",
+                        "tag": "TP_base",
+                        "id": "svbenchmark"
+                    },
+                    "test.truth.manta.TP_base.remain.vcf.gz",
+                    "c06376633bc074a5b3f3a1bd00875206"
+                ],
+                [
+                    {
+                        "vartype": "structural",
+                        "tag": "TP_comp",
+                        "id": "svbenchmark"
+                    },
+                    "test.truth.manta.TP_comp.remain.vcf.gz",
+                    "c06376633bc074a5b3f3a1bd00875206"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "svbenchmark"
+                    },
+                    [
+                        "test.truth.manta.report"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T13:09:49.841690914",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "homo_sapiens - illumina - svanalyzer benchmark stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "FN",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.falsenegatives.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "FP",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.falsepositives.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "TP_base",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.TP_base.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "TP_comp",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.TP_comp.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "svbenchmark"
+                        },
+                        [
+                            "test.truth.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "report": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "svbenchmark"
+                        },
+                        [
+                            "test.truth.manta.report:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "FN",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.falsenegatives.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "FP",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.falsepositives.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "TP_base",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.TP_base.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ],
+                    [
+                        {
+                            "vartype": "structural",
+                            "tag": "TP_comp",
+                            "id": "svbenchmark"
+                        },
+                        "test.truth.manta.TP_comp.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T13:10:05.02522743",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

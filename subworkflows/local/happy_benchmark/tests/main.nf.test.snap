@@ -1,0 +1,174 @@
+{
+    "homo_sapiens - illumina - happy benchmark": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "happy"
+                    },
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "happy"
+                    },
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "happy"
+                    },
+                    "test.HG002.gatk.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "326d4cc1a862c617c9651943ba1693b1"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "happy"
+                    },
+                    "test.HG002.gatk.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "6c948c0eed198d88d81d051d06c2126d"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "test.HG002.gatk.summary.csv"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-08-11T16:02:32.746068544",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "homo_sapiens - illumina - happy benchmark stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test.HG002.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test.HG002.gatk.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test.HG002.gatk.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T12:25:12.547972075",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

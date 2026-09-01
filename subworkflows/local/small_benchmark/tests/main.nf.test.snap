@@ -1,0 +1,426 @@
+{
+    "germline small variants stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test_happy.HG002.haplotypecaller.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "small",
+                            "benchmark_tool": "happy"
+                        },
+                        [
+                            "test_happy.HG002.haplotypecaller.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants": [
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FN",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "FP",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_base",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "small",
+                            "tag": "TP_comp",
+                            "id": "happy"
+                        },
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tagged_variants_csv": [
+                    
+                ]
+            }
+        ],
+        "timestamp": "2026-08-11T12:41:27.010420744",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "germline small variants rtgtools": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FN"
+                    },
+                    "test.HG002.haplotypecaller.fn.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FP"
+                    },
+                    "test.HG002.haplotypecaller.fp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_base"
+                    },
+                    "test.HG002.haplotypecaller.tp-baseline.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "d4ca878c8b2e7cb646b4d9a3f99f91c7"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_comp"
+                    },
+                    "test.HG002.haplotypecaller.tp.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "a61625f97d21d3f4b9d5d0fc86d7094e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "rtgtools"
+                    },
+                    [
+                        "test.HG002.haplotypecaller.summary.txt"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2026-07-15T11:06:32.650388455",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants sompy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.FN.csv",
+                    "e74bc83936cfd28d299b022a05867cd5"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.FP.csv",
+                    "5d2cb4d6e60afbcee5a136878877bd64"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "sompy"
+                    },
+                    "test_sompy.SEQC2.mutect2.TP_comp.csv",
+                    "46aa600762be1f1f68fafcb78b07bceb"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "sompy"
+                    },
+                    [
+                        "test_sompy.SEQC2.mutect2.stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-08-11T12:39:56.205617013",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "germline small variants happy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "happy"
+                    },
+                    "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "happy"
+                    },
+                    "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "happy"
+                    },
+                    "test_happy.HG002.haplotypecaller.query.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "eed5015d812d4e5440aa38fc850506ed"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "happy"
+                    },
+                    "test_happy.HG002.haplotypecaller.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
+                    "d190cd8e3cceeacc7fd8ce843801dfb9"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    [
+                        "test_happy.HG002.haplotypecaller.summary.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-08-11T12:35:46.981468947",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "germline small variants aardvark": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FN",
+                        "id": "aardvark"
+                    },
+                    "test_aardvark.HG002.haplotypecaller.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "FP",
+                        "id": "aardvark"
+                    },
+                    "test_aardvark.HG002.haplotypecaller.query.filter.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_base",
+                        "id": "aardvark"
+                    },
+                    "test_aardvark.HG002.haplotypecaller.query.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=737, phased=false, phasedAutodetect=false]",
+                    "f0673c99f58b46ff264ff39bc3bdada2"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "tag": "TP_comp",
+                        "id": "aardvark"
+                    },
+                    "test_aardvark.HG002.haplotypecaller.truth.reheader.filter.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=737, phased=false, phasedAutodetect=false]",
+                    "f0673c99f58b46ff264ff39bc3bdada2"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "aardvark"
+                    },
+                    [
+                        "test_aardvark.HG002.haplotypecaller.summary.tsv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-07-15T11:06:07.777636742",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "somatic small variants rtgtools": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FN"
+                    },
+                    "test.SEQC2.haplotypecaller.fn.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "FP"
+                    },
+                    "test.SEQC2.haplotypecaller.fp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_base"
+                    },
+                    "test.SEQC2.haplotypecaller.tp-baseline.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                [
+                    {
+                        "vartype": "small",
+                        "id": "rtgtools",
+                        "tag": "TP_comp"
+                    },
+                    "test.SEQC2.haplotypecaller.tp.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "rtgtools"
+                    },
+                    [
+                        "test.SEQC2.haplotypecaller.summary.txt"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-07-15T11:07:17.379486505",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

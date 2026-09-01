@@ -32,6 +32,9 @@
                     "@id": "assets/"
                 },
                 {
+                    "@id": "bin/"
+                },
+                {
                     "@id": "conf/"
                 },
                 {
@@ -42,6 +45,9 @@
                 },
                 {
                     "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
                 },
                 {
                     "@id": "modules/nf-core/"
@@ -121,7 +127,11 @@
         },
         {
             "@id": "main.nf",
-            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
+            "@type": [
+                "File",
+                "SoftwareSourceCode",
+                "ComputationalWorkflow"
+            ],
             "contributor": [
                 {
                     "@id": "#3e8925e0-477e-4e83-96ce-6a332113039f"
@@ -138,16 +148,33 @@
                 "structural-variants",
                 "variant-calling"
             ],
-            "license": ["MIT"],
-            "name": ["nf-core/variantbenchmarking"],
+            "license": [
+                "MIT"
+            ],
+            "maintainer": [
+                {
+                    "@id": "#max.u.garcia@gmail.com"
+                },
+                {
+                    "@id": "https://orcid.org/0009-0003-5619-1555"
+                }
+            ],
+            "name": [
+                "nf-core/variantbenchmarking"
+            ],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
             "sdPublisher": {
                 "@id": "https://nf-co.re/"
             },
-            "url": ["https://github.com/nf-core/variantbenchmarking", "https://nf-co.re/variantbenchmarking/dev/"],
-            "version": ["1.6.0dev"]
+            "url": [
+                "https://github.com/nf-core/variantbenchmarking",
+                "https://nf-co.re/variantbenchmarking/dev/"
+            ],
+            "version": [
+                "1.6.0dev"
+            ]
         },
         {
             "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
@@ -198,6 +225,11 @@
             "description": "Additional files"
         },
         {
+            "@id": "bin/",
+            "@type": "Dataset",
+            "description": "Scripts that must be callable from a pipeline process"
+        },
+        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -216,6 +248,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -304,9 +341,22 @@
             "url": "https://nf-co.re/"
         },
         {
-            "@id": "#3e8925e0-477e-4e83-96ce-6a332113039f",
+            "@id": "#max.u.garcia@gmail.com",
             "@type": "Person",
-            "name": "kuebra.narci@dkfz-heidelberg.de"
+            "email": "max.u.garcia@gmail.com",
+            "name": "Maxime U Garcia"
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-3532-2152",
+            "@type": "Person",
+            "email": "kuebra.narci@dkfz-heidelberg.de",
+            "name": "Kubra Narci"
+        },
+        {
+            "@id": "https://orcid.org/0009-0003-5619-1555",
+            "@type": "Person",
+            "email": "101190534+nvnieuwk@users.noreply.github.com",
+            "name": "Nicolas Vannieuwkerke"
         }
     ]
 }

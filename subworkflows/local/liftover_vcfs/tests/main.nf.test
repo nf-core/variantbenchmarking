@@ -1,0 +1,138 @@
+nextflow_workflow {
+
+    name "Test Subworkflow LIFTOVER_VCFS"
+    script "../main.nf"
+    workflow "LIFTOVER_VCFS"
+
+    tag "subworkflows"
+    tag "subworkflows_liftover_vcfs"
+    tag "subworkflows/liftover_vcfs"
+    tag "picard"
+    tag "picard/liftovervcf"
+    tag "gawk"
+    tag "bcftools"
+    tag "bcftools/annotate"
+    tag "ucsc"
+    tag "ucsc/liftover"
+    tag "gnu"
+    tag "gnu/sort"
+    tag "bedtools"
+    tag "bedtools/merge"
+    tag "tabix"
+    tag "tabix/bgziptabix"
+
+    test("liftover vcfs and bed") {
+
+        when {
+            params {
+                truth_id = "test_truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.test_data_base + '/testdata/hg37/truth/germline/HG002_GRCh37_1_22_v4.2.1_highconf.chr21.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[2] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[3] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[4] = Channel.of([
+                    [ id:'test_chain' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
+                ]).collect()
+                input[5] = Channel.of([
+                    [ id:'test_rename' ],
+                    file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
+                ]).collect()
+                input[6] = Channel.of([
+                    [ id:'test_dict' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def vcf = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+                        def tbi = tuple.size() > 2 ? (tuple[2] instanceof Collection ? (tuple[2].isEmpty() ? null : tuple[2][0]) : tuple[2]) : null
+
+                        [
+                            meta,
+                            path(vcf.toString()).getFileName().toString(),
+                            path(vcf.toString()).vcf.summary,
+                            path(vcf.toString()).vcf.variantsMD5,
+                            tbi ? path(tbi.toString()).getFileName().toString() : []
+                        ]
+                    },
+                    workflow.out.bed_ch.collect { tuple ->
+                        def meta = tuple[0]
+                        def bed = tuple[1] instanceof Collection ? tuple[1][0] : tuple[1]
+
+                        [
+                            meta,
+                            path(bed.toString()).getFileName().toString(),
+                            path(bed.toString()).readLines().size()
+                        ]
+                    },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("liftover vcfs and bed stub") {
+        options "-stub"
+        when {
+            params {
+                truth_id = "test_truth"
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true)
+                ])
+                input[1] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[2] = Channel.of(
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.bed', checkIfExists: true)
+                )
+                input[3] = Channel.of([
+                    [ id:'test_ref' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.fasta', checkIfExists: true)
+                ]).collect()
+                input[4] = Channel.of([
+                    [ id:'test_chain' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.chain.gz', checkIfExists: true)
+                ]).collect()
+                input[5] = Channel.of([
+                    [ id:'test_rename' ],
+                    file(projectDir + '/assets/rename_contigs/grch37_grch38.txt', checkIfExists: true)
+                ]).collect()
+                input[6] = Channel.of([
+                    [ id:'test_dict' ],
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/genome.dict', checkIfExists: true)
+                ]).collect()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

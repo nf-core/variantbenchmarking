@@ -1,0 +1,119 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "LIFTOVER_VCFS"
+description: Subworkflow to liftover VCFs from GRCh37 to GRCh38 or vice versa
+keywords:
+  - liftover
+  - vcf
+  - bed
+  - grch37
+  - grch38
+  - picard
+  - ucsc
+components:
+  - picard/liftovervcf
+  - gawk
+  - bcftools/annotate
+  - ucsc/liftover
+  - gnu/sort
+  - bedtools/merge
+  - tabix/bgziptabix
+input:
+  - ch_vcf:
+      description: Channel containing target VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.vcf"
+  - ch_bed:
+      description: Channel containing BED files for high confidence regions
+      structure:
+        - bed:
+          type: file
+          description: BED file
+          pattern: "*.bed"
+  - ch_targets_bed:
+      description: Channel containing BED files for target regions
+      structure:
+        - bed:
+          type: file
+          description: BED file
+          pattern: "*.bed"
+  - fasta:
+      description: Channel containing the target reference FASTA file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+  - chain:
+      description: Channel containing the UCSC chain file for liftover
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chain:
+          type: file
+          description: Chain file
+          pattern: "*.chain.gz"
+  - rename_chr:
+      description: Channel containing the chromosome renaming list
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - chrlist:
+          type: file
+          description: Text file with chromosome renaming rules
+          pattern: "*.txt"
+  - dictionary:
+      description: Channel containing the sequence dictionary for the target reference
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - dict:
+          type: file
+          description: Sequence dictionary file
+          pattern: "*.dict"
+output:
+  - vcf_ch:
+      description: Channel containing the lifted and compressed VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf_gz:
+          type: file
+          description: Bgzipped and indexed VCF file
+          pattern: "*.vcf.gz"
+  - bed_ch:
+      description: Channel containing the lifted, sorted, and merged BED files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bed:
+          type: file
+          description: Processed BED file
+          pattern: "*.bed"
+  - targets_bed_ch:
+      description: Channel containing the lifted, sorted, and merged BED files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bed:
+          type: file
+          description: Processed BED file for targets region
+          pattern: "*.bed"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

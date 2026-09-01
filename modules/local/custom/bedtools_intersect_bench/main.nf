@@ -1,0 +1,51 @@
+process BEDTOOLS_INTERSECT_BENCH {
+    tag "$meta.id"
+    label 'process_single'
+
+    conda "${moduleDir}/environment.yml"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/71/710294e18c04918cbd5dedd64abb3f43b34fb0f8399a1ed314316151a74a6147/data' :
+        'community.wave.seqera.io/library/pybedtools_pandas:003b11d9e5690eba' }"
+
+    input:
+    tuple val(meta), path(truth), path(test)
+
+    output:
+    tuple val(meta),path("*stats.csv")    , emit: summary
+    tuple val(meta),path("*TP_base.bed")  , emit: tp_base
+    tuple val(meta),path("*TP_comp.bed")  , emit: tp_comp
+    tuple val(meta),path("*FP.bed")       , emit: fp
+    tuple val(meta),path("*FN.bed")       , emit: fn
+    tuple val(meta),path("*converted.bed"), emit: out_bed, optional: true
+    tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
+    tuple val("${task.process}"), val('bedtools'), eval("bedtools --version | sed 's/bedtools v//g'"), emit: versions_bedtools, topic: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    // caveman, cnvkit, controlfreec, facets and ascat has different cnv file beds which needs to be converted, yet if a
+    def format = (meta.caller == "caveman" || meta.caller == "cnvkit" || meta.caller == "controlfreec" || meta.caller == "facets" || meta.caller == "ascat") && (!meta.converted) ? "${meta.caller}" : "bed"
+
+    """
+    bedtools_intersect.py \\
+        $truth \\
+        $test \\
+        $prefix \\
+        $format \\
+        $params.genome \\
+        $args
+    """
+    stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    touch ${prefix}_stats.csv
+    touch ${prefix}_TP_comp.bed
+    touch ${prefix}_TP_base.bed
+    touch ${prefix}_FP.bed
+    touch ${prefix}_FN.bed
+    touch ${prefix}_converted.bed
+    """
+}

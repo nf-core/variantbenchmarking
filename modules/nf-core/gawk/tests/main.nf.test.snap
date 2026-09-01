@@ -1,0 +1,158 @@
+{
+    "Compress after processing": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt.gz:md5,87a15eb9c2ff20ccd5cd8735a28708f7"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:42:17.741168488"
+    },
+    "Convert fasta to bed": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bed:md5,87a15eb9c2ff20ccd5cd8735a28708f7"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:41:46.810784678"
+    },
+    "Convert fasta to bed with program file": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bed:md5,87a15eb9c2ff20ccd5cd8735a28708f7"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:41:52.884002736"
+    },
+    "Extract first column from multiple files": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bed:md5,566c51674bd643227bb2d83e0963376d"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:42:05.455428454"
+    },
+    "Unzip files before processing": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bed:md5,1e31ebd4a060aab5433bbbd9ab24e403"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:42:11.976164295"
+    },
+    "Convert fasta to bed using awk redirect instead of shell redirect": {
+        "content": [
+            {
+                "output": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bed:md5,87a15eb9c2ff20ccd5cd8735a28708f7"
+                    ]
+                ],
+                "versions_gawk": [
+                    [
+                        "GAWK",
+                        "gawk",
+                        "5.3.0"
+                    ]
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-02-05T16:41:58.777371598"
+    }
+}

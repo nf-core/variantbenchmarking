@@ -1,0 +1,88 @@
+{
+    "Standard sompy features merge": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "tag": "TP_comp"
+                        },
+                        "test.TP_comp.csv:md5,fd023fc83c2bdc7b1a7a6a61d94f8338"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SOMPY_FEATURES_MERGE",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "output": [
+                    [
+                        {
+                            "id": "test",
+                            "tag": "TP_comp"
+                        },
+                        "test.TP_comp.csv:md5,fd023fc83c2bdc7b1a7a6a61d94f8338"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_MERGE",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:15:04.254225306",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard sompy features merge stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "tag": "TP_comp"
+                        },
+                        "test.TP_comp.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SOMPY_FEATURES_MERGE",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "output": [
+                    [
+                        {
+                            "id": "test",
+                            "tag": "TP_comp"
+                        },
+                        "test.TP_comp.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_MERGE",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:15:39.43733855",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

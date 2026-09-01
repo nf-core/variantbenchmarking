@@ -1,0 +1,72 @@
+{
+    "prepare truth variants - sv truth dataset": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "truth_sv",
+                        "caller": "manta"
+                    },
+                    "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.reheader.bnd.filtermissing.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=1140, phased=true, phasedAutodetect=true]",
+                    "2d748f2d5e05c3d6e7baec04b8546c3b"
+                ]
+            ],
+            [
+                
+            ]
+        ],
+        "timestamp": "2026-08-17T15:23:01.526415545",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "prepare truth variants -stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "truth_stub",
+                            "caller": "manta"
+                        },
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.reformatted.renamechr.reheader.split.dedup.sort.norm.bnd.filtermissing.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.reformatted.renamechr.reheader.split.dedup.sort.norm.bnd.filtermissing.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    
+                ],
+                "regions_bed_ch": [
+                    [
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "targets_bed_ch": [
+                    
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "truth_stub",
+                            "caller": "manta"
+                        },
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.reformatted.renamechr.reheader.split.dedup.sort.norm.bnd.filtermissing.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "HG002_GRCh38_CMRG_smallvar_v1.00_chr21.lifted.reformatted.renamechr.reheader.split.dedup.sort.norm.bnd.filtermissing.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-08-17T15:23:25.171799688",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+id: gridss_$INFO/SVTYPE
+info:
+  CALLER:
+    value: gridss
+    number: 1
+    type: string
+    description: The caller used to determine this variant
+  SVLEN:
+    value: ~sub:$INFO/END,$POS
+    number: 1
+    type: integer
+    description: The length of the structural variant
+    alts:
+      BND:
+      TRA: 0
+      DEL: -~sub:$INFO/END,$POS
+  CIEND:
+    value: $INFO/CIRPOS
+    number: 2
+    type: integer
+    description: PE confidence interval around END
+  CIPOS:
+    value: $INFO/CIPOS
+    number: 2
+    type: integer
+    description: PE confidence interval around POS
+  SVTYPE:
+    value: $INFO/SVTYPE
+    number: 1
+    type: string
+    description: Type of structural variant
+  CHR2:
+    value:
+    number: 1
+    type: string
+    description: Chromosome for second position
+    alts:
+      TRA: $INFO/CHR2
+  END:
+    value: $INFO/END
+    number: 1
+    type: integer
+    description: End position of the structural variant
+  IMPRECISE:
+    value: $INFO/IMPRECISE
+    number: 0
+    type: flag
+    description: Imprecise structural variation
+format:
+  GT:
+    value: $FORMAT/GT
+    number: 1
+    type: string
+    description: Genotype
+  PE:
+    value: $FORMAT/REFPAIR,$FORMAT/RP
+    number: 2
+    type: integer
+    description: Paired-read support for the ref and alt alleles in the order listed
+  SR:
+    value: .,$FORMAT/SR
+    number: 2
+    type: integer
+    description: Split-read support for the ref and alt alleles in the order listed
