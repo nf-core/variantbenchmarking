@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Aardvark Benchmarking Subworkflow: Introduced the AARDVARK_BENCHMARK subworkflow for sequence-resolved small variant (SNV/Indel) benchmarking [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - Replaced SMALL_GERMLINE_BENCHMARK and SMALL_SOMATIC_BENCHMARK subworkflows with SMALL_BENCHMARK to include Aardvark alongside Hap.py, Som.py, and RTGtools vcfeval for both germline and somatic tracks [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - `high_conf` parameter [#319](https://github.com/nf-core/variantbenchmarking/pull/319).
-- Georgia as contributor [#320]([#320](https://github.com/nf-core/variantbenchmarking/pull/320))
+- Georgia as contributor [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
 - Template update for nf-core/tools v4.1.0 [#322](https://github.com/nf-core/variantbenchmarking/pull/322).
 
 ### `Fixed`
