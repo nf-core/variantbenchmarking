@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixing regions_bed vs high_conf_bed confusion.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 - targets_bed was missing in truth file liftover subworkflow [#320](https://github.com/nf-core/variantbenchmarking/pull/320)
 - happy and sompy failing silently with `--high_cong false` option [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
-- Replacing all static png plots with interactice html plots generated using plotly. As part of this, metrics plotting R script (plots.R) is converted to python (plot_metrics.py). Now, all the plotting modules (PLOTS_METRICS, PLOTS_SVLEN_DIST, PLOTS_UPSET) are using the same containers. Interactive html plots are emitted with MultiQC, allowing users to view results all once.
+- Replacing all static png plots with interactice html plots generated using plotly. As part of this, metrics plotting R script (plots.R) is converted to python (plot_metrics.py). Now, all the plotting modules (PLOTS_METRICS, PLOTS_SVLEN_DIST, PLOTS_UPSET) are using the same containers. Interactive html plots are emitted with MultiQC, allowing users to view results all once [#325](https://github.com/nf-core/variantbenchmarking/pull/325/changes)
 
 ### `Dependencies`
 
