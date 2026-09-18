@@ -632,21 +632,21 @@
                 "small/summary/plots/aardvark/small_lenght_aardvark.FP.mqc.html",
                 "small/summary/plots/aardvark/small_lenght_aardvark.TP_base.mqc.html",
                 "small/summary/plots/aardvark/small_lenght_aardvark.TP_comp.mqc.html",
-                "small/summary/plots/aardvark/upset_aardvark.upset.mqc.html",
+                "small/summary/plots/aardvark/upset_aardvark.mqc.html",
                 "small/summary/plots/aardvark/variant_metrics_aardvark_mqc.html",
                 "small/summary/plots/happy",
                 "small/summary/plots/happy/small_lenght_happy.FN.mqc.html",
                 "small/summary/plots/happy/small_lenght_happy.FP.mqc.html",
                 "small/summary/plots/happy/small_lenght_happy.TP_base.mqc.html",
                 "small/summary/plots/happy/small_lenght_happy.TP_comp.mqc.html",
-                "small/summary/plots/happy/upset_happy.upset.mqc.html",
+                "small/summary/plots/happy/upset_happy.mqc.html",
                 "small/summary/plots/happy/variant_metrics_happy_mqc.html",
                 "small/summary/plots/rtgtools",
                 "small/summary/plots/rtgtools/small_lenght_rtgtools.FN.mqc.html",
                 "small/summary/plots/rtgtools/small_lenght_rtgtools.FP.mqc.html",
                 "small/summary/plots/rtgtools/small_lenght_rtgtools.TP_base.mqc.html",
                 "small/summary/plots/rtgtools/small_lenght_rtgtools.TP_comp.mqc.html",
-                "small/summary/plots/rtgtools/upset_rtgtools.upset.mqc.html",
+                "small/summary/plots/rtgtools/upset_rtgtools.mqc.html",
                 "small/summary/plots/rtgtools/variant_metrics_rtgtools_mqc.html",
                 "small/summary/tables",
                 "small/summary/tables/aardvark",
@@ -770,7 +770,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-18T13:36:18.251524029",
+        "timestamp": "2026-09-18T16:38:09.659297725",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

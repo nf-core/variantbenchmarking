@@ -368,7 +368,7 @@
                 "structural/summary/plots/svbenchmark/structural_lenght_svbenchmark.FP.mqc.html",
                 "structural/summary/plots/svbenchmark/structural_lenght_svbenchmark.TP_base.mqc.html",
                 "structural/summary/plots/svbenchmark/structural_lenght_svbenchmark.TP_comp.mqc.html",
-                "structural/summary/plots/svbenchmark/upset_svbenchmark.upset.mqc.html",
+                "structural/summary/plots/svbenchmark/upset_svbenchmark.mqc.html",
                 "structural/summary/plots/svbenchmark/variant_metrics_svbenchmark_mqc.html",
                 "structural/summary/tables",
                 "structural/summary/tables/svbenchmark",
@@ -436,7 +436,7 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-18T13:30:29.776362181",
+        "timestamp": "2026-09-18T16:34:03.788580397",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

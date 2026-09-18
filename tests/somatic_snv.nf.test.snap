@@ -154,10 +154,10 @@
                 "snv/summary/datavzrd/sompy/static/datavzrd.css",
                 "snv/summary/plots",
                 "snv/summary/plots/rtgtools",
-                "snv/summary/plots/rtgtools/upset_rtgtools.upset.mqc.html",
+                "snv/summary/plots/rtgtools/upset_rtgtools.mqc.html",
                 "snv/summary/plots/rtgtools/variant_metrics_rtgtools_mqc.html",
                 "snv/summary/plots/sompy",
-                "snv/summary/plots/sompy/upset_sompy.upset.mqc.html",
+                "snv/summary/plots/sompy/upset_sompy.mqc.html",
                 "snv/summary/plots/sompy/variant_metrics_sompy_mqc.html",
                 "snv/summary/tables",
                 "snv/summary/tables/rtgtools",
@@ -261,7 +261,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-18T13:49:46.095880307",
+        "timestamp": "2026-09-18T16:41:49.520325688",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

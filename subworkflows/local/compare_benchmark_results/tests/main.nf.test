@@ -74,14 +74,12 @@ nextflow_workflow {
                             path(vcfFile.toString()).vcf.variantsMD5
                         ]
                     }.sort { it[0].id },
-                    workflow.out.ch_plots.collect { meta, png ->
-                        def pngFile = png instanceof Collection ? png[0] : png
-                        def p = path(pngFile.toString())
+                    workflow.out.ch_plots.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test']
+                        def html = res instanceof Collection && res[0] instanceof Map ? res[1] : res
                         [
                             meta,
-                            p.getFileName().toString(),
-                            p.exists(),
-                            p.size() > 0
+                            [html].flatten().collect { path(it.toString()).fileName.toString() }.sort()
                         ]
                     }.sort { it[0].id }
                 ).match() }
@@ -121,7 +119,23 @@ nextflow_workflow {
         then {
             assert workflow.success
             assertAll(
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(
+                    workflow.out.merged_vcfs.collect { meta, vcf ->
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString()
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.ch_plots.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test']
+                        def html = res instanceof Collection && res[0] instanceof Map ? res[1] : res
+                        [
+                            meta,
+                            [html].flatten().collect { path(it.toString()).fileName.toString() }.sort()
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
             )
         }
     }
