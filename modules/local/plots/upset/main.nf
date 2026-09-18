@@ -31,7 +31,7 @@ process PLOTS_UPSET {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch upset_${prefix}.mqc.html
+    touch ${prefix}.mqc.html
 
     """
 
