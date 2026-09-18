@@ -140,7 +140,7 @@ def create_interactive_upset(plot_data, title, output_file):
         y_vals = [i] * num_intersections
         marker_colors = []
         marker_symbols = []
-        
+
         for idx, row in df_upset.iterrows():
             present = row[cat]
             if present:
@@ -172,14 +172,14 @@ def create_interactive_upset(plot_data, title, output_file):
     )
 
     fig.update_xaxes(showticklabels=False, row=1, col=1)
-    
+
     max_size = max(sizes) if sizes else 10
     fig.update_yaxes(
-        title_text="<b>Intersection size</b>", 
-        tickfont=dict(size=16), 
-        title_font=dict(size=18), 
+        title_text="<b>Intersection size</b>",
+        tickfont=dict(size=16),
+        title_font=dict(size=18),
         showgrid=True,
-        range=[0, max_size * 1.3], 
+        range=[0, max_size * 1.3],
         row=1, col=1
     )
 

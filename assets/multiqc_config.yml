@@ -224,10 +224,10 @@ sp:
     contents: "Tool,File,Caller"
   variant_calling_summary_concordance:
     fn: "*concordance*.summary.csv"
-    contents: "Tool,File,Caller"   
+    contents: "Tool,File,Caller"
   variant_calling_summary_intersect:
     fn: "*intersect*.summary.csv"
-    contents: "Tool,File,Caller"                  
+    contents: "Tool,File,Caller"
 
 module_order:
   - bcftools:

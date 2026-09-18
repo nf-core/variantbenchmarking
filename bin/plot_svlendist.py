@@ -262,7 +262,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
     Creates an interactive Plotly bar plot and writes it to the output file path as an HTML report.
     """
     df_table = data2frame(sv_data, bin_edges=bins)
-    df_upt = filter_frame(df_table).copy() 
+    df_upt = filter_frame(df_table).copy()
 
     if df_upt.empty:
         print("Warning: No data available to plot after filtering (counts are 0). Generating empty placeholder plot.")
@@ -282,7 +282,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
         if val >= 1000:
             return f"<b>{val/1000:g}k</b>"
         return f"<b>{val}</b>"
-        
+
     if show_labels:
         df_upt["formatted_counts"] = df_upt["counts"].apply(format_label)
     else:
@@ -307,7 +307,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
         y="counts",
         color="sample",
         barmode="group",
-        text="formatted_counts", 
+        text="formatted_counts",
         color_discrete_map=global_color_map,
         labels={"counts": "Variant Count", "bin_label": "Length Range", "sample": "Tool"}
     )
@@ -335,7 +335,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
 
     max_val = df_upt["counts"].max()
     upper_lim = np.log10(max_val) + 1.5 if max_val > 0 else 1
-    
+
     fig.update_yaxes(
         title_text="<b>Variant Count (Log Scale)</b>",
         tickfont=dict(size=18),

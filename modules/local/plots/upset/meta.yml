@@ -26,7 +26,7 @@ tools:
       description: "An interactive, open-source plotting library for Python."
       homepage: "https://plotly.com/python/"
       licence: ["MIT"]
-      
+
 input:
   - - meta:
         type: map

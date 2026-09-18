@@ -42,7 +42,7 @@ def apply_global_styling(fig, x_title, y_title, height=None):
         layout_dict["height"] = height
 
     fig.update_layout(**layout_dict)
-    
+
     fig.update_xaxes(
         title_text=f"<b>{x_title}</b>" if x_title else None,
         tickfont=dict(size=18),
@@ -53,9 +53,9 @@ def apply_global_styling(fig, x_title, y_title, height=None):
         tickfont=dict(size=18),
         showline=True, linewidth=1.5, linecolor='black', mirror=True
     )
-    
+
     fig.update_xaxes(tickformat="<b>%{text}</b>")
-    
+
     return fig
 
 def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color_map):
@@ -86,37 +86,37 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
         fig_tp = px.line(
             tp_data, x="Tool", y="value", color="Tool", facet_col="variable",
             markers=True, color_discrete_map=color_map,
-            facet_col_spacing=0.08 
+            facet_col_spacing=0.08
         )
         fig_tp = apply_global_styling(fig_tp, "Tool", None, height=500)
         fig_tp.update_yaxes(matches=None, automargin=True, showticklabels=True, tickformat="~s")
-        
+
         facet_annotations = [a for a in fig_tp.layout.annotations if a.text and "=" in a.text]
         yaxes = list(fig_tp.select_yaxes())
-        
+
         for yaxis, ann in zip(yaxes, facet_annotations):
             var_name = ann.text.split("=")[-1].replace("TP_comp", "TP")
             yaxis.title.text = f"<b>{var_name} count</b>"
-            ann.text = "" 
-        
+            ann.text = ""
+
         if show_labels:
             def format_label(val):
                 if val >= 1000:
                     return f"<b>{val/1000:g}k</b>"
                 return f"<b>{val}</b>"
-                
+
             fig_tp.update_traces(
-                textposition="top center", 
-                text=[format_label(v) for v in tp_data["value"]], 
+                textposition="top center",
+                text=[format_label(v) for v in tp_data["value"]],
                 mode="lines+markers+text",
                 textfont=dict(size=16)
             )
         else:
             fig_tp.update_traces(marker=dict(size=10), line=dict(width=4))
-            
+
         fig_tp.update_layout(hovermode="x unified")
         fig_tp.update_xaxes(tickvals=tp_data["Tool"].unique(), ticktext=[f"<b>{t}</b>" for t in tp_data["Tool"].unique()])
-        
+
         plot_dict["tp"] = fig_tp
 
     # 2. Visualize F1
@@ -127,17 +127,17 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
         )
         fig_f1 = apply_global_styling(fig_f1, "Tool", "F1 Score", height=450)
         fig_f1.update_yaxes(range=[0, 1.05])
-        
+
         if show_labels:
             fig_f1.update_traces(
-                textposition="top center", 
-                text=["<b>" + str(round(v, 3)) + "</b>" for v in metric_data["value"]], 
+                textposition="top center",
+                text=["<b>" + str(round(v, 3)) + "</b>" for v in metric_data["value"]],
                 mode="markers+text",
                 textfont=dict(size=16)
             )
         else:
             fig_f1.update_traces(marker=dict(size=12))
-            
+
         fig_f1.update_layout(hovermode="x unified")
         fig_f1.update_xaxes(tickvals=metric_data["Tool"].unique(), ticktext=[f"<b>{t}</b>" for t in metric_data["Tool"].unique()])
         plot_dict["f1"] = fig_f1
@@ -190,7 +190,7 @@ def main():
             parts = list(name) if isinstance(name, tuple) else [name]
             parts_str = [str(p) for p in parts]
             valid_parts = [p for p in parts_str if p.lower() not in ["all", "none"]]
-            
+
             if valid_parts:
                 clean_prefix = "_".join(valid_parts)
                 pretty_parts = [TERM_MAPPING.get(p, p) for p in valid_parts]
@@ -198,7 +198,7 @@ def main():
             else:
                 clean_prefix = "overall"
                 title_suffix = "Overall"
-                
+
             all_groups.append(generate_plots(group, args.benchmark, clean_prefix, title_suffix, args.labels, global_color_map))
     else:
         all_groups.append(generate_plots(df, args.benchmark, "overall", "Overall", args.labels, global_color_map))
@@ -213,12 +213,12 @@ def main():
 
     for group in all_groups:
         group_html = '<div class="group-container">'
-        
+
         if group["tp"]:
             tp_html = group["tp"].to_html(full_html=False, include_plotlyjs='cdn' if not plotly_js_included else False, config=plot_config)
             plotly_js_included = True
             group_html += f'<div class="plot-full"><div class="html-title">{group["tp_title"]}</div>{tp_html}</div>'
-            
+
         if group["f1"] or group["pr"]:
             group_html += '<div class="flex-row">'
             if group["f1"]:
@@ -230,7 +230,7 @@ def main():
                 plotly_js_included = True
                 group_html += f'<div class="plot-half"><div class="html-title">{group["pr_title"]}</div>{pr_html}</div>'
             group_html += '</div>'
-            
+
         group_html += '</div>'
         html_blocks.append(group_html)
 
@@ -255,7 +255,7 @@ def main():
     </body>
     </html>
     """
-    
+
     with open(args.output, "w") as f:
         f.write(html_template)
 

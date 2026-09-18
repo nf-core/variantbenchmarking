@@ -26,7 +26,7 @@ process PLOTS_METRICS {
         $summary \\
         ${meta.benchmark_tool} \\
         --output variant_metrics_${prefix}.html \\
-        $args 
+        $args
     """
 
     stub:

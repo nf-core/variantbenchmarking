@@ -8,4 +8,3 @@ dependencies:
   - plotly=5.24.1
   - pip:
       - UpSetPlot==0.9.0
-
