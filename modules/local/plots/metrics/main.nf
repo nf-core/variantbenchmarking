@@ -5,7 +5,7 @@ process PLOTS_METRICS {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/57/577648e514e596e9c07da1d91ccc7c60ad63fcbfe5b658aee73d3adca9cd337b/data' :
-        'community.wave.seqera.io/library/pip_upsetplot_matplot_pandas:d9e1259bc972b7a4' }"
+        'community.wave.seqera.io/library/python_pip_pandas_plotly_upsetplot:1131451904bdd81f' }"
 
     input:
     tuple val(meta), path(summary)
