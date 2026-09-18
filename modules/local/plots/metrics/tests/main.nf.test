@@ -25,9 +25,10 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert file(process.out.plots.get(0)).name.startsWith("variant_metrics_") },
-                { assert file(process.out.plots.get(0)).name.endsWith(".html") },
-                { assert snapshot(process.out.versions_python).match() }
+                { assert snapshot(
+                    [process.out.plots.get(0)].flatten().collect { path(it.toString()).fileName.toString() }.sort(),
+                    process.out.versions_python
+                ).match() }
             )
         }
 
@@ -48,9 +49,10 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert file(process.out.plots.get(0)).name.startsWith("variant_metrics_") },
-                { assert file(process.out.plots.get(0)).name.endsWith(".html") },
-                { assert snapshot(process.out.versions_python).match() }
+                { assert snapshot(
+                    [process.out.plots.get(0)].flatten().collect { path(it.toString()).fileName.toString() }.sort(),
+                    process.out.versions_python
+                ).match() }
             )
         }
     }

@@ -2,21 +2,8 @@
     "Standard SV length plot - stub": {
         "content": [
             [
-                [
-                    "PLOTS_SVLEN_DIST",
-                    "python",
-                    "3.12.14"
-                ]
-            ]
-        ],
-        "timestamp": "2026-09-18T15:00:58.759434616",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
-        }
-    },
-    "Standard SV length plot - VCF": {
-        "content": [
+                "structural_lenght_test_stub.manta.mqc.html"
+            ],
             [
                 [
                     "PLOTS_SVLEN_DIST",
@@ -25,7 +12,26 @@
                 ]
             ]
         ],
-        "timestamp": "2026-09-18T15:00:47.851442738",
+        "timestamp": "2026-09-18T15:57:53.281118812",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Standard SV length plot - VCF": {
+        "content": [
+            [
+                "structural_lenght_test_sample.manta.mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_SVLEN_DIST",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T15:55:45.295145631",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

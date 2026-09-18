@@ -2,22 +2,18 @@
     "Standard upset plot generation": {
         "content": [
             [
-                [
-                    "upset_svbenchmark_tp_fn_mqc.html",
-                    "upset_svbenchmark_tp_fp_mqc.html"
-                ]
+                "upset_svbenchmark_tp_fn_mqc.html",
+                "upset_svbenchmark_tp_fp_mqc.html"
             ],
-            {
-                "versions_python": [
-                    [
-                        "PLOTS_UPSET",
-                        "python",
-                        "3.12.14"
-                    ]
+            [
+                [
+                    "PLOTS_UPSET",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-09-18T13:05:25.109754691",
+        "timestamp": "2026-09-18T15:53:58.164564413",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -25,30 +21,18 @@
     },
     "Standard upset plot - stub": {
         "content": [
-            {
-                "0": [
-                    "upset_test_stub.upset.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "1": [
-                    [
-                        "PLOTS_UPSET",
-                        "python",
-                        "3.12.14"
-                    ]
-                ],
-                "plot": [
-                    "upset_test_stub.upset.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "versions_python": [
-                    [
-                        "PLOTS_UPSET",
-                        "python",
-                        "3.12.14"
-                    ]
+            [
+                "upset_upset_test_stub.mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_UPSET",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-09-18T13:05:36.841135483",
+        "timestamp": "2026-09-18T15:54:06.567185436",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
