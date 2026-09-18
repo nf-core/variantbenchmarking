@@ -4,14 +4,14 @@ process PLOTS_SVLEN_DIST {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/24/24f902548e45e009de670f96def94e83a1da47af87e793389091413a0182a820/data' :
-        'community.wave.seqera.io/library/matplotlib_numpy_pandas:1503a72c3e08341d' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/57/577648e514e596e9c07da1d91ccc7c60ad63fcbfe5b658aee73d3adca9cd337b/data' :
+        'community.wave.seqera.io/library/pip_upsetplot_matplot_pandas:d9e1259bc972b7a4' }"
 
     input:
     tuple val(meta), path(input)
 
     output:
-    path("*.png")               , emit: plot
+    path("*.html")              , emit: plots
     tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
@@ -23,15 +23,16 @@ process PLOTS_SVLEN_DIST {
     """
     plot_svlendist.py \\
         $input \\
-        -o ${prefix}.${params.variant_type}.mqc.png \\
-        --title "INDEL Length Distributions of ${meta.tag} Variants" \\
+        -o ${params.variant_type}_lenght_${prefix}.mqc.html \\
+        --tag ${meta.tag} \\
+        --vartype ${params.variant_type} \\
         $args
 
     """
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.svlen.png
+    touch ${params.variant_type}_lenght_${prefix}.mqc.html
 
     """
 }

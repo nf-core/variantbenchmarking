@@ -1,7 +1,10 @@
-name: plots_metrics
 channels:
   - conda-forge
+  - bioconda
 dependencies:
-  - r-base=4.1.*
-  - r-ggplot2=3.3.*
-  - r-reshape2=1.4.*
+  - python=3.12
+  - pip=24.2
+  - pandas=2.3.2
+  - plotly=5.24.1
+  - pip:
+      - UpSetPlot==0.9.0

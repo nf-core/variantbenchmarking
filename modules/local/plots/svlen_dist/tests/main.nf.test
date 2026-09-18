@@ -13,7 +13,7 @@ nextflow_process {
 
         when {
             params {
-                variant_type = 'sv'
+                variant_type = 'structural'
             }
             process {
                 """
@@ -39,7 +39,7 @@ nextflow_process {
 
         when {
             params {
-                variant_type = 'sv'
+                variant_type = 'structural'
             }
             process {
                 """

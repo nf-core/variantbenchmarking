@@ -3,8 +3,8 @@
         "content": [
             [
                 [
-                    "upset_svbenchmark_tp_fn_mqc.png",
-                    "upset_svbenchmark_tp_fp_mqc.png"
+                    "upset_svbenchmark_tp_fn_mqc.html",
+                    "upset_svbenchmark_tp_fp_mqc.html"
                 ]
             ],
             {
@@ -12,46 +12,46 @@
                     [
                         "PLOTS_UPSET",
                         "python",
-                        "3.13.7"
+                        "3.12.14"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-23T11:39:24.150165699",
+        "timestamp": "2026-09-18T13:05:25.109754691",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "Standard upset plot - stub": {
         "content": [
             {
                 "0": [
-                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "upset_test_stub.upset.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "1": [
                     [
                         "PLOTS_UPSET",
                         "python",
-                        "3.13.7"
+                        "3.12.14"
                     ]
                 ],
                 "plot": [
-                    "upset_test_stub.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "upset_test_stub.upset.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "versions_python": [
                     [
                         "PLOTS_UPSET",
                         "python",
-                        "3.13.7"
+                        "3.12.14"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-23T10:55:39.592107234",
+        "timestamp": "2026-09-18T13:05:36.841135483",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }
