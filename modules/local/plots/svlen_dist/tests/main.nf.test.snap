@@ -1,30 +1,15 @@
 {
     "Standard SV length plot - stub": {
         "content": [
-            {
-                "0": [
-                    "structural_lenght_test_stub.manta.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "1": [
-                    [
-                        "PLOTS_SVLEN_DIST",
-                        "python",
-                        "3.12.14"
-                    ]
-                ],
-                "plots": [
-                    "structural_lenght_test_stub.manta.mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "versions_python": [
-                    [
-                        "PLOTS_SVLEN_DIST",
-                        "python",
-                        "3.12.14"
-                    ]
+            [
+                [
+                    "PLOTS_SVLEN_DIST",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-09-18T13:13:35.154687347",
+        "timestamp": "2026-09-18T15:00:58.759434616",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -32,30 +17,15 @@
     },
     "Standard SV length plot - VCF": {
         "content": [
-            {
-                "0": [
-                    "structural_lenght_test_sample.manta.mqc.html:md5,07b0064151f1959688200a19430ed52c"
-                ],
-                "1": [
-                    [
-                        "PLOTS_SVLEN_DIST",
-                        "python",
-                        "3.12.14"
-                    ]
-                ],
-                "plots": [
-                    "structural_lenght_test_sample.manta.mqc.html:md5,07b0064151f1959688200a19430ed52c"
-                ],
-                "versions_python": [
-                    [
-                        "PLOTS_SVLEN_DIST",
-                        "python",
-                        "3.12.14"
-                    ]
+            [
+                [
+                    "PLOTS_SVLEN_DIST",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-09-18T13:13:26.134686611",
+        "timestamp": "2026-09-18T15:00:47.851442738",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

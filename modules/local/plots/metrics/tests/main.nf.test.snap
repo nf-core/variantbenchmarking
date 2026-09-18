@@ -1,4 +1,20 @@
 {
+    "Interactive html plots - stub": {
+        "content": [
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T14:52:42.98890004",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
     "Standard R plots - stub": {
         "content": [
             {
@@ -25,6 +41,22 @@
             }
         ],
         "timestamp": "2026-09-18T13:04:46.540747277",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Interactive html plots - svbenchmark benchmark": {
+        "content": [
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T14:52:32.896071413",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

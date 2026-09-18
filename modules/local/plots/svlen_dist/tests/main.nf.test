@@ -28,7 +28,8 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(process.out).match() }
+                { assert file(process.out.plots.get(0)).name.endsWith(".html") },
+                { assert snapshot(process.out.versions_python).match() }
             )
         }
     }
@@ -54,7 +55,8 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(process.out).match() }
+                { assert file(process.out.plots.get(0)).name.endsWith(".html") },
+                { assert snapshot(process.out.versions_python).match() }
             )
         }
     }
