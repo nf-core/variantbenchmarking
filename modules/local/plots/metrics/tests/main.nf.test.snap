@@ -18,37 +18,6 @@
             "nextflow": "26.04.1"
         }
     },
-    "Standard R plots - stub": {
-        "content": [
-            {
-                "0": [
-                    "variant_metrics_svbenchmark_mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "1": [
-                    [
-                        "PLOTS_METRICS",
-                        "python",
-                        "3.12.14"
-                    ]
-                ],
-                "plots": [
-                    "variant_metrics_svbenchmark_mqc.html:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "versions_python": [
-                    [
-                        "PLOTS_METRICS",
-                        "python",
-                        "3.12.14"
-                    ]
-                ]
-            }
-        ],
-        "timestamp": "2026-09-18T13:04:46.540747277",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
-        }
-    },
     "Interactive html plots - svbenchmark benchmark": {
         "content": [
             [
@@ -63,37 +32,6 @@
             ]
         ],
         "timestamp": "2026-09-18T15:59:35.645767751",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
-        }
-    },
-    "Standard R plots - svbenchmark benchmark": {
-        "content": [
-            {
-                "0": [
-                    "variant_metrics_svbenchmark_mqc.html:md5,2cfe3430122edcedd9269917e46dddb3"
-                ],
-                "1": [
-                    [
-                        "PLOTS_METRICS",
-                        "python",
-                        "3.12.14"
-                    ]
-                ],
-                "plots": [
-                    "variant_metrics_svbenchmark_mqc.html:md5,2cfe3430122edcedd9269917e46dddb3"
-                ],
-                "versions_python": [
-                    [
-                        "PLOTS_METRICS",
-                        "python",
-                        "3.12.14"
-                    ]
-                ]
-            }
-        ],
-        "timestamp": "2026-09-18T13:13:06.652373175",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
