@@ -31,13 +31,13 @@
                     "python": "3.13.0"
                 },
                 "PLOTS_METRICS": {
-                    "r_base": "4.3.1"
+                    "python": "3.12.14"
                 },
                 "PLOTS_SVLEN_DIST": {
-                    "python": "3.14.0"
+                    "python": "3.12.14"
                 },
                 "PLOTS_UPSET": {
-                    "python": "3.13.7"
+                    "python": "3.12.14"
                 },
                 "SURVIVOR_FILTER": {
                     "survivor": "1.0.7"
@@ -102,7 +102,7 @@
                 "structural/multiqc/multiqc_data/multiqc_sources.txt",
                 "structural/multiqc/multiqc_data/multiqc_survivor.txt",
                 "structural/multiqc/multiqc_data/multiqc_truvari_bench.txt",
-                "structural/multiqc/multiqc_data/multiqc_variant_calling_summary.txt",
+                "structural/multiqc/multiqc_data/multiqc_variant_calling_summary_truvari.txt",
                 "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Base.txt",
                 "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_Comp.txt",
                 "structural/multiqc/multiqc_data/truvari-bench-classifications-plot_TP_base_GT.txt",
@@ -127,7 +127,7 @@
                 "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-cnt.pdf",
                 "structural/multiqc/multiqc_plots/pdf/truvari-bench-classifications-plot_TP_comp_GT-pct.pdf",
                 "structural/multiqc/multiqc_plots/pdf/truvari-bench-pre-rec-plot.pdf",
-                "structural/multiqc/multiqc_plots/pdf/variant_calling_summary.pdf",
+                "structural/multiqc/multiqc_plots/pdf/variant_calling_summary_truvari.pdf",
                 "structural/multiqc/multiqc_plots/png",
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
                 "structural/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
@@ -146,7 +146,7 @@
                 "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-cnt.png",
                 "structural/multiqc/multiqc_plots/png/truvari-bench-classifications-plot_TP_comp_GT-pct.png",
                 "structural/multiqc/multiqc_plots/png/truvari-bench-pre-rec-plot.png",
-                "structural/multiqc/multiqc_plots/png/variant_calling_summary.png",
+                "structural/multiqc/multiqc_plots/png/variant_calling_summary_truvari.png",
                 "structural/multiqc/multiqc_plots/svg",
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
@@ -165,7 +165,7 @@
                 "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-cnt.svg",
                 "structural/multiqc/multiqc_plots/svg/truvari-bench-classifications-plot_TP_comp_GT-pct.svg",
                 "structural/multiqc/multiqc_plots/svg/truvari-bench-pre-rec-plot.svg",
-                "structural/multiqc/multiqc_plots/svg/variant_calling_summary.svg",
+                "structural/multiqc/multiqc_plots/svg/variant_calling_summary_truvari.svg",
                 "structural/multiqc/multiqc_report.html",
                 "structural/summary",
                 "structural/summary/comparisons",
@@ -189,15 +189,13 @@
                 "structural/summary/datavzrd/truvari/test/plots/plots.js",
                 "structural/summary/plots",
                 "structural/summary/plots/truvari",
-                "structural/summary/plots/truvari/f1_by_tool_truvari_mqc.png",
-                "structural/summary/plots/truvari/pr_recall_by_tool_truvari_mqc.png",
-                "structural/summary/plots/truvari/truvari.FN.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.FP.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.TP_base.structural.mqc.png",
-                "structural/summary/plots/truvari/truvari.TP_comp.structural.mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.png",
-                "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.png",
-                "structural/summary/plots/truvari/variants_by_tool_truvari_mqc.png",
+                "structural/summary/plots/truvari/structural_lenght_truvari.FN.mqc.html",
+                "structural/summary/plots/truvari/structural_lenght_truvari.FP.mqc.html",
+                "structural/summary/plots/truvari/structural_lenght_truvari.TP_base.mqc.html",
+                "structural/summary/plots/truvari/structural_lenght_truvari.TP_comp.mqc.html",
+                "structural/summary/plots/truvari/upset_truvari_tp_fn_mqc.html",
+                "structural/summary/plots/truvari/upset_truvari_tp_fp_mqc.html",
+                "structural/summary/plots/truvari/variant_metrics_truvari_mqc.html",
                 "structural/summary/tables",
                 "structural/summary/tables/truvari",
                 "structural/summary/tables/truvari/truvari.summary.csv",
@@ -245,22 +243,22 @@
             [
                 "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "bcftools_stats_indel-lengths.txt:md5,17ba6b0ab26cf8f1032fad4b6d4fd913",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,2baad19f17a829584ba2a14a3cd46802",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,9237c2c4b23e992e58fd74ca0e5b1c14",
-                "multiqc_bcftools_stats.txt:md5,c7b07be149ee5eb2c86d6d5a9e8267d7",
+                "bcftools_stats_indel-lengths.txt:md5,a09738165a99ca2c3b639178ddbdfc03",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,9a2f6be53a3de12157b1150162e78595",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,573bbf5fd7ff372c62645c7d19426157",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,573bbf5fd7ff372c62645c7d19426157",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,573bbf5fd7ff372c62645c7d19426157",
+                "multiqc_bcftools_stats.txt:md5,c25b57f6584e34e9d3fb8f0dd2e248ee",
                 "multiqc_citations.txt:md5,e7e57ff8b7ef2a5e4452481812e26169",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
-                "multiqc_variant_calling_summary.txt:md5,b40fdc152b64968b6959098e7d4efba7",
+                "multiqc_variant_calling_summary_truvari.txt:md5,b40fdc152b64968b6959098e7d4efba7",
                 "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
                 "test12.tiddit.bcftools_stats.txt:md5,d40e3c575e4f7ebb3883e9ebd16f49bb",
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-05-21T13:13:27.598845797",
+        "timestamp": "2026-09-18T13:43:47.877866207",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

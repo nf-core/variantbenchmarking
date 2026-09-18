@@ -96,6 +96,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
     emit:
     merged_vcfs  // channel: [val(meta), vcf]
-    ch_plots     // channel: [val(meta), .png]
+    ch_plots     // channel: [val(meta), .html]
 
 }

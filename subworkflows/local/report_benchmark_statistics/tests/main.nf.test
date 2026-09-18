@@ -53,17 +53,23 @@ nextflow_workflow {
             assert workflow.success
             assertAll(
                 { assert snapshot(
-                    workflow.out.merged_reports.collect { meta, csv ->
+                    workflow.out.merged_reports.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test_report']
+                        def csv = res instanceof Collection && res[0] instanceof Map ? res[1] : res
                         def csvFile = csv instanceof Collection ? csv[0] : csv
                         [
                             meta,
-                            path(csvFile.toString()).getFileName().toString()
+                            path(csvFile.toString()).fileName.toString()
                         ]
                     }.sort { it[0].id },
-                    workflow.out.ch_plots.collect { plot ->
-                        def plotFile = plot instanceof Collection ? plot[0] : plot
-                        path(plotFile.toString()).getFileName().toString()
-                    }.sort(),
+                    workflow.out.ch_plots.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test_report']
+                        def plot = res instanceof Collection && res[0] instanceof Map ? res[1] : res
+                        [
+                            meta,
+                            [plot].flatten().collect { path(it.toString()).fileName.toString() }.sort()
+                        ]
+                    }.sort { it[0].id },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
@@ -112,7 +118,26 @@ nextflow_workflow {
         then {
             assert workflow.success
             assertAll(
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(
+                    workflow.out.merged_reports.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test_report']
+                        def csv = res instanceof Collection && res[0] instanceof Map ? res[1] : res
+                        def csvFile = csv instanceof Collection ? csv[0] : csv
+                        [
+                            meta,
+                            path(csvFile.toString()).fileName.toString()
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.ch_plots.collect { res ->
+                        def meta = res instanceof Collection && res[0] instanceof Map ? res[0] : [id: 'test_report']
+                        def plot = res instanceof Collection && res[0] instanceof Map ? res[1] : res
+                        [
+                            meta,
+                            [plot].flatten().collect { path(it.toString()).fileName.toString() }.sort()
+                        ]
+                    }.sort { it[0].id },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
             )
         }
     }

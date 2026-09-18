@@ -35,9 +35,7 @@ references/rtgtools/genome.sdf/done
 **/summary/datavzrd/**/network/*.{js}
 **/summary/datavzrd/**/network/index_1.html
 **/summary/datavzrd/**/network/data/data_1.js
-**/summary/plots/happy/*.png
-**/summary/plots/rtgtools/*.png
-**/summary/plots/**/*.png
+**/summary/plots/**/*.html
 **/summary/comparisons/**/*.csv
 **/summary/tables/**/*.csv
 **/**/benchmarks/**/*.{json,json.gz,tsv.gz,vcf.gz,gz.tbi}

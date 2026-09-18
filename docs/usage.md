@@ -13,8 +13,8 @@ Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf pr
 When setting up your run you must specify exactly one variant type using the variant type parameter. Based on the pipeline schema you must use one of the following exact terms:
 
 - `small`: Use this when your file contains both snvs and indels together.
-- `snv`: Use this for isolated single nucleotide variants.
-- `indel`: Use this for isolated insertions and deletions.
+- `snv`: Use this for only single nucleotide variants.
+- `indel`: Use this for only insertions and deletions.
 - `structural`: Use this for large structural events.
 - `copynumber`: Use this for copy number variations.
 

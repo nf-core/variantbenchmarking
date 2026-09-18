@@ -148,99 +148,24 @@ Benchmark results are created separately for each test vcf and for each method u
 
 - `summary/`
   - `comparisons/`
-    - `small/`
-      - `rtgtools.small.FN.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were not correctly called
-      - `rtgtools.small.FP.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do not agree with baseline variant
-      - `rtgtools.small.TP_base.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were correctly called
-      - `rtgtools.small.TP_comp.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do agree with baseline variant
-    - `sv/`
-      - `svbenchmark.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of svbenchmark which were not correctly called
-      - `svbenchmark.sv.FP.csv`: Summarizes and compares variants from the calls VCF of svbenchmark which do not agree with baseline variant
-      - `truvari.sv.FN.csv`: Summarizes and compares variants from the baseline VCF of truvari which were not correctly called
-      - `truvari.sv.FP.csv`: Summarizes and compares variants from the calls VCF of truvari which do not agree with baseline variant
-      - `truvari.sv.TP_base.csv`: Summarizes and compares variants from the baseline VCF of truvari which were correctly called
-      - `truvari.sv.TP_comp.csv`: Summarizes and compares variants from the calls VCF of truvari which do agree with baseline variant
+    - `variant_type/`
+      - `*.FN.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were not correctly called
+      - `*FP.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do not agree with baseline variant
+      - `*.TP_base.csv`: Summarizes and compares variants from the baseline VCF of rtgtools which were correctly called
+      - `*.TP_comp.csv`: Summarizes and compares variants from the calls VCF of rtgtools which do agree with baseline variant
   - `plots/`
-    - `cnv/`
-      - `wittyer/`
-        - `Base_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per base in wittyer
-        - `Base_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per base in wittyer
-        - `Event_metric_by_tool_wittyer.png`: Summary plot for callers on precision, recall and F1 per event in wittyer
-        - `Event_variants_by_tool_wittyer.png`: Summary plot for callers on TP, FP and FN numbers per ecent in wittyer
-    - `sv/`
-      - `truvari/`
-        - `metric_by_tool_truvari.png`: Summary plot for callers on precision, recall and F1 in truvari
-        - `variants_by_tool_truvari.png`: Summary plot for callers on TP, FP and FN numbers in truvari
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-        - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
-        - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
-        - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
-        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
-      - `svbenchmark/`
-        - `metric_by_tool_svbenchmark.png`: Summary plot for callers on precision, recall and F1 in svbenchmark
-        - `variants_by_tool_svbenchmark.png`: Summary plot for callers on TP, FP and FN numbers in svbenchmark
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-        - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
-        - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
-        - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
-        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
-      - `rtgtools/`
-        - `metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in rtgtools
-        - `variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in rtgtools
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-    - `small/`
-      - `happy/`
-        - `INDEL_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all INDELs in happy
-        - `INDEL_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all INDELs in happy
-        - `INDEL_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed INDELs in happy
-        - `INDEL_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed INDELs in happy
-        - `SNP_ALL_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of all SNPs in happy
-        - `SNP_ALL_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of all SNPs in happy
-        - `SNP_PASS_metric_by_tool_happy.png`: Summary plot for callers on precision, recall and F1 of only PASSed SNPs in happy
-        - `SNP_PASS_variants_by_tool_happy.png`: Summary plot for callers on TP, FP and FN numbers of only PASSed SNPs in happy
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-      - `rtgtools/`
-        - `metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in rtgtools
-        - `variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in rtgtools
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-      - `aardvark/`
-        - `BASEPAIR*metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in aardvark for BASEPAIR results
-        - `BASEPAIR*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for BASEPAIR results
-        - `GT*metric_by_tool_rtgtools.png`: Summary plot for callers on precision, recall and F1 in aardvark for GT results
-        - `GT*variants_by_tool_rtgtools.png`: Summary plot for callers on TP, FP and FN numbers in aardvark for GT results
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-        - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
-        - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
-        - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
-        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
-    - `indel/`
-      - `sompy/`
-        - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of indels in sompy
-        - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of indels in sompy
-        - `upset_*.png`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
-        - `*.FN.png`: Variant length distribution histogram specifically for False Negative calls.
-        - `*.FP.png`: Variant length distribution histogram specifically for False Positive calls.
-        - `*.TP_base.png`: Variant length distribution histogram specifically for True Positive baseline calls.
-        - `*.TP_comp.png`: Variant length distribution histogram specifically for True Positive comparison calls.
-    - `snv/`
-      - `sompy/`
-        - `metric_by_tool_sompy.png`: Summary plot for callers on precision, recall and F1 of SNVs in sompy
-        - `variants_by_tool_sompy.png`: Summary plot for callers on TP, FP and FN numbers of SNVs in sompy
+    - `variant_type/`
+      - `analysis_tool/`
+        - `variant_metrics_*.html`: Interactive plots with on precision, recall and F1 per base
+        - `variant_metrics_*.html`: Interactive plots with on precision, recall and F1 per base
+        - `upset_*.html`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
+        - `*_lenght.FN.html`: Variant length distribution histogram specifically for False Negative calls.
+        - `*_lenght.FP.html`: Variant length distribution histogram specifically for False Positive calls.
+        - `*_lenght.TP_base.html`: Variant length distribution histogram specifically for True Positive baseline calls.
+        - `*_lenght.TP_comp.html`: Variant length distribution histogram specifically for True Positive comparison calls.
   - `tables/`
-    - `cnv/`
-      - `wittyer.cnv.summary.csv`: Summary of performance stats from callers
-    - `sv/`
-      - `truvari.sv.summary.csv`: Summary of performance stats from callers
-      - `svbenchmark.sv.summary.csv`: Summary of performance stats from callers
-    - `small/`
-      - `happy.sv.summary.csv`: Summary of performance stats from callers
-      - `rtgtools.sv.summary.csv`: Summary of performance stats from callers
-    - `indel/`
-      - `sompy.indel.summary.csv`: Summary of performance stats from callers
-      - `sompy.indel.regions.csv`: Summary of performance stats split by region bins from callers
-    - `snv/`
-      - `sompy.snv.summary.csv`: Summary of performance stats from callers
-      - `sompy.snv.regions.csv`: Summary of performance stats split by region bins from callers
+    - `variant_type/`
+      - `analysis_tool.variant_type.summary.csv`: Summary of performance stats from callers
 
 - ## `datavzrd/`
 

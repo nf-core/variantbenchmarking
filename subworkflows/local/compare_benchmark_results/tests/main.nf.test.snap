@@ -41,94 +41,69 @@
             ],
             [
                 [
-                    "upset_test_tp_fn_mqc.png:md5,2c291f8b709a39f8fe93b775e4fabb79",
-                    "upset_test_tp_fp_mqc.png",
-                    true,
-                    true
+                    {
+                        "id": "test"
+                    },
+                    [
+                        "upset_test_tp_fn_mqc.html",
+                        "upset_test_tp_fp_mqc.html"
+                    ]
                 ]
             ]
         ],
-        "timestamp": "2026-03-26T09:56:20.761081064",
+        "timestamp": "2026-09-18T16:51:06.148512653",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "Compare benchmark results stub": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FN"
-                        },
-                        "test.FN.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FP"
-                        },
-                        "test.FP.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_base"
-                        },
-                        "test.TP_base.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_comp"
-                        },
-                        "test.TP_comp.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "FN"
+                    },
+                    "test.FN.vcf"
                 ],
-                "1": [
-                    "upset_test.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                [
+                    {
+                        "id": "test",
+                        "tag": "FP"
+                    },
+                    "test.FP.vcf"
                 ],
-                "ch_plots": [
-                    "upset_test.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_base"
+                    },
+                    "test.TP_base.vcf"
                 ],
-                "merged_vcfs": [
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_comp"
+                    },
+                    "test.TP_comp.vcf"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
                     [
-                        {
-                            "id": "test",
-                            "tag": "FN"
-                        },
-                        "test.FN.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FP"
-                        },
-                        "test.FP.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_base"
-                        },
-                        "test.TP_base.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_comp"
-                        },
-                        "test.TP_comp.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "upset_test.mqc.html"
                     ]
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-03-26T09:56:41.447178656",
+        "timestamp": "2026-09-18T16:51:23.422656867",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }
