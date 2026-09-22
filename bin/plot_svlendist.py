@@ -1,16 +1,21 @@
-#!/usr/bin/env python
-# A script to parse, analyze, and plot indel or structural variant lenght from VCF and CSV files.
+#!/usr/bin/env python3
+# A script to parse, analyze, and plot indel or structural variant length from VCF and CSV files.
 
 # Author: Victor Perez
+# Adapted for Interactive HTML/Plotly by Kuebra Narci
 
-import matplotlib.pyplot as plt
 import os
 import argparse
 import numpy as np
 import gzip
 import csv
 import pandas as pd
-import matplotlib.transforms as mtrans
+import plotly.express as px
+
+SEABORN_CB_PALETTE = [
+    "#0173b2", "#d55e00", "#029e73", "#de8f05", "#cc78bc",
+    "#ca9161", "#fbafe4", "#949494", "#ece133", "#56b4e9"
+]
 
 def get_sample_name(vcf_file):
     base_name = os.path.basename(vcf_file)
@@ -171,7 +176,8 @@ def human_format(num):
     if val < 1000000: return f"{sign}{val/1000:.1f}kb"
     return f"{sign}{val/1000000:.1f}Mb"
 
-def format_bp_label(bin_edges, half_open=True, format="sci", decimals=1):
+def format_bp_label(bin_edges, half_open=True):
+    """Formats the bin edges into readable bracket labels."""
     left = human_format(bin_edges[0])
     right = human_format(bin_edges[1])
     symbol = ")" if half_open else "]"
@@ -179,12 +185,11 @@ def format_bp_label(bin_edges, half_open=True, format="sci", decimals=1):
 
 def default_bins():
     """
-    Creates a set of bins based on typical orders of magnitue(kilo,Mega,Giga,Tera)
+    Creates a set of bins based on typical orders of magnitude (bp, kbp, Mbp, etc.).
     Returns:
         A list of bins as described above.
-
     """
-    exps=[1,2,3,4,5,6,7,8]#bp,kbp,Mbp,Gbp,Tbp
+    exps = [1, 2, 3, 4, 5, 6, 7, 8]
     bins_pos = [10**i for i in exps]
     bins_neg = [-val for val in bins_pos]
     bins = sorted(bins_pos + bins_neg + [0])
@@ -192,11 +197,10 @@ def default_bins():
 
 def filter_frame(df):
     """
-    Filters a data frame based on the bin_label categories, if a category is empty for all
+    Filters a data frame based on the bin_label categories. If a category is empty for all
     samples it will be filtered out.
     Returns:
         A filtered pandas data frame.
-
     """
     group = df.groupby("bin_label", sort=False)["counts"]
     categ = group.sum().index
@@ -211,7 +215,6 @@ def data2frame(sv_data, bin_edges="default"):
     using the list of bin_edges.
     Returns:
         A pandas dataframe with the information organized for casting a bar plot.
-
     """
     data_table = {
         "sample": [],
@@ -256,105 +259,132 @@ def data2frame(sv_data, bin_edges="default"):
 
 def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels=True):
     """
-    CreateS a bar plot and writes it in the output_file path
-    Returns:
-        A .png figure saved in the output_file path.
-
+    Creates an interactive Plotly bar plot and writes it to the output file path as an HTML report.
     """
     df_table = data2frame(sv_data, bin_edges=bins)
-    df_upt = filter_frame(df_table)
+    df_upt = filter_frame(df_table).copy()
 
     if df_upt.empty:
         print("Warning: No data available to plot after filtering (counts are 0). Generating empty placeholder plot.")
-        plt.figure(figsize=(10, 6))
-        plt.text(0.5, 0.5, "No Data Available", ha='center', va='center', fontsize=20)
-        plt.title(plot_title)
-        plt.savefig(output_file)
+        html_template = f"""
+        <!DOCTYPE html>
+        <html><body>
+        <h1 style="text-align: center; font-family: sans-serif; color: #2c3e50;">No Data Available for {plot_title}</h1>
+        </body></html>
+        """
+        with open(output_file, "w") as f:
+            f.write(html_template)
         return
 
-    category_label = df_upt["bin_label"].unique()
-    files = sorted(df_upt["sample"].unique())
-    bar_height = {sample: df_upt.loc[df_upt["sample"] == sample, "counts"].values for sample in files}
+    def format_label(val):
+        if val == 0:
+            return ""
+        if val >= 1000:
+            return f"<b>{val/1000:g}k</b>"
+        return f"<b>{val}</b>"
+
+    if show_labels:
+        df_upt["formatted_counts"] = df_upt["counts"].apply(format_label)
+    else:
+        df_upt["formatted_counts"] = ""
+
+    unique_tools = sorted(df_upt["sample"].unique())
+    global_color_map = {tool: SEABORN_CB_PALETTE[i % len(SEABORN_CB_PALETTE)] for i, tool in enumerate(unique_tools)}
 
     types_list = df_upt["type"].unique()
-
-    width = 0.15
-    group_spacing = 1.3
-    x = np.arange(len(category_label)) * group_spacing
-
     xlabel_text = "Variant Length Range"
-    xlabel_future_action = None
-    xlabel_position = 0
-
     if len(types_list) == 2:
         xlabel_text = "Deletions | Insertions"
-        xlabel_future_action = "reposition"
-        ref_file = df_upt["sample"].unique()[0]
-        aux = df_upt.loc[df_upt["sample"] == ref_file]
-        transition_index = (aux["type"].values != "deletion").argmax()
-        xlabel_position = x[transition_index]
-
     elif len(types_list) == 1:
-        xlabel_future_action = None
         if types_list[0] == "insertion":
             xlabel_text = "Insertions"
         elif types_list[0] == "deletion":
             xlabel_text = "Deletions"
 
-    plt.style.use('seaborn-v0_8-colorblind')
-    fig, ax = plt.subplots(figsize=(26, 16))
+    fig = px.bar(
+        df_upt,
+        x="bin_label",
+        y="counts",
+        color="sample",
+        barmode="group",
+        text="formatted_counts",
+        color_discrete_map=global_color_map,
+        labels={"counts": "Variant Count", "bin_label": "Length Range", "sample": "Tool"}
+    )
 
-    multiplier = 0
-    for attribute, measurement in bar_height.items():
-        offset = width * multiplier
-        rects = ax.bar(x + offset, measurement, width, label=attribute, alpha=1)
+    fig.update_layout(
+        template="plotly_white",
+        font=dict(size=18, color="black"),
+        legend=dict(
+            title_text="<b>Tool</b>",
+            font=dict(size=18),
+            title_font=dict(size=20)
+        ),
+        margin=dict(l=80, r=40, t=40, b=80),
+        hovermode="x unified"
+    )
 
-        if show_labels:
-            ax.bar_label(rects,
-                         padding=10,
-                         rotation=45,
-                         fontsize=24,
-                         fontweight='bold',
-                         clip_on=False)
-        multiplier += 1
+    tick_labels = df_upt["bin_label"].unique()
+    fig.update_xaxes(
+        title_text=f"<b>{xlabel_text}</b>",
+        tickfont=dict(size=18),
+        showline=True, linewidth=1.5, linecolor='black', mirror=True,
+        tickvals=tick_labels,
+        ticktext=[f"<b>{t}</b>" for t in tick_labels]
+    )
 
-    ax.set_title(plot_title, fontsize=42, fontweight='bold', pad=60)
-    ax.grid(True, which="major", linestyle='--', alpha=0.6)
+    max_val = df_upt["counts"].max()
+    upper_lim = np.log10(max_val) + 1.5 if max_val > 0 else 1
 
-    tick_pos = x + (width * (len(files)-1)/2)
-    ax.set_xticks(tick_pos)
-    ax.set_xticklabels(category_label, rotation=40, fontsize=32, ha='right')
+    fig.update_yaxes(
+        title_text="<b>Variant Count (Log Scale)</b>",
+        tickfont=dict(size=18),
+        showline=True, linewidth=1.5, linecolor='black', mirror=True,
+        type="log",
+        range=[np.log10(0.5), upper_lim],
+        tickformat="~s"
+    )
 
-    ax.set_xlabel(xlabel_text, fontsize=36, fontweight='bold')
-    if xlabel_future_action == "reposition":
-        trans = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
-        ax.xaxis.set_label_coords(xlabel_position, -0.3, transform=trans)
+    if show_labels:
+        fig.update_traces(
+            textposition='outside',
+            textfont=dict(size=16, color="black")
+        )
 
-    ax.set_yscale('log')
-    headroom_factor = 20 if show_labels else 5
-    ax.set_ylim(ax.get_ylim()[0], ax.get_ylim()[1] * headroom_factor)
+    plot_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
 
-    ax.tick_params(axis='y', which='major', labelsize=32)
-    ax.set_ylabel("Count (Log10)", fontsize=36, fontweight='bold')
+    html_template = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{plot_title}</title>
+        <style>
+            body {{ font-family: -apple-system, sans-serif; background-color: #f8f9fa; margin: 20px; }}
+            .plot-container {{ width: 100%; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box; }}
+            .html-title {{ font-size: 26px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; word-wrap: break-word; }}
+        </style>
+    </head>
+    <body>
+        <div class="plot-container">
+            <div class="html-title">{plot_title}</div>
+            {plot_html}
+        </div>
+    </body>
+    </html>
+    """
 
-    ax.legend(title="Tool",
-          loc='upper left',
-          title_fontsize=34,
-          fancybox=True,
-          shadow=True,
-          bbox_to_anchor=(1, 1),
-          prop={'size': 32}
-          )
-    ax.set_facecolor((0.95, 0.95, 0.95))
-
-    fig.savefig(output_file, dpi=100, bbox_inches='tight')
+    with open(output_file, "w") as f:
+        f.write(html_template)
     print(f"Plot saved to {output_file}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Plot SVLEN distributions from one or more VCF or CSV files.")
     parser.add_argument('input_files', nargs='+', help="One or more VCF or CSV files to process.")
-    parser.add_argument('--output', '-o', dest='output_file', default='svlen_distributions.png')
-    parser.add_argument('--title', '-t', dest='plot_title', default='Structural Variant Length Distributions by Type')
+    parser.add_argument('--output', '-o', dest='output_file', default='svlen_distributions_mqc.html')
+    parser.add_argument('--title', '-t', dest='plot_title', default=None, help="Custom plot title")
+    parser.add_argument('--vartype', dest='vartype', choices=['small', 'structural'], default='structural', help="Analysis type: 'small' for Indels, 'structural' for SVs.")
+    parser.add_argument('--tag', dest='tag', default=None, help="Tag representing the data subset (e.g., FN, FP, TP_comp).")
     parser.add_argument('--bins', '-b', nargs='+', type=str, default=None,
                         help="""
                         List of integer numbers representing the bin_edges for the plot.
@@ -362,10 +392,18 @@ if __name__ == "__main__":
                         negative(Deletions) and positive(Insertions) directions. The counts of
                         the histogram are carried out by numpy.histogram.
                         """)
-
     parser.add_argument('--no-labels', action='store_true', help="Hide the count labels on top of the bars.")
 
     args = parser.parse_args()
+
+    if args.plot_title:
+        final_title = args.plot_title
+    else:
+        base_title = "Indel Length Distribution" if args.vartype == 'small' else "SV Length Distribution"
+        if args.tag:
+            final_title = f"{base_title} of {args.tag} Variants"
+        else:
+            final_title = base_title
 
     final_bins = None
     if args.bins:
@@ -395,6 +433,6 @@ if __name__ == "__main__":
 
     if sv_data:
         bin_edges = final_bins if final_bins else "default"
-        plot_svlen_distributions(sv_data, bin_edges, args.output_file, args.plot_title, show_labels=not args.no_labels)
+        plot_svlen_distributions(sv_data, bin_edges, args.output_file, final_title, show_labels=not args.no_labels)
     else:
         print("No valid input files found to plot.")

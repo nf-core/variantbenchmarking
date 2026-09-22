@@ -46,7 +46,7 @@ output:
     - plots:
         type: file
         description: Generated metrics and distribution plots.
-        pattern: "*.png"
+        pattern: "*.html"
   merged_reports:
     - meta:
         type: map

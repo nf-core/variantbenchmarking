@@ -86,19 +86,13 @@
 
 - [witty.er](https://github.com/Illumina/witty.er)
 
-## R packages
-
-- [ggplot2](https://ggplot2.tidyverse.org/)
-
-> Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3-319-24277-4, https://ggplot2.tidyverse.org.
-
-- [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html)
-
-> Wickham H (2007). “Reshaping Data with the reshape Package.” Journal of Statistical Software, 21(12), 1–20. http://www.jstatsoft.org/v21/i12/.
-
 ## Python packages
 
 - [pysam](https://pandas.pydata.org/)
+
+- [plotly](https://plotly.com/)
+
+- [upsetplot](https://github.com/jnothman/UpSetPlot)
 
 ## Software packaging/containerisation tools
 

@@ -61,11 +61,11 @@ This initial step ensures consistent formatting and alignment of variants in tes
 
 When a "Gold Standard" (a high-confidence, validated set of variants) is not available, you can create a Proxy Ground Truth by looking for agreement between different tools. This is Majority Rule approach assumes that if multiple independent variant callers identify the same mutation, it is more likely to be a real biological variant rather than a technical error from a single pipeline. Only variants found by at least the minimum number of callers specified in your threshold are kept as the "truth" for the final benchmark.
 
-If the $--ensemble/_truth$ threshold is set higher than 0, the pipeline performs the following steps:
+If the `--ensemble/truth` threshold is set higher than 0, the pipeline performs the following steps:
 
 - Merge small (SNVs and INDELs) using ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
-- Merge Structual Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
-- Consensus filtering the variants according to $--ensemble/_truth$.
+- Merge Structural Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- Consensus filtering the variants according to `--ensemble/truth`.
 
 ### Filtering options:
 
@@ -152,7 +152,7 @@ It is essential to compare benchmarking results in order to infer uniquely or co
 The generation of comprehensive report that consolidates all benchmarking results.
 
 - Merging summary statistics per benchmarking tool (python script)
-- Plotting benchmark metrics per benchmarking tool (R script)
+- Plotting benchmark metrics per benchmarking tool (python scripts)
 - Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 - Apply _MultiQC_ to visualize results
 

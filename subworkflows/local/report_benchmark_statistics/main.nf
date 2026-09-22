@@ -46,7 +46,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         .set { svlen_input }
 
         PLOTS_SVLEN_DIST(svlen_input)
-        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
+        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plots)
     }
 
     MERGE_REPORTS.out.summary
@@ -80,6 +80,6 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
 
     emit:
-    ch_plots        // channel: [ plots.png ]
+    ch_plots        // channel: [ plots.html ]
     merged_reports  // channel: [ meta, summary.csv]
 }
