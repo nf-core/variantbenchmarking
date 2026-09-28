@@ -166,6 +166,9 @@ Benchmark results are created separately for each test vcf and for each method u
   - `tables/`
     - `variant_type/`
       - `analysis_tool.variant_type.summary.csv`: Summary of performance stats from callers
+  - `reports/`
+    - `happy/`
+      - `happy_report.html`: Standalone interactive HTML report generated with [ga4gh-happy-report](https://github.com/bag-cnag/ga4gh-happy-report) from the stratified hap.py `*.roc.all.csv.gz` results of all test VCFs (germline small variants only)
 
 - ## `datavzrd/`
 

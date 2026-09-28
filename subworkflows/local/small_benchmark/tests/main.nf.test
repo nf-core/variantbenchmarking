@@ -71,6 +71,9 @@ nextflow_workflow {
                         def fileNames = files instanceof Collection ? files.collect { path(it.toString()).getFileName().toString() } : [path(files.toString()).getFileName().toString()]
                         [meta, fileNames.sort()]
                     },
+                    workflow.out.stratified_reports.collect { meta, csv_meta, csvs ->
+                        [meta, csv_meta, csvs.collect { path(it.toString()).getFileName().toString() }.sort()]
+                    },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )

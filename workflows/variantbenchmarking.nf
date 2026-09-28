@@ -242,8 +242,9 @@ workflow VARIANTBENCHMARKING {
         )
         ch_reports = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
-    evals_ch     = channel.empty()
-    evals_csv_ch = channel.empty()
+    evals_ch               = channel.empty()
+    evals_csv_ch           = channel.empty()
+    ch_stratified_reports  = channel.empty()
 
     // Concordance analysis can only be performed small variants for now
     if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/)){
@@ -325,6 +326,7 @@ workflow VARIANTBENCHMARKING {
         ch_reports       = ch_reports.mix(SMALL_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SMALL_BENCHMARK.out.tagged_variants)
         evals_csv_ch     = evals_csv_ch.mix(SMALL_BENCHMARK.out.tagged_variants_csv)
+        ch_stratified_reports = ch_stratified_reports.mix(SMALL_BENCHMARK.out.stratified_reports)
     }
 
 
@@ -341,7 +343,8 @@ workflow VARIANTBENCHMARKING {
     REPORT_BENCHMARK_STATISTICS(
         ch_reports,
         evals_ch,
-        evals_csv_ch
+        evals_csv_ch,
+        ch_stratified_reports
     )
     ch_multiqc_files = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots.flatten())
     ch_multiqc_files = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.merged_reports.map{ _meta, report -> report })

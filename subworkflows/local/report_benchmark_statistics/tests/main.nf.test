@@ -10,6 +10,9 @@ nextflow_workflow {
     tag "datavzrd"
     tag "gawk"
     tag "merge_reports"
+    tag "happy"
+    tag "happy/happy"
+    tag "happy/report"
 
     test("report benchmark statistics - structural variants") {
 
@@ -46,6 +49,8 @@ nextflow_workflow {
                         file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
                     ]
                 )
+
+                input[3] = Channel.empty()
                 """
             }
         }
@@ -70,6 +75,84 @@ nextflow_workflow {
                             [plot].flatten().collect { path(it.toString()).fileName.toString() }.sort()
                         ]
                     }.sort { it[0].id },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("report benchmark statistics - germline small variants happy") {
+
+        setup {
+            run("HAPPY_HAPPY") {
+                script "../../../../modules/nf-core/happy/happy/main.nf"
+                process {
+                    """
+                    input[0] = Channel.of([
+                        [ id:'test', caller:'gatk' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.ann.vcf.gz', checkIfExists: true),
+                        [],
+                        []
+                    ])
+                    input[1] = Channel.value([
+                        [ id:'test_ref' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ])
+                    input[2] = Channel.value([
+                        [ id:'test_ref' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ])
+                    input[3] = Channel.value([[],[]])
+                    input[4] = Channel.value([[],[]])
+                    input[5] = Channel.value([[],[]])
+                    """
+                }
+            }
+        }
+
+        when {
+            params {
+                variant_type = "small"
+                skip_plots = ""
+                analysis = "germline"
+                truth_id = "HG002"
+            }
+            workflow {
+                """
+                input[0] = HAPPY_HAPPY.out.summary_csv
+                    .map { meta, csv -> [ [ vartype:'small', benchmark_tool:'happy' ], csv ] }
+                    .groupTuple()
+
+                input[1] = Channel.empty()
+
+                input[2] = Channel.empty()
+
+                input[3] = HAPPY_HAPPY.out.roc_all_csv
+                    .map { meta, csv -> [ [ vartype:'small', benchmark_tool:'happy', id:'happy' ], [ method: meta.id + "-" + meta.caller ], csv ] }
+                    .groupTuple()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.merged_reports.collect { meta, csv ->
+                        [
+                            meta,
+                            path(csv.toString()).fileName.toString()
+                        ]
+                    },
+                    workflow.out.ch_plots.collect { plot ->
+                        path(plot.toString()).fileName.toString()
+                    }.sort(),
+                    workflow.out.happy_report.collect { meta, html ->
+                        [
+                            meta,
+                            path(html.toString()).fileName.toString()
+                        ]
+                    },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )
@@ -112,6 +195,8 @@ nextflow_workflow {
                         file(params.test_data_base + '/testdata/nf-test/merge/test9.TP_comp.csv', checkIfExists: true)
                     ]
                 )
+
+                input[3] = Channel.empty()
                 """
             }
         }
@@ -136,6 +221,85 @@ nextflow_workflow {
                             [plot].flatten().collect { path(it.toString()).fileName.toString() }.sort()
                         ]
                     }.sort { it[0].id },
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("report benchmark statistics - germline small variants happy - stub") {
+        options "-stub"
+
+        setup {
+            run("HAPPY_HAPPY") {
+                script "../../../../modules/nf-core/happy/happy/main.nf"
+                process {
+                    """
+                    input[0] = Channel.of([
+                        [ id:'test', caller:'gatk' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.vcf.gz', checkIfExists: true),
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/haplotypecaller_calls/test2_haplotc.ann.vcf.gz', checkIfExists: true),
+                        [],
+                        []
+                    ])
+                    input[1] = Channel.value([
+                        [ id:'test_ref' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta', checkIfExists: true)
+                    ])
+                    input[2] = Channel.value([
+                        [ id:'test_ref' ],
+                        file(params.modules_testdata_base_path + 'genomics/homo_sapiens/genome/chr21/sequence/genome.fasta.fai', checkIfExists: true)
+                    ])
+                    input[3] = Channel.value([[],[]])
+                    input[4] = Channel.value([[],[]])
+                    input[5] = Channel.value([[],[]])
+                    """
+                }
+            }
+        }
+
+        when {
+            params {
+                variant_type = "small"
+                skip_plots = ""
+                analysis = "germline"
+                truth_id = "HG002"
+            }
+            workflow {
+                """
+                input[0] = HAPPY_HAPPY.out.summary_csv
+                    .map { meta, csv -> [ [ vartype:'small', benchmark_tool:'happy' ], csv ] }
+                    .groupTuple()
+
+                input[1] = Channel.empty()
+
+                input[2] = Channel.empty()
+
+                input[3] = HAPPY_HAPPY.out.roc_all_csv
+                    .map { meta, csv -> [ [ vartype:'small', benchmark_tool:'happy', id:'happy' ], [ method: meta.id + "-" + meta.caller ], csv ] }
+                    .groupTuple()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    workflow.out.merged_reports.collect { meta, csv ->
+                        [
+                            meta,
+                            path(csv.toString()).fileName.toString()
+                        ]
+                    },
+                    workflow.out.ch_plots.collect { plot ->
+                        path(plot.toString()).fileName.toString()
+                    }.sort(),
+                    workflow.out.happy_report.collect { meta, html ->
+                        [
+                            meta,
+                            path(html.toString()).fileName.toString()
+                        ]
+                    },
                     workflow.out.findAll { key, val -> key.startsWith("versions") }
                 ).match() }
             )

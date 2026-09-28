@@ -1,4 +1,72 @@
 {
+    "report benchmark statistics - germline small variants happy - stub": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
+                ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-28T15:13:00.397073503",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "report benchmark statistics - germline small variants happy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
+                ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-28T15:12:38.265053342",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
     "report benchmark statistics - stub": {
         "content": [
             [

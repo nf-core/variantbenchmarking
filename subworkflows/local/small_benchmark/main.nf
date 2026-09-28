@@ -19,8 +19,9 @@ workflow SMALL_BENCHMARK {
 
     main:
 
-    summary_reports   = channel.empty()
-    tagged_variants   = channel.empty()
+    summary_reports    = channel.empty()
+    tagged_variants    = channel.empty()
+    stratified_reports = channel.empty()
 
     if (params.method.contains('rtgtools')){
 
@@ -114,8 +115,9 @@ workflow SMALL_BENCHMARK {
                 stratification_bed,
                 stratification_tsv
             )
-            summary_reports = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
-            tagged_variants = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
+            summary_reports    = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
+            tagged_variants    = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
+            stratified_reports = stratified_reports.mix(HAPPY_BENCHMARK.out.stratified_reports)
         }
 
         if (params.method.contains('sompy') && params.analysis == "somatic"){
@@ -135,5 +137,6 @@ workflow SMALL_BENCHMARK {
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
     tagged_variants_csv // channel: [val(meta), csvs]
+    stratified_reports  // channel: [val(meta), [csv_meta], [csvs]]
 
 }
