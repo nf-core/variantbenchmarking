@@ -90,6 +90,11 @@
                         "git_sha": "59697ca2f109700926f11a1718efcb3ce5b99ed4",
                         "installed_by": ["modules"]
                     },
+                    "happy/report": {
+                        "branch": "master",
+                        "git_sha": "6203cd45b65eebb5658fbcf401adb45c0788dc8a",
+                        "installed_by": ["modules"]
+                    },
                     "happy/sompy": {
                         "branch": "master",
                         "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",

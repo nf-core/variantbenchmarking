@@ -53,6 +53,12 @@ workflow HAPPY_BENCHMARK {
         .groupTuple()
         .set{ summary_reports }
 
+    // collect the roc csv files with the stratified results, labelled per sample and caller
+    HAPPY_HAPPY.out.roc_all_csv
+        .map { meta, csv -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"] + [id: "happy"], [method: "${meta.id}-${meta.caller}"], csv) }
+        .groupTuple()
+        .set { stratified_reports }
+
     // Subsample TRUTH column from happy results
     BCFTOOLS_VIEW_TRUTH(
         HAPPY_HAPPY.out.vcf.join(HAPPY_HAPPY.out.tbi),
@@ -130,6 +136,7 @@ workflow HAPPY_BENCHMARK {
 
     emit:
     summary_reports // channel: [val(meta), reports]
-    tagged_variants // channel: [val(meta), vcfs]
+    stratified_reports // channel: [val(meta), [csv_meta], [roc.all.csv.gz]]
+    tagged_variants    // channel: [val(meta), vcfs]
 
 }

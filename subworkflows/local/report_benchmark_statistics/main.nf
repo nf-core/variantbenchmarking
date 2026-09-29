@@ -7,12 +7,14 @@ include { PLOTS_METRICS         } from '../../../modules/local/plots/metrics'
 include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
 include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
 include { GAWK as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/gawk'
+include { HAPPY_REPORT          } from '../../../modules/nf-core/happy/report'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
-    reports         // channel: [meta, report1, report2, ...]
-    evaluations     // channel: [val(meta), vcf.gz, index]
-    evaluations_csv // channel: [val(meta), csv]
+    reports            // channel: [meta, report1, report2, ...]
+    evaluations        // channel: [val(meta), vcf.gz, index]
+    evaluations_csv    // channel: [val(meta), csv]
+    stratified_reports // channel: [val(meta), [csv_meta1, csv_meta2, ...], [roc.all.csv.gz1, roc.all.csv.gz2, ...]]
 
     main:
 
@@ -79,7 +81,13 @@ workflow REPORT_BENCHMARK_STATISTICS {
         clean_datavzrd_input_ch.join(summary)
     )
 
+    // generate interactive HTML report from stratified hap.py results
+    HAPPY_REPORT(
+        stratified_reports
+    )
+
     emit:
     ch_plots        // channel: [ plots.html ]
     merged_reports  // channel: [ meta, summary.csv]
+    happy_report = HAPPY_REPORT.out.html // channel: [ meta, report.html ]
 }

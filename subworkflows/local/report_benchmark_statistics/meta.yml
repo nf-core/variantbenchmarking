@@ -1,5 +1,5 @@
 name: "report_benchmark_statistics"
-description: "Subworkflow to merge benchmark reports, generate metrics plots, SV length distributions, and Datavzrd interactive HTML reports."
+description: "Subworkflow to merge benchmark reports, generate metrics plots, SV length distributions, Datavzrd interactive HTML reports and hap.py stratified HTML reports."
 keywords:
   - benchmark
   - report
@@ -12,6 +12,7 @@ components:
   - nf-core/datavzrd
   - local/plots/svlen_dist
   - nf-core/cat/cat
+  - nf-core/happy/report
 input:
   - - meta:
         type: map
@@ -38,6 +39,16 @@ input:
         type: file
         description: Evaluated CSV file for SV length distributions.
         pattern: "*.csv"
+  - - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - csv_meta:
+        type: list
+        description: List of Groovy Maps, one per ROC CSV file, holding the label (`method`) used for that file in the report.
+    - roc_csv:
+        type: file
+        description: Stratified hap.py ROC results of all test VCFs.
+        pattern: "*.roc.all.csv.gz"
 output:
   ch_plots:
     - meta:
@@ -55,6 +66,14 @@ output:
         type: file
         description: Merged summary statistics report.
         pattern: "*.csv"
+  happy_report:
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - html:
+        type: file
+        description: Standalone interactive HTML report of the stratified hap.py results.
+        pattern: "*.html"
 authors:
   - "@kubranarci"
 maintainers:
