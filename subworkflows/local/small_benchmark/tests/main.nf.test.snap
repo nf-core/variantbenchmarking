@@ -63,7 +63,8 @@
                         },
                         [
                             {
-                                "method": "test_happy-haplotypecaller"
+                                "method": "test_happy-haplotypecaller",
+                                "comparison_method": "default"
                             }
                         ],
                         [
@@ -80,7 +81,8 @@
                         },
                         [
                             {
-                                "method": "test_happy-haplotypecaller"
+                                "method": "test_happy-haplotypecaller",
+                                "comparison_method": "default"
                             }
                         ],
                         [
@@ -142,7 +144,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-28T15:15:53.491676747",
+        "timestamp": "2026-09-30T10:50:06.57575957",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -326,7 +328,8 @@
                     },
                     [
                         {
-                            "method": "test_happy-haplotypecaller"
+                            "method": "test_happy-haplotypecaller",
+                            "comparison_method": "default"
                         }
                     ],
                     [
@@ -338,7 +341,7 @@
                 
             }
         ],
-        "timestamp": "2026-09-28T15:14:34.201990747",
+        "timestamp": "2026-09-30T10:48:32.964992069",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
