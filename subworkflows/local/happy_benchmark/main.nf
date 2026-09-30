@@ -55,7 +55,10 @@ workflow HAPPY_BENCHMARK {
 
     // collect the roc csv files with the stratified results, labelled per sample and caller
     HAPPY_HAPPY.out.roc_all_csv
-        .map { meta, csv -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"] + [id: "happy"], [method: "${meta.id}-${meta.caller}"], csv) }
+        .map { meta, csv ->
+            def csv_meta = [method: "${meta.id}-${meta.caller}", comparison_method: params.happy_comparison_engine]
+            tuple([vartype: params.variant_type] + [benchmark_tool: "happy"] + [id: "happy"], csv_meta, csv)
+        }
         .groupTuple()
         .set { stratified_reports }
 

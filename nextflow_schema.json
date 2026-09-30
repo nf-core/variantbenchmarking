@@ -55,6 +55,15 @@
                     "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect|bndeval|concordance|aardvark)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
+                "happy_comparison_engine": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Comparison engine used by hap.py to match test variants against the truth set.",
+                    "help_text": "Only used for germline small variant benchmarking with `--method happy`. `default` keeps the hap.py default (`xcmp`). `vcfeval` uses RTG Tools vcfeval for haplotype-aware matching, as recommended by the GA4GH benchmarking best practices. `scmp-somatic` and `scmp-distance` perform allele-level and distance-based matching respectively.",
+                    "enum": ["default", "xcmp", "vcfeval", "scmp-somatic", "scmp-distance"],
+                    "errorMessage": "A wrong input has been detected. Should be one of the following options: default, xcmp, vcfeval, scmp-somatic or scmp-distance",
+                    "fa_icon": "fas fa-cogs"
+                },
                 "regions_bed": {
                     "type": "string",
                     "format": "file-path",
