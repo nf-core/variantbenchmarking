@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Georgia as contributor [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
 - Template update for nf-core/tools v4.1.0 [#322](https://github.com/nf-core/variantbenchmarking/pull/322).
 - Adding nf-core HAPPY_REPORT module to generate a standalone interactive HTML report from the stratified hap.py results (`*.roc.all.csv.gz`) of all test VCFs, for germline small variant benchmarks. [#326](https://github.com/nf-core/variantbenchmarking/pull/326)
-- `happy_comparison_engine` parameter to choose the hap.py comparison engine (`default`, `xcmp`, `vcfeval`, `scmp-somatic`, `scmp-distance`). The chosen engine is also passed to HAPPY_REPORT as `comparison_method`. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
+- `happy_comparison_engine` parameter to choose the hap.py comparison engine (`default`, `xcmp`, `vcfeval`). The `scmp-somatic` and `scmp-distance` engines are not supported because of unresolved issues in hap.py ([Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)). The chosen engine is also passed to HAPPY_REPORT as `comparison_method`. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 - hap.py now uses a Seqera container that bundles RTG Tools, so `--happy_comparison_engine vcfeval` works without a custom container. The `test_ga4gh` profile now uses the parameter instead of a process override. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 
 ### `Fixed`

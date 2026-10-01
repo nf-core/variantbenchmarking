@@ -59,9 +59,9 @@
                     "type": "string",
                     "default": "default",
                     "description": "Comparison engine used by hap.py to match test variants against the truth set.",
-                    "help_text": "Only used for germline small variant benchmarking with `--method happy`. `default` keeps the hap.py default (`xcmp`). `vcfeval` uses RTG Tools vcfeval for haplotype-aware matching, as recommended by the GA4GH benchmarking best practices. `scmp-somatic` and `scmp-distance` perform allele-level and distance-based matching respectively.",
-                    "enum": ["default", "xcmp", "vcfeval", "scmp-somatic", "scmp-distance"],
-                    "errorMessage": "A wrong input has been detected. Should be one of the following options: default, xcmp, vcfeval, scmp-somatic or scmp-distance",
+                    "help_text": "Only used for germline small variant benchmarking with `--method happy`. `default` keeps the hap.py default (`xcmp`). `vcfeval` uses RTG Tools vcfeval for haplotype-aware matching, as recommended by the GA4GH benchmarking best practices. `scmp-somatic` and `scmp-distance` are not currently supported because of unresolved issues with the hap.py implementation of these engines. https://github.com/Illumina/hap.py/issues/181",
+                    "enum": ["default", "xcmp", "vcfeval"],
+                    "errorMessage": "A wrong input has been detected. Should be one of the following options: default, xcmp or vcfeval",
                     "fa_icon": "fas fa-cogs"
                 },
                 "regions_bed": {

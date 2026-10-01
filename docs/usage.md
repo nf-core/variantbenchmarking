@@ -265,8 +265,8 @@ The comparison engine used by hap.py can be set with `--happy_comparison_engine`
 | `default` (default) | hap.py default, `xcmp`                                                          |
 | `xcmp`              | hap.py's built-in haplotype comparison                                          |
 | `vcfeval`           | RTG Tools vcfeval, as recommended by the GA4GH small variant benchmarking guide |
-| `scmp-somatic`      | allele-level matching of the ALT alleles, ignoring genotypes                    |
-| `scmp-distance`     | distance-based matching of variant positions                                    |
+
+The hap.py `scmp-somatic` and `scmp-distance` engines are not currently supported because of unresolved issues with their implementation in hap.py (see [Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)).
 
 The hap.py container ships with RTG Tools, so `--happy_comparison_engine=vcfeval` needs no extra container configuration. Check conf/tests/test_ga4gh.config for an example of running hap.py with vcfeval following the GA4GH best practices.
 
