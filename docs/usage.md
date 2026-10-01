@@ -258,7 +258,17 @@ Example cmd:
 - ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
 - ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
-Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
+The comparison engine used by hap.py can be set with `--happy_comparison_engine`:
+
+| Value               | hap.py engine                                                                   |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `default` (default) | hap.py default, `xcmp`                                                          |
+| `xcmp`              | hap.py's built-in haplotype comparison                                          |
+| `vcfeval`           | RTG Tools vcfeval, as recommended by the GA4GH small variant benchmarking guide |
+
+The hap.py `scmp-somatic` and `scmp-distance` engines are not currently supported because of unresolved issues with their implementation in hap.py (see [Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)).
+
+The hap.py container ships with RTG Tools, so `--happy_comparison_engine=vcfeval` needs no extra container configuration. Check conf/tests/test_ga4gh.config for an example of running hap.py with vcfeval following the GA4GH best practices.
 
 - _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy and rtgtools while aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 

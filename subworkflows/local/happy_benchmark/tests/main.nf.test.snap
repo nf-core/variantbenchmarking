@@ -61,7 +61,8 @@
                     },
                     [
                         {
-                            "method": "test-gatk"
+                            "method": "test-gatk",
+                            "comparison_method": "default"
                         }
                     ],
                     [
@@ -73,7 +74,7 @@
                 
             }
         ],
-        "timestamp": "2026-09-28T15:17:00.897108202",
+        "timestamp": "2026-09-30T10:24:58.019202233",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -102,7 +103,8 @@
                         },
                         [
                             {
-                                "method": "test-gatk"
+                                "method": "test-gatk",
+                                "comparison_method": "default"
                             }
                         ],
                         [
@@ -157,7 +159,8 @@
                         },
                         [
                             {
-                                "method": "test-gatk"
+                                "method": "test-gatk",
+                                "comparison_method": "default"
                             }
                         ],
                         [
@@ -216,7 +219,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-28T15:17:21.509437176",
+        "timestamp": "2026-09-30T10:25:10.774623175",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

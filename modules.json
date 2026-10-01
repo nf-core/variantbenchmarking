@@ -88,7 +88,8 @@
                     "happy/happy": {
                         "branch": "master",
                         "git_sha": "59697ca2f109700926f11a1718efcb3ce5b99ed4",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/happy/happy/happy-happy.diff"
                     },
                     "happy/report": {
                         "branch": "master",
