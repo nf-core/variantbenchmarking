@@ -8,8 +8,7 @@
                             "id": "test",
                             "caller": "manta"
                         },
-                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "simulated_sv.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ],
                 "vcf_ch": [
@@ -18,16 +17,15 @@
                             "id": "test",
                             "caller": "manta"
                         },
-                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "simulated_sv.bnd.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "simulated_sv.bnd.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-24T15:42:01.274705513",
+        "timestamp": "2026-10-01T14:05:25.402006499",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "convert sv vcf with variant_extractor": {
@@ -41,17 +39,19 @@
                     "test_test2_paired_mutect2_calls.variantextract.extracted.sort.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=40, phased=false, phasedAutodetect=false]",
                     "f38d3ef295c500a413df6b746b36a356",
-                    "test_test2_paired_mutect2_calls.variantextract.extracted.sort.vcf.gz.tbi"
+                    [
+                        
+                    ]
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-24T15:17:16.375225624",
+        "timestamp": "2026-10-01T14:04:35.750469591",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "convert sv vcf with svtk": {
@@ -65,17 +65,19 @@
                     "simulated_sv.svtk.sort.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
                     "13fa9c5c4602821e2b4c37cce28b6978",
-                    "simulated_sv.svtk.sort.vcf.gz.tbi"
+                    [
+                        
+                    ]
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-24T15:41:07.358091187",
+        "timestamp": "2026-10-01T14:04:49.061518529",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "convert sv vcf with svync": {
@@ -98,10 +100,10 @@
                 
             }
         ],
-        "timestamp": "2026-03-24T15:41:43.888871138",
+        "timestamp": "2026-10-01T13:47:14.79330657",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "convert sv vcf with svdecompose": {
@@ -115,17 +117,19 @@
                     "simulated_sv.bnd.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=364, phased=false, phasedAutodetect=false]",
                     "7a5371e54a73f38141af063ab397807d",
-                    "simulated_sv.bnd.vcf.gz.tbi"
+                    [
+                        
+                    ]
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-24T15:41:28.284230877",
+        "timestamp": "2026-10-01T14:05:02.812747584",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     }
 }

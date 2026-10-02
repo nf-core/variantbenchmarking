@@ -16,10 +16,10 @@
                 
             }
         ],
-        "timestamp": "2026-03-25T10:09:43.423481154",
+        "timestamp": "2026-10-01T13:29:11.197619509",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "ensemble structural variants": {
@@ -68,10 +68,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-03-19T12:33:07.154776978",
+        "timestamp": "2026-10-01T13:29:42.532863474",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     }
 }

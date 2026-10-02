@@ -69,6 +69,10 @@
                 "HAPPY_REPORT": {
                     "ga4gh-happy-report": "0.1.2"
                 },
+                "HTSLIB_BGZIPTABIX": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
@@ -91,11 +95,8 @@
                     "rtgtools": 3.13
                 },
                 "TABIX_BGZIPTABIX": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX": {
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -432,7 +433,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,ccc59737c476e1f77dcef59c50d0e56a"
             ]
         ],
-        "timestamp": "2026-09-28T14:50:38.785887301",
+        "timestamp": "2026-10-02T11:37:30.484164952",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -508,6 +509,10 @@
                 "HAPPY_REPORT": {
                     "ga4gh-happy-report": "0.1.2"
                 },
+                "HTSLIB_BGZIPTABIX": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
@@ -530,11 +535,8 @@
                     "rtgtools": 3.13
                 },
                 "TABIX_BGZIPTABIX": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX": {
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -782,7 +784,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-28T14:54:13.098778486",
+        "timestamp": "2026-10-02T11:41:45.377527609",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

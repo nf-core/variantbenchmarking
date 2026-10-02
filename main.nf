@@ -16,8 +16,8 @@
 */
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_variantbenchmarking_pipeline'
 
-params.fasta = getGenomeAttribute('fasta')
-params.fai   = getGenomeAttribute('fai')
+params.fasta      = getGenomeAttribute('fasta')
+params.fai        = getGenomeAttribute('fai')
 params.dictionary = getGenomeAttribute('dict')
 
 /*
@@ -38,7 +38,6 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_vari
 
 // WORKFLOW: Run main nf-core/variantbenchmarking analysis pipeline
 workflow NFCORE_VARIANTBENCHMARKING {
-
     take:
     samplesheet
 
@@ -47,13 +46,14 @@ workflow NFCORE_VARIANTBENCHMARKING {
     //
     // WORKFLOW: Run pipeline
     //
-    VARIANTBENCHMARKING (
+    VARIANTBENCHMARKING(
         samplesheet,
         params.multiqc_config,
         params.multiqc_logo,
         params.multiqc_methods_description,
         params.outdir,
     )
+
     emit:
     multiqc_report = VARIANTBENCHMARKING.out.multiqc_report // channel: /path/to/multiqc_report.html
 }
@@ -65,12 +65,10 @@ workflow NFCORE_VARIANTBENCHMARKING {
 */
 
 workflow {
-
-    main:
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
-    PIPELINE_INITIALISATION (
+    PIPELINE_INITIALISATION(
         params.version,
         params.validate_params,
         params.monochrome_logs,
@@ -79,30 +77,24 @@ workflow {
         params.input,
         params.help,
         params.help_full,
-        params.show_hidden
+        params.show_hidden,
     )
 
     //
     // WORKFLOW: Run main workflow
     //
-    NFCORE_VARIANTBENCHMARKING (
+    NFCORE_VARIANTBENCHMARKING(
         PIPELINE_INITIALISATION.out.samplesheet
     )
     //
     // SUBWORKFLOW: Run completion tasks
     //
-    PIPELINE_COMPLETION (
+    PIPELINE_COMPLETION(
         params.email,
         params.email_on_fail,
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
-        NFCORE_VARIANTBENCHMARKING.out.multiqc_report
+        NFCORE_VARIANTBENCHMARKING.out.multiqc_report,
     )
 }
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/

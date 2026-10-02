@@ -37,10 +37,10 @@
                 ]
             ]
         ],
-        "timestamp": "2026-04-21T13:20:33.247931319",
+        "timestamp": "2026-10-01T13:31:08.903622788",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "prepare small variants - full preprocess": {
