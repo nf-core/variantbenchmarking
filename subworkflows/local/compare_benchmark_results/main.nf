@@ -14,10 +14,10 @@ include { PLOTS_UPSET                            } from '../../../modules/local/
 
 workflow COMPARE_BENCHMARK_RESULTS {
     take:
-    evaluations     // channel: [val(meta), vcf.gz, index]
+    evaluations // channel: [val(meta), vcf.gz, index]
     evaluations_csv // channel: [val(meta), csv]
-    fasta           // reference channel [val(meta), ref.fa]
-    fai             // reference channel [val(meta), ref.fa.fai]
+    fasta // reference channel [val(meta), ref.fa]
+    fai // reference channel [val(meta), ref.fa.fai]
 
     main:
     merged_vcfs = channel.empty()
@@ -34,7 +34,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
         // meta is shared by all test vcfs of a tool and tag, add the file name so each vcf joins with its own index
         TABIX_BGZIPTABIX(
-            REFORMAT_HEADER.out.output.map { meta, vcf -> [meta, vcf, [], []] },
+            REFORMAT_HEADER.out.output.map { meta, vcf -> [meta + [vcf_name: vcf.name], vcf, [], []] },
             'compress',
             true,
             'vcf'
@@ -44,9 +44,8 @@ workflow COMPARE_BENCHMARK_RESULTS {
         BCFTOOLS_MERGE(
             TABIX_BGZIPTABIX.out.output
                 .join(TABIX_BGZIPTABIX.out.index, failOnDuplicate: true, failOnMismatch: true)
-                .map { meta, vcf, tbi -> [meta, [vcf, tbi] ] }
-                .groupBy()
-                .map { meta, vcf_tbi_list -> [meta, vcf_tbi_list.collect { it -> it[0] }, vcf_tbi_list.collect { it -> it[1] }] },
+                .map { meta, vcf, tbi -> [meta.findAll { key, _value -> key != 'vcf_name' }, vcf, tbi] }
+                .groupTuple(),
             fasta,
             fai,
             [[], []],
