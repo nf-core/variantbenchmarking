@@ -366,7 +366,7 @@
                         "tag": "FP",
                         "id": "aardvark"
                     },
-                    "test_aardvark.HG002.haplotypecaller.query.filter.vcf.gz",
+                    "test_aardvark.HG002.haplotypecaller.query.bgzip.filter.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -376,7 +376,7 @@
                         "tag": "TP_base",
                         "id": "aardvark"
                     },
-                    "test_aardvark.HG002.haplotypecaller.query.filter.vcf.gz",
+                    "test_aardvark.HG002.haplotypecaller.query.bgzip.filter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=737, phased=false, phasedAutodetect=false]",
                     "f0673c99f58b46ff264ff39bc3bdada2"
                 ],
@@ -406,10 +406,10 @@
                 
             }
         ],
-        "timestamp": "2026-07-15T11:06:07.777636742",
+        "timestamp": "2026-10-02T11:56:32.593627739",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "somatic small variants rtgtools": {
