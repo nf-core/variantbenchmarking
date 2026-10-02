@@ -16,10 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding nf-core HAPPY_REPORT module to generate a standalone interactive HTML report from the stratified hap.py results (`*.roc.all.csv.gz`) of all test VCFs, for germline small variant benchmarks. [#326](https://github.com/nf-core/variantbenchmarking/pull/326)
 - `happy_comparison_engine` parameter to choose the hap.py comparison engine (`default`, `xcmp`, `vcfeval`). The `scmp-somatic` and `scmp-distance` engines are not supported because of unresolved issues in hap.py ([Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)). The chosen engine is also passed to HAPPY_REPORT as `comparison_method`. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 - hap.py now uses a Seqera container that bundles RTG Tools, so `--happy_comparison_engine vcfeval` works without a custom container. The `test_ga4gh` profile now uses the parameter instead of a process override. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
+- Replace nf-core modules TABIX_TABIX, TABIX_BGZIP and TABIX_BGZIPTABIX with HTSLIB_BGZIPTABIX [#328](https://github.com/nf-core/variantbenchmarking/pull/328).
 
 ### `Fixed`
 
-- Depreciated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
+- Deprecated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
 - Fixing metromap to light to dark background. Adding docs/images/metro_map.md to assist future developers to reproduce the metromap. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
 - Update happy module to use both -R and -f arguments.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 - Fixing regions_bed vs high_conf_bed confusion.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
@@ -31,13 +32,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency         | Old version | New version |
 | ------------------ | ----------- | ----------- |
-| pigz               | 2.8         | depreciated |
+| pigz               | 2.8         | deprecated  |
 | nf-core            | 3.5.1       | 4.1.0       |
 | prettier           | 3.6.2       | 3.8.3       |
-| prepy              | 0.3.15      | depreciated |
-| r-base             | 4.1.0       | depreciated |
+| prepy              | 0.3.15      | deprecated  |
+| r-base             | 4.1.0       | deprecated  |
 | ga4gh-happy-report | -           | 0.1.2       |
 | rtg-tools (hap.py) | -           | 3.13        |
+| tabix              | 1.21        | deprecated  |
+| htslib             | -           | 1.24        |
+| xz                 | -           | 5.8.3       |
 
 ## 1.5.0
 

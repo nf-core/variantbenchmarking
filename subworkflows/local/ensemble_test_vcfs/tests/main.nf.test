@@ -14,9 +14,8 @@ nextflow_workflow {
     tag "survivor"
     tag "survivor/merge"
     tag "gawk"
-    tag "tabix"
-    tag "tabix/bgzip"
-    tag "tabix/bgziptabix"
+    tag "htslib"
+    tag "htslib/bgziptabix"
 
     test("ensemble small variants") {
 
