@@ -43,7 +43,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
         // merge small variants
         BCFTOOLS_MERGE(
             TABIX_BGZIPTABIX.out.output
-                .join(TABIX_BGZIPTABIX.out.index, failOnDuplicate: true, failOnMismatch: true)
+                .join(TABIX_BGZIPTABIX.out.index, failOnMismatch: true)
                 .groupTuple(),
             fasta,
             fai,
