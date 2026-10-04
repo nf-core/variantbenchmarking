@@ -31,16 +31,16 @@ def extract_gt_from_sample(sample, format_field):
     return './.'
 
 def vcf_to_csv(vcf_file, csv_file):
-    with open(vcf_file, 'r') as vcf:
-        headers = []
-        sample_headers = []
-        records = []
-        include_supp_vec = False
-        include_supp = False
-        include_type_inferred = False
-        include_svtype = False
-        include_svlen = False
+    headers = []
+    sample_headers = []
+    include_supp_vec = False
+    include_supp = False
+    include_type_inferred = False
+    include_svtype = False
+    include_svlen = False
 
+    # Pass 1: header and optional-column flags only, no records kept
+    with open(vcf_file, 'r') as vcf:
         for line in vcf:
             if line.startswith('##'):
                 continue
@@ -48,8 +48,7 @@ def vcf_to_csv(vcf_file, csv_file):
                 headers = line[1:].strip().split('\t')
                 sample_headers = headers[9:]  # The sample headers start from the 10th column
             else:
-                row = line.strip().split('\t')
-                info_dict = parse_info_field(row[7])
+                info_dict = parse_info_field(line.strip().split('\t')[7])
 
                 # Check for SUPP_VEC, SUPP, type_inferred, SVTYPE, and SVLEN in the INFO field
                 if 'SUPP_VEC' in info_dict:
@@ -63,43 +62,46 @@ def vcf_to_csv(vcf_file, csv_file):
                 if 'SVLEN' in info_dict:
                     include_svlen = True
 
-                records.append((row, info_dict))
+    # Write the header with optional fields
+    headers_to_write = headers[:7]  # Only keep CHROM, POS, ID, REF, ALT, QUAL, FILTER
+    if include_supp_vec:
+        headers_to_write.append("SUPP_VEC")
+    if include_supp:
+        headers_to_write.append("SUPP")
+    if include_type_inferred:
+        headers_to_write.append("type_inferred")
+    if include_svtype:
+        headers_to_write.append("SVTYPE")
+    if include_svlen:
+        headers_to_write.append("SVLEN")
+    headers_to_write.extend([f'{sample}_GT' for sample in sample_headers])
 
-        # Write the header with optional fields
-        headers_to_write = headers[:7]  # Only keep CHROM, POS, ID, REF, ALT, QUAL, FILTER
-        if include_supp_vec:
-            headers_to_write.append("SUPP_VEC")
-        if include_supp:
-            headers_to_write.append("SUPP")
-        if include_type_inferred:
-            headers_to_write.append("type_inferred")
-        if include_svtype:
-            headers_to_write.append("SVTYPE")
-        if include_svlen:
-            headers_to_write.append("SVLEN")
-        headers_to_write.extend([f'{sample}_GT' for sample in sample_headers])
+    # Pass 2: write one record at a time
+    with open(vcf_file, 'r') as vcf, open(csv_file, 'w', newline='') as csvf:
+        csv_writer = csv.writer(csvf)
+        csv_writer.writerow(headers_to_write)
 
-        with open(csv_file, 'w', newline='') as csvf:
-            csv_writer = csv.writer(csvf)
-            csv_writer.writerow(headers_to_write)
+        for line in vcf:
+            if line.startswith('#'):
+                continue
+            row = line.strip().split('\t')
+            info_dict = parse_info_field(row[7])
+            row_to_write = row[:7]
+            if include_supp_vec:
+                row_to_write.append(info_dict.get('SUPP_VEC', ''))
+            if include_supp:
+                row_to_write.append(info_dict.get('SUPP', ''))
+            if include_type_inferred:
+                row_to_write.append(info_dict.get('type_inferred', ''))
+            if include_svtype:
+                row_to_write.append(info_dict.get('SVTYPE', ''))
+            if include_svlen:
+                row_to_write.append(info_dict.get('SVLEN', ''))
+            format_field = row[8]
+            gt_values = [extract_gt_from_sample(sample, format_field) for sample in row[9:]]
+            row_to_write.extend(gt_values)
 
-            for row, info_dict in records:
-                row_to_write = row[:7]
-                if include_supp_vec:
-                    row_to_write.append(info_dict.get('SUPP_VEC', ''))
-                if include_supp:
-                    row_to_write.append(info_dict.get('SUPP', ''))
-                if include_type_inferred:
-                    row_to_write.append(info_dict.get('type_inferred', ''))
-                if include_svtype:
-                    row_to_write.append(info_dict.get('SVTYPE', ''))
-                if include_svlen:
-                    row_to_write.append(info_dict.get('SVLEN', ''))
-                format_field = row[8]
-                gt_values = [extract_gt_from_sample(sample, format_field) for sample in row[9:]]
-                row_to_write.extend(gt_values)
-
-                csv_writer.writerow(row_to_write)
+            csv_writer.writerow(row_to_write)
 
 if __name__ == '__main__':
 
