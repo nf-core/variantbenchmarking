@@ -213,6 +213,8 @@
                 "structural/test11/preprocess",
                 "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
                 "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.vcf.gz",
+                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.vcf.gz.tbi",
                 "structural/test11/stats",
                 "structural/test11/stats/bcftools",
                 "structural/test11/stats/bcftools/test11.manta.bcftools_stats.txt",
@@ -233,6 +235,8 @@
                 "structural/test12/preprocess",
                 "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
                 "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.vcf.gz",
+                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.vcf.gz.tbi",
                 "structural/test12/stats",
                 "structural/test12/stats/bcftools",
                 "structural/test12/stats/bcftools/test12.tiddit.bcftools_stats.txt",
@@ -257,10 +261,10 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-10-01T15:51:16.867984533",
+        "timestamp": "2026-10-03T22:56:36.477510875",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "25.10.4"
         }
     }
 }
