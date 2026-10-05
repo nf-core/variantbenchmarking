@@ -12,8 +12,8 @@ include { BCFTOOLS_SORT as BCFTOOLS_SORT2 } from '../../../modules/nf-core/bcfto
 
 workflow SV_VCF_CONVERSIONS {
     take:
-    input_ch // channel: [val(meta), vcf]
-    fai // reference channel [val(meta), ref.fa.fai]
+    input_ch    // channel: [val(meta), vcf]
+    fai         // reference channel [val(meta), ref.fa.fai]
 
     main:
 

@@ -9,7 +9,7 @@ include { HTSLIB_BGZIPTABIX as TABIX_BGZIPTABIX_INDEL } from '../../../modules/n
 
 workflow SPLIT_SMALL_VARIANTS_TEST {
     take:
-    input_ch // channel: [val(meta), vcf, index]
+    input_ch    // channel: [val(meta), vcf, index]
 
     main:
 

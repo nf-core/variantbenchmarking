@@ -13,13 +13,13 @@ include { HTSLIB_BGZIPTABIX as TABIX_BGZIPTABIX } from '../../../modules/nf-core
 
 workflow LIFTOVER_VCFS {
     take:
-    ch_vcf // channel: [val(meta), vcf]
-    ch_bed // channel: [bed]
-    ch_targets_bed // channel: [bed]
-    fasta // reference channel [val(meta), ref.fa]
-    chain // chain channel [val(meta), chain.gz]
-    rename_chr // reference channel [val(meta), chrlist.txt]
-    dictionary // reference channel [val(meta), genome.dict]
+    ch_vcf          // channel: [val(meta), vcf]
+    ch_bed          // channel: [bed]
+    ch_targets_bed  // channel: [bed]
+    fasta           // reference channel [val(meta), ref.fa]
+    chain           // chain channel [val(meta), chain.gz]
+    rename_chr      // reference channel [val(meta), chrlist.txt]
+    dictionary      // reference channel [val(meta), genome.dict]
 
     main:
 
@@ -84,7 +84,7 @@ workflow LIFTOVER_VCFS {
         .set { bed_ch }
 
     emit:
-    vcf_ch // channel: [val(meta), vcf.gz]
-    bed_ch // channel: [val(meta), bed]
-    targets_ch // channel: [val(meta), bed]
+    vcf_ch      // channel: [val(meta), vcf.gz]
+    bed_ch      // channel: [val(meta), bed]
+    targets_ch  // channel: [val(meta), bed]
 }

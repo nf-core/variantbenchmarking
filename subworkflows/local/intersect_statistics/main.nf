@@ -9,7 +9,7 @@ include { HTSLIB_BGZIPTABIX as TABIX_BGZIP } from '../../../modules/nf-core/htsl
 
 workflow INTERSECT_STATISTICS {
     take:
-    test // channel: [val(meta), vcf, regions]
+    test             // channel: [val(meta), vcf, regions]
     truth_regions // channel: [truth bed]
 
     main:
@@ -42,7 +42,7 @@ workflow INTERSECT_STATISTICS {
         test_beds_ch = test_beds_ch.mix(converted_beds)
     }
 
-    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel") {
+   if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
         // unzip vcf.gz file
         TABIX_BGZIP(

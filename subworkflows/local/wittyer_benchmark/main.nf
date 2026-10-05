@@ -8,7 +8,7 @@ include { HTSLIB_BGZIPTABIX as TABIX_BGZIP_TRUTH } from '../../../modules/nf-cor
 
 workflow WITTYER_BENCHMARK {
     take:
-    input_ch // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targets_bed ]
+    input_ch  // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targets_bed ]
 
     main:
 

@@ -21,9 +21,9 @@ workflow COMPARE_BENCHMARK_RESULTS {
 
     main:
     merged_vcfs = channel.empty()
-    ch_plots = channel.empty()
+    ch_plots    = channel.empty()
 
-    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel") {
+if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
         // Small Variants
         REFORMAT_HEADER(
@@ -32,7 +32,7 @@ workflow COMPARE_BENCHMARK_RESULTS {
             false,
         )
 
-        // meta is shared by all test vcfs of a tool and tag, add the file name so each vcf joins with its own index
+
         TABIX_BGZIPTABIX(
             REFORMAT_HEADER.out.output.map { meta, vcf -> [meta, vcf, [], []] },
             'compress',
@@ -104,6 +104,6 @@ workflow COMPARE_BENCHMARK_RESULTS {
     }
 
     emit:
-    merged_vcfs // channel: [val(meta), vcf]
-    ch_plots // channel: [val(meta), .html]
+    merged_vcfs  // channel: [val(meta), vcf]
+    ch_plots     // channel: [val(meta), .html]
 }

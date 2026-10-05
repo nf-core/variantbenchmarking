@@ -19,12 +19,12 @@ include { BCFTOOLS_ANNOTATE as BCFTOOLS_RENAME_CHRS    } from '../../../modules/
 
 workflow PREPARE_VCFS_TEST {
     take:
-    test_ch // channel: [val(meta), vcf]
-    fasta // reference channel [val(meta), ref.fa]
-    fai // reference channel [val(meta), ref.fa.fai]
-    chain // reference channel [val(meta), chain.gz]
-    rename_chr // reference channel [val(meta), chrlist.txt]
-    dictionary // reference channel [val(meta), genome.dict]
+    test_ch     // channel: [val(meta), vcf]
+    fasta       // reference channel [val(meta), ref.fa]
+    fai         // reference channel [val(meta), ref.fa.fai]
+    chain       // reference channel [val(meta), chain.gz]
+    rename_chr  // reference channel [val(meta), chrlist.txt]
+    dictionary  // reference channel [val(meta), genome.dict]
 
     main:
 

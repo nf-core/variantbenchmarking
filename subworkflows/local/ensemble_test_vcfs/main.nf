@@ -16,9 +16,9 @@ include { BCFTOOLS_ANNOTATE as BCFTOOLS_UNIFY_HEADER  } from '../../../modules/n
 
 workflow ENSEMBLE_TEST_VCFS {
     take:
-    test_vcfs // channel: [val(meta), vcf.gz, index]
-    fasta // reference channel [val(meta), ref.fa]
-    fai // reference channel [val(meta), ref.fa.fai]
+    test_vcfs       // channel: [val(meta), vcf.gz, index]
+    fasta           // reference channel [val(meta), ref.fa]
+    fai             // reference channel [val(meta), ref.fa.fai]
 
     main:
 
@@ -49,7 +49,7 @@ workflow ENSEMBLE_TEST_VCFS {
         false,
     )
 
-    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel") {
+    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
 
         TABIX_BGZIPTABIX_GT(
             INJECT_MISSING_GT.out.output.map { meta, vcf -> [meta, vcf, [], []] },
