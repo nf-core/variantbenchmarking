@@ -1,7 +1,7 @@
 {
     "Params: --analysis 'germline' --variant_type 'structural' --method 'svanalyzer'": {
         "content": [
-            73,
+            70,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -61,10 +61,8 @@
                     "svanalyzer": 0.36
                 },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_2": {
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -237,15 +235,15 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-09-18T13:28:49.188118653",
+        "timestamp": "2026-10-01T15:00:45.693728379",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     },
     "-stub": {
         "content": [
-            73,
+            70,
             {
                 "BCFTOOLS_DEDUP": {
                     "bcftools": 1.22
@@ -305,10 +303,8 @@
                     "svanalyzer": 0.36
                 },
                 "TABIX_BGZIP_UNZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_2": {
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -436,10 +432,10 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-18T16:34:03.788580397",
+        "timestamp": "2026-10-01T15:08:43.763758315",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     }
 }

@@ -2,9 +2,9 @@
 // WITTYER_BENCHMARK: SUBWORKFLOW FOR BENCHMARKING SV VARIANTS WITH WITTYER
 //
 
-include { WITTYER    } from '../../../modules/nf-core/wittyer'
-include { TABIX_BGZIP as TABIX_BGZIP_QUERY  } from '../../../modules/nf-core/tabix/bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_TRUTH  } from '../../../modules/nf-core/tabix/bgzip'
+include { WITTYER                                } from '../../../modules/nf-core/wittyer'
+include { HTSLIB_BGZIPTABIX as TABIX_BGZIP_QUERY } from '../../../modules/nf-core/htslib/bgziptabix'
+include { HTSLIB_BGZIPTABIX as TABIX_BGZIP_TRUTH } from '../../../modules/nf-core/htslib/bgziptabix'
 
 workflow WITTYER_BENCHMARK {
     take:
@@ -13,19 +13,26 @@ workflow WITTYER_BENCHMARK {
     main:
 
     TABIX_BGZIP_QUERY(
-        input_ch.map { meta, vcf, _tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-            [ meta, vcf ]
-        }
+        input_ch.map { meta, vcf, tbi, _truth_vcf, _truth_tbi, _bed, _targets_bed ->
+            [meta, vcf, tbi, []]
+        },
+        'decompress',
+        false,
+        'vcf',
     )
 
     TABIX_BGZIP_TRUTH(
-        input_ch.map { meta, _vcf, _tbi, truth_vcf, _truth_tbi, _bed, _targets_bed  ->
-            [ meta, truth_vcf ]
-        }
+        input_ch.map { meta, _vcf, _tbi, truth_vcf, truth_tbi, _bed, _targets_bed ->
+            [meta, truth_vcf, truth_tbi, []]
+        },
+        'decompress',
+        false,
+        'vcf',
     )
 
-    input_ch.map { meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bed, _targets_bed  ->
-            [ meta, bed ]
+    input_ch
+        .map { meta, _vcf, _tbi, _truth_vcf, _truth_tbi, bed, _targets_bed ->
+            [meta, bed]
         }
         .set { bed }
 
@@ -39,8 +46,8 @@ workflow WITTYER_BENCHMARK {
     WITTYER.out.report
         .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "wittyer"], report) }
         .groupTuple()
-        .set{ report }
+        .set { report }
 
     emit:
-    report       // channel: [val(meta), reports]
+    report // channel: [val(meta), reports]
 }

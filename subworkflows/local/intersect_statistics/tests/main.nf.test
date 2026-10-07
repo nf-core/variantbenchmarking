@@ -12,8 +12,8 @@ nextflow_workflow {
     tag "svtk/vcf2bed"
     tag "bedops"
     tag "bedops/convert2bed"
-    tag "tabix"
-    tag "tabix/bgzip"
+    tag "htslib"
+    tag "htslib/bgziptabix"
 
     test("intersect small variants -VCF to BEDOPS") {
 

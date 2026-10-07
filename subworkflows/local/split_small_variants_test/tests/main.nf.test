@@ -9,8 +9,8 @@ nextflow_workflow {
     tag "subworkflows/split_small_variants_test"
     tag "bcftools"
     tag "bcftools/view"
-    tag "tabix"
-    tag "tabix/bgziptabix"
+    tag "htslib"
+    tag "htslib/bgziptabix"
 
     test("split small variants") {
 
