@@ -5,4 +5,5 @@ channels:
   - bioconda
 dependencies:
   - bioconda::hap.py=0.3.15
+  - conda-forge::gzip=1.14
   - bioconda::rtg-tools=3.13
