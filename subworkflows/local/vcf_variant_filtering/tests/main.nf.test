@@ -11,9 +11,8 @@ nextflow_workflow {
     tag "bcftools/filter"
     tag "survivor"
     tag "survivor/filter"
-    tag "tabix"
-    tag "tabix/bgzip"
-    tag "tabix/bgziptabix"
+    tag "htslib"
+    tag "htslib/bgziptabix"
 
     test("filter variants with bcftools") {
 

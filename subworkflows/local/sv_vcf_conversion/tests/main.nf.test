@@ -15,9 +15,6 @@ nextflow_workflow {
     tag "svync"
     tag "bcftools"
     tag "bcftools/sort"
-    tag "tabix"
-    tag "tabix/bgziptabix"
-    tag "tabix/tabix"
 
     test("convert sv vcf with variant_extractor") {
 

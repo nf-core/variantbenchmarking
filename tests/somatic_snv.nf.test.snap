@@ -70,12 +70,12 @@
                     "python": "3.13.0"
                 },
                 "TABIX_BGZIPTABIX": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "TABIX_BGZIPTABIX_GT": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -189,6 +189,8 @@
                 "snv/test10/preprocess",
                 "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
                 "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.withGT.vcf.gz",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.withGT.vcf.gz.tbi",
                 "snv/test10/stats",
                 "snv/test10/stats/bcftools",
                 "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
@@ -261,10 +263,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-09-18T16:41:49.520325688",
+        "timestamp": "2026-10-05T13:38:25.941700293",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy,rtgtools'": {
@@ -338,12 +340,12 @@
                     "python": "3.13.0"
                 },
                 "TABIX_BGZIPTABIX": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "TABIX_BGZIPTABIX_GT": {
-                    "bgzip": 1.21,
-                    "tabix": 1.21
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "VCF_TO_CSV": {
                     "python": "3.13.0"
@@ -530,6 +532,8 @@
                 "snv/test10/preprocess",
                 "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz",
                 "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.gz.tbi",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.withGT.vcf.gz",
+                "snv/test10/preprocess/HCC1395T_vs_HCC1395N.strelka.somatic_snvs.sort.subsample.reheader.filtercontigs.filter.norm.vcf.filtermissing.vcf.withGT.vcf.gz.tbi",
                 "snv/test10/stats",
                 "snv/test10/stats/bcftools",
                 "snv/test10/stats/bcftools/test10.strelka.bcftools_stats.txt",
@@ -631,10 +635,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,13f07551d60c681e81499dbd189b4537"
             ]
         ],
-        "timestamp": "2026-09-18T13:48:25.586604257",
+        "timestamp": "2026-10-05T13:35:08.336965506",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.6"
         }
     }
 }

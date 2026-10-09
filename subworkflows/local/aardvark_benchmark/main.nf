@@ -2,9 +2,9 @@
 // AARDVARK_BENCHMARK: SUBWORKFLOW FOR BENCHMARKING WITH AARDVARK
 //
 
-include { AARDVARK_COMPARE  } from '../../../modules/nf-core/aardvark/compare'
-include { BCFTOOLS_REHEADER } from '../../../modules/nf-core/bcftools/reheader'
-include { TABIX_TABIX       } from '../../../modules/nf-core/tabix/tabix'
+include { AARDVARK_COMPARE                            } from '../../../modules/nf-core/aardvark/compare'
+include { BCFTOOLS_REHEADER                           } from '../../../modules/nf-core/bcftools/reheader'
+include { HTSLIB_BGZIPTABIX                           } from '../../../modules/nf-core/htslib/bgziptabix'
 include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_TRUTH_TP } from '../../../modules/nf-core/bcftools/filter'
 include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_TRUTH_FN } from '../../../modules/nf-core/bcftools/filter'
 include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_QUERY_TP } from '../../../modules/nf-core/bcftools/filter'
@@ -13,9 +13,9 @@ include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_QUERY_FP } from '../../../modules/n
 workflow AARDVARK_BENCHMARK {
 
     take:
-    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
-    fasta              // reference channel [val(meta), ref.fa]
-    fai                // reference channel [val(meta), ref.fa.fai]
+    input_ch // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
+    fasta // reference channel [val(meta), ref.fa]
+    fai // reference channel [val(meta), ref.fa.fai]
     stratification_bed // reference channel [val(meta), bed files]
     stratification_tsv // reference channel [val(meta), tsv]
 
@@ -27,22 +27,22 @@ workflow AARDVARK_BENCHMARK {
         input_ch,
         fasta,
         stratification_bed,
-        stratification_tsv
+        stratification_tsv,
     )
 
     AARDVARK_COMPARE.out.summary
-            .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "aardvark"], summary) }
-            .groupTuple()
-            .map { meta, files -> tuple(meta, files.flatten()) }
-            .set { summary_reports }
+        .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "aardvark"], summary) }
+        .groupTuple()
+        .map { meta, files -> tuple(meta, files.flatten()) }
+        .set { summary_reports }
 
     // Filter TP/FN from labelled_truth
     // reheader truth vcf with query names to enable comparisons better for plotting
     BCFTOOLS_REHEADER(
-         AARDVARK_COMPARE.out.labelled_truth.map{ meta, vcf ->
-        [ meta, vcf, [], [] ]
+        AARDVARK_COMPARE.out.labelled_truth.map { meta, vcf ->
+            [meta, vcf, [], []]
         },
-        fai
+        fai,
     )
 
     BCFTOOLS_FILTER_TRUTH_TP(
@@ -64,12 +64,19 @@ workflow AARDVARK_BENCHMARK {
         .set { vcf_fn }
 
     // Filter TP/FP from labelled_query
-    TABIX_TABIX(
-        AARDVARK_COMPARE.out.labelled_query
+    HTSLIB_BGZIPTABIX(
+        AARDVARK_COMPARE.out.labelled_query.map { meta, vcf -> [meta, vcf, [], []] },
+        'compress',
+        true,
+        'bgzip.vcf',
     )
 
+    HTSLIB_BGZIPTABIX.out.output
+        .join(HTSLIB_BGZIPTABIX.out.index, failOnDuplicate: true, failOnMismatch: true)
+        .set { labelled_query_indexed }
+
     BCFTOOLS_FILTER_QUERY_TP(
-        AARDVARK_COMPARE.out.labelled_query.join(TABIX_TABIX.out.index)
+        labelled_query_indexed
     )
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
@@ -78,7 +85,7 @@ workflow AARDVARK_BENCHMARK {
         .set { vcf_tp_base }
 
     BCFTOOLS_FILTER_QUERY_FP(
-        AARDVARK_COMPARE.out.labelled_query.join(TABIX_TABIX.out.index)
+        labelled_query_indexed
     )
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
@@ -90,11 +97,10 @@ workflow AARDVARK_BENCHMARK {
         vcf_fn,
         vcf_fp,
         vcf_tp_base,
-        vcf_tp_comp
+        vcf_tp_comp,
     )
 
     emit:
     summary_reports // channel: [val(meta), reports]
     tagged_variants // channel: [val(meta), vcfs]
-
 }

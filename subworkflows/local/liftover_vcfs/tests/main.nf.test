@@ -18,8 +18,8 @@ nextflow_workflow {
     tag "gnu/sort"
     tag "bedtools"
     tag "bedtools/merge"
-    tag "tabix"
-    tag "tabix/bgziptabix"
+    tag "htslib"
+    tag "htslib/bgziptabix"
 
     test("liftover vcfs and bed") {
 

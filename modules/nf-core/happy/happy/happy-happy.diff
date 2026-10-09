@@ -2,10 +2,11 @@ Changes in component 'nf-core/happy/happy'
 Changes in 'happy/happy/environment.yml':
 --- modules/nf-core/happy/happy/environment.yml
 +++ modules/nf-core/happy/happy/environment.yml
-@@ -5,3 +5,4 @@
+@@ -5,3 +5,5 @@
    - bioconda
  dependencies:
    - bioconda::hap.py=0.3.15
++  - conda-forge::gzip=1.14
 +  - bioconda::rtg-tools=3.13
 
 Changes in 'happy/happy/main.nf':
@@ -17,8 +18,8 @@ Changes in 'happy/happy/main.nf':
      container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?
 -        'https://depot.galaxyproject.org/singularity/hap.py:0.3.15--py27hcb73b3d_0':
 -        'quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0' }"
-+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/68/686d544740520e77c3c18013df3b10d5e0b578b3ca198d442a9a1156d301f29e/data':
-+        'community.wave.seqera.io/library/hap.py_rtg-tools:5de06c00cb4eb89f' }"
++        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/41/411c9388ad3bf1f1f0af4f59507c3e4367f25473e572bd862a18b40a2bb0735d/data':
++        'community.wave.seqera.io/library/hap.py_gzip_rtg-tools:6ff83cc387a8526f' }"
  
      input:
      tuple val(meta), path(query_vcf), path(truth_vcf), path(regions_bed), path(targets_bed)

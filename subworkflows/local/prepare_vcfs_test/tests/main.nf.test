@@ -14,7 +14,7 @@ nextflow_workflow {
     tag "bcftools/annotate"
     tag "rtgtools/svdecompose"
     tag "gawk"
-    tag "tabix/bgziptabix"
+    tag "htslib/bgziptabix"
 
     test("prepare small variants - full preprocess") {
 
