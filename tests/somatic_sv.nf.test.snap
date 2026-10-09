@@ -76,8 +76,8 @@
                 "structural",
                 "structural/SEQC2",
                 "structural/SEQC2/preprocess",
-                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz",
-                "structural/SEQC2/preprocess/13059_2022_2816_MOESM4_ESM.svconverted.reheader.norm.filtermissing.vcf.gz.tbi",
+                "structural/SEQC2/preprocess/SEQC2.filtermissing.vcf.gz",
+                "structural/SEQC2/preprocess/SEQC2.filtermissing.vcf.gz.tbi",
                 "structural/SEQC2/stats",
                 "structural/SEQC2/stats/bcftools",
                 "structural/SEQC2/stats/bcftools/SEQC2.bcftools_stats.txt",
@@ -211,8 +211,8 @@
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz",
                 "structural/test11/benchmarks/truvari/test11.SEQC2.manta.tp-comp.vcf.gz.tbi",
                 "structural/test11/preprocess",
-                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
-                "structural/test11/preprocess/HCC1395T_vs_HCC1395N.manta.somatic_sv.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
+                "structural/test11/preprocess/test11.filtermissing.vcf.gz",
+                "structural/test11/preprocess/test11.filtermissing.vcf.gz.tbi",
                 "structural/test11/stats",
                 "structural/test11/stats/bcftools",
                 "structural/test11/stats/bcftools/test11.manta.bcftools_stats.txt",
@@ -231,8 +231,8 @@
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz",
                 "structural/test12/benchmarks/truvari/test12.SEQC2.tiddit.tp-comp.vcf.gz.tbi",
                 "structural/test12/preprocess",
-                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz",
-                "structural/test12/preprocess/HCC1395T_vs_HCC1395N.tiddit.tumor.reheader.filtercontigs.filter.norm.filtermissing.vcf.gz.tbi",
+                "structural/test12/preprocess/test12.filtermissing.vcf.gz",
+                "structural/test12/preprocess/test12.filtermissing.vcf.gz.tbi",
                 "structural/test12/stats",
                 "structural/test12/stats/bcftools",
                 "structural/test12/stats/bcftools/test12.tiddit.bcftools_stats.txt",
@@ -240,27 +240,27 @@
                 "structural/test12/stats/survivor/test12.tiddit_mqc.stats"
             ],
             [
-                "SEQC2.bcftools_stats.txt:md5,83f0ebd019579c2f90e82bf4e3e6d3e0",
+                "SEQC2.bcftools_stats.txt:md5,13620228d3dcf54386b8690d462a113a",
                 "SEQC2_mqc.stats:md5,75fd7f87d3534ab64b95b5490317b11f",
-                "bcftools_stats_indel-lengths.txt:md5,a09738165a99ca2c3b639178ddbdfc03",
-                "bcftools_stats_vqc_Count_Indels.txt:md5,9a2f6be53a3de12157b1150162e78595",
-                "bcftools_stats_vqc_Count_SNP.txt:md5,573bbf5fd7ff372c62645c7d19426157",
-                "bcftools_stats_vqc_Count_Transitions.txt:md5,573bbf5fd7ff372c62645c7d19426157",
-                "bcftools_stats_vqc_Count_Transversions.txt:md5,573bbf5fd7ff372c62645c7d19426157",
-                "multiqc_bcftools_stats.txt:md5,c25b57f6584e34e9d3fb8f0dd2e248ee",
+                "bcftools_stats_indel-lengths.txt:md5,1f9c2657df542b8921c1d41221eea222",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,8d37ae453230f482a29b5906b0ec17ee",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,8dab95f1037713fed11600fe3c6898c4",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,8dab95f1037713fed11600fe3c6898c4",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,8dab95f1037713fed11600fe3c6898c4",
+                "multiqc_bcftools_stats.txt:md5,6c9b58bcd8a3c0aad0c5528a98f13ffc",
                 "multiqc_citations.txt:md5,e7e57ff8b7ef2a5e4452481812e26169",
                 "multiqc_survivor.txt:md5,dac25d5e28bd8fa745bd11fb8ef456da",
                 "multiqc_variant_calling_summary_truvari.txt:md5,b40fdc152b64968b6959098e7d4efba7",
-                "test11.manta.bcftools_stats.txt:md5,f5ce9394427a2458852ae6b6d840d315",
+                "test11.manta.bcftools_stats.txt:md5,386510828cd197414028a68ad485eb85",
                 "test11.manta_mqc.stats:md5,a5844dbf1ea78ed263259e3a79b7bedd",
-                "test12.tiddit.bcftools_stats.txt:md5,d40e3c575e4f7ebb3883e9ebd16f49bb",
+                "test12.tiddit.bcftools_stats.txt:md5,550b880bdc503948bc6b07fe1f076ff0",
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-10-05T13:13:09.667596399",
+        "timestamp": "2026-10-09T17:10:59.034325182",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.1"
         }
     }
 }

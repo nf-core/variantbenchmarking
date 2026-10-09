@@ -13,9 +13,9 @@ include { BCFTOOLS_FILTER as BCFTOOLS_FILTER_QUERY_FP } from '../../../modules/n
 workflow AARDVARK_BENCHMARK {
 
     take:
-    input_ch // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
-    fasta // reference channel [val(meta), ref.fa]
-    fai // reference channel [val(meta), ref.fa.fai]
+    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
+    fasta              // reference channel [val(meta), ref.fa]
+    fai                // reference channel [val(meta), ref.fa.fai]
     stratification_bed // reference channel [val(meta), bed files]
     stratification_tsv // reference channel [val(meta), tsv]
 

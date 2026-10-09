@@ -9,13 +9,12 @@ include { HTSLIB_BGZIPTABIX as TABIX_BGZIP } from '../../../modules/nf-core/htsl
 
 workflow INTERSECT_STATISTICS {
     take:
-    test             // channel: [val(meta), vcf, regions]
+    test          // channel: [val(meta), vcf, regions]
     truth_regions // channel: [truth bed]
 
     main:
 
-    test
-        .branch { input ->
+    test.branch { input ->
             def meta = input[0]
             def vcf_file = input[1]
             def regions_file = input[2]

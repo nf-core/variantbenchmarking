@@ -56,10 +56,10 @@
                 
             }
         ],
-        "timestamp": "2026-04-22T10:43:27.389028327",
+        "timestamp": "2026-10-09T16:43:47.442333703",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "homo_sapiens - illumina - concordance analysis - stub": {
@@ -165,10 +165,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-04-22T10:43:49.294837349",
+        "timestamp": "2026-10-09T16:44:06.978627332",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }
