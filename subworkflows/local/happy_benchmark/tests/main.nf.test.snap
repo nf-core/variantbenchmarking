@@ -74,10 +74,10 @@
                 
             }
         ],
-        "timestamp": "2026-09-30T10:24:58.019202233",
+        "timestamp": "2026-10-09T16:45:14.749102769",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.1"
         }
     },
     "homo_sapiens - illumina - happy benchmark stub": {
@@ -219,10 +219,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-09-30T10:25:10.774623175",
+        "timestamp": "2026-10-09T16:45:32.205782234",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.1"
         }
     }
 }

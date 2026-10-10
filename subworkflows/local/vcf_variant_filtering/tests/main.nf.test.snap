@@ -6,20 +6,20 @@
                     {
                         "id": "test"
                     },
-                    "simulated_sv.filter.vcf.gz",
+                    "test.svfilter.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
                     "d694afb9e7ca8d8b25462bf6896448e5",
-                    "simulated_sv.filter.vcf.gz.tbi"
+                    "test.svfilter.vcf.gz.tbi"
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-24T14:49:00.269505861",
+        "timestamp": "2026-10-09T15:54:39.511358856",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "filter variants with bcftools": {

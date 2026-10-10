@@ -46,7 +46,7 @@ workflow SV_BENCHMARK {
                                             def transformedTag = mapping[tag] ?: tag
                                             tuple([vartype: params.variant_type, id: "truvari", tag: transformedTag], report)
                                         }
-        logs            = logs.mix(TRUVARI_BENCH.out.log)
+        logs = logs.mix(TRUVARI_BENCH.out.log)
     }
 
     if (params.method.contains('svanalyzer') ){

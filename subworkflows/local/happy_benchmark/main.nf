@@ -138,7 +138,7 @@ workflow HAPPY_BENCHMARK {
     )
 
     emit:
-    summary_reports // channel: [val(meta), reports]
+    summary_reports    // channel: [val(meta), reports]
     stratified_reports // channel: [val(meta), [csv_meta], [roc.all.csv.gz]]
     tagged_variants    // channel: [val(meta), vcfs]
 

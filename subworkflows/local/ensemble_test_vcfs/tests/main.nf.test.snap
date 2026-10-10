@@ -6,10 +6,10 @@
                     {
                         "id": "truth"
                     },
-                    "truth.majority.reformatted.vcf.gz",
+                    "truth.reformatted.vcf.gz",
                     "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
                     "f6efe967553977ad82fdd9bb584390d4",
-                    "truth.majority.reformatted.vcf.gz.tbi"
+                    "truth.reformatted.vcf.gz.tbi"
                 ]
             ],
             {
@@ -29,20 +29,20 @@
                     {
                         "id": "truth"
                     },
-                    "truth.ensemble.reformatted.sort.vcf.gz",
+                    "truth.sort.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=160, phased=false, phasedAutodetect=false]",
                     "bb3f948b5d820bd10ca7858affc2d2ea",
-                    "truth.ensemble.reformatted.sort.vcf.gz.tbi"
+                    "truth.sort.vcf.gz.tbi"
                 ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-25T10:10:12.471645954",
+        "timestamp": "2026-10-09T15:42:15.032392972",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "ensemble variants stub": {
@@ -53,8 +53,8 @@
                         {
                             "id": "truth"
                         },
-                        "truth.majority.reformatted.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "truth.majority.reformatted.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "truth.reformatted.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "truth.reformatted.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "truth_vcf": [
@@ -62,8 +62,8 @@
                         {
                             "id": "truth"
                         },
-                        "truth.majority.reformatted.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                        "truth.majority.reformatted.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "truth.reformatted.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                        "truth.reformatted.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ]
             }

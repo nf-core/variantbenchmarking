@@ -341,10 +341,10 @@
                 
             }
         ],
-        "timestamp": "2026-09-30T10:48:32.964992069",
+        "timestamp": "2026-10-09T16:51:32.034759875",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.1"
         }
     },
     "germline small variants aardvark": {
@@ -406,10 +406,10 @@
                 
             }
         ],
-        "timestamp": "2026-10-02T11:56:32.593627739",
+        "timestamp": "2026-10-09T16:51:49.234933799",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.1"
         }
     },
     "somatic small variants rtgtools": {

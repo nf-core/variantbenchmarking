@@ -64,7 +64,7 @@ workflow SMALL_BENCHMARK {
 
     if (params.method.contains('aardvark')){
 
-            input_ch
+        input_ch
             .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ->
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed ?: targets_bed ]}
             .set{ input_aardvark_ch }
@@ -134,8 +134,8 @@ workflow SMALL_BENCHMARK {
     }
 
     emit:
-    summary_reports // channel: [val(meta), reports]
-    tagged_variants // channel: [val(meta), vcfs]
+    summary_reports     // channel: [val(meta), reports]
+    tagged_variants     // channel: [val(meta), vcfs]
     tagged_variants_csv // channel: [val(meta), csvs]
     stratified_reports  // channel: [val(meta), [csv_meta], [csvs]]
 
