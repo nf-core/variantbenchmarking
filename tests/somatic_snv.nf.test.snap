@@ -1,7 +1,7 @@
 {
     "-stub": {
         "content": [
-            89,
+            95,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -15,7 +15,13 @@
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_REHEADER_FN": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_TP_BASE": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
@@ -263,7 +269,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-10-09T17:08:47.721537953",
+        "timestamp": "2026-10-12T11:49:51.929825825",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -271,7 +277,7 @@
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy,rtgtools'": {
         "content": [
-            89,
+            95,
             {
                 "ADD_GT_STRELKA": {
                     "gawk": "5.3.0"
@@ -285,7 +291,13 @@
                 "BCFTOOLS_NORM": {
                     "bcftools": 1.22
                 },
+                "BCFTOOLS_REHEADER_FN": {
+                    "bcftools": 1.22
+                },
                 "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_TP_BASE": {
                     "bcftools": 1.22
                 },
                 "BCFTOOLS_REHEADER_TRUTH": {
@@ -635,7 +647,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,ef646305a895de80f9f33748768a2a7e"
             ]
         ],
-        "timestamp": "2026-10-09T17:07:49.253869239",
+        "timestamp": "2026-10-12T11:48:48.510036428",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
