@@ -159,7 +159,7 @@
                         "id": "rtgtools",
                         "tag": "FN"
                     },
-                    "test.HG002.haplotypecaller.fn.vcf.gz",
+                    "test.HG002.haplotypecaller.fn.reheader.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -179,9 +179,9 @@
                         "id": "rtgtools",
                         "tag": "TP_base"
                     },
-                    "test.HG002.haplotypecaller.tp-baseline.vcf.gz",
+                    "test.HG002.haplotypecaller.tp-baseline.reheader.vcf.gz",
                     "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=730, phased=false, phasedAutodetect=false]",
-                    "d4ca878c8b2e7cb646b4d9a3f99f91c7"
+                    "9f5ceefa1fbabc1d560065d870e18d04"
                 ],
                 [
                     {
@@ -206,10 +206,10 @@
                 ]
             ]
         ],
-        "timestamp": "2026-07-15T11:06:32.650388455",
+        "timestamp": "2026-10-12T11:37:11.81050258",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "somatic small variants sompy": {
@@ -421,7 +421,7 @@
                         "id": "rtgtools",
                         "tag": "FN"
                     },
-                    "test.SEQC2.haplotypecaller.fn.vcf.gz",
+                    "test.SEQC2.haplotypecaller.fn.reheader.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -441,7 +441,7 @@
                         "id": "rtgtools",
                         "tag": "TP_base"
                     },
-                    "test.SEQC2.haplotypecaller.tp-baseline.vcf.gz",
+                    "test.SEQC2.haplotypecaller.tp-baseline.reheader.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e"
                 ],
@@ -471,10 +471,10 @@
                 
             }
         ],
-        "timestamp": "2026-07-15T11:07:17.379486505",
+        "timestamp": "2026-10-12T11:37:51.466073908",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -383,8 +383,8 @@ if __name__ == "__main__":
     parser.add_argument('input_files', nargs='+', help="One or more VCF or CSV files to process.")
     parser.add_argument('--output', '-o', dest='output_file', default='svlen_distributions_mqc.html')
     parser.add_argument('--title', '-t', dest='plot_title', default=None, help="Custom plot title")
-    parser.add_argument('--vartype', dest='vartype', choices=['small', 'structural'], default='structural', help="Analysis type: 'small' for Indels, 'structural' for SVs.")
-    parser.add_argument('--tag', dest='tag', default=None, help="Tag representing the data subset (e.g., FN, FP, TP_comp).")
+    parser.add_argument('--vartype', dest='vartype', choices=['small', 'indel', 'structural' ,'copynumber'], default='structural', help="Analysis type: 'small' or 'indel' for indels, 'structural' or 'copynumber' for SVs.")
+    parser.add_argument('--tag', dest='tag', default=None, help="Tag representing the data subset (e.g., FN, FP, TP_comp, TP_base).")
     parser.add_argument('--bins', '-b', nargs='+', type=str, default=None,
                         help="""
                         List of integer numbers representing the bin_edges for the plot.

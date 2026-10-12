@@ -6,6 +6,8 @@ include { RTGTOOLS_VCFEVAL    } from '../../../modules/nf-core/rtgtools/vcfeval'
 include { HAPPY_BENCHMARK     } from '../../../subworkflows/local/happy_benchmark'
 include { SOMPY_BENCHMARK     } from '../../../subworkflows/local/sompy_benchmark'
 include { AARDVARK_BENCHMARK  } from '../../../subworkflows/local/aardvark_benchmark'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FN      } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_BASE } from '../../../modules/nf-core/bcftools/reheader'
 
 workflow SMALL_BENCHMARK {
     take:
@@ -44,9 +46,25 @@ workflow SMALL_BENCHMARK {
         summary_reports = summary_reports.mix(RTGTOOLS_VCFEVAL.out.summary
                                          .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], report) }
                                          .groupTuple())
-        tagged_variants = tagged_variants.mix(RTGTOOLS_VCFEVAL.out.fn_vcf.join(RTGTOOLS_VCFEVAL.out.fn_tbi),
+
+        // Reheader sample name in base outputs
+        BCFTOOLS_REHEADER_FN(
+            RTGTOOLS_VCFEVAL.out.fn_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
+            fai
+        )
+
+        BCFTOOLS_REHEADER_TP_BASE(
+            RTGTOOLS_VCFEVAL.out.baseline_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
+            fai
+        )
+
+        tagged_variants = tagged_variants.mix(BCFTOOLS_REHEADER_FN.out.vcf.join(BCFTOOLS_REHEADER_FN.out.index),
                                             RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
-                                            RTGTOOLS_VCFEVAL.out.baseline_vcf.join(RTGTOOLS_VCFEVAL.out.baseline_tbi),
+                                            BCFTOOLS_REHEADER_TP_BASE.out.vcf.join(BCFTOOLS_REHEADER_TP_BASE.out.index),
                                             RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
                                         .map { _meta, report , index ->
                                             def mapping = [

@@ -8,7 +8,6 @@
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { RTGTOOLS_BNDEVAL            } from '../modules/nf-core/rtgtools/bndeval'
 include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -280,27 +279,8 @@ workflow VARIANTBENCHMARKING {
         ch_reports       = ch_reports.mix(SV_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_BENCHMARK.out.tagged_variants)
         ch_multiqc_files = ch_multiqc_files.mix(SV_BENCHMARK.out.logs.map{ _meta, log -> log })
-
-        if (params.method.contains("rtgtools")){
-            // running bndeval might require svdecompose
-            RTGTOOLS_BNDEVAL(
-                bench.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
-                }
-            )
-
-            ch_reports  = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
-                                                    .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], summary) }
-                                                    .groupTuple())
-
-            evals_ch = evals_ch.mix(
-                RTGTOOLS_BNDEVAL.out.fn_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], vcf) },
-                RTGTOOLS_BNDEVAL.out.fp_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], vcf) },
-                RTGTOOLS_BNDEVAL.out.baseline_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], vcf) },
-                RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], vcf) }
-            )
-        }
     }
+
     if ( params.variant_type == "copynumber"){
         CNV_BENCHMARK(
             bench,
