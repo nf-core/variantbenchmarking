@@ -71,7 +71,7 @@ workflow SV_BENCHMARK {
     }
 
     if (params.method.contains("rtgtools")){
-            
+
         // running bndeval might require svdecompose
         RTGTOOLS_BNDEVAL(
             input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
