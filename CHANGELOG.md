@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replacing all static png plots with interactice html plots generated using plotly. As part of this, metrics plotting R script (plots.R) is converted to python (plot_metrics.py). Now, all the plotting modules (PLOTS_METRICS, PLOTS_SVLEN_DIST, PLOTS_UPSET) are using the same containers. Interactive html plots are emitted with MultiQC, allowing users to view results all once [#325](https://github.com/nf-core/variantbenchmarking/pull/325/changes)
 - Resolving GATK_CONCORDANCE file name conflicts, new intermediate file names are smaller and cleaner [#336](https://github.com/nf-core/variantbenchmarking/pull/336)
 - Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
+- Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
 
 ### `Dependencies`
 
