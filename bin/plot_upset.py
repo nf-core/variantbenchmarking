@@ -26,7 +26,31 @@ def parse_file(file_path, category_name):
         return {}
 
     try:
-        df = pd.read_csv(file_path, sep=',')
+        # Read only the header first to identify columns
+        header = pd.read_csv(file_path, sep=',', nrows=0)
+        gt_cols = [col for col in header.columns if '_GT' in col]
+        
+        if not gt_cols:
+            print(f"Warning: No GT columns detected in {file_path}.")
+            return {}
+
+        required_cols = ['CHROM', 'POS', 'REF', 'ALT']
+        if not all(c in header.columns for c in required_cols):
+            print(f"Warning: Missing required columns in {file_path}")
+            return {}
+
+        # Only load the columns we actually need to save RAM
+        cols_to_use = required_cols + gt_cols
+        
+        # Use memory efficient data types
+        dtypes = {
+            'CHROM': 'category',
+            'POS': 'int32',
+            'REF': 'category',
+            'ALT': 'category'
+        }
+        
+        df = pd.read_csv(file_path, sep=',', usecols=cols_to_use, dtype=dtypes)
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
         return {}
@@ -34,14 +58,11 @@ def parse_file(file_path, category_name):
         print(f"Error parsing {file_path}: {str(e)}")
         return {}
 
-    gt_cols = [col for col in df.columns if '_GT' in col]
-
-    if not gt_cols:
-        print(f"Warning: No GT columns detected in {file_path}.")
-        return {}
-
     contents = {}
     non_variant_genotypes = {'0/0', '0|0', './.', '.|.', '0'}
+
+    # Vectorized ID generation: Reuses the same strings for all tools instead of creating millions of new tuples
+    variant_ids_series = df['CHROM'].astype(str) + ':' + df['POS'].astype(str) + ':' + df['REF'].astype(str) + ':' + df['ALT'].astype(str)
 
     for col in gt_cols:
         name_part = col.split('_GT')[0]
@@ -49,13 +70,9 @@ def parse_file(file_path, category_name):
 
         upset_key = f"{tool_name}_{category_name}"
 
-        required_cols = ['CHROM', 'POS', 'REF', 'ALT']
-        if not all(c in df.columns for c in required_cols):
-            print(f"Warning: Missing required columns in {file_path}")
-            continue
-
+        # Vectorized masking directly on the series
         gt_mask = ~df[col].isin(non_variant_genotypes)
-        variant_ids = set(tuple(row) for row in df.loc[gt_mask, required_cols].astype(str).values)
+        variant_ids = set(variant_ids_series[gt_mask])
 
         if variant_ids:
             contents[upset_key] = variant_ids
