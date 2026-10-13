@@ -86,7 +86,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -229,20 +229,20 @@
                 "multiqc_bcftools_stats.txt:md5,473a568ce947b312862da6ee36363e47",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "test6-test7-copy.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "test6-test7-copy.tpfn.vcf:md5,4f18d3b6c1a80150e85648aa5485f8a4",
-                "test6-test7-copy.tpfp.vcf:md5,bac0580958505b567446ab9a982981b9",
+                "test6-test7-copy.tpfn.vcf:md5,2b7d360b3404f9dcdc65b9a11f287196",
+                "test6-test7-copy.tpfp.vcf:md5,aadd9b39ec599d13ca427dadcbd7b274",
                 "test6-test7.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "test6-test7.tpfn.vcf:md5,b1ac0b2e172f497bf92d2522e8c3589f",
-                "test6-test7.tpfp.vcf:md5,7fce25a2f05f38aa574d94fcf39391c3",
+                "test6-test7.tpfn.vcf:md5,dd63ee5010a0c88c28a7cd32a6f0b8e0",
+                "test6-test7.tpfp.vcf:md5,8964e8517ab06dbe94e3b64986c2ead1",
                 "test6.strelka.bcftools_stats.txt:md5,3a20155f9bc0c4b9afcb8e9ed11a2805",
                 "test7-copy.bcftools.bcftools_stats.txt:md5,ee09685f529288c487a8fd531305e8db",
                 "test7-test7-copy.summary.tsv:md5,cbda10b9075679475cd8a507191ed0cc",
-                "test7-test7-copy.tpfn.vcf:md5,d53845fd66c785e27c27e27aea77cbeb",
-                "test7-test7-copy.tpfp.vcf:md5,25a75d379f1cc5017307d6a2092d4a9a",
+                "test7-test7-copy.tpfn.vcf:md5,8a39051296c181977621cf17eb69a9fa",
+                "test7-test7-copy.tpfp.vcf:md5,66ee77c3082cc3986a73ee5fc0c19f05",
                 "test7.bcftools.bcftools_stats.txt:md5,a9f860c98e6ce4e3983ac7098e378b2d"
             ]
         ],
-        "timestamp": "2026-10-12T16:53:27.352209815",
+        "timestamp": "2026-10-13T14:39:30.67447415",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
