@@ -29,7 +29,7 @@ def parse_file(file_path, category_name):
         # Read only the header first to identify columns
         header = pd.read_csv(file_path, sep=',', nrows=0)
         gt_cols = [col for col in header.columns if '_GT' in col]
-
+        
         if not gt_cols:
             print(f"Warning: No GT columns detected in {file_path}.")
             return {}
@@ -41,7 +41,7 @@ def parse_file(file_path, category_name):
 
         # Only load the columns we actually need to save RAM
         cols_to_use = required_cols + gt_cols
-
+        
         # Use memory efficient data types
         dtypes = {
             'CHROM': 'category',
@@ -49,7 +49,7 @@ def parse_file(file_path, category_name):
             'REF': 'category',
             'ALT': 'category'
         }
-
+        
         df = pd.read_csv(file_path, sep=',', usecols=cols_to_use, dtype=dtypes)
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
@@ -104,7 +104,7 @@ def create_interactive_upset(plot_data, title, output_file):
             variant_masks[var] |= (1 << i)
         # Explicitly free memory for this tool's variant set once it is tallied
         plot_data[cat].clear()
-
+        
     mask_counts = Counter(variant_masks.values())
     del variant_masks # Free the tally dictionary
 
@@ -154,17 +154,14 @@ def create_interactive_upset(plot_data, title, output_file):
         x_idx = idx
         active_cats = [i for i, cat in enumerate(categories) if row[cat]]
         if len(active_cats) > 1:
-            hover_tmpl = "<b>{}</b>: %{text}<extra></extra>".format(cat)
             fig.add_trace(
                 go.Scatter(
-                    x=x_indices,
-                    y=y_vals,
-                    mode='markers',
-                    marker=dict(size=12, color=marker_colors, symbol=marker_symbols),
-                    name=cat,
-                    text=hover_texts,
-                    hovertemplate=hover_tmpl,
-                    showlegend=False
+                    x=[x_idx, x_idx],
+                    y=[min(active_cats), max(active_cats)],
+                    mode='lines',
+                    line=dict(color='black', width=3),
+                    showlegend=False,
+                    hoverinfo='skip'
                 ),
                 row=2, col=1
             )
@@ -195,7 +192,7 @@ def create_interactive_upset(plot_data, title, output_file):
                 marker=dict(size=12, color=marker_colors, symbol=marker_symbols),
                 name=cat,
                 text=hover_texts,
-                hovertemplate=f"<b>{cat}</b>: %{{text}}<extra></extra>",
+                hovertemplate="<b>" + cat + "</b>: %{text}<extra></extra>",
                 showlegend=False
             ),
             row=2, col=1
@@ -234,30 +231,28 @@ def create_interactive_upset(plot_data, title, output_file):
 
     plot_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
 
-    html_template = """
+    html_template = f"""
     <!DOCTYPE html>
     <html>
     <head>
-        <title>__TITLE__</title>
+        <title>{title}</title>
         <style>
-            body { font-family: -apple-system, sans-serif; background-color: #f8f9fa; margin: 20px; }
-            .plot-container { width: 100%; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box; }
-            .html-title { font-size: 26px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; word-wrap: break-word; }
+            body {{ font-family: -apple-system, sans-serif; background-color: #f8f9fa; margin: 20px; }}
+            .plot-container {{ width: 100%; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box; }}
+            .html-title {{ font-size: 26px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; word-wrap: break-word; }}
         </style>
     </head>
     <body>
         <div class="plot-container">
-            <div class="html-title">__TITLE__</div>
-            __PLOT_HTML__
+            <div class="html-title">{title}</div>
+            {plot_html}
         </div>
     </body>
     </html>
     """
 
-    html_output = html_template.replace('__TITLE__', title).replace('__PLOT_HTML__', plot_html)
-
     with open(output_file, "w") as f:
-        f.write(html_output)
+        f.write(html_template)
     print(f"Plot saved to {output_file}")
 
 def create_grouped_upset_plots(all_data, prefix=None, title="Variant Detection Upset Plots"):
