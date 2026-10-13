@@ -115,7 +115,13 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
             fig_tp.update_traces(marker=dict(size=10), line=dict(width=4))
 
         fig_tp.update_layout(hovermode="x unified")
-        fig_tp.update_xaxes(tickvals=tp_data["Tool"].unique(), ticktext=[f"<b>{t}</b>" for t in tp_data["Tool"].unique()])
+        
+        tool_count = len(tp_data["Tool"].unique())
+        fig_tp.update_xaxes(
+            tickvals=tp_data["Tool"].unique(), 
+            ticktext=[f"<b>{t}</b>" for t in tp_data["Tool"].unique()],
+            range=[-0.5, tool_count - 0.5]
+        )
 
         plot_dict["tp"] = fig_tp
 
@@ -139,7 +145,14 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
             fig_f1.update_traces(marker=dict(size=12))
 
         fig_f1.update_layout(hovermode="x unified")
-        fig_f1.update_xaxes(tickvals=metric_data["Tool"].unique(), ticktext=[f"<b>{t}</b>" for t in metric_data["Tool"].unique()])
+        
+        tool_count_f1 = len(metric_data["Tool"].unique())
+        fig_f1.update_xaxes(
+            tickvals=metric_data["Tool"].unique(), 
+            ticktext=[f"<b>{t}</b>" for t in metric_data["Tool"].unique()],
+            range=[-0.5, tool_count_f1 - 0.5]
+        )
+        
         plot_dict["f1"] = fig_f1
 
     # 3. Visualize Precision vs Recall
@@ -166,20 +179,17 @@ def main():
     args = parser.parse_args()
 
     try:
-        df = pd.read_csv(args.summary_file)
+        # Added keep_default_na=False to prevent "None" from becoming NaN
+        df = pd.read_csv(args.summary_file, keep_default_na=False)
     except Exception as e:
         print(f"Error reading {args.summary_file}: {e}")
         sys.exit(1)
 
-    if args.benchmark == "rtgtools" and "Threshold" in df.columns:
-        mask = df["Threshold"].astype(str).str.strip().str.lower() == "none"
-        if mask.any():
-            df = df[mask]
-
     unique_tools = sorted(df["Tool"].dropna().unique())
     global_color_map = {tool: SEABORN_CB_PALETTE[i % len(SEABORN_CB_PALETTE)] for i, tool in enumerate(unique_tools)}
 
-    possible_groupings = ["Type", "Filter", "StatsType", "Comparison", "Region"]
+    # Added "Threshold" to the end of possible_groupings and removed the manual rtgtools filter entirely
+    possible_groupings = ["Type", "Filter", "StatsType", "Comparison", "Region", "Threshold"]
     split_cols = [col for col in possible_groupings if col in df.columns]
 
     all_groups = []
@@ -189,7 +199,7 @@ def main():
         for name, group in grouped:
             parts = list(name) if isinstance(name, tuple) else [name]
             parts_str = [str(p) for p in parts]
-            valid_parts = [p for p in parts_str if p.lower() not in ["all", "none"]]
+            valid_parts = [p for p in parts_str if p.lower() not in ["all", "none", "nan"]]
 
             if valid_parts:
                 clean_prefix = "_".join(valid_parts)

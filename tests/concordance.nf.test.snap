@@ -1,0 +1,251 @@
+{
+    "Params: --analysis 'germline' --variant_type 'small' --method 'concordance'": {
+        "content": [
+            91,
+            {
+                "BCFTOOLS_DEDUP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_MERGE": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_NORM": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_FN": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_FP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_QUERY": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_TP_BASE": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_REHEADER_TP_COMP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SORT": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SPLIT_MULTI": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_STATS": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FILTERMISSING": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FN": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_FP": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_TP_BASE": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_VIEW_TP_COMP": {
+                    "bcftools": 1.22
+                },
+                "CREATE_DATAVZRD_INPUT": {
+                    "gawk": "5.3.0"
+                },
+                "DATAVZRD": {
+                    "datavzrd": "2.63.3"
+                },
+                "GATK4_CONCORDANCE": {
+                    "gatk4": "4.6.2.0"
+                },
+                "MERGE_REPORTS": {
+                    "python": "3.13.0"
+                },
+                "PICARD_CREATESEQUENCEDICTIONARY": {
+                    "picard": "3.4.0"
+                },
+                "PLOTS_METRICS": {
+                    "python": "3.12.14"
+                },
+                "PLOTS_SVLEN_DIST": {
+                    "python": "3.12.14"
+                },
+                "PLOTS_UPSET": {
+                    "python": "3.12.14"
+                },
+                "REFORMAT_HEADER": {
+                    "gawk": "5.3.0"
+                },
+                "TABIX_BGZIPTABIX": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },
+                "VCF_TO_CSV": {
+                    "python": "3.13.0"
+                },
+                "Workflow": {
+                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                }
+            },
+            [
+                "pipeline_info",
+                "pipeline_info/nf_core_variantbenchmarking_software_mqc_versions.yml",
+                "references",
+                "references/dictionary",
+                "references/dictionary/genome.dict",
+                "small",
+                "small/multiqc",
+                "small/multiqc/multiqc_data",
+                "small/multiqc/multiqc_data/bcftools-stats-subtypes.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                "small/multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
+                "small/multiqc/multiqc_data/llms-full.txt",
+                "small/multiqc/multiqc_data/multiqc.log",
+                "small/multiqc/multiqc_data/multiqc.parquet",
+                "small/multiqc/multiqc_data/multiqc_bcftools_stats.txt",
+                "small/multiqc/multiqc_data/multiqc_citations.txt",
+                "small/multiqc/multiqc_data/multiqc_data.json",
+                "small/multiqc/multiqc_data/multiqc_general_stats.txt",
+                "small/multiqc/multiqc_data/multiqc_software_versions.txt",
+                "small/multiqc/multiqc_data/multiqc_sources.txt",
+                "small/multiqc/multiqc_plots",
+                "small/multiqc/multiqc_plots/pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-cnt.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools-stats-subtypes-pct.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-cnt.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_indel-lengths-log.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_variant_depths.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Indels.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_SNP.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transitions.pdf",
+                "small/multiqc/multiqc_plots/pdf/bcftools_stats_vqc_Count_Transversions.pdf",
+                "small/multiqc/multiqc_plots/png",
+                "small/multiqc/multiqc_plots/png/bcftools-stats-subtypes-cnt.png",
+                "small/multiqc/multiqc_plots/png/bcftools-stats-subtypes-pct.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-cnt.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_indel-lengths-log.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_variant_depths.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Indels.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_SNP.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transitions.png",
+                "small/multiqc/multiqc_plots/png/bcftools_stats_vqc_Count_Transversions.png",
+                "small/multiqc/multiqc_plots/svg",
+                "small/multiqc/multiqc_plots/svg/bcftools-stats-subtypes-cnt.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools-stats-subtypes-pct.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-cnt.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_indel-lengths-log.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_variant_depths.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Indels.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_SNP.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transitions.svg",
+                "small/multiqc/multiqc_plots/svg/bcftools_stats_vqc_Count_Transversions.svg",
+                "small/multiqc/multiqc_report.html",
+                "small/summary",
+                "small/summary/comparisons",
+                "small/summary/comparisons/concordance",
+                "small/summary/comparisons/concordance/concordance.FN.csv",
+                "small/summary/comparisons/concordance/concordance.FP.csv",
+                "small/summary/comparisons/concordance/concordance.TP_base.csv",
+                "small/summary/comparisons/concordance/concordance.TP_comp.csv",
+                "small/summary/datavzrd",
+                "small/summary/datavzrd/concordance",
+                "small/summary/datavzrd/concordance/index.html",
+                "small/summary/datavzrd/concordance/static",
+                "small/summary/datavzrd/concordance/static/bundle.js",
+                "small/summary/datavzrd/concordance/test",
+                "small/summary/datavzrd/concordance/test/config.js",
+                "small/summary/datavzrd/concordance/test/data",
+                "small/summary/datavzrd/concordance/test/data/data_1.js",
+                "small/summary/datavzrd/concordance/test/functions.js",
+                "small/summary/datavzrd/concordance/test/index_1.html",
+                "small/summary/datavzrd/concordance/test/plots",
+                "small/summary/datavzrd/concordance/test/plots/plots.js",
+                "small/summary/plots",
+                "small/summary/plots/concordance",
+                "small/summary/plots/concordance/small_lenght_concordance.FN.mqc.html",
+                "small/summary/plots/concordance/small_lenght_concordance.FP.mqc.html",
+                "small/summary/plots/concordance/small_lenght_concordance.TP_base.mqc.html",
+                "small/summary/plots/concordance/small_lenght_concordance.TP_comp.mqc.html",
+                "small/summary/plots/concordance/upset_concordance_tp_fn_mqc.html",
+                "small/summary/plots/concordance/upset_concordance_tp_fp_mqc.html",
+                "small/summary/plots/concordance/variant_metrics_concordance_mqc.html",
+                "small/summary/tables",
+                "small/summary/tables/concordance",
+                "small/summary/tables/concordance/concordance.summary.csv",
+                "small/test6",
+                "small/test6-test7",
+                "small/test6-test7-copy",
+                "small/test6-test7-copy/concordance",
+                "small/test6-test7-copy/concordance/gatk4",
+                "small/test6-test7-copy/concordance/gatk4/test6-test7-copy.summary.tsv",
+                "small/test6-test7-copy/concordance/gatk4/test6-test7-copy.tpfn.vcf",
+                "small/test6-test7-copy/concordance/gatk4/test6-test7-copy.tpfp.vcf",
+                "small/test6-test7/concordance",
+                "small/test6-test7/concordance/gatk4",
+                "small/test6-test7/concordance/gatk4/test6-test7.summary.tsv",
+                "small/test6-test7/concordance/gatk4/test6-test7.tpfn.vcf",
+                "small/test6-test7/concordance/gatk4/test6-test7.tpfp.vcf",
+                "small/test6/preprocess",
+                "small/test6/preprocess/test6.filtermissing.vcf.gz",
+                "small/test6/preprocess/test6.filtermissing.vcf.gz.tbi",
+                "small/test6/stats",
+                "small/test6/stats/bcftools",
+                "small/test6/stats/bcftools/test6.strelka.bcftools_stats.txt",
+                "small/test7",
+                "small/test7-copy",
+                "small/test7-copy/preprocess",
+                "small/test7-copy/preprocess/test7-copy.filtermissing.vcf.gz",
+                "small/test7-copy/preprocess/test7-copy.filtermissing.vcf.gz.tbi",
+                "small/test7-copy/stats",
+                "small/test7-copy/stats/bcftools",
+                "small/test7-copy/stats/bcftools/test7-copy.bcftools.bcftools_stats.txt",
+                "small/test7-test7-copy",
+                "small/test7-test7-copy/concordance",
+                "small/test7-test7-copy/concordance/gatk4",
+                "small/test7-test7-copy/concordance/gatk4/test7-test7-copy.summary.tsv",
+                "small/test7-test7-copy/concordance/gatk4/test7-test7-copy.tpfn.vcf",
+                "small/test7-test7-copy/concordance/gatk4/test7-test7-copy.tpfp.vcf",
+                "small/test7/preprocess",
+                "small/test7/preprocess/test7.filtermissing.vcf.gz",
+                "small/test7/preprocess/test7.filtermissing.vcf.gz.tbi",
+                "small/test7/stats",
+                "small/test7/stats/bcftools",
+                "small/test7/stats/bcftools/test7.bcftools.bcftools_stats.txt"
+            ],
+            [
+                "bcftools-stats-subtypes.txt:md5,c171669756bc2823ae6b8ed055e328b1",
+                "bcftools_stats_indel-lengths.txt:md5,492cc7f502588dabdf6f68598d089160",
+                "bcftools_stats_variant_depths.txt:md5,789aedf07b9a5dc2cb8f7f92fda79d11",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,adfa6aa228c3634b08f81d54ccde2c62",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,7b4afec83aec9b6f2ee42e609ebe9dfd",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,fd2b35cbbe7220c453688c56f3b03148",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,27c4ab870455a342eaddcb7a153feb53",
+                "multiqc_bcftools_stats.txt:md5,473a568ce947b312862da6ee36363e47",
+                "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
+                "test6-test7-copy.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
+                "test6-test7-copy.tpfn.vcf:md5,4f18d3b6c1a80150e85648aa5485f8a4",
+                "test6-test7-copy.tpfp.vcf:md5,bac0580958505b567446ab9a982981b9",
+                "test6-test7.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
+                "test6-test7.tpfn.vcf:md5,b1ac0b2e172f497bf92d2522e8c3589f",
+                "test6-test7.tpfp.vcf:md5,7fce25a2f05f38aa574d94fcf39391c3",
+                "test6.strelka.bcftools_stats.txt:md5,3a20155f9bc0c4b9afcb8e9ed11a2805",
+                "test7-copy.bcftools.bcftools_stats.txt:md5,ee09685f529288c487a8fd531305e8db",
+                "test7-test7-copy.summary.tsv:md5,cbda10b9075679475cd8a507191ed0cc",
+                "test7-test7-copy.tpfn.vcf:md5,d53845fd66c785e27c27e27aea77cbeb",
+                "test7-test7-copy.tpfp.vcf:md5,25a75d379f1cc5017307d6a2092d4a9a",
+                "test7.bcftools.bcftools_stats.txt:md5,a9f860c98e6ce4e3983ac7098e378b2d"
+            ]
+        ],
+        "timestamp": "2026-10-12T16:53:27.352209815",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
