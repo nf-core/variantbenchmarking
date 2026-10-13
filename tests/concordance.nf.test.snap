@@ -229,20 +229,20 @@
                 "multiqc_bcftools_stats.txt:md5,473a568ce947b312862da6ee36363e47",
                 "multiqc_citations.txt:md5,5cbab4ecbe14049d965fd97bd61d252b",
                 "test6-test7-copy.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "test6-test7-copy.tpfn.vcf:md5,2b7d360b3404f9dcdc65b9a11f287196",
-                "test6-test7-copy.tpfp.vcf:md5,aadd9b39ec599d13ca427dadcbd7b274",
+                "test6-test7-copy.tpfn.vcf:md5,de726f855a0f242ae3eb326f2fb73481",
+                "test6-test7-copy.tpfp.vcf:md5,4931ef4632b13ee09405b7d8e29f5849",
                 "test6-test7.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "test6-test7.tpfn.vcf:md5,dd63ee5010a0c88c28a7cd32a6f0b8e0",
-                "test6-test7.tpfp.vcf:md5,8964e8517ab06dbe94e3b64986c2ead1",
+                "test6-test7.tpfn.vcf:md5,2e08bf62c9388f02b319e7b5e84f2268",
+                "test6-test7.tpfp.vcf:md5,b2cfbf71ff6426fbe049223393a88b30",
                 "test6.strelka.bcftools_stats.txt:md5,3a20155f9bc0c4b9afcb8e9ed11a2805",
                 "test7-copy.bcftools.bcftools_stats.txt:md5,ee09685f529288c487a8fd531305e8db",
                 "test7-test7-copy.summary.tsv:md5,cbda10b9075679475cd8a507191ed0cc",
-                "test7-test7-copy.tpfn.vcf:md5,8a39051296c181977621cf17eb69a9fa",
-                "test7-test7-copy.tpfp.vcf:md5,66ee77c3082cc3986a73ee5fc0c19f05",
+                "test7-test7-copy.tpfn.vcf:md5,525f62e116fbfaee666e86cdc4912236",
+                "test7-test7-copy.tpfp.vcf:md5,2af8f6ae2a62648292212ee12e3920a0",
                 "test7.bcftools.bcftools_stats.txt:md5,a9f860c98e6ce4e3983ac7098e378b2d"
             ]
         ],
-        "timestamp": "2026-10-13T14:39:30.67447415",
+        "timestamp": "2026-10-13T16:20:34.603755865",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "25.10.4"
