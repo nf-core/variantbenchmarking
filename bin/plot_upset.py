@@ -10,11 +10,11 @@ Command-line tool to create interactive upset plots from FP/FN/TP results using 
 
 import argparse
 import pandas as pd
-from upsetplot import from_contents
 import sys
 import os
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from collections import defaultdict, Counter
 
 def parse_file(file_path, category_name):
     """
@@ -95,20 +95,34 @@ def create_interactive_upset(plot_data, title, output_file):
         print(f"Warning: Only one tool found in {title} group. Skipping Upset plot.")
         return
 
-    try:
-        upset_data = from_contents(plot_data)
-    except Exception as e:
-        print(f"Error generating upset data for {title}: {e}")
-        return
+    categories = list(plot_data.keys())
 
-    if not isinstance(upset_data, pd.DataFrame) or upset_data.empty:
+    # Tally intersections natively and clear sets from memory iteratively.
+    variant_masks = defaultdict(int)
+    for i, cat in enumerate(categories):
+        for var in plot_data[cat]:
+            variant_masks[var] |= (1 << i)
+        # Explicitly free memory for this tool's variant set once it is tallied
+        plot_data[cat].clear()
+        
+    mask_counts = Counter(variant_masks.values())
+    del variant_masks # Free the tally dictionary
+
+    # Build the aggregated dataframe manually
+    rows = []
+    for mask, count in mask_counts.items():
+        row = {'intersection_size': count}
+        for i, cat in enumerate(categories):
+            row[cat] = bool(mask & (1 << i))
+        rows.append(row)
+
+    if not rows:
         print(f"Warning: Invalid or empty data returned for {title}. Skipping.")
         return
 
-    df_upset = upset_data.groupby(list(plot_data.keys())).size().reset_index(name='intersection_size')
+    df_upset = pd.DataFrame(rows)
     df_upset = df_upset[df_upset['intersection_size'] > 0].sort_values('intersection_size', ascending=False)
 
-    categories = list(plot_data.keys())
     num_intersections = len(df_upset)
 
     fig = make_subplots(
