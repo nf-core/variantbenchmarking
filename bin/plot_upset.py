@@ -154,14 +154,17 @@ def create_interactive_upset(plot_data, title, output_file):
         x_idx = idx
         active_cats = [i for i, cat in enumerate(categories) if row[cat]]
         if len(active_cats) > 1:
+            hover_tmpl = "<b>{}</b>: %{text}<extra></extra>".format(cat)
             fig.add_trace(
                 go.Scatter(
-                    x=[x_idx, x_idx],
-                    y=[min(active_cats), max(active_cats)],
-                    mode='lines',
-                    line=dict(color='black', width=3),
-                    showlegend=False,
-                    hoverinfo='skip'
+                    x=x_indices,
+                    y=y_vals,
+                    mode='markers',
+                    marker=dict(size=12, color=marker_colors, symbol=marker_symbols),
+                    name=cat,
+                    text=hover_texts,
+                    hovertemplate=hover_tmpl,
+                    showlegend=False
                 ),
                 row=2, col=1
             )
