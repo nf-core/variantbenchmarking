@@ -29,7 +29,7 @@ def parse_file(file_path, category_name):
         # Read only the header first to identify columns
         header = pd.read_csv(file_path, sep=',', nrows=0)
         gt_cols = [col for col in header.columns if '_GT' in col]
-        
+
         if not gt_cols:
             print(f"Warning: No GT columns detected in {file_path}.")
             return {}
@@ -41,7 +41,7 @@ def parse_file(file_path, category_name):
 
         # Only load the columns we actually need to save RAM
         cols_to_use = required_cols + gt_cols
-        
+
         # Use memory efficient data types
         dtypes = {
             'CHROM': 'category',
@@ -49,7 +49,7 @@ def parse_file(file_path, category_name):
             'REF': 'category',
             'ALT': 'category'
         }
-        
+
         df = pd.read_csv(file_path, sep=',', usecols=cols_to_use, dtype=dtypes)
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
@@ -104,7 +104,7 @@ def create_interactive_upset(plot_data, title, output_file):
             variant_masks[var] |= (1 << i)
         # Explicitly free memory for this tool's variant set once it is tallied
         plot_data[cat].clear()
-        
+
     mask_counts = Counter(variant_masks.values())
     del variant_masks # Free the tally dictionary
 
