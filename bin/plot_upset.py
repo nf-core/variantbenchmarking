@@ -234,28 +234,30 @@ def create_interactive_upset(plot_data, title, output_file):
 
     plot_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
 
-    html_template = f"""
+    html_template = """
     <!DOCTYPE html>
     <html>
     <head>
-        <title>{title}</title>
+        <title>__TITLE__</title>
         <style>
-            body {{ font-family: -apple-system, sans-serif; background-color: #f8f9fa; margin: 20px; }}
-            .plot-container {{ width: 100%; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box; }}
-            .html-title {{ font-size: 26px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; word-wrap: break-word; }}
+            body { font-family: -apple-system, sans-serif; background-color: #f8f9fa; margin: 20px; }
+            .plot-container { width: 100%; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box; }
+            .html-title { font-size: 26px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; text-align: center; word-wrap: break-word; }
         </style>
     </head>
     <body>
         <div class="plot-container">
-            <div class="html-title">{title}</div>
-            {plot_html}
+            <div class="html-title">__TITLE__</div>
+            __PLOT_HTML__
         </div>
     </body>
     </html>
     """
 
+    html_output = html_template.replace('__TITLE__', title).replace('__PLOT_HTML__', plot_html)
+
     with open(output_file, "w") as f:
-        f.write(html_template)
+        f.write(html_output)
     print(f"Plot saved to {output_file}")
 
 def create_grouped_upset_plots(all_data, prefix=None, title="Variant Detection Upset Plots"):
