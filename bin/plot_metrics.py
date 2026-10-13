@@ -115,10 +115,10 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
             fig_tp.update_traces(marker=dict(size=10), line=dict(width=4))
 
         fig_tp.update_layout(hovermode="x unified")
-        
+
         tool_count = len(tp_data["Tool"].unique())
         fig_tp.update_xaxes(
-            tickvals=tp_data["Tool"].unique(), 
+            tickvals=tp_data["Tool"].unique(),
             ticktext=[f"<b>{t}</b>" for t in tp_data["Tool"].unique()],
             range=[-0.5, tool_count - 0.5]
         )
@@ -145,14 +145,14 @@ def generate_plots(df, benchmark, clean_prefix, title_suffix, show_labels, color
             fig_f1.update_traces(marker=dict(size=12))
 
         fig_f1.update_layout(hovermode="x unified")
-        
+
         tool_count_f1 = len(metric_data["Tool"].unique())
         fig_f1.update_xaxes(
-            tickvals=metric_data["Tool"].unique(), 
+            tickvals=metric_data["Tool"].unique(),
             ticktext=[f"<b>{t}</b>" for t in metric_data["Tool"].unique()],
             range=[-0.5, tool_count_f1 - 0.5]
         )
-        
+
         plot_dict["f1"] = fig_f1
 
     # 3. Visualize Precision vs Recall

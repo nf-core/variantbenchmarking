@@ -199,7 +199,6 @@ _Hap.py_
 | test7 | test7.HG002.bcftools.summary.csv | SNP   | ALL    | 42795   | 42740 | 55  | 47517   | 432 | 4295 | 15    | 40    | 0.99872 | 0.99001   | 0.09039 | 0.99434 | 2.15564          | 2.0699           | 1.43484             | 1.45788             |
 | test7 | test7.HG002.bcftools.summary.csv | SNP   | PASS   | 42795   | 42740 | 55  | 47517   | 432 | 4295 | 15    | 40    | 0.99872 | 0.99001   | 0.09039 | 0.99434 | 2.15564          | 2.0699           | 1.43484             | 1.45788             |
 
-
 _RTGtools_
 
 | Tool  | File                             | Threshold | TP_base | TP_call | FP  | FN  | Precision | Recall | F1     |
@@ -258,7 +257,6 @@ _Hap.py_
 | test7 | test7.HG002.bcftools.summary.csv | SNP   | ALL    | 155     | 147  | 8   | 641     | 10  | 480  | 5     | 4     | 0.94839 | 0.93789   | 0.74883 | 0.94311 | 0.64894          | 0.69129          | 1.34848             | 1.27758             |
 | test7 | test7.HG002.bcftools.summary.csv | SNP   | PASS   | 155     | 147  | 8   | 641     | 10  | 480  | 5     | 4     | 0.94839 | 0.93789   | 0.74883 | 0.94311 | 0.64894          | 0.69129          | 1.34848             | 1.27758             |
 
-
 ## Case 8 : Somatic SNV Variant benchmarking
 
 - [test config](../conf/tests/somatic_snv.config)
@@ -304,11 +302,11 @@ The number of TPs found quite similar with som.py and RTGtools.
 
 _som.py_
 
-| Tool   | File                            | Type   | TP_base | TP | FN   | TP_call | FP  | UNK | Recall  | Precision | recall_lower | recall_upper | recall2 | precision_lower | precision_upper | na  | ambiguous | fp.region.size | F1      |
-| ------ | ------------------------------- | ------ | ------- | -- | ---- | ------- | --- | --- | ------- | --------- | ------------ | ------------ | ------- | --------------- | --------------- | --- | --------- | -------------- | ------- |
-| test8  | test8.SEQC2.freebayes.stats.csv | indels | 1922    | 1  | 1921 | 256     | 255 | 0   | 0.00052 | 0.00391   | 0.0          | 0.00243      | 0.00052 | 0.0             | 0.01811         | 0.0 | 0.0       | 2485467324     | 0.00092 |
-| test9  | test9.SEQC2.mutect2.stats.csv   | indels | 1922    | 1  | 1921 | 1       | 0   | 0   | 0.00052 | 1.0       | 0.0          | 0.00243      | 0.00052 | 0.025           | 1.0             | 0.0 | 0.0       | 2485467324     | 0.00104 |
-| test10 | test10.SEQC2.strelka.stats.csv  | indels | 1922    | 70 | 1852 | 445     | 375 | 0   | 0.03642 | 0.1573    | 0.02873      | 0.0455       | 0.03642 | 0.12574         | 0.1933          | 0.0 | 0.0       | 2485467324     | 0.05915 |
+| Tool   | File                            | Type   | TP_base | TP  | FN   | TP_call | FP  | UNK | Recall  | Precision | recall_lower | recall_upper | recall2 | precision_lower | precision_upper | na  | ambiguous | fp.region.size | F1      |
+| ------ | ------------------------------- | ------ | ------- | --- | ---- | ------- | --- | --- | ------- | --------- | ------------ | ------------ | ------- | --------------- | --------------- | --- | --------- | -------------- | ------- |
+| test8  | test8.SEQC2.freebayes.stats.csv | indels | 1922    | 1   | 1921 | 256     | 255 | 0   | 0.00052 | 0.00391   | 0.0          | 0.00243      | 0.00052 | 0.0             | 0.01811         | 0.0 | 0.0       | 2485467324     | 0.00092 |
+| test9  | test9.SEQC2.mutect2.stats.csv   | indels | 1922    | 1   | 1921 | 1       | 0   | 0   | 0.00052 | 1.0       | 0.0          | 0.00243      | 0.00052 | 0.025           | 1.0             | 0.0 | 0.0       | 2485467324     | 0.00104 |
+| test10 | test10.SEQC2.strelka.stats.csv  | indels | 1922    | 70  | 1852 | 445     | 375 | 0   | 0.03642 | 0.1573    | 0.02873      | 0.0455       | 0.03642 | 0.12574         | 0.1933          | 0.0 | 0.0       | 2485467324     | 0.05915 |
 
 _RTGtools_
 
@@ -363,20 +361,20 @@ _RTG Tools_
 
 _Truvari_
 
-| Tool   | File                               | Caller | TP_base | TP_call | FP  | FN   | Precision | Recall  | F1      |
-| ------ | ---------------------------------- | ------ | ------- | ------- | --- | ---- | --------- | ------- | ------- |
-| test11 | test11.SEQC2.manta.summary.json    | manta  | 5       | 5       | 695 | 1114 | 0.00714   | 0.00447 | 0.0055  |
-| test14 | test14.SEQC2.cnvkit.summary.json   | cnvkit | 8       | 8       | 96  | 1111 | 0.07692   | 0.00715 | 0.01308 |
+| Tool   | File                             | Caller | TP_base | TP_call | FP  | FN   | Precision | Recall  | F1      |
+| ------ | -------------------------------- | ------ | ------- | ------- | --- | ---- | --------- | ------- | ------- |
+| test11 | test11.SEQC2.manta.summary.json  | manta  | 5       | 5       | 695 | 1114 | 0.00714   | 0.00447 | 0.0055  |
+| test14 | test14.SEQC2.cnvkit.summary.json | cnvkit | 8       | 8       | 96  | 1111 | 0.07692   | 0.00715 | 0.01308 |
 
 _Intersect_
 
-| Tool             | File                                     | Caller               | Analysis           | TP_base | TP_comp | FP   | FN   | Precision | Recall  | F1      |
-| ---------------- | ---------------------------------------- | -------------------- | ------------------ | ------- | ------- | ---- | ---- | --------- | ------- | ------- |
-| test11_converted | test11.SEQC2.manta.converted_stats.csv   | manta                | Bedtools_Intersect | 1       | 1       | 1063 | 1501 | 0.00094   | 0.00067 | 0.00078 |
-| test13           | test13.SEQC2.controlfreec_stats.csv      | controlfreec         | Bedtools_Intersect | 95      | 95      | 344  | 1407 | 0.2164    | 0.06325 | 0.09789 |
-| test14           | test14.SEQC2.cnvkit_stats.csv            | cnvkit               | Bedtools_Intersect | 123     | 123     | 259  | 1379 | 0.32199   | 0.08189 | 0.13057 |
-| test14_converted | test14.SEQC2.cnvkit.converted_stats.csv  | cnvkit               | Bedtools_Intersect | 90      | 90      | 207  | 1412 | 0.30303   | 0.05992 | 0.10006 |
-| test15           | test15.SEQC2.ascat_stats.csv             | ascat                | Bedtools_Intersect | 64      | 64      | 119  | 1438 | 0.34973   | 0.04261 | 0.07596 |
+| Tool             | File                                    | Caller       | Analysis           | TP_base | TP_comp | FP   | FN   | Precision | Recall  | F1      |
+| ---------------- | --------------------------------------- | ------------ | ------------------ | ------- | ------- | ---- | ---- | --------- | ------- | ------- |
+| test11_converted | test11.SEQC2.manta.converted_stats.csv  | manta        | Bedtools_Intersect | 1       | 1       | 1063 | 1501 | 0.00094   | 0.00067 | 0.00078 |
+| test13           | test13.SEQC2.controlfreec_stats.csv     | controlfreec | Bedtools_Intersect | 95      | 95      | 344  | 1407 | 0.2164    | 0.06325 | 0.09789 |
+| test14           | test14.SEQC2.cnvkit_stats.csv           | cnvkit       | Bedtools_Intersect | 123     | 123     | 259  | 1379 | 0.32199   | 0.08189 | 0.13057 |
+| test14_converted | test14.SEQC2.cnvkit.converted_stats.csv | cnvkit       | Bedtools_Intersect | 90      | 90      | 207  | 1412 | 0.30303   | 0.05992 | 0.10006 |
+| test15           | test15.SEQC2.ascat_stats.csv            | ascat        | Bedtools_Intersect | 64      | 64      | 119  | 1438 | 0.34973   | 0.04261 | 0.07596 |
 
 Only CNVkit was reporting the variants in VCF format that is why truvari and rgtools was running only that test sample.
 We also have two type of results for CNVkit for intersection analysis. \*\_converted one show the result from the VCF input being converted to BED for ntersection analysis while the other result is using input BED file directly.
@@ -429,20 +427,20 @@ Truth/Golden set of samples to use as a baseline for benchmarking analysis is a 
 
 _Som.py_
 
-| Tool   | File                            | Type | TP_base | TP | FN | TP_call | FP   | UNK | Recall  | Precision | recall_lower | recall_upper | recall2 | precision_lower | precision_upper | na  | ambiguous | fp.region.size | F1      |
-| ------ | ------------------------------- | ---- | ------- | -- | -- | ------- | ---- | --- | ------- | --------- | ------------ | ------------ | ------- | --------------- | --------------- | --- | --------- | -------------- | ------- |
-| test8  | test8.truth.freebayes.stats.csv | SNVs | 7       | 7  | 0  | 1898    | 1891 | 0   | 1.0     | 0.00369   | 0.59038      | 1.0          | 1.0     | 0.00165         | 0.00723         | 0.0 | 0.0       | 46709983       | 0.00735 |
-| test9  | test9.truth.mutect2.stats.csv   | SNVs | 7       | 6  | 1  | 8       | 2    | 0   | 0.85714 | 0.75      | 0.4992       | 1.0          | 0.85714 | 0.40838         | 0.94403         | 0.0 | 0.0       | 46709983       | 0.8     |
-| test10 | test10.truth.strelka.stats.csv  | SNVs | 7       | 7  | 0  | 5251    | 5244 | 0   | 1.0     | 0.00133   | 0.59038      | 1.0          | 1.0     | 0.0006          | 0.00262         | 0.0 | 0.0       | 46709983       | 0.00266 |
+| Tool   | File                            | Type | TP_base | TP  | FN  | TP_call | FP   | UNK | Recall  | Precision | recall_lower | recall_upper | recall2 | precision_lower | precision_upper | na  | ambiguous | fp.region.size | F1      |
+| ------ | ------------------------------- | ---- | ------- | --- | --- | ------- | ---- | --- | ------- | --------- | ------------ | ------------ | ------- | --------------- | --------------- | --- | --------- | -------------- | ------- |
+| test8  | test8.truth.freebayes.stats.csv | SNVs | 7       | 7   | 0   | 1898    | 1891 | 0   | 1.0     | 0.00369   | 0.59038      | 1.0          | 1.0     | 0.00165         | 0.00723         | 0.0 | 0.0       | 46709983       | 0.00735 |
+| test9  | test9.truth.mutect2.stats.csv   | SNVs | 7       | 6   | 1   | 8       | 2    | 0   | 0.85714 | 0.75      | 0.4992       | 1.0          | 0.85714 | 0.40838         | 0.94403         | 0.0 | 0.0       | 46709983       | 0.8     |
+| test10 | test10.truth.strelka.stats.csv  | SNVs | 7       | 7   | 0   | 5251    | 5244 | 0   | 1.0     | 0.00133   | 0.59038      | 1.0          | 1.0     | 0.0006          | 0.00262         | 0.0 | 0.0       | 46709983       | 0.00266 |
 
 _RTG Tools_
 
-| Tool   | File                               | Threshold | TP_base | TP_call | FP     | FN  | Precision | Recall | F1     |
-| ------ | ---------------------------------- | --------- | ------- | ------- | ------ | --- | --------- | ------ | ------ |
-| test8  | test8.truth.freebayes.summary.txt  | 0.000     | 152     | 152     | 1746   | 4   | 0.0801    | 0.9744 | 0.148  |
-| test8  | test8.truth.freebayes.summary.txt  | None      | 152     | 152     | 1746   | 4   | 0.0801    | 0.9744 | 0.148  |
-| test9  | test9.truth.mutect2.summary.txt    | None      | 18      | 18      | 5      | 138 | 0.7826    | 0.1154 | 0.2011 |
-| test10 | test10.truth.strelka.summary.txt   | None      | 154     | 154     | 112831 | 2   | 0.0014    | 0.9872 | 0.0027 |
+| Tool   | File                              | Threshold | TP_base | TP_call | FP     | FN  | Precision | Recall | F1     |
+| ------ | --------------------------------- | --------- | ------- | ------- | ------ | --- | --------- | ------ | ------ |
+| test8  | test8.truth.freebayes.summary.txt | 0.000     | 152     | 152     | 1746   | 4   | 0.0801    | 0.9744 | 0.148  |
+| test8  | test8.truth.freebayes.summary.txt | None      | 152     | 152     | 1746   | 4   | 0.0801    | 0.9744 | 0.148  |
+| test9  | test9.truth.mutect2.summary.txt   | None      | 18      | 18      | 5      | 138 | 0.7826    | 0.1154 | 0.2011 |
+| test10 | test10.truth.strelka.summary.txt  | None      | 154     | 154     | 112831 | 2   | 0.0014    | 0.9872 | 0.0027 |
 
 The contrast in results stems from how each tool handles input filtering and regional masking. som.py is built specifically for somatic data, applying strict regional masking and aggressively filtering the baseline down to just 7 variants. RTG Tools lacks this somatic aware pre-filtering, evaluating a much broader and noisier baseline of 156 variants. Consequently, RTG Tools reports massively inflated false positives and false negatives because it evaluates a wider genomic footprint and struggles to reconcile complex somatic alleles without a specialized matching engine.
 
@@ -463,11 +461,10 @@ This is another example to generate a proxy truth file using test files for stru
 
 ### Results
 
-| Tool   | File                                | Caller | TP_base | TP_call | FP   | FN   | Precision | Recall  | F1      |
-| ------ | ----------------------------------- | ------ | ------- | ------- | ---- | ---- | --------- | ------- | ------- |
-| test11 | test11.truth.manta.summary.json     | manta  | 333     | 333     | 631  | 6447 | 0.34544   | 0.04912 | 0.086   |
-| test12 | test12.truth.tiddit.summary.json    | tiddit | 3344    | 3344    | 9013 | 3436 | 0.27062   | 0.49322 | 0.34948 |
-
+| Tool   | File                             | Caller | TP_base | TP_call | FP   | FN   | Precision | Recall  | F1      |
+| ------ | -------------------------------- | ------ | ------- | ------- | ---- | ---- | --------- | ------- | ------- |
+| test11 | test11.truth.manta.summary.json  | manta  | 333     | 333     | 631  | 6447 | 0.34544   | 0.04912 | 0.086   |
+| test12 | test12.truth.tiddit.summary.json | tiddit | 3344    | 3344    | 9013 | 3436 | 0.27062   | 0.49322 | 0.34948 |
 
 > [!NOTE]
 > As a final note, it is highly encouraged to run all those test and investigate comparisons, plots and tables created. This pipeline serves for multiple tools enabling efficient benchmark analysis.
