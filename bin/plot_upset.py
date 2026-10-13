@@ -29,7 +29,7 @@ def parse_file(file_path, category_name):
         # Read only the header first to identify columns
         header = pd.read_csv(file_path, sep=',', nrows=0)
         gt_cols = [col for col in header.columns if '_GT' in col]
-
+        
         if not gt_cols:
             print(f"Warning: No GT columns detected in {file_path}.")
             return {}
@@ -41,7 +41,7 @@ def parse_file(file_path, category_name):
 
         # Only load the columns we actually need to save RAM
         cols_to_use = required_cols + gt_cols
-
+        
         # Use memory efficient data types
         dtypes = {
             'CHROM': 'category',
@@ -49,7 +49,7 @@ def parse_file(file_path, category_name):
             'REF': 'category',
             'ALT': 'category'
         }
-
+        
         df = pd.read_csv(file_path, sep=',', usecols=cols_to_use, dtype=dtypes)
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
@@ -104,7 +104,7 @@ def create_interactive_upset(plot_data, title, output_file):
             variant_masks[var] |= (1 << i)
         # Explicitly free memory for this tool's variant set once it is tallied
         plot_data[cat].clear()
-
+        
     mask_counts = Counter(variant_masks.values())
     del variant_masks # Free the tally dictionary
 
@@ -121,7 +121,7 @@ def create_interactive_upset(plot_data, title, output_file):
         return
 
     df_upset = pd.DataFrame(rows)
-    df_upset = df_upset[df_upset['intersection_size'] > 0].sort_values('intersection_size', ascending=False)
+    df_upset = df_upset[df_upset['intersection_size'] > 0].sort_values('intersection_size', ascending=False).reset_index(drop=True)
 
     num_intersections = len(df_upset)
 
@@ -151,7 +151,7 @@ def create_interactive_upset(plot_data, title, output_file):
 
     # Connecting lines for multi-category intersections
     for idx, row in df_upset.iterrows():
-        x_idx = df_upset.index[df_upset.index == idx][0]
+        x_idx = idx
         active_cats = [i for i, cat in enumerate(categories) if row[cat]]
         if len(active_cats) > 1:
             fig.add_trace(
@@ -171,15 +171,18 @@ def create_interactive_upset(plot_data, title, output_file):
         y_vals = [i] * num_intersections
         marker_colors = []
         marker_symbols = []
+        hover_texts = []
 
         for idx, row in df_upset.iterrows():
             present = row[cat]
             if present:
                 marker_colors.append('black')
                 marker_symbols.append('circle')
+                hover_texts.append('Present')
             else:
                 marker_colors.append('#dcdcdc')
                 marker_symbols.append('circle')
+                hover_texts.append('Absent')
 
         fig.add_trace(
             go.Scatter(
@@ -188,7 +191,8 @@ def create_interactive_upset(plot_data, title, output_file):
                 mode='markers',
                 marker=dict(size=12, color=marker_colors, symbol=marker_symbols),
                 name=cat,
-                hovertemplate=f"<b>{cat}</b>: {'Present' if present else 'Absent'}<extra></extra>",
+                text=hover_texts,
+                hovertemplate=f"<b>{cat}</b>: %{{text}}<extra></extra>",
                 showlegend=False
             ),
             row=2, col=1
