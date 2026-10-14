@@ -10,11 +10,11 @@ Command-line tool to create interactive upset plots from FP/FN/TP results using 
 
 import argparse
 import pandas as pd
-from upsetplot import from_contents
 import sys
 import os
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from collections import defaultdict, Counter
 
 def parse_file(file_path, category_name):
     """
@@ -26,7 +26,31 @@ def parse_file(file_path, category_name):
         return {}
 
     try:
-        df = pd.read_csv(file_path, sep=',')
+        # Read only the header first to identify columns
+        header = pd.read_csv(file_path, sep=',', nrows=0)
+        gt_cols = [col for col in header.columns if '_GT' in col]
+
+        if not gt_cols:
+            print(f"Warning: No GT columns detected in {file_path}.")
+            return {}
+
+        required_cols = ['CHROM', 'POS', 'REF', 'ALT']
+        if not all(c in header.columns for c in required_cols):
+            print(f"Warning: Missing required columns in {file_path}")
+            return {}
+
+        # Only load the columns we actually need to save RAM
+        cols_to_use = required_cols + gt_cols
+
+        # Use memory efficient data types
+        dtypes = {
+            'CHROM': 'category',
+            'POS': 'int32',
+            'REF': 'category',
+            'ALT': 'category'
+        }
+
+        df = pd.read_csv(file_path, sep=',', usecols=cols_to_use, dtype=dtypes)
     except pd.errors.EmptyDataError:
         print(f"Warning: File {file_path} is empty.")
         return {}
@@ -34,14 +58,11 @@ def parse_file(file_path, category_name):
         print(f"Error parsing {file_path}: {str(e)}")
         return {}
 
-    gt_cols = [col for col in df.columns if '_GT' in col]
-
-    if not gt_cols:
-        print(f"Warning: No GT columns detected in {file_path}.")
-        return {}
-
     contents = {}
     non_variant_genotypes = {'0/0', '0|0', './.', '.|.', '0'}
+
+    # Vectorized ID generation: Reuses the same strings for all tools instead of creating millions of new tuples
+    variant_ids_series = df['CHROM'].astype(str) + ':' + df['POS'].astype(str) + ':' + df['REF'].astype(str) + ':' + df['ALT'].astype(str)
 
     for col in gt_cols:
         name_part = col.split('_GT')[0]
@@ -49,13 +70,9 @@ def parse_file(file_path, category_name):
 
         upset_key = f"{tool_name}_{category_name}"
 
-        required_cols = ['CHROM', 'POS', 'REF', 'ALT']
-        if not all(c in df.columns for c in required_cols):
-            print(f"Warning: Missing required columns in {file_path}")
-            continue
-
+        # Vectorized masking directly on the series
         gt_mask = ~df[col].isin(non_variant_genotypes)
-        variant_ids = set(tuple(row) for row in df.loc[gt_mask, required_cols].astype(str).values)
+        variant_ids = set(variant_ids_series[gt_mask])
 
         if variant_ids:
             contents[upset_key] = variant_ids
@@ -78,20 +95,34 @@ def create_interactive_upset(plot_data, title, output_file):
         print(f"Warning: Only one tool found in {title} group. Skipping Upset plot.")
         return
 
-    try:
-        upset_data = from_contents(plot_data)
-    except Exception as e:
-        print(f"Error generating upset data for {title}: {e}")
-        return
+    categories = list(plot_data.keys())
 
-    if not isinstance(upset_data, pd.DataFrame) or upset_data.empty:
+    # Tally intersections natively and clear sets from memory iteratively.
+    variant_masks = defaultdict(int)
+    for i, cat in enumerate(categories):
+        for var in plot_data[cat]:
+            variant_masks[var] |= (1 << i)
+        # Explicitly free memory for this tool's variant set once it is tallied
+        plot_data[cat].clear()
+
+    mask_counts = Counter(variant_masks.values())
+    del variant_masks # Free the tally dictionary
+
+    # Build the aggregated dataframe manually
+    rows = []
+    for mask, count in mask_counts.items():
+        row = {'intersection_size': count}
+        for i, cat in enumerate(categories):
+            row[cat] = bool(mask & (1 << i))
+        rows.append(row)
+
+    if not rows:
         print(f"Warning: Invalid or empty data returned for {title}. Skipping.")
         return
 
-    df_upset = upset_data.groupby(list(plot_data.keys())).size().reset_index(name='intersection_size')
-    df_upset = df_upset[df_upset['intersection_size'] > 0].sort_values('intersection_size', ascending=False)
+    df_upset = pd.DataFrame(rows)
+    df_upset = df_upset[df_upset['intersection_size'] > 0].sort_values('intersection_size', ascending=False).reset_index(drop=True)
 
-    categories = list(plot_data.keys())
     num_intersections = len(df_upset)
 
     fig = make_subplots(
@@ -120,7 +151,7 @@ def create_interactive_upset(plot_data, title, output_file):
 
     # Connecting lines for multi-category intersections
     for idx, row in df_upset.iterrows():
-        x_idx = df_upset.index[df_upset.index == idx][0]
+        x_idx = idx
         active_cats = [i for i, cat in enumerate(categories) if row[cat]]
         if len(active_cats) > 1:
             fig.add_trace(
@@ -140,15 +171,18 @@ def create_interactive_upset(plot_data, title, output_file):
         y_vals = [i] * num_intersections
         marker_colors = []
         marker_symbols = []
+        hover_texts = []
 
         for idx, row in df_upset.iterrows():
             present = row[cat]
             if present:
                 marker_colors.append('black')
                 marker_symbols.append('circle')
+                hover_texts.append('Present')
             else:
                 marker_colors.append('#dcdcdc')
                 marker_symbols.append('circle')
+                hover_texts.append('Absent')
 
         fig.add_trace(
             go.Scatter(
@@ -157,7 +191,8 @@ def create_interactive_upset(plot_data, title, output_file):
                 mode='markers',
                 marker=dict(size=12, color=marker_colors, symbol=marker_symbols),
                 name=cat,
-                hovertemplate=f"<b>{cat}</b>: {'Present' if present else 'Absent'}<extra></extra>",
+                text=hover_texts,
+                hovertemplate="<b>" + cat + "</b>: %{text}<extra></extra>",
                 showlegend=False
             ),
             row=2, col=1
