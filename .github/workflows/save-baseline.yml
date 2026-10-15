@@ -1,0 +1,42 @@
+name: Save nf-diff baseline
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch: # Allows seeding the baseline manually
+
+# Only the newest commit on dev needs a baseline
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+
+      - name: Enable Nextflow lineage
+        run: printf '%s\n' 'lineage.enabled = true' > lineage.config
+
+      # 1. Run pipeline with dev code (same command as pr-diff.yml, different outdir)
+      - name: Run pipeline on dev
+        run: |
+          nextflow run . -profile test,docker -c lineage.config --outdir baseline-results
+
+      # 2. Save run history, lineage store and outputs for pr-diff.yml to restore
+      - name: Save baseline cache
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .nextflow
+            .lineage
+            baseline-results
+          key: nf-baseline-${{ github.sha }}

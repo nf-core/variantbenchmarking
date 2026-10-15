@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `happy_comparison_engine` parameter to choose the hap.py comparison engine (`default`, `xcmp`, `vcfeval`). The `scmp-somatic` and `scmp-distance` engines are not supported because of unresolved issues in hap.py ([Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)). The chosen engine is also passed to HAPPY_REPORT as `comparison_method`. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 - hap.py now uses a Seqera container that bundles RTG Tools, so `--happy_comparison_engine vcfeval` works without a custom container. The `test_ga4gh` profile now uses the parameter instead of a process override. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 - Replace nf-core modules TABIX_TABIX, TABIX_BGZIP and TABIX_BGZIPTABIX with HTSLIB_BGZIPTABIX [#328](https://github.com/nf-core/variantbenchmarking/pull/328).
+- nf-diff GitHub Actions: `save-baseline.yml` caches a test profile run on every push to `dev`, and `pr-diff.yml` compares each PR's test run against it and posts the report as a PR comment.
 
 ### `Fixed`
 
