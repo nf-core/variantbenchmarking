@@ -24,23 +24,54 @@ workflow CONCORDANCE_ANALYSIS {
 
     tagged_variants = channel.empty()
 
-ch_pairs = input_ch
-    .map { meta, vcf1, tbi1 ->
-        [meta.id, vcf1, tbi1]
-    }
-    .toList()
-    .flatMap { items ->
-        [items, items].combinations()
-            .findAll { left, right -> left[0] < right[0] }
-            .collect { left, right ->
-                def combinedMeta = [id: "${left[0]}-${right[0]}"]
-                [
-                    combinedMeta,       // [id: "test6-test7"]
-                    left[1], left[2],   // vcf1, tbi1
-                    right[1], right[2]  // vcf2, tbi2
-                ]
+    ch_pairs = input_ch
+        .toList()
+        .flatMap { items ->
+            // Check if any item in the list has concordance_id defined in its meta map
+            def hasConcordanceId = items.any { it[0].concordance_id }
+
+            if (hasConcordanceId) {
+                def explicitPairs = []
+                
+                items.each { evalItem ->
+                    def meta = evalItem[0]
+                    
+                    if (meta.concordance_id) {
+                        
+                        def truthIds = meta.concordance_id.toString().split(';').collect { it.trim() }
+
+                        truthIds.each { tId ->
+                            // Find the matching truth file in the same items list
+                            def truthItem = items.find { it[0].id == tId }
+                        
+                            if (truthItem) {
+                                def combinedMeta = [id: "truth_${tId}-query_${meta.id}"]
+                                explicitPairs << [
+                                    combinedMeta,
+                                    evalItem[1], evalItem[2],
+                                    truthItem[1], truthItem[2]
+                                ]
+                            }
+                        }
+                    }
+                }
+                
+                explicitPairs
+                
+            } else {
+                
+                [items, items].combinations()
+                    .findAll { left, right -> left[0].id < right[0].id }
+                    .collect { left, right ->
+                        def combinedMeta = [id: "truth_${right[0].id}-query_${left[0].id}"]
+                        [
+                            combinedMeta,
+                            left[1], left[2],
+                            right[1], right[2]
+                        ]
+                    }
             }
-    }
+        }
 
     ch_bed_input = bed_ch
         .map { bed -> [ [id: "intervals"], bed ] }

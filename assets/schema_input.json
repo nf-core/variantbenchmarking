@@ -180,6 +180,13 @@
                 "description": "True if GT filed is missing for the vcf file, to activate add params.enable_missing_genotypes='test' ",
                 "meta": ["missing_gt"],
                 "default": false
+            },
+            "concordance_truth_id": {
+                "type": "string",
+                "description": "If provided, the concordance analysis will run only for that specific sample.id pair. For multiple IDs, separate them with a semicolon (e.g., id1;id2).Note that params.method='concordance' must be set. If no concordance_truth_id is provided, the analysis will run for all samples in the test VCF file",
+                "meta": ["concordance_id"],
+                "pattern": "^[a-zA-Z0-9_\\-]+(?:;[a-zA-Z0-9_\\-]+)*$",
+                "errorMessage": "Multiple concordance IDs must be separated by a semicolon (;). Has to match sample.id."
             }
         },
         "anyOf": [

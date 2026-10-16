@@ -327,16 +327,20 @@ test2,,cnvkit,cnvkit.cns
 
 Concordance analysis enables comparison of test VCFs with each other without the need of truth VCF. GATK4 Concordance can only be applied to small (including snv and indel for somatic samples) variants.
 
-In order to perform concordance analysis, just add `--method "concordance"` . There is no need to provide truth VCF or id for concordance analysis. However, be carefull as concordance can be coupled to benchmarking analysis which requires truth VCF.
+In order to perform concordance analysis, add `--method "concordance"` . By default, the pipeline computes all possible combinations of the provided samples. To restrict the analysis to specific pairs, define the target samples in the concordance_truth_id column of your samplesheet. If you need to specify multiple IDs for a single sample, separate them with a semicolon (;).
+
+However, be careful when coupling concordance with benchmarking analysis, as benchmarking explicitly requires a designated truth VCF.
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller
-test1,test1.vcf.gz,delly
-test2,test2.vcf,gatk
+id,test_vcf,caller,concordance_truth_id
+test1,test1.vcf.gz,delly,test2;test3
+test2,test2.vcf,gatk,
 test3,test3.vcf.gz,cnvkit
 ```
 
-## Emsemble approach (majority rule) analysis
+In the example above, the comparison will be performed test2 vs test1 and test3 vs test1.
+
+## Ensemble approach (majority rule) analysis
 
 In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers.
 
