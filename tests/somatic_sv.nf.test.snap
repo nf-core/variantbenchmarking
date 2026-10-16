@@ -27,6 +27,14 @@
                 "DATAVZRD": {
                     "datavzrd": "2.63.3"
                 },
+                "HTSLIB_BGZIPTABIX_COMPRESS": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },
+                "HTSLIB_BGZIPTABIX_DECOMPRESS": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },
                 "MERGE_REPORTS": {
                     "python": "3.13.0"
                 },
