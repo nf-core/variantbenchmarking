@@ -68,7 +68,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -235,10 +235,10 @@
                 "test3.manta_mqc.stats:md5,c6d5b9f40c4aa8c7b30155464eb52e3c"
             ]
         ],
-        "timestamp": "2026-10-01T15:00:45.693728379",
+        "timestamp": "2026-10-13T14:41:46.673166835",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "-stub": {
@@ -310,7 +310,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -432,10 +432,10 @@
                 "test3.manta_mqc.stats:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-10-01T15:08:43.763758315",
+        "timestamp": "2026-10-13T14:42:57.557114845",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     }
 }

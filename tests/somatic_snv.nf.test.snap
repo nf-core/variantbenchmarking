@@ -87,7 +87,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -269,10 +269,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-10-12T11:49:51.929825825",
+        "timestamp": "2026-10-13T14:51:42.495104663",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "Params: --analysis 'somatic' --variant_type 'snv' --method 'sompy,rtgtools'": {
@@ -363,7 +363,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -647,10 +647,10 @@
                 "test9.mutect2.bcftools_stats.txt:md5,ef646305a895de80f9f33748768a2a7e"
             ]
         ],
-        "timestamp": "2026-10-12T11:48:48.510036428",
+        "timestamp": "2026-10-13T14:50:34.12957835",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     }
 }
