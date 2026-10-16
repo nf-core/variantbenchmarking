@@ -213,6 +213,8 @@ For more details about the output files and reports, please refer to the
 
 This pipeline outputs benchmarking results per method besides to the inferred and compared statistics.
 
+The summary reports can also be explored in interactive dashboards with [Depictio](https://depictio.github.io/depictio-docs/latest/); see the [usage documentation](https://nf-co.re/variantbenchmarking/usage#interactive-dashboards-with-depictio) for how to import them.
+
 ## Credits
 
 nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarci](https://github.com/kubranarci)) as a part of benchmarking studies in German Human Genome Phenome Archieve Project ([GHGA](https://www.ghga.de/)).
