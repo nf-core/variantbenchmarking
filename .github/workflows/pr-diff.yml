@@ -21,8 +21,8 @@ jobs:
       - name: Enable Nextflow lineage
         run: printf '%s\n' 'lineage.enabled = true' > lineage.config
 
-      # 1. Fetch latest baseline from main
-      - name: Restore baseline from main
+      # 1. Fetch latest baseline saved by save-baseline.yml on dev
+      - name: Restore baseline from dev
         uses: actions/cache/restore@v4
         id: restore-baseline
         with:
