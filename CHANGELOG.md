@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - Template update for nf-core/tools v4.0.2 + a few fixes around [#305](https://github.com/nf-core/variantbenchmarking/issues/305)
+- Documenting how to import pipeline reports into Depictio interactive dashboards in usage docs.
 - Aardvark Benchmarking Subworkflow: Introduced the AARDVARK_BENCHMARK subworkflow for sequence-resolved small variant (SNV/Indel) benchmarking [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - Replaced SMALL_GERMLINE_BENCHMARK and SMALL_SOMATIC_BENCHMARK subworkflows with SMALL_BENCHMARK to include Aardvark alongside Hap.py, Som.py, and RTGtools vcfeval for both germline and somatic tracks [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - `high_conf` parameter [#319](https://github.com/nf-core/variantbenchmarking/pull/319).
@@ -63,7 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
 - Adding nf-test and meta.yml to local subworklfows, removing overlapping workflow tests [#257](https://github.com/nf-core/variantbenchmarking/pull/296)
 - Adding rtgtools cnveval as a new benchmarking method for copynumber variants [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
-- Documenting how to import pipeline reports into Depictio interactive dashboards in usage docs.
 
 ### `Fixed`
 
