@@ -3,7 +3,7 @@
 //
 
 include { VCF_VARIANT_DEDUPLICATION                    } from '../../local/vcf_variant_deduplication'
-include { VCF_VARIANT_FILTERING                        } from '../../local/vcf_variant_filtering'
+include { VCF_FILTER_SURVIVOR_BCFTOOLS                 } from '../../nf-core/vcf_filter_survivor_bcftools'
 include { SPLIT_SMALL_VARIANTS_TEST                    } from '../../local/split_small_variants_test'
 include { LIFTOVER_VCFS                                } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM                                } from '../../../modules/nf-core/bcftools/norm'
@@ -107,12 +107,26 @@ workflow PREPARE_VCFS_TEST {
             .set { vcf_ch }
     }
 
-    if (params.include_expression != null || params.exclude_expression != null || params.min_sv_size > 0 || params.max_sv_size != -1 || params.min_allele_freq != -1 || params.min_num_reads != -1) {
+    // bcftools filters with include/exclude expressions, SURVIVOR filters SVs by size, allele frequency and read support
+    def filter_tools = []
+    if (params.include_expression || params.exclude_expression) {
+        filter_tools << 'bcftools'
+    }
+    if (params.variant_type == "structural" && (params.min_sv_size > 0 || params.max_sv_size != -1 || params.min_allele_freq != -1 || params.min_num_reads != -1)) {
+        filter_tools << 'survivor'
+    }
+
+    if (filter_tools) {
         // Filters variants and SVs with given parameters
-        VCF_VARIANT_FILTERING(
-            vcf_ch
+        VCF_FILTER_SURVIVOR_BCFTOOLS(
+            vcf_ch.map { meta, vcf_file, _tbi -> [meta, vcf_file, []] },
+            params.min_sv_size,
+            params.max_sv_size,
+            params.min_allele_freq,
+            params.min_num_reads,
+            filter_tools,
         )
-        vcf_ch = VCF_VARIANT_FILTERING.out.vcf_ch
+        vcf_ch = VCF_FILTER_SURVIVOR_BCFTOOLS.out.vcf_tbi
     }
 
     if (params.preprocess.contains("deduplicate")) {

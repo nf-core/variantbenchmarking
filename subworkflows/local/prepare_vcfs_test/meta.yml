@@ -8,7 +8,7 @@ keywords:
   - filter
 components:
   - local/vcf_variant_deduplication
-  - local/vcf_variant_filtering
+  - vcf_filter_survivor_bcftools
   - local/split_small_variants_test
   - local/liftover_vcfs
   - bcftools/norm
