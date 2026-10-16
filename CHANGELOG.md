@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resolving GATK_CONCORDANCE file name conflicts, new intermediate file names are smaller and cleaner [#336](https://github.com/nf-core/variantbenchmarking/pull/336)
 - Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
 - Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
-- nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#PR](https://github.com/nf-core/variantbenchmarking/pull/PR).
+- nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
 
 ### `Dependencies`
 
