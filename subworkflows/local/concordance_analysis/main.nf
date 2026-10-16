@@ -32,18 +32,18 @@ workflow CONCORDANCE_ANALYSIS {
 
             if (hasConcordanceId) {
                 def explicitPairs = []
-                
+
                 items.each { evalItem ->
                     def meta = evalItem[0]
-                    
+
                     if (meta.concordance_id) {
-                        
+
                         def truthIds = meta.concordance_id.toString().split(';').collect { it.trim() }
 
                         truthIds.each { tId ->
                             // Find the matching truth file in the same items list
                             def truthItem = items.find { it[0].id == tId }
-                        
+
                             if (truthItem) {
                                 def combinedMeta = [id: "truth_${tId}-query_${meta.id}"]
                                 explicitPairs << [
@@ -55,11 +55,11 @@ workflow CONCORDANCE_ANALYSIS {
                         }
                     }
                 }
-                
+
                 explicitPairs
-                
+
             } else {
-                
+
                 [items, items].combinations()
                     .findAll { left, right -> left[0].id < right[0].id }
                     .collect { left, right ->
