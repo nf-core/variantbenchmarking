@@ -363,9 +363,6 @@ There are 3 types of plots generated through the pipeline
 
 The summary tables and the MultiQC report can be loaded into [Depictio](https://depictio.github.io/depictio-docs/latest/), an open-source platform for interactive dashboards, to compare callers on precision, recall and F1 across benchmarking tools with filtering and cross-linked plots. Depictio ships ready-made templates for this pipeline (see the [variantbenchmarking template page](https://depictio.github.io/depictio-docs/latest/pipeline-templates/nf-core/variantbenchmarking/)), so no configuration needs to be written.
 
-> [!WARNING]
-> The variantbenchmarking templates are currently marked as experimental in Depictio and were built against pipeline version 1.4.0. Feedback is welcome in the [depictio discussions](https://github.com/depictio/depictio/discussions/1233).
-
 ### Set up Depictio
 
 You need access to a Depictio server and the `depictio` command-line tool configured to talk to it. Follow the [Depictio documentation](https://depictio.github.io/depictio-docs/latest/) to run a server (or use an existing one) and to [install and configure the CLI](https://depictio.github.io/depictio-docs/latest/installation/cli/). Install the CLI with MultiQC support (`pip install "depictio[multiqc]"`), as the templates read the MultiQC report.
@@ -374,23 +371,23 @@ You need access to a Depictio server and the `depictio` command-line tool config
 
 Point `depictio ingest` to the pipeline `--outdir` and select the template that matches how the pipeline was run:
 
-| Pipeline run                                     | Depictio template                                         | Data used                                               |
-| ------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------- |
-| `--analysis germline --variant_type small`       | `nf-core/variantbenchmarking/1.4.0/categories/small`      | hap.py and rtg-tools summary tables, MultiQC            |
-| `--analysis somatic --variant_type indel`        | `nf-core/variantbenchmarking/1.4.0/categories/indel`      | som.py and rtg-tools summary tables, MultiQC            |
-| `--variant_type structural`                      | `nf-core/variantbenchmarking/1.4.0/categories/structural` | MultiQC                                                 |
-| any of the above, or several runs under one root | `nf-core/variantbenchmarking/1.4.0`                       | any of `small/`, `indel/`, `sv/`, `cnv/` summary tables |
+| Pipeline run                                     | Depictio template                                   | Data used                                               |
+| ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------- |
+| `--analysis germline --variant_type small`       | `nf-core/variantbenchmarking/categories/small`      | hap.py and rtg-tools summary tables, MultiQC            |
+| `--analysis somatic --variant_type indel`        | `nf-core/variantbenchmarking/categories/indel`      | som.py and rtg-tools summary tables, MultiQC            |
+| `--variant_type structural`                      | `nf-core/variantbenchmarking/categories/structural` | MultiQC                                                 |
+| any of the above, or several runs under one root | `nf-core/variantbenchmarking/`                      | any of `small/`, `indel/`, `sv/`, `cnv/` summary tables |
 
 For example, for a germline small variant benchmark:
 
 ```bash
-depictio ingest results/ --template nf-core/variantbenchmarking/1.4.0/categories/small
+depictio ingest results/ --template nf-core/variantbenchmarking/categories/small
 ```
 
 Use `--dry-run` first to check that the expected files are found without uploading anything. The files read by the templates are the summary tables in `<variant_type>/summary/tables/<benchmark_tool>/<benchmark_tool>.summary.csv` (see [output docs](output.md#summary-statistics)) and, for the category templates, `multiqc/multiqc_data/multiqc.parquet`. Depictio reads MultiQC data from `multiqc.parquet`, which requires MultiQC >= 1.29 (the version shipped with this pipeline produces it).
 
 > [!NOTE]
-> Always pin the version (`1.4.0`) in category template ids: `latest` is only resolved in the last segment of a template id, so `nf-core/variantbenchmarking/latest/categories/small` will not be found.
+> Always pin the version (`1.4.0` for example) in category template ids: `latest` is only resolved in the last segment of a template id, so `nf-core/variantbenchmarking/latest/categories/small` will not be found.
 
 If the project already exists on the server, re-run with `--update-config` to update it or `--attach-run` to add a new run to it. Once ingested, the dashboard is listed in the Depictio web interface and can be edited with the drag-and-drop editor and shared with collaborators.
 
