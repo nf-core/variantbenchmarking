@@ -51,6 +51,14 @@
                 "TABIX_BGZIP": {
                     "htslib": 1.24,
                     "xz": "5.8.3"
+                },                                                               
+                "TABIX_BGZIPTABIX": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
+                },  
+                "TABIX_BGZIP": {
+                    "htslib": 1.24,
+                    "xz": "5.8.3"
                 },
                 "TABIX_BGZIPTABIX": {
                     "htslib": 1.24,
