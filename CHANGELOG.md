@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - Template update for nf-core/tools v4.0.2 + a few fixes around [#305](https://github.com/nf-core/variantbenchmarking/issues/305)
+- Documenting how to import pipeline reports into Depictio interactive dashboards in usage docs [#345](https://github.com/nf-core/variantbenchmarking/pull/345).
 - Aardvark Benchmarking Subworkflow: Introduced the AARDVARK_BENCHMARK subworkflow for sequence-resolved small variant (SNV/Indel) benchmarking [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - Replaced SMALL_GERMLINE_BENCHMARK and SMALL_SOMATIC_BENCHMARK subworkflows with SMALL_BENCHMARK to include Aardvark alongside Hap.py, Som.py, and RTGtools vcfeval for both germline and somatic tracks [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
 - `high_conf` parameter [#319](https://github.com/nf-core/variantbenchmarking/pull/319).
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resolving GATK_CONCORDANCE file name conflicts, new intermediate file names are smaller and cleaner [#336](https://github.com/nf-core/variantbenchmarking/pull/336)
 - Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
 - Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
+- nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
 
 ### `Dependencies`
 
