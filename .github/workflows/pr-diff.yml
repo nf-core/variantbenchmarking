@@ -17,6 +17,8 @@ jobs:
 
       - name: Set up Nextflow
         uses: nf-core/setup-nextflow@v2
+        with:
+          version: "25.10.4" # nf-diff 0.9.5 crashes on Nextflow 26.10.2
 
       - name: Enable Nextflow lineage
         run: printf '%s\n' 'lineage.enabled = true' > lineage.config
