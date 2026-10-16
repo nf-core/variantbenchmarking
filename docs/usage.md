@@ -364,7 +364,7 @@ There are 3 types of plots generated through the pipeline
 The summary tables and the MultiQC report can be loaded into [Depictio](https://depictio.github.io/depictio-docs/latest/), an open-source platform for interactive dashboards, to compare callers on precision, recall and F1 across benchmarking tools with filtering and cross-linked plots. Depictio ships ready-made templates for this pipeline (see the [variantbenchmarking template page](https://depictio.github.io/depictio-docs/latest/pipeline-templates/nf-core/variantbenchmarking/)), so no configuration needs to be written.
 
 > [!WARNING]
-> The variantbenchmarking templates are currently marked as experimental in Depictio and were built against pipeline version 1.4.0. Feedback is welcome in the [nf-core/variantbenchmarking GitHub discussions](https://github.com/nf-core/variantbenchmarking/discussions).
+> The variantbenchmarking templates are currently marked as experimental in Depictio and were built against pipeline version 1.4.0. Feedback is welcome in the [depictio discussions](https://github.com/depictio/depictio/discussions/1233).
 
 ### Set up Depictio
 
