@@ -18,7 +18,7 @@
                     "bcftools/filter": {
                         "branch": "master",
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
                     },
                     "bcftools/merge": {
                         "branch": "master",
@@ -104,7 +104,7 @@
                     "htslib/bgziptabix": {
                         "branch": "master",
                         "git_sha": "37f69c8ca3eb3d038a5d44f33a329e49f44bd4f2",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
                     },
                     "multiqc": {
                         "branch": "master",
@@ -149,7 +149,7 @@
                     "survivor/filter": {
                         "branch": "master",
                         "git_sha": "f3266160bafb2dddf316998ce12990691599fd9d",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
                     },
                     "survivor/merge": {
                         "branch": "master",
@@ -218,6 +218,11 @@
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "a7b27fd25bfa8dcc07d299e88bd790585901a436",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_filter_survivor_bcftools": {
+                        "branch": "master",
+                        "git_sha": "e32b0e9c1833fa081e2e7bd96e1738b00474bf9a",
                         "installed_by": ["subworkflows"]
                     }
                 }
