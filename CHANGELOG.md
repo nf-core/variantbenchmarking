@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - hap.py now uses a Seqera container that bundles RTG Tools, so `--happy_comparison_engine vcfeval` works without a custom container. The `test_ga4gh` profile now uses the parameter instead of a process override. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
 - Replace nf-core modules TABIX_TABIX, TABIX_BGZIP and TABIX_BGZIPTABIX with HTSLIB_BGZIPTABIX [#328](https://github.com/nf-core/variantbenchmarking/pull/328).
 - nf-diff GitHub Actions: `save-baseline.yml` caches a test profile run on every push to `dev`, and `pr-diff.yml` compares each PR's test run against it and posts the report as a PR comment [#344](https://github.com/nf-core/variantbenchmarking/pull/344).
+- Concordance analysis cen be performed to only spesific pairs, allows users to select truth and query pairs relates to issue #342 [#348](https://github.com/nf-core/variantbenchmarking/pull/348)
 
 ### `Fixed`
 
