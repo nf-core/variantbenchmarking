@@ -19,7 +19,6 @@ on:
       - "nf-core template version comment"
       - "nf-core branch protection"
       - "Run nf-test"
-      - "PR nf-diff Check"
 
 permissions:
   actions: read
