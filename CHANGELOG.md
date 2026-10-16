@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace local module VARIANT_EXTRACTOR with nf-core module VARIANTEXTRACTOR [#278](https://github.com/nf-core/variantbenchmarking/pull/295/)
 - Adding nf-test and meta.yml to local subworklfows, removing overlapping workflow tests [#257](https://github.com/nf-core/variantbenchmarking/pull/296)
 - Adding rtgtools cnveval as a new benchmarking method for copynumber variants [#298](https://github.com/nf-core/variantbenchmarking/pull/298).
+- Documenting how to import pipeline reports into Depictio interactive dashboards in usage docs.
 
 ### `Fixed`
 
