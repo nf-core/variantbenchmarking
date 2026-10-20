@@ -107,15 +107,15 @@ custom_data:
       col1_header: "Tool"
       print_table: false
     headers: &summary_headers
-      File: {title: "File", description: "Summary file name", scale: false}
-      Caller: {title: "Caller", description: "Variant calling tool", scale: false}
-      TP_base: {title: "TP (base)", description: "True positives in baseline", format: "{:,.0f}"}
-      TP_comp: {title: "TP (comp)", description: "True positives in comparison", format: "{:,.0f}"}
-      FP: {title: "FP", description: "False positives", format: "{:,.0f}"}
-      FN: {title: "FN", description: "False negatives", format: "{:,.0f}"}
-      Precision: {title: "Precision", description: "Precision metric", format: "{:,.4f}", max: 1.0, min: 0.0}
-      Recall: {title: "Recall", description: "Recall metric", format: "{:,.4f}", max: 1.0, min: 0.0}
-      F1: {title: "F1 Score", description: "F1 score metric", format: "{:,.4f}", max: 1.0, min: 0.0}
+      File: { title: "File", description: "Summary file name", scale: false }
+      Caller: { title: "Caller", description: "Variant calling tool", scale: false }
+      TP_base: { title: "TP (base)", description: "True positives in baseline", format: "{:,.0f}" }
+      TP_comp: { title: "TP (comp)", description: "True positives in comparison", format: "{:,.0f}" }
+      FP: { title: "FP", description: "False positives", format: "{:,.0f}" }
+      FN: { title: "FN", description: "False negatives", format: "{:,.0f}" }
+      Precision: { title: "Precision", description: "Precision metric", format: "{:,.4f}", max: 1.0, min: 0.0 }
+      Recall: { title: "Recall", description: "Recall metric", format: "{:,.4f}", max: 1.0, min: 0.0 }
+      F1: { title: "F1 Score", description: "F1 score metric", format: "{:,.4f}", max: 1.0, min: 0.0 }
 
   variant_calling_summary_truvari:
     <<: *summary_table_template
