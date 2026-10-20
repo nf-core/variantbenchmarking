@@ -232,17 +232,17 @@
                 "test7-copy.bcftools.bcftools_stats.txt:md5,ee09685f529288c487a8fd531305e8db",
                 "test7.bcftools.bcftools_stats.txt:md5,a9f860c98e6ce4e3983ac7098e378b2d",
                 "truth_test7-copy-query_test6.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "truth_test7-copy-query_test6.tpfn.vcf:md5,b56186d1338cd463894f77554f1be821",
-                "truth_test7-copy-query_test6.tpfp.vcf:md5,0dd5015e78c82aee52fcc8b142ca44a2",
+                "truth_test7-copy-query_test6.tpfn.vcf:md5,58730f77ed8fde4e573f1fe82b476523",
+                "truth_test7-copy-query_test6.tpfp.vcf:md5,4923d7de2b38f7ba1f7c13503421597f",
                 "truth_test7-copy-query_test7.summary.tsv:md5,cbda10b9075679475cd8a507191ed0cc",
-                "truth_test7-copy-query_test7.tpfn.vcf:md5,7f471e531ddc6f5e5d5a9af7eb1f39c5",
-                "truth_test7-copy-query_test7.tpfp.vcf:md5,cc23a240079e2b5f4530efa70a627051",
+                "truth_test7-copy-query_test7.tpfn.vcf:md5,8faca07ea261e9a7e0fad4ff092494b6",
+                "truth_test7-copy-query_test7.tpfp.vcf:md5,900a64e6f0b60be47d9b8c06c3352c14",
                 "truth_test7-query_test6.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609",
-                "truth_test7-query_test6.tpfn.vcf:md5,6967ccf89ec4378ae3027ec2d0358097",
-                "truth_test7-query_test6.tpfp.vcf:md5,2dd771af36c994f29860db14b9458aa7"
+                "truth_test7-query_test6.tpfn.vcf:md5,0279df5dc5aa541cf2eacb13aa0034e3",
+                "truth_test7-query_test6.tpfp.vcf:md5,6d140be070b8e475acb90bca7d645c64"
             ]
         ],
-        "timestamp": "2026-10-20T15:19:55.142936025",
+        "timestamp": "2026-10-20T16:34:12.794939079",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"

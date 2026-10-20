@@ -15,6 +15,7 @@ nextflow_pipeline {
                 outdir               = "$outputDir"
                 test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
                 truth_vcf            = ""
+                truth_id             = ""
             }
         }
 
