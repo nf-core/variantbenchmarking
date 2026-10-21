@@ -45,3 +45,4 @@ references/rtgtools/genome.sdf/done
 **/**/liftover/*.{vcf.gz,gz.tbi,vcf}
 **/**/benchmarks/svanalyzer/*.distances
 **/**/benchmarks/svanalyzer/*.report
+**/**/concordance/gatk4/*.vcf
