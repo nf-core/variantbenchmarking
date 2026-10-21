@@ -108,7 +108,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
@@ -439,7 +439,7 @@
                 "test7.bcftools.bcftools_stats.txt:md5,091e8d84f26be19081f711db61e7d877"
             ]
         ],
-        "timestamp": "2026-10-12T11:44:49.779354172",
+        "timestamp": "2026-10-20T15:26:18.594152862",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
@@ -554,7 +554,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0dev"
+                    "nf-core/variantbenchmarking": "v1.6.0"
                 }
             },
             [
