@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.6.0dev
+## 1.6.0
 
 ### `Added`
 
@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
 - Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
 - nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
+- Fixes around plot_metics.py and updating the testcases.md [#351](https://github.com/nf-core/variantbenchmarking/pull/351)
 
 ### `Dependencies`
 
