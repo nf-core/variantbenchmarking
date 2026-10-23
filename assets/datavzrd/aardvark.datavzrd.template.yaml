@@ -1,0 +1,37 @@
+datasets:
+  report:
+    path: CSVPATH
+    separator: ","
+views:
+  aardvark_summary:
+    dataset: report
+    render-table:
+      columns:
+        Tool:
+          display-mode: normal
+        Comparison:
+          display-mode: normal
+        Region:
+          display-mode: normal
+        Filter:
+          display-mode: normal
+        Type:
+          display-mode: normal
+        TP_base:
+          display-mode: normal
+        TP_comp:
+          display-mode: normal
+        FP:
+          display-mode: normal
+        FN:
+          display-mode: normal
+        Precision:
+          display-mode: normal
+        Recall:
+          display-mode: normal
+        F1:
+          display-mode: normal
+        FN_gt:
+          display-mode: normal
+        FP_gt:
+          display-mode: normal

@@ -1,0 +1,160 @@
+//
+// SMALL_BENCHMARK: SUBWORKFLOW FOR SMALL GERMLINE VARIANTS
+//
+
+include { RTGTOOLS_VCFEVAL    } from '../../../modules/nf-core/rtgtools/vcfeval'
+include { HAPPY_BENCHMARK     } from '../../../subworkflows/local/happy_benchmark'
+include { SOMPY_BENCHMARK     } from '../../../subworkflows/local/sompy_benchmark'
+include { AARDVARK_BENCHMARK  } from '../../../subworkflows/local/aardvark_benchmark'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_FN      } from '../../../modules/nf-core/bcftools/reheader'
+include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_TP_BASE } from '../../../modules/nf-core/bcftools/reheader'
+
+workflow SMALL_BENCHMARK {
+    take:
+    input_ch           // channel: [val(meta), test_vcf, test_index, truth_vcf, truth_index, regionsbed, targetsbed ]
+    fasta              // reference channel [val(meta), ref.fa]
+    fai                // reference channel [val(meta), ref.fa.fai]
+    sdf                // reference channel [val(meta), sdf]
+    stratification_bed // reference channel [val(meta), bed files]
+    stratification_tsv // reference channel [val(meta), tsv]
+    ambiguous_beds     // reference channel [val(meta), bed]
+
+    main:
+
+    summary_reports    = channel.empty()
+    tagged_variants    = channel.empty()
+    stratified_reports = channel.empty()
+
+    if (params.method.contains('rtgtools')){
+
+        if (!params.high_conf){
+
+            input_ch
+            .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], regions_bed ?: targets_bed ]}
+            .set{ input_vcfeval_ch }
+        } else {
+
+            input_vcfeval_ch = input_ch
+        }
+
+        RTGTOOLS_VCFEVAL(
+            input_vcfeval_ch,
+            sdf
+        )
+
+        summary_reports = summary_reports.mix(RTGTOOLS_VCFEVAL.out.summary
+                                         .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], report) }
+                                         .groupTuple())
+
+        // Reheader sample name in base outputs
+        BCFTOOLS_REHEADER_FN(
+            RTGTOOLS_VCFEVAL.out.fn_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
+            fai
+        )
+
+        BCFTOOLS_REHEADER_TP_BASE(
+            RTGTOOLS_VCFEVAL.out.baseline_vcf.map{ meta, vcf ->
+            [ meta, vcf, [], [] ]
+            },
+            fai
+        )
+
+        tagged_variants = tagged_variants.mix(BCFTOOLS_REHEADER_FN.out.vcf.join(BCFTOOLS_REHEADER_FN.out.index),
+                                            RTGTOOLS_VCFEVAL.out.fp_vcf.join(RTGTOOLS_VCFEVAL.out.fp_tbi),
+                                            BCFTOOLS_REHEADER_TP_BASE.out.vcf.join(BCFTOOLS_REHEADER_TP_BASE.out.index),
+                                            RTGTOOLS_VCFEVAL.out.tp_vcf.join(RTGTOOLS_VCFEVAL.out.tp_tbi))
+                                        .map { _meta, report , index ->
+                                            def mapping = [
+                                                'fn': 'FN',
+                                                'fp': 'FP',
+                                                'tp-baseline': 'TP_base',
+                                                'tp': 'TP_comp'
+                                            ]
+                                            def tag = report.getName().tokenize('.').find { token -> token in ['fn', 'fp', 'tp-baseline', 'tp'] }
+                                            def transformedTag = mapping[tag] ?: tag
+                                            tuple([vartype: params.variant_type, id: "rtgtools", tag: transformedTag], report , index)
+                                        }
+
+    }
+
+    if (params.method.contains('aardvark')){
+
+        input_ch
+            .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed ?: targets_bed ]}
+            .set{ input_aardvark_ch }
+
+        AARDVARK_BENCHMARK(
+            input_aardvark_ch,
+            fasta,
+            fai,
+            stratification_bed,
+            stratification_tsv
+        )
+        summary_reports = summary_reports.mix(AARDVARK_BENCHMARK.out.summary_reports)
+        tagged_variants = tagged_variants.mix(AARDVARK_BENCHMARK.out.tagged_variants)
+
+    }
+
+    tagged_variants_csv = channel.empty()
+
+    if (params.method.contains('happy') || params.method.contains('sompy')){
+
+        if (params.high_conf){
+
+            input_ch
+            .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, regions_bed, _targets_bed ->
+                    [ [ id: "falsepositive" ], regions_bed ]}
+            .set{ falsepositive_bed }
+
+            input_ch
+            .map{ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, _regions_bed, targets_bed ->
+                    [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, [], targets_bed ]}
+            .set{ input_ch }
+        }else {
+
+            input_ch
+            .map{ _test_meta, _test_vcf, _test_tbi, _truth_vcf, _truth_tbi, _regions_bed, _targets_bed ->
+                    [ [ id: "falsepositive" ], [] ]}
+            .set{ falsepositive_bed }
+
+        }
+
+        if (params.method.contains('happy') && params.analysis == "germline"){
+
+            HAPPY_BENCHMARK(
+                input_ch,
+                fasta,
+                fai,
+                falsepositive_bed,
+                stratification_bed,
+                stratification_tsv
+            )
+            summary_reports    = summary_reports.mix(HAPPY_BENCHMARK.out.summary_reports)
+            tagged_variants    = tagged_variants.mix(HAPPY_BENCHMARK.out.tagged_variants)
+            stratified_reports = stratified_reports.mix(HAPPY_BENCHMARK.out.stratified_reports)
+        }
+
+        if (params.method.contains('sompy') && params.analysis == "somatic"){
+            SOMPY_BENCHMARK(
+                input_ch,
+                fasta,
+                fai,
+                falsepositive_bed,
+                ambiguous_beds
+            )
+            summary_reports     = summary_reports.mix(SOMPY_BENCHMARK.out.summary_reports)
+            tagged_variants_csv = tagged_variants_csv.mix(SOMPY_BENCHMARK.out.tagged_variants_csv)
+        }
+    }
+
+    emit:
+    summary_reports     // channel: [val(meta), reports]
+    tagged_variants     // channel: [val(meta), vcfs]
+    tagged_variants_csv // channel: [val(meta), csvs]
+    stratified_reports  // channel: [val(meta), [csv_meta], [csvs]]
+
+}

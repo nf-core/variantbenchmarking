@@ -196,6 +196,26 @@
             "nextflow": "25.10.4"
         }
     },
+    "structural bnd variants - rtgtools": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "rtgtools"
+                    },
+                    [
+                        "test.truth.manta.summary.txt"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2026-10-12T11:25:54.116311797",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
     "structural variants - truvari": {
         "content": [
             [

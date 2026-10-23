@@ -25,7 +25,7 @@ workflow PREPARE_REFERENCES {
 
         // Use rtgtools format to generate sdf file if necessary
         RTGTOOLS_FORMAT(
-            fasta_ch.map { meta, file -> [ meta, file, [], [] ] }
+            fasta_ch.map { meta, fasta -> [ meta, fasta, [], [] ] }
         )
         sdf = RTGTOOLS_FORMAT.out.sdf
     }

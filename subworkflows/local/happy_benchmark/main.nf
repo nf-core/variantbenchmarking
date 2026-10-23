@@ -3,7 +3,6 @@
 //
 
 include { HAPPY_HAPPY      } from '../../../modules/nf-core/happy/happy/main'
-include { HAPPY_PREPY      } from '../../../modules/nf-core/happy/prepy/main'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_1    } from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_REHEADER as BCFTOOLS_REHEADER_2    } from '../../../modules/nf-core/bcftools/reheader'
 include { BCFTOOLS_VIEW as BCFTOOLS_VIEW_TRUTH        } from '../../../modules/nf-core/bcftools/view'
@@ -38,18 +37,6 @@ workflow HAPPY_BENCHMARK {
         }
         .set { truth_ch }
 
-    if (params.preprocess.contains("prepy")){
-        // apply prepy if required
-        HAPPY_PREPY(
-            input_ch.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                [ meta, vcf, _regionsbed ]
-            },
-            fasta,
-            fai
-        )
-        test_ch = HAPPY_PREPY.out.preprocessed_vcf
-    }
-
     // apply happy method for benchmarking
     HAPPY_HAPPY(
         test_ch.join(truth_ch, failOnDuplicate:true, failOnMismatch:true),
@@ -62,9 +49,18 @@ workflow HAPPY_BENCHMARK {
 
     // tag meta and collect summary reports
     HAPPY_HAPPY.out.summary_csv
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], file) }
+        .map { _meta, csv -> tuple([vartype: params.variant_type] + [benchmark_tool: "happy"], csv) }
         .groupTuple()
         .set{ summary_reports }
+
+    // collect the roc csv files with the stratified results, labelled per sample and caller
+    HAPPY_HAPPY.out.roc_all_csv
+        .map { meta, csv ->
+            def csv_meta = [method: "${meta.id}-${meta.caller}", comparison_method: params.happy_comparison_engine]
+            tuple([vartype: params.variant_type] + [benchmark_tool: "happy"] + [id: "happy"], csv_meta, csv)
+        }
+        .groupTuple()
+        .set { stratified_reports }
 
     // Subsample TRUTH column from happy results
     BCFTOOLS_VIEW_TRUTH(
@@ -104,7 +100,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_TP.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "happy"], vcf, index) }
         .set { vcf_tp_comp }
 
     BCFTOOLS_FILTER_TRUTH_FN(
@@ -113,7 +109,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_TRUTH_FN.out.vcf
         .join(BCFTOOLS_FILTER_TRUTH_FN.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "happy"], vcf, index) }
         .set { vcf_fn }
 
     BCFTOOLS_FILTER_QUERY_TP(
@@ -122,7 +118,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_TP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_TP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "happy"], vcf, index) }
         .set { vcf_tp_base }
 
     BCFTOOLS_FILTER_QUERY_FP(
@@ -131,7 +127,7 @@ workflow HAPPY_BENCHMARK {
 
     BCFTOOLS_FILTER_QUERY_FP.out.vcf
         .join(BCFTOOLS_FILTER_QUERY_FP.out.tbi)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "happy"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "happy"], vcf, index) }
         .set { vcf_fp }
 
     tagged_variants = tagged_variants.mix(
@@ -142,7 +138,8 @@ workflow HAPPY_BENCHMARK {
     )
 
     emit:
-    summary_reports // channel: [val(meta), reports]
-    tagged_variants // channel: [val(meta), vcfs]
+    summary_reports    // channel: [val(meta), reports]
+    stratified_reports // channel: [val(meta), [csv_meta], [roc.all.csv.gz]]
+    tagged_variants    // channel: [val(meta), vcfs]
 
 }

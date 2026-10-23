@@ -6,7 +6,7 @@
                     {
                         "id": "test"
                     },
-                    "HG002_GRCh37_1_22_v4.2.1_highconf.chr21.lifted.reformatted.renamechr.vcf.gz",
+                    "test.renamechr.vcf.gz",
                     "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
                     "d41d8cd98f00b204e9800998ecf8427e",
                     [
@@ -17,7 +17,7 @@
             [
                 [
                     {
-                        "id": "test_truth"
+                        "id": "regions"
                     },
                     "genome.lifted.sort.merged.bed",
                     1
@@ -27,10 +27,10 @@
                 
             }
         ],
-        "timestamp": "2026-04-21T13:30:35.616466392",
+        "timestamp": "2026-10-01T13:30:07.333762789",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "liftover vcfs and bed stub": {
@@ -41,13 +41,21 @@
                         {
                             "id": "test"
                         },
-                        "test2_haplotc.lifted.reformatted.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        "test.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ],
                 "1": [
                     [
                         {
-                            "id": "test_truth"
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "targets"
                         },
                         "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -55,7 +63,15 @@
                 "bed_ch": [
                     [
                         {
-                            "id": "test_truth"
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "targets_ch": [
+                    [
+                        {
+                            "id": "targets"
                         },
                         "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -65,15 +81,15 @@
                         {
                             "id": "test"
                         },
-                        "test2_haplotc.lifted.reformatted.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        "test.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-03-16T11:29:52.054152981",
+        "timestamp": "2026-10-01T13:30:28.352851058",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     }
 }

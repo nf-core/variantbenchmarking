@@ -10,8 +10,8 @@
 [![GitHub Actions Linting Status](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/variantbenchmarking/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/variantbenchmarking/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.14916661-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.14916661)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
-[![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.04.0-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
-[![nf-core template version](https://img.shields.io/badge/nf--core_template-3.5.1-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/3.5.1)
+[![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.10.4-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
+[![nf-core template version](https://img.shields.io/badge/nf--core_template-4.1.0-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/4.1.0)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
@@ -47,7 +47,6 @@ This initial step ensures consistent formatting and alignment of variants in tes
 - Splitting multi-allelic variants([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 - Deduplication of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
 - Left aligning of variants ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-- Use prepy in order to normalize. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
 - Split SNVs and indels if the given test VCF contains both. This is only applicable for somatic analysis ([bcftools view](https://samtools.github.io/bcftools/bcftools.html#view))
 
 ### Standardization and normalization of truth (baseline) variants:
@@ -62,11 +61,11 @@ This initial step ensures consistent formatting and alignment of variants in tes
 
 When a "Gold Standard" (a high-confidence, validated set of variants) is not available, you can create a Proxy Ground Truth by looking for agreement between different tools. This is Majority Rule approach assumes that if multiple independent variant callers identify the same mutation, it is more likely to be a real biological variant rather than a technical error from a single pipeline. Only variants found by at least the minimum number of callers specified in your threshold are kept as the "truth" for the final benchmark.
 
-If the $--ensemble/_truth$ threshold is set higher than 0, the pipeline performs the following steps:
+If the `--ensemble/truth` threshold is set higher than 0, the pipeline performs the following steps:
 
 - Merge small (SNVs and INDELs) using ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
-- Merge Structual Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
-- Consensus filtering the variants according to $--ensemble/_truth$.
+- Merge Structural Variants using ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
+- Consensus filtering the variants according to `--ensemble/truth`.
 
 ### Filtering options:
 
@@ -123,6 +122,7 @@ Available methods for *small variants: SNVs and INDEL*s:
 - Germline variant benchmarking using ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - Somatic variant benchmarking using ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
 - Somatic variant benchmarking using ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
+- Somatic or germline variant benchmarking using ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 > [!NOTE]
 > Please note that using happ.py and som.py with rtgtools as comparison engine is also possible. Check conf/tests/test_ga4gh.config as an example.
@@ -143,7 +143,7 @@ Intersecting test and truth BED regions produces benchmark metrics. Intersection
 
 It is essential to compare benchmarking results in order to infer uniquely or commonly seen TPs, FPs and FNs.
 
-- Merging TP, FP and FN results for happy, rtgtools and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
+- Merging TP, FP and FN results for happy, rtgtools, aardvark and sompy ([bcftools merge](https://samtools.github.io/bcftools/bcftools.html#merge))
 - Merging TP, FP and FN results for Truvari and SVanalyzer ([SURVIVOR merge](https://github.com/fritzsedlazeck/SURVIVOR/wiki))
 - Conversion of VCF files to CSV to infer common and unique variants per caller (python script)
 
@@ -152,14 +152,14 @@ It is essential to compare benchmarking results in order to infer uniquely or co
 The generation of comprehensive report that consolidates all benchmarking results.
 
 - Merging summary statistics per benchmarking tool (python script)
-- Plotting benchmark metrics per benchmarking tool (R script)
+- Plotting benchmark metrics per benchmarking tool (python scripts)
 - Create visual HTML report for the integration of NCBENCH ([datavzrd](https://datavzrd.github.io/docs/index.html))
 - Apply _MultiQC_ to visualize results
 
 ## Usage
 
 > [!NOTE]
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/get_started/environment_setup/overview) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/get_started/run-your-first-pipeline) with `-profile test` before running the workflow on actual data.
 
 First, prepare a samplesheet with your input data that looks as follows:
 
@@ -213,6 +213,8 @@ For more details about the output files and reports, please refer to the
 
 This pipeline outputs benchmarking results per method besides to the inferred and compared statistics.
 
+The summary reports can also be explored in interactive dashboards with [Depictio](https://depictio.github.io/depictio-docs/latest/); see the [usage documentation](https://nf-co.re/variantbenchmarking/usage#interactive-dashboards-with-depictio) for how to import them.
+
 ## Credits
 
 nf-core/variantbenchmarking was originally written by Kübra Narcı ([@kubranarci](https://github.com/kubranarci)) as a part of benchmarking studies in German Human Genome Phenome Archieve Project ([GHGA](https://www.ghga.de/)).
@@ -237,7 +239,7 @@ We thank the following people for their extensive assistance in the development 
 
 ## Contributions and Support
 
-If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
+If you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md).
 
 For further information or help, don't hesitate to get in touch on the [Slack `#variantbenchmarking` channel](https://nfcore.slack.com/channels/variantbenchmarking) (you can join with [this invite](https://nf-co.re/join/slack)).
 

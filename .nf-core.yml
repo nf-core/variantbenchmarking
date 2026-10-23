@@ -3,18 +3,14 @@ lint:
     - .gitignore
     - docs/images/nf-core-variantbenchmarking_logo_dark.png
     - docs/images/nf-core-variantbenchmarking_logo_light.png
-    - .github/workflows/branch.yml
-    - .github/workflows/linting.yml
-  files_exist:
-    - .github/workflows/linting_comment.yml
-nf_core_version: 3.5.1
+nf_core_version: 4.1.0
 repository_type: pipeline
 template:
-  author: kuebra.narci@dkfz-heidelberg.de
-  description: "Variant Benchmarking pipeline for germline and somatic variant callers "
+  author: Kubra Narci
+  description: Variant Benchmarking pipeline for germline and somatic variant callers
   force: false
   is_nfcore: true
   name: variantbenchmarking
   org: nf-core
   outdir: .
-  version: 1.5.0
+  version: 1.6.0

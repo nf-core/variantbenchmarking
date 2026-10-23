@@ -1,15 +1,18 @@
 name: "sv_benchmark"
-description: "Subworkflow to benchmark structural germline variants using Truvari, SVAnalyzer, or Wittyer."
+description: "Subworkflow to benchmark structural germline variants using Truvari, SVAnalyzer, Wittyer or RTGtools."
 keywords:
   - benchmark
   - structural variants
   - truvari
   - svanalyzer
   - wittyer
+  - rtgtools bndeval
 components:
   - truvari/bench
   - local/svanalyzer_benchmark
   - local/wittyer_benchmark
+  - rtgtools/bndeval
+  - bcftools/reheader
 input:
   - - meta:
         type: map

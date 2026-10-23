@@ -27,11 +27,11 @@ nextflow_process {
             }
         }
         then {
-            assert process.success
             assertAll(
+                { assert process.success },
                 { assert snapshot(
-                    process.out.plot.collect { it.collect { it instanceof Map ? it : file(it).name }},
-                    process.out.findAll { key, val -> key.startsWith("versions") }
+                    [process.out.plot.get(0)].flatten().collect { path(it.toString()).fileName.toString() }.sort(),
+                    process.out.versions_python
                 ).match() }
             )
         }
@@ -52,7 +52,10 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(process.out).match() }
+                { assert snapshot(
+                    [process.out.plot.get(0)].flatten().collect { path(it.toString()).fileName.toString() }.sort(),
+                    process.out.versions_python
+                ).match() }
             )
         }
     }

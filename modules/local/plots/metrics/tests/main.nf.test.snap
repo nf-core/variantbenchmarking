@@ -1,78 +1,40 @@
 {
-    "Standard R plots - stub": {
+    "Interactive html plots - stub": {
         "content": [
-            {
-                "0": [
-                    [
-                        "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                        "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
-                ],
-                "1": [
-                    [
-                        "PLOTS_METRICS",
-                        "r_base",
-                        "4.3.1"
-                    ]
-                ],
-                "plots": [
-                    [
-                        "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                        "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
-                ],
-                "versions_rbase": [
-                    [
-                        "PLOTS_METRICS",
-                        "r_base",
-                        "4.3.1"
-                    ]
+            [
+                "variant_metrics_svbenchmark_mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-03-23T14:53:44.641446779",
+        "timestamp": "2026-09-18T15:59:45.216276213",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
-    "Standard R plots - svbenchmark benchmark": {
+    "Interactive html plots - svbenchmark benchmark": {
         "content": [
-            {
-                "0": [
-                    [
-                        "f1_by_tool_svbenchmark_mqc.png:md5,1b4ba711a29bfc6a9c0ebc4e16172e8d",
-                        "pr_recall_by_tool_svbenchmark_mqc.png:md5,bb86567da00e0a79a43d0eaef5206921",
-                        "variants_by_tool_svbenchmark_mqc.png:md5,b3e0a779155e93f0d18bd5e6e755fd3c"
-                    ]
-                ],
-                "1": [
-                    [
-                        "PLOTS_METRICS",
-                        "r_base",
-                        "4.3.1"
-                    ]
-                ],
-                "plots": [
-                    [
-                        "f1_by_tool_svbenchmark_mqc.png:md5,1b4ba711a29bfc6a9c0ebc4e16172e8d",
-                        "pr_recall_by_tool_svbenchmark_mqc.png:md5,bb86567da00e0a79a43d0eaef5206921",
-                        "variants_by_tool_svbenchmark_mqc.png:md5,b3e0a779155e93f0d18bd5e6e755fd3c"
-                    ]
-                ],
-                "versions_rbase": [
-                    [
-                        "PLOTS_METRICS",
-                        "r_base",
-                        "4.3.1"
-                    ]
+            [
+                "variant_metrics_svbenchmark_mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-03-20T11:21:54.018016374",
+        "timestamp": "2026-09-18T15:59:35.645767751",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -7,8 +7,8 @@ nextflow_workflow {
     tag "subworkflows"
     tag "subworkflows_wittyer_benchmark"
     tag "subworkflows/wittyer_benchmark"
-    tag "tabix"
-    tag "tabix/bgzip"
+    tag "htslib"
+    tag "htslib/bgziptabix"
     tag "wittyer"
 
     test("benchmark with wittyer") {

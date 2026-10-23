@@ -27,17 +27,17 @@ workflow SVANALYZER_BENCHMARK {
 
     // tag and collect summary file
     SVANALYZER_SVBENCHMARK.out.report
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "svbenchmark"], file) }
+        .map { _meta, report -> tuple([vartype: params.variant_type] + [benchmark_tool: "svbenchmark"], report) }
         .groupTuple()
         .set{ report }
 
     // reheader fn vcf files for tagged results
     SVANALYZER_SVBENCHMARK.out.fns
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "svbenchmark"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "svbenchmark"], vcf) }
         .set { vcf_fn }
 
     SVANALYZER_SVBENCHMARK.out.fps
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "svbenchmark"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "svbenchmark"], vcf) }
         .set { vcf_fp }
 
     // subtract FPs from Query to find TPs in Query
@@ -54,12 +54,12 @@ workflow SVANALYZER_BENCHMARK {
 
     // reheader tp_comp vcf files for tagged results
     SUBTRACT_VCF_QUERY.out.vcf
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "svbenchmark"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "svbenchmark"], vcf) }
         .set { vcf_tp_comp }
 
     // reheader tp_base vcf files for tagged results
     SUBTRACT_VCF_TRUTH.out.vcf
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "svbenchmark"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "svbenchmark"], vcf) }
         .set { vcf_tp_base }
 
     tagged_variants = tagged_variants.mix(

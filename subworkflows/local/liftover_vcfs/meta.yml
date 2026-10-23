@@ -35,6 +35,13 @@ input:
           type: file
           description: BED file
           pattern: "*.bed"
+  - ch_targets_bed:
+      description: Channel containing BED files for target regions
+      structure:
+        - bed:
+          type: file
+          description: BED file
+          pattern: "*.bed"
   - fasta:
       description: Channel containing the target reference FASTA file
       structure:
@@ -95,6 +102,16 @@ output:
         - bed:
           type: file
           description: Processed BED file
+          pattern: "*.bed"
+  - targets_bed_ch:
+      description: Channel containing the lifted, sorted, and merged BED files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - bed:
+          type: file
+          description: Processed BED file for targets region
           pattern: "*.bed"
 authors:
   - "@kubranarci"

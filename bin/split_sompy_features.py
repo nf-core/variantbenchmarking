@@ -3,9 +3,9 @@
 # Copyright 2025 - GHGA
 # Author: Kuebra Narci - @kubranarci
 '''
-Generates a CSV file from a VCF.
+Splits a CSV file into TP, FP, and FN files based on the 'tag' column.
 Expected usage:
-    $ python split_sompy_features.py <vcf_file> <prefix>
+    $ python split_sompy_features.py <input_csv> <prefix>
 Use --help for more information.
 '''
 import csv

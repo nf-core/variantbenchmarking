@@ -1,47 +1,126 @@
 {
-    "report benchmark statistics - stub": {
+    "report benchmark statistics - germline small variants happy - stub": {
         "content": [
-            {
-                "0": [
-                    "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool2.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "1": [
-                    [
-                        {
-                            "id": "test_report",
-                            "benchmark_tool": "svbenchmark",
-                            "vartype": "structural"
-                        },
-                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
-                ],
-                "ch_plots": [
-                    "metric_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool1.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "test.tool2.svlen.png:md5,d41d8cd98f00b204e9800998ecf8427e",
-                    "variants_by_tool_svbenchmark_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
-                ],
-                "merged_reports": [
-                    [
-                        {
-                            "id": "test_report",
-                            "benchmark_tool": "svbenchmark",
-                            "vartype": "structural"
-                        },
-                        "svbenchmark.summary.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
                 ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
             }
         ],
-        "timestamp": "2026-03-26T09:41:53.268420415",
+        "timestamp": "2026-09-28T15:13:00.397073503",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "report benchmark statistics - germline small variants happy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
+                ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-28T15:12:38.265053342",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "report benchmark statistics - stub": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_report",
+                        "benchmark_tool": "svbenchmark",
+                        "vartype": "structural"
+                    },
+                    "svbenchmark.summary.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool2.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "variant_metrics_svbenchmark_mqc.html"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-18T16:54:52.650504842",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "report benchmark statistics - structural variants": {
@@ -57,21 +136,47 @@
                 ]
             ],
             [
-                "f1_by_tool_svbenchmark_mqc.png",
-                "pr_recall_by_tool_svbenchmark_mqc.png",
-                "test.tool1.structural.mqc.png",
-                "test.tool1.structural.mqc.png",
-                "test.tool2.structural.mqc.png",
-                "variants_by_tool_svbenchmark_mqc.png"
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool2.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "variant_metrics_svbenchmark_mqc.html"
+                    ]
+                ]
             ],
             {
                 
             }
         ],
-        "timestamp": "2026-03-26T09:41:32.589910959",
+        "timestamp": "2026-09-18T16:54:39.679756113",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -8,7 +8,6 @@
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { RTGTOOLS_BNDEVAL            } from '../modules/nf-core/rtgtools/bndeval'
 include { paramsSummaryMap            } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -25,8 +24,7 @@ include { SV_VCF_CONVERSIONS          } from '../subworkflows/local/sv_vcf_conve
 include { REPORT_VCF_STATISTICS       } from '../subworkflows/local/report_vcf_statistics'
 include { CNV_BENCHMARK               } from '../subworkflows/local/cnv_benchmark'
 include { SV_BENCHMARK                } from '../subworkflows/local/sv_benchmark'
-include { SMALL_GERMLINE_BENCHMARK    } from '../subworkflows/local/small_germline_benchmark'
-include { SMALL_SOMATIC_BENCHMARK     } from '../subworkflows/local/small_somatic_benchmark'
+include { SMALL_BENCHMARK             } from '../subworkflows/local/small_benchmark'
 include { REPORT_BENCHMARK_STATISTICS } from '../subworkflows/local/report_benchmark_statistics'
 include { COMPARE_BENCHMARK_RESULTS   } from '../subworkflows/local/compare_benchmark_results'
 include { INTERSECT_STATISTICS        } from '../subworkflows/local/intersect_statistics'
@@ -43,6 +41,11 @@ workflow VARIANTBENCHMARKING {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    multiqc_config
+    multiqc_logo
+    multiqc_methods_description
+    outdir
+
     main:
 
     // To gather all QC reports for Multiqc
@@ -93,8 +96,6 @@ workflow VARIANTBENCHMARKING {
     }
 
     // Optional files for Happy or Sompy
-    falsepositive_bed   = params.falsepositive_bed  ? channel.fromPath(params.falsepositive_bed, checkIfExists: true).map{ bed -> tuple([id: "falsepositive"], bed) }.collect()
-                                                    : channel.of([[id: "falsepositive"],[]]).collect()
     ambiguous_beds      = params.ambiguous_beds     ? channel.fromPath(params.ambiguous_beds, checkIfExists: true).map{ bed -> tuple([id: "ambiguous"], bed) }.collect()
                                                     : channel.of([[id: "ambiguous"],[]]).collect()
     if (params.stratification_bed && params.stratification_tsv){
@@ -132,7 +133,7 @@ workflow VARIANTBENCHMARKING {
     if (params.liftover){
 
         if (params.chain){
-            chain           = channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
+            chain       = channel.fromPath(params.chain, checkIfExists: true).map{ bed -> tuple([id: bed.getSimpleName()], bed) }.collect()
         }else{
             error "[nf-core/variantbenchmarking] ERROR:Please specify --chain to process liftover of the files"
         }
@@ -203,13 +204,15 @@ workflow VARIANTBENCHMARKING {
         PREPARE_VCFS_TRUTH(
             truth_ch,
             regions_bed_ch,
+            targets_bed_ch,
             fasta,
             fai,
             chain,
             rename_chr,
             dictionary
         )
-        regions_bed_ch = PREPARE_VCFS_TRUTH.out.high_conf_ch
+        regions_bed_ch = PREPARE_VCFS_TRUTH.out.regions_bed_ch
+        targets_bed_ch = PREPARE_VCFS_TRUTH.out.targets_bed_ch
         truth_ch       = PREPARE_VCFS_TRUTH.out.vcf_ch
     }
 
@@ -219,10 +222,12 @@ workflow VARIANTBENCHMARKING {
     REPORT_VCF_STATISTICS(
         PREPARE_VCFS_TEST.out.vcf_ch.mix(truth_ch)
     )
+    ch_multiqc_files = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
+
 
     // If intersect is in the methods, perform bedtools intersect to region files given
     ch_samplesheet.branch{
-        def meta = it[0]
+        def _meta = it[0]
         def regions_file = it[2]
         regions : regions_file
         other: false}
@@ -234,10 +239,11 @@ workflow VARIANTBENCHMARKING {
             intersect.regions.mix(PREPARE_VCFS_TEST.out.vcf_ch),
             regions_bed_ch
         )
-        ch_reports       = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
+        ch_reports = ch_reports.mix(INTERSECT_STATISTICS.out.summary_reports)
     }
-    evals_ch     = channel.empty()
-    evals_csv_ch = channel.empty()
+    evals_ch               = channel.empty()
+    evals_csv_ch           = channel.empty()
+    ch_stratified_reports  = channel.empty()
 
     // Concordance analysis can only be performed small variants for now
     if (params.method.contains("concordance") && (params.variant_type ==~ /.*(?:small|snv|indel).*/)){
@@ -263,6 +269,7 @@ workflow VARIANTBENCHMARKING {
                     [ test_meta, test_vcf, test_tbi, truth_vcf, truth_tbi, regions_bed, targets_bed ]}
         .set{bench}
 
+
     if (params.variant_type == "structural"){
         SV_BENCHMARK(
             bench,
@@ -272,27 +279,8 @@ workflow VARIANTBENCHMARKING {
         ch_reports       = ch_reports.mix(SV_BENCHMARK.out.summary_reports)
         evals_ch         = evals_ch.mix(SV_BENCHMARK.out.tagged_variants)
         ch_multiqc_files = ch_multiqc_files.mix(SV_BENCHMARK.out.logs.map{ _meta, log -> log })
-
-        if (params.method.contains("rtgtools")){
-            // running bndeval might require svdecompose
-            RTGTOOLS_BNDEVAL(
-                bench.map{ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed, _targets_bed  ->
-                    [ meta, vcf, _tbi, _truth_vcf, _truth_tbi, _regionsbed ]
-                }
-            )
-
-            ch_reports       = ch_reports.mix(RTGTOOLS_BNDEVAL.out.summary
-                                                    .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "rtgtools"], file) }
-                                                    .groupTuple())
-
-            evals_ch = evals_ch.mix(
-                RTGTOOLS_BNDEVAL.out.fn_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.fp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.baseline_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "rtgtools"], file) },
-                RTGTOOLS_BNDEVAL.out.tp_vcf.map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "rtgtools"], file) }
-            )
-        }
     }
+
     if ( params.variant_type == "copynumber"){
         CNV_BENCHMARK(
             bench,
@@ -304,58 +292,43 @@ workflow VARIANTBENCHMARKING {
         ch_multiqc_files = ch_multiqc_files.mix(CNV_BENCHMARK.out.logs.map{ _meta, log -> log })
     }
 
-    if (params.analysis?.contains("germline")){
-
-        if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
-            // Benchmarking specific to small germline samples
-            SMALL_GERMLINE_BENCHMARK(
-                bench,
-                fasta,
-                fai,
-                sdf,
-                falsepositive_bed,
-                stratification_bed,
-                stratification_tsv
-            )
-            ch_reports       = ch_reports.mix(SMALL_GERMLINE_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(SMALL_GERMLINE_BENCHMARK.out.tagged_variants)
-        }
+    if (params.variant_type == "small" || params.variant_type == "snv" || params.variant_type == "indel"){
+        // Benchmarking small variants
+        SMALL_BENCHMARK(
+            bench,
+            fasta,
+            fai,
+            sdf,
+            stratification_bed,
+            stratification_tsv,
+            ambiguous_beds
+        )
+        ch_reports       = ch_reports.mix(SMALL_BENCHMARK.out.summary_reports)
+        evals_ch         = evals_ch.mix(SMALL_BENCHMARK.out.tagged_variants)
+        evals_csv_ch     = evals_csv_ch.mix(SMALL_BENCHMARK.out.tagged_variants_csv)
+        ch_stratified_reports = ch_stratified_reports.mix(SMALL_BENCHMARK.out.stratified_reports)
     }
 
-    // SOMATIC BENCHMARKING
-    if (params.analysis?.contains("somatic")){
 
-        if (params.variant_type == "snv" || params.variant_type == "indel"){
-            // SOMATIC VARIANT BENCHMARKING
-            SMALL_SOMATIC_BENCHMARK(
-                bench,
-                fasta,
-                fai,
-                sdf,
-                falsepositive_bed,
-                ambiguous_beds
-            )
-            ch_reports       = ch_reports.mix(SMALL_SOMATIC_BENCHMARK.out.summary_reports)
-            evals_ch         = evals_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants)
-            evals_csv_ch     = evals_csv_ch.mix(SMALL_SOMATIC_BENCHMARK.out.tagged_variants_csv)
-        }
-
-    }
-
-    // Compare tool spesfic benchmarks
+    // Compare tagged variants
     COMPARE_BENCHMARK_RESULTS(
         evals_ch,
         evals_csv_ch,
         fasta,
         fai
     )
+    ch_multiqc_files = ch_multiqc_files.mix(COMPARE_BENCHMARK_RESULTS.out.ch_plots.flatten())
 
     // Summarize and plot benchmark statistics
     REPORT_BENCHMARK_STATISTICS(
         ch_reports,
         evals_ch,
-        evals_csv_ch
+        evals_csv_ch,
+        ch_stratified_reports
     )
+    ch_multiqc_files = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots.flatten())
+    ch_multiqc_files = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.merged_reports.map{ _meta, report -> report })
+    ch_multiqc_files = ch_multiqc_files.mix(ch_reports.map{ _meta, report -> report }.flatten())
 
     //
     // Collate and save software versions
@@ -377,47 +350,44 @@ workflow VARIANTBENCHMARKING {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
+            storeDir: "${outdir}/pipeline_info",
             name: 'nf_core_'  +  'variantbenchmarking_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
             newLine: true
-        ).set { ch_collated_versions }
-
-
+        )
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config                     = channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config              = params.multiqc_config ? channel.fromPath(params.multiqc_config, checkIfExists: true) :channel.empty()
-    ch_multiqc_logo                       = params.multiqc_logo ? channel.fromPath(params.multiqc_logo, checkIfExists: true) : channel.empty()
-    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary                   = channel.value(paramsSummaryMultiqc(summary_params))
-    ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
-    ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml',sort: true))
-    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_VCF_STATISTICS.out.ch_stats)
-    ch_multiqc_files                      = ch_multiqc_files.mix(COMPARE_BENCHMARK_RESULTS.out.ch_plots.flatten())
-    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.ch_plots.flatten())
-    ch_multiqc_files                      = ch_multiqc_files.mix(REPORT_BENCHMARK_STATISTICS.out.merged_reports.map{ meta, report -> report }.flatten())
-    ch_multiqc_files                      = ch_multiqc_files.mix(ch_reports.map{ meta, report -> report }.flatten())
+    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
+    def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    def ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    def ch_multiqc_custom_methods_description = multiqc_methods_description
+        ? file(multiqc_methods_description, checkIfExists: true)
+        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
+    def ch_methods_description = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
 
-    MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
+
+    MULTIQC(
+        ch_multiqc_files.flatten().collect().map { files ->
+            [
+                [id: 'variantbenchmarking'],
+                files,
+                multiqc_config
+                    ? file(multiqc_config, checkIfExists: true)
+                    : file("${projectDir}/assets/multiqc_config.yml", checkIfExists: true),
+                multiqc_logo ? file(multiqc_logo, checkIfExists: true) : [],
+                [],
+                [],
+            ]
+        }
     )
-
-    emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions            = ch_versions                 // channel: [ path(versions.yml) ]
-
+    emit:multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
+    versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
 
 /*

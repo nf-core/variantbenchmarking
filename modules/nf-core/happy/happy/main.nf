@@ -4,9 +4,9 @@ process HAPPY_HAPPY {
 
     // WARN: Version information not provided by tool on CLI. Please update version string below when bumping container versions.
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/hap.py:0.3.15--py27hcb73b3d_0':
-        'biocontainers/hap.py:0.3.15--py27hcb73b3d_0' }"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/41/411c9388ad3bf1f1f0af4f59507c3e4367f25473e572bd862a18b40a2bb0735d/data':
+        'community.wave.seqera.io/library/hap.py_gzip_rtg-tools:6ff83cc387a8526f' }"
 
     input:
     tuple val(meta), path(query_vcf), path(truth_vcf), path(regions_bed), path(targets_bed)
@@ -36,7 +36,7 @@ process HAPPY_HAPPY {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def regions = regions_bed ? "-f ${regions_bed}" : ""
+    def regions = regions_bed ? "-R ${regions_bed}" : ""
     def targets = targets_bed ? "-T ${targets_bed}" : ""
     def false_positives = false_positives_bed ? "--false-positives ${false_positives_bed}" : ""
     def stratification = stratification_tsv && stratification_beds ? "--stratification ${stratification_tsv}" : ""

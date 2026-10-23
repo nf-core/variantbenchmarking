@@ -6,17 +6,19 @@ include { MERGE_REPORTS         } from '../../../modules/local/custom/merge_repo
 include { PLOTS_METRICS         } from '../../../modules/local/plots/metrics'
 include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
 include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
-include { CAT_CAT as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/cat/cat'
+include { GAWK as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/gawk'
+include { HAPPY_REPORT          } from '../../../modules/nf-core/happy/report'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
-    reports         // channel: [meta, report1, report2, ...]
-    evaluations     // channel: [val(meta), vcf.gz, index]
-    evaluations_csv // channel: [val(meta), csv]
+    reports            // channel: [meta, report1, report2, ...]
+    evaluations        // channel: [val(meta), vcf.gz, index]
+    evaluations_csv    // channel: [val(meta), csv]
+    stratified_reports // channel: [val(meta), [csv_meta1, csv_meta2, ...], [roc.all.csv.gz1, roc.all.csv.gz2, ...]]
 
     main:
 
-    ch_plots = channel.empty()
+    ch_plots       = channel.empty()
     merged_reports = channel.empty()
 
     // merge summary statistics from the same benchmarking tool
@@ -35,15 +37,22 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
         // plot INDEL/SV distribution plots
-        PLOTS_SVLEN_DIST(
-            evaluations.map { item -> tuple(item[0], item[1]) }.groupTuple()
-                .mix(evaluations_csv.map { item -> tuple(item[0], item[1]) }.groupTuple())
+        evaluations.map { item ->
+            tuple(item[0], item[1])
+        }.groupTuple()
+        .mix(
+            evaluations_csv.map { item ->
+                tuple(item[0], item[1])
+            }.groupTuple()
         )
-        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plot)
+        .set { svlen_input }
+
+        PLOTS_SVLEN_DIST(svlen_input)
+        ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plots)
     }
 
     MERGE_REPORTS.out.summary
-        .map { meta, file -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], file) }
+        .map { meta, report -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], report) }
         .set { summary }
 
     // add path to csv file to the datavzrd input
@@ -56,14 +65,29 @@ workflow REPORT_BENCHMARK_STATISTICS {
         .set { template_ch }
 
     CREATE_DATAVZRD_INPUT (
-        template_ch
+        template_ch,
+        [],
+        false
     )
 
+    CREATE_DATAVZRD_INPUT.out.output
+        .map { meta, yaml_file ->
+            def clean_meta = meta.findAll { it.key != 'csv' }
+            [ clean_meta, yaml_file ]
+        }
+        .set { clean_datavzrd_input_ch }
+
     DATAVZRD (
-        CREATE_DATAVZRD_INPUT.out.file_out.join(template_ch)
+        clean_datavzrd_input_ch.join(summary)
+    )
+
+    // generate interactive HTML report from stratified hap.py results
+    HAPPY_REPORT(
+        stratified_reports
     )
 
     emit:
-    ch_plots        // channel: [ meta, plots.png ]
+    ch_plots        // channel: [ plots.html ]
     merged_reports  // channel: [ meta, summary.csv]
+    happy_report = HAPPY_REPORT.out.html // channel: [ meta, report.html ]
 }
