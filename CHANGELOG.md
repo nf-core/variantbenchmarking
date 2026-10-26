@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
 - nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
 - Fixes around plot_metics.py and updating the testcases.md [#351](https://github.com/nf-core/variantbenchmarking/pull/351)
+- Retriere splitting small variant set, this part was never properly used. Reviewer found a bug as well. [#354](https://github.com/nf-core/variantbenchmarking/pull/354)
 
 ### `Dependencies`
 
