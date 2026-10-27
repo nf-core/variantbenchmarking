@@ -157,7 +157,6 @@ Benchmark results are created separately for each test vcf and for each method u
     - `variant_type/`
       - `analysis_tool/`
         - `variant_metrics_*.html`: Interactive plots with on precision, recall and F1 per base
-        - `variant_metrics_*.html`: Interactive plots with on precision, recall and F1 per base
         - `upset_*.html`: Upset plots comparing your True Positives against False Positives and False Negatives to visualize intersection overlaps.
         - `*_lenght.FN.html`: Variant length distribution histogram specifically for False Negative calls.
         - `*_lenght.FP.html`: Variant length distribution histogram specifically for False Positive calls.

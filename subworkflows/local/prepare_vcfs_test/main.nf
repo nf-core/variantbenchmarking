@@ -4,7 +4,6 @@
 
 include { VCF_VARIANT_DEDUPLICATION                    } from '../../local/vcf_variant_deduplication'
 include { VCF_FILTER_SURVIVOR_BCFTOOLS                 } from '../../nf-core/vcf_filter_survivor_bcftools'
-include { SPLIT_SMALL_VARIANTS_TEST                    } from '../../local/split_small_variants_test'
 include { LIFTOVER_VCFS                                } from '../../local/liftover_vcfs'
 include { BCFTOOLS_NORM                                } from '../../../modules/nf-core/bcftools/norm'
 include { RTGTOOLS_SVDECOMPOSE                         } from '../../../modules/nf-core/rtgtools/svdecompose'
@@ -147,20 +146,6 @@ workflow PREPARE_VCFS_TEST {
         BCFTOOLS_NORM.out.vcf
             .join(BCFTOOLS_NORM.out.tbi, by: 0)
             .set { vcf_ch }
-    }
-
-    if (params.analysis.contains("somatic")) {
-        // somatic specific preparations
-        if (params.variant_type == "small") {
-            // splitting small type of variants only required if the method is sompy
-            // This part needs to be retired, as other methods can work for both mixed type of variants!
-            if (params.variant_type == "sompy") {
-                SPLIT_SMALL_VARIANTS_TEST(
-                    vcf_ch
-                )
-                vcf_ch = SPLIT_SMALL_VARIANTS_TEST.out.out_vcf_ch
-            }
-        }
     }
 
     if (params.sv_standardization.contains("svdecompose")) {
