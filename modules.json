@@ -7,7 +7,7 @@
                 "nf-core": {
                     "aardvark/compare": {
                         "branch": "master",
-                        "git_sha": "18eb358065b06f2d3419e37383b002fe7db3da02",
+                        "git_sha": "8a69f618cf2738de991960a352516855c7fce530",
                         "installed_by": ["modules"]
                     },
                     "bcftools/annotate": {
