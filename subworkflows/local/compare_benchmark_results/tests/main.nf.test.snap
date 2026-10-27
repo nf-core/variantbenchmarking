@@ -1,0 +1,109 @@
+{
+    "Compare small variants benchmark results": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "FN"
+                    },
+                    "test.FN.merged.vcf",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "8de008dc0b0382cf0ec0f1b200eeb415"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "FP"
+                    },
+                    "test.FP.merged.vcf",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "8de008dc0b0382cf0ec0f1b200eeb415"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_base"
+                    },
+                    "test.TP_base.merged.vcf",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "8de008dc0b0382cf0ec0f1b200eeb415"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_comp"
+                    },
+                    "test.TP_comp.merged.vcf",
+                    "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
+                    "8de008dc0b0382cf0ec0f1b200eeb415"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    [
+                        "upset_test_tp_fn_mqc.html",
+                        "upset_test_tp_fp_mqc.html"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2026-10-09T15:40:40.182937949",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Compare benchmark results stub": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "FN"
+                    },
+                    "test.FN.merged.vcf"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "FP"
+                    },
+                    "test.FP.merged.vcf"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_base"
+                    },
+                    "test.TP_base.merged.vcf"
+                ],
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_comp"
+                    },
+                    "test.TP_comp.merged.vcf"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    [
+                        "upset_test.mqc.html"
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": "2026-10-09T15:41:01.668634745",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}

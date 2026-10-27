@@ -1,0 +1,62 @@
+nextflow_process {
+
+    name "Test Process SUBTRACT_VCF"
+    script "../main.nf"
+    process "SUBTRACT_VCF"
+
+    tag "modules"
+    tag "modules_local"
+    tag "subtract_vcf"
+
+    test("Standard VCF subtraction") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test3.HG002' ],
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.bed'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/test3.HG002.manta.falsenegatives.vcf.gz'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/test3.HG002.manta.TP_base.remain.vcf.gz')
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard VCF subtraction - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test3.HG002' ],
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.reheader.dedup.sort.norm.filtermissing.vcf.gz.tbi'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/HG002_SVs_Tier1_v0.6.chr21.bed'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/test3.HG002.manta.falsenegatives.vcf.gz'),
+                    file(params.test_data_base + '/testdata/nf-test/subtract_vcf/test3.HG002.manta.TP_base.remain.vcf.gz')
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "SPLIT_SMALL_VARIANTS_TEST"
+description: Subworkflow to split small somatic variants into SNV and INDEL
+keywords:
+  - split
+  - snv
+  - indel
+  - somatic
+  - vcf
+  - bcftools
+components:
+  - bcftools/view
+  - tabix/bgziptabix
+input:
+  - input_ch:
+      description: Channel containing target VCF files and their indices
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.{tbi,csi}"
+output:
+  - out_vcf_ch:
+      description: Channel containing the split and indexed SNV and INDEL VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map containing variant type (snv or indel)
+        - vcf:
+          type: file
+          description: Processed VCF file
+          pattern: "*.vcf.gz"
+        - index:
+          type: file
+          description: Index file
+          pattern: "*.tbi"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

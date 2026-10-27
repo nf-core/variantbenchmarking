@@ -23,6 +23,9 @@
                     "@id": "assets/"
                 },
                 {
+                    "@id": "bin/"
+                },
+                {
                     "@id": "conf/"
                 },
                 {
@@ -33,6 +36,9 @@
                 },
                 {
                     "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
                 },
                 {
                     "@id": "modules/nf-core/"
@@ -107,14 +113,29 @@
         },
         {
             "@id": "main.nf",
-            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
+            "@type": [
+                "File",
+                "SoftwareSourceCode",
+                "ComputationalWorkflow"
+            ],
+            "author": [
+                {
+                    "@id": "https://orcid.org/0000-0002-3532-2152"
+                }
+            ],
             "contributor": [
                 {
-                    "@id": "#730ff7b1-ad5a-4aa1-97a2-e96085e97d44"
+                    "@id": "https://orcid.org/0009-0006-2609-3737"
+                },
+                {
+                    "@id": "https://orcid.org/0009-0003-5619-1555"
+                },
+                {
+                    "@id": "https://orcid.org/0000-0003-2827-9261"
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2026-10-26T16:19:38Z",
+            "dateModified": "2026-10-20T14:10:06Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
                 "nf-core",
@@ -124,8 +145,17 @@
                 "structural-variants",
                 "variant-calling"
             ],
-            "license": ["MIT"],
-            "name": ["nf-core/variantbenchmarking"],
+            "license": [
+                "MIT"
+            ],
+            "maintainer": [
+                {
+                    "@id": "https://orcid.org/0000-0002-3532-2152"
+                }
+            ],
+            "name": [
+                "nf-core/variantbenchmarking"
+            ],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
@@ -196,6 +226,11 @@
             "description": "Additional files"
         },
         {
+            "@id": "bin/",
+            "@type": "Dataset",
+            "description": "Scripts that must be callable from a pipeline process"
+        },
+        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -214,6 +249,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -302,9 +342,36 @@
             "url": "https://nf-co.re/"
         },
         {
-            "@id": "#730ff7b1-ad5a-4aa1-97a2-e96085e97d44",
+            "@id": "https://orcid.org/0000-0002-3532-2152",
             "@type": "Person",
-            "name": "Kubra Narci"
+            "affiliation": "German Human Genome Phenome Project (GHGA/DKFZ)",
+            "email": "kuebra.narci@dkfz-heidelberg.de",
+            "name": "Kubra Narci",
+            "url": "https://github.com/kubranarci"
+        },
+        {
+            "@id": "https://orcid.org/0009-0006-2609-3737",
+            "@type": "Person",
+            "affiliation": "Centro Nacional de Análisis Genómico (CNAG-CRG)",
+            "email": "georgia.kesisoglou@cnag.eu",
+            "name": "Georgia Kesisoglou",
+            "url": "https://github.com/georgiakes"
+        },
+        {
+            "@id": "https://orcid.org/0009-0003-5619-1555",
+            "@type": "Person",
+            "affiliation": "Center for Medical Genetics Ghent",
+            "email": "nicolas.vannieuwkerke@ugent.be",
+            "name": "Nicolas Vannieuwkerke",
+            "url": "https://github.com/nvnieuwk"
+        },
+        {
+            "@id": "https://orcid.org/0000-0003-2827-9261",
+            "@type": "Person",
+            "affiliation": "Seqera",
+            "email": "maxime.garcia@seqera.io",
+            "name": "Maxime U Garcia",
+            "url": "https://github.com/maxulysse"
         }
     ]
 }

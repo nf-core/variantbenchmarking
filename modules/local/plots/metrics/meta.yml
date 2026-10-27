@@ -1,0 +1,65 @@
+name: "plots_metrics"
+description: "Generates interactive comparative visualization plots (F1, Precision-Recall, and Variant Metrics) from benchmarking summary CSVs using Python and Plotly."
+keywords:
+  - plot
+  - python
+  - plotly
+  - html
+  - benchmarking
+  - statistics
+tools:
+  - python:
+      description: "Python is a programming language that lets you work quickly and integrate systems more effectively."
+      homepage: "https://www.python.org/"
+      licence: ["PSF-2.0"]
+  - pandas:
+      description: "pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool."
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+  - plotly:
+      description: "An interactive, open-source plotting library for Python."
+      homepage: "https://plotly.com/python/"
+      licence: ["MIT"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `benchmark_tool` (e.g., 'happy', 'wittyer', 'rtgtools').
+    - summary:
+        type: file
+        description: Summary CSV file containing benchmarking metrics.
+        pattern: "*.csv"
+
+output:
+  plots:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - html:
+        type: file
+        description: Interactive HTML reports visualizing benchmarking results.
+        pattern: "*.html"
+
+  versions_python:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750" # YAML
+
+topics:
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: "http://edamontology.org/format_3750"
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

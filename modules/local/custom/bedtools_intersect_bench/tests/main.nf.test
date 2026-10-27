@@ -1,0 +1,61 @@
+nextflow_process {
+
+    name "Test Process BEDTOOLS_INTERSECT_BENCH"
+    script "../main.nf"
+    process "BEDTOOLS_INTERSECT_BENCH"
+
+    tag "modules"
+    tag "modules_local"
+    tag "bedtools_intersect_bench"
+
+    test("Standard bedtools intersect bench") {
+
+        when {
+            params {
+                genome = "GRCh38"
+                truth_id = "truth"
+            }
+            process {
+                """
+                input[0] = [
+                    [ id:'test_intersect', caller:'manta' ],
+                    file(params.test_data_base + '/testdata/nf-test/intersect/rtgtools.TP_base.vcf', checkIfExists: true),
+                    file(params.test_data_base + '/testdata/nf-test/intersect/test14.bed', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("Standard bedtools intersect bench - stub") {
+        options "-stub"
+        when {
+            params {
+                genome = "GRCh38"
+                truth_id = "truth"
+            }
+            process {
+                """
+                input[0] = [
+                    [ id:'test_intersect', caller:'manta' ],
+                    file(params.test_data_base + '/testdata/nf-test/intersect/rtgtools.TP_base.vcf', checkIfExists: true),
+                    file(params.test_data_base + '/testdata/nf-test/intersect/test14.bed', checkIfExists: true)
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

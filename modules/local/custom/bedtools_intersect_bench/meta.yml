@@ -1,0 +1,107 @@
+name: "bedtools_intersect_bench"
+description: "Benchmarks BED files using bedtools intersect, generating TP, FP, FN intervals and summary statistics."
+keywords:
+  - bedtools
+  - intersect
+  - benchmark
+  - intervals
+  - python
+  - pandas
+tools:
+  - python:
+      description: "Python programming language"
+      homepage: "https://www.python.org"
+      licence: ["Python-2.0"]
+  - pybedtools:
+      description: "Python wrapper for bedtools"
+      homepage: "https://daler.github.io/pybedtools/"
+      licence: ["GPL-2.0"]
+  - bedtools:
+      description: "A powerful toolset for genome arithmetic."
+      homepage: "https://bedtools.readthedocs.io/"
+      licence: ["MIT"]
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information.
+          Must contain `id` and `caller`.
+          e.g. `[ id:'test', caller:'cnvkit' ]`
+    - truth:
+        type: file
+        description: Truth or baseline BED file.
+        pattern: "*.bed"
+    - test:
+        type: file
+        description: Test or comparison BED file.
+        pattern: "*.bed"
+
+output:
+  summary:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - csv:
+        type: file
+        description: Summary statistics of the intersection.
+        pattern: "*stats.csv"
+  tp_base:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: True positive base intervals.
+        pattern: "*TP_base.bed"
+  tp_comp:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: True positive comparison intervals.
+        pattern: "*TP_comp.bed"
+  fp:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: False positive intervals.
+        pattern: "*FP.bed"
+  fn:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: False negative intervals.
+        pattern: "*FN.bed"
+  out_bed:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - bed:
+        type: file
+        description: Converted BED file.
+        pattern: "*converted.bed"
+  versions_python:
+    - versions:
+        type: tuple
+        description: Tuple containing process name software name and python version string.
+  versions_bedtools:
+    - versions:
+        type: tuple
+        description: Tuple containing process name software name and bedtools version string.
+
+topics:
+  versions:
+    - versions:
+        type: tuple
+        description: Tuple containing process name software name and version string.
+
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

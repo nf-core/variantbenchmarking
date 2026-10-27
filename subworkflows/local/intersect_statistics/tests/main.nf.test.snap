@@ -1,0 +1,104 @@
+{
+    "intersect direct regions -Bypass Conversion": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "intersect"
+                    },
+                    [
+                        "test_regions.truth.gatk_stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T12:50:18.385283679",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "intersect statistics stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "intersect"
+                        },
+                        [
+                            "test_small.truth.gatk.converted_stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "copynumber",
+                            "benchmark_tool": "intersect"
+                        },
+                        [
+                            "test_small.truth.gatk.converted_stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T12:50:33.097709166",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "intersect small variants -VCF to BEDOPS": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "intersect"
+                    },
+                    [
+                        "test_small.truth.gatk.converted_stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T12:49:47.666786033",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "intersect structural variants -VCF to SVTK": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "intersect"
+                    },
+                    [
+                        "test_sv.truth.gatk.converted_stats.csv"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-25T12:50:05.491406149",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

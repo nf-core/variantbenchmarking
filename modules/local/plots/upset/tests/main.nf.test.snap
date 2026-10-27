@@ -1,0 +1,41 @@
+{
+    "Standard upset plot generation": {
+        "content": [
+            [
+                "upset_svbenchmark_tp_fn_mqc.html",
+                "upset_svbenchmark_tp_fp_mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_UPSET",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T15:53:58.164564413",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Standard upset plot - stub": {
+        "content": [
+            [
+                "upset_test_stub.mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_UPSET",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T15:54:06.567185436",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}

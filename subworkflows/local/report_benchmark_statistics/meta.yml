@@ -1,0 +1,80 @@
+name: "report_benchmark_statistics"
+description: "Subworkflow to merge benchmark reports, generate metrics plots, SV length distributions, Datavzrd interactive HTML reports and hap.py stratified HTML reports."
+keywords:
+  - benchmark
+  - report
+  - statistics
+  - datavzrd
+  - plots
+components:
+  - local/custom/merge_reports
+  - local/plots/metrics
+  - nf-core/datavzrd
+  - local/plots/svlen_dist
+  - nf-core/cat/cat
+  - nf-core/happy/report
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - reports:
+        type: file
+        description: List of summary report files (e.g., CSVs or JSONs) from benchmarking tools.
+        pattern: "*.{csv,json,txt}"
+  - - meta:
+        type: map
+        description: Groovy Map containing sample and caller information.
+    - vcf:
+        type: file
+        description: Evaluated VCF file (True Positives, False Positives, etc.).
+        pattern: "*.vcf.gz"
+    - index:
+        type: file
+        description: Index of the evaluated VCF file.
+        pattern: "*.tbi"
+  - - meta:
+        type: map
+        description: Groovy Map containing sample and caller information.
+    - csv:
+        type: file
+        description: Evaluated CSV file for SV length distributions.
+        pattern: "*.csv"
+  - - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - csv_meta:
+        type: list
+        description: List of Groovy Maps, one per ROC CSV file, holding the label (`method`) used for that file in the report.
+    - roc_csv:
+        type: file
+        description: Stratified hap.py ROC results of all test VCFs.
+        pattern: "*.roc.all.csv.gz"
+output:
+  ch_plots:
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - plots:
+        type: file
+        description: Generated metrics and distribution plots.
+        pattern: "*.html"
+  merged_reports:
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - summary:
+        type: file
+        description: Merged summary statistics report.
+        pattern: "*.csv"
+  happy_report:
+    - meta:
+        type: map
+        description: Groovy Map containing benchmark tool information.
+    - html:
+        type: file
+        description: Standalone interactive HTML report of the stratified hap.py results.
+        pattern: "*.html"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

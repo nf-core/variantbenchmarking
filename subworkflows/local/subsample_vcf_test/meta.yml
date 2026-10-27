@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "SUBSAMPLE_VCF_TEST"
+description: Subworkflow to prepare subset samples from a multisample VCF
+keywords:
+  - vcf
+  - subsample
+  - sort
+  - bcftools
+components:
+  - bcftools/sort
+  - bcftools/view
+input:
+  - input_ch:
+      description: Channel containing target VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+output:
+  - vcf_ch:
+      description: Channel containing the sorted and subsampled VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: Processed VCF file
+          pattern: "*.{vcf,vcf.gz,bcf}"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

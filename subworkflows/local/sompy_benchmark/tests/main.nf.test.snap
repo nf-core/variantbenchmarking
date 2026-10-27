@@ -1,0 +1,172 @@
+{
+    "benchmark with sompy stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.SEQC2.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.SEQC2.gatk.stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "tagged_variants_csv": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.gatk.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T12:18:43.271785359",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "benchmark with sompy": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.SEQC2.mutect2.stats.csv:md5,c189376f122fe20047ae2fbc3c70a9a5"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.FN.csv:md5,7189b5d0029a314090bab08a28f02375"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.FP.csv:md5,96fac43ad50bb403854d11fbd719dcb7"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.TP_comp.csv:md5,8b8021ff9bbd53fff8923f854ce14092"
+                    ]
+                ],
+                "summary_reports": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "benchmark_tool": "sompy"
+                        },
+                        [
+                            "test.SEQC2.mutect2.stats.csv:md5,c189376f122fe20047ae2fbc3c70a9a5"
+                        ]
+                    ]
+                ],
+                "tagged_variants_csv": [
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FN",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.FN.csv:md5,7189b5d0029a314090bab08a28f02375"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "FP",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.FP.csv:md5,96fac43ad50bb403854d11fbd719dcb7"
+                    ],
+                    [
+                        {
+                            "vartype": "snv",
+                            "tag": "TP_comp",
+                            "id": "sompy"
+                        },
+                        "test.SEQC2.mutect2.TP_comp.csv:md5,8b8021ff9bbd53fff8923f854ce14092"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T12:18:29.615027034",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

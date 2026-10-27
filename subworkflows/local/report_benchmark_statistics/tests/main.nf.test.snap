@@ -1,0 +1,182 @@
+{
+    "report benchmark statistics - germline small variants happy - stub": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
+                ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-28T15:13:00.397073503",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "report benchmark statistics - germline small variants happy": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy"
+                    },
+                    "happy.summary.csv"
+                ]
+            ],
+            [
+                "variant_metrics_happy_mqc.html"
+            ],
+            [
+                [
+                    {
+                        "vartype": "small",
+                        "benchmark_tool": "happy",
+                        "id": "happy"
+                    },
+                    "happy_report.html"
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-28T15:12:38.265053342",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "report benchmark statistics - stub": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_report",
+                        "benchmark_tool": "svbenchmark",
+                        "vartype": "structural"
+                    },
+                    "svbenchmark.summary.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool2.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "variant_metrics_svbenchmark_mqc.html"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-18T16:54:52.650504842",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "report benchmark statistics - structural variants": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_report",
+                        "benchmark_tool": "svbenchmark",
+                        "vartype": "structural"
+                    },
+                    "svbenchmark.summary.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool1.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "structural_lenght_test.tool2.mqc.html"
+                    ]
+                ],
+                [
+                    {
+                        "id": "test_report"
+                    },
+                    [
+                        "variant_metrics_svbenchmark_mqc.html"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-09-18T16:54:39.679756113",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}
