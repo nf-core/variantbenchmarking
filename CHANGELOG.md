@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace nf-core modules TABIX_TABIX, TABIX_BGZIP and TABIX_BGZIPTABIX with HTSLIB_BGZIPTABIX [#328](https://github.com/nf-core/variantbenchmarking/pull/328).
 - nf-diff GitHub Actions: `save-baseline.yml` caches a test profile run on every push to `dev`, and `pr-diff.yml` compares each PR's test run against it and posts the report as a PR comment [#344](https://github.com/nf-core/variantbenchmarking/pull/344).
 - Concordance analysis cen be performed to only spesific pairs, allows users to select truth and query pairs relates to issue #342 [#348](https://github.com/nf-core/variantbenchmarking/pull/348)
+- [Template update for nf-core/tools 4.2.1](https://github.com/nf-core/variantbenchmarking/pull/355)
 
 ### `Fixed`
 
