@@ -362,6 +362,7 @@ There are 3 types of plots generated through the pipeline
 1. Metrics plots: TP/FN/FP numbers, recal vs precison, and F1 score (can be skipped by --skip_plots "metrics")
 2. Upset plots: TP_comp vs FP and TP_bse vs FN upset plots (can be skipped by --skip_plots "upset")
 3. SV lenght distribitions plots: INDEL lenght distribition histograms per TP_comp, TP_Base, FP, and FN variants (can be skipped by --skip_plots "svlength")
+4. Reports involve datavzrd and happy (can be skipped by --skip_reports "datavzrd, happy")
 
 ## Interactive dashboards with Depictio
 
