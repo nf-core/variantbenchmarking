@@ -141,11 +141,11 @@
                 },
                 "skip_reports": {
                     "type": "string",
-                    "description": "Skip plots: datavzrd, happy",
+                    "description": "Skip reports from these tools: datavzrd, happy",
                     "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: datavzrd, happy",
                     "pattern": "^((datavzrd|happy)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
-                },                
+                },
                 "min_sv_size": {
                     "type": "integer",
                     "description": "Minimum SV size of variants to benchmark, 0 to disable",
