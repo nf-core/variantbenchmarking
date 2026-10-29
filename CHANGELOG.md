@@ -58,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Nextflow           | 25.04.0     | 25.10.4     |
 | multiqc            | 1.32        | 1.33        |
 
-- New parameters: `skip_plots`, `skip_reports`, `high_conf`, `happy_comparison_engine` 
+- New parameters: `skip_plots`, `skip_reports`, `high_conf`, `happy_comparison_engine`
 - Depreciated parameters: `falsepositive_bed`
 
 ## 1.5.0
