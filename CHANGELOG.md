@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update happy module to use both -R and -f arguments.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 - Fixing regions_bed vs high_conf_bed confusion.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
 - targets_bed was missing in truth file liftover subworkflow [#320](https://github.com/nf-core/variantbenchmarking/pull/320)
-- happy and sompy failing silently with `--high_cong false` option [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
+- happy and sompy failing silently with `--high_conf false` option [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
 - Replacing all static png plots with interactice html plots generated using plotly. As part of this, metrics plotting R script (plots.R) is converted to python (plot_metrics.py). Now, all the plotting modules (PLOTS_METRICS, PLOTS_SVLEN_DIST, PLOTS_UPSET) are using the same containers. Interactive html plots are emitted with MultiQC, allowing users to view results all once [#325](https://github.com/nf-core/variantbenchmarking/pull/325/changes)
 - Resolving GATK_CONCORDANCE file name conflicts, new intermediate file names are smaller and cleaner [#336](https://github.com/nf-core/variantbenchmarking/pull/336)
 - Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
 - Fixes around plot_metics.py and updating the testcases.md [#351](https://github.com/nf-core/variantbenchmarking/pull/351)
 - Remove `SPLIT_SMALL_VARIANTS_TEST` subworkflow. It was never properly used. Reviewer found a bug as well. [#354](https://github.com/nf-core/variantbenchmarking/pull/354)
+- Datavzrd is failing on seqera platform is meta links work dir, and since datavzrd is not a commonly used tool, I added a new param "skip_report" to enable skipping datavzrd and happy reports. By default skip_report is null. [#356](https://github.com/nf-core/variantbenchmarking/pull/356)
 
 ### `Dependencies`
 
@@ -56,6 +57,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | nf-schema          | 2.5.1       | 2.7.3       |
 | Nextflow           | 25.04.0     | 25.10.4     |
 | MultiQC            | 1.32        | 1.33        |
+
+- New parameters: `skip_plots`, `skip_reports`, `high_conf`, `happy_comparison_engine` 
+- Depreciated parameters: `falsepositive_bed`
 
 ## 1.5.0
 
