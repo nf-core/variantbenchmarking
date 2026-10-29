@@ -13,6 +13,7 @@ nextflow_pipeline {
             params {
                 outdir               = "$outputDir"
                 test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
+                skip_reports         = null
 
             }
         }
@@ -45,6 +46,7 @@ nextflow_pipeline {
             params {
                 outdir               = "$outputDir"
                 test_data_base       = 'https://raw.githubusercontent.com/nf-core/test-datasets/variantbenchmarking'
+                skip_reports         = null
 
             }
         }

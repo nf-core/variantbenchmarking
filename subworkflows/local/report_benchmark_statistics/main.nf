@@ -2,12 +2,12 @@
 // REPORT_BENCHMARK_STATISTICS: SUMMARIZE BENCHMARK REPORTS
 //
 
-include { MERGE_REPORTS         } from '../../../modules/local/custom/merge_reports'
-include { PLOTS_METRICS         } from '../../../modules/local/plots/metrics'
-include { DATAVZRD              } from '../../../modules/nf-core/datavzrd'
-include { PLOTS_SVLEN_DIST      } from '../../../modules/local/plots/svlen_dist'
+include { MERGE_REPORTS                 } from '../../../modules/local/custom/merge_reports'
+include { PLOTS_METRICS                 } from '../../../modules/local/plots/metrics'
+include { DATAVZRD                      } from '../../../modules/nf-core/datavzrd'
+include { PLOTS_SVLEN_DIST              } from '../../../modules/local/plots/svlen_dist'
 include { GAWK as CREATE_DATAVZRD_INPUT } from '../../../modules/nf-core/gawk'
-include { HAPPY_REPORT          } from '../../../modules/nf-core/happy/report'
+include { HAPPY_REPORT                  } from '../../../modules/nf-core/happy/report'
 
 workflow REPORT_BENCHMARK_STATISTICS {
     take:
@@ -18,9 +18,12 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     main:
 
+    def skip_plots   = (params.skip_plots   ?: '').tokenize(',')*.trim()
+    def skip_reports = (params.skip_reports ?: '').tokenize(',')*.trim()
+
     ch_plots       = channel.empty()
     merged_reports = channel.empty()
-    happy_report   = channel.empty()  
+    happy_report   = channel.empty()
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
@@ -28,7 +31,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
     )
     merged_reports = merged_reports.mix(MERGE_REPORTS.out.summary)
 
-    if (!params.skip_plots.contains("metrics")){
+    if (!skip_plots.contains("metrics")) {
         // plot summary statistics
         PLOTS_METRICS(
             MERGE_REPORTS.out.summary
@@ -36,7 +39,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         ch_plots = ch_plots.mix(PLOTS_METRICS.out.plots.flatten())
     }
 
-    if (params.variant_type != "snv" && !params.skip_plots.contains("svlength")){
+    if (params.variant_type != "snv" && !skip_plots.contains("svlength")) {
         // plot INDEL/SV distribution plots
         evaluations.map { item ->
             tuple(item[0], item[1])
@@ -52,7 +55,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plots)
     }
 
-    if (params.skip_reports.contains("datavzrd")){
+    if (skip_reports.contains("datavzrd")) {
         log.info "Skipping datavzrd report generation"
     } else {
         log.info "Generating datavzrd report"
@@ -60,11 +63,11 @@ workflow REPORT_BENCHMARK_STATISTICS {
         MERGE_REPORTS.out.summary
             .map { meta, report -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], report) }
             .set { summary }
-        
+
         // add path to csv file to the datavzrd input
         summary
             .map { meta, summary_file ->
-                def updated_meta = meta + [ csv: summary_file.toString() ]
+                def updated_meta  = meta + [ csv: summary_file.toString() ]
                 def template_file = file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists: true)
                 [ updated_meta, template_file ]
             }
@@ -88,7 +91,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
         )
     }
 
-    if (params.skip_reports.contains("happy")){
+    if (skip_reports.contains("happy")) {
         log.info "Skipping happy report generation"
     } else {
         log.info "Generating happy report"
