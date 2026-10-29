@@ -78,8 +78,8 @@ def get_truvari_results(file_paths):
             value = data.get(key)
             if value is None:
                 return default
-                if isinstance(value, list) and len(value) > 0:
-                    return value[0]
+            if isinstance(value, list):
+                return value[0] if len(value) > 0 else default
             return value
 
         relevant_data = {
@@ -268,8 +268,8 @@ def get_concordance_results(file_paths):
         float_columns = ['RECALL','PRECISION','F1']
         df[int_columns] = df[int_columns].fillna(0).astype(int)
         df[float_columns] = df[float_columns].fillna(0).astype(float)
-        df_redesigned = df[['Tool','File','type', 'TP', 'FP', 'FN','RECALL','PRECISION','F1']].copy()
-        df_redesigned.columns = ['Tool','File','Type','TP','FP','FN','Precision','Recall','F1']
+        df_redesigned = df[['Tool','File','type','TP','FP','FN','PRECISION','RECALL','F1']].rename(
+                            columns={'type': 'Type', 'PRECISION': 'Precision', 'RECALL': 'Recall'})
 
         merged_df = pd.concat([merged_df, df_redesigned], ignore_index=True)
 
