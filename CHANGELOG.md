@@ -53,6 +53,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | tabix              | 1.21        | deprecated  |
 | htslib             | -           | 1.24        |
 | xz                 | -           | 5.8.3       |
+| nf-schema          | 2.5.1       | 2.7.3       |
+| Nextflow           | 25.04.0     | 25.10.4     |
+| MultiQC            | 1.32        | 1.33        |
 
 ## 1.5.0
 

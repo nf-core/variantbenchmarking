@@ -20,6 +20,7 @@ workflow REPORT_BENCHMARK_STATISTICS {
 
     ch_plots       = channel.empty()
     merged_reports = channel.empty()
+    happy_report   = channel.empty()  
 
     // merge summary statistics from the same benchmarking tool
     MERGE_REPORTS(
@@ -51,43 +52,56 @@ workflow REPORT_BENCHMARK_STATISTICS {
         ch_plots = ch_plots.mix(PLOTS_SVLEN_DIST.out.plots)
     }
 
-    MERGE_REPORTS.out.summary
-        .map { meta, report -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], report) }
-        .set { summary }
+    if (params.skip_reports.contains("datavzrd")){
+        log.info "Skipping datavzrd report generation"
+    } else {
+        log.info "Generating datavzrd report"
 
-    // add path to csv file to the datavzrd input
-    summary
-        .map { meta, summary_file ->
-            def updated_meta = meta + [ csv: summary_file.toString() ]
-            def template_file = file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists: true)
-            [ updated_meta, template_file ]
-        }
-        .set { template_ch }
+        MERGE_REPORTS.out.summary
+            .map { meta, report -> tuple([vartype: params.variant_type] + [id: meta.benchmark_tool], report) }
+            .set { summary }
+        
+        // add path to csv file to the datavzrd input
+        summary
+            .map { meta, summary_file ->
+                def updated_meta = meta + [ csv: summary_file.toString() ]
+                def template_file = file("${projectDir}/assets/datavzrd/${meta.id}.datavzrd.template.yaml", checkIfExists: true)
+                [ updated_meta, template_file ]
+            }
+            .set { template_ch }
 
-    CREATE_DATAVZRD_INPUT (
-        template_ch,
-        [],
-        false
-    )
+        CREATE_DATAVZRD_INPUT (
+            template_ch,
+            [],
+            false
+        )
 
-    CREATE_DATAVZRD_INPUT.out.output
-        .map { meta, yaml_file ->
-            def clean_meta = meta.findAll { it.key != 'csv' }
-            [ clean_meta, yaml_file ]
-        }
-        .set { clean_datavzrd_input_ch }
+        CREATE_DATAVZRD_INPUT.out.output
+            .map { meta, yaml_file ->
+                def clean_meta = meta.findAll { it.key != 'csv' }
+                [ clean_meta, yaml_file ]
+            }
+            .set { clean_datavzrd_input_ch }
 
-    DATAVZRD (
-        clean_datavzrd_input_ch.join(summary)
-    )
+        DATAVZRD (
+            clean_datavzrd_input_ch.join(summary)
+        )
+    }
 
-    // generate interactive HTML report from stratified hap.py results
-    HAPPY_REPORT(
-        stratified_reports
-    )
+    if (params.skip_reports.contains("happy")){
+        log.info "Skipping happy report generation"
+    } else {
+        log.info "Generating happy report"
+
+        // generate interactive HTML report from stratified hap.py results
+        HAPPY_REPORT(
+            stratified_reports
+        )
+        happy_report = HAPPY_REPORT.out.html
+    }
 
     emit:
     ch_plots        // channel: [ plots.html ]
     merged_reports  // channel: [ meta, summary.csv]
-    happy_report = HAPPY_REPORT.out.html // channel: [ meta, report.html ]
+    happy_report    // channel: [ meta, report.html ]
 }

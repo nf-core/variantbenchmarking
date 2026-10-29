@@ -139,6 +139,13 @@
                     "pattern": "^((svlength|upset|metrics)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
+                "skip_reports": {
+                    "type": "string",
+                    "description": "Skip plots: datavzrd, happy",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: datavzrd, happy",
+                    "pattern": "^((datavzrd|happy)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
+                },                
                 "min_sv_size": {
                     "type": "integer",
                     "description": "Minimum SV size of variants to benchmark, 0 to disable",
