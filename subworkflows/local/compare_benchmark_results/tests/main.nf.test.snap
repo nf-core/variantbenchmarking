@@ -7,7 +7,7 @@
                         "id": "test",
                         "tag": "FN"
                     },
-                    "test.FN.vcf",
+                    "test.FN.merged.vcf",
                     "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
                     "8de008dc0b0382cf0ec0f1b200eeb415"
                 ],
@@ -16,7 +16,7 @@
                         "id": "test",
                         "tag": "FP"
                     },
-                    "test.FP.vcf",
+                    "test.FP.merged.vcf",
                     "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
                     "8de008dc0b0382cf0ec0f1b200eeb415"
                 ],
@@ -25,7 +25,7 @@
                         "id": "test",
                         "tag": "TP_base"
                     },
-                    "test.TP_base.vcf",
+                    "test.TP_base.merged.vcf",
                     "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
                     "8de008dc0b0382cf0ec0f1b200eeb415"
                 ],
@@ -34,101 +34,76 @@
                         "id": "test",
                         "tag": "TP_comp"
                     },
-                    "test.TP_comp.vcf",
+                    "test.TP_comp.merged.vcf",
                     "VcfFile [chromosomes=[MT192765.1], sampleCount=1, variantCount=9, phased=false, phasedAutodetect=false]",
                     "8de008dc0b0382cf0ec0f1b200eeb415"
                 ]
             ],
             [
                 [
-                    "upset_test_tp_fn_mqc.png:md5,2c291f8b709a39f8fe93b775e4fabb79",
-                    "upset_test_tp_fp_mqc.png",
-                    true,
-                    true
+                    {
+                        "id": "test"
+                    },
+                    [
+                        "upset_test_tp_fn_mqc.html",
+                        "upset_test_tp_fp_mqc.html"
+                    ]
                 ]
             ]
         ],
-        "timestamp": "2026-03-26T09:56:20.761081064",
+        "timestamp": "2026-10-09T15:40:40.182937949",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "Compare benchmark results stub": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FN"
-                        },
-                        "test.FN.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FP"
-                        },
-                        "test.FP.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_base"
-                        },
-                        "test.TP_base.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_comp"
-                        },
-                        "test.TP_comp.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ]
+            [
+                [
+                    {
+                        "id": "test",
+                        "tag": "FN"
+                    },
+                    "test.FN.merged.vcf"
                 ],
-                "1": [
-                    "upset_test.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                [
+                    {
+                        "id": "test",
+                        "tag": "FP"
+                    },
+                    "test.FP.merged.vcf"
                 ],
-                "ch_plots": [
-                    "upset_test.upset.mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_base"
+                    },
+                    "test.TP_base.merged.vcf"
                 ],
-                "merged_vcfs": [
+                [
+                    {
+                        "id": "test",
+                        "tag": "TP_comp"
+                    },
+                    "test.TP_comp.merged.vcf"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
                     [
-                        {
-                            "id": "test",
-                            "tag": "FN"
-                        },
-                        "test.FN.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "FP"
-                        },
-                        "test.FP.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_base"
-                        },
-                        "test.TP_base.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
-                    ],
-                    [
-                        {
-                            "id": "test",
-                            "tag": "TP_comp"
-                        },
-                        "test.TP_comp.vcf:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "upset_test.mqc.html"
                     ]
                 ]
-            }
+            ]
         ],
-        "timestamp": "2026-03-26T09:56:41.447178656",
+        "timestamp": "2026-10-09T15:41:01.668634745",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

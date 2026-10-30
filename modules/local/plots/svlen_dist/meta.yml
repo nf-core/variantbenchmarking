@@ -9,20 +9,19 @@ keywords:
   - indel
   - python
   - pandas
-  - matplotlib
+  - plotly
 tools:
   - python:
       description: "Python programming language"
       homepage: "https://www.python.org"
       licence: ["Python-2.0"]
-  - pandas:
-      description: "Data manipulation and analysis library for Python"
+      description: "pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool."
       homepage: "https://pandas.pydata.org/"
       licence: ["BSD-3-Clause"]
-  - matplotlib:
-      description: "Library for creating static, animated, and interactive visualizations in Python"
-      homepage: "https://matplotlib.org/"
-      licence: ["PSF-2.0"]
+  - plotly:
+      description: "An interactive, open-source plotting library for Python."
+      homepage: "https://plotly.com/python/"
+      licence: ["MIT"]
   - numpy:
       description: "The fundamental package for scientific computing with Python"
       homepage: "https://numpy.org/"
@@ -41,11 +40,14 @@ input:
         pattern: "*.{vcf,vcf.gz,csv}"
 
 output:
-  plot:
-    - plot_png:
+  plots:
+    - meta:
+        type: map
+        description: Groovy Map containing sample information.
+    - html:
         type: file
-        description: Variant length distribution plot in PNG format.
-        pattern: "*.png"
+        description: Interactive HTML reports visualizing benchmarking results.
+        pattern: "*.html"
 
   versions_python:
     - versions.yml:

@@ -5,6 +5,11 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
+                    "aardvark/compare": {
+                        "branch": "master",
+                        "git_sha": "8a69f618cf2738de991960a352516855c7fce530",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/annotate": {
                         "branch": "master",
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
@@ -13,7 +18,7 @@
                     "bcftools/filter": {
                         "branch": "master",
                         "git_sha": "6383d8fe58f9498eecd5aa303e71a4a932d1e9f6",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
                     },
                     "bcftools/merge": {
                         "branch": "master",
@@ -82,12 +87,13 @@
                     },
                     "happy/happy": {
                         "branch": "master",
-                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
-                        "installed_by": ["modules"]
+                        "git_sha": "59697ca2f109700926f11a1718efcb3ce5b99ed4",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/happy/happy/happy-happy.diff"
                     },
-                    "happy/prepy": {
+                    "happy/report": {
                         "branch": "master",
-                        "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
+                        "git_sha": "6203cd45b65eebb5658fbcf401adb45c0788dc8a",
                         "installed_by": ["modules"]
                     },
                     "happy/sompy": {
@@ -95,9 +101,14 @@
                         "git_sha": "4020dbe4bb4a7d71be85bf8f77dbdf6c06fa401f",
                         "installed_by": ["modules"]
                     },
+                    "htslib/bgziptabix": {
+                        "branch": "master",
+                        "git_sha": "37f69c8ca3eb3d038a5d44f33a329e49f44bd4f2",
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
+                    },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
+                        "git_sha": "98403d15b0e50edae1f3fec5eae5e24982f1fade",
                         "installed_by": ["modules"]
                     },
                     "picard/createsequencedictionary": {
@@ -138,7 +149,7 @@
                     "survivor/filter": {
                         "branch": "master",
                         "git_sha": "f3266160bafb2dddf316998ce12990691599fd9d",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_filter_survivor_bcftools"]
                     },
                     "survivor/merge": {
                         "branch": "master",
@@ -170,21 +181,6 @@
                         "git_sha": "fdcc3976e728b5d6ffc3f15979905829531e6072",
                         "installed_by": ["modules"]
                     },
-                    "tabix/bgzip": {
-                        "branch": "master",
-                        "git_sha": "91a902fb32d6717da38a9694eb4ad3fade53a8db",
-                        "installed_by": ["modules"]
-                    },
-                    "tabix/bgziptabix": {
-                        "branch": "master",
-                        "git_sha": "91a902fb32d6717da38a9694eb4ad3fade53a8db",
-                        "installed_by": ["modules"]
-                    },
-                    "tabix/tabix": {
-                        "branch": "master",
-                        "git_sha": "524a7d5ef99a0cbfb4feec8bf7062eb6a531931a",
-                        "installed_by": ["modules"]
-                    },
                     "truvari/bench": {
                         "branch": "master",
                         "git_sha": "fb32a7ee01805151ef9355fdee4bf035c727de24",
@@ -211,17 +207,22 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "git_sha": "c2b22d85f30a706a3073387f30380704fcae013b",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
+                        "git_sha": "6ef220fd9252b42fb3c50348bbdbcb6246730686",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "4b406a74dc0449c0401ed87d5bfff4252fd277fd",
+                        "git_sha": "a7b27fd25bfa8dcc07d299e88bd790585901a436",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_filter_survivor_bcftools": {
+                        "branch": "master",
+                        "git_sha": "e32b0e9c1833fa081e2e7bd96e1738b00474bf9a",
                         "installed_by": ["subworkflows"]
                     }
                 }

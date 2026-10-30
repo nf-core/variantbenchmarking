@@ -51,41 +51,51 @@
                 "method": {
                     "type": "string",
                     "description": "The benchmarking methods to use. For germline small variants (SNV and INDEL) use happy and/or rtgtools, for somatic small variants (SNV and INDEL) use sompy and/or rtgtools, for structural variants use wittyer, truvari and/or svanalyzer, for copy number variations use wittyer and/or truvari. Use intersect to intersect BED files. Should be a comma-separate list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect",
-                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect, concordance",
-                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect|bndeval|concordance)?,?)*(?<!,)$",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: truvari, svanalyzer, happy, sompy, rtgtools, wittyer, intersect, concordance, aardvark",
+                    "pattern": "^((truvari|svanalyzer|happy|sompy|rtgtools|wittyer|intersect|bndeval|concordance|aardvark)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "happy_comparison_engine": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Comparison engine used by hap.py to match test variants against the truth set.",
+                    "help_text": "Only used for germline small variant benchmarking with `--method happy`. `default` keeps the hap.py default (`xcmp`). `vcfeval` uses RTG Tools vcfeval for haplotype-aware matching, as recommended by the GA4GH benchmarking best practices. `scmp-somatic` and `scmp-distance` are not currently supported because of unresolved issues with the hap.py implementation of these engines. https://github.com/Illumina/hap.py/issues/181",
+                    "enum": ["default", "xcmp", "vcfeval"],
+                    "errorMessage": "A wrong input has been detected. Should be one of the following options: default, xcmp or vcfeval",
+                    "fa_icon": "fas fa-cogs"
                 },
                 "regions_bed": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to regions BED or VCF files. Works similar to Bcftools -R.",
-                    "help_text": "Regions BED files",
+                    "description": "Path for regions of interest BED or VCF file.",
+                    "help_text": "How this file is used depends on --high_conf: when true, it is passed as the false-positive filtering region (-f) for happy/sompy and as the evaluation region (-e) for rtgtools; when false, it is passed as a restriction region (-R for happy/sompy, --bed-regions for rtgtools).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "targets_bed": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.(bed|vcf)?(\\.gz)?$",
-                    "description": "Path to targets BED. Works similar to Bcftools -T. It will be only used with happy, sompy or rtgtools.",
-                    "help_text": "Target BED files",
+                    "description": "Path to targets BED. Works similar to Bcftools -T.",
+                    "help_text": "Passed as -T to happy and sompy. When --high_conf is false and --regions_bed is not set, it is also used as a fallback restriction region (--bed-regions) for rtgtools.",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "falsepositive_bed": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
-                    "description": "Path to false positive BED. Only applicable to happy and sompy tool.",
-                    "help_text": "Falsepositive BED files",
+                "high_conf": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If set to true, treat regions_bed as a high confidence region rather than a restriction region.",
+                    "help_text": "Declare if regions_bed is a high confidence BED file. If set to true, it is passed to the -f argument for happy and sompy, and the -e argument for rtgtools. If set to false, it is passed as a restriction BED file instead (-R for happy/sompy, --bed-regions for rtgtools), falling back to targets_bed for rtgtools when regions_bed is not set.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ambiguous_beds": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.(bed)?(\\.gz)?$",
                     "description": "Path to ambiguous BED. Only applicable to sompy tool.",
                     "help_text": "Falsepositive BED files",
@@ -95,6 +105,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.vcf(\\.gz)?$",
                     "description": "Path to the golden set VCF files.",
                     "help_text": "Truth or golden set VCF file, to be used for comparisons",
@@ -109,9 +120,9 @@
                 },
                 "preprocess": {
                     "type": "string",
-                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: split_multiallelic, normalizate, deduplicate, prepy, filter_contigs",
-                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: split_multiallelic, normalize, deduplicate, prepy, filter_contigs",
-                    "pattern": "^((normalize|split_multiallelic|deduplicate|prepy|filter_contigs)?,?)*(?<!,)$",
+                    "description": "The preprocessing steps to perform on the input files. Should be a comma-separated list of one or more of the following options: split_multiallelic, normalizate, deduplicate, filter_contigs",
+                    "errorMessage": "A wrong input has been detected. It should be a comma-separated list of on or more of these options: split_multiallelic, normalize, deduplicate, filter_contigs",
+                    "pattern": "^((normalize|split_multiallelic|deduplicate|filter_contigs)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "sv_standardization": {
@@ -126,6 +137,13 @@
                     "description": "Skip plots: metrics, upset, svlength",
                     "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: metrics, upset, svlength",
                     "pattern": "^((svlength|upset|metrics)?,?)*(?<!,)$",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "skip_reports": {
+                    "type": "string",
+                    "description": "Skip reports from these tools: datavzrd, happy",
+                    "errorMessage": "A wrong input has been detected. Should be a comma-separated list of one or more of the following options: datavzrd, happy",
+                    "pattern": "^((datavzrd|happy)?,?)*(?<!,)$",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "min_sv_size": {
@@ -226,6 +244,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.sdf$",
                     "description": "The SDF file needed to run rtgtools vcfeval",
                     "help_text": "This will be automatically generated by the pipeline when missing",
@@ -243,6 +262,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.tsv$",
                     "description": "List the stratification BED files in this file, to be used with stratification_bed",
                     "help_text": "Stratification TSV file. List the stratification BED files in this file and use together with stratification_bed.  Only applicable to happy tool",
@@ -257,7 +277,6 @@
                 },
                 "igenomes_base": {
                     "type": "string",
-                    "format": "directory-path",
                     "description": "The base path to the igenomes reference files",
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
@@ -275,6 +294,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.(chain|bed)?(\\.gz)?$",
                     "description": "Path to the chain file required for liftover.",
                     "help_text": "This parameter is *mandatory* if `--liftover` is true",
@@ -294,6 +314,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "mimetype": "text/plain",
                     "pattern": "^\\S+\\.dict$",
                     "description": "The dictionary file is required for liftover process. It has to be .dict of genome file used in the workflow. ",
                     "help_text": "This will be automatically generated by the pipeline when missing",
@@ -406,19 +427,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
-                "monochromeLogs": {
-                    "type": "boolean",
-                    "description": "Do not use coloured log outputs.",
-                    "fa_icon": "fas fa-palette",
-                    "hidden": true
-                },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
-                    "hidden": true
-                },
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
@@ -453,7 +461,7 @@
                 },
                 "trace_report_suffix": {
                     "type": "string",
-                    "fa_icon": "far calendar",
+                    "fa_icon": "far fa-calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 },

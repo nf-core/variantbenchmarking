@@ -3,7 +3,65 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.5.0dev
+## 1.6.0
+
+### `Added`
+
+- Template update for nf-core/tools v4.0.2 + a few fixes around [#305](https://github.com/nf-core/variantbenchmarking/issues/305)
+- Documenting how to import pipeline reports into Depictio interactive dashboards in usage docs [#345](https://github.com/nf-core/variantbenchmarking/pull/345).
+- Aardvark Benchmarking Subworkflow: Introduced the AARDVARK_BENCHMARK subworkflow for sequence-resolved small variant (SNV/Indel) benchmarking [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
+- Replaced SMALL_GERMLINE_BENCHMARK and SMALL_SOMATIC_BENCHMARK subworkflows with SMALL_BENCHMARK to include Aardvark alongside Hap.py, Som.py, and RTGtools vcfeval for both germline and somatic tracks [#315](https://github.com/nf-core/variantbenchmarking/issues/315).
+- `high_conf` parameter [#319](https://github.com/nf-core/variantbenchmarking/pull/319).
+- Replace local subworkflow VCF_VARIANT_FILTERING with nf-core subworkflow VCF_FILTER_SURVIVOR_BCFTOOLS [#265](https://github.com/nf-core/variantbenchmarking/issues/265).
+- Georgia as contributor [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
+- Template update for nf-core/tools v4.1.0 [#322](https://github.com/nf-core/variantbenchmarking/pull/322).
+- Adding nf-core HAPPY_REPORT module to generate a standalone interactive HTML report from the stratified hap.py results (`*.roc.all.csv.gz`) of all test VCFs, for germline small variant benchmarks. [#326](https://github.com/nf-core/variantbenchmarking/pull/326)
+- `happy_comparison_engine` parameter to choose the hap.py comparison engine (`default`, `xcmp`, `vcfeval`). The `scmp-somatic` and `scmp-distance` engines are not supported because of unresolved issues in hap.py ([Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)). The chosen engine is also passed to HAPPY_REPORT as `comparison_method`. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
+- hap.py now uses a Seqera container that bundles RTG Tools, so `--happy_comparison_engine vcfeval` works without a custom container. The `test_ga4gh` profile now uses the parameter instead of a process override. [#327](https://github.com/nf-core/variantbenchmarking/pull/327)
+- Replace nf-core modules TABIX_TABIX, TABIX_BGZIP and TABIX_BGZIPTABIX with HTSLIB_BGZIPTABIX [#328](https://github.com/nf-core/variantbenchmarking/pull/328).
+- nf-diff GitHub Actions: `save-baseline.yml` caches a test profile run on every push to `dev`, and `pr-diff.yml` compares each PR's test run against it and posts the report as a PR comment [#344](https://github.com/nf-core/variantbenchmarking/pull/344).
+- Concordance analysis cen be performed to only spesific pairs, allows users to select truth and query pairs relates to issue #342 [#348](https://github.com/nf-core/variantbenchmarking/pull/348)
+- [Template update for nf-core/tools 4.2.1](https://github.com/nf-core/variantbenchmarking/pull/355)
+
+### `Fixed`
+
+- Deprecated HAPPY_PREPY: new versions of happy uses prepy integration, normalization functions for prepy can be provided through happy args. [#316](https://github.com/nf-core/variantbenchmarking/issues/313).
+- Fixing metromap to light to dark background. Adding docs/images/metro_map.md to assist future developers to reproduce the metromap. [#316](https://github.com/nf-core/variantbenchmarking/pull/316).
+- Update happy module to use both -R and -f arguments.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
+- Fixing regions_bed vs high_conf_bed confusion.[#319](https://github.com/nf-core/variantbenchmarking/pull/319)
+- targets_bed was missing in truth file liftover subworkflow [#320](https://github.com/nf-core/variantbenchmarking/pull/320)
+- happy and sompy failing silently with `--high_conf false` option [#320](<[#320](https://github.com/nf-core/variantbenchmarking/pull/320)>)
+- Replacing all static png plots with interactice html plots generated using plotly. As part of this, metrics plotting R script (plots.R) is converted to python (plot_metrics.py). Now, all the plotting modules (PLOTS_METRICS, PLOTS_SVLEN_DIST, PLOTS_UPSET) are using the same containers. Interactive html plots are emitted with MultiQC, allowing users to view results all once [#325](https://github.com/nf-core/variantbenchmarking/pull/325/changes)
+- Resolving GATK_CONCORDANCE file name conflicts, new intermediate file names are smaller and cleaner [#336](https://github.com/nf-core/variantbenchmarking/pull/336)
+- Relates and fixes to issue #332 and issue #335. Changing truth names with sample_id to enable better comparison in dowstream tools.
+- Optimizing OOM botttlenecks for big VCF comparisons targetting issue [#330] [#339](https://github.com/nf-core/variantbenchmarking/pull/339)
+- nf-diff GitHub Actions: pin Nextflow to 25.10.4 (nf-diff 0.9.5 crashes on 26.10.2) and post the report through `pr-comment.yml`, since fork PRs only get a read-only token [#346](https://github.com/nf-core/variantbenchmarking/pull/346).
+- Fixes around plot_metics.py and updating the testcases.md [#351](https://github.com/nf-core/variantbenchmarking/pull/351)
+- Remove `SPLIT_SMALL_VARIANTS_TEST` subworkflow. It was never properly used. Reviewer found a bug as well. [#354](https://github.com/nf-core/variantbenchmarking/pull/354)
+- Datavzrd is failing on seqera platform is meta links work dir, and since datavzrd is not a commonly used tool, I added a new param "skip_report" to enable skipping datavzrd and happy reports. By default skip_report is null. [#356](https://github.com/nf-core/variantbenchmarking/pull/356)
+
+### `Dependencies`
+
+| Dependency         | Old version | New version |
+| ------------------ | ----------- | ----------- |
+| pigz               | 2.8         | deprecated  |
+| nf-core            | 3.5.1       | 4.1.0       |
+| prettier           | 3.6.2       | 3.8.3       |
+| prepy              | 0.3.15      | deprecated  |
+| r-base             | 4.1.0       | deprecated  |
+| ga4gh-happy-report | -           | 0.1.2       |
+| rtg-tools (hap.py) | -           | 3.13        |
+| tabix              | 1.21        | deprecated  |
+| htslib             | -           | 1.24        |
+| xz                 | -           | 5.8.3       |
+| nf-schema          | 2.5.1       | 2.7.3       |
+| Nextflow           | 25.04.0     | 25.10.4     |
+| multiqc            | 1.32        | 1.33        |
+
+- New parameters: `skip_plots`, `skip_reports`, `high_conf`, `happy_comparison_engine`
+- Depreciated parameters: `falsepositive_bed`
+
+## 1.5.0
 
 ### `Added`
 

@@ -4,14 +4,14 @@ process PLOTS_UPSET {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/bc/bcc3d7359ce8c6c53e98534593b4a8a91fec5c1ab4bccd66f39f11128c39a1c3/data' :
-        'community.wave.seqera.io/library/pip_upsetplot_matplot_pandas:d9e1259bc972b7a4' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/57/577648e514e596e9c07da1d91ccc7c60ad63fcbfe5b658aee73d3adca9cd337b/data' :
+        'community.wave.seqera.io/library/python_pip_pandas_plotly_upsetplot:1131451904bdd81f' }"
 
     input:
     tuple val(meta), path(files)
 
     output:
-    path("*.png")               , emit: plot, optional:true
+    path("*.html")               , emit: plot, optional:true
     tuple val("${task.process}"), val('python'), eval("python --version | sed 's/Python //g'"), emit: versions_python, topic: versions
 
     when:
@@ -31,7 +31,7 @@ process PLOTS_UPSET {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.upset.mqc.png
+    touch ${prefix}.mqc.html
 
     """
 

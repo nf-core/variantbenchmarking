@@ -2,6 +2,9 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - conda-forge::matplotlib=3.1.2
-  - conda-forge::numpy=2.3.5
-  - conda-forge::pandas=2.3.3
+  - python=3.12
+  - pip=24.2
+  - pandas=2.3.2
+  - plotly=5.24.1
+  - pip:
+      - UpSetPlot==0.9.0

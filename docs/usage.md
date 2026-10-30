@@ -13,8 +13,8 @@ Given test vcfs in samplesheet.csv, this pipelines compares them to truth vcf pr
 When setting up your run you must specify exactly one variant type using the variant type parameter. Based on the pipeline schema you must use one of the following exact terms:
 
 - `small`: Use this when your file contains both snvs and indels together.
-- `snv`: Use this for isolated single nucleotide variants.
-- `indel`: Use this for isolated insertions and deletions.
+- `snv`: Use this for single nucleotide variants only.
+- `indel`: Use this for insertions and deletions only.
 - `structural`: Use this for large structural events.
 - `copynumber`: Use this for copy number variations.
 
@@ -38,8 +38,30 @@ You can specify your truth data using the following parameters:
 
 - `--truth_vcf`: The path to the gold standard truth VCF file. This file contains the validated variants that your test sets will be evaluated against.
 - `--truth_id`: The sample name exactly as it appears inside the truth VCF header. This is a critical parameter because tools like RTG Tools and VCF subtraction steps require the exact sample ID to correctly parse the genotypes.
-- `--regions_bed`: A BED file defining the high confidence regions of the genome such as the Genome in a Bottle confident regions. The benchmarking tools will restrict their evaluation to only the variants that fall within these defined coordinates. This ensures that complex or unmappable regions do not artificially skew your performance metrics.
-- `--targets_bed`: The path to the BED file containing your assay target regions. When you provide this file the pipeline will automatically intersect it with your truth confident regions (provided via the regions bed parameter). This creates a final specific evaluation area that ensures you are only benchmarking variants within your actual sequencing target space.
+- `--regions_bed`: A BED file defining the regions of interest for all the tools. For SV and CNV benchmarking (truvari, svanalyzer, wittyer, rtgtools bndeval/cnveval), there is no option to choose whether it will be parsed as a restriction or a high confidence region evaluation file. For small variant benchmarking, though, (happy, sompy, rtgtools vcfeval), its role instead depends on `--high_conf` parameter: when true, it is passed as high confidence regions (`-f` for happy/sompy, `--evaluation-regions` for rtgtools vcfeval); when false, it is passed as a restriction region instead (`-R` for happy/sompy, `--bed-regions` for rtgtools vcfeval).
+- `--targets_bed`: Use only for small variant analysis to specify the BED file containing your assay target regions . Uses `-T` for happy/sompy and `--bed-regions` for rtgtools vcfeval. It has no effect on structural or copy-number variant benchmarking.
+
+### A note on BED files
+
+`--regions_bed` and `--targets_bed` map onto different tool arguments depending on variant type and `--high_conf`:
+
+| Variant type                        | Tool                          | `--regions_bed` maps to                          | `--targets_bed` maps to                                                                         |
+| ----------------------------------- | ----------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| structural                          | truvari                       | `--includebed`                                   | unused                                                                                          |
+| structural                          | svanalyzer                    | `-includebed`                                    | unused                                                                                          |
+| structural                          | wittyer                       | `-b`                                             | unused                                                                                          |
+| structural                          | rtgtools bndeval              | `--bed-regions`                                  | unused                                                                                          |
+| copynumber                          | truvari                       | `--includebed`                                   | unused                                                                                          |
+| copynumber                          | rtgtools cnveval              | `--evaluation-regions`                           | unused                                                                                          |
+| copynumber                          | wittyer                       | `-b`                                             | unused                                                                                          |
+| small, `--high_conf true` (default) | happy/sompy, rtgtools vcfeval | `-f` / `--evaluation-regions` (confident region) | `-T` for happy/sompy; unused for rtgtools vcfeval                                               |
+| small, `--high_conf false`          | happy/sompy, rtgtools vcfeval | `-R` / `--bed-regions` (restriction region)      | `-T` for happy/sompy; fallback `--bed-regions` for rtgtools vcfeval if `--regions_bed` is unset |
+
+For SV and CNV benchmarking, `--regions_bed` is always a plain restriction (or, for rtgtools cnveval, evaluation) region — `--high_conf` has no effect there, and `--targets_bed` is not used at all.
+
+**Recommended combination:** `--high_conf true` with both `--regions_bed` and `--targets_bed` set — i.e. `-f`/`--evaluation-regions` together with `-T`. This is the recommended pattern for benchmarking targeted data (exome/panel) against a genome-wide truth set: `--regions_bed` should be the truth's high-confidence region (e.g. a GIAB confident bed), used to exclude false positives called outside it, while `--targets_bed` should be your assay's capture/target intervals, used to restrict the comparison to what your assay can actually call. The two serve distinct purposes, so combining them is intentional.
+
+**Combination to avoid:** `--high_conf false` with both files set, i.e. `-R` and `-T` together. Both flags are restriction filters — they differ mainly in implementation (tuned for sparse vs. dense BEDs), not intent — so supplying both simply intersects two restriction files, which is rarely what you want. Provide only one of `--regions_bed` or `--targets_bed` in this mode unless you deliberately need that intersection.
 
 ## Stratification Files
 
@@ -103,6 +125,19 @@ test3,test3.vcf.gz,cnvkit,true
 
 Please note that you should still provide chain and reame_chr files, and lifting over truth and test samples simultaneously is not possible.
 
+## Dealing with missing genotypes ./. ./0 or 0/0
+
+When working with multisample input files or somatic inputs, there is a high probability of having missing genotypes after subsampling. These genotypes must be filtered out before benchmarking. The pipeline incorporates an automatic filtration step to remove these missing genotypes for both truth files and test files. You can disable this automatic filtration and allow missing genotypes by using the parameter `enable_missing_genotypes`='truth|test'.
+
+If you set the parameter to 'test', you can specify which individual test cases should allow `missing_genotypes` by updating your samplesheet:
+
+```csv title="samplesheet.csv"
+id,test_vcf,caller,missing_genotypes
+test1,test1.vcf.gz,delly,true
+test2,test2.vcf,gatk,false
+test3,test3.vcf.gz,cnvkit,true
+```
+
 ## Standardization and normalization parameters
 
 Consistent formatting and alignment of variants in test and truth VCF files for accurate comparison is controlled by _sv_standardization_ and _preprocesses_.
@@ -117,7 +152,6 @@ Consistent formatting and alignment of variants in test and truth VCF files for 
   - `split_multiallelic`: Splits multi-allelic variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `normalize`: Left aligns variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
   - `deduplicate`: Deduplicates variants in test and truth VCF files ([bcftools norm](https://samtools.github.io/bcftools/bcftools.html#norm))
-  - `prepy`: Uses prepy in order to normalize test files. This option is only applicable for happy benchmarking of germline analysis ([prepy](https://github.com/Illumina/hap.py/tree/master))
   - `filter_contigs`: Filter out extra contigs. It is common for truth files not to include extra contigs.
 
 Filtration of the variants are controlled through the following parameters:
@@ -218,21 +252,34 @@ Benchmarking method can be spesified using `--method` parameter. If not spesifie
 - _Germline small variants_: Germline samples for small variant type of variants, SNVs and INDELs together. If you think your file includes structural variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type small --method "happy,rtgtools"`
+`--analysis germline --variant_type small --method "happy,rtgtools,aardvark"`
 
 - ([hap.py](https://github.com/Illumina/hap.py/blob/master/doc/happy.md))
 - ([rtg vcfeval](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
-Please note that, running happy with rtg is also possible. Check conf/tests/test_ga4gh.config for example parameters.
+The comparison engine used by hap.py can be set with `--happy_comparison_engine`:
 
-- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
+| Value               | hap.py engine                                                                   |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `default` (default) | hap.py default, `xcmp`                                                          |
+| `xcmp`              | hap.py's built-in haplotype comparison                                          |
+| `vcfeval`           | RTG Tools vcfeval, as recommended by the GA4GH small variant benchmarking guide |
+
+The hap.py `scmp-somatic` and `scmp-distance` engines are not currently supported because of unresolved issues with their implementation in hap.py (see [Illumina/hap.py#181](https://github.com/Illumina/hap.py/issues/181)).
+
+The hap.py container ships with RTG Tools, so `--happy_comparison_engine=vcfeval` needs no extra container configuration. Check conf/tests/test_ga4gh.config for an example of running hap.py with vcfeval following the GA4GH best practices.
+
+- _Somatic small variants_: Somatic samples for small variant type of variants. SNVs and INDELs analysis performed seperately for sompy and rtgtools while aardvark can deal with mixed variants. If you think your file includes structural variants or other type of variants, they can be filtered out using bcftools expressions (`exclude_expression` or `include_expression`)
 
 Example cmd:
-`--analysis germline --variant_type snv --method "sompy,rtgtools"`
-`--analysis germline --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type snv --method "sompy,rtgtools"`
+`--analysis somatic --variant_type indel --method "sompy,rtgtools"`
+`--analysis somatic --variant_type small --method "aardvark,rtgtools"`
 
 - ([som.py](https://github.com/Illumina/hap.py/tree/master?tab=readme-ov-file#sompy))
 - ([rtg vcfeval --squash-ploidy](https://realtimegenomics.com/products/rtg-tools))
+- ([aardvark compare](https://github.com/PacificBiosciences/aardvark/blob/main/docs/compare.md))
 
 - _Structural variants_: Germline or somatic samples for structural variant type of variants. If you think your file includes small variants, they can be filtered using SURVIVOR tools described above.
 
@@ -280,16 +327,20 @@ test2,,cnvkit,cnvkit.cns
 
 Concordance analysis enables comparison of test VCFs with each other without the need of truth VCF. GATK4 Concordance can only be applied to small (including snv and indel for somatic samples) variants.
 
-In order to perform concordance analysis, just add `--method "concordance"` . There is no need to provide truth VCF or id for concordance analysis. However, be carefull as concordance can be coupled to benchmarking analysis which requires truth VCF.
+In order to perform concordance analysis, add `--method "concordance"` . By default, the pipeline computes all possible combinations of the provided samples. To restrict the analysis to specific pairs, define the target samples in the concordance_truth_id column of your samplesheet. If you need to specify multiple IDs for a single sample, separate them with a semicolon (;).
+
+However, be careful when coupling concordance with benchmarking analysis, as benchmarking explicitly requires a designated truth VCF.
 
 ```csv title="samplesheet.csv"
-id,test_vcf,caller
-test1,test1.vcf.gz,delly
-test2,test2.vcf,gatk
+id,test_vcf,caller,concordance_truth_id
+test1,test1.vcf.gz,delly,test2;test3
+test2,test2.vcf,gatk,
 test3,test3.vcf.gz,cnvkit
 ```
 
-## Emsemble approach (majority rule) analysis
+In the example above, the comparison will be performed test2 vs test1 and test3 vs test1.
+
+## Ensemble approach (majority rule) analysis
 
 In cases where a gold standard truth VCF file is unavailable, a common approach is to create an ensemble of test variants using a majority rule. This method retains variants identified by more than one out of the $n$ total variant callers.
 
@@ -311,6 +362,39 @@ There are 3 types of plots generated through the pipeline
 1. Metrics plots: TP/FN/FP numbers, recal vs precison, and F1 score (can be skipped by --skip_plots "metrics")
 2. Upset plots: TP_comp vs FP and TP_bse vs FN upset plots (can be skipped by --skip_plots "upset")
 3. SV lenght distribitions plots: INDEL lenght distribition histograms per TP_comp, TP_Base, FP, and FN variants (can be skipped by --skip_plots "svlength")
+4. Reports involve datavzrd and happy (can be skipped by --skip_reports "datavzrd, happy")
+
+## Interactive dashboards with Depictio
+
+The summary tables and the MultiQC report can be loaded into [Depictio](https://depictio.github.io/depictio-docs/latest/), an open-source platform for interactive dashboards, to compare callers on precision, recall and F1 across benchmarking tools with filtering and cross-linked plots. Depictio ships ready-made templates for this pipeline (see the [variantbenchmarking template page](https://depictio.github.io/depictio-docs/latest/pipeline-templates/nf-core/variantbenchmarking/)), so no configuration needs to be written.
+
+### Set up Depictio
+
+You need access to a Depictio server and the `depictio` command-line tool configured to talk to it. Follow the [Depictio documentation](https://depictio.github.io/depictio-docs/latest/) to run a server (or use an existing one) and to [install and configure the CLI](https://depictio.github.io/depictio-docs/latest/installation/cli/). Install the CLI with MultiQC support (`pip install "depictio[multiqc]"`), as the templates read the MultiQC report.
+
+### Ingest the pipeline results
+
+Point `depictio ingest` to the pipeline `--outdir` and select the template that matches how the pipeline was run:
+
+| Pipeline run                                     | Depictio template                                   | Data used                                               |
+| ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------- |
+| `--analysis germline --variant_type small`       | `nf-core/variantbenchmarking/categories/small`      | hap.py and rtg-tools summary tables, MultiQC            |
+| `--analysis somatic --variant_type indel`        | `nf-core/variantbenchmarking/categories/indel`      | som.py and rtg-tools summary tables, MultiQC            |
+| `--variant_type structural`                      | `nf-core/variantbenchmarking/categories/structural` | MultiQC                                                 |
+| any of the above, or several runs under one root | `nf-core/variantbenchmarking/`                      | any of `small/`, `indel/`, `sv/`, `cnv/` summary tables |
+
+For example, for a germline small variant benchmark:
+
+```bash
+depictio ingest results/ --template nf-core/variantbenchmarking/categories/small
+```
+
+Use `--dry-run` first to check that the expected files are found without uploading anything. The files read by the templates are the summary tables in `<variant_type>/summary/tables/<benchmark_tool>/<benchmark_tool>.summary.csv` (see [output docs](output.md#summary-statistics)) and, for the category templates, `multiqc/multiqc_data/multiqc.parquet`. Depictio reads MultiQC data from `multiqc.parquet`, which requires MultiQC >= 1.29 (the version shipped with this pipeline produces it).
+
+> [!NOTE]
+> Always pin the version (`1.4.0` for example) in category template ids: `latest` is only resolved in the last segment of a template id, so `nf-core/variantbenchmarking/latest/categories/small` will not be found.
+
+If the project already exists on the server, re-run with `--update-config` to update it or `--attach-run` to add a new run to it. Once ingested, the dashboard is listed in the Depictio web interface and can be edited with the drag-and-drop editor and shared with collaborators.
 
 ## Running the pipeline
 
@@ -336,7 +420,7 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 > [!WARNING]
-> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/running/run-pipelines#configuring-pipelines), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -426,6 +510,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `somatic_sv`
   - A profile with a complete configuration for somatic analysis with structural variant type of data
   - Includes links to test data so needs no other parameters
+- `somatic_small`
+  - A profile with a complete configuration for somatic analysis with small variant type of data
+  - Includes links to test data so needs no other parameters
 - `somatic_snv`
   - A profile with a complete configuration for somatic analysis with snv variant type of data
   - Includes links to test data so needs no other parameters
@@ -457,7 +544,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`
-  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
+  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow `24.03.0-edge` or later).
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 
@@ -477,19 +564,19 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
-To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+To change the resource requests, please see the [max resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#set-max-resources) and [customise process resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#customize-process-resources) section of the nf-core website.
 
 ### Custom Containers
 
 In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
-To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
+To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#update-tool-versions) section of the nf-core website.
 
 ### Custom Tool Arguments
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
 
-To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#modifying-tool-arguments) section of the nf-core website.
 
 ### nf-core/configs
 

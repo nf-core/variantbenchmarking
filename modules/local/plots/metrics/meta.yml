@@ -1,27 +1,24 @@
 name: "plots_metrics"
-description: "Generates comparative visualization plots (F1, Precision-Recall, and Variant Metrics) from benchmarking summary CSVs using R."
+description: "Generates interactive comparative visualization plots (F1, Precision-Recall, and Variant Metrics) from benchmarking summary CSVs using Python and Plotly."
 keywords:
   - plot
-  - r
-  - ggplot2
+  - python
+  - plotly
+  - html
   - benchmarking
   - statistics
 tools:
-  - r-base:
-      description: "The R Project for Statistical Computing"
-      homepage: "https://www.r-project.org/"
-      licence: ["GPL-2.0-or-later"]
-  - r-ggplot2:
-      description: "An implementation of the Grammar of Graphics in R"
-      homepage: "https://ggplot2.tidyverse.org/"
-      licence: ["MIT"]
-  - r-reshape2:
-      description: "Flexibly reshape data: a reboot of the reshape package"
-      homepage: "https://github.com/hadley/reshape"
-      licence: ["MIT"]
-  - r-scales:
-      description: "Scale Functions for Visualization"
-      homepage: "https://scales.r-lib.org/"
+  - python:
+      description: "Python is a programming language that lets you work quickly and integrate systems more effectively."
+      homepage: "https://www.python.org/"
+      licence: ["PSF-2.0"]
+  - pandas:
+      description: "pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool."
+      homepage: "https://pandas.pydata.org/"
+      licence: ["BSD-3-Clause"]
+  - plotly:
+      description: "An interactive, open-source plotting library for Python."
+      homepage: "https://plotly.com/python/"
       licence: ["MIT"]
 
 input:
@@ -40,18 +37,19 @@ output:
     - meta:
         type: map
         description: Groovy Map containing sample information.
-    - png:
+    - html:
         type: file
-        description: A collection of PNG plots visualizing benchmarking results.
-        pattern: "*.png"
+        description: Interactive HTML reports visualizing benchmarking results.
+        pattern: "*.html"
 
-  versions_rbase:
+  versions_python:
     - versions.yml:
         type: file
         description: File containing software versions
         pattern: "versions.yml"
         ontologies:
           - edam: "http://edamontology.org/format_3750" # YAML
+
 topics:
   versions:
     - versions.yml:

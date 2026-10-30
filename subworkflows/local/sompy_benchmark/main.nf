@@ -28,7 +28,7 @@ workflow SOMPY_BENCHMARK {
     )
 
     HAPPY_SOMPY.out.stats
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], file) }
+        .map { _meta, stats -> tuple([vartype: params.variant_type] + [benchmark_tool: "sompy"], stats) }
         .groupTuple()
         .set{ summary_reports }
 
@@ -37,15 +37,15 @@ workflow SOMPY_BENCHMARK {
     )
 
     SOMPY_FEATURES_SPLIT.out.TP
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "sompy"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "sompy"], vcf) }
         .set{tp_vars}
 
     SOMPY_FEATURES_SPLIT.out.FP
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "sompy"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "sompy"], vcf) }
         .set{fp_vars}
 
     SOMPY_FEATURES_SPLIT.out.FN
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "sompy"], file) }
+        .map { _meta, vcf -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "sompy"], vcf) }
         .set{fn_vars}
 
     tagged_variants_csv = tagged_variants_csv

@@ -3,6 +3,14 @@
 %%metro line_order: span
 %%metro legend: bl
 %%metro compact_offsets: true
+%%metro grid: inputs | 0,0
+%%metro grid: preprocess | 1,0
+%%metro grid: normalization | 2,0
+%%metro grid: filtering | 3,0
+%%metro grid: stats | 4,0
+%%metro grid: benchmarking | 3,1
+%%metro grid: ensembl_truth | 4,1
+%%metro grid: output_processing | 1,1,1,2
 %%metro file: ref_genome_file | FASTA
 %%metro file: truth_vcf_file | VCF
 %%metro file: regions_bed_file | BED
@@ -15,15 +23,16 @@
 %%metro file: multiqc_out | HTML
 %%metro line: truth | Truth Preprocessing | #4CAF50
 %%metro line: test | Test Preprocessing | #ff9800
-%%metro line: sv_cnv | SV/CNV Benchmarking | #E53935
-%%metro line: cnv | CNV Benchmarking | #c7124bc8
+%%metro line: sv_cnv | SV Benchmarking | #E53935
+%%metro line: cnv | CNV Benchmarking | #d50a4ac8
 %%metro line: snv_indel | SNV/INDEL Benchmarking | #AB47BC
-%%metro line: concordance | Concordance | #5e2626
-%%metro line: intersection | Intersection | #3e0434
+%%metro line: concordance | Concordance | #FFB300
+%%metro line: intersection | Intersection | #26A69A
 %%metro line: output | Output Processing | #03A9F4
 
 graph LR
     subgraph inputs [Inputs]
+        %%metro exit: right | truth, test
         ref_genome_file[ ]
         ref_genome[Reference Genome]
         truth_vcf_file[ ]
@@ -48,19 +57,25 @@ graph LR
         samplesheet -->|test| _inputs_hub
     end
 
-    subgraph preprocess [Preprocessing (Optional)]
-        subsample[Subsample\n Multi-sample VCF]
-        liftover[Liftover\n(Picard, UCSC)]
+    subgraph preprocess ["Preprocessing (Optional)"]
+        %%metro entry: left | truth, test
+        %%metro exit: right | truth, test
+        subsample[Subsample]
+        liftover["Liftover\n(Picard, UCSC)"]
         subsample -->|test| liftover
     end
 
-    subgraph normalization [Variant Normalization (Optional)]
-        sv_processing[SV Standardization\nhomogenize|svync|svdecompose|svtk]
-        var_norm[SNV Normalization\nsplit_multiallelic|deduplicate|prepy]
-        sv_processing -->|test,truth| var_norm
+    subgraph normalization ["Variant Normalization (Optional)"]
+        %%metro entry: left | truth, test
+        %%metro exit: right | truth, test
+        sv_processing[SV\nProcessing]
+        var_norm[Variant\nNormalization]
+        sv_processing -->|test| var_norm
     end
 
-    subgraph filtering [Variant Filtering (Optional)]
+    subgraph filtering ["Variant Filtering (Optional)"]
+        %%metro entry: left | test
+        %%metro exit: right | test
         filter_contigs[Filter\nContigs]
         bcftools_filter[bcftools\nfilter]
         survivor_filter[SURVIVOR\nfilter]
@@ -68,7 +83,10 @@ graph LR
         filter_contigs -->|test| survivor_filter
     end
 
-    subgraph ensembl_truth [Ensembl Truth (Optionally Generate Proxy Truth)]
+    subgraph ensembl_truth [Ensembl Truth]
+        %%metro direction: TB
+        %%metro entry: top | test
+        %%metro exit: left | truth
         _ensembl_hub[hidden]
         survivor_merge[SURVIVOR\nmerge]
         bcftools_merge[bcftools\nmerge]
@@ -80,13 +98,18 @@ graph LR
     end
 
     subgraph benchmarking [Benchmarking]
+        %%metro direction: RL
+        %%metro entry: top | test, truth
+        %%metro entry: right | test, truth
         bench_hub[ ]
         truvari[Truvari]
         rtg_vcfeval[RTGtools vcfeval]
         svanalyzer[SVanalyzer]
         rtg_bndeval[RTGtools bndeval]
         rtg_cnveval[RTGtools cnveval]
+
         happy[hap.py]
+        aardvark[aardvark]
         wittyer[wittyer]
         sompy[som.py]
         intersection_tool[Intersection]
@@ -97,13 +120,17 @@ graph LR
         bench_hub -->|sv_cnv| rtg_bndeval
         bench_hub -->|cnv| rtg_cnveval
         bench_hub -->|snv_indel| happy
+        bench_hub -->|snv_indel| aardvark
         bench_hub -->|sv_cnv| wittyer
         bench_hub -->|snv_indel| sompy
         bench_hub -->|intersection| intersection_tool
         bench_hub -->|concordance| gatk4_conc
+        %%metro exit: left | sv_cnv, snv_indel, concordance, intersection, cnv
     end
 
     subgraph output_processing [Output Processing]
+        %%metro direction: RL
+        %%metro entry: right | sv_cnv, snv_indel, concordance, intersection, cnv
         results_hub[ ]
         merge_res[Merge\nTP/FP/FN]
         vcf2csv[VCF to\nCSV]
@@ -136,6 +163,8 @@ graph LR
     end
 
     subgraph stats [Variant Statistics]
+        %%metro entry: left | test
+        %%metro exit: right | test, output
         bcftools_stats[bcftools\nstats]
         survivor_stats[SURVIVOR\nstats]
         snv_stats[SNV stats]
@@ -150,25 +179,24 @@ graph LR
 
     %% Section 1 -> 2: test through Subsample, truth to Liftover
     _inputs_hub -->|test| subsample
-    _inputs_hub -->|truth,test| liftover
+    _inputs_hub -->|truth| liftover
     %% Section 2 -> 3: test to SV Processing, truth to Var Norm
-    liftover -->|test,truth| sv_processing
-    liftover -->|truth,test| var_norm
-
-
+    liftover -->|test| sv_processing
+    liftover -->|truth| var_norm
+    %% Section 1 -> 3 (bypass section 2)
+    _inputs_hub -->|test| sv_processing
+    _inputs_hub -->|truth| var_norm
     %% Section 3 -> 4
     var_norm -->|test| filter_contigs
     %% Section 4 -> 5: each filter to its corresponding stats
     bcftools_filter -->|test| bcftools_stats
     survivor_filter -->|test| survivor_stats
-    var_norm -->|truth| bcftools_stats
-    var_norm -->|truth| survivor_stats
     %% Section 4 -> Ensembl Truth
     bcftools_filter -->|test| _ensembl_hub
     survivor_filter -->|test| _ensembl_hub
     %% Multiple sections -> Benchmarking
     filter_contigs -->|test| bench_hub
-    var_norm -->|truth,test| bench_hub
+    var_norm -->|truth| bench_hub
     consensus_filter -->|truth| bench_hub
     %% Benchmarking -> Output Processing
     truvari -->|sv_cnv| results_hub
@@ -179,5 +207,6 @@ graph LR
     rtg_vcfeval -->|snv_indel| results_hub
     happy -->|snv_indel| results_hub
     sompy -->|snv_indel| results_hub
+    aardvark -->|snv_indel| results_hub
     intersection_tool -->|intersection| results_hub
     gatk4_conc -->|concordance| results_hub

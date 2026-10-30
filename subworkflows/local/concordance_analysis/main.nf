@@ -24,26 +24,57 @@ workflow CONCORDANCE_ANALYSIS {
 
     tagged_variants = channel.empty()
 
-ch_pairs = input_ch
-    .map { meta, vcf1, tbi1 ->
-        [meta.id, vcf1, tbi1]
-    }
-    .toList()
-    .flatMap { items ->
-        [items, items].combinations()
-            .findAll { left, right -> left[0] < right[0] }
-            .collect { left, right ->
-                def combinedMeta = [id: "${left[0]}-${right[0]}"]
-                [
-                    combinedMeta,       // [id: "test6-test7"]
-                    left[1], left[2],   // vcf1, tbi1
-                    right[1], right[2]  // vcf2, tbi2
-                ]
+    ch_pairs = input_ch
+        .toList()
+        .flatMap { items ->
+            // Check if any item in the list has concordance_id defined in its meta map
+            def hasConcordanceId = items.any { it[0].concordance_id }
+
+            if (hasConcordanceId) {
+                def explicitPairs = []
+
+                items.each { evalItem ->
+                    def meta = evalItem[0]
+
+                    if (meta.concordance_id) {
+
+                        def truthIds = meta.concordance_id.toString().split(';').collect { it.trim() }
+
+                        truthIds.each { tId ->
+                            // Find the matching truth file in the same items list
+                            def truthItem = items.find { it[0].id == tId }
+
+                            if (truthItem) {
+                                def combinedMeta = [id: "truth_${tId}-query_${meta.id}"]
+                                explicitPairs << [
+                                    combinedMeta,
+                                    evalItem[1], evalItem[2],
+                                    truthItem[1], truthItem[2]
+                                ]
+                            }
+                        }
+                    }
+                }
+
+                explicitPairs
+
+            } else {
+
+                [items, items].combinations()
+                    .findAll { left, right -> left[0].id < right[0].id }
+                    .collect { left, right ->
+                        def combinedMeta = [id: "truth_${right[0].id}-query_${left[0].id}"]
+                        [
+                            combinedMeta,
+                            left[1], left[2],
+                            right[1], right[2]
+                        ]
+                    }
             }
-    }
+        }
 
     ch_bed_input = bed_ch
-        .map { file -> [ [id: "intervals"], file ] }
+        .map { bed -> [ [id: "intervals"], bed ] }
         .collect()
         .ifEmpty( [[id:"intervals"],[]] )
 
@@ -58,7 +89,7 @@ ch_pairs = input_ch
 
     // tag meta and collect summary reports
     GATK4_CONCORDANCE.out.summary
-        .map { _meta, file -> tuple([vartype: params.variant_type] + [benchmark_tool: "concordance"], file) }
+        .map { _meta, summary -> tuple([vartype: params.variant_type] + [benchmark_tool: "concordance"], summary) }
         .groupTuple()
         .set{ summary_reports }
 
@@ -72,17 +103,14 @@ ch_pairs = input_ch
 
     // Reheader FN variants
     BCFTOOLS_REHEADER_FN(
-
-        BCFTOOLS_VIEW_FN.out.vcf.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        BCFTOOLS_VIEW_FN.out.vcf.map{ meta, vcf -> [ meta, vcf, [], [] ]},
         fai_ch
     )
 
     // Tag FN variants
     BCFTOOLS_REHEADER_FN.out.vcf
         .join(BCFTOOLS_REHEADER_FN.out.index)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "concordance"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FN"] + [id: "concordance"], vcf, index) }
         .set { vcf_fn }
 
     // Split TP base variants from TP-FN variants
@@ -95,17 +123,14 @@ ch_pairs = input_ch
 
     // Reheader TP variants
     BCFTOOLS_REHEADER_TP_BASE(
-
-        BCFTOOLS_VIEW_TP_BASE.out.vcf.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        BCFTOOLS_VIEW_TP_BASE.out.vcf.map{ meta, vcf ->[ meta, vcf, [], [] ]},
         fai_ch
     )
 
     // Tag TP variants
     BCFTOOLS_REHEADER_TP_BASE.out.vcf
         .join(BCFTOOLS_REHEADER_TP_BASE.out.index)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "concordance"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_base"] + [id: "concordance"], vcf, index) }
         .set { vcf_tp_base }
 
     // Split TP comp variants from TPFP variants
@@ -118,16 +143,14 @@ ch_pairs = input_ch
 
     // Reheader TP comp variants
     BCFTOOLS_REHEADER_TP_COMP(
-        BCFTOOLS_VIEW_TP_COMP.out.vcf.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        BCFTOOLS_VIEW_TP_COMP.out.vcf.map{ meta, vcf -> [ meta, vcf, [], [] ]},
         fai_ch
     )
 
     // Tag TP comp variants
     BCFTOOLS_REHEADER_TP_COMP.out.vcf
         .join(BCFTOOLS_REHEADER_TP_COMP.out.index)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "concordance"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "TP_comp"] + [id: "concordance"], vcf, index) }
         .set { vcf_tp_comp }
 
     // Split FP variants from TPFP variants
@@ -140,16 +163,14 @@ ch_pairs = input_ch
 
     // Reheader FP variants
     BCFTOOLS_REHEADER_FP(
-        BCFTOOLS_VIEW_FP.out.vcf.map{ meta, file ->
-            [ meta, file, [], [] ]
-        },
+        BCFTOOLS_VIEW_FP.out.vcf.map{ meta, vcf -> [ meta, vcf, [], [] ]},
         fai_ch
     )
 
     // Tag FP variants
     BCFTOOLS_REHEADER_FP.out.vcf
         .join(BCFTOOLS_REHEADER_FP.out.index)
-        .map { _meta, file, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "concordance"], file, index) }
+        .map { _meta, vcf, index -> tuple([vartype: params.variant_type] + [tag: "FP"] + [id: "concordance"], vcf, index) }
         .set { vcf_fp }
 
     tagged_variants = tagged_variants.mix(
