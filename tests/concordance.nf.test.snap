@@ -86,7 +86,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0"
+                    "nf-core/variantbenchmarking": "v1.7.0dev"
                 }
             },
             [
@@ -236,7 +236,7 @@
                 "truth_test7-query_test6.summary.tsv:md5,5abe1a5b21915d1454c02dfc39e65609"
             ]
         ],
-        "timestamp": "2026-10-21T10:31:02.687111935",
+        "timestamp": "2026-10-30T09:57:47.14328427",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
