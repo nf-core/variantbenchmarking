@@ -67,7 +67,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.0"
+                    "nf-core/variantbenchmarking": "v1.7.0dev"
                 }
             },
             [
@@ -257,7 +257,7 @@
                 "test12.tiddit_mqc.stats:md5,950514053b461a3868a12fd5ced0a3d8"
             ]
         ],
-        "timestamp": "2026-10-20T15:33:04.259399101",
+        "timestamp": "2026-10-30T10:10:07.321718615",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
