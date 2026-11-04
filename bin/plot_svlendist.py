@@ -374,7 +374,7 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
                 x=cats, y=d["counts"].fillna(0), name=tool, legendgroup=tool, showlegend=(col == 1),
                 marker_color=global_color_map[tool], text=d["formatted_counts"].fillna(""),
                 textposition="outside", cliponaxis=False, textfont=dict(size=13, color="black"),
-                hovertemplate=f"{tool}<br>%{{x}}<br>Count: %{{y}}<extra></extra>"), row=1, col=col)
+                hovertemplate=str(tool) + "<br>%{x}<br>Count: %{y}<extra></extra>"), row=1, col=col)
 
     max_val = df_upt["counts"].max()
     upper_lim = np.log10(max_val) + 0.6 if max_val > 0 else 1
