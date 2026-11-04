@@ -10,7 +10,8 @@ import numpy as np
 import gzip
 import csv
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 SEABORN_CB_PALETTE = [
     "#0173b2", "#d55e00", "#029e73", "#de8f05", "#cc78bc",
@@ -21,9 +22,85 @@ def get_sample_name(vcf_file):
     base_name = os.path.basename(vcf_file)
     return base_name.split('.')[0]
 
+# SV types with a defined direction: deletions are plotted as negative lengths,
+# insertions and duplications as positive lengths. Sub-types such as DEL:ME, INS:ME:ALU
+# or DUP:TANDEM are matched by their first component. All other types (BND, TRA, INV,
+# CNV, CPX, ...) have no insertion/deletion direction and are counted as separate categories.
+DIRECTION = {"DEL": -1, "INS": 1, "DUP": 1}
+
+def _info_dict(info_column):
+    info = {}
+    for field in info_column.split(';'):
+        if '=' in field:
+            key, value = field.split('=', 1)
+            info[key] = value
+        else:
+            info[field] = True
+    return info
+
+def _is_breakend(alt):
+    """Breakend notation: N[chr:pos[, ]chr:pos]N, or single breakends .N / N. (not a lone '.')"""
+    return '[' in alt or ']' in alt or (len(alt) > 1 and (alt.startswith('.') or alt.endswith('.')))
+
+def _sv_type(info, alt):
+    """
+    SV type of a record: the SVTYPE INFO field if present, otherwise the symbolic ALT
+    allele (<DEL>, <DUP:TANDEM>, ...) or BND for breakend notation. Returns None for
+    sequence-resolved records without SVTYPE (e.g. small variants).
+    """
+    sv_type = info.get('SVTYPE')
+    if sv_type and sv_type is not True:
+        return str(sv_type).upper()
+    if alt.startswith('<') and alt.endswith('>'):
+        return alt[1:-1].upper()
+    if _is_breakend(alt):
+        return 'BND'
+    return None
+
+def vcf_record_length(parts):
+    """
+    Returns (signed_length, category) for one VCF record; exactly one of the two is None.
+
+    - Records with a directional SV type (DEL, INS, DUP and their sub-types) get a length from
+      SVLEN, END-POS or REF/ALT (in this order) and the sign from the type, because callers
+      differ in the SVLEN sign convention (VCF 4.4 defines SVLEN as positive).
+    - Records with any other SV type (BND, TRA, INV, CNV, CPX, ...) are returned as a category.
+    - Records without SV type (sequence-resolved, e.g. small variants) keep the REF/ALT length,
+      whose sign already gives the direction.
+    """
+    ref, alt = parts[3], parts[4].split(',')[0]
+    info = _info_dict(parts[7])
+    sv_type = _sv_type(info, alt)
+
+    if sv_type is None:
+        length = len(alt) - len(ref)
+        return (length, None) if length != 0 else (None, None)
+
+    base_type = sv_type.split(':')[0]
+    if base_type not in DIRECTION:
+        return None, base_type
+
+    length = None
+    if 'SVLEN' in info and info['SVLEN'] is not True:
+        try:
+            length = int(str(info['SVLEN']).split(',')[0])
+        except ValueError:
+            length = None
+    if length is None and 'END' in info and info['END'] is not True and base_type != 'INS':
+        try:
+            length = int(info['END']) - int(parts[1])
+        except ValueError:
+            length = None
+    if length is None and not alt.startswith('<') and not _is_breakend(alt):
+        length = len(alt) - len(ref)
+    if not length:
+        return None, f"{base_type} (no length)"
+
+    return DIRECTION[base_type] * abs(length), None
+
 def parse_vcf_data(vcf_files):
     """
-    Parses multiple VCF files, extracts SVLEN values, and determines the maximum SV length.
+    Parses multiple VCF files, extracts signed variant lengths, and determines the maximum SV length.
 
     Returns:
         tuple: A tuple containing a dictionary of SV data and the maximum SV length found.
@@ -35,7 +112,7 @@ def parse_vcf_data(vcf_files):
         print(f"Processing VCF file: {vcf_file}")
 
         file_name = get_sample_name(vcf_file)
-        svlen_data[file_name] = {'positive': [], 'negative': []}
+        svlen_data[file_name] = {'positive': [], 'negative': [], 'other': {}}
 
         try:
             if vcf_file.endswith('.gz'):
@@ -47,64 +124,24 @@ def parse_vcf_data(vcf_files):
                 for line in f:
                     if line.startswith('#'):
                         continue
-
-                    parts = line.strip().split('\t')
-                    info_column = parts[7]
-                    svlen_val = None
-                    sv_type = None
-
-                    if 'SVLEN=' in info_column:
-                        info_fields = info_column.split(';')
-                        for field in info_fields:
-                            if field.startswith('SVLEN='):
-                                svlen_str = field.split('=')[1]
-                                try:
-                                    if ',' in svlen_str:
-                                        svlen_str = svlen_str.split(',')[0]
-                                    svlen_val = int(svlen_str)
-                                except ValueError:
-                                    print(f"Could not parse SVLEN value: {svlen_str} in {vcf_file}")
-
-                    if svlen_val is None and 'SVTYPE=' in info_column:
-                        info_fields = info_column.split(';')
-                        for field in info_fields:
-                            if field.startswith('SVTYPE='):
-                                sv_type = field.split('=')[1]
-
-                        if sv_type == 'DEL':
-                            if 'END=' in info_column:
-                                for field in info_fields:
-                                    if field.startswith('END='):
-                                        end_str = field.split('=')[1]
-                                        try:
-                                            end_pos = int(end_str)
-                                            svlen_val = end_pos - int(parts[1])
-                                        except ValueError:
-                                            print(f"Could not parse END value: {end_str} in {vcf_file}")
-                                            svlen_val = None
-
-                            if svlen_val is None:
-                                svlen_val = len(parts[4]) - len(parts[3])
-
-                        elif sv_type == 'INS':
-                            svlen_val = len(parts[4]) - len(parts[3])
+                    parts = line.rstrip('\n').split('\t')
+                    if len(parts) < 8:
+                        continue
+                    svlen_val, category = vcf_record_length(parts)
 
                     if svlen_val is None:
-                        ref_len = len(parts[3])
-                        alt_len = len(parts[4])
-                        if ref_len > alt_len:
-                            svlen_val = -(ref_len - alt_len)
-                        elif alt_len > ref_len:
-                            svlen_val = alt_len - ref_len
+                        if category:
+                            other = svlen_data[file_name]['other']
+                            other[category] = other.get(category, 0) + 1
+                        continue
 
-                    if svlen_val is not None and svlen_val != 0:
-                        abs_svlen = abs(svlen_val)
-                        if abs_svlen > max_svlen:
-                            max_svlen = abs_svlen
-                        if svlen_val > 0:
-                            svlen_data[file_name]['positive'].append(svlen_val)
-                        else:
-                            svlen_data[file_name]['negative'].append(svlen_val)
+                    abs_svlen = abs(svlen_val)
+                    if abs_svlen > max_svlen:
+                        max_svlen = abs_svlen
+                    if svlen_val > 0:
+                        svlen_data[file_name]['positive'].append(svlen_val)
+                    else:
+                        svlen_data[file_name]['negative'].append(svlen_val)
 
         except FileNotFoundError:
             print(f"Error: File not found at {vcf_file}")
@@ -254,10 +291,21 @@ def data2frame(sv_data, bin_edges="default"):
             data_table["type"].extend(mod_type)
             data_table["counts"].extend(counts)
 
+    # Non-directional SV types (BND, TRA, INV) are shown as separate categories after the length bins
+    other_categories = sorted({c for d in sv_data.values() for c in d.get('other', {})})
+    for file_name, lengths_dict in sv_data.items():
+        for category in other_categories:
+            data_table["sample"].append(file_name)
+            data_table["bin_left_edge"].append(np.nan)
+            data_table["bin_right_edge"].append(np.nan)
+            data_table["bin_label"].append(category)
+            data_table["type"].append("other")
+            data_table["counts"].append(lengths_dict.get('other', {}).get(category, 0))
+
     df_table = pd.DataFrame(data_table)
     return df_table
 
-def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels=True):
+def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels=True, is_structural=True):
     """
     Creates an interactive Plotly bar plot and writes it to the output file path as an HTML report.
     """
@@ -280,76 +328,67 @@ def plot_svlen_distributions(sv_data, bins, output_file, plot_title, show_labels
         if val == 0:
             return ""
         if val >= 1000:
-            return f"<b>{val/1000:g}k</b>"
+            return f"<b>{val/1000:.1f}k</b>"
         return f"<b>{val}</b>"
 
-    if show_labels:
-        df_upt["formatted_counts"] = df_upt["counts"].apply(format_label)
-    else:
-        df_upt["formatted_counts"] = ""
+    def size_label(row):
+        """Unsigned size range, e.g. '100 bp - 1 kb'; the panel gives the direction."""
+        if row["type"] == "other":
+            return row["bin_label"]
+        def fmt(v):
+            v = abs(v)
+            for unit, f in (("Mb", 1e6), ("kb", 1e3)):
+                if v >= f:
+                    return f"{v/f:g} {unit}"
+            return f"{int(v)} bp"
+        lo, hi = sorted([abs(row["bin_left_edge"]), abs(row["bin_right_edge"])])
+        if lo == 0:
+            return f"<{fmt(hi)}"
+        return f"{fmt(lo)}\u2013{fmt(hi)}"
+
+    df_upt["formatted_counts"] = df_upt["counts"].apply(format_label) if show_labels else ""
+    df_upt["size_label"] = df_upt.apply(size_label, axis=1)
+    # sort key: increasing absolute size within each panel, so deletions and insertions read the same way
+    df_upt["order"] = df_upt.apply(
+        lambda r: min(abs(r["bin_left_edge"]), abs(r["bin_right_edge"])) if r["type"] != "other" else 0, axis=1)
+
+    positive_name = "Insertions/Duplications" if is_structural else "Insertions"
+    panels = [(t, name) for t, name in (("deletion", "Deletions"), ("insertion", positive_name),
+                                         ("other", "Other SV types")) if t in set(df_upt["type"])]
+    panel_cats = []
+    for t, _ in panels:
+        sub = df_upt[df_upt["type"] == t].sort_values(["order", "size_label"])
+        panel_cats.append(list(dict.fromkeys(sub["size_label"])))
 
     unique_tools = sorted(df_upt["sample"].unique())
     global_color_map = {tool: SEABORN_CB_PALETTE[i % len(SEABORN_CB_PALETTE)] for i, tool in enumerate(unique_tools)}
 
-    types_list = df_upt["type"].unique()
-    xlabel_text = "Variant Length Range"
-    if len(types_list) == 2:
-        xlabel_text = "Deletions | Insertions"
-    elif len(types_list) == 1:
-        if types_list[0] == "insertion":
-            xlabel_text = "Insertions"
-        elif types_list[0] == "deletion":
-            xlabel_text = "Deletions"
-
-    fig = px.bar(
-        df_upt,
-        x="bin_label",
-        y="counts",
-        color="sample",
-        barmode="group",
-        text="formatted_counts",
-        color_discrete_map=global_color_map,
-        labels={"counts": "Variant Count", "bin_label": "Length Range", "sample": "Tool"}
-    )
-
-    fig.update_layout(
-        template="plotly_white",
-        font=dict(size=18, color="black"),
-        legend=dict(
-            title_text="<b>Tool</b>",
-            font=dict(size=18),
-            title_font=dict(size=20)
-        ),
-        margin=dict(l=80, r=40, t=40, b=80),
-        hovermode="x unified"
-    )
-
-    tick_labels = df_upt["bin_label"].unique()
-    fig.update_xaxes(
-        title_text=f"<b>{xlabel_text}</b>",
-        tickfont=dict(size=18),
-        showline=True, linewidth=1.5, linecolor='black', mirror=True,
-        tickvals=tick_labels,
-        ticktext=[f"<b>{t}</b>" for t in tick_labels]
-    )
+    fig = make_subplots(rows=1, cols=len(panels), shared_yaxes=True, horizontal_spacing=0.03,
+                        column_widths=[max(len(c), 1.5) for c in panel_cats],
+                        subplot_titles=[f"<b>{name}</b>" for _, name in panels])
+    for col, ((t, _), cats) in enumerate(zip(panels, panel_cats), start=1):
+        sub = df_upt[df_upt["type"] == t]
+        for tool in unique_tools:
+            d = sub[sub["sample"] == tool].set_index("size_label").reindex(cats)
+            fig.add_trace(go.Bar(
+                x=cats, y=d["counts"].fillna(0), name=tool, legendgroup=tool, showlegend=(col == 1),
+                marker_color=global_color_map[tool], text=d["formatted_counts"].fillna(""),
+                textposition="outside", cliponaxis=False, textfont=dict(size=13, color="black"),
+                hovertemplate=f"{tool}<br>%{{x}}<br>Count: %{{y}}<extra></extra>"), row=1, col=col)
 
     max_val = df_upt["counts"].max()
-    upper_lim = np.log10(max_val) + 1.5 if max_val > 0 else 1
-
-    fig.update_yaxes(
-        title_text="<b>Variant Count (Log Scale)</b>",
-        tickfont=dict(size=18),
-        showline=True, linewidth=1.5, linecolor='black', mirror=True,
-        type="log",
-        range=[np.log10(0.5), upper_lim],
-        tickformat="~s"
-    )
-
-    if show_labels:
-        fig.update_traces(
-            textposition='outside',
-            textfont=dict(size=16, color="black")
-        )
+    upper_lim = np.log10(max_val) + 0.6 if max_val > 0 else 1
+    fig.update_layout(
+        template="plotly_white", barmode="group", bargap=0.2,
+        font=dict(size=16, color="black"),
+        legend=dict(title_text="<b>Tool</b>", font=dict(size=16), title_font=dict(size=18)),
+        margin=dict(l=80, r=40, t=60, b=80), hovermode="closest",
+        uniformtext=dict(minsize=12, mode="show"))
+    fig.update_xaxes(tickfont=dict(size=14), tickangle=-45,
+                     showline=True, linewidth=1.5, linecolor="black", mirror=True)
+    fig.update_yaxes(type="log", range=[-0.05, upper_lim], dtick=1, tickformat="~s",
+                     showline=True, linewidth=1.5, linecolor="black", mirror=True, tickfont=dict(size=14))
+    fig.update_yaxes(title_text="<b>Variant count (log scale)</b>", row=1, col=1)
 
     plot_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
 
@@ -433,6 +472,7 @@ if __name__ == "__main__":
 
     if sv_data:
         bin_edges = final_bins if final_bins else "default"
-        plot_svlen_distributions(sv_data, bin_edges, args.output_file, final_title, show_labels=not args.no_labels)
+        plot_svlen_distributions(sv_data, bin_edges, args.output_file, final_title, show_labels=not args.no_labels,
+                                 is_structural=args.vartype in ("structural", "copynumber"))
     else:
         print("No valid input files found to plot.")
