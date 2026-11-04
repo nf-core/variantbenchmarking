@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ---------- | ----------- | ----------- |
 |            |             |             |
 
+## 1.6.1
+
+- Patch release to fix SVLEN histogram [#360](https://github.com/nf-core/variantbenchmarking/pull/360)
+
 ## 1.6.0
 
 ### `Added`
