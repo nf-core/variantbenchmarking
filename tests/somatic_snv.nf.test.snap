@@ -371,7 +371,7 @@
                     "python": "3.13.0"
                 },
                 "Workflow": {
-                    "nf-core/variantbenchmarking": "v1.6.1"
+                    "nf-core/variantbenchmarking": "v1.7.0dev"
                 }
             },
             [
@@ -655,7 +655,7 @@
                 "test9.mutect2.bcftools_stats.txt:md5,ef646305a895de80f9f33748768a2a7e"
             ]
         ],
-        "timestamp": "2026-11-04T10:40:00.214733288",
+        "timestamp": "2026-11-05T08:02:04.850284272",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.1"
