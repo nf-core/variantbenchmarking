@@ -3,7 +3,7 @@ lint:
     - .gitignore
     - docs/images/nf-core-variantbenchmarking_logo_dark.png
     - docs/images/nf-core-variantbenchmarking_logo_light.png
-nf_core_version: 4.2.1
+nf_core_version: 4.2.2
 repository_type: pipeline
 template:
   author: Kubra Narci
@@ -13,4 +13,4 @@ template:
   name: variantbenchmarking
   org: nf-core
   outdir: .
-  version: 1.6.0
+  version: 1.7.0dev
