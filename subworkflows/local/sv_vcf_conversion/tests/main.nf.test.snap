@@ -1,0 +1,135 @@
+{
+    "convert sv vcf stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "test.svdecompose.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "manta"
+                        },
+                        "test.svdecompose.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-09T16:56:12.650677691",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "convert sv vcf with variant_extractor": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "mutect2"
+                    },
+                    "test.sort.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=2, variantCount=40, phased=false, phasedAutodetect=false]",
+                    "f38d3ef295c500a413df6b746b36a356",
+                    [
+                        
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-10-01T14:04:35.750469591",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "convert sv vcf with svtk": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "test.sort.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    "13fa9c5c4602821e2b4c37cce28b6978",
+                    [
+                        
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-10-09T16:55:39.421959147",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "convert sv vcf with svync": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "test.svync.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=136, phased=false, phasedAutodetect=false]",
+                    "f2c97cf7b583e2d4705ac9cd0c3f8d4",
+                    [
+                        
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-10-01T13:47:14.79330657",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "convert sv vcf with svdecompose": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "manta"
+                    },
+                    "test.svdecompose.vcf.gz",
+                    "VcfFile [chromosomes=[chr21], sampleCount=1, variantCount=364, phased=false, phasedAutodetect=false]",
+                    "7a5371e54a73f38141af063ab397807d",
+                    [
+                        
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-10-01T14:05:02.812747584",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

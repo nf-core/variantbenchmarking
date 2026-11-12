@@ -1,0 +1,134 @@
+name: PR nf-diff Check
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+permissions:
+  contents: read
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: "25.10.4" # nf-diff 0.9.5 crashes on Nextflow 26.10.2
+
+      - name: Enable Nextflow lineage
+        run: printf '%s\n' 'lineage.enabled = true' > lineage.config
+
+      # 1. Fetch latest baseline saved by save-baseline.yml on dev
+      - name: Restore baseline from dev
+        uses: actions/cache/restore@v4
+        id: restore-baseline
+        with:
+          path: |
+            .nextflow
+            .lineage
+            baseline-results
+          key: nf-baseline-${{ github.sha }}
+          restore-keys: |
+            nf-baseline-
+
+      # 2. Run pipeline with PR code
+      - name: Run pipeline on PR
+        id: run-pipeline
+        run: |
+          nextflow run . -profile test,docker -c lineage.config --outdir pr-results
+
+      # 2b. On failure, collect logs and upload as a downloadable artifact
+      - name: Collect logs on failure
+        if: failure()
+        run: |
+          mkdir -p pipeline-logs
+          # Top-level Nextflow log
+          cp -f .nextflow.log pipeline-logs/ 2>/dev/null || true
+          # Per-task command logs, flattened with the work hash in the filename
+          find work -type f \( -name '.command.log' -o -name '.command.err' -o -name '.command.out' \) 2>/dev/null | while read -r f; do
+            hash=$(basename "$(dirname "$f")")
+            cp -f "$f" "pipeline-logs/${hash}_$(basename "$f")"
+          done
+
+      - name: Upload logs artifact
+        if: failure()
+        id: upload-logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-logs-${{ github.run_id }}
+          path: pipeline-logs
+          if-no-files-found: warn
+          retention-days: 14
+
+      # 3. Compare PR run against baseline (only if baseline cache was restored)
+      - name: Run nf-diff against baseline
+        id: nf-diff
+        if: steps.restore-baseline.outputs.cache-matched-key != ''
+        uses: mribeirodantas/nf-diff@main
+        with:
+          setup-java: "false" # Nextflow & Java already set up above
+          setup-nextflow: "false"
+          last: "true" # Compares baseline (run 1 back) vs PR (latest run)
+          published-a: baseline-results
+          published-b: pr-results
+          format: md
+          comment-pr: "false" # Fork PRs get a read-only token; pr-comment.yml posts it instead
+          upload-artifact: "true" # Uploads report as an artifact
+
+      # 4. Hand the comment to pr-comment.yml, which runs with a write token.
+      #    Fork PRs only get a read-only token here, so we cannot post directly.
+      - name: Prepare PR comment
+        if: always() && github.event_name == 'pull_request'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PIPELINE_OUTCOME: ${{ steps.run-pipeline.outcome }}
+          LOGS_URL: ${{ steps.upload-logs.outputs.artifact-url }}
+          REPORT: ${{ steps.nf-diff.outputs.report-path }}
+          REPORT_URL: ${{ steps.nf-diff.outputs.artifact-url }}
+        run: |
+          mkdir -p pr-comment
+          echo "$PR_NUMBER" > pr-comment/pr_number.txt
+          echo "nf-diff" > pr-comment/header.txt
+          # GitHub rejects comment bodies over 65536 characters
+          limit=60000
+          {
+            if [[ "$PIPELINE_OUTCOME" == "failure" ]]; then
+              echo '### ❌ nf-diff pipeline run failed'
+              echo
+              echo 'The pipeline run on this PR did not complete, so no baseline diff could be produced.'
+              echo
+              echo "📦 **Logs:** \`pipeline-logs-${GITHUB_RUN_ID}\`${LOGS_URL:+ — [download](${LOGS_URL})}"
+              echo "🔎 **Run summary:** [view logs & artifacts](${RUN_URL})"
+            elif [[ -n "$REPORT" && -f "$REPORT" ]]; then
+              if [[ $(wc -c < "$REPORT") -le $limit ]]; then
+                cat "$REPORT"
+              else
+                echo '## nf-diff report'
+                echo
+                echo "> ⚠️ The full report is too large for a PR comment. 📊 **[Download the full report](${REPORT_URL:-$RUN_URL})**."
+                echo
+                echo '### Summary'
+                echo
+                awk '/^## Summary/{flag=1; next} /^## /{flag=0} flag' "$REPORT"
+                echo '### Runs'
+                echo
+                awk '/^## Runs/{flag=1; next} /^## /{flag=0} flag' "$REPORT"
+              fi
+            else
+              echo '### ⚠️ nf-diff skipped'
+              echo
+              echo "No baseline from \`dev\` was found, or nf-diff did not produce a report. 🔎 [Run summary](${RUN_URL})"
+            fi
+          } > pr-comment/comment.md
+
+      - name: Upload PR comment
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-comment
+          path: pr-comment/

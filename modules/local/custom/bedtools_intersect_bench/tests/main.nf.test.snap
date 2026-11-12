@@ -1,0 +1,284 @@
+{
+    "Standard bedtools intersect bench": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_stats.csv:md5,38bfe919429422a37fa8596288e1372f"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_comp.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FP.bed:md5,0b7fcfcc42c3f1b6613ea2ec07a9fc0f"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FN.bed:md5,256252a4a88987d793fca5a423a4e655"
+                    ]
+                ],
+                "5": [
+                    
+                ],
+                "6": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "python",
+                        "3.12.11"
+                    ]
+                ],
+                "7": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "bedtools",
+                        "2.31.1"
+                    ]
+                ],
+                "fn": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FN.bed:md5,256252a4a88987d793fca5a423a4e655"
+                    ]
+                ],
+                "fp": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FP.bed:md5,0b7fcfcc42c3f1b6613ea2ec07a9fc0f"
+                    ]
+                ],
+                "out_bed": [
+                    
+                ],
+                "summary": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_stats.csv:md5,38bfe919429422a37fa8596288e1372f"
+                    ]
+                ],
+                "tp_base": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tp_comp": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_comp.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_bedtools": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "bedtools",
+                        "2.31.1"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "python",
+                        "3.12.11"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:54:16.729151031",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard bedtools intersect bench - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_comp.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FP.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FN.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "5": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_converted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "6": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "python",
+                        "3.12.11"
+                    ]
+                ],
+                "7": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "bedtools",
+                        "2.31.1"
+                    ]
+                ],
+                "fn": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FN.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "fp": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_FP.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "out_bed": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_converted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "summary": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_stats.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tp_base": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_base.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tp_comp": [
+                    [
+                        {
+                            "id": "test_intersect",
+                            "caller": "manta"
+                        },
+                        "test_intersect.truth.manta_TP_comp.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_bedtools": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "bedtools",
+                        "2.31.1"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "BEDTOOLS_INTERSECT_BENCH",
+                        "python",
+                        "3.12.11"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T14:54:41.445945958",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "Interactive html plots - stub": {
+        "content": [
+            [
+                "variant_metrics_svbenchmark_mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T15:59:45.216276213",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    },
+    "Interactive html plots - svbenchmark benchmark": {
+        "content": [
+            [
+                "variant_metrics_svbenchmark_mqc.html"
+            ],
+            [
+                [
+                    "PLOTS_METRICS",
+                    "python",
+                    "3.12.14"
+                ]
+            ]
+        ],
+        "timestamp": "2026-09-18T15:59:35.645767751",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
+        }
+    }
+}

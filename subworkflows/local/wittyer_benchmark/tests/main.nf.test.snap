@@ -1,0 +1,58 @@
+{
+    "benchmark with wittyer stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.HG002.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "report": [
+                    [
+                        {
+                            "vartype": "structural",
+                            "benchmark_tool": "wittyer"
+                        },
+                        [
+                            "test.HG002.simulated.json:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-26T13:24:16.48706897",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "benchmark with wittyer": {
+        "content": [
+            [
+                [
+                    {
+                        "vartype": "structural",
+                        "benchmark_tool": "wittyer"
+                    },
+                    [
+                        "test.HG002.simulated.json:md5,df5e32fb605dd9acfd4f1da5c00fc975"
+                    ]
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-03-26T13:24:03.182992667",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

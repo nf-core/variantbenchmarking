@@ -1,0 +1,78 @@
+nextflow_workflow {
+
+    name "Test Subworkflow PREPARE_REFERENCES"
+    script "../main.nf"
+    workflow "PREPARE_REFERENCES"
+
+    tag "subworkflows"
+    tag "subworkflows_prepare_references"
+    tag "subworkflows/prepare_references"
+    tag "picard"
+    tag "picard/createsequencedictionary"
+    tag "rtgtools"
+    tag "rtgtools/format"
+
+    test("sarscov2 fasta") {
+
+        when {
+            params {
+                method     = "concordance,rtgtools"
+                dictionary = false
+                sdf        = false
+                liftover   = true
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[1] = Channel.empty()
+                input[2] = Channel.empty()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert path(workflow.out.dictionary[0][1]).exists() },
+                { assert path(workflow.out.sdf[0][1]).exists() },
+                { assert snapshot(
+                    workflow.out.dictionary[0][0],
+                    file(workflow.out.dictionary[0][1]).name,
+                    workflow.out.sdf[0][0],
+                    file(workflow.out.sdf[0][1]).name,
+                    workflow.out.findAll { key, val -> key.startsWith("versions") }
+                ).match() }
+            )
+        }
+    }
+
+    test("sarscov2 fasta -stub") {
+        options "-stub"
+        when {
+            params {
+                method     = "concordance,rtgtools"
+                dictionary = false
+                sdf        = false
+                liftover   = false
+            }
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
+                input[1] = Channel.empty()
+                input[2] = Channel.empty()
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

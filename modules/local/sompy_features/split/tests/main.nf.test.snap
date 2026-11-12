@@ -1,0 +1,126 @@
+{
+    "Standard sompy features split": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.TP_comp.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.FP.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test",
+                        "caller": "strelka"
+                    },
+                    "test.HG002.strelka.FN.csv"
+                ]
+            ],
+            {
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-23T11:33:30.900024596",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard sompy features split stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "FN": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.FN.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "FP": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.FP.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "TP": [
+                    [
+                        {
+                            "id": "test",
+                            "caller": "strelka"
+                        },
+                        "test.HG002.strelka.TP_comp.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SOMPY_FEATURES_SPLIT",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-23T11:33:43.058954236",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

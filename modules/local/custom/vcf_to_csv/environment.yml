@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::pysam=0.22.1
+  - conda-forge::pandas=2.2.2
+  - pip
+  - pip:
+      - variant-extractor==4.0.6

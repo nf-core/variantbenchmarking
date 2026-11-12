@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "VCF_VARIANT_DEDUPLICATION"
+description: Deduplicate sort and index VCF files
+keywords:
+  - vcf
+  - deduplication
+  - sort
+  - index
+  - bcftools
+components:
+  - bcftools/norm
+  - bcftools/sort
+input:
+  - vcf_ch:
+      description: Channel containing target VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.{vcf,vcf.gz,bcf,bcf.gz}"
+  - fasta:
+      description: Channel containing the target reference FASTA file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+output:
+  - ch_vcf:
+      description: Channel containing the deduplicated sorted and indexed VCF files
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: Deduplicated and sorted VCF file
+          pattern: "*.vcf.gz"
+        - index:
+          type: file
+          description: Index file
+          pattern: "*.tbi"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

@@ -1,0 +1,66 @@
+nextflow_workflow {
+
+    name "Test Subworkflow SUBSAMPLE_VCF_TEST"
+    script "../main.nf"
+    workflow "SUBSAMPLE_VCF_TEST"
+
+    tag "subworkflows"
+    tag "subworkflows_subsample_vcf_test"
+    tag "subworkflows/subsample_vcf_test"
+    tag "bcftools"
+    tag "bcftools/sort"
+    tag "bcftools/view"
+
+    test("sort and subsample vcf") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', subsample:'tumour' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+
+            assertAll(
+                { assert snapshot(
+                    workflow.out.vcf_ch.collect { item ->
+                        def meta = item[0]
+                        def vcf = item[1]
+                        def vcfFile = vcf instanceof Collection ? vcf[0] : vcf
+                        [
+                            meta,
+                            path(vcfFile.toString()).getFileName().toString(),
+                            path(vcfFile.toString()).vcf.summary,
+                            path(vcfFile.toString()).vcf.variantsMD5
+                        ]
+                    }.sort { it[0].id }
+                ).match() }
+            )
+        }
+    }
+
+    test("sort and subsample vcf stub") {
+        options "-stub"
+        when {
+            workflow {
+                """
+                input[0] = Channel.of([
+                    [ id:'test', subsample:'tumour' ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/homo_sapiens/illumina/gatk/paired_mutect2_calls/test_test2_paired_mutect2_calls.vcf.gz', checkIfExists: true)
+                ])
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

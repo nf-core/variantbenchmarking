@@ -1,0 +1,95 @@
+{
+    "liftover vcfs and bed": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.renamechr.vcf.gz",
+                    "VcfFile [chromosomes=[], sampleCount=1, variantCount=0, phased=true, phasedAutodetect=true]",
+                    "d41d8cd98f00b204e9800998ecf8427e",
+                    [
+                        
+                    ]
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "regions"
+                    },
+                    "genome.lifted.sort.merged.bed",
+                    1
+                ]
+            ],
+            {
+                
+            }
+        ],
+        "timestamp": "2026-10-01T13:30:07.333762789",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "liftover vcfs and bed stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "targets"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "bed_ch": [
+                    [
+                        {
+                            "id": "regions"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "targets_ch": [
+                    [
+                        {
+                            "id": "targets"
+                        },
+                        "genome.lifted.sort.merged.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "vcf_ch": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.renamechr.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-01T13:30:28.352851058",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

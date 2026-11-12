@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "ENSEMBLE_TEST_VCFS"
+description: Ensemble test VCFs and prepare truth VCF
+keywords:
+  - ensemble
+  - vcf
+  - truth set
+  - structural variants
+  - small variants
+components:
+  - bcftools/merge
+  - survivor/merge
+  - bcftools/view
+  - gawk
+  - bcftools/sort
+  - tabix/bgzip
+  - tabix/bgziptabix
+input:
+  - test_vcfs:
+      description: Channel containing target VCF files and their indices
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: VCF file
+          pattern: "*.vcf.gz"
+        - index:
+          type: file
+          description: VCF index file
+          pattern: "*.tbi"
+  - fasta:
+      description: Channel containing the target reference FASTA file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fasta:
+          type: file
+          description: Reference FASTA file
+          pattern: "*.{fa,fasta}"
+  - fai:
+      description: Channel containing the FASTA index file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - fai:
+          type: file
+          description: FASTA index file
+          pattern: "*.fai"
+output:
+  - truth_vcf:
+      description: Channel containing the merged and formatted truth VCF file
+      structure:
+        - meta:
+          type: map
+          description: Metadata map
+        - vcf:
+          type: file
+          description: Truth VCF file
+          pattern: "*.vcf.gz"
+        - index:
+          type: file
+          description: Index file
+          pattern: "*.tbi"
+authors:
+  - "@kubranarci"
+maintainers:
+  - "@kubranarci"

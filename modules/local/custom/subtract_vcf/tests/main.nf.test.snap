@@ -1,0 +1,84 @@
+{
+    "Standard VCF subtraction": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,e932f58e90a045d30a5519dd47bf2cd6"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,e932f58e90a045d30a5519dd47bf2cd6"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T17:03:34.313449751",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Standard VCF subtraction - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "1": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ],
+                "vcf": [
+                    [
+                        {
+                            "id": "test3.HG002"
+                        },
+                        "test3.HG002.remain.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "SUBTRACT_VCF",
+                        "python",
+                        "3.13.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-20T11:37:33.061544999",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}
